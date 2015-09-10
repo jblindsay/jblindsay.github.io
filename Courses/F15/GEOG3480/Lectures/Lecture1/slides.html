@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 1</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Course Introduction</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <section>
+            <h2>Introductions</h2>
+          </section>
+
+          <section>
+            <h2>Who Am I?</h2>
+            <ul>
+  						<li>Dr. John Lindsay</li>
+  						<li>Email: jlindsay@uoguelph.ca</li>
+  						<li>Office: 346 Hutt Building</li>
+  						<li>Office Hours: Monday 11:30 - 1:00 and Wednesdays 11:30 - 1:00</li>
+  					</ul>
+          </section>
+
+          <section>
+            <h2>Graduate Teaching Assistants</h2>
+            <ul>
+              <li>Responsible for running the labs</li>
+              <li>Melanie Chabot (mcowan01@uoguelph.ca)</li>
+              <li>Elene Ueckermann <eueckerm@mail.uoguelph.ca></li>
+              <li>You can attend any GTAs office hours if you have a question.</li>
+              <li>They will post their office hours to the CourseLink page.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Please insert</h2>
+						<div class=transparentTextBox>
+							<img width="800px" height="138px" data-src="img/whoareyou.png" alt="Who are you">
+						</div>
+						<h2>here</h2>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Course Overview</h2>
+          </section>
+
+          <section>
+            <h3>Where does this course fit in?</h3>
+              <ul>
+                <li>2<sup>nd</sup> Year: GEOG2420 (RS &amp; photogrammetry) &amp; GEOG2480 (GIS &amp; cartography)</li>
+                <li>3<sup>rd</sup> Year: GEOG3420 (RS analysis) &amp; <strong>GEOG3480 (GIS analysis)</strong></li>
+                <li>4<sup>th</sup> Year: GEOG4480 Advanced Geomatics</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>By the end, you should be able to:</h3>
+              <ul>
+                <li>Understand the foundational theories of GIS including the unique character of spatial data.</li>
+								<li>Analyze geospatial data using GIS software</li>
+								<li>Understand spatial analysis techniques and practices</li>
+								<li>Practice communicating concepts through formal written and visual forms</li>
+								<li>Identified key issues related to spatial data error</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Course Overview</h2>
+            <ul>
+              <li>Two hours of lectures each week (Mondays and Wednesdays)</li>
+              <li>3 hours of laboratory sessions</li>
+              <li>Labs start in Week 2, i.e. next week</li>
+              <li>Labs will be held in the computer lab in the Hutt building Rm. 231</li>
+            </p>
+          </section>
+
+          <!-- <section>
+            <div id="leftAside" style="width:220px">
+              <img width="253px" height="329px" data-src="img/textbook.png" alt="textbook image">
+            </div>
+            <div id="rightContent" style="width:670px">
+              <h2>Readings</h2>
+              <ul>
+                <li>Readings will be mainly drawn from Jensen and Jensen (2015).</li>
+                <li>&#36;177 at bookstore (&#36;134 on Amazon)</li>
+                <li>Asked for a copy to be placed on reserve but library
+									hasn't purchased it yet.</li>
+              </ul>
+            </div>
+          </section> -->
+
+					<section>
+            <h2>Course Overview</h2>
+            <ul>
+              <li>Readings will be mainly drawn from Jensen and Jensen (2015).</li>
+              <li>&#36;177 at bookstore (&#36;134 on Amazon)</li>
+              <li>Asked for a copy to be placed on reserve but library
+								hasn't purchased it yet.</li>
+            </ul>
+          </section>
+
+					<section> <!-- Course overview -->
+            <h2>Other Materials</h2>
+            <ul>
+              <li>There are also two lab manuals</li>
+							<li>A &#36;30 fee covers the cost of these extra materials (paid in lab)</li>
+							<li>&#36;10 of the fee goes to printing credits</li>
+							</li>
+            </ul>
+          </section>
+
+					<section>
+            <h2>Even More Course Materials</h2>
+            <ul>
+              <li>Link from ‘Courselink’ on UoG homepage</li>
+              <li>The course syllabus is now posted.</li>
+              <li>Used to provide online course materials, discussion, and a place for grades</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Method of Evaluation</h2>
+            <ul>
+              <li>Lab assignments 50% (5 x 10%)
+                <ul><li>Late penalty is 10% per day</li></ul>
+              </li>
+              <li>Mid-term 25% (Wednesday Oct. 26, in class)</li>
+              <li>Final Exam 25%
+                <ul>
+									<li>Scheduled for Thurs. Dec. 10, 7:00-9:00PM, Room TBA</li>
+									<li>The final exam is not cumulative</li>
+								</ul>
+							</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>A Note On Notes...</h2>
+            <img width="875px" height="350px" data-src="img/notes.png" alt="Note taking">
+          </section>
+
+          <section>
+            <h2>A Note On The Schedule...</h2>
+            <p style="text-align: left">The last day of classes is on Thursday December 3 to
+              make up for the lost Monday due to Thanksgiving.
+            </p>
+            <img width="261px" height="311px" data-src="img/turkey.png" alt="Note taking">
+          </section>
+
+        </section> <!-- Course overview ends -->
+
+        <section> <!-- Intro lecture -->
+          <section>
+            <h1>Let's begin...</h1>
+						<p>What is GIS and spatial analysis?</p>
+          </section>
+
+          <section>
+            <h2>Readings</h2>
+            <ul>
+              <li>Jensen &amp; Jensen <em>Misconceptions about GIS</em> (pp. 10-12),
+							<em>Components of GIS</em> (pp. 12-17), and <em>The Business of GIS</em>
+						 (pp. 17-18).</li>
+            </ul>
+          </section>
+
+					<section>
+						<h2>Lecture outline:</h2>
+						<ol>
+							<li>Where does GIS fit in?</li>
+							<li>History of GIS</li>
+							<li>What is GIS?</li>
+							<li>Components of GIS</li>
+							<li>GIS key concepts</li>
+							<li>Spatial analysis</li>
+						</ol>
+					</section>
+
+        </section> <!-- Intro lecture ends -->
+
+				<section> <!-- Where does GIS fit in? -->
+
+					<section>
+            <h1>Where does GIS fit in?</h1>
+          </section>
+
+					<section>
+            <p>Pidwirny’s Geography</p>
+            <img width="644px" height="395px" data-src="img/pidwirny.png" alt="Lindsay's Geography">
+						<p>But where does GIS fit into geography?</p>
+          </section>
+
+					<section>
+            <p>Lindsay's Geography</p>
+            <div class="transparentTextBox"><img width="515px" height="431px" data-src="img/lindsays_geography.png" alt="Lindsay's Geography"></div>
+          </section>
+
+					<section>
+						<h2>GIS Outside of Geography</h2>
+						<p style="text-align: left">GIS doesn't belongs to geographers alone! It’s used as a tool in many fields including:<p>
+							<ul><small>
+								<li>Engineering and urban planning</li>
+								<li>Epidemiology and medical sociology</li>
+								<li>Business and real estate</li>
+								<li>Archaeology</li>
+								<li>Military</li>
+								<li>Forestry</li>
+								<li>Criminology</li>
+								<li>Environment and natural resources management...the list is endless</li>
+							</small></ul>
+					</section>
+
+					<section>
+			      <h2>Where does GIS fit into society?</h2>
+			      <ul>
+			        <li>It has significant economic impact as the GIS software development,
+								data acquisition, and services industries combined are a multi-billion
+								dollar market.</li>
+			        <li>An enormous swath of human activity is now touched by geographical
+								technology and is increasingly reliant on it.</li>
+			        <li>GIS has had strongly impacted the education sector and
+								academic research.</li>
+			      </ul>
+			    </section>
+
+				</section> <!-- Where does GIS fit in? ends -->
+
+				<section> <!-- History of GIS -->
+
+					<section>
+			      <h1>The History of GIS</h1>
+			    </section>
+
+					<section>
+			      <h2>Where did GIS come from?</h2>
+			      <ul>
+			        <li>Geography</li>
+			        <li>Cartography</li>
+			        <li>CAD and computer graphics</li>
+			        <li>Surveying and photogrammetry</li>
+							<li>Remote sensing and space technology</li>
+			      </ul>
+			    </section>
+
+					<section>
+			      <h2>Where did GIS come from?</h2>
+			      <ul>
+			        <li>Canadian Geographic Information System (CGIS)
+								<ul>
+									<li>Developed in the 1960s by Roger Tomlinson in Ottawa</li>
+									<li>Tomlinson coined the term GIS</li>
+								</ul>
+							</li>
+							<li>Harvard Lab for Computer Graphics and Spatial Analysis
+								<ul>
+									<li>Developed numerous software packages, SYMAP (1964),
+										GRID (late 1960s), POLYVRT (early 1970s), etc.</li>
+								</ul>
+							</li>
+							<li>Environmental Systems Research Institute (ESRI)
+								<ul>
+									<li>Created in 1969 by Jack and Laura Dangermond</li>
+								</ul>
+							</li>
+			      </ul>
+			    </section>
+
+					<section>
+			      <h2>Where did GIS come from?</h2>
+			      <ul>
+			        <li>Contemporary development is driven by commercial sector</li>
+			        <li>De-classification of military applications and data leading
+								to proliferation of GIS</li>
+			        <li>University-based development; historically important for OS GIS</li>
+			        <li>Government agencies and NGOs taking the lead on data
+								standardization and data sharing</li>
+			      </ul>
+			    </section>
+
+				</section> <!-- History of GIS ends -->
+
+				<section> <!-- What is GIS -->
+
+					<section>
+			      <h1>What is GIS?</h1>
+						<p><small>(depends who you ask)</small></p>
+						<img width="640px" height="385px" data-src="img/gis_screenshot.png" alt="GIS screenshot">
+			    </section>
+
+					<section>
+			      <h2>A GIS...</h2>
+			      <ul>
+			        <li>Is a subset of information science that deals with spatially
+								or geographically referenced data;</li>
+			        <li>Is a decision support system (DSS);</li>
+			        <li>Is different from mapping &amp; computer aid-cartography
+								because of its analytical capacity;</li>
+			        <li>Is different from CAD programs because it performs spatial
+								operations;</li>
+							<li>Is different from DBMS because it has a cartographic
+								interface.</li>
+			      </ul>
+						<p><strong>Okay, so what exactly is a GIS then?</strong></p>
+			    </section>
+
+					<section>
+			      <h2>What is GIS?</h2>
+						<blockquote>"GIS is any manual or computer based set of procedures used to
+							store and manipulate geographically referenced data." <br/>(Aronoff, 1989)</blockquote>
+			      <blockquote>"GIS is a powerful set of tools for collecting, storing,
+							retrieving at will, transforming and displaying spatial data from the
+							real world for a particular set of purposes." <br/>(Burrough and McDonnell, 1998)</blockquote>
+
+			    </section>
+
+					<section>
+			      <h2>What is GIS?</h2>
+						<blockquote>"GIS is a computerized tool for solving geographic problems."<br/>
+							(Longley et al., 2005)</blockquote>
+						<blockquote cite="Berry, 1993">"GIS is an organized collection of computer hardware, software,
+								geographic data, and personnel designed to efficiently capture,
+								store, update, manipulate, analyze, and display all forms of
+								geographically referenced information." (Berry, 1993)</blockquote>
+			    </section>
+
+					<section>
+			      <h2>What is GIS?</h2>
+						<blockquote cite="Cowen, 1990">"GIS is a system of hardware, software and procedures designed
+								to support the capture, management, manipulation, analysis,
+								modelling and display of spatially-referenced data for solving
+								complex planning and management problems." (Cowen, 1990)</blockquote>
+			    </section>
+
+					<section>
+			      <h2>What is GIS?</h2>
+			      <ul>
+			        <li>These definitions point to three important factors:
+								<ol><li>GIS is a computer system</li>
+									<li>Uses geographic (i.e. spatially referenced) data</li>
+									<li>Carry out management and analysis operations</li></ol>
+								</li>
+			        <br/><br/><li>Although not described in all definitions, a GIS must also
+								have some means of data output, e.g. map display</li>
+			      </ul>
+			    </section>
+
+				</section> <!-- What is GIS ends -->
+
+				<section> <!-- Components of GIS -->
+
+					<section>
+			      <h1>Components of GIS</h1>
+						<img width="700px" height="483px" data-src="img/01_09_Figure.jpg" alt="Figure 1-9 Components of GIS">
+						<div><small>(Jensen &amp; Jensen Figure 1-9)</small></div>
+			    </section>
+
+					<section>
+			      <h2>Components of GIS</h2>
+						<ul>
+							<li>GIS is a computer based system, and thus requires appropriate
+							<strong>hardware</strong> and <strong>software</strong> to operate</li>
+							<li>GIS utilizes digital spatially-referenced (geo-referenced) <strong>data</strong></li>
+							<li>GIS requires <strong>personnel</strong> ("<em>humanware</em>"???) familiar with the
+								application for which the tool is being used</li>
+						</ul>
+			    </section>
+
+					<section>
+			      <h2>Component 1: Hardware</h2>
+						<p class=leftAlignedText>Development of GIS required a number of technological advances:</p>
+						<ul>
+							<li>Computer hardware developed the capacity to provide cartographic output</li>
+							<li>Computer systems became more robust in terms of speed, memory,
+								and data storage capacity</li>
+							<li>Computers became smaller &amp; cheaper</li>
+							<li>GIS on server, desktop, and mobile platforms</li>
+						</ul>
+			    </section>
+
+					<section>
+			      <h2>Component 2: Software</h2>
+						<p class=leftAlignedText>GIS software plays a role in:</p>
+						<ul>
+							<li>Data management</li>
+							<li>Performing queries</li>
+							<li>Manipulation and analysis of data</li>
+							<li>Visualization and other outputs</li>
+						</ul>
+			    </section>
+
+					<section>
+			      <h2>Component 2: Software</h2>
+						<table>
+							<tr><th>Commercial</th><th>Open Source</th></tr>
+							<tr><td>ArcGIS (ESRI)</td><td>GRASS</td></tr>
+							<tr><td>MapInfo</td><td>SAGA</td></tr>
+							<tr><td>Geomedia</td><td>QGIS</td></tr>
+							<tr><td>IDRISI</td><td>gvSIG</td></tr>
+							<tr><td>MicroStation</td><td>Whitebox GAT</td></tr>
+						</table>
+			    </section>
+
+					<section>
+			      <img width="900px" height="692px" data-src="img/arcmap.png" alt="ArcMap screenshot">
+						<div><small>Copyright (c) ESRI</small></div>
+			    </section>
+
+					<section>
+			      <img width="848px" height="484px" data-src="img/QGIS_2_2_screenshot.png" alt="QGIS screenshot">
+						<div><small>QGIS</small></div>
+			    </section>
+
+					<section>
+			      <img width="875px" height="545px" data-src="img/wgat3_2_2_ss9.png" alt="Whitebox GAT screenshot">
+						<div><small>Whitebox GAT</small></div>
+			    </section>
+
+					<section>
+			      <h2>Component 3: Data</h2>
+						<ul>
+							<li>Spatial data are unique (we'll talk more about data later).</li>
+							<li>A trend towards increasing availability of massive spatial datasets.</li>
+							<li>We live in a very data-rich time!</li>
+							<li>The Internet has played a major role in data distribution.</li>
+							<li>Ethical issues of data ownership and privacy.</li>
+						</ul>
+			    </section>
+
+					<section>
+			      <h2>Component 3: Data</h2>
+						<p>Google often runs into issues of spatial data privacy</p>
+						<img width="629px" height="475px" data-src="img/GoogleMapsSS.png" alt="Whitebox GAT screenshot">
+			    </section>
+
+					<section>
+						<h2>Component 4: Personnel (Users)</h2>
+			      <img width="700px" height="468px" data-src="img/01_01_Figure.jpg" alt="GIS users">
+						<div><small>(Jensen &amp; Jensen Figure 1-1)</small></div>
+			    </section>
+
+				</section> <!-- Components of GIS ends -->
+
+				<section> <!-- GIS misconceptions &amp; key concepts -->
+
+					<section>
+			      <h1>GIS key concepts</h1>
+			    </section>
+
+					<section>
+			      <h2>Some key ideas about GIS</h2>
+			      <ul>
+			        <li>GIS can manage and <strong><em>integrate very large datasets</em></strong>
+								gleaned from diverse sources (e.g., census data, satellite
+								data, topographic data)</li>
+			        <li>GIS can be used to <strong><em>create new information</em></strong> and
+								reveal trends or relationships that may otherwise be invisible</li>
+			        <li>GIS is used to help <strong><em>solve geographic problems</em></strong></li>
+							<li>GIS analysis, like any methodology, <strong><em>contains error</em></strong></li>
+							<li>There's usually <strong><em>more than one way</em></strong> to do something in GIS</li>
+			      </ul>
+			    </section>
+
+					<section>
+			      <h2>Science vs. Technology</h2>
+			      <ul>
+			        <li>Is GIS simply a fancy toolbox for spatial analysis?</li>
+			        <li>The technological toolbox side of GIS is widely applied and
+								appears to have improved the lives of far more people than the
+								theoretical developments</li>
+			        <li>Technology in general has the potential to contribute greatly
+								to society and culture</li>
+							<li>Science is often held in higher regard than technology by
+								government officials and agencies, many scientists themselves,
+								and the general public</li>
+			      </ul>
+			    </section>
+
+					<section>
+			      <h2>GI Science</h2>
+			      <ul>
+			        <li>Re-badging as Geographical Information Science (GISci) as in
+								the International Journal of Geographical Information Science
+								in 1997</li>
+			        <li>GISc involves the study of the fundamental issues arising
+								from the creation, handling, storage and use of geographic
+								information</li>
+			        <li>Concerned with issues like:
+								<ul><small>
+									<li>Theories of spatial data and data structures</li>
+									<li>Algorithms and processes</li>
+									<li>Data ownership and custody</li>
+									<li>Ethical concerns</li>
+								</small></ul>
+							</li>
+
+			      </ul>
+			    </section>
+
+					<section>
+			      <h2>GIS Education</h2>
+			      <ul>
+			        <li>Is it just technical training?</li>
+			        <li>Development of spatial problem solving skills with
+								emphasis on teaching people to think analytically</li>
+			        <li>Levels of education/training:
+								<ul><small>
+									<li>Exposure to GIS as an information technology and its role
+										in society (<strong><em>theory-rich</em></strong>)</li>
+									<li>Use of GIS as an instructional tool to support existing
+										learning and research objectives (<strong><em>supplement for
+										learning</em></strong>)</li>
+									<li>GIS as a major focus of study or an integral part of
+										an analysis-oriented project (<strong><em>application-based
+										</em></strong>).</li>
+								</small></ul>
+							</li>
+
+			      </ul>
+			    </section>
+
+				</section> <!-- GIS misconceptions &amp; key concepts ends -->
+
+				<section> <!-- Spatial Analysis -->
+
+					<section>
+			      <h1>Spatial Analysis</h1>
+			    </section>
+
+					<section>
+			      <h2>Spatial Analysis</h2>
+			      <ul>
+			        <li>Don't forget, this course is called <em>GIS and <strong>Spatial Analysis</strong></em></li>
+			        <li>So, what does Spatial Analysis mean?</li>
+			        <li>Also known as 'Geospatial Analysis' and 'Geographic Information Analysis'</li>
+							<li>In its most general sense, it refers to the analysis of spatially referenced data</li>
+			      </ul>
+			    </section>
+
+					<section>
+			      <h2>Spatial Analysis</h2>
+			      <ul>
+			        <li>Some would consider it to be analogous to <strong>spatial statistics</strong>
+								but we won't take this view.</li>
+			        <li>Spatial analysis is a <strong>collection of tools</strong> (e.g. algorithms, approaches, methods)
+								for <strong>solving spatial problems</strong></li>
+			        <li>Largely carried out in GIS these days because of its ease of visualizing
+								output and the large datasets involved</li>
+							<li>But the discipline of spatial analysis is much older than GIS</li>
+			      </ul>
+			    </section>
+
+					<section>
+			      <h2>Spatial Analysis Examples</h2>
+			      <ul><small>
+			        <li>Geographic measurements (e.g. number, length, area, volume)</li>
+			        <li>Queries</li>
+			        <li>Reclassification</li>
+							<li>Distance operations/buffering</li>
+							<li>Spatial filtering</li>
+							<li>Spatial interpolation</li>
+							<li>Surface/field operations (e.g. Watershed analysis)</li>
+							<li>Network/location analysis</li>
+			      </small></ul>
+			    </section>
+
+				</section> <!-- Spatial Analysis -->
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'concave', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h2>Title</h2>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+      </ul>
+    </section>
+    -->
+	</body>
+</html>
