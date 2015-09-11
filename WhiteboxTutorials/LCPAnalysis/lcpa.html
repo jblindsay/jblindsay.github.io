@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Whitebox GAT LCP Analysis</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/sky.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+            <img width="300px" height="126px" data-src="img/WhiteboxGATLogo.png" alt="Whitebox GAT logo">
+            <h2>Tutorial Series</h2>
+            <h3>Tutorial 1: Least-Cost Pathway Analysis</h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>September 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <h2>Distance and Cost</h2>
+          <ul>
+            <li>We're not always interested in the straight-line distance between spatial objects</li>
+            <li>There are times (and types of spatial problems) that require the estimation of
+              cost-weighted distances, i.e. calculating the 'cost' of moving across the landscape</li>
+            <li>Cost = money, time, energy, fuel, suffering, resistance or other parameters</li>
+            <li>Very often we want to minimize costs</li>
+            <li>Euclidean distance has the limitation of assuming that the cost of crossing distances
+              in any cell on the way to a source cell is the same as the cost of crossing distances in
+              any other cell</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Least-cost pathway analysis (LCPA)</h2>
+          <ul>
+            <li>LCPA is a way of finding an optimum, or set of optimum, pathways across a landscape
+              with a non-uniform spatial distribution of resistance to travel</li>
+            <li>Many GIS offer tools for performing LCPA because it is so widely used...it's a
+              common spatial problem</li>
+            <li>Measures the effective distance rather than the Euclidean distance</li>
+            <li>Type of spatial analysis based on the raster model</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>LCPA Steps</h2>
+          <ol>
+            <li>Calculate the cost of traversing through each grid cell...the Cost Surface</li>
+            <li>Specify a Source Cell(s) and/or Target Cell(s)</li>
+            <li>Perform Cost Accumulation analysis</li>
+            <li>Identify the optimum Least-Cost Pathway(s)</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>The Cost Surface</h2>
+          <ul>
+            <li>We can create a cost surface to account for the factors affecting cost</li>
+            <li>Each grid cell contains a number that indicates the cost of going through a
+              unit of distance in that cell</li>
+            <li>If it is three times harder to go through the forest as it is to go through
+              the pasture, we might assign values of 1 to the pasture cells and 3 to the
+              forest cells.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>The Cost Surface</h2>
+          <p class=leftAlignedText>Physical barriers (e.g. streams) can be represented in the cost surface by
+            exceedingly high costs. Consider the following maze example:</p>
+            <img width="685px" height="320px" data-src="img/mazeCostSurface.png" alt="maze cost surface">
+        </section>
+
+        <section>
+          <h2>The Cost Surface</h2>
+          <p class=leftAlignedText>Care must be taken when adding linear features (roads, streams, etc.) to
+            the cost surface. Diagonal raster connectivity may allow the least-cost path to incorrectly pass
+            through an area with high resistance.</p>
+            <img width="520px" height="184px" data-src="img/lineBarriers.png" alt="line barriers">
+        </section>
+
+        <section>
+          <h2>Cost Accumulation</h2>
+          <p class=leftAlignedText>The accumulated cost found in the output grid is the sum of the products
+            formed by:</p>
+          <ol>
+            <li>the distance across each cell, and;</li>
+            <li>the value of each cell, i.e. the price per unit distance for going through, which will
+              depend on the grid resolution.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Cost Accumulation</h2>
+          <ul>
+            <li>Cost accumulation calculates the <strong>SPREAD</strong> distance, with a friction (cost)
+              determined by the cost surface.</li>
+            <li>The accumulation procedure works outward from specified source cells.</li>
+            <li>Each cell in the grid is then assigned the minimum cost-distance connecting
+              it to the ‘nearest’ source cell.</li>
+            <li>Effectively creates a continuous cost accumulation surface.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Cost Accumulation</h2>
+          <img width="658px" height="339px" data-src="img/mazeCostAccumulation.png" alt="maze cost accumulation">
+        </section>
+
+        <section>
+          <h2>The Least-Cost Pathway</h2>
+          <ul>
+            <li>Least cost pathways can be estimated by using a D8 flow routing algorithm on the cost
+              accumulation surface in much the same way that we've seen flow algorithms used to trace
+              flowpaths over the surface defined by a DEM</li>
+            <li>The source cells will be the lowest points in the cost accumulation surface</li>
+            <li>You can trace the pathway of steepest descent from any target cell(s) to the nearest
+              source cell, working backwards</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>The Least-Cost Pathway</h2>
+          <img width="654px" height="345px" data-src="img/mazeLCP.png" alt="maze least-cost pathway">
+        </section>
+
+        <section>
+          <h2>Let's consider an example...</h2>
+          <ul>
+            <li>Two major highways travel parallel through a mountainous environment. When there are
+              traffic accidents, large sections of the highway must be closed. Unfortunately because no
+              secondary road connects either highway during the dangerous section of the highway, detours
+              are impossible during times of closure. This has become a serious problem of the area and as
+              a result the authorities are considering creating a new secondary road to join the main
+              highways.</li>
+            <li>What would be the best route for this new highway?</li>
+          </ul>
+        </section>
+
+        <section>
+          <img width="900px" height="526px" data-src="img/exampleMap.png" alt="example map">
+        </section>
+
+        <section>
+          <h3>Things to consider that affect the cost</h3>
+          <ul>
+            <li>The raster grid resolution is 90 m</li>
+            <li>[note all costs are made up for the example]</li>
+            <li>Privately owned land is prohibitively expensive to acquire
+              (set cost to $100,000 / 90 m, i.e. an effective barrier)</li>
+            <li>Bridges over lakes are not feasible (within our budget)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Things to consider that affect the cost</h3>
+          <ul>
+            <li>There is a cost associated with crossing rivers and rivers.
+             <ul>
+               <li>Small rivers can be culverted ($500 / 90 m)</li>
+               <li>Small bridges cost between $5000 / 90 m and $10,000 / 90 m</li>
+               <li>Large bridges are prohibitively expensive (set to $1,000,000 / 90 m)</li>
+             </ul>
+           </li>
+             <li>We can use the <strong>Stream Order</strong> tool to distinguish small, medium and large
+             streams.</li>
+             <li>Streams, being single cell wide lines, need to be represented in the cost surface
+               as 'fat' networks and we can use a 3 x 3 <strong>Maximum filter</strong> to do this.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Things to consider that affect the cost</h3>
+          <ul>
+            <li>We cannot build a road through wetlands due to environmental reasons
+              (set to $1,000,000 / 90 m)</li>
+             <li>It costs more to build roads on steeper slopes because of the need to cut
+               bedrock to grade the slope
+               <ul>
+                <li>0&deg;-5&deg; $1,000 / 90 m</li>
+                <li>5&deg;-10&deg; $2,000 / 90 m</li>
+                <li>10&deg;-15&deg; $3,000 / 90 m</li>
+                <li>&gt;15&deg; $100,000 / 90 m (major grading required)</li>
+              </ul>
+            </li>
+            <li>Slope can be measured from the DEM using the <strong>Slope</strong> tool.
+          </ul>
+        </section>
+
+        <section>
+          <p class=leftAlignedText>Once we've combined each cost factor into a single cost surface,
+            we can use Whitebox GAT's <strong>Cost Accumulation</strong> tool.</p>
+          <img width="900px" height="458px" data-src="img/costAccumTool.png" alt="cost accumulation tool">
+        </section>
+
+        <section>
+          <p class=leftAlignedText>Here is the cost surface and cost accumulation surface for our example:</p>
+          <img width="731px" height="550px" data-src="img/costSurfaces.png" alt="cost surfaces">
+        </section>
+
+        <section>
+          <p class=leftAlignedText>Now we use the back-link grid output from the cost accumulation as
+            an input for Whitebox's <strong>Least-Cost Pathway</strong> tool. For our example, we would
+            like the secondary road to connect to Road 2 (i.e. the eastern road) at Old Town. A raster of
+            Old Town's location is therefore used as the destination input.</p>
+          <img width="788px" height="400px" data-src="img/lcpTool.png" alt="LCP tool">
+        </section>
+
+        <section>
+          <p class=leftAlignedText>Here is the back-link raster and final least-cost pathway connecting Old Town
+            on Road 2 to Road 1:</p>
+          <img width="728px" height="550px" data-src="img/backlinkAndLCP.png" alt="backlink and LCP">
+        </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h2>Title</h2>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+      </ul>
+    </section>
+    -->
+	</body>
+</html>
