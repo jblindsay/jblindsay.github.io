@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 2</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright (c) John Lindsay, 2015</small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Geospatial Data</em></h3>
+						<h3><em>Part 1: Spatial Data Models</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+		      <h2>Readings</h2>
+		      <ul>
+		        <li>Jensen and Jensen Chapter 1 (pp. 4-7) and Chapter 5</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h2>GIS data...</h2>
+		      <ul>
+		        <li>may be organized or analyzed by their temporal, thematic (attribute) or spatial dimensions.</li>
+		        <li>GIS most commonly organize data in a spatio-centric or an attribute-centric way</li>
+		        <li>Spatial data frequently are distributed with metadata, i.e. data about the data, e.g. the publication year, the publisher, data quality, coordinate system and projection information, etc.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <span>
+		        <img width="575px" height="722px" data-src="img/image1.png" alt="discrete and continuous geographic features">
+						<span><verySmallText>Jensen and Jensen, 2013</verySmallText></span>
+		      </span>
+		    </section>
+
+				<section>
+		      <span>
+		        <img width="900px" height="675px" data-src="img/image2.png" alt="Laying pavement">
+					</span>
+		    </section>
+
+				<section>
+		      <h3>Important Aspects of Geospatial Data</h3>
+		      <ul>
+		        <li>Timeliness
+							<ul>
+								<li>When was it collected?</li>
+								<li>How long is it valid?</li>
+								<li>Can it be updated?</li>
+							</ul>
+						</li>
+		        <li>Scale and resolution
+							<ul>
+								<li>Scale for spatial data: e.g. 1:10,000</li>
+								<li>Scale for attribute data: dichotomous, nominal (categorical), ordinal, interval/ratio</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Important Aspects of Geospatial Data</h3>
+					<ul>
+		        <li>Generalization and Completeness</li>
+		        <li>Spatial referencing
+							<ul>
+								<li>Geographic versus rectangular co-ordinate systems</li>
+							</ul>
+						</li>
+						<li>Topology</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Topology</h3>
+					<ul>
+		        <li>Topology is the study of those properties of geometric objects that remain invariant
+							under certain transformations such as bending, stretching or scaling, e.g. data are
+							transformed through map projections.</li>
+		        <li>Not all geospatial data explicitly stores topological info</li>
+						<li>Including topological information in a spatial data structure can 1) ensure data quality,
+							and 2) enhance GIS analysis. </li>
+						<li>Non-topological data structures are faster to display and are interoperable.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Topological Relationships</h3>
+		      <span>
+		        <img width="933px" height="462px" data-src="img/image3.png" alt="Laying pavement">
+					</span>
+		    </section>
+
+				<section>
+					<h3>Methods for Data Input</h3>
+					<ul>
+		        <li>Attribute data
+							<ul>
+								<li>Keyboard entry</li>
+								<li>Importing existing files</li>
+							</ul>
+						</li>
+						<li>Geospatial data
+							<ul>
+								<li>Importing existing files</li>
+								<li>Remote sensing data sources</li>
+								<li>Survey coordinates</li>
+								<li>Global Positioning Systems (GPS)</li>
+								<li>Digitizing</li>
+								<li>Scanning</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Geospatial Data Models</h3>
+					<ul>
+		        <li>A <strong><highlightedText>data model</highlightedText></strong> defines how spatial features are represented in a GIS.</li>
+		        <li>The <strong><highlightedText>vector</highlightedText></strong> data model uses points and their x-, y-coordinates to represent features.
+							<ul>
+								<li>Best suited to features with a clear spatial location and boundary</li>
+							</ul>
+						</li>
+						<li>The <strong><highlightedText>raster</highlightedText></strong> data model uses a grid, composed of many individual grid cells,
+							to represent features.
+							<ul><li>Best suited to continuous spatial phenomena, e.g. elevation but can also represent
+								discrete features.</li></ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <span>
+		        <img width="747px" height="650px" data-src="img/image4.png" alt="Raster and vector data">
+		      </span>
+					<span><verySmallText>Jensen and Jensen, 2013</verySmallText></span>
+		    </section>
+
+				<section>
+		      <p>Real World</p>
+					<p>&darr;</p>
+					<p>Apply a scale and projection</p>
+					<p>&darr;</p>
+					<p>Represent entities in a <br/>raster or vector <highlightedText>data model</highlightedText></p>
+					<p>&darr;</p>
+					<p>Translate the digital model to <br/>machine readable form (<highlightedText>data structure</highlightedText>)</p>
+		    </section>
+
+				<section>
+					<h3>Which data model should I choose?</h3>
+					<ul>
+						<li>How easy is it to input data?</li>
+						<li>What format does my GIS software require?</li>
+						<li>Which model requires more computer storage space?</li>
+						<li>Which model will have better computational performance for my application?</li>
+						<li>Do I need to reference precise coordinates?</li>
+						<li>Am I working with continuous or discrete phenomena?</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Which data model should I choose?</h3>
+					<ul>
+						<li>Will I be working with data with "fuzzy" boundaries?
+							<ul><li>Fisher and Wood, 1998 "What is a Mountain? Or The Englishman who went up a
+								Boolean Geographical Concept but Realised it was Fuzzy"</li></ul>
+						</li>
+						<li>What type of analysis will I be conducting?</li>
+						<li>Do I require well designed cartographic output?</li>
+					</ul>
+				</section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
