@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 2 Part 2</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Geospatial Data</em></h3>
+						<h3><em>Part 2: Spatial Data Structures</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <h3>Spatial Data Structures</h3>
+          <ul>
+            <li>The spatial <highlightedText>data models</highlightedText> (i.e. raster vs vector) only exist as conceptual constructs of the
+              way that we model and interact with geographic entities.</li>
+            <li>A spatial <highlightedText>data structure</highlightedText> refers to the way data stored on a computer are organized.</li>
+            <li>There are many different organization structures for either vector or raster data.</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+		      <h3>Desirable properties of a data structure</h3>
+		      <ol>
+		        <li><highlightedText>Efficiency</highlightedText> - databases should be efficient both in terms of storage requirements and speed of use</li>
+		        <li><highlightedText>Flexibility</highlightedText> - it should be easy to perform a wide variety of operations</li>
+		        <li><highlightedText>Topology</highlightedText> - relative spatial relationships should be present implicitly or explicitly in the data structure</li>
+		      </ol>
+          <p><verySmallText>Adapted from: D. Peuquet, Cartographica, Vol. 21(4), 1984.</verySmallText></p>
+		    </section>
+
+        <section>
+		      <h3>Desirable properties of a data structure</h3>
+		      <ol>
+		        <li><highlightedText>Completeness</highlightedText> - it should include all necessary features and relationships</li>
+            <li><highlightedText>Robustness</highlightedText> - it should be able to accommodate special situations such as islands or lakes</li>
+            <li><highlightedText>Compatibility</highlightedText> – it should be easily read by GIS software, or easily convertible to another format</li>
+		      </ol>
+          <p><verySmallText>Adapted from: D. Peuquet, Cartographica, Vol. 21(4), 1984.</verySmallText></p>
+		    </section>
+
+        <section>
+          <h3>Georelational Vector Data Structures</h3>
+          <ul>
+            <li>Geometries and attributes stored separately in a split system.</li>
+            <li>Geometries are stored in a graphic file and attributes in a relational database.</li>
+            <li>Attribute data is linked to map features by the use of a <highlightedText>Key or ID
+              field</highlightedText>.</li>
+            <li>Each spatial object can have any number of attributes associated with it.</li>
+            <li>Vectors can be related to one another through common keys in their attribute tables.</li>
+          </ul>
+        </section>
+
+        <section>
+		      <span>
+		        <img width="592px" height="650px" data-src="img/image7.png" alt="Georelational vector data">
+		      </span>
+					<span><verySmallText>Jensen and Jensen, 2013</verySmallText></span>
+		    </section>
+
+        <section>
+		      <span>
+		        <img width="522px" height="650px" data-src="img/image10.png" alt="Database relations">
+		      </span>
+					<span><verySmallText>Jensen and Jensen, 2013</verySmallText></span>
+		    </section>
+
+        <section>
+		      <span>
+		        <img width="600px" height="512px" data-src="img/image11.png" alt="one-to-many database relations">
+		      </span>
+					<br/><span><verySmallText>Jensen and Jensen, 2013</verySmallText></span>
+		    </section>
+
+        <section>
+          <h3>Georelational Vector Data Structures</h3>
+          <ul>
+            <li>Almost all vector data structures are georelational.</li>
+            <li>But this only describes the organization of geometry and attribute type data.</li>
+            <li>We also need to consider how to structure the geometry data itself.</li>
+            <li>One major consideration is whether or not to use a <highlightedText>topological</highlightedText> data structure.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Chain Topology</h3>
+		      <span>
+		        <img width="848px" height="522px" data-src="img/image8.png" alt="Topology in vector data structures">
+		      </span>
+		    </section>
+
+        <section>
+          <h3>Shapefiles</h3>
+          <ul>
+            <li>The shapefile is a standard, non-topological data format used in ESRI products (and many others!).</li>
+            <li>Geometries stored in .shp files, attributes stored in .dbf files, other data stored
+              in .shx and .prj files.</li>
+            <li>Although originally associated with ArcView, the shapefile emerged in the 1990s as
+              a ubiquitous vector standard for data transfer and analysis despite its limitations.</li>
+            <li>Shapefile treats a point as a pair of x-, y-coordinates, a line as a series
+              of points, and a polygon as a series of line segments in a loop but no files describe the spatial
+              relationships between these geometric objects.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Raster Data Structures</h3>
+          <ul>
+            <li>The real beauty of the raster model is the relative simplicity of its data structures.</li>
+            <li>All raster data structures are essentially an array of values with metadata used
+              to indicate the number of rows and columns and the location of the data edges.</li>
+            <li>There is no need to store the location of each grid cell!</li>
+            <li>There are ASCII (text-based) and binary raster formats.</li>
+            <li>Rasters are essentially just image data and the GeoTIFF format has
+              emerged as the de-facto standard, although not to the same extent as the shapefile.</li>
+          </ul>
+        </section>
+
+        <section>
+		      <span>
+		        <img width="811px" height="338px" data-src="img/image9.png" alt="Raster data structure">
+		      </span>
+					<br/><span><verySmallText>Source: Heywood et al. 2006</verySmallText></span>
+		    </section>
+
+        <section>
+		      <span>
+		        <img width="900px" height="687px" data-src="img/image15.png" alt="BSQ rasters">
+		      </span>
+		    </section>
+
+        <section>
+          <h3>Raster Data Structures</h3>
+          <ul>
+            <li>Notice that each grid cell contains a single attribute.</li>
+            <li>The easiest way of storing multi-spec or multi-band data is to
+              store each attribute in a separate image file.</li>
+            <li>There are however 'multi-band' raster data formats (including the GeoTIFF).</li>
+          </ul>
+        </section>
+
+        <section>
+		      <span>
+		        <img width="653px" height="265px" data-src="img/image12.png" alt="BIP rasters">
+		      </span>
+          <span>
+		        <img width="557px" height="265px" data-src="img/image13.png" alt="BIL rasters">
+		      </span>
+		    </section>
+
+        <section>
+		      <span>
+		        <img width="554px" height="533px" data-src="img/image14.png" alt="BSQ rasters">
+		      </span>
+		    </section>
+
+        <section>
+          <h3>Raster Data Compression</h3>
+          <ul>
+            <li>Raster data structures may also incorporate compression schemes to reduce
+              file storage requirements.</li>
+            <li>One of the problems with using the raster data structure is that it results
+              in very large files for even moderate-sized grids</li>
+            <li>Data compression methods are designed to reduce the redundancy in a raster data set.</li>
+            <li>Compression methods are either <highlightedText>lossless</highlightedText> or
+              <highlightedText>lossy</highlightedText>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Raster Data Compression</h3>
+          <ul>
+            <li>Common raster data compression methods include:
+              <ul>
+                <li>Run-length encoding</li>
+                <li>Quadtree structures</li>
+                <li>Wavelet compression</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Run-length Encoding</h3>
+		      <span>
+		        <img width="861px" height="545px" data-src="img/image16.png" alt="Run-length encoding">
+		      </span>
+		    </section>
+
+        <section>
+          <h3>Quadtree Raster Representation</h3>
+		      <span>
+		        <img width="640px" height="342px" data-src="img/image17.png" alt="Quadtree rasters">
+		      </span>
+          <br/><span><verySmallText>Source: GIS: A Management Perspective by S. Aronoff, 1989.</verySmallText></span>
+		    </section>
+
+        <section>
+          <h3>How well could each of the following rasters be compressed?</h3>
+		      <span>
+		        <img width="681px" height="480px" data-src="img/image18.png" alt="Two rasters of varying complexity">
+		      </span>
+		    </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
