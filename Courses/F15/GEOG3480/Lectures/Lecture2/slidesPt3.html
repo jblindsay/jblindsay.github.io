@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 2 Part 3</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Geospatial Data</em></h3>
+						<h3><em>Part 3: Data Collection</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <h3>Readings</h3>
+          <ul>
+            <li>Jensen and Jensen Chapter 3</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+          <h3>Introduction</h3>
+          <ul>
+            <li>If a GIS is a system for analyzing geospatial data, then we
+						must consider where we can acquire the data used by the GIS.</li>
+						<li>We may classify the various data sources as <highlightedText><em>in situ</em></highlightedText>
+							and <highlightedText>remote sensing</highlightedText> data collection sources.</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+          <h3><em>In situ</em> Data Collection Methods</h3>
+          <ul>
+            <li>GPS/Land surveying</li>
+						<li>Ground-based sampling (census)</li>
+						<li>Digitization of hard-copy data</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+          <h3>Remotely Sensed Data Collection Methods</h3>
+          <ul>
+						<li>Aerial photography</li>
+						<li>Multispectral/hyperspectral</li>
+						<li>Thermal infrared imaging</li>
+						<li>LiDAR (laser scanning)</li>
+						<li>Radar (active microwave)</li>
+						<li>Sonar (used for bathymmetry)</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+					<h3>Satellite Navigation Systems</h3>
+					<img width="900px" height="561px" data-src="img/pt3/image1.jpg" alt="Satellite navigation systems">
+				</section>
+
+				<section>
+					<img width="605px" height="700px" data-src="img/pt3/image2.jpg" alt="GPS constellation">
+				</section>
+
+				<section>
+					<img width="571px" height="700px" data-src="img/pt3/image3.jpg" alt="Land surveying">
+				</section>
+
+				<section>
+					<img width="900px" height="687px" data-src="img/pt3/image4.jpg" alt="GPS assisted land surveying">
+				</section>
+
+				<section>
+					<img width="900px" height="661px" data-src="img/pt3/image5.jpg" alt="Digitizing device">
+				</section>
+
+				<section>
+					<img width="757px" height="700px" data-src="img/pt3/image6.jpg" alt="Land surveying with GPS">
+				</section>
+
+				<section>
+					<h2>Remotely Sensed Data Sources</h2>
+				</section>
+
+				<section>
+					<img width="276px" height="700px" data-src="img/pt3/image7.jpg" alt="Remote sensing platforms">
+				</section>
+
+				<section>
+					<img width="720px" height="700px" data-src="img/pt3/image8.jpg" alt="Remote sensing data sources">
+				</section>
+
+				<section>
+					<img width="900px" height="543px" data-src="img/pt3/image9.jpg" alt="Multispectral imagery">
+				</section>
+
+				<section>
+					<img width="900px" height="609px" data-src="img/pt3/image10.jpg" alt="Multispectral imagery">
+				</section>
+
+				<section>
+					<img width="701px" height="700px" data-src="img/pt3/image11.jpg" alt="Hyperspectral imagery">
+				</section>
+
+				<section>
+					<img width="900px" height="553px" data-src="img/pt3/image12.jpg" alt="Thermal infrared imagery">
+				</section>
+
+				<section>
+					<img width="566px" height="700px" data-src="img/pt3/image13.jpg" alt="Hyperspectral imagery">
+				</section>
+
+				<section>
+					<img width="507px" height="700px" data-src="img/pt3/image14.jpg" alt="Thermal infrared imagery">
+				</section>
+
+				<section>
+					<img width="478px" height="700px" data-src="img/pt3/image15.jpg" alt="Radar systems">
+				</section>
+
+				<section>
+					<img width="900px" height="559px" data-src="img/pt3/image16.jpg" alt="Common radar data sources">
+				</section>
+
+				<section>
+					<img width="882px" height="700px" data-src="img/pt3/image17.jpg" alt="SRTM DEM">
+				</section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
