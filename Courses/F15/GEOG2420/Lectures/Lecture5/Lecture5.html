@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*2420 Lecture 5</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+    <!-- <link rel="stylesheet" href="../revealjs/css/print/pdf.css"> -->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section id="themes">
+					<p>
+						<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+						<small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<p><small>Copyright &copy; John Lindsay, 2015</small></p>
+          </p>
+				</section>
+
+        <section data-background="img/earth_image1.png" data-background-size="690px">
+          <div class=transparentTextBox>
+            <h2>GEOG*2420</h2>
+            <h3>The Earth From Space</h3>
+            <br/>
+            <h3><em>Image Resolution</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+					<h2>Readings</h2>
+					<p>Jensen Chapter 1 pg. 14-20</p>
+				</section>
+
+				<section>
+					<h3>Resolution</h3>
+					<ul>
+		        <li>Resolution is the smallest interval measurable by a scientific instrument.</li>
+						<li>We're referring to the resolving power of the imagining device.</li>
+		        <li>It's related to the level of detail in the image and therefore the information content.</li>
+		      </ul>
+				</section>
+
+				<section>
+		      <h3>Types of Resolution</h3>
+		      <ul>
+		        <li>Spectral</li>
+		        <li>Radiometric</li>
+		        <li>Spatial</li>
+		        <li>Temporal</li>
+						<li>Polarization</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Spectral Resolution</h3>
+		      <ul>
+		        <li>The number and size of spectral regions the imaging device records data in</li>
+						<li>For example, a particular sensor may have multiple 'bands' that record within the
+							blue, green, red, near-infrared, and thermal infrared parts of the spectrum.</li>
+					</ul>
+		    </section>
+
+				<section>
+					<img width="813px" height="788px" data-src="img/image1.png" alt="Spectral resolution">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+					<h3>Spectral Resolution</h3>
+					<img width="900px" height="412px" data-src="img/image2.png" alt="Landsat 8 bands on the spectrum">
+					<br/><span><verySmallText>(source: USGS, 2015)</verySmallText></span>
+				</section>
+
+				<section>
+					<table>
+						<tr style="width:100%">
+						 <tr><img width="524px" height="536px" data-src="img/image3.png" alt="hyperspectral data cube.">
+								<!-- <br/><span><verySmallText>(source: Jensen, 2006)</verySmallText></span> -->
+							</tr>
+							<tr><small>Airborne Visible Infrared <br/>
+								Imaging Spectrometer (AVIRIS)<br/>
+								data cube of Sullivan's Island<br/>
+								obtained on October 26, 1998</small>
+							</tr>
+						</tr>
+					</table>
+				</section>
+
+				<section>
+					<h3>Radiometric Resolution</h3>
+					<ul><li>The sensitivity of detectors to small differences in electromagnetic energy.</li></ul>
+					<img width="900px" height="319px" data-src="img/image4.png" alt="Dynamic range and image bit depth">
+					<br/><span><verySmallText>(source: Lindsay, 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Spatial Resolution</h3>
+		      <ul>
+		        <li>Related to the smallest distinguishable ground feature in the image, i.e. the detail.</li>
+		        <li>Influenced mainly by image scale.</li>
+		        <li>Limited by the size and number of silver halide crystals in film cameras and by
+							the number of charge-coupled device (CCD) detectors for digital cameras</li>
+		        <li>Can be improved using a telephoto lens.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="745px" height="783px" data-src="img/image5.png" alt="Spatial resolution">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+					<img width="795px" height="858px" data-src="img/image6.png" alt="Spatial resolution">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Spatial Resolution</h3>
+		      <ul>
+		        <li>A compromise exists between the spectral resolution and the spatial resolution.</li>
+		        <li><highlightedText>Panchromatic</highlightedText> bands are usually finer spatial resolution
+							than <highlightedText>multispectral</highlightedText> bands.</li>
+		        <li>This can be achieved because of the relatively coarse spectral resolution of <strong>pan images</strong>.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>The Resolution Compromise</h3>
+					<img width="581px" height="446px" data-src="img/image7.png" alt="Worldview-2 stats">
+					<span><verySmallText>(source: DigitalGlobe)</verySmallText></span>
+					<ul><li>0.46 m pan (resampled to 0.5 m); 1.8 m MS bands</li>
+							<li>11-bit spectral res (2048 grey tones)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Pan-Sharpening</h3>
+					<img width="900px" height="550px" data-src="img/image8.png" alt="Pan-sharpening">
+				</section>
+
+				<section>
+					<h3>Temporal Resolution</h3>
+					<ul><li>How often the sensor acquires data, e.g. every 30 days.</li>
+					<li>Temporal resolution is partly determined by orbital characteristics.</li></ul>
+					<img width="807px" height="416px" data-src="img/image9.png" alt="Temporal resolution">
+					<span><verySmallText>(source: Unknown)</verySmallText></span>
+				</section>
+
+				<section>
+					<img width="790px" height="656px" data-src="img/image10.png" alt="Temporal resolution">
+				</section>
+
+				<section>
+					<h3><small>Spatial and Temporal Resolution Considerations</small></h3>
+					<img width="663px" height="548px" data-src="img/image11.png" alt="Temporal resolution">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Polarization</h3>
+		      <ul>
+		        <li>Unpolarized energy vibrates in all possible directions perpendicular to the
+							direction of travel.</li>
+		        <li>Radar systems can detect polarized EMR.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="702px" height="680px" data-src="img/image12.png" alt="Polarization resolution">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Polarization</h3>
+		      <ul>
+		        <li>HH and VV configurations produce like-polarized radar imagery. </li>
+		        <li>HV and VH configurations produce cross-polarized imagery.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="495px" height="675px" data-src="img/image13.png" alt="Polarization effects">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+
+		<!-- Template Image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
