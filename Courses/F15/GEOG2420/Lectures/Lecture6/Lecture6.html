@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*2420 Lecture 6</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+    <!-- <link rel="stylesheet" href="../revealjs/css/print/pdf.css"> -->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section id="themes">
+					<p>
+						<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+						<small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<p><small>Copyright &copy; John Lindsay, 2015</small></p>
+          </p>
+				</section>
+
+        <section data-background="img/earth_image1.png" data-background-size="690px">
+          <div class=transparentTextBox>
+            <h2>GEOG*2420</h2>
+            <h3>The Earth From Space</h3>
+            <br/>
+            <h3><em>Airborne and Spaceborne<br/>Imaging Systems Part 1</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+					<h2>Readings</h2>
+					<p>Jensen Chapter 4 pg. 91-104</p>
+				</section>
+
+				<section>
+					<h3>Camera lens angle and flying height determine the field of view</h3>
+					<img width="680px" height="382px" data-src="img/image1.png" alt="Flying height geometry">
+				</section>
+
+				<section>
+					<h3>Aerial Photography</h3>
+					<ul>
+		        <li>Vantage Points</li>
+		        <li>Aerial Camera Features</li>
+		        <li>Aerial Camera Types</li>
+		      </ul>
+				</section>
+
+				<section>
+					<h3>Vantage Points</h3>
+					<img width="546px" height="400px" data-src="img/image2.png" alt="Vantage Points">
+					<br/><span><verySmallText>(source: Mersey (2003) based on Paine and Kiser Figure 2.2)</verySmallText></span>
+				</section>
+
+				<section>
+					<h3>Vantage Points</h3>
+					<img width="699px" height="391px" data-src="img/image3.png" alt="Vantage Points">
+					<br/><span><verySmallText>(source: Mersey (2003) based on Paine and Kiser Figure 2.2)</verySmallText></span>
+				</section>
+
+				<section>
+					<h3>Vertical Aerial Photography</h3>
+					<ul>
+		        <li>Main vantage point used for planimetric and topographic maps, digital
+							elevation model (DEM) creation, and <highlightedText>orthophotos</highlightedText>
+							(image maps)</li>
+		      </ul>
+				</section>
+
+				<section>
+					<h3>Oblique Aerial Photography</h3>
+					<ul>
+		        <li>People are generally better at interpreting oblique images because the side-view is what
+							we're used to...we have plenty of experience.</li>
+		      </ul>
+					<img width="374px" height="312px" data-src="img/image4.png" alt="Oblique view">
+				</section>
+
+				<section>
+					<h3>Aerial Camera Features</h3>
+					<img width="383px" height="459px" data-src="img/image5.png" alt="A comparison of eye and camera optical components">
+					<ul>
+		        <li>A comparison of eye and camera optical components</li>
+		      </ul>
+				</section>
+
+				<section>
+					<h3>Aerial Camera Features</h3>
+					<ul>
+		        <li><highlightedText>Focal plane</highlightedText>: the area in which the film is held flat
+							during an exposure.</li>
+		        <li><highlightedText>Focal length</highlightedText> (<em>f</em>): the distance from the
+							lens to the focal plane.</li>
+		        <li>Cameras used by photographers usually have zoom lenses, where <em>f</em> can be
+							changed continuously.</li>
+						<li>Cameras used for aerial photography usually have fixed focal lengths, e.g.
+							88 mm, 152 mm, 210 mm and 305 mm.</li>
+		      </ul>
+				</section>
+
+				<section>
+					<h3>Aerial Camera Features</h3>
+					<ul>
+		        <li><highlightedText><em>f</em>/stop</highlightedText>: The ratio of <em>f</em> to the diameter
+							of the lens opening (<em>d</em>).</li>
+		        <li>This is related to the amount of light admitted through the lens opening per unit of time.</li>
+		        <li><em>f</em>/1 is said to be faster than <em>f</em>/10</li>
+		      </ul>
+				</section>
+
+				<section>
+					<h3>Aerial Camera Features</h3>
+					<img width="298px" height="452px" data-src="img/image6.png" alt="f-stop">
+					<br/><span>
+		        <small>The <em>f</em>/stops for a camera lens and the size of the aperture openings</small>
+		      </span>
+				</section>
+
+				<section>
+					<h3>Aerial Camera Features</h3>
+					<ul>
+		        <li>Film emulsion requires the correct amount of light for an exposure.</li>
+		        <li>Must adjust the aperture size (<em>f</em>/stop) and the shutter speed.</li>
+		        <li><highlightedText>Exposure time</highlightedText>: the length of time that the shutter is open.</li>
+						<li>This relation can be difficult given that you also have to take into account the speed of the aircraft!</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Aerial Camera Types</h3>
+					<ul>
+		        <li>Single-lens mapping (metric) cameras</li>
+		        <li>Multiple-lens (multi-band) cameras</li>
+		        <li>Digital cameras</li>
+		      </ul>
+				</section>
+
+				<section>
+					<h3>Single-lens metric cameras</h3>
+					<img width="1040px" height="481px" data-src="img/image7.png" alt="Metric cameras">
+					<br/><span>
+		        <small>'Metric' cameras are calibrated to provide the highest geometric and radiometric
+							quality</small>
+		      </span>
+				</section>
+
+				<section>
+					<h3>Single-lens metric cameras</h3>
+					<ul><li>An intervalometer is used to expose the film at specific intervals of time.</li></ul>
+					<img width="458px" height="421px" data-src="img/image8.png" alt="metric camera internal geometry">
+				</section>
+
+				<section>
+					<h3>Large Format vs. Small Format Cameras</h3>
+					<img width="445px" height="374px" data-src="img/image9.png" alt="small format film">
+				</section>
+
+				<section>
+					<h3>Large Format vs. Small Format Cameras</h3>
+					<img width="438px" height="411px" data-src="img/image10.png" alt="large format film">
+				</section>
+
+				<section>
+					<h3>Large Format vs. Small Format Cameras</h3>
+					<table>
+						<tr><th>Large Format</th><th>Small Format</th></tr>
+						<tr>
+							<td>Very expensive to buy and to process</td>
+							<td>Inexpensive</td>
+						</tr>
+						<tr>
+							<td>Calibrated</td>
+							<td>Usually uncalibrated but can buy calibrated SF cameras</td>
+						</tr>
+						<tr>
+							<td>Film is perfectly flat</td>
+							<td>Significant lens distortions</td>
+						</tr>
+						<tr>
+							<td> </td>
+							<td>Greater variety of film, filters, and lenses</td>
+						</tr>
+						<tr>
+							<td> </td>
+							<td>Faster processing</td>
+						</tr>
+					</table>
+				</section>
+
+				<section>
+					<img width="966px" height="517px" data-src="img/image11.png" alt="aircraft used for aerial photography">
+				</section>
+
+				<section>
+					<h3>Forward Motion Compensation</h3>
+					<img width="900px" height="450px" data-src="img/image12.png" alt="forward motion compensation">
+				</section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+
+		<!-- Template Image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
