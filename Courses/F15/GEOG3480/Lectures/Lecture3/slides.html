@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 3 Pt 1</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+				<!--
+				Introduction
+				Metadata
+				Accuracy vs precision
+				Types of Error in Geospatial
+					Attribute Error
+						Radom Spot-checking; Spatial Sampling; Overall accuracy; the Kappa Coefficient of Agreement
+						RMSE of attribute data
+					Positional Error
+						Positional accuracy; RMSE as a measure of positional accuracy; ASPRS Standards
+					Topological Error
+						Overshoots, undershoots, unclosed polygons, and mis-aligned shared polygon borders
+					Temporal Accuracy
+
+				Error Propagation
+
+				Ecological Fallacy
+
+				Modifiable Areal Unit Problem
+			-->
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Data Quality Part 1</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <h3>Readings</h3>
+          <ul>
+            <li>Jensen and Jensen Chapter 4</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+          <h3>Lecture Outline</h3>
+          <ul>
+            <li>Introduction</li>
+						<li>Metadata</li>
+						<li>Accuracy and Precision</li>
+						<li>Types of Error in Geospatial</li>
+						<li>Error Propagation</li>
+						<li>The Ecological Fallacy</li>
+						<li>Modifiable Areal Unit Problem</li>
+          </ul>
+        </section>
+
+				<section>
+          <h3>Introduction</h3>
+          <ul>
+            <li>Error is a natural component of all data and geospatial data are no different.</li>
+						<li>The level of error in a particular data set may limit its suitability for certain applications.</li>
+						<li>Error propagates throughout a GIS workflow, i.e. the level of error in the output is greater
+						than the input.</li>
+						<li>This is particularly salient in the era of free geospatial data that are shared
+							so easily over the Internet.</li>
+						<li>As GIS has become more ubiquitous, GIS users now have widely varying level of experience
+						and backgrounds...the issue of error has become increasingly important.</li>
+          </ul>
+        </section>
+
+				<section>
+		      <h3>Metadata</h3>
+		      <ul>
+		        <li>Data about data.</li>
+		        <li>Provides a means by which we can store and communicate information about the
+						data quality and errors and the accuracy and precision of the instruments or
+					  methods used to collect the data.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Metadata</h3>
+		      <ul>
+		        <li>Most geospatial data formats allow for metadata which are often stored as
+						ASCII data in a markup format (e.g. XML). Some data formats (e.g. the GeoTIFF) have
+						built-in means of communicating metadata (i.e. 'tags').</li>
+		        <li>Most GIS software has the ability to create and edit metadata.</li>
+						<li>The problem lies in the fact that GIS do not enforce metadata requirements...analysis tools
+						will create new files that do not require the user to create metadata.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="900px" height="644px" data-src="img/image1.jpg" alt="ArcGIS's metadata module">
+		    </section>
+
+				<section>
+		      <h3>Accuracy and Precision</h3>
+		      <ul>
+		        <li>Both are important aspects of data quality and are related.</li>
+						<li><highlightedText>Accuracy</highlightedText> is the extent to which both attribute
+							and positional data correspond to reality.</li>
+						<li><highlightedText>Precision</highlightedText> is how exact some measurement is.
+							<ul><li>In some instances, this can be expressed as the number of <strong>significant</strong>
+								decimal places.</li></ul>
+						</li>
+						<li>Accuracy is how true something is, precision is how exact we are in communicating it.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="900px" height="494px" data-src="img/image2.jpg" alt="Accuracy and precision">
+		    </section>
+
+				<section>
+		      <h3>Types of Error in Geospatial</h3>
+		      <ul>
+		        <li>Attribute Error</li>
+		        <li>Positional Error</li>
+		        <li>Topological Error</li>
+		        <li>Temporal Accuracy</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Attribute Error</h3>
+		      <ul>
+		        <li>These are generally caused by blunders in data entry or by misclassifications.</li>
+		        <li>How can we assess the level of attribute error? We have to perform a spot-check on
+						a sample of the data.</li>
+		        <li>The sample must be representative of the population.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="738px" height="700px" data-src="img/image3.jpg" alt="Spatial sampling strategies">
+		    </section>
+
+				<section>
+		      <h3>Error Matrix and Associated Stats</h3>
+		      <ul>
+		        <li>The info gathered from sampling is usually placed in an <highlightedText>error matrix</highlightedText>,
+						i.e. a table relating observed vs predicted values.</li>
+		        <li><highlightedText>Overall Accuracy</highlightedText>: number of correctly classified values expressed as a percentage of the total number of data points</li>
+		        <li><highlightedText>Producer's Accuracy</highlightedText>: probability that a reference sample will be correctly classified</li>
+						<li><highlightedText>User's Accuracy</highlightedText>: probability that a classified value (map value) actually matches the reference data</li>
+						<li><highlightedText>Kappa Index of Agreement</highlightedText>: a measure of classification accuracy that accounts for chance agreement</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="863px" height="700px" data-src="img/image4.jpg" alt="Error Matrix">
+		    </section>
+
+				<section>
+		      <h3>What about interval ratio data?</h3>
+		      <ul>
+		        <li>KIA is useful for categorial (classified) data, but what about interval/ratio.</li>
+		        <li>Root-Mean-Square-Error (RMSE)</li>
+		      </ul>
+					<br/><br/><h3>\(RMSE=\sqrt{\frac{\underset{j=1}{\overset{N}{\Sigma}}(X_{Act_i} - X_{Obs_i})^2}{N}}\)</h3>
+		    </section>
+
+				<section>
+		      <h3>Positional Error</h3>
+		      <ul>
+		        <li><highlightedText>Positional Accuracy</highlightedText> measures how close the geographic coordinates of a mapped feature are to reality.</li>
+		        <li>Includes horizontal and vertical components.</li>
+		        <li>Calculated by comparing mapped x,y,z values to those measured using a more accurate measuring device.</li>
+		        <li>Is scale dependent.</li>
+						<li>Problems arise when you combine data of different scales in a GIS.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>\(RMSE=\sqrt{\frac{\underset{j=1}{\overset{N}{\Sigma}}[(X_{Act_i} - X_{Obs_i})^2 + (Y_{Act_i} - Y_{Obs_i})^2]}{N}}\)</h3>
+		    </section>
+
+				<section>
+					<h3>Map (Positional) Accuracy Standards</h3>
+		      <img width="638px" height="600px" data-src="img/image5.jpg" alt="Map standards">
+		    </section>
+
+				<section>
+					<h3>Topological Error</h3>
+		      <img width="711px" height="600px" data-src="img/image6.jpg" alt="Topological error">
+		    </section>
+
+				<section>
+					<h3>Map (Positional) Accuracy Standards</h3>
+		      <img width="423px" height="600px" data-src="img/image7.jpg" alt="Polygon matching">
+		    </section>
+
+				<section>
+		      <h3>Temporal Accuracy</h3>
+		      <ul>
+		        <li>Refers to how up-to-date a geospatial database is.</li>
+		        <li>How ephemeral is the phenomena being represented?</li>
+		        <li>Types of temporal events
+							<ul><li><highlightedText>Continuous</highlightedText>, e.g. Temperature varies continuously</li>
+								<li><highlightedText>Majoritive</highlightedText>, go on most of the time, e.g. Land use change</li>
+								<li><highlightedText>Sporatic</highlightedText>, e.g. Storms occur infrequently</li>
+								<li><highlightedText>Unique</highlightedText> (one-off), e.g. Creation of a flood plain</li>
+						</li></ul>
+		      </ul>
+		    </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
