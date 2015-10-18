@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*2420 Lecture 7</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+    <!-- <link rel="stylesheet" href="../revealjs/css/print/pdf.css"> -->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section id="themes">
+					<p>
+						<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+						<small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<p><small>Copyright &copy; John Lindsay, 2015</small></p>
+          </p>
+				</section>
+
+				<section>
+					<img width="966px" height="517px" data-src="img/image11_leftover.png" alt="aircraft used for aerial photography">
+				</section>
+
+				<section>
+					<h3>Forward Motion Compensation</h3>
+					<img width="900px" height="450px" data-src="img/image12_leftover.png" alt="forward motion compensation">
+				</section>
+
+        <section data-background="img/earth_image1.png" data-background-size="690px">
+          <div class=transparentTextBox>
+            <h2>GEOG*2420</h2>
+            <h3>The Earth From Space</h3>
+            <br/>
+            <h3><em>Airborne and Spaceborne<br/>Imaging Systems Part 2</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+					<h3>Multiband Cameras</h3>
+					<img width="826px" height="605px" data-src="img/image1.png" alt="Multi-band camera">
+				</section>
+
+				<section>
+		      <h3>Airborne Digital Cameras</h3>
+		      <ul>
+		        <li>Analog (film) versus digital cameras</li>
+		        <li>Film camera uses film for image capture, display and storage</li>
+		        <li>Digital systems may use film as a display and storage medium, but
+							likely stored in digital form</li>
+		        <li>Film is often transferred to digital format these days by
+							scanning...why do you think?</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>The Digital Advantage</h3>
+		      <ul>
+		        <li>Environmental effects are lessened</li>
+		        <li>Easily stored, reproduced, and transferred (over the Internet)</li>
+		        <li>Pixels are uniform in size and shape, unlike silver halide crystals</li>
+		        <li>Can be transmitted from satellites without need for physical collection</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>The Digital Advantage</h3>
+		      <ul>
+		        <li>Amenable to use with computers</li>
+		        <li>Potential for advanced digital image enhancement and analysis using
+							'soft-copy' photogrammetry/RS software</li>
+		        <li>Digital cameras can be made to have sensitivity to a broader portion of
+							the spectrum than film</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Disadvantages of Digital Imaging</h3>
+		      <ul>
+		        <li>Long-term storage in digital format</li>
+		        <li>Very large file sizes...can be a challenge for storage and processing</li>
+						<li>Most available digital cameras still have significantly poorer resolutions compared to film
+							<ul><li>A large format (9 x 9 in.) digital camera would require 80-400MP! And what about colour?</li>
+							<li>This is changing rapidly with the use of imaging systems based on linear arrays
+							and newer digital large format cameras</li></ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="440px" height="600px" data-src="img/image2.png" alt="Microsoft Ultracam large format camera">
+				</section>
+
+				<section>
+		      <h3>Airborne Digital Cameras</h3>
+		      <ul>
+		        <li>Small format: typically < 15 MP</li>
+		        <li>Medium format: usually 4000 x 4000 pixels or about 16 MP</li>
+						<li>Large format: usually based on a linear array of 12,000 detector elements
+							<ul><li>Can surpass the resolution of analog (film) cameras)</li>
+							<li>But they are very expensive!</li>
+							<li>That's equivalent to 144 MP and creates a 4.4GB image!</li></ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="779px" height="556px" data-src="img/image3.png" alt="Sensor types">
+				</section>
+
+				<section>
+		      <h3>Digital Image Detectors</h3>
+		      <ul>
+		        <li>Charge-coupled devices (CCDs)
+							<ul>
+								<li>Light sensitive material embedded in silicon</li>
+								<li>Each ‘potential well’ is ~1 μm and many are connected to form an array</li>
+								<li>Respond to brightness more linearly than film</li>
+							</ul>
+						</li>
+						<img width="156px" height="117px" data-src="img/image5.png" alt="A CCD">
+		        <li>Complementary metal-oxide semiconductors (CMOS)
+							<ul>
+								<li>Cheaper but more noisy than CCDs</li>
+								<li>Faster and require less power</li>
+							</ul>
+						</li>
+		      </ul>
+
+		    </section>
+
+				<section>
+					<h3>Digital Image Detectors</h3>
+					<img width="332px" height="484px" data-src="img/image4.png" alt="A CCD">
+				</section>
+
+
+				<section>
+					<h2>Readings</h2>
+					<p>Jensen Chapter 7</p>
+				</section>
+
+				<section>
+					<h3>How remotely sensed data are transformed into useful information</h3>
+					<img width="648px" height="396px" data-src="img/image6.png" alt="Getting data from space">
+				</section>
+
+				<section>
+					<img width="916px" height="546px" data-src="img/image7.png" alt="Orbital characteristics">
+				</section>
+
+				<section>
+					<h3>Orbital altitude and period are related</h3>
+					<img width="461px" height="278px" data-src="img/image11.png" alt="Altitude vs period (speed)">
+				</section>
+
+				<section>
+		      <h3>Altitude vs. Period vs. Speed</h3>
+		      <img width="512px" height="512px" data-src="img/image9.png" alt="Orbital characteristics">
+		    </section>
+
+				<section>
+		      <h3>Orbital Characteristics</h3>
+		      <div style="width:500px; float:left;">
+						<ul>
+							<li>Orbit Type:
+								<ul>
+									<li>Equatorial</li>
+									<li>Polar</li>
+									<li>Near-polar</li>
+								</ul>
+							</li>
+							<li><highlightedText>Prograde</highlightedText> (&lt;90&deg;) or <highlightedText>retrograde</highlightedText> (&gt;90 &deg;)</li>
+		      	</ul>
+					</div>
+					<div style="width:370px; float:right;">
+						<img width="361px" height="347px" data-src="img/image8.png" alt="Orbital characteristics"></div>
+		    </section>
+
+				<section>
+		      <h3>Orbital Characteristics</h3>
+		      <ul>
+						<li><highlightedText>Geosynchronous</highlightedText>
+							<ul>
+								<li>Satellite in the same position in the sky at the same time daily</li>
+							</ul>
+						</li>
+		        <li><highlightedText>Geostationary</highlightedText> (special case of geosynchronous)
+							<ul>
+								<li>Circular equatorial orbit with 35,786 km orbital altitude</li>
+								<li>23 hr 56 min 5 s orbital period</li>
+								<li>Appears to stay in the same location in the sky</li>
+							</ul>
+						</li>
+						<li><highlightedText>Sun-synchronous</highlightedText>
+							<ul>
+								<li>Crosses latitudes at the same time of day</li>
+								<li>600–800 km altitude; periods 96–100 min; inclinations ~98&deg; (i.e. retrograde)</li>
+								<li>Useful for Earth imaging applications</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Typical sun-synchronous orbit</h3>
+		      <img width="684px" height="525px" data-src="img/image12.png" alt="sun-sync orbit">
+		    </section>
+
+				<section>
+		      <img width="900px" height="604px" data-src="img/image10-3.png" alt="Orbital altitudes">
+		    </section>
+
+				<section>
+		      <h3>Low-Earth, Medium-Earth, &amp; High-Earth Orbits</h3>
+		      <img width="900px" height="56px" data-src="img/image10-4.png" alt="Orbital altitudes">
+		    </section>
+
+				<section>
+		      <h3>Types of Satellite Imaging Systems</h3>
+					<ul>
+		        <li>Thermal Scanners</li>
+		        <li>Multi-spectral (MS) Scanners</li>
+		        <li>Imaging Spectrometers (Hyperspectral)</li>
+		        <li>Radar (SLAR) &amp; laser altimeters (LiDAR)</li>
+						<li>Note: A single satellite platform may have more than one imaging system</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="449px" height="540px" data-src="img/image13.png" alt="Types of imaging systems">
+		    </section>
+
+				<section>
+		      <h3>The Landsat Program Timeline</h3>
+		      <img width="900px" height="277px" data-src="img/image14.jpg" alt="Landsat program">
+		    </section>
+
+				<section>
+		      <h3>The SPOT Satellite Program</h3>
+					<ul>
+						<li>Data sold commercially by SPOT Image Inc.</li>
+		        <li>A commercially oriented program intended to be operational rather than experimental</li>
+		        <li>832 km altitude, inclination of 98.7, crosses equator at 10:30AM</li>
+		        <li>SPOT 6 launched Sept. 2012 and SPOT 7 launched on June 2014 and subsequently sold to Azerbaijan</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>SPOT satellite components</h3>
+		      <img width="429px" height="504px" data-src="img/image15.png" alt="SPOT components">
+		    </section>
+
+				<section>
+		      <img width="450px" height="433px" data-src="img/image16.png" alt="SPOT image">
+		    </section>
+
+				<section>
+					<div style="width:500px; float:left;">
+		      	<img width="504px" height="510px" data-src="img/image17.png" alt="SPOT vs landsat">
+					</div>
+					<div style="width:450px; float:right;">
+						<img width="450px" height="336px" data-src="img/image18.png" alt="SPOT vs landsat">
+					</div>
+		    </section>
+
+				<section>
+		      <h3>Fine-resolution Commercial Satellites</h3>
+					<ul>
+						<li>Starting with SPOT-5 we have entered into a new era of fine-resolution
+							commercial satellite imagery.</li>
+		      </ul>
+					<img width="651px" height="255px" data-src="img/image19.png" alt="GeoEye">
+					<div><small>GeoEye-1 provides 0.41 m pan and 1.65 m multi-spec imagery</small></div>
+		    </section>
+
+				<section>
+		      <h3>Commercial satellite image providers</h3>
+					<ul>
+		        <li>SPOT Image</li>
+		        <li>DigitalGlobe
+							<ul>
+								<li>EarlyBird-1</li>
+								<li>IKONOS</li>
+								<li>QuickBird</li>
+								<li>GeoEye-1, (GeoEye-2 in 2016)</li>
+								<li>WorldView-1, WorldView-2, WorldView-3</li>
+							</ul>
+						</li>
+		        <li>Planet Labs (Blackbridge Ltd.; formerly RapidEye): 5 RapidEye sats</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>WorldView-3</h3>
+					<img width="699px" height="600px" data-src="img/image20.png" alt="WorldView-3">
+		    </section>
+
+				<section>
+					<div>Is there need for aerial photos anymore?</dvi>
+		      <img width="900px" height="295px" data-src="img/image21.png" alt="WorldView-3">
+		    </section>
+
+				<section>
+		      <h3>Advantages of fine-res sat data</h3>
+					<div><small>(compared to airborne imaging)</small></div>
+		      <ul>
+		        <li>Wide swaths compared to aerial photos mean less need to mosaic images</li>
+		        <li>Satellite is a much more stable platform</li>
+		        <li>Potential for short-term repeat surveys, i.e. within days</li>
+		        <li>Wider window for acquisition</li>
+						<li>Far cheaper ($2-$12 / km2)</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Disvantages of fine-res sat data</h3>
+					<div><small>(compared to airborne imaging)</small></div>
+					<ul>
+						<li>Issues with atmospheric/weather conditions</li>
+						<li>Resolution is still not quite as good and may be degraded
+							outside the US (20 in. or 50.8 cm; this has been relaxed as of 2014)</li>
+						<li>Tasking issues (can get bumped by priority)</li>
+						<li>Restrictive licences</li>
+					</ul>
+				</section>
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+
+		<!-- Template Image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>

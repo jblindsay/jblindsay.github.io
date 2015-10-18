@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 3 Pt 2</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+				<!--
+				Introduction
+				Metadata
+				Accuracy vs precision
+				Types of Error in Geospatial
+					Attribute Error
+						Radom Spot-checking; Spatial Sampling; Overall accuracy; the Kappa Coefficient of Agreement
+						RMSE of attribute data
+					Positional Error
+						Positional accuracy; RMSE as a measure of positional accuracy; ASPRS Standards
+					Topological Error
+						Overshoots, undershoots, unclosed polygons, and mis-aligned shared polygon borders
+					Temporal Accuracy
+
+				Error Propagation
+
+				Ecological Fallacy
+
+				Modifiable Areal Unit Problem
+			-->
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Data Quality Part 2</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+          <h3>Error Propagation</h3>
+          <ul>
+            <li>When there is error in a spatial data layer and we combine it with other layers
+            as part of a GIS analysis workflow, the result will reflect the inaccuracies of the
+            lowest-quality input.</li>
+            <li>Error propagates in a workflow in very complex ways that can be difficult to model analytically.</li>
+            <li>The Monte-Carlo method (stochastic simulation) is commonly used to study error.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Stochastic Simulation</h3>
+          <img width="853px" height="586px" data-src="img/image9.png" alt="Error propagation simulation">
+        </section>
+
+        <section>
+          <h3>Error Propagation</h3>
+          <img width="567px" height="500px" data-src="img/image8.png" alt="Error propagation simulation">
+          <div class=leftAlignedText><small>Lindsay and Evans (2010) Monte-Carlo based simulation of how DEM
+            error propagates into uncertainty in mapped watersheds.</small></div>
+        </section>
+
+        <section>
+          <h3>Spatially Aggregated Data</h3>
+          <ul>
+            <li>Many geographic data are aggregates of data at a more detailed level:
+              <ul>
+                <li>National census: collected at the household level but reported for practical and privacy reasons at various levels of aggregation (block, neighbourhood, postcode, county, province, etc.)</li>
+                <li>Traffic Analysis Zone (TAZ)</li>
+                <li>School district</li>
+                <li>Watersheds</li>
+                <li>Pixels</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Ecological Fallacy</h3>
+          <ul>
+            <li>The Ecological Fallacy is a situation that can occur when a researcher or analyst makes an
+              inference about an individual based on aggregate data for a group.</li>
+            <li><strong><em>The conclusions we draw from a GIS analysis of <highlightedText>spatially aggregated
+              data</highlightedText> only apply at the scale of the aggregation</em></strong></li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Ecological Fallacy</h3>
+          <ul>
+            <li>Example: we might observe a strong relationship between income and crime at the county level,
+              with lower-income areas being associated with higher crime rate.</li>
+            <li><highlightedText>Conclusion</highlightedText></li>
+              <ul>
+                <li>Lower-income persons are more likely to commit crime</li>
+                <li>Lower-income areas are associated with higher crime rates</li>
+                <li>Lower-income counties tend to experience higher crime rates</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Ecological Fallacy</h3>
+          <img width="478px" height="600px" data-src="img/image10.jpg" alt="Ecological fallacy">
+        </section>
+
+        <section>
+          <h3>The Modifiable Areal Unit Problem (MAUP)</h3>
+          <ul>
+            <li>"A problem arising from the imposition of artificial units of spatial reporting on
+              continuous geographic phenomena resulting in the generation of artificial
+              spatial patterns."</li>
+            <li>That is, it involves data that are spatially aggregated using arbitrary boundaries
+              and affects our ability to quantify apparent relations, statistical or otherwise.</li>
+
+          </ul>
+        </section>
+
+        <section>
+          <h3>The Modifiable Areal Unit Problem (MAUP)</h3>
+          <ul>
+            <li>In a series of publications in the 1970s Stan Openshaw demonstrated that by changing
+              the aggregation characteristics of spatial data, it is possible to measure correlations
+              between -1.0 and 1.0!</li>
+            <li>The MAUP has two manifestations:
+              <ol><li>the aggregation effect</li>
+                <li>the scale effect</li></ol>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>The Modifiable Areal Unit Problem (MAUP)</h3>
+          <img width="900px" height="220px" data-src="img/image11.png" alt="MAUP">
+          <div><small>These are potential problems in almost every field that utilizes spatial data</small></div>
+        </section>
+
+        <section>
+          <img width="539px" height="600px" data-src="img/image12.png" alt="MAUP">
+        </section>
+
+        <section>
+          <h3>MAUP Example: Electoral Districts &amp; Voting</h3>
+          <ul>
+            <li>It's not just who you vote for but also where you vote that counts.</li>
+            <li>In the 2000 U.S. presidential election, Al Gore, won more of the popular
+              vote than George Bush, but failed to become president.</li>
+            <li>A different aggregation of U.S. counties into states could have produced a
+              different outcome (switching just one northern Florida county to Georgia or
+              Alabama would have produced a different outcome).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Gerrymandering</h3>
+          <ul>
+            <li>The practice of setting electoral district boundaries to favour a particular outcome.</li>
+            <li>We have to be very careful whenever we modify the geographic boundaries of
+              voting aggregation areas.</li>
+            <li>Gerrymandering is commonplace in many countries, sometimes even legal!</li>
+          </ul>
+        </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
