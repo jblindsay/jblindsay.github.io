@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 4 Pt 1</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+				<section>
+		      <h3>Mid-term Exam</h3>
+		      <ul>
+		        <li>Next Wed. (Oct. 28)</li>
+		        <li>Will be short-answer type questions.</li>
+		        <li>Includes all lecture and reading materials
+							<ul>
+								<li>Introduction to GIS</li>
+								<li>Geospatial data</li>
+								<li>Data quality</li>
+								<li>Basic vector analysis (<strong>not raster</strong>)</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Basic Raster and Vector <br/>Data Analysis Part 1</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <h3>Readings</h3>
+          <ul>
+            <li>Jensen and Jensen Chapter 6</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+          <h3>Lecture Outline</h3>
+          <ul>
+            <li>Introduction</li>
+						<li>Vector data analysis
+							<ul>
+								<li>Buffering</li>
+								<li>Overlay operations</li>
+							</ul>
+						</li>
+						<li>Raster data analysis
+							<ul>
+								<li>Distance operations</li>
+								<li>Local raster operations</li>
+								<li>Neighbourhood operations</li>
+								<li>Zonal operations</li>
+							</ul>
+          </ul>
+        </section>
+
+				<section>
+		      <h3>Introduction</h3>
+		      <ul>
+		        <li>We carry out analysis on geospatial data to uncover important spatial relations,
+							gain understanding about some phenomena or system, and perhaps to inform some decision.</li>
+		        <li>We commonly classify spatial analysis ops as 'Vector' or 'Raster' but
+						1) often the same analysis can be perform using either model (e.g. buffering), and 2)
+					  many types of analysis involve both raster and vector data.</li>
+		        <li>'Basic' raster and vector analysis includes a class of ops that are fundamental to
+							a wide range of applications and are common in practice.</a></li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Vector buffering</h3>
+		      <ul>
+		        <li>Buffering is the creation of a zone of interest around a spatial entity or set of entities</li>
+		        <li>Implies the calculation of distance</li>
+		        <li>We are usually interested in the <highlightedText>Euclidean</highlightedText> (straight line) distance</li>
+		        <li>Distance between points <em>i</em> and <em>j</em> can be calculated as:</li>
+		      </ul>
+					<br/><br/><div>\(d=\sqrt{(X_i - X_j)^2 + (Y_i - Y_j)^2}\)</div>
+		    </section>
+
+				<section>
+          <h3>Vector buffering</h3>
+          <img width="687px" height="600px" data-src="img/image1.jpg" alt="Vector buffering">
+        </section>
+
+				<section>
+          <h3>Buffering and dissove</h3>
+          <img width="332px" height="600px" data-src="img/image5.png" alt="Vector buffering">
+        </section>
+
+				<section>
+          <h3>Vector buffering</h3>
+          <img width="596px" height="600px" data-src="img/image2.jpg" alt="Vector buffering">
+        </section>
+
+				<section>
+          <h3>Vector buffering</h3>
+          <img width="666px" height="600px" data-src="img/image3.jpg" alt="Vector buffering">
+        </section>
+
+				<section>
+          <h3>Variable buffering distances</h3>
+          <img width="505px" height="600px" data-src="img/image6.png" alt="Vector buffering">
+        </section>
+
+				<section>
+          <h3>Vector buffering</h3>
+          <img width="900px" height="431px" data-src="img/image7.jpg" alt="Vector buffering">
+        </section>
+
+				<section>
+		      <h3>Vector map overlay</h3>
+		      <ul>
+		        <li>GIS is based on the concept that you are able to combine one or more geographic layers</li>
+		        <li><highlightedText>Map overlay</highlightedText> is the technique, or collection of techniques, for combining spatial layers</li>
+		        <li>Can be used purely for visualization purposes or to answer questions and derive new
+							information, i.e. new spatial layers</li>
+		        <li>Combining two maps using an overlay technique always <highlightedText>results in a
+							more complex map</highlightedText>, i.e. More polygons, arcs and nodes than either of
+							the two original images</li>
+						<li>This can be a problem for visualization</li>
+		      </ul>
+		    </section>
+
+				<section>
+          <h3>Vector map overlay</h3>
+          <img width="900px" height="279px" data-src="img/image8A.png" alt="Vector map overlay">
+					<img width="900px" height="208px" data-src="img/image8B.jpg" alt="Vector map overlay">
+        </section>
+
+				<section>
+          <h3>Vector map overlay</h3>
+          <img width="900px" height="209px" data-src="img/image8C.jpg" alt="Vector map overlay">
+					<img width="900px" height="208px" data-src="img/image8D.jpg" alt="Vector map overlay">
+        </section>
+
+				<section>
+          <h3>Vector map overlay</h3>
+          <img width="900px" height="240px" data-src="img/image8E.jpg" alt="Vector map overlay">
+					<img width="900px" height="208px" data-src="img/image8F.jpg" alt="Vector map overlay">
+					<div><small><em>This is a bad example of identity because the identify layer is completely
+						contained in the input layer.</em></small></div>
+        </section>
+
+				<section>
+          <img width="900px" height="451px" data-src="img/image10.png" alt="Identity">
+        </section>
+
+				<section>
+          <h3>Vector map overlay</h3>
+          <img width="900px" height="208px" data-src="img/image8H.jpg" alt="Vector map overlay">
+					<img width="900px" height="209px" data-src="img/image8G.jpg" alt="Vector map overlay">
+        </section>
+
+				<section>
+          <img width="900px" height="560px" data-src="img/image9.jpg" alt="Raster clipping">
+        </section>
+
+				<section>
+          <h3>Vector map overlay</h3>
+          <img width="900px" height="209px" data-src="img/image8I.jpg" alt="Vector map overlay">
+        </section>
+
+				<section>
+          <img width="543px" height="600px" data-src="img/image11.jpg" alt="Suitability using buffering and overlay">
+        </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
