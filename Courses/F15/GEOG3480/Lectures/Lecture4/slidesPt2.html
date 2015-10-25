@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 4 Pt 2</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Basic Raster and Vector <br/>Data Analysis Part 2</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+		      <h3>Remember, this is where the content for the final exam begins</h3>
+		    </section>
+
+				<section>
+		      <h3>Raster querying: Reclassification</h3>
+		      <img width="900px" height="459px" data-src="img/Pt2/image1.png" alt="Reclassification">
+		    </section>
+
+				<section>
+		      <h3>Raster querying: Reclassification</h3>
+		      <img width="900px" height="471px" data-src="img/Pt2/image2.png" alt="Reclassification">
+		    </section>
+
+				<section>
+		      <h3>Raster querying: Reclassification</h3>
+		      <ul>
+		        <li>It is possible to build complex queries involving combinations of query questions
+						in the raster data model by using <strong>reclass</strong>, <strong>map algebra and/or Boolean logical
+						operations</strong>, and other spatial analysis operations (e.g. <strong>distance</strong>, <strong>buffering</strong>,
+						and <strong>area</strong> calculations).</li>
+		        <br/><li>It is possible to perform any spatial query using either the raster or
+						vector data model, but it generally involves more steps using the
+						raster approach</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Raster Buffering</h3>
+		      <ul>
+		        <li>In a raster model, buffer creation is a two-step procedure:
+							<ol>
+				        <small><li>The distance from each cell to the target cell(s) is calculated</li></small>
+								<small><li>Using resulting map is reclassified so that cells with values
+									less than the buffer distance are given the same code</li></small></ol>
+						</li>
+		      </ul>
+					<img width="593px" height="300px" data-src="img/Pt2/image3.png" alt="Buffering">
+		    </section>
+
+				<section>
+		      <h3>Distance in the Raster Model</h3>
+		      <ul>
+		        <li>Most modern GIS estimate the Euclidean distance of each raster grid cell to the nearest target cell
+							<ul>
+								<li>Based on the highly efficient, 4-pass distance transform of Shih and Wu (2003)</li>
+							</ul>
+						</li>
+		        <br/><li>Some do not and some offer alternatives based on <highlightedText>spread</highlightedText> functions which
+						iteratively calculate <highlightedText>distance through grid cells</highlightedText>.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="570px" height="600px" data-src="img/Pt2/image4.png" alt="Spread distance">
+		    </section>
+
+				<section>
+		      <img width="693px" height="600px" data-src="img/Pt2/image5.png" alt="Spread distance">
+		    </section>
+
+				<section>
+		      <h3>Distance in the Raster Model</h3>
+		      <ul>
+		        <li>Why use <highlightedText>spread</highlightedText> to calculate distance?
+							<ul>
+								<li>Until Shih and Wu (2003) spread has been far more efficient to estimate than Euclidean distance</li>
+								<li>Spread is a powerful function for performing weighted distance operations, e.g. Least-cost analysis
+									(more to come on this later)</li>
+							</ul>
+						</li>
+		        <br/><li>Spread is less accurate but more powerful</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Local Operations: Raster Map Overlay</h3>
+		      <ul>
+		        <li>How are discrete spatial entities represented in raster?
+							<ul>
+								<li>Point is a single cell</li>
+								<li>Line is a cell-wide string of cells</li>
+								<li>Area is a contiguous group of cells</li>
+							</ul>
+						</li>
+		        <br/><li>Raster map overlay works on a cell-by-cell basis
+							<ul>
+								<li>Operations are performed on individual cells from two or more
+									input layers to produce a new layer</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Raster overlay and map algebra</h3>
+		      <img width="900px" height="529px" data-src="img/Pt2/image6.png" alt="Map algebra">
+		    </section>
+
+				<section>
+					<img width="900px" height="583px" data-src="img/Pt2/image7.png" alt="Boolean overlay">
+		    </section>
+
+				<section>
+		      <h3>Comparison Operators</h3>
+		      <ul>
+		        <li>Equal to, not equal to, greater than, less than, greater than or equal to, less
+							than or equal to (= , &lt;&gt;, &gt;, &lt; , &gt;= , &lt;=)</li>
+		        <br/><li>&gt; and &lt; operators are like a simple reclassification</li>
+		        <br/><li>Input images are not necessarily Boolean images but the output image is
+							always a Boolean</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Comparison Operators</h3>
+					<img width="900px" height="359px" data-src="img/Pt2/image8.png" alt="Comparison operators">
+				</section>
+
+				<section>
+					<h3>Comparison Operators</h3>
+					<img width="900px" height="359px" data-src="img/Pt2/image9.png" alt="Comparison operators">
+				</section>
+
+				<section>
+					<h3>Comparison Operators</h3>
+					<img width="900px" height="361px" data-src="img/Pt2/image10.png" alt="Comparison operators">
+				</section>
+
+				<section>
+		      <h3>The MIN and MAX Operators</h3>
+		      <ul>
+		        <li>MIN('Map1', 'Map2')  &amp;  MAX('Map1', 'Map2', 'Map3')</li>
+		        <br/><li>Assigns each cell in the output image the minimum (or maximum) value for the
+							corresponding cells in the input maps</li>
+							<br/><li>You may have two or more input maps</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="783px" height="600px" data-src="img/Pt2/image11.png" alt="MIN and MAX operators">
+				</section>
+
+				<section>
+		      <img width="900px" height="484px" data-src="img/Pt2/image12.png" alt="MIN operator">
+		    </section>
+
+				<section>
+		      <img width="900px" height="488px" data-src="img/Pt2/image13.png" alt="MAX operator">
+		    </section>
+
+				<section>
+		      <h3>Mathematical operators</h3>
+		      <ul>
+		        <li>Map addition, subtraction, multiplication, and division</li>
+		        <br/><li>One-map/one-constant operations vs. two-map ops
+							<ul>
+								<li>'Map1' + 10</li>
+								<li>'Map1' - 'Map2'</li>
+							</ul>
+						</li>
+		        <br/><li>Why might you want to multiply or divide all the values in an image
+							by a constant (e.g. 'Map1' / 3.281)?</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="900px" height="313px" data-src="img/Pt2/image14.jpg" alt="Math operators">
+					<br/><span><verySmallText>Jensen and Jensen, 2013</verySmallText></span>
+		    </section>
+
+				<section>
+          <h3>Other map algebra possibilities</h3>
+					<ul>
+		        <li>Complex mathematical combinations are possible
+							<ul><li>e.g. Ln['catchmentAreaMap' / tan('slopeMap')]</li>
+								<li>Must be careful not to divide by zero!</li>
+							</ul>
+						</li>
+
+		      </ul>
+          <br/><img width="900px" height="285px" data-src="img/Pt2/image15.png" alt="Complex raster map overlay">
+        </section>
+
+				<section>
+		      <h3>Considerations with raster map overlay</h3>
+		      <ul>
+		        <li>Grid cell resolution...how to cope with incompatible resolutions of input images?</li>
+		        <li>Scale of input data, i.e. dichotomous (Boolean), nominal (categorical),
+							ordinal, interval, ratio</li>
+		        <li>Rarely perform a single operation; most GIS analyses require several operations
+							performed in series with several intermediate steps</li>
+		      </ul>
+		    </section>
+
+
+
+
+
+
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
