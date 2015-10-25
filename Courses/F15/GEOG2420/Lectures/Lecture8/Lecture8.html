@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*2420 Lecture 8</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+    <!-- <link rel="stylesheet" href="../revealjs/css/print/pdf.css"> -->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section id="themes">
+					<p>
+						<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+						<small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<p><small>Copyright &copy; John Lindsay, 2015</small></p>
+          </p>
+				</section>
+
+				<!-- <section>
+					<div>Is there need for aerial photos anymore?</dvi>
+		      <img width="900px" height="295px" data-src="img/image21.png" alt="WorldView-3">
+		    </section>
+
+				<section>
+		      <h3>Advantages of fine-res sat data</h3>
+					<div><small>(compared to airborne imaging)</small></div>
+		      <ul>
+		        <li>Wide swaths compared to aerial photos mean less need to mosaic images</li>
+		        <li>Satellite is a much more stable platform</li>
+		        <li>Potential for short-term repeat surveys, i.e. within days</li>
+		        <li>Wider window for acquisition</li>
+						<li>Far cheaper ($2-$12 / km2)</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Disadvantages of fine-res sat data</h3>
+					<div><small>(compared to airborne imaging)</small></div>
+					<ul>
+						<li>Issues with atmospheric/weather conditions</li>
+						<li>Resolution is still not quite as good and may be degraded
+							outside the US (20 in. or 50.8 cm; this has been relaxed as of 2014)</li>
+						<li>Tasking issues (can get bumped by priority)</li>
+						<li>Restrictive licences</li>
+					</ul>
+				</section> -->
+
+				<section data-background="img/earth_image1.png" data-background-size="690px">
+          <div class=transparentTextBox>
+            <h2>GEOG*2420</h2>
+            <h3>The Earth From Space</h3>
+            <br/>
+            <h3><em>Filters and Photographic Film</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+					<h3>Readings</h3>
+					<p>Jensen Chapter 4, pg. 107-124</p>
+					<p>Don't worry about the formulas on page 116.</p>
+				</section>
+
+				<section>
+					<h3>Filters</h3>
+					<img width="633px" height="378px" data-src="img/image1.png" alt="Filters">
+				</section>
+
+				<section>
+					<img width="566px" height="600px" data-src="img/image2.png" alt="Filters">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+					<h3>Photographic Film</h3>
+					<p class="leftAlignedText">The density and size of silver halide crystals affect film speed and spatial
+						resolution. The larger the crystals, the higher the sensitivity but the coarser
+						the resolution (i.e. reduced sharpness).</p>
+					<img width="692px" height="277px" data-src="img/image3.png" alt="Film silver halide crystals">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Film Types</h3>
+		      <ul>
+		        <li>Black &amp; white orthochromatic—sensitive to blue and green light (to 0.6 μm)</li>
+		        <li>Black &amp; white panchromatic (to 0.7 μm)</li>
+		        <li>Black &amp; white infrared (to 0.9 μm)</li>
+		        <li>Standard (normal) colour</li>
+						<li>Colour infrared (CIR)</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="900px" height="601px" data-src="img/image4.png" alt="Film types">
+					<br/><span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+					<h3>Film Types</h3>
+					<img width="630px" height="351px" data-src="img/image5.png" alt="Film types">
+				</section>
+
+				<section>
+					<h3>Sensitivity of Selected Black &amp; White Films and Printing Paper</h3>
+					<img width="672px" height="399px" data-src="img/image6.png" alt="Sensitivity of film types">
+					<br/><span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section class=transparentTextBox>
+					<img width="882px" height="567px" data-src="img/image7.png" alt="Sensitivity of film types">
+				</section>
+
+				<section>
+					<h3><small>Spectral Sensitivity of Normal Colour and Colour-Infrared Film</small></h3>
+					<img width="478px" height="600px" data-src="img/image8.png" alt="Sensitivity of film types">
+					<br/><span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+					<img width="900px" height="470px" data-src="img/image9.png" alt="CIR film">
+					<br/><span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+					<img width="900px" height="334px" data-src="img/image10.png" alt="CIR film">
+					<br/><span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Advantages of pan and normal colour film</h3>
+		      <ul>
+		        <li>More natural to the human eye than infrared</li>
+		        <li>More detail is apparent in areas of shadow</li>
+		        <li>Better spatial resolution</li>
+		        <li>Better penetration of water bodies</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Advantages of B&amp;W Infrared and CIR</h3>
+		      <ul>
+		        <li>Better penetration of haze</li>
+		        <li>Emphasizes water and moist areas (good for mapping water bodies)</li>
+		        <li>Good differentiation between hardwoods and conifers</li>
+		        <li>Sick, dying, and stressed vegetation is more easily detected, especially on CIR</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3><small>Example of spectral signatures for foliage across the visible and near IR</small></h3>
+					<img width="500px" height="359px" data-src="img/image11.png" alt="spectral signatures for foliage">
+					<br/><span><verySmallText>(source: Unknown)</verySmallText></span>
+				</section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+
+		<!-- Template Image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
