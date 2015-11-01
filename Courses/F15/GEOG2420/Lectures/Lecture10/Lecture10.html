@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*2420 Lecture 10</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+    <!-- <link rel="stylesheet" href="../revealjs/css/print/pdf.css"> -->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section id="themes">
+					<p>
+						<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+						<small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<p><small>Copyright &copy; John Lindsay, 2015</small></p>
+          </p>
+				</section>
+
+				<section data-background="img/earth_image1.png" data-background-size="690px">
+          <div class=transparentTextBox>
+            <h2>GEOG*2420</h2>
+            <h3>The Earth From Space</h3>
+            <br/>
+            <h3><em>Photogrammetry Part 1</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+					<h3>Readings</h3>
+					<p>Jensen Chapter 6</p>
+				</section>
+
+				<section>
+					<h3>Photogrammetry</h3>
+					<ul>
+						<li><highlightedText>Photogrammetry</highlightedText> is the art and science of making accurate
+							measurements by means of aerial photography.</li>
+						<br/><li>Focused on gaining quantitative information from images</li>
+						<br/><li>Analog vs. digital photogrammetry</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Photogrammetric measurements</h3>
+					<ul>
+						<li>From a single vertical image:
+							<ul>
+								<li>Photo scale</li>
+								<li>Object height, length, area, perimeter</li>
+								<li>Object grayscale tone or colour</li>
+							</ul>
+						</li>
+						<br/><li>From multiple overlapping images:
+							<ul>
+								<li>Precise planimetric (x, y) feature location</li>
+								<li>Precise location height (z)</li>
+								<li>Digital elevation models (DEMs)</li>
+								<li>Bathymetric models</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+		      <img width="561px" height="650px" data-src="img/image1.png" alt="Single image geometry">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+		    </section>
+
+				<section>
+					<h3>Images are not maps</h3>
+		      <img width="647px" height="290px" data-src="img/image2.png" alt="Image projections">
+					<span><verySmallText>(Modified From: Paine and Kiser, 2012)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Photo centers</h3>
+		      <ul>
+		        <li>Principal Point
+							<ul><li>Lens distortion is radial from PP</li></ul>
+						</li>
+		        <br/><li>Nadir
+							<ul><li>Topographic displacement is radial from nadir</li></ul>
+						</li>
+		        <br/><li>Isocenter
+							<ul><li>Tilt displacement radiates from the isocenter</li></ul>
+						</li>
+						<br/><li>On a vertical photo, all three are coincident!</li>
+		      </ul>
+				</section>
+
+				<section>
+					<img width="608px" height="395px" data-src="img/image3.png" alt="Image tilt and photo centers">
+		    </section>
+
+				<section>
+		      <h3>Distortion and Displacements</h3>
+		      <ul>
+		        <li><highlightedText>Distortion</highlightedText> is a shift in object positions in
+							the image that <highlightedText>alters the perspective</highlightedText> of the
+							image (i.e. the central projection)</li>
+		        <br/><li><highlightedText>Displacement</highlightedText> is a shift in object positions
+							that <highlightedText>does not affect the perspective</highlightedText>.</li>
+		        <br/><li>Main distortions and displacements:
+							<ul><li>Lens distortion, Tilt displacement, and Topographic (relief) displacement</li></ul>
+						</li>
+		      </ul>
+				</section>
+
+				<section>
+		      <h3>Lens distortion</h3>
+		      <ul>
+		        <li>Caused by imperfections in the geometry of the lens.</li>
+		        <br/><li>Causes objects in image to appear closer or farther from the PP
+							than they actually are.</li>
+		        <br/><li>Solved by calibration of the lens</li>
+		        <br/><li>Only needed for most precise mapping as expensive cameras come
+							with near-perfect lenses (expensive!)</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Tilt displacement</h3>
+					<img width="636px" height="274px" data-src="img/image4.png" alt="Tilt displacements">
+					<span><verySmallText>(source: Jensen, 2006)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Tilt displacement</h3>
+					<img width="581px" height="429px" data-src="img/image5.png" alt="Tilt displacements">
+					<span><verySmallText>(Modified From: Paine and Kiser, 2012)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Topographic displacement</h3>
+		      <ul>
+		        <li>Most serious displacement, especially in areas of high relief.</li>
+		        <br/><li>Corrected by <highlightedText>orthorectification</highlightedText>.</li>
+		        <br/><li>Can be useful for measuring heights and stereoscopic viewing.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Topographic displacement</h3>
+					<img width="488px" height="452px" data-src="img/image6.png" alt="Topographic displacements">
+					<span><verySmallText>(From: Lillesand et al., 2012; modified by Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Topographic displacement</h3>
+					<img width="500px" height="259px" data-src="img/image7.png" alt="Topographic displacements">
+					<span><verySmallText>(From: Lillesand et al., 2012; modified by Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Image scale</h3>
+		      <ul>
+		        <li>The scale of an aerial photograph expresses the relationship between distance
+							on the image and actual ground distance.</li>
+		        <br/><li>The larger the scale of a photograph, the more detail can be resolved;
+							however, more images will be needed to cover a given ground area.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Image scale</h3>
+		      <ul>
+		        <li>Scale can be expressed by:
+							<ul><li>Scale= Image Distance / Ground Distance</li></ul>
+						</li>
+		        <br/><li>verbal expression</li>
+						<br/><li>bar or graphic scale</li>
+						<br/><li>representative fraction (RF)</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Image scale</h3>
+		      <table>
+		        <tr><td>Small scale</td><td>1:24,000</td></tr>
+						<tr><td>Medium scale</td><td>1:10,000 to 1:24,000</td></tr>
+						<tr><td>Large scale</td><td>1:1000 to 1:10,000</td></tr>
+						<tr><td>Very large scale</td><td>1:1000 and larger</td></tr>
+		      </table>
+		    </section>
+
+				<section>
+		      <h3>Photo-scale Reciprocal (PSR)</h3>
+		      <ul>
+		        <li>The inverse of the RF</li>
+						<br/><li>PSR is unitless</li>
+		        <br/><li>Example: if RF is 1:24,000 then PSR = 24,000</li>
+						<br/><li>That is, the ground distance is 24,000 &times; the image distance</li>
+		      </ul>
+		    </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+
+		<!-- Template Image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
