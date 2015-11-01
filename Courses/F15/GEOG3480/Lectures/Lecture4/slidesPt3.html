@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 4 Pt 3</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Basic Raster and Vector <br/>Data Analysis Part 3</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <ul>
+            <li>In the georelational data model used for vectors, each feature is assigned a unique key or identifer.</li>
+            <li>With raster data, points, lines, and polygons are stored as one or more pixels but
+              there is nothing that explicitly identifies a cell as belonging to a certain feature</li>
+            <li>What can you do when you need to perform operations on features?</li>
+          </ul>
+          <img width="225px" height="242px" data-src="img/Pt3/image5.png" alt="Clumping">
+        </section>
+
+        <section>
+          <h3>Clumping (Grouping)</h3>
+          <ul>
+            <li>Each <highlightedText>contiguous group</highlightedText> of cells with the same value in the input image will be assigned
+              the same <highlightedText>unique identifier</highlightedText> in the output image</li>
+            <br/><li>Called <highlightedText>Region Group</highlightedText> in ArcGIS, <highlightedText>r.clump</highlightedText>
+              in GRASS, <highlightedText>Group</highlightedText> in Idrisi, and <highlightedText>Clump (Group)</highlightedText>
+              in Whitebox GAT.</li>
+            <br/><li>Only performed on Boolean or categorical raster images
+              <ul><li>Why not on continuous data images?</li></ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Clumping (Grouping)</h3>
+          <img width="900px" height="462px" data-src="img/Pt3/image1.png" alt="Clumping">
+          <div class="leftAlignedText"><small>Identifiers are usually assigned in the order they are
+            encountered during the scan from the upper left-hand corner</small></div>
+        </section>
+
+        <section>
+          <img width="742px" height="600px" data-src="img/Pt3/image2.png" alt="Clumping">
+        </section>
+
+        <section>
+          <div><small>Always display clumped images using a random (qualitative)
+            palette</small></div>
+          <img width="301px" height="450px" data-src="img/Pt3/image3.png" alt="Clumping palettes">
+          <img width="680px" height="125px" data-src="img/Pt3/image4.png" alt="Clumping palettes">
+        </section>
+
+        <section>
+          <div>Clumping as a means of noise removal</div>
+          <img width="900px" height="503px" data-src="img/Pt3/image6.png" alt="Clumping based noise removal">
+        </section>
+
+        <section>
+          <div>Removing background features</div>
+          <img width="783px" height="600px" data-src="img/Pt3/image7.png" alt="Clumping and background features">
+        </section>
+
+        <section>
+          <div>Including/excluding diagonal connectivity</div>
+          <img width="900px" height="496px" data-src="img/Pt3/image8.png" alt="Clumping with diagonal connectivity">
+        </section>
+
+        <section>
+          <div>Including/excluding diagonal connectivity</div>
+          <img width="900px" height="598px" data-src="img/Pt3/image9.png" alt="Clumping with diagonal connectivity">
+        </section>
+
+        <section>
+          <img width="751px" height="600px" data-src="img/Pt3/image10.png" alt="Clumping with diagonal connectivity">
+        </section>
+
+        <section>
+          <img width="873px" height="650px" data-src="img/Pt3/image11.png" alt="Clumping with diagonal connectivity">
+        </section>
+
+        <section>
+          <h3>Spatial Filtering</h3>
+          <ul>
+            <li>A very widely used analysis technique in raster geospatial analysis; perhaps
+              the most common raster <highlightedText>neighbourhood operation</highlightedText></li>
+            <li>Based on <highlightedText>convolution</highlightedText> techniques of image processing</li>
+            <li>Involves visiting each grid cell in an image and examining the neighbouring
+              cells within a <highlightedText>kernel</highlightedText>, also called a
+              <highlightedText>window</highlightedText> or <highlightedText>filter</highlightedText></li>
+            <li>Works on Boolean, categorical, and continuous images</li>
+          </ul>
+        </section>
+
+        <section>
+          <img width="900px" height="609px" data-src="img/Pt3/image12.png" alt="Spatial filtering">
+        </section>
+
+        <section>
+          <img width="652px" height="650px" data-src="img/Pt3/image13.png" alt="Spatial filtering ops">
+        </section>
+
+        <section>
+          <img width="866px" height="650px" data-src="img/Pt3/image14.png" alt="Spatial filtering examples">
+        </section>
+
+        <section>
+          <h3>Spatial Filtering</h3>
+          <ul>
+            <li>Filters are used for all kinds of applications</li>
+            <br/><li>Some filters are used to smooth surfaces</li>
+            <br/><li>Some are used to emphasize the high-frequency noise</li>
+            <br/><li>Others are used to find edges in an image</li>
+          </ul>
+        </section>
+
+        <section>
+          <img width="623px" height="650px" data-src="img/Pt3/image15.png" alt="Spatial filtering examples">
+        </section>
+
+        <section>
+          <img width="900px" height="568px" data-src="img/Pt3/image16.png" alt="Modal filters">
+        </section>
+
+        <section>
+          <h3>Varrying kernel size</h3>
+          <img width="900px" height="353px" data-src="img/Pt3/image17.png" alt="Filter size">
+        </section>
+
+        <section>
+          <h3>Varrying kernel size</h3>
+          <ul>
+            <li>The most common kernel size is 3 cell &times; 3 cell</li>
+            <br/><li>Any other kernel size is possible, though it should be an odd number so that
+              there is a centre cell to the kernel</li>
+            <br/><li>The number of calculations that are needed to perform a filter increase
+              exponentially with increased kernel size</li>
+            <br/><li>Repeating a filter several times is equivalent to using a larger
+              filter window</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Varrying kernel shapes</h3>
+          <img width="900px" height="516px" data-src="img/Pt3/image18.png" alt="Filter shape">
+        </section>
+
+        <section>
+          <h3>Varrying kernel shapes</h3>
+          <ul>
+            <li>Other kernel shapes are possible
+                <ul>
+                  <li>e.g. rectangles, ovals, etc.</li>
+                  <li>The shape must be approximated by a grid</li>
+                </ul>
+            </li>
+            <br/><li>These are usually used to give a directional preference to the
+              filter known as <highlightedText>anisotropy</highlightedText></li>
+            <br/><li>Isotropy = homogeneity in all directions</li>
+            <br/><li>Anisotropy is the opposite, i.e. pronounced directionality</li>
+          </ul>
+        </section>
+
+        <section>
+          <img width="813px" height="600px" data-src="img/Pt3/image19.png" alt="Filter shape">
+        </section>
+
+        <section>
+          <div>Minimum and maximum filters on Boolean images</div>
+          <img width="791px" height="570px" data-src="img/Pt3/image20.png" alt="MIN and MAX filters">
+          <div><small>Maximum filter on a Boolean is referred to as <highlightedText>Dilation</highlightedText></small></div>
+        </section>
+
+        <section>
+          <div>Minimum and maximum filters on Boolean images</div>
+          <img width="791px" height="570px" data-src="img/Pt3/image21.png" alt="MIN and MAX filters">
+          <div><small>Minimum filter on a Boolean is referred to as <highlightedText>Erosion</highlightedText></small></div>
+        </section>
+
+        <section>
+          <div>Spatial filtering in ArcGIS</div>
+          <img width="900px" height="528px" data-src="img/Pt3/image22.png" alt="Filtering in ArcGIS">
+        </section>
+
+        <section>
+          <div>Spatial filtering in Whitebox GAT</div>
+          <img width="900px" height="525px" data-src="img/Pt3/image23.png" alt="Filtering in Whitebox GAT">
+        </section>
+
+        <section>
+          <div>Spatial filtering in IDRISI</div>
+          <img width="900px" height="478px" data-src="img/Pt3/image24.png" alt="Filtering in IDRISI">
+        </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
