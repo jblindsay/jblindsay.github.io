@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*2420 Lecture 11</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+    <!-- <link rel="stylesheet" href="../revealjs/css/print/pdf.css"> -->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section id="themes">
+					<p>
+						<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+						<small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<p><small>Copyright &copy; John Lindsay, 2015</small></p>
+          </p>
+				</section>
+
+				<section data-background="img/earth_image1.png" data-background-size="690px">
+          <div class=transparentTextBox>
+            <h2>GEOG*2420</h2>
+            <h3>The Earth From Space</h3>
+            <br/>
+            <h3><em>Photogrammetry Part 2</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+		      <h3>Scale Calculation: Method 1</h3>
+		      <ul>
+		        <li>Measure the distance between two points on the image and divide by
+							the corresponding ground distance between the same two points.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Scale Calculation: Method 1</h3>
+					<img width="642px" height="393px" data-src="img/image1.png" alt="image scale">
+					<span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>A working example:</h3>
+		      <ul>
+		        <li>Measured a photo dist (PD) = 0.15 m</li>
+		        <li>Measured a ground dist (GD) = 5000 m</li>
+		        <li>Scale = PD / GD = 1 / PSR</li>
+		        <li>PSR = GD / PD = 5000 m / 0.15 m</li>
+						<li>PSR = 33,333</li>
+						<li>Scale (as a RF) = 1 : 33,333</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>A working example:</h3>
+		      <ul>
+		        <li>What if you don't have the original photo but do know the grid resolution (m / pixel)?</li>
+		        <br/><li>Ground dist = grid resolution &times; #pixels</li>
+						<br/><li>(m / <strikethrough>pixel</strikethrough>) &times; <strikethrough>pixel</strikethrough> = m</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Scale Calculation: Method 2</h3>
+		      <ul>
+		        <li>Divide the focal length (<em>f</em>) by the flying height of the aircraft above the terrain, <em>H</em>.</li>
+
+						<br/><li><em>H</em> is calculated by subtracting the ground elevation (<em>E</em>) from the altimeter reading (<em>A</em>),
+							which indicates flying height above sea level.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Scale Calculation: Method 2</h3>
+					<img width="643px" height="396px" data-src="img/image2.png" alt="image scale">
+					<span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Elevation and photo scale</h3>
+					<img width="378px" height="403px" data-src="img/image3.png" alt="image scale">
+					<span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Flying height and photo scale</h3>
+					<img width="405px" height="418px" data-src="img/image4.png" alt="image scale">
+					<span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Focal length and photo scale</h3>
+					<img width="413px" height="397px" data-src="img/image5.png" alt="image scale">
+					<span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Measuring heights</h3>
+					<img width="720px" height="341px" data-src="img/image6.png" alt="image scale">
+		    </section>
+
+				<section>
+		      <h3>Methods for measuring vertical heights</h3>
+		      <ul>
+		        <li>Single-photo methods</li>
+						<br/><li>Stereo-pair or parallax methods (two images required)</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Single-photo method 1: <br/>Sun-angle shadow method</h3>
+					<img width="880px" height="521px" data-src="img/image7.png" alt="measuring heights">
+		    </section>
+
+				<section>
+		      <img width="900px" height="506px" data-src="img/image8-2.png" alt="measuring heights">
+		    </section>
+
+				<section>
+		      <h3>Single-photo method 2: <br/>Proportional Shadow Length method</h3>
+					<img width="803px" height="490px" data-src="img/image9.png" alt="measuring heights">
+		    </section>
+
+				<section>
+		      <h3>Single-photo method 2: <br/>Proportional Shadow Length method</h3>
+					<img width="310px" height="451px" data-src="img/image10.png" alt="measuring heights">
+					<span><verySmallText>(From: Jensen, 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Single-photo method 2: <br/>Proportional Shadow Length method</h3>
+		      <ul>
+		        <li>The shadow must fall on level ground</li>
+						<br/><li>The full shadow length must be visible including its beginning
+							(which is often obscured by the object itself!)</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Single-photo method 3: <br/>Relief-displacement method </h3>
+					<img width="624px" height="303px" data-src="img/image11.png" alt="measuring heights">
+					<span><verySmallText>(From: Jensen, 2007)</verySmallText></span>
+					<br><span><small><em>d</em> = relief displacement</small></span>
+					<br><span><small><em>r</em> = radial distance from top of object to the principal point</small></span>
+					<br><span><small><em>d</em> is related to <em>r</em>, flying height (<em>H</em>) and the height of the object (<em>h</em>).</small></span>
+		    </section>
+
+				<section>
+		      <h3>Single-photo method 3: <br/>Relief-displacement method </h3>
+					<img width="707px" height="480px" data-src="img/image12.png" alt="measuring heights">
+					<span><verySmallText>(From: Jensen, 2007)</verySmallText></span>
+		    </section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+
+		<!-- Template Image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
