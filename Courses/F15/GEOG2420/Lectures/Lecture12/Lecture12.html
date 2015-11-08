@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*2420 Lecture 12</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+    <!-- <link rel="stylesheet" href="../revealjs/css/print/pdf.css"> -->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+        <section id="themes">
+					<p>
+						<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+						<small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<p><small>Copyright &copy; John Lindsay, 2015</small></p>
+          </p>
+				</section>
+
+				<section data-background="img/earth_image1.png" data-background-size="690px">
+          <div class=transparentTextBox>
+            <h2>GEOG*2420</h2>
+            <h3>The Earth From Space</h3>
+            <br/>
+            <h3><em>Photogrammetry Part 3</em></h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+				<section>
+		      <h3>Methods based on parallax</h3>
+		      <ul>
+		        <li>The effect whereby the position or direction of an object appears to
+							differ when viewed from different positions.</li>
+		        <li>These are the most useful approaches to measuring heights from images.</li>
+		        <li>Requires high quality stereoscopic photo pairs (two overlapping images).</li>
+		        <li>Image tilt must be less than 3 degrees.</li>
+						<li>Images must be taken from the same height.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Parallax</h3>
+					<img width="778px" height="550px" data-src="img/image1.png" alt="parallax">
+					<span><verySmallText>(From: Booyabazooka CC License)</verySmallText></span>
+		    </section>
+
+				<!-- <section>
+		      <img width="900px" height="552px" data-src="img/image2.png" alt="parallax">
+		    </section> -->
+
+				<section>
+		      <h3>Parallax</h3>
+					<img width="270px" height="384px" data-src="img/image3.png" alt="parallax">
+					<span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <img width="634px" height="600px" data-src="img/image4.png" alt="parallax">
+		    </section>
+
+				<section>
+		      <h3>Steroscopic viewing methods</h3>
+					<img width="516px" height="483px" data-src="img/image5.png" alt="parallax">
+					<span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Lens Stereoscope with Parallax Bar</h3>
+					<img width="548px" height="404px" data-src="img/image6.png" alt="parallax">
+					<span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <img width="448px" height="494px" data-src="img/image7.png" alt="parallax">
+					<span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <img width="588px" height="410px" data-src="img/image8.png" alt="parallax">
+					<span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <img width="494px" height="332px" data-src="img/image9.png" alt="parallax">
+					<br/><span class=leftAlignedText><small>Notice that the average absolute
+						parallax (Distance between PP and CPP) is the image distance equivalent to
+						the air base.</small></span>
+		    </section>
+
+				<section>
+		      <h3>Parallax equation for level terrain</h3>
+					<div>\(h = \frac {H{dP}}{P + {dP}}\)</div>
+		      <br/><ul>
+		        <li><em>h</em> = height of the object being measured</li>
+		        <li><em>H</em> = flying hgt. above the object base</li>
+		        <li><em>P</em> = Average absolute parallax (avg. Distance between PP and CPP)</li>
+		        <li><em>dP</em> = difference in parallax between top and bottom of the object</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="494px" height="464px" data-src="img/image10.png" alt="parallax">
+					<br/><span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Parallax equation for mountainous terrain</h3>
+					<div>\(h = \frac {H{dP}}{P + \frac {P \Delta E}{H} {dP}}\)</div>
+		      <br/><ul>
+		        <li><em>&Delta;E</em> =  Elevation difference between the object
+							base and the average of the two PPs, + if higher and – if lower.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Measuring <em>P</em></h3>
+		      <img width="606px" height="329px" data-src="img/image11.png" alt="measuring P">
+					<br/><span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+					<h3>Measuring <em>dP</em></h3>
+		      <img width="630px" height="386px" data-src="img/image12.png" alt="measuring dP">
+					<br/><span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+					<h3>Measuring <em>dP</em></h3>
+		      <img width="534px" height="349px" data-src="img/image13.png" alt="measuring dP">
+					<br/><span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+					<img width="615px" height="414px" data-src="img/image14.png" alt="measuring dP">
+					<br/><span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+					<img width="564px" height="394px" data-src="img/image15.png" alt="measuring dP">
+					<br/><span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+					<img width="612px" height="360px" data-src="img/image16.png" alt="measuring dP">
+		    </section>
+
+				<section>
+					<h3>Using a parallax bar to <br/>measure differential parallax</h3>
+					<img width="406px" height="244px" data-src="img/image17.png" alt="measuring dP">
+					<br/><span><verySmallText>(From: Mersey)</verySmallText></span>
+		    </section>
+
+				<section>
+					<h3>Extraction of Building Infrastructure Using<br/>
+						Soft-Copy Photogrammetric Techniques</h3>
+					<img width="494px" height="395px" data-src="img/image18.png" alt="measuring dP">
+					<br/><span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+					<img width="539px" height="379px" data-src="img/image19.png" alt="measuring dP">
+					<br/><span><verySmallText>(From: Jensen 2007)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Digital Elevation Models (DEMs)</h3>
+		      <ul>
+		        <li>You can calculate the parallax for any location on stereo-images. </li>
+		        <br/><li>It is commonly the case that this would be done along a regular grid
+							and these x, y, z points then used to create DEMs.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Digital Elevation Models (DEMs)</h3>
+					<img width="500px" height="600px" data-src="img/image20.png" alt="measuring dP">
+		    </section>
+
+				<section>
+		      <h3>Photogrammetry isn't just <br/>about measuring heights</h3>
+		      <ul>
+		        <li>It also includes measuring heights, angles, distances, and areas.</li>
+		        <br/><li>Why might you want to measure an area off imagery?</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>The challenges...</h3>
+		      <ul>
+		        <li>It's easy to measure the area of simple shapes but what about more
+							complex shapes?</li>
+		        <br/><li>Images are not maps and are affected by distortions and displacements.</li>
+						<br/><li>Raw images have non-uniform scale throughout.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<h3>Areas of simple shapes</h3>
+					<img width="666px" height="232px" data-src="img/image21.png" alt="Areas">
+		    </section>
+
+				<section>
+					<h3>But what about the area of this?</h3>
+					<img width="273px" height="328px" data-src="img/image22.png" alt="Areas of irregular shaped features">
+		    </section>
+
+				<section>
+		      <h3>Methods for measuring areas</h3>
+		      <ul>
+		        <li>Weight apportionment method
+							<ul>
+								<li>Calculates the percent coverage of a particular land cover compared to total</li>
+								<li>Need a very precise balance</li>
+							</ul>
+						</li>
+		        <br/><li>Dot count method
+							<ul>
+								<li>Transparent overlay with fine grid of dots</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Methods for measuring areas</h3>
+		      <ul>
+		        <li>Planimeter
+							<ul>
+								<li>Specially designed instrument to measure perimeters and areas</li>
+								<li>Must convert to ground units.</li>
+							</ul>
+						</li>
+						<br/><li>Digitizing tablets</li>
+						<br/><li>On-screen digitizing</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>On-screen digitizing</h3>
+		      <ul>
+		        <li>Either scan a hardcopy image or use digital imagery.</li>
+						<br/><li>Digitizing takes place in a geographic information system (GIS).</li>
+						<br/><li>Each digitized polygon becomes a record in a GIS attribute table.</li>
+						<br/><li>The attribute (e.g. Forest, farmland), perimeter, and area are easily queried from the table.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="900px" height="547px" data-src="img/image23.png" alt="on-screen digitizing">
+		    </section>
+
+				<section>
+		      <h3>On-screen digitizing</h3>
+		      <ul>
+		        <li>Best to geometrically rectify before you digitize!</li>
+						<br/><li>This is the process of creating an orthophoto to serve as the base
+							for digitizing.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Orthophotos/Orthoimages</h3>
+		      <ul>
+		        <li>Convert images with perspective projections (conical bundle of rays) to
+							an orthographic projection (parallel rays)</li>
+		      </ul>
+					<img width="647px" height="290px" data-src="img/image24.png" alt="orthophoto interpretation">
+		    </section>
+
+				<section>
+		      <h3>Orthophotos/Orthoimages</h3>
+		      <ul>
+		        <li>The effects of tilt and relief are removed.</li>
+						<br/><li>An orthophoto is a uniform-scale photograph. It is a
+							<highlightedText>photographic map</highlightedText>.</li>
+						<br/><li>Since an orthophoto has a uniform scale, it is possible to measure
+							directly on it like other maps.</li>
+		      </ul>
+		    </section>
+
+				<section>
+					<img width="516px" height="360px" data-src="img/image25.png" alt="orthophoto">
+					<br/><span><verySmallText>(From: USGS)</verySmallText></span>
+		    </section>
+
+				<section>
+		      <h3>Orthophotos/Orthoimages</h3>
+		      <ul>
+		        <li>The accuracy of a digital orthoimage is a function of:
+							<ul>
+								<li>The quality of the raw imagery</li>
+								<li>The ground control points (GCPs)</li>
+								<li>The quality and character of the DEM</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+
+		<!-- Template Image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>

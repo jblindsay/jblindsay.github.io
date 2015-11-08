@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GEOG*3480 Lecture 5</title>
+		<link rel="stylesheet" href="../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../revealjs/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../revealjs/css/lindsay.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+ 		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+ 		</script>
+
+		<script
+			src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+			type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+        <section id="themes">
+					<p><small>Press 'o' to toggle the slide overview and 'f' for full-screen mode.</small></p>
+					<p>
+            <small>Choose the theme in which to view this presentation:<br/><br/>
+						<!-- Hacks to swap themes after the page has loaded. Not flexible. -->
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/black.css'); return false;">Black</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/white.css'); return false;">White</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/league.css'); return false;">League</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/sky.css'); return false;">Sky</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/beige.css'); return false;">Beige</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/simple.css'); return false;">Simple</a> <br>
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/serif.css'); return false;">Serif</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/blood.css'); return false;">Blood</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/night.css'); return false;">Night</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/moon.css'); return false;">Moon</a> -
+						<a href="#" onclick="document.getElementById('theme').setAttribute('href','../revealjs/css/theme/solarized.css'); return false;">Solarized</a>
+          </small>
+					<br/><br/><br/><br/>
+					<small>Copyright &copy; John Lindsay, 2015</small>
+          </p>
+				</section>
+
+        <section data-background="img/title_image.png" data-background-size="633px">
+          <div class=transparentTextBox>
+						<h2>GEOG*3480</h2>
+            <h3>GIS and Spatial Analysis</h3>
+            <br/>
+            <h3><em>Statistical Analysis of <br/>Spatial Data</em> Part 1</h3>
+            <br/>
+            <br/>
+            <span><small>John Lindsay</small></span><br/>
+            <span><small>Fall 2015</small></span>
+          </div>
+				</section>
+
+        <section>
+          <h3>Readings</h3>
+          <ul>
+            <li>Jensen and Jensen Chapter 8</li>
+          </ul>
+          <p></p>
+        </section>
+
+				<section>
+          <h3>Topics</h3>
+          <ul>
+						<li>Over the next two lectures, we'll discuss:
+							<ul>
+	            	<li>Descriptive Statistics</li>
+								<li>Descriptive Spatial Statistics</li>
+								<li>Spatial Autocorrelation</li>
+								<li>Point Pattern Analysis
+									<ul>
+										<li>Quadrat Analysis</li>
+										<li>Nearest-Neighbour Analysis</li>
+									</ul>
+								</li>
+								<li>Directional Analysis</li>
+							</ul>
+						</li>
+          </ul>
+        </section>
+
+				<section>
+		      <h3>Descriptive Statistics</h3>
+		      <ul>
+		        <li>Measures of <highlightedText>central tendency</highlightedText>
+							<ul>
+								<li>Mode, median, and mean (\(\overset{-}x\))</li>
+								<br/><li>\(\overset{-}x = \frac {\underset{i=1}{\overset{N}{\Sigma}} x} {N}\)</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Descriptive Statistics</h3>
+		      <ul>
+		        <li>Measures of <highlightedText>dispersion</highlightedText>
+							<ul>
+								<li>Variance (\(s^2\))</li>
+								<li>Standard deviation (\(s\))</li>
+
+								<br/><li>\(s^2 = \frac {\underset{i=1}{\overset{N}{\Sigma}} (x_i - \overset{-}x)^2} {N - 1}\)</li>
+								<br/><li>\(s = \sqrt \frac {\underset{i=1}{\overset{N}{\Sigma}} (x_i - \overset{-}x)^2} {N - 1}\)</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Descriptive Statistics</h3>
+		      <ul>
+		        <li>Skewness
+							<ul>
+								<li>Measure of the <highlightedText>asymmetry</highlightedText> of a distribution</li>
+							</ul>
+						</li>
+						<br/><li>Kurtosis
+							<ul>
+								<li>Measure of the <highlightedText>peakedness</highlightedText> of a distribution</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="504px" height="600px" data-src="img/image3.jpg" alt="Distributions">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <img width="900px" height="554px" data-src="img/image4.jpg" alt="Distributions">
+					<br/><span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Descriptive Spatial Statistics</h3>
+		      <ul>
+		        <li><highlightedText>Mean Centre</highlightedText>
+							<ul>
+								<li>Measure of central tendency that can be used to determine the
+									centre of a distribution plotted in geographic coordinates.</li>
+							</ul>
+						</li>
+						<br/><li><highlightedText>Standard Distance</highlightedText>
+							<ul>
+								<li>Measure of dispersion of geographically distributed data.</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <img width="900px" height="597px" data-src="img/image5.jpg" alt="Spatial distributions">
+					<br/><span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Tobler’s first law</h3>
+		      <ul>
+		        <li>The first law of geography: “everything is related to everything else,
+							but near things are more related than distant things.” (Tobler, 1970)</li>
+		        <br/><li>Synonymous with the concept of <highlightedText>spatial
+							dependence</highlightedText> in geostatistics</li>
+		        <br/><li>This simple statement forms the basis for a great deal of
+							geographical analysis and is concept underlying the idea of
+							<highlightedText>spatial autocorrelation</highlightedText>.</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Spatial autocorrelation</h3>
+		      <ul>
+		        <li>Correlation of a variable with itself through space.
+							<ul>
+								<li>Correlation versus spatial autocorrelation</li>
+							</ul>
+						</li>
+		        <br/><li>Actually bad news and good news
+							<ul>
+								<li>Bad for statistical reasons</li>
+								<li>Good because, “if geography is worth studying at all, it must be
+									because phenomena do not vary randomly through space”
+									(O'Sullivan and Unwin, 2003, pg. 28)</li>
+								<li>Essential for spatial modelling through <highlightedText>Interpolation<highlightedText></li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Spatial autocorrelation</h3>
+		      <ul>
+		        <li>Three possibilities:
+							<ul>
+								<li><highlightedText>Clustered</highlightedText> (positive autocorrelation):
+									nearby locations are likely to be similar to one another.</li>
+								<br/><li><highlightedText>Random</highlightedText> (autocorrelation near zero):
+									no spatial effect is discernible, and observations
+									seem to vary randomly through space</li>
+								<br/><li><highlightedText>Dispersed</highlightedText> (negative autocorrelation):
+									observations from nearby observations are
+									likely to be different from one another.</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Spatial autocorrelation</h3>
+		    	<img width="900px" height="348px" data-src="img/image1.png" alt="Spatial Autocorrelation">
+		    </section>
+
+				<section>
+		      <h3>Moran's \(I\)</h3>
+		      <ul>
+		        <li>Moran's \(I\) measures the interdependence in spatial distributions.
+							<ul>
+								<li>Used with interval/ratio level data</li>
+								<li>Used to detect spatial trends</li>
+								<li>-1 &le; \(I\) &le; 1</li>
+								<li>\(I\) = -1 = dispersed</li>
+								<li>\(I\) = 0 = random</li>
+								<li>\(I\) = +1 = clustered</li>
+							</ul>
+						</li>
+		      </ul>
+		    </section>
+
+				<section>
+		      <h3>Moran's \(I\)</h3>
+					<br/><div>\(I = \frac {N}{\underset{i=1}{\overset{N} \Sigma} \underset{j=1}{\overset{N} \Sigma} w_{ij}} \frac {\underset{i=1}{\overset{N} \Sigma} \underset{j=1}{\overset{N} \Sigma} w_{ij} (x_i - \overset{-} x) (x_j - \overset{-} x)}{\underset{i=1}{\overset{N} \Sigma} {(x_i - \overset{-} x)^2}}\)</div>
+					<br/><div class=leftAlignedText>Where \(\overset{-} x\) is the mean of variable \(x\); \( x_i \) is the
+						value at \(i\); \(j\) is a neighbour of \(i\); \( w_{ij} \) is the weight between neighbours \(i\) and \(j\).</div>
+		    </section>
+
+				<section>
+		      <img width="505px" height="600px" data-src="img/image6.jpg" alt="Spatial Autocorrelation">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <img width="528px" height="600px" data-src="img/image2.jpg" alt="Spatial Autocorrelation">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Point Pattern Analysis</h3>
+					<ul>
+						<li>Mapped point data often exhibit distinct patterning.</li>
+						<br/><li>Patterns result from the spatial component of a control on the phenomenon.</li>
+						<br/><li>Understanding the pattern can help with understanding the controlling
+							forces on the phenomenon.</li>
+					</ul>
+				</section>
+
+				<section>
+		      <h3>Point Pattern Analysis</h3>
+					<ul>
+						<li>The patterns that we're interested in with <highlightedText>Point Pattern
+							Analysis</highlightedText> (PPA) result from the locations of individual points and not on their
+							attributes, for which spatial autocorrelation is more relevant.</li>
+						<br/><li><highlightedText>Quadrat Analysis</highlightedText> and <highlightedText>
+						Nearest-Neighbour Analysis</highlightedText> the the two most common methods for PPA</li>
+					</ul>
+				</section>
+
+				<section>
+		      <h3>Quadrat Analysis</h3>
+					<ul>
+						<li>A <highlightedText>quadrat</highlightedText> is a user-defined geographic area,
+							usually a square or rectangle, used to measure the distribution of a spatial
+							phenomenon.</li>
+						<br/><li><highlightedText>Quadrat analysis</highlightedText> can be used to test
+						whether the phenomenon is uniformly distributed.</li>
+						<br/><li>The <highlightedText>Chi Square</highlightedText> test is used with quadrats.</li>
+					</ul>
+				</section>
+
+				<section>
+		      <img width="656px" height="600px" data-src="img/image7.jpg" alt="Quadrat analysis">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <img width="297px" height="600px" data-src="img/image8.jpg" alt="Quadrat analysis">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Quadrat Analysis</h3>
+					<ul>
+						<li>The value of Chi Square is compared with a table of critical values to determine
+						whether the points are statistically significantly different from a uniformly distribution.</li>
+						<br/><li>You should be thinking about the MAUP about now!</li>
+						<br/><li>The size, shape, and number of quadrats will impact the results
+						of the quadrat analysis.</li>
+					</ul>
+				</section>
+
+      </div> <!-- slides -->
+		</div> <!-- reveal -->
+
+		<script src="../revealjs/lib/js/head.min.js"></script>
+		<script src="../revealjs/js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c / t',
+        transition: 'convex', // default/none/fade/slide/convex/concave/zoom
+        mouseWheel: true,
+        overview: true,
+
+        // parallaxBackgroundImage: "img/earth_image1.png",
+        //
+        // // Parallax background size
+        // parallaxBackgroundSize: '"1100px 900px"', // CSS syntax, e.g. "2100px 900px"
+        // parallaxBackgroundHorizontal: 200,
+        // parallaxBackgroundVertical: 50,
+
+        // Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../revealjs/plugin/notes/notes.js' }
+				]
+			});
+
+		</script>
+
+    <!-- Template Slide
+    <section>
+      <h3>Title</h3>
+      <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+        <li>Item3</li>
+        <li>Item4</li>
+      </ul>
+    </section>
+    -->
+		<!-- Template image
+		<img width="px" height="px" data-src="img/image.png" alt="Title">
+		-->
+
+	</body>
+</html>
