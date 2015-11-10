@@ -58,7 +58,7 @@
 						<h2>GEOG*3480</h2>
             <h3>GIS and Spatial Analysis</h3>
             <br/>
-            <h3><em>Statistical Analysis of <br/>Spatial Data</em> Part 1</h3>
+            <h3><em>Statistical Analysis of <br/>Spatial Data</em></h3>
             <br/>
             <br/>
             <span><small>John Lindsay</small></span><br/>
@@ -174,11 +174,11 @@
 		      <ul>
 		        <li>The first law of geography: “everything is related to everything else,
 							but near things are more related than distant things.” (Tobler, 1970)</li>
-		        <br/><li>Synonymous with the concept of <highlightedText>spatial
-							dependence</highlightedText> in geostatistics</li>
-		        <br/><li>This simple statement forms the basis for a great deal of
+						<br/><li>This simple statement forms the basis for a great deal of
 							geographical analysis and is concept underlying the idea of
 							<highlightedText>spatial autocorrelation</highlightedText>.</li>
+						<br/><li>Synonymous with the concept of <highlightedText>spatial
+							dependence</highlightedText> in geostatistics</li>
 		      </ul>
 		    </section>
 
@@ -309,6 +309,139 @@
 						<br/><li>You should be thinking about the MAUP about now!</li>
 						<br/><li>The size, shape, and number of quadrats will impact the results
 						of the quadrat analysis.</li>
+					</ul>
+				</section>
+
+				<section>
+		      <h3>Nearest-neighbour Analysis</h3>
+					<ul>
+						<li>NNA is used in GIS to determine whether point sets are random or non-random.</li>
+						<li>If a point set is found to be non-random then we are left with the task
+						of determining what controls the distribution.</li>
+						<li>For each point in the set, find the distance to the closest neighbour.</li>
+					</ul>
+				</section>
+
+				<section>
+		      <img width="500px" height="600px" data-src="img/image9.jpg" alt="Nearest-neighbour analysis">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <img width="473px" height="600px" data-src="img/image13.jpg" alt="Nearest-neighbour analysis">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Nearest-neighbour Analysis</h3>
+					<div>\(d_e = \frac 1 {2 \sqrt{N/A}} = \frac 1 {2 \sqrt{p}} \)</div>
+					<br/><ul>
+						<li>where \(d_e\) is the expected density (assuming random distribution);
+						\(N\) is the number of points; \(A\) is the study area; \(p\) is the point density.</li>
+					</ul>
+
+					<br/><div>\(NNR = \frac {Dist_{Obs}} {Dist_{Ran}} = \frac {d_a} {d_e} \)</div>
+					<br/><ul>
+						<li>where \(NNR\) is the <highlightedText>nearest-neighbour ratio</highlightedText>;
+						\(Dist_{Obs}\) is the mean NN distance; \(Dist_{Ran}\) is the expected distance for a random distribution.</li>
+					</ul>
+				</section>
+
+				<section>
+		      <img width="595px" height="600px" data-src="img/image10.jpg" alt="Nearest-neighbour analysis">
+					<span><verySmallText>(From: Jensen &amp; Jensen 2013)</verySmallText></span>
+				</section>
+
+				<section>
+		      <h3>Nearest-neighbour Analysis</h3>
+					<ul>
+						<li>Warning: Our estimates of the point density is dependent on our
+							definition of the study area.</li>
+						<li>If we change the extent of the study area, we change the results.</li>
+					</ul>
+					<div>
+						<table>
+							<tr><th>Not so clustered</th><th>Very clustered</th></tr>
+							<tr>
+								<td><img width="400px" height="228px" data-src="img/image11.png" alt="Nearest-neighbour analysis"></td>
+								<td><img width="400px" height="228px" data-src="img/image12.png" alt="Nearest-neighbour analysis"></td>
+							</tr>
+						</table>
+					</div>
+				</section>
+
+				<section>
+		      <h3>Nearest-neighbour Analysis</h3>
+					<ul>
+						<li>NNA is also sensitive to the <highlightedText>non-uniformity of underlying space</highlightedText>.</li>
+						<li>NNA assumes that points are free to locate anywhere.</li>
+						<li>Consider the gap in stream channel heads below. It's the result of Lake Ontario.</li>
+					</ul>
+					<div><img width="400px" height="228px" data-src="img/image11.png" alt="Nearest-neighbour analysis"></div>
+				</section>
+
+				<section>
+		      <h3>Circular Data</h3>
+					<ul>
+						<li>Geographers distinguish between <highlightedText>directional</highlightedText>
+						(0&deg;-360&deg;) and <highlightedText>axial</highlightedText> (a.k.a. oriented; 0&deg;-180&deg;) data.
+						<ul>
+							<li>Wind is directional; a road is axial.</li>
+						</ul>
+					</li>
+					<br/><li>Directional and axial data can be plotted using <highlightedText>Rose
+						Diagrams</highlightedText>, which are like circular histograms.</li>
+					</ul>
+				</section>
+
+				<section>
+		      <h3>Rose Diagrams</h3>
+					<div>
+						<table>
+							<tr>
+								<td><img width="400px" height="392px" data-src="img/image14.jpg" alt="circular data"></td>
+								<td><img width="400px" height="385px" data-src="img/image15.png" alt="circular data"></td>
+							</tr>
+						</table>
+					</div>
+				</section>
+
+				<section>
+		      <h3>Circular Data</h3>
+					<div>\(\overset{-}\theta = tan^{-1}(\frac{\overset{N}{\underset{i=1}{\Sigma}}{sin \theta_i}} {\overset{N}{\underset{i=1}{\Sigma}}{cos \theta_i}}) \)</div>
+					<br/><ul>
+						<li>where \(\overset{-}\theta\) is the <highlightedText>mean direction</highlightedText>,
+							derived from the vector resultant.</li>
+					</ul>
+				</section>
+
+				<section>
+		      <h3>Circular Data</h3>
+					<div>\(\overset{-}R = \frac 1 N \sqrt{(\overset{N}{\underset{i=1}{\Sigma}}{cos \theta_i})^2 + ({\overset{N}{\underset{i=1}{\Sigma}}{sin \theta_i}})^2} \)</div>
+					<br/><ul>
+						<li>where \(\overset{-}R\) is the standardized length of the vector resultant,
+							called the <highlightedText>mean resultant length</highlightedText>, and is
+						a measure of dispersion.</li>
+
+							<li>0 &le; \(\overset{-}R\) &le; 1, where values near 1 indicate small angular dispersion
+							and vice versa.</highlightedText></li>
+					</ul>
+				</section>
+
+				<section>
+		      <h3>Circular Data</h3>
+					<ul>
+						<li>Axial (oriented) data cannot easily be treated as vectors
+							because there is nothing to distinguish one end of the line from the other.</li>
+					<br/><li>An angle of 179&deg; is very close to one of 1&deg;.</li>
+					<br/><li>To solve this double all the angles, calculate the statistics with the
+						doubled data, and then halve the angles to get the mean direction, mean resultant
+						length, etc.
+						<ul>
+							<li>45&deg; &times; 2 = 90&deg;</li>
+							<li>225&deg; &times; 2 = 450&deg; = 450&deg; - 360&deg; = 90&deg;</li>
+						</ul>
+					</li>
 					</ul>
 				</section>
 
