@@ -59,12 +59,23 @@
           </div>
 				</section>
 
+				<section>
+          <h2>Background readings</h2>
+          <ul>
+            <li>Your textbook doesn't discuss LCPA.</li>
+						<br/><li>For background materials, please see
+						ESRI's online help topic "Understanding cost distance analysis"
+						(http://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/understanding-cost-distance-analysis.htm)</li>
+          </ul>
+        </section>
+
         <section>
           <h2>Distance and Cost</h2>
           <ul>
             <li>We're not always interested in the straight-line distance between spatial objects</li>
             <br/><li>There are times (and types of spatial problems) that require the estimation of
-              cost-weighted distances, i.e. calculating the 'cost' of moving across the landscape</li>
+              cost-weighted distances, i.e. calculating <highlightedText>the 'cost' of moving across
+								the landscape</highlightedText></li>
           </ul>
         </section>
 
@@ -72,7 +83,7 @@
           <h2>Distance and Cost</h2>
           <ul>
             <li>Cost = money, time, energy, fuel, suffering, resistance or other parameters</li>
-            <br/><li>Very often we want to minimize costs</li>
+            <br/><li>Very often we want to <highlightedText>minimize costs</highlightedText></li>
             <br/><li>Euclidean distance has the limitation of assuming that the cost of crossing distances
               in any cell on the way to a source cell is the same as the cost of crossing distances in
               any other cell</li>
@@ -86,18 +97,26 @@
               with a non-uniform spatial distribution of resistance to travel</li>
             <li>Many GIS offer tools for performing LCPA because it is so widely used...it's a
               common spatial problem</li>
-            <li>Measures the effective distance rather than the Euclidean distance</li>
+            <li>Measures the <highlightedText>effective distance</highlightedText> rather than the Euclidean distance</li>
             <li>Type of spatial analysis based on the raster model</li>
           </ul>
+        </section>
+
+				<section>
+          <img width="900px" height="502px" data-src="img/ArcGIS_LCP.png" alt="ArcGIS LCPA">
+        </section>
+
+				<section>
+          <img width="900px" height="546px" data-src="img/QGIS_lcp.png" alt="ArcGIS LCPA">
         </section>
 
         <section>
           <h2>LCPA Steps</h2>
           <ol>
-            <li>Calculate the cost of traversing through each grid cell...the Cost Surface</li>
-            <li>Specify a Source Cell(s) and/or Target Cell(s)</li>
-            <li>Perform Cost Accumulation analysis</li>
-            <li>Identify the optimum Least-Cost Pathway(s)</li>
+            <li>Calculate the cost of traversing through each grid cell...the <highlightedText>Cost Surface</highlightedText></li>
+            <li>Specify a <highlightedText>Source Cell(s)</highlightedText> and/or <highlightedText>Target Cell(s)</highlightedText></li>
+            <li>Perform <highlightedText>Cost Accumulation</highlightedText> analysis</li>
+            <li>Identify the optimum <highlightedText>Least-Cost Pathway(s)</highlightedText></li>
           </ol>
         </section>
 
@@ -105,9 +124,9 @@
           <h2>The Cost Surface</h2>
           <ul>
             <li>We can create a cost surface to account for the factors affecting cost</li>
-            <li>Each grid cell contains a number that indicates the cost of going through a
+            <br/><li>Each grid cell contains a number that indicates the cost of going through a
               unit of distance in that cell</li>
-            <li>If it is three times harder to go through the forest as it is to go through
+            <br/><li>If it is three times harder to go through the forest as it is to go through
               the pasture, we might assign values of 1 to the pasture cells and 3 to the
               forest cells.</li>
           </ul>
@@ -142,8 +161,8 @@
         <section>
           <h2>Cost Accumulation</h2>
           <ul>
-            <li>Cost accumulation calculates the <strong>SPREAD</strong> distance, with a friction (cost)
-              determined by the cost surface.</li>
+            <li>Cost accumulation calculates the <highlightedText><strong>SPREAD</strong></highlightedText>
+							distance, with a <highlightedText>friction</highlightedText> (cost) determined by the cost surface.</li>
             <li>The accumulation procedure works outward from specified source cells.</li>
             <li>Each cell in the grid is then assigned the minimum cost-distance connecting
               it to the ‘nearest’ source cell.</li>
@@ -194,10 +213,10 @@
           <h3>Things to consider that affect the cost</h3>
           <ul>
             <li>The raster grid resolution is 90 m</li>
-            <li>[note all costs are made up for the example]</li>
-            <li>Privately owned land is prohibitively expensive to acquire
+            <br/><li>[note all costs are made up for the example]</li>
+            <br/><li>Privately owned land is prohibitively expensive to acquire
               (set cost to $100,000 / 90 m, i.e. an effective barrier)</li>
-            <li>Bridges over lakes are not feasible (within our budget)</li>
+            <br/><li>Bridges over lakes are not feasible (within our budget)</li>
           </ul>
         </section>
 
