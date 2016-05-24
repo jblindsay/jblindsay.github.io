@@ -12,7 +12,7 @@ In order to run Whitebox you must also ensure that you have installed and enable
 
 A Brief Overview
 ----------------
-![Whitebox Breakdown](/Images/Image1.png "Whitebox Breakdown")
+![Whitebox Breakdown](./Images/Image1.png "Whitebox Breakdown")
 
 The Whitebox display is divided up into 7 main sections, the Menu Bar, the Toolbar, the Sidebar, the Search Bar, the Progress Bar, the Cartographic Layout Toolbar, and the Map Display Area.
 
@@ -51,7 +51,7 @@ It is possible to have multiple maps open at the same time, however only one map
 **Navigating the Map Display Area**<br>
 In the toolbar you will notice that there are 2 sets of tools which will be of use in navigating through your map display, zoom tools and the pan tool. With the Zoom-In or Zoom-Out tool selected zooming can be achieved either by clicking on the map, by using the scroll wheel on your mouse, or by clicking and holding down the right or left mouse button and dragging the cursor across the screen, which will create a black window which will be zoomed on once the mouse button is let go. The Zoom to Full Extent tool will return you to the original full view of the map extent. When zoomed in on a data layer, clicking and dragging with the Pan tool enabled allows you to navigate across your zoomed image.
 
-![Whitebox Map Display Area Options](/Images/Image2.png "Whitebox Map Display Area Options")
+![Whitebox Map Display Area Options](./Images/Image2.png "Whitebox Map Display Area Options")
 
 **Viewing Vector Feature Attributes**<br>
 The attributes of vector features are an integral component of many GIS analysis's. Viewing vector feature attributes can be achieved in two ways. The first and broader way in which this can be done is by navigating to the Layers tab of the sidebar, right clicking on the vector layer of interest, and click View Attribute Table. This will display a table of each point in the vector layer and any attribute data attributed to it. Another method for viewing vector feature attributes involves the Select Feature tool from the toolbar. When this tool is selected you will notice that the sidebar automatically switches to the Features tab. As you click on numerous polylines/polygons you will notice that the corresponding feature REC# will be displayed in the Selected Features box displayed in the sidebar. You can then click on these features individually from within the Selected Features box to view their corresponding attributes.
@@ -61,7 +61,7 @@ Accessing the properties of you data layer can be integral to your analysis. Wit
 
 Additionally, you will notice that this popup menu contains much more than just the Layer Display Properties option. From here you can also adjust the layer's order, toggle its visibility/visibility in the legend, adjust the colour palette, export the layer to another file format, and view a histogram of the data. Histograms can be viewed in two forms, Probability Density Function (PDF), or Cumulative Distribution Function (CDF).
 
-![Whitebox Layer Right-Click](/Images/Image3.png "Whitebox Layer Right-Click")
+![Whitebox Layer Right-Click](./Images/Image3.png "Whitebox Layer Right-Click")
 
 
 **Working Directories and Saving Your Map**<br>
@@ -85,4 +85,4 @@ If you just need to quickly reposition your map on the page and don't want to ha
 
 Modifying text, font, borders, background colour and more can all be accessed by right clicking the map element. To then modify these elements, click on the corresponding boxes on the right-hand side and make any necessary adjustments. Additionally, double clicking anywhere in the map display area will bring up the Map Properties menu, which will allow you to scroll through all displayed map elements and make any necessary changes to them.
 
-![Whitebox Formating](/Images/Image4.png "Whitebox Formating")
+![Whitebox Formating](./Images/Image4.png "Whitebox Formating")
