@@ -1,0 +1,509 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Patch shape tools - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html" class="active"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#gis-analysis--patch-shape-tools" id="gis-analysis--patch-shape-tools"><h1>GIS Analysis → Patch Shape Tools</h1></a>
+<ul>
+<li><a href="#CompactnessRatio">CompactnessRatio</a></li>
+<li><a href="#EdgeProportion">EdgeProportion</a></li>
+<li><a href="#ElongationRatio">ElongationRatio</a></li>
+<li><a href="#FindPatchOrClassEdgeCells">FindPatchOrClassEdgeCells</a></li>
+<li><a href="#HoleProportion">HoleProportion</a></li>
+<li><a href="#LinearityIndex">LinearityIndex</a></li>
+<li><a href="#PatchOrientation">PatchOrientation</a></li>
+<li><a href="#PerimeterAreaRatio">PerimeterAreaRatio</a></li>
+<li><a href="#RadiusOfGyration">RadiusOfGyration</a></li>
+<li><a href="#RelatedCircumscribingCircle">RelatedCircumscribingCircle</a></li>
+<li><a href="#ShapeComplexityIndex">ShapeComplexityIndex</a></li>
+</ul>
+<p><a name="CompactnessRatio"></a></p>
+<a class="header" href="#compactnessratio" id="compactnessratio"><h2>CompactnessRatio</h2></a>
+<p>The compactness ratio is an indicator of polygon shape complexity. The compactness
+ratio is defined as the polygon area divided by its perimeter. Unlike some other
+shape parameters (e.g. <code>ShapeComplexityIndex</code>), compactness ratio does not standardize
+to a simple Euclidean shape. Although widely used for landscape analysis, compactness
+ratio, like its inverse, the <code>PerimeterAreaRatio</code>, exhibits the undesirable property
+of polygon size dependence (Mcgarigal et al. 2002). That is, holding shape constant,
+an increase in polygon size will cause a change in the compactness ratio.</p>
+<p>The output data will be contained in the input vector's attribute table as a new field
+(COMPACT).</p>
+<p><em>See Also</em>:</p>
+<p><code>PerimeterAreaRatio</code>, <code>ShapeComplexityIndex</code>, <code>RelatedCircumscribingCircle</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/compactness_ratio.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">compactness_ratio(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CompactnessRatio -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp 
+</code></pre>
+<p><a name="EdgeProportion"></a></p>
+<a class="header" href="#edgeproportion" id="edgeproportion"><h2>EdgeProportion</h2></a>
+<p>Calculate the proportion of cells in a raster polygon that are edge cells.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/edge_proportion.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--output_text      </td><td> flag indicating whether a text report should also be output</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">edge_proportion(
+    i, 
+    output, 
+    output_text=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=EdgeProportion -v --wd=&quot;/path/to/data/&quot; ^
+-i=input.tif -o=output.tif --output_text 
+</code></pre>
+<p><a name="ElongationRatio"></a></p>
+<a class="header" href="#elongationratio" id="elongationratio"><h2>ElongationRatio</h2></a>
+<p>This tool can be used to calculate the elongation ratio for vector polygons. The
+elongation ratio values calculated for each vector polygon feature will be placed
+in the accompanying database file (.dbf) as an elongation field (ELONGATION).</p>
+<p>The elongation ratio (<code>E</code>) is:</p>
+<p><code>E = 1 - S / L</code></p>
+<p>Where <code>S</code> is the short-axis length, and <code>L</code> is the long-axis length. Axes
+lengths are determined by estimating the minimum bounding box.</p>
+<p>The elongation ratio provides similar information as the Linearity Index. The
+ratio is not an adequate measure of overall polygon narrowness, because a highly
+sinuous but narrow polygon will have a low linearity (elongation) owing to the
+compact nature of these polygon.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/elongation_ratio.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">elongation_ratio(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ElongationRatio -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp 
+</code></pre>
+<p><a name="FindPatchOrClassEdgeCells"></a></p>
+<a class="header" href="#findpatchorclassedgecells" id="findpatchorclassedgecells"><h2>FindPatchOrClassEdgeCells</h2></a>
+<p>Finds all cells located on the edge of patch or class features.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/find_patch_edge_cells.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">find_patch_or_class_edge_cells(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FindPatchOrClassEdgeCells -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif 
+</code></pre>
+<p><a name="HoleProportion"></a></p>
+<a class="header" href="#holeproportion" id="holeproportion"><h2>HoleProportion</h2></a>
+<p>This calculates the proportion of the total area of a polygon's holes (i.e. islands)
+relative to the area of the polygon's hull. It can be a useful measure of shape
+complexity, or how discontinuous a patch is. The user must specify the name of the
+input vector file and the output data will be contained within the input vector's
+database file as a new field (HOLE_PROP).</p>
+<p><em>See Also</em>:</p>
+<p><code>ShapeComplexityIndex</code>, <code>ElongationRatio</code>, <code>PerimeterAreaRatio</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/hole_proportion.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">hole_proportion(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=HoleProportion -v --wd=&quot;/path/to/data/&quot; ^
+--input=polygons.shp 
+</code></pre>
+<p><a name="LinearityIndex"></a></p>
+<a class="header" href="#linearityindex" id="linearityindex"><h2>LinearityIndex</h2></a>
+<p>This tool calculates the linearity index of polygon features based on a regression analysis.
+The index is simply the coefficient of determination (r-squared) calculated from a regression
+analysis of the x and y coordinates of the exterior hull nodes of a vector polygon. Linearity
+index is a measure of how well a polygon can be described by a straight line. It is a related
+index to the <code>ElongationRatio</code>, but is more efficient to calculate as it does not require
+finding the minimum bounding box. The Pearson correlation coefficient between linearity index
+and the elongation ratio for a large data set of lake polygons in northern Canada was found
+to be 0.656, suggesting a moderate level of association between the two measures of polygon
+linearity. Note that this index is not useful for identifying narrow yet sinuous polygons, such
+as meandering rivers.</p>
+<p>The only required input is the name of the file. The linearity values calculated for each vector
+polygon feature will be placed in the accompanying attribute table as a new field (LINEARITY).</p>
+<p><em>See Also</em>:</p>
+<p><code>ElongationRatio</code>, <code>PatchOrientation</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/linearity_index.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">linearity_index(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LinearityIndex -v --wd=&quot;/path/to/data/&quot; ^
+--input=polygons.shp 
+</code></pre>
+<p><a name="PatchOrientation"></a></p>
+<a class="header" href="#patchorientation" id="patchorientation"><h2>PatchOrientation</h2></a>
+<p>This tool calculates the orientation of polygon features based on the slope of a reduced major
+axis (RMA) regression line. The regression analysis use the vertices of the exterior hull nodes
+of a vector polygon. The only required input is the name of the vector polygon file. The
+orientation values, measured in degrees from north, will be placed in the accompanying attribute
+table as a new field (ORIENT). The value of the orientation measure for any polygon will
+depend on how elongated the feature is.</p>
+<p>Note that the output values are polygon orientations and not true directions. While directions
+may take values ranging from 0-360, orientation is expressed as an angle between 0 and 180 degrees
+clockwise from north. Lastly, the orientation measure may become unstable when polygons are
+oriented nearly vertical or horizontal.</p>
+<p><em>See Also</em>:</p>
+<p><code>LinearityIndex</code>, <code>ElongationRatio</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/patch_orientation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">patch_orientation(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PatchOrientation -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp 
+</code></pre>
+<p><a name="PerimeterAreaRatio"></a></p>
+<a class="header" href="#perimeterarearatio" id="perimeterarearatio"><h2>PerimeterAreaRatio</h2></a>
+<p>The perimeter-area ratio is an indicator of polygon shape complexity. Unlike some
+other shape parameters (e.g. shape complexity index), perimeter-area ratio does not
+standardize to a simple Euclidean shape. Although widely used for landscape analysis,
+perimeter-area ratio exhibits the undesirable property of polygon size dependence
+(Mcgarigal et al. 2002). That is, holding shape constant, an increase in polygon
+size will cause a decrease in the perimeter-area ratio. The perimeter-area ratio is
+the inverse of the compactness ratio.</p>
+<p>The output data will be displayed as a new field (P-A_RATIO) in the input vector's
+database file.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/perimeter_area_ratio.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">perimeter_area_ratio(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PerimeterAreaRatio -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp 
+</code></pre>
+<p><a name="RadiusOfGyration"></a></p>
+<a class="header" href="#radiusofgyration" id="radiusofgyration"><h2>RadiusOfGyration</h2></a>
+<p>This can be used to calculate the radius of gyration (RoG) for the polygon
+features within a raster image. RoG measures how far across the landscape a polygon
+extends its reach on average, given by the mean distance between cells in a patch
+(Mcgarigal et al. 2002). The radius of gyration can be considered a measure of the
+average distance an organism can move within a patch before encountering the patch
+boundary from a random starting point (Mcgarigal et al. 2002). The input raster grid
+should contain polygons with unique identifiers greater than zero. The user must also
+specify the name of the output raster file (where the radius of gyration will be
+assigned to each feature in the input file) and the specified option of outputting text
+data.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/radius_of_gyration.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--text_output      </td><td> Optional text output</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">radius_of_gyration(
+    i, 
+    output, 
+    text_output=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RadiusOfGyration -v ^
+--wd=&quot;/path/to/data/&quot; -i=polygons.tif -o=output.tif ^
+--text_output 
+</code></pre>
+<p><a name="RelatedCircumscribingCircle"></a></p>
+<a class="header" href="#relatedcircumscribingcircle" id="relatedcircumscribingcircle"><h2>RelatedCircumscribingCircle</h2></a>
+<p>This tool can be used to calculate the related circumscribing circle (Mcgarigal et al. 2002)
+for vector polygon features. The related circumscribing circle values calculated for each
+vector polygon feature will be placed in the accompanying attribute table as a new field
+(RC_CIRCLE).</p>
+<p>Related circumscribing circle (RCC) is defined as:</p>
+<p><code>RCC = 1 - A / Ac</code></p>
+<p>Where <code>A</code> is the polygon's area and <code>Ac</code> the area of the smallest circumscribing circle.</p>
+<p>Theoretically, <code>RelatedCircumscribingCircle</code> ranges from 0 to 1, where a value of 0 indicates
+a circular polygon and a value of 1 indicates a highly elongated shape. The circumscribing
+circle provides a measure of polygon elongation. Unlike the <code>ElongationRatio</code>, however, it
+does not provide a measure of polygon direction in addition to overall elongation. Like the
+<code>ElongationRatio</code> and <code>LinearityIndex</code>, <code>RelatedCircumscribingCircle</code> is not an adequate
+measure of overall polygon narrowness, because a highly sinuous but narrow patch will have
+a low related circumscribing circle index owing to the compact nature of these polygon.</p>
+<p>Note: Holes are excluded from the area calculation of polygons.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/related_circumscribing_circle.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">related_circumscribing_circle(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RelatedCircumscribingCircle -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp 
+</code></pre>
+<p><a name="ShapeComplexityIndex"></a></p>
+<a class="header" href="#shapecomplexityindex" id="shapecomplexityindex"><h2>ShapeComplexityIndex</h2></a>
+<p>This tool provides a measure of overall polygon shape complexity, or irregularity,
+for vector polygons. Several shape indices have been created to compare a polygon's
+shape to simple Euclidean shapes (e.g. circles, squares, etc.). One of the problems
+with this approach is that it inherently convolves the characteristics of polygon
+complexity and elongation. The Shape Complexity Index (SCI) was developed as a
+parameter for assessing the complexity of a polygon that is independent of its
+elongation.</p>
+<p>SCI relates a polygon's shape to that of an encompassing convex hull. It is
+defined as:</p>
+<p><code>SCI = 1 - A / Ah</code></p>
+<p>Where <code>A</code> is the polygon's area and <code>Ah</code> is the area of the convex hull containing
+the polygon. Convex polygons, i.e. those that do not contain concavities or holes,
+have a value of 0. As the shape of the polygon becomes more complex, the SCI
+approaches 1. Note that polygon shape complexity also increases with the greater
+number of holes (i.e. islands), since holes have the effect of reducing the lake
+area.</p>
+<p>The SCI values calculated for each vector polygon feature will be placed in the
+accompanying database file (.dbf) as a complexity field (COMPLEXITY).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/shape_complexity_index.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">shape_complexity_index(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ShapeComplexityIndex -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../available_tools/gis_analysis_overlay_tools.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../available_tools/hydrological_analysis.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../available_tools/gis_analysis_overlay_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../available_tools/hydrological_analysis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,1373 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Hydrological analysis - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html" class="active"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#hydrological-analysis" id="hydrological-analysis"><h1>Hydrological Analysis</h1></a>
+<ul>
+<li><a href="#AverageFlowpathSlope">AverageFlowpathSlope</a></li>
+<li><a href="#AverageUpslopeFlowpathLength">AverageUpslopeFlowpathLength</a></li>
+<li><a href="#Basins">Basins</a></li>
+<li><a href="#BreachDepressions">BreachDepressions</a></li>
+<li><a href="#BreachSingleCellPits">BreachSingleCellPits</a></li>
+<li><a href="#D8FlowAccumulation">D8FlowAccumulation</a></li>
+<li><a href="#D8MassFlux">D8MassFlux</a></li>
+<li><a href="#D8Pointer">D8Pointer</a></li>
+<li><a href="#DInfFlowAccumulation">DInfFlowAccumulation</a></li>
+<li><a href="#DInfMassFlux">DInfMassFlux</a></li>
+<li><a href="#DInfPointer">DInfPointer</a></li>
+<li><a href="#DepthInSink">DepthInSink</a></li>
+<li><a href="#DownslopeDistanceToStream">DownslopeDistanceToStream</a></li>
+<li><a href="#DownslopeFlowpathLength">DownslopeFlowpathLength</a></li>
+<li><a href="#ElevationAboveStream">ElevationAboveStream</a></li>
+<li><a href="#ElevationAboveStreamEuclidean">ElevationAboveStreamEuclidean</a></li>
+<li><a href="#Fd8FlowAccumulation">Fd8FlowAccumulation</a></li>
+<li><a href="#Fd8Pointer">Fd8Pointer</a></li>
+<li><a href="#FillBurn">FillBurn</a></li>
+<li><a href="#FillDepressions">FillDepressions</a></li>
+<li><a href="#FillSingleCellPits">FillSingleCellPits</a></li>
+<li><a href="#FindNoFlowCells">FindNoFlowCells</a></li>
+<li><a href="#FindParallelFlow">FindParallelFlow</a></li>
+<li><a href="#FlattenLakes">FlattenLakes</a></li>
+<li><a href="#FloodOrder">FloodOrder</a></li>
+<li><a href="#FlowAccumulationFullWorkflow">FlowAccumulationFullWorkflow</a></li>
+<li><a href="#FlowLengthDiff">FlowLengthDiff</a></li>
+<li><a href="#Hillslopes">Hillslopes</a></li>
+<li><a href="#ImpoundmentIndex">ImpoundmentIndex</a></li>
+<li><a href="#Isobasins">Isobasins</a></li>
+<li><a href="#JensonSnapPourPoints">JensonSnapPourPoints</a></li>
+<li><a href="#LongestFlowpath">LongestFlowpath</a></li>
+<li><a href="#MaxUpslopeFlowpathLength">MaxUpslopeFlowpathLength</a></li>
+<li><a href="#NumInflowingNeighbours">NumInflowingNeighbours</a></li>
+<li><a href="#RaiseWalls">RaiseWalls</a></li>
+<li><a href="#Rho8Pointer">Rho8Pointer</a></li>
+<li><a href="#Sink">Sink</a></li>
+<li><a href="#SnapPourPoints">SnapPourPoints</a></li>
+<li><a href="#StochasticDepressionAnalysis">StochasticDepressionAnalysis</a></li>
+<li><a href="#StrahlerOrderBasins">StrahlerOrderBasins</a></li>
+<li><a href="#Subbasins">Subbasins</a></li>
+<li><a href="#TraceDownslopeFlowpaths">TraceDownslopeFlowpaths</a></li>
+<li><a href="#UnnestBasins">UnnestBasins</a></li>
+<li><a href="#Watershed">Watershed</a></li>
+</ul>
+<p><a name="AverageFlowpathSlope"></a></p>
+<a class="header" href="#averageflowpathslope" id="averageflowpathslope"><h2>AverageFlowpathSlope</h2></a>
+<p>Measures the average slope gradient from each grid cell to all upslope divide cells.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/average_flowpath_slope.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">average_flowpath_slope(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AverageFlowpathSlope -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="AverageUpslopeFlowpathLength"></a></p>
+<a class="header" href="#averageupslopeflowpathlength" id="averageupslopeflowpathlength"><h2>AverageUpslopeFlowpathLength</h2></a>
+<p>Measures the average length of all upslope flowpaths draining each grid cell.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/average_upslope_flowpath_length.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">average_upslope_flowpath_length(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AverageUpslopeFlowpathLength -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="Basins"></a></p>
+<a class="header" href="#basins" id="basins"><h2>Basins</h2></a>
+<p>Identifies drainage basins that drain to the DEM edge.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/basins.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">basins(
+    d8_pntr, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Basins -v --wd=&quot;/path/to/data/&quot; ^
+--d8_pntr='d8pntr.tif' -o='output.tif' 
+</code></pre>
+<p><a name="BreachDepressions"></a></p>
+<a class="header" href="#breachdepressions" id="breachdepressions"><h2>BreachDepressions</h2></a>
+<p>This tool can be used to remove the depressions in a digital elevation model, a
+common requirement of spatial hydrological operations such as flow accumulation
+and watershed modelling. The algorithm based on:</p>
+<blockquote>
+<p>Lindsay JB. 2016. <em>Efficient hybrid breaching-filling sink removal methods for
+flow path enforcement in digital elevation models.</em> <strong>Hydrological Processes</strong>,
+30(6): 846–857. DOI: 10.1002/hyp.10648</p>
+</blockquote>
+<p>It uses a breach-first, fill-second approach.</p>
+<p><em>See Also</em>:</p>
+<p><code>FillDepressions</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--max_depth        </td><td> Optional maximum breach depth (default is Inf)</td></tr>
+<tr><td>--max_length       </td><td> Optional maximum breach channel length (in grid cells; default is Inf)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">breach_depressions(
+    dem, 
+    output, 
+    max_depth=None, 
+    max_length=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=BreachDepressions -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="BreachSingleCellPits"></a></p>
+<a class="header" href="#breachsinglecellpits" id="breachsinglecellpits"><h2>BreachSingleCellPits</h2></a>
+<p>Removes single-cell pits from an input DEM by breaching.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_pits.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">breach_single_cell_pits(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=BreachSingleCellPits -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="D8FlowAccumulation"></a></p>
+<a class="header" href="#d8flowaccumulation" id="d8flowaccumulation"><h2>D8FlowAccumulation</h2></a>
+<p>This tool is used to generate a flow accumulation grid (i.e. catchment area) using the
+D8 (O'Callaghan and Mark, 1984) algorithm. This algorithm is an example of single-flow-direction
+(SFD) method because the flow entering each grid cell is routed to only one downslope neighbour,
+i.e. flow divergence is not permitted. The user must specify the name of the input digital
+elevation model (DEM). The DEM must have been hydrologically corrected to remove all spurious
+depressions and flat areas. DEM pre-processing is usually achieved using the <code>BreachDepressions</code> or
+<code>FillDepressions</code> tools.</p>
+<p>In addition to the input DEM, the user must specify the output type. The output flow-accumulation
+can be 1) <code>cells</code> (i.e. the number of inflowing grid cells), <code>catchment area</code> (i.e. the upslope area),
+or <code>specific contributing area</code> (i.e. the catchment area divided by the flow width. The default value
+is <code>cells</code>. The user must also specify whether the output flow-accumulation grid should be
+log-tranformed, i.e. the output, if this option is selected, will be the natural-logarithm of the
+accumulated flow value. This is a transformation that is often performed to better visualize the
+contributing area distribution. Because contributing areas tend to be very high along valley bottoms
+and relatively low on hillslopes, when a flow-accumulation image is displayed, the distribution of
+values on hillslopes tends to be 'washed out' because the palette is stretched out to represent the
+highest values. Log-transformation provides a means of compensating for this phenomenon. Importantly,
+however, log-transformed flow-accumulation grids must not be used to estimate other secondary terrain
+indices, such as the wetness index, or relative stream power index.</p>
+<p>Grid cells possessing the <strong>NoData</strong> value in the input flow-pointer grid are assigned the <strong>NoData</strong>
+value in the output flow-accumulation image.</p>
+<p><em>See Also</em>:
+:
+<code>DInfFlowAccumulation</code>, <code>BreachDepressions</code>, <code>FillDepressions</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_flow_accum.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'cells' (default), 'catchment area', and 'specific contributing area'</td></tr>
+<tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
+<tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">d8_flow_accumulation(
+    dem, 
+    output, 
+    out_type=&quot;cells&quot;, 
+    log=False, 
+    clip=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=D8FlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='cells'
+&gt;&gt;./whitebox_tools -r=D8FlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='specific catchment area' --log --clip 
+</code></pre>
+<p><a name="D8MassFlux"></a></p>
+<a class="header" href="#d8massflux" id="d8massflux"><h2>D8MassFlux</h2></a>
+<p>Performs a D8 mass flux calculation.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_mass_flux.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
+<tr><td>--loading          </td><td> Input loading raster file</td></tr>
+<tr><td>--efficiency       </td><td> Input efficiency raster file</td></tr>
+<tr><td>--absorption       </td><td> Input absorption raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">d8_mass_flux(
+    dem, 
+    loading, 
+    efficiency, 
+    absorption, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=D8MassFlux -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif --loading=load.tif --efficiency=eff.tif ^
+--absorption=abs.tif -o=output.tif 
+</code></pre>
+<p><a name="D8Pointer"></a></p>
+<a class="header" href="#d8pointer" id="d8pointer"><h2>D8Pointer</h2></a>
+<p>Calculates a D8 flow pointer raster from an input DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_pointer.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">d8_pointer(
+    dem, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=D8Pointer -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="DInfFlowAccumulation"></a></p>
+<a class="header" href="#dinfflowaccumulation" id="dinfflowaccumulation"><h2>DInfFlowAccumulation</h2></a>
+<p>Calculates a D-infinity flow accumulation raster from an input DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_flow_accum.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'cells', 'sca' (default), and 'ca'</td></tr>
+<tr><td>--threshold        </td><td> Optional convergence threshold parameter, in grid cells; default is inifinity</td></tr>
+<tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
+<tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">d_inf_flow_accumulation(
+    dem, 
+    output, 
+    out_type=&quot;Specific Contributing Area&quot;, 
+    threshold=None, 
+    log=False, 
+    clip=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=DInfFlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type=sca
+&gt;&gt;./whitebox_tools -r=DInfFlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type=sca --threshold=10000 --log --clip 
+</code></pre>
+<p><a name="DInfMassFlux"></a></p>
+<a class="header" href="#dinfmassflux" id="dinfmassflux"><h2>DInfMassFlux</h2></a>
+<p>Performs a D-infinity mass flux calculation.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_mass_flux.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
+<tr><td>--loading          </td><td> Input loading raster file</td></tr>
+<tr><td>--efficiency       </td><td> Input efficiency raster file</td></tr>
+<tr><td>--absorption       </td><td> Input absorption raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">d_inf_mass_flux(
+    dem, 
+    loading, 
+    efficiency, 
+    absorption, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=DInfMassFlux -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif --loading=load.tif --efficiency=eff.tif ^
+--absorption=abs.tif -o=output.tif 
+</code></pre>
+<p><a name="DInfPointer"></a></p>
+<a class="header" href="#dinfpointer" id="dinfpointer"><h2>DInfPointer</h2></a>
+<p>Calculates a D-infinity flow pointer (flow direction) raster from an input DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_pointer.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">d_inf_pointer(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=DInfPointer -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif 
+</code></pre>
+<p><a name="DepthInSink"></a></p>
+<a class="header" href="#depthinsink" id="depthinsink"><h2>DepthInSink</h2></a>
+<p>Measures the depth of sinks (depressions) in a DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/depth_in_sink.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--zero_background  </td><td> Flag indicating whether the background value of zero should be used</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">depth_in_sink(
+    dem, 
+    output, 
+    zero_background=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=DepthInSink -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif --zero_background 
+</code></pre>
+<p><a name="DownslopeDistanceToStream"></a></p>
+<a class="header" href="#downslopedistancetostream" id="downslopedistancetostream"><h2>DownslopeDistanceToStream</h2></a>
+<p>Measures distance to the nearest downslope stream cell.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/downslope_distance_to_stream.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">downslope_distance_to_stream(
+    dem, 
+    streams, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=DownslopeDistanceToStream -v ^
+--wd=&quot;/path/to/data/&quot; --dem='dem.tif' --streams='streams.tif' ^
+-o='output.tif' 
+</code></pre>
+<p><a name="DownslopeFlowpathLength"></a></p>
+<a class="header" href="#downslopeflowpathlength" id="downslopeflowpathlength"><h2>DownslopeFlowpathLength</h2></a>
+<p>Calculates the downslope flowpath length from each cell to basin outlet.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/downslope_flowpath_length.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
+<tr><td>--watersheds       </td><td> Optional input watershed raster file</td></tr>
+<tr><td>--weights          </td><td> Optional input weights raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">downslope_flowpath_length(
+    d8_pntr, 
+    output, 
+    watersheds=None, 
+    weights=None, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=DownslopeFlowpathLength -v ^
+--wd=&quot;/path/to/data/&quot; --d8_pntr=pointer.tif ^
+-o=flowpath_len.tif
+&gt;&gt;./whitebox_tools ^
+-r=DownslopeFlowpathLength -v --wd=&quot;/path/to/data/&quot; ^
+--d8_pntr=pointer.tif --watersheds=basin.tif ^
+--weights=weights.tif -o=flowpath_len.tif --esri_pntr 
+</code></pre>
+<p><a name="ElevationAboveStream"></a></p>
+<a class="header" href="#elevationabovestream" id="elevationabovestream"><h2>ElevationAboveStream</h2></a>
+<p>Calculates the elevation of cells above the nearest downslope stream cell.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/elevation_above_stream.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">elevation_above_stream(
+    dem, 
+    streams, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ElevationAboveStream -v ^
+--wd=&quot;/path/to/data/&quot; --dem='dem.tif' --streams='streams.tif' ^
+-o='output.tif' 
+</code></pre>
+<p><a name="ElevationAboveStreamEuclidean"></a></p>
+<a class="header" href="#elevationabovestreameuclidean" id="elevationabovestreameuclidean"><h2>ElevationAboveStreamEuclidean</h2></a>
+<p>Calculates the elevation of cells above the nearest (Euclidean distance) stream cell.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/elevation_above_stream_euclidean.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">elevation_above_stream_euclidean(
+    dem, 
+    streams, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ElevationAboveStreamEuclidean -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif --streams=streams.tif ^
+-o=output.tif 
+</code></pre>
+<p><a name="Fd8FlowAccumulation"></a></p>
+<a class="header" href="#fd8flowaccumulation" id="fd8flowaccumulation"><h2>Fd8FlowAccumulation</h2></a>
+<p>Calculates an FD8 flow accumulation raster from an input DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_flow_accum.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'cells', 'specific contributing area' (default), and 'catchment area'</td></tr>
+<tr><td>--exponent         </td><td> Optional exponent parameter; default is 1.1</td></tr>
+<tr><td>--threshold        </td><td> Optional convergence threshold parameter, in grid cells; default is inifinity</td></tr>
+<tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
+<tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">fd8_flow_accumulation(
+    dem, 
+    output, 
+    out_type=&quot;specific contributing area&quot;, 
+    exponent=1.1, 
+    threshold=None, 
+    log=False, 
+    clip=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FD8FlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='cells'
+&gt;&gt;./whitebox_tools -r=FD8FlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='catchment area' --exponent=1.5 --threshold=10000 ^
+--log --clip 
+</code></pre>
+<p><a name="Fd8Pointer"></a></p>
+<a class="header" href="#fd8pointer" id="fd8pointer"><h2>Fd8Pointer</h2></a>
+<p>Calculates an FD8 flow pointer raster from an input DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_pointer.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">fd8_pointer(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FD8Pointer -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="FillBurn"></a></p>
+<a class="header" href="#fillburn" id="fillburn"><h2>FillBurn</h2></a>
+<p>Burns streams into a DEM using the FillBurn (Saunders, 1999) method. This tool uses the
+algorithm described in:</p>
+<p>Lindsay JB. 2016. The practice of DEM stream burning revisited. Earth Surface Processes
+and Landforms, 41(5): 658-668. DOI: 10.1002/esp.3888</p>
+<p>And:</p>
+<p>Saunders, W. 1999. Preparation of DEMs for use in environmental modeling analysis, in: ESRI User
+Conference. pp. 24-30.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_burn.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
+<tr><td>--streams          </td><td> Input vector streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">fill_burn(
+    dem, 
+    streams, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FillBurn -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif --streams=streams.shp -o=dem_burned.tif 
+</code></pre>
+<p><a name="FillDepressions"></a></p>
+<a class="header" href="#filldepressions" id="filldepressions"><h2>FillDepressions</h2></a>
+<p>Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--fix_flats        </td><td> Optional flag indicating whether flat areas should have a small gradient applied</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">fill_depressions(
+    dem, 
+    output, 
+    fix_flats=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressions -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--fix_flats 
+</code></pre>
+<p><a name="FillSingleCellPits"></a></p>
+<a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h2>FillSingleCellPits</h2></a>
+<p>Raises pit cells to the elevation of their lowest neighbour.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_pits.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">fill_single_cell_pits(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FillSingleCellPits -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=NewRaster.tif 
+</code></pre>
+<p><a name="FindNoFlowCells"></a></p>
+<a class="header" href="#findnoflowcells" id="findnoflowcells"><h2>FindNoFlowCells</h2></a>
+<p>Finds grid cells with no downslope neighbours.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/find_noflow_cells.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">find_no_flow_cells(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FindNoFlowCells -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=NewRaster.tif 
+</code></pre>
+<p><a name="FindParallelFlow"></a></p>
+<a class="header" href="#findparallelflow" id="findparallelflow"><h2>FindParallelFlow</h2></a>
+<p>Finds areas of parallel flow in D8 flow direction rasters.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/find_parallel_flow.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">find_parallel_flow(
+    d8_pntr, 
+    streams, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FindParallelFlow -v ^
+--wd=&quot;/path/to/data/&quot; --d8_pntr=pointer.tif ^
+-o=out.tif
+&gt;&gt;./whitebox_tools -r=FindParallelFlow -v ^
+--wd=&quot;/path/to/data/&quot; --d8_pntr=pointer.tif -o=out.tif ^
+--streams='streams.tif' 
+</code></pre>
+<p><a name="FlattenLakes"></a></p>
+<a class="header" href="#flattenlakes" id="flattenlakes"><h2>FlattenLakes</h2></a>
+<p>Flattens lake polygons in a raster DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flatten_lakes.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--lakes            </td><td> Input lakes vector polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">flatten_lakes(
+    dem, 
+    lakes, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FlattenLakes -v --wd=&quot;/path/to/data/&quot; ^
+--dem='DEM.tif' --lakes='lakes.shp' -o='output.tif' 
+</code></pre>
+<p><a name="FloodOrder"></a></p>
+<a class="header" href="#floodorder" id="floodorder"><h2>FloodOrder</h2></a>
+<p>Assigns each DEM grid cell its order in the sequence of inundations that are encountered during a search starting from the edges, moving inward at increasing elevations.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flood_order.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">flood_order(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FloodOrder -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="FlowAccumulationFullWorkflow"></a></p>
+<a class="header" href="#flowaccumulationfullworkflow" id="flowaccumulationfullworkflow"><h2>FlowAccumulationFullWorkflow</h2></a>
+<p>Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow pointer, and a flow accumulation raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flow_accum_full_workflow.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--out_dem          </td><td> Output raster DEM file</td></tr>
+<tr><td>--out_pntr         </td><td> Output raster flow pointer file</td></tr>
+<tr><td>--out_accum        </td><td> Output raster flow accumulation file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'cells', 'sca' (default), and 'ca'</td></tr>
+<tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
+<tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">flow_accumulation_full_workflow(
+    dem, 
+    out_dem, 
+    out_pntr, 
+    out_accum, 
+    out_type=&quot;Specific Contributing Area&quot;, 
+    log=False, 
+    clip=False, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FlowAccumulationFullWorkflow -v ^
+--wd=&quot;/path/to/data/&quot; --dem='DEM.tif' ^
+--out_dem='DEM_filled.tif' --out_pntr='pointer.tif' ^
+--out_accum='accum.tif' --out_type=sca --log --clip 
+</code></pre>
+<p><a name="FlowLengthDiff"></a></p>
+<a class="header" href="#flowlengthdiff" id="flowlengthdiff"><h2>FlowLengthDiff</h2></a>
+<p><code>FlowLengthDiff</code> calculates the local maximum absolute difference in downslope flowpath length,
+which is useful in mapping drainage divides and ridges.</p>
+<p><em>See Also</em>:</p>
+<p><code>MaxBranchLength</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flow_length_diff.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">flow_length_diff(
+    d8_pntr, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FlowLengthDiff -v --wd=&quot;/path/to/data/&quot; ^
+--d8_pntr=pointer.tif -o=output.tif 
+</code></pre>
+<p><a name="Hillslopes"></a></p>
+<a class="header" href="#hillslopes" id="hillslopes"><h2>Hillslopes</h2></a>
+<p>Identifies the individual hillslopes draining to each link in a stream network.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/hillslopes.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">hillslopes(
+    d8_pntr, 
+    streams, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Hillslopes -v --wd=&quot;/path/to/data/&quot; ^
+--d8_pntr='d8pntr.tif' --streams='streams.tif' ^
+-o='output.tif' 
+</code></pre>
+<p><a name="ImpoundmentIndex"></a></p>
+<a class="header" href="#impoundmentindex" id="impoundmentindex"><h2>ImpoundmentIndex</h2></a>
+<p>Calculates the impoundment size resulting from damming a DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/impoundment_index.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'depth' (default), 'volume', and 'area'</td></tr>
+<tr><td>--damlength        </td><td> Maximum length of thr dam</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">impoundment_index(
+    dem, 
+    output, 
+    damlength, 
+    out_type=&quot;depth&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentIndex -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif ^
+--out_type=depth --damlength=11 
+</code></pre>
+<p><a name="Isobasins"></a></p>
+<a class="header" href="#isobasins" id="isobasins"><h2>Isobasins</h2></a>
+<p>Divides a landscape into nearly equal sized drainage basins (i.e. watersheds).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--size             </td><td> Target basin size, in grid cells</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">isobasins(
+    dem, 
+    output, 
+    size, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Isobasins -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif --size=1000 
+</code></pre>
+<p><a name="JensonSnapPourPoints"></a></p>
+<a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h2>JensonSnapPourPoints</h2></a>
+<p>Moves outlet points used to specify points of interest in a watershedding operation to the nearest stream cell.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/jenson_snap_pour_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<tr><td>--snap_dist        </td><td> Maximum snap distance in map units</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">jenson_snap_pour_points(
+    pour_pts, 
+    streams, 
+    output, 
+    snap_dist, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=JensonSnapPourPoints -v ^
+--wd=&quot;/path/to/data/&quot; --pour_pts='pour_pts.shp' ^
+--streams='streams.tif' -o='output.shp' --snap_dist=15.0 
+</code></pre>
+<p><a name="LongestFlowpath"></a></p>
+<a class="header" href="#longestflowpath" id="longestflowpath"><h2>LongestFlowpath</h2></a>
+<p>This tool delineates the longest flowpaths for a group of subbasins or watersheds.
+Flowpaths are initiated along drainage divides and continue along the D8-defined
+flow direction until either the subbasin outlet or DEM edge is encountered. Each input
+subbasin/watershed will have an associated vector flowpath in the output image. <code>LongestFlowpath</code>
+is similar to the <code>r.lfp</code> plugin tool for GRASS GIS. The length of the longest flowpath
+draining to an outlet is related to the time of concentration, which is a parameter
+used in certain hydrological models.</p>
+<p>The user must input the filename of a digital elevation model (DEM), a basins raster, and the
+output vector. The DEM must be depressionless and should have been pre-processed using the
+<code>BreachDepressions</code> or <code>FillDepressions</code> tool. The <em>basins raster</em> must contain features
+that are delineated by categorical (integer valued) unique indentifier values. All non-NoData,
+non-zero valued grid cells in the basins raster are interpreted as belonging to features.
+In practice, this tool is usual run using either a single watershed, a group of contiguous
+non-overlapping watersheds, or a series of nested subbasins. These are often derived using
+the <code>Watershed</code> tool, based on a series of input outlets, or the <code>Subbasins</code> tool, based on
+an input stream network. If subbasins are input to <code>LongestFlowpath</code>, each traced flowpath
+will include only the non-overlapping portions within nested areas. Therefore, this can be a
+convienent method of delineating the longest flowpath to each bifurcation in a stream network.</p>
+<p>The output vector file will contain fields in the attribute table that identify the associated
+basin unique identifier (<em>BASIN</em>), the elevation of the flowpath source point on the divide
+(<em>UP_ELEV</em>), the elevation of the outlet point (<em>DN_ELEV</em>), the length of the flowpath (<em>LENGTH</em>),
+and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured as a percent grade.</p>
+<p><em>See Also</em>:</p>
+<p><code>MaximumUpslopeFlowpath</code>, <code>BreachDepressions</code>, <code>FillDepressions</code>, <code>Watershed</code>, <code>Subbasins</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/longest_flowpath.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--basins           </td><td> Input raster basins file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">longest_flowpath(
+    dem, 
+    basins, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LongestFlowpath -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif --basins=basins.tif ^
+-o=output.tif 
+</code></pre>
+<p><a name="MaxUpslopeFlowpathLength"></a></p>
+<a class="header" href="#maxupslopeflowpathlength" id="maxupslopeflowpathlength"><h2>MaxUpslopeFlowpathLength</h2></a>
+<p>Measures the maximum length of all upslope flowpaths draining each grid cell.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/max_upslope_flowpath.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">max_upslope_flowpath_length(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MaxUpslopeFlowpathLength -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="NumInflowingNeighbours"></a></p>
+<a class="header" href="#numinflowingneighbours" id="numinflowingneighbours"><h2>NumInflowingNeighbours</h2></a>
+<p>Computes the number of inflowing neighbours to each cell in an input DEM based on the D8 algorithm.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/num_inflowing_neighbours.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">num_inflowing_neighbours(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=NumInflowingNeighbours -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="RaiseWalls"></a></p>
+<a class="header" href="#raisewalls" id="raisewalls"><h2>RaiseWalls</h2></a>
+<p>Raises walls in a DEM along a line or around a polygon, e.g. a watershed.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/raise_walls.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector lines or polygons file</td></tr>
+<tr><td>--breach           </td><td> Optional input vector breach lines</td></tr>
+<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--height           </td><td> Wall height</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raise_walls(
+    i, 
+    dem, 
+    output, 
+    breach=None, 
+    height=100.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RaiseWalls -v --wd=&quot;/path/to/data/&quot; ^
+-i=watershed.shp --dem=dem.tif -o=output.tif ^
+--height=25.0
+&gt;&gt;./whitebox_tools -r=RaiseWalls -v ^
+--wd=&quot;/path/to/data/&quot; -i=watershed.shp --breach=outlet.shp ^
+--dem=dem.tif -o=output.tif --height=25.0 
+</code></pre>
+<p><a name="Rho8Pointer"></a></p>
+<a class="header" href="#rho8pointer" id="rho8pointer"><h2>Rho8Pointer</h2></a>
+<p>Calculates a stochastic Rho8 flow pointer raster from an input DEM.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/rho8_pointer.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">rho8_pointer(
+    dem, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Rho8Pointer -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="Sink"></a></p>
+<a class="header" href="#sink" id="sink"><h2>Sink</h2></a>
+<p>Identifies the depressions in a DEM, giving each feature a unique identifier.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/sink.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">sink(
+    dem, 
+    output, 
+    zero_background=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Sink -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif --zero_background 
+</code></pre>
+<p><a name="SnapPourPoints"></a></p>
+<a class="header" href="#snappourpoints" id="snappourpoints"><h2>SnapPourPoints</h2></a>
+<p>Moves outlet points used to specify points of interest in a watershedding operation to the cell with the highest flow accumulation in its neighbourhood.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/snap_pour_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
+<tr><td>--flow_accum       </td><td> Input raster D8 flow accumulation file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<tr><td>--snap_dist        </td><td> Maximum snap distance in map units</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">snap_pour_points(
+    pour_pts, 
+    flow_accum, 
+    output, 
+    snap_dist, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SnapPourPoints -v --wd=&quot;/path/to/data/&quot; ^
+--pour_pts='pour_pts.shp' --flow_accum='d8accum.tif' ^
+-o='output.shp' --snap_dist=15.0 
+</code></pre>
+<p><a name="StochasticDepressionAnalysis"></a></p>
+<a class="header" href="#stochasticdepressionanalysis" id="stochasticdepressionanalysis"><h2>StochasticDepressionAnalysis</h2></a>
+<p>Preforms a stochastic analysis of depressions within a DEM, calculating the
+probability of each cell belonging to a depression.</p>
+<p>This tool differs from the original Whitebox GAT tool in a few significant ways:</p>
+<ol>
+<li>
+<p>The Whitebox GAT tool took an error histogram as an input. In practice people found
+it difficult to create this input. Usually they just generated a normal distribution
+in a spreadsheet using information about the DEM RMSE. As such, this tool takes a
+RMSE input and generates the histogram internally. This is far more convienent for
+most applications but loses the flexibility of specifying the error distribution
+more completely.</p>
+</li>
+<li>
+<p>The Whitebox GAT tool generated the error fields using the turning bands method.
+This tool generates a random Gaussian error field with no spatial autocorrelation
+and then applies local spatial averaging using a Gaussian filter (the size of
+which depends of the error autocorrelation length input) to increase the level of
+autocorrelation. We use the Fast Almost Gaussian Filter of Peter Kovesi (2010),
+which uses five repeat passes of a mean filter, based on an integral image. This
+filter method is highly efficient. This results in a very significant performance
+increase compared with the original tool.</p>
+</li>
+<li>
+<p>The tool operates concurrently, compared with the original tool which calculated
+pdep in serial. Again, this parallel processing can significantly improve the
+performance, particularly when the tool is applied on hardware with four or
+more processors.</p>
+</li>
+</ol>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/stochastic_depression_analysis.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--rmse             </td><td> The DEM's root-mean-square-error (RMSE), in z units. This determines error magnitude</td></tr>
+<tr><td>--range            </td><td> The error field's correlation length, in xy-units</td></tr>
+<tr><td>--iterations       </td><td> The number of iterations</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">stochastic_depression_analysis(
+    dem, 
+    output, 
+    rmse, 
+    range, 
+    iterations=1000, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=StochasticDepressionAnalysis -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif --rmse=10.0 ^
+--range=850.0 --iterations=2500 
+</code></pre>
+<p><a name="StrahlerOrderBasins"></a></p>
+<a class="header" href="#strahlerorderbasins" id="strahlerorderbasins"><h2>StrahlerOrderBasins</h2></a>
+<p>Identifies Strahler-order basins from an input stream network.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/strahler_basins.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">strahler_order_basins(
+    d8_pntr, 
+    streams, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=StrahlerOrderBasins -v ^
+--wd=&quot;/path/to/data/&quot; --d8_pntr='d8pntr.tif' ^
+--streams='streams.tif' -o='output.tif' 
+</code></pre>
+<p><a name="Subbasins"></a></p>
+<a class="header" href="#subbasins" id="subbasins"><h2>Subbasins</h2></a>
+<p>Identifies the catchments, or sub-basin, draining to each link in a stream network.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/subbasins.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
+<tr><td>--streams          </td><td> Input raster streams file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">subbasins(
+    d8_pntr, 
+    streams, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Subbasins -v --wd=&quot;/path/to/data/&quot; ^
+--d8_pntr='d8pntr.tif' --streams='streams.tif' ^
+-o='output.tif' 
+</code></pre>
+<p><a name="TraceDownslopeFlowpaths"></a></p>
+<a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h2>TraceDownslopeFlowpaths</h2></a>
+<p>Traces downslope flowpaths from one or more target sites (i.e. seed points).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/trace_downslope_flowpaths.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--seed_pts         </td><td> Input vector seed points file</td></tr>
+<tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">trace_downslope_flowpaths(
+    seed_pts, 
+    d8_pntr, 
+    output, 
+    esri_pntr=False, 
+    zero_background=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TraceDownslopeFlowpaths -v ^
+--wd=&quot;/path/to/data/&quot; --seed_pts=seeds.shp ^
+--flow_dir=flow_directions.tif --output=flow_paths.tif 
+</code></pre>
+<p><a name="UnnestBasins"></a></p>
+<a class="header" href="#unnestbasins" id="unnestbasins"><h2>UnnestBasins</h2></a>
+<p>In some applications it is necessary to relate a measured variable for a group of
+hydrometric stations (e.g. characteristics of flow timing and duration or water
+chemistry) to some characteristics of each outlet's catchment (e.g. mean slope,
+area of wetlands, etc.). When the group of outlets are nested, i.e. some stations
+are located downstream of others, then performing a watershed operation will
+result in inappropriate watershed delineation. In particular, the delineated
+watersheds of each nested outlet will not include the catchment areas of upstream
+outlets. This creates a serious problem for this type of application.</p>
+<p>The Unnest Basin tool can be used to perform a watershedding operation based on a
+group of specified pour points, i.e. outlets or target cells, such that each
+complete watershed is delineated. The user must specify the name of a flow pointer
+(flow direction) raster, a pour point raster, and the name of the output rasters.
+Multiple numbered outputs will be created, one for each nesting level. Pour point,
+or target, cells are denoted in the input pour-point image as any non-zero,
+non-NoData value. The flow pointer raster should be generated using the D8
+algorithm.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/unnest_basins.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
+<tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">unnest_basins(
+    d8_pntr, 
+    pour_pts, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=UnnestBasins -v --wd=&quot;/path/to/data/&quot; ^
+--d8_pntr='d8pntr.tif' --pour_pts='pour_pts.shp' ^
+-o='output.tif' 
+</code></pre>
+<p><a name="Watershed"></a></p>
+<a class="header" href="#watershed" id="watershed"><h2>Watershed</h2></a>
+<p>Identifies the watershed, or drainage basin, draining to a set of target cells.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/watershed.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
+<tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">watershed(
+    d8_pntr, 
+    pour_pts, 
+    output, 
+    esri_pntr=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Watershed -v --wd=&quot;/path/to/data/&quot; ^
+--d8_pntr='d8pntr.tif' --pour_pts='pour_pts.shp' ^
+-o='output.tif' 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../available_tools/gis_analysis_patch_shape_tools.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../available_tools/image_processing_tools.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../available_tools/gis_analysis_patch_shape_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../available_tools/image_processing_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

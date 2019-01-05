@@ -1,0 +1,1933 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Mathematical and statistical analysis - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html" class="active"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#math-and-stats-tools" id="math-and-stats-tools"><h1>Math and Stats Tools</h1></a>
+<ul>
+<li><a href="#AbsoluteValue">AbsoluteValue</a></li>
+<li><a href="#Add">Add</a></li>
+<li><a href="#And">And</a></li>
+<li><a href="#Anova">Anova</a></li>
+<li><a href="#ArcCos">ArcCos</a></li>
+<li><a href="#ArcSin">ArcSin</a></li>
+<li><a href="#ArcTan">ArcTan</a></li>
+<li><a href="#Atan2">Atan2</a></li>
+<li><a href="#AttributeCorrelation">AttributeCorrelation</a></li>
+<li><a href="#AttributeHistogram">AttributeHistogram</a></li>
+<li><a href="#AttributeScattergram">AttributeScattergram</a></li>
+<li><a href="#Ceil">Ceil</a></li>
+<li><a href="#Cos">Cos</a></li>
+<li><a href="#Cosh">Cosh</a></li>
+<li><a href="#CrispnessIndex">CrispnessIndex</a></li>
+<li><a href="#CrossTabulation">CrossTabulation</a></li>
+<li><a href="#CumulativeDistribution">CumulativeDistribution</a></li>
+<li><a href="#Decrement">Decrement</a></li>
+<li><a href="#Divide">Divide</a></li>
+<li><a href="#EqualTo">EqualTo</a></li>
+<li><a href="#Exp">Exp</a></li>
+<li><a href="#Exp2">Exp2</a></li>
+<li><a href="#ExtractRasterStatistics">ExtractRasterStatistics</a></li>
+<li><a href="#Floor">Floor</a></li>
+<li><a href="#GreaterThan">GreaterThan</a></li>
+<li><a href="#ImageAutocorrelation">ImageAutocorrelation</a></li>
+<li><a href="#ImageCorrelation">ImageCorrelation</a></li>
+<li><a href="#ImageRegression">ImageRegression</a></li>
+<li><a href="#InPlaceAdd">InPlaceAdd</a></li>
+<li><a href="#InPlaceDivide">InPlaceDivide</a></li>
+<li><a href="#InPlaceMultiply">InPlaceMultiply</a></li>
+<li><a href="#InPlaceSubtract">InPlaceSubtract</a></li>
+<li><a href="#Increment">Increment</a></li>
+<li><a href="#IntegerDivision">IntegerDivision</a></li>
+<li><a href="#IsNoData">IsNoData</a></li>
+<li><a href="#KappaIndex">KappaIndex</a></li>
+<li><a href="#KsTestForNormality">KsTestForNormality</a></li>
+<li><a href="#LessThan">LessThan</a></li>
+<li><a href="#ListUniqueValues">ListUniqueValues</a></li>
+<li><a href="#Ln">Ln</a></li>
+<li><a href="#Log10">Log10</a></li>
+<li><a href="#Log2">Log2</a></li>
+<li><a href="#Max">Max</a></li>
+<li><a href="#Min">Min</a></li>
+<li><a href="#Modulo">Modulo</a></li>
+<li><a href="#Multiply">Multiply</a></li>
+<li><a href="#Negate">Negate</a></li>
+<li><a href="#Not">Not</a></li>
+<li><a href="#NotEqualTo">NotEqualTo</a></li>
+<li><a href="#Or">Or</a></li>
+<li><a href="#Power">Power</a></li>
+<li><a href="#PrincipalComponentAnalysis">PrincipalComponentAnalysis</a></li>
+<li><a href="#Quantiles">Quantiles</a></li>
+<li><a href="#RandomField">RandomField</a></li>
+<li><a href="#RandomSample">RandomSample</a></li>
+<li><a href="#RasterHistogram">RasterHistogram</a></li>
+<li><a href="#RasterSummaryStats">RasterSummaryStats</a></li>
+<li><a href="#Reciprocal">Reciprocal</a></li>
+<li><a href="#RescaleValueRange">RescaleValueRange</a></li>
+<li><a href="#RootMeanSquareError">RootMeanSquareError</a></li>
+<li><a href="#Round">Round</a></li>
+<li><a href="#Sin">Sin</a></li>
+<li><a href="#Sinh">Sinh</a></li>
+<li><a href="#Square">Square</a></li>
+<li><a href="#SquareRoot">SquareRoot</a></li>
+<li><a href="#Subtract">Subtract</a></li>
+<li><a href="#Tan">Tan</a></li>
+<li><a href="#Tanh">Tanh</a></li>
+<li><a href="#ToDegrees">ToDegrees</a></li>
+<li><a href="#ToRadians">ToRadians</a></li>
+<li><a href="#TrendSurface">TrendSurface</a></li>
+<li><a href="#TrendSurfaceVectorPoints">TrendSurfaceVectorPoints</a></li>
+<li><a href="#Truncate">Truncate</a></li>
+<li><a href="#TurningBandsSimulation">TurningBandsSimulation</a></li>
+<li><a href="#Xor">Xor</a></li>
+<li><a href="#ZScores">ZScores</a></li>
+</ul>
+<p><a name="AbsoluteValue"></a></p>
+<a class="header" href="#absolutevalue" id="absolutevalue"><h2>AbsoluteValue</h2></a>
+<p>Calculates the absolute value of every cell in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/abs.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">absolute_value(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AbsoluteValue -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Add"></a></p>
+<a class="header" href="#add" id="add"><h2>Add</h2></a>
+<p>Performs an addition operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/add.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">add(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Add -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="And"></a></p>
+<a class="header" href="#and" id="and"><h2>And</h2></a>
+<p>Performs a logical AND operator on two Boolean raster images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/and.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">And(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=And -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Anova"></a></p>
+<a class="header" href="#anova" id="anova"><h2>Anova</h2></a>
+<p>Performs an analysis of variance (ANOVA) test on a raster dataset.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/anova.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--features         </td><td> Feature definition (or class) raster</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">anova(
+    i, 
+    features, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Anova -v --wd=&quot;/path/to/data/&quot; ^
+-i=data.tif --features=classes.tif -o=anova.html 
+</code></pre>
+<p><a name="ArcCos"></a></p>
+<a class="header" href="#arccos" id="arccos"><h2>ArcCos</h2></a>
+<p>Returns the inverse cosine (arccos) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arccos.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">arc_cos(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ArcCos -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="ArcSin"></a></p>
+<a class="header" href="#arcsin" id="arcsin"><h2>ArcSin</h2></a>
+<p>Returns the inverse sine (arcsin) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arcsin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">arc_sin(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ArcSin -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="ArcTan"></a></p>
+<a class="header" href="#arctan" id="arctan"><h2>ArcTan</h2></a>
+<p>Returns the inverse tangent (arctan) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arctan.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">arc_tan(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ArcTan -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Atan2"></a></p>
+<a class="header" href="#atan2" id="atan2"><h2>Atan2</h2></a>
+<p>Returns the 2-argument inverse tangent (atan2).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/atan2.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input_y          </td><td> Input y raster file or constant value (rise)</td></tr>
+<tr><td>--input_x          </td><td> Input x raster file or constant value (run)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">atan2(
+    input_y, 
+    input_x, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Atan2 -v --wd=&quot;/path/to/data/&quot; ^
+--input_y='in1.tif' --input_x='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="AttributeCorrelation"></a></p>
+<a class="header" href="#attributecorrelation" id="attributecorrelation"><h2>AttributeCorrelation</h2></a>
+<p>Performs a correlation analysis on attribute fields from a vector database.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/attribute_correlation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">attribute_correlation(
+    i, 
+    output=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AttributeCorrelation -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.html 
+</code></pre>
+<p><a name="AttributeHistogram"></a></p>
+<a class="header" href="#attributehistogram" id="attributehistogram"><h2>AttributeHistogram</h2></a>
+<p>Creates a histogram for the field values of a vector's attribute table.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/attribute_histogram.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">attribute_histogram(
+    i, 
+    field, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AttributeHistogram -v ^
+--wd=&quot;/path/to/data/&quot; -i=lakes.shp --field=HEIGHT ^
+-o=outfile.html 
+</code></pre>
+<p><a name="AttributeScattergram"></a></p>
+<a class="header" href="#attributescattergram" id="attributescattergram"><h2>AttributeScattergram</h2></a>
+<p>Creates a scattergram for two field values of a vector's attribute table.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/attribute_scattergram.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--fieldx           </td><td> Input field name in attribute table for the x-axis</td></tr>
+<tr><td>--fieldy           </td><td> Input field name in attribute table for the y-axis</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+<tr><td>--trendline        </td><td> Draw the trendline</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">attribute_scattergram(
+    i, 
+    fieldx, 
+    fieldy, 
+    output, 
+    trendline=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AttributeScattergram -v ^
+--wd=&quot;/path/to/data/&quot; -i=lakes.shp --fieldx=HEIGHT ^
+--fieldy=area -o=outfile.html --trendline 
+</code></pre>
+<p><a name="Ceil"></a></p>
+<a class="header" href="#ceil" id="ceil"><h2>Ceil</h2></a>
+<p>Returns the smallest (closest to negative infinity) value that is greater than or equal to the values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/ceil.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">ceil(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Ceil -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Cos"></a></p>
+<a class="header" href="#cos" id="cos"><h2>Cos</h2></a>
+<p>Returns the cosine (cos) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cos.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">cos(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Cos -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Cosh"></a></p>
+<a class="header" href="#cosh" id="cosh"><h2>Cosh</h2></a>
+<p>Returns the hyperbolic cosine (cosh) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cosh.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">cosh(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Cosh -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="CrispnessIndex"></a></p>
+<a class="header" href="#crispnessindex" id="crispnessindex"><h2>CrispnessIndex</h2></a>
+<p>This index (C) is taken from Lindsay (2006) Sensitivity of channel mapping techniques to uncertainty in digital
+elevation data:</p>
+<p>C = SS_mp ∕ SS_B = [∑(pij − p-bar)^2] ∕ [ ∑pij(1 − p-bar)^2 + p2(RC − ∑pij)]</p>
+<p>Please note that there is an error in the original published equation. Specifically, the denominator
+read:</p>
+<p>∑pij(1 - p_bar)^2 + p_bar^2 (RC - ∑pij)</p>
+<p>instead of the original:</p>
+<p>∑pij(1 - p_bar^2) - p_bar^2 (RC - ∑pij)</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/crispness_index.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Optional output html file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">crispness_index(
+    i, 
+    output=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CrispnessIndex -v --wd=&quot;/path/to/data/&quot; ^
+-i=input.tif
+&gt;&gt;./whitebox_tools -r=CrispnessIndex -v ^
+--wd=&quot;/path/to/data/&quot; -o=crispness.html 
+</code></pre>
+<p><a name="CrossTabulation"></a></p>
+<a class="header" href="#crosstabulation" id="crosstabulation"><h2>CrossTabulation</h2></a>
+<p>Performs a cross-tabulation on two categorical images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cross_tabulation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input raster file 1</td></tr>
+<tr><td>--i2, --input2    </td><td> Input raster file 1</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">cross_tabulation(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CrossTabulation -v ^
+--wd=&quot;/path/to/data/&quot; --i1=&quot;file1.tif&quot; --i2=&quot;file2.tif&quot; ^
+-o=outfile.html 
+</code></pre>
+<p><a name="CumulativeDistribution"></a></p>
+<a class="header" href="#cumulativedistribution" id="cumulativedistribution"><h2>CumulativeDistribution</h2></a>
+<p>Converts a raster image to its cumulative distribution function.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cumulative_dist.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">cumulative_distribution(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CumulativeDistribution -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="Decrement"></a></p>
+<a class="header" href="#decrement" id="decrement"><h2>Decrement</h2></a>
+<p>Decreases the values of each grid cell in an input raster by 1.0 (see also InPlaceSubtract).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/decrement.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">decrement(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Decrement -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Divide"></a></p>
+<a class="header" href="#divide" id="divide"><h2>Divide</h2></a>
+<p>Performs a division operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/divide.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">divide(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Divide -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="EqualTo"></a></p>
+<a class="header" href="#equalto" id="equalto"><h2>EqualTo</h2></a>
+<p>Performs a equal-to comparison operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/equal_to.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">equal_to(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=EqualTo -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Exp"></a></p>
+<a class="header" href="#exp" id="exp"><h2>Exp</h2></a>
+<p>Returns the exponential (base e) of values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/exp.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">exp(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Exp -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Exp2"></a></p>
+<a class="header" href="#exp2" id="exp2"><h2>Exp2</h2></a>
+<p>Returns the exponential (base 2) of values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/exp2.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">exp2(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Exp2 -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="ExtractRasterStatistics"></a></p>
+<a class="header" href="#extractrasterstatistics" id="extractrasterstatistics"><h2>ExtractRasterStatistics</h2></a>
+<p>This tool can be used to extract common descriptive statistics associated with the distribution
+of some underlying data raster based on feature units defined by a feature definition raster.
+For example, this tool can be used to measure the maximum or average slope gradient (data image)
+for each of a group of watersheds (feature definitions). Although the data raster can contain any
+type of data, the feature definition raster must be categorical, i.e. it must define area entities
+using integer values.</p>
+<p>If an output image name is specified, the tool will assign the descriptive statistic value to
+each of the spatial entities defined in the feature definition raster. If text output is selected,
+an HTML table will be output, which can then be readily copied into a spreadsheet program for
+further analysis. This is a very powerful and useful tool for creating numerical summary data from
+spatial data which can then be interrogated using statistical analyses. At least one output type
+(image or text) must be specified for the tool to operate.</p>
+<p>NoData values in either of the two input images are ignored during the calculation of the
+descriptive statistic.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/extract_statistics.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input data raster file</td></tr>
+<tr><td>--features         </td><td> Input feature definition raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--stat             </td><td> Statistic to extract</td></tr>
+<tr><td>--out_table        </td><td> Output HTML Table file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">extract_raster_statistics(
+    i, 
+    features, 
+    output=None, 
+    stat=&quot;average&quot;, 
+    out_table=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ExtractRasterStatistics -v ^
+--wd=&quot;/path/to/data/&quot; -i='input.tif' --features='groups.tif' ^
+-o='output.tif' --stat='minimum'
+&gt;&gt;./whitebox_tools ^
+-r=ExtractRasterStatistics -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' --features='groups.tif' ^
+--out_table='output.html' 
+</code></pre>
+<p><a name="Floor"></a></p>
+<a class="header" href="#floor" id="floor"><h2>Floor</h2></a>
+<p>Returns the largest (closest to positive infinity) value that is less than or equal to the values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/floor.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">floor(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Floor -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o='output.tif' 
+</code></pre>
+<p><a name="GreaterThan"></a></p>
+<a class="header" href="#greaterthan" id="greaterthan"><h2>GreaterThan</h2></a>
+<p>Performs a greater-than comparison operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/greater_than.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--incl_equals      </td><td> Perform a greater-than-or-equal-to operation</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">greater_than(
+    input1, 
+    input2, 
+    output, 
+    incl_equals=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=GreaterThan -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif ^
+--incl_equals 
+</code></pre>
+<p><a name="ImageAutocorrelation"></a></p>
+<a class="header" href="#imageautocorrelation" id="imageautocorrelation"><h2>ImageAutocorrelation</h2></a>
+<p>Performs Moran's I analysis on two or more input images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_autocorrelation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>--contiguity       </td><td> Contiguity type</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">image_autocorrelation(
+    inputs, 
+    output, 
+    contiguity=&quot;Rook&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ImageAutocorrelation -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;file1.tif, file2.tif, file3.tif&quot; ^
+-o=outfile.html --contiguity=Bishops 
+</code></pre>
+<p><a name="ImageCorrelation"></a></p>
+<a class="header" href="#imagecorrelation" id="imagecorrelation"><h2>ImageCorrelation</h2></a>
+<p>Performs image correlation on two or more input images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_correlation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">image_correlation(
+    inputs, 
+    output=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ImageCorrelation -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;file1.tif, file2.tif, file3.tif&quot; ^
+-o=outfile.html 
+</code></pre>
+<p><a name="ImageRegression"></a></p>
+<a class="header" href="#imageregression" id="imageregression"><h2>ImageRegression</h2></a>
+<p>Performs image regression analysis on two input images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_regression.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input raster file (independent variable, X)</td></tr>
+<tr><td>--i2, --input2    </td><td> Input raster file (dependent variable, Y)</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file for regression summary report</td></tr>
+<tr><td>--out_residuals    </td><td> Output raster regression resdidual file</td></tr>
+<tr><td>--standardize      </td><td> Optional flag indicating whether to standardize the residuals map</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">image_regression(
+    input1, 
+    input2, 
+    output, 
+    out_residuals=None, 
+    standardize=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ImageRegression -v ^
+--wd=&quot;/path/to/data/&quot; --i1='file1.tif' --i2='file2.tif' ^
+-o='outfile.html' --out_residuals='residuals.tif' ^
+--standardize 
+</code></pre>
+<p><a name="InPlaceAdd"></a></p>
+<a class="header" href="#inplaceadd" id="inplaceadd"><h2>InPlaceAdd</h2></a>
+<p>Performs an in-place addition operation (input1 += input2).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/inplace_add.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">in_place_add(
+    input1, 
+    input2, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=InPlaceAdd -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif'&quot;
+&gt;&gt;./whitebox_tools ^
+-r=InPlaceAdd -v --wd=&quot;/path/to/data/&quot; --input1='in1.tif' ^
+--input2=10.5' 
+</code></pre>
+<p><a name="InPlaceDivide"></a></p>
+<a class="header" href="#inplacedivide" id="inplacedivide"><h2>InPlaceDivide</h2></a>
+<p>Performs an in-place division operation (input1 /= input2).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/inplace_divide.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">in_place_divide(
+    input1, 
+    input2, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=InPlaceDivide -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif'&quot;
+&gt;&gt;./whitebox_tools ^
+-r=InPlaceDivide -v --wd=&quot;/path/to/data/&quot; --input1='in1.tif' ^
+--input2=10.5' 
+</code></pre>
+<p><a name="InPlaceMultiply"></a></p>
+<a class="header" href="#inplacemultiply" id="inplacemultiply"><h2>InPlaceMultiply</h2></a>
+<p>Performs an in-place multiplication operation (input1 *= input2).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/inplace_multiply.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">in_place_multiply(
+    input1, 
+    input2, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=InPlaceMultiply -v ^
+--wd=&quot;/path/to/data/&quot; --input1='in1.tif' ^
+--input2='in2.tif'&quot;
+&gt;&gt;./whitebox_tools -r=InPlaceMultiply -v ^
+--wd=&quot;/path/to/data/&quot; --input1='in1.tif' --input2=10.5' 
+</code></pre>
+<p><a name="InPlaceSubtract"></a></p>
+<a class="header" href="#inplacesubtract" id="inplacesubtract"><h2>InPlaceSubtract</h2></a>
+<p>Performs an in-place subtraction operation (input1 -= input2).</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/inplace_subtract.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">in_place_subtract(
+    input1, 
+    input2, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=InPlaceSubtract -v ^
+--wd=&quot;/path/to/data/&quot; --input1='in1.tif' ^
+--input2='in2.tif'&quot;
+&gt;&gt;./whitebox_tools -r=InPlaceSubtract -v ^
+--wd=&quot;/path/to/data/&quot; --input1='in1.tif' --input2=10.5' 
+</code></pre>
+<p><a name="Increment"></a></p>
+<a class="header" href="#increment" id="increment"><h2>Increment</h2></a>
+<p>Increases the values of each grid cell in an input raster by 1.0. (see also InPlaceAdd)</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/increment.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">increment(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Increment -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="IntegerDivision"></a></p>
+<a class="header" href="#integerdivision" id="integerdivision"><h2>IntegerDivision</h2></a>
+<p>Performs an integer division operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/integer_division.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">integer_division(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=IntegerDivision -v ^
+--wd=&quot;/path/to/data/&quot; --input1='in1.tif' --input2='in2.tif' ^
+-o=output.tif 
+</code></pre>
+<p><a name="IsNoData"></a></p>
+<a class="header" href="#isnodata" id="isnodata"><h2>IsNoData</h2></a>
+<p>Identifies NoData valued pixels in an image.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/isnodata.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">is_no_data(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=IsNoData -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="KappaIndex"></a></p>
+<a class="header" href="#kappaindex" id="kappaindex"><h2>KappaIndex</h2></a>
+<p>Performs a kappa index of agreement (KIA) analysis on two categorical raster files.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/kappa_index.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input classification raster file</td></tr>
+<tr><td>--i2, --input2    </td><td> Input reference raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">kappa_index(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=KappaIndex -v --wd=&quot;/path/to/data/&quot; ^
+--i1=class.tif --i2=reference.tif -o=kia.html 
+</code></pre>
+<p><a name="KsTestForNormality"></a></p>
+<a class="header" href="#kstestfornormality" id="kstestfornormality"><h2>KsTestForNormality</h2></a>
+<p>This tool will perform a Kolmogorov-Smirnov (K-S) test for normality to evaluate
+whether the frequency distribution of values within a raster image are drawn from a
+Gaussian (normal) distribution. The user must specify the name of the raster image. The
+test can be performed optionally on the entire image or on a random sub-sample of pixel
+values of a user-specified size. In evaluating the significance of the test, it is
+important to keep in mind that given a sufficiently large sample, extremely small and
+non-notable differences can be found to be statistically significant. Furthermore
+statistical significance says nothing about the practical significance of a difference.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/ks_normality_test.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">ks_test_for_normality(
+    i, 
+    output, 
+    num_samples=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=KSTestForNormality -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.html ^
+--num_samples=1000
+&gt;&gt;./whitebox_tools -r=KSTestForNormality -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.html 
+</code></pre>
+<p><a name="LessThan"></a></p>
+<a class="header" href="#lessthan" id="lessthan"><h2>LessThan</h2></a>
+<p>Performs a less-than comparison operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/less_than.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--incl_equals      </td><td> Perform a less-than-or-equal-to operation</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">less_than(
+    input1, 
+    input2, 
+    output, 
+    incl_equals=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LessThan -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif ^
+--incl_equals 
+</code></pre>
+<p><a name="ListUniqueValues"></a></p>
+<a class="header" href="#listuniquevalues" id="listuniquevalues"><h2>ListUniqueValues</h2></a>
+<p>Lists the unique values contained in a field witin a vector's attribute table.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/list_unique_values.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">list_unique_values(
+    i, 
+    field, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ListUniqueValues -v ^
+--wd=&quot;/path/to/data/&quot; -i=lakes.shp --field=HEIGHT ^
+-o=outfile.html 
+</code></pre>
+<p><a name="Ln"></a></p>
+<a class="header" href="#ln" id="ln"><h2>Ln</h2></a>
+<p>Returns the natural logarithm of values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/ln.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">ln(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Ln -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Log10"></a></p>
+<a class="header" href="#log10" id="log10"><h2>Log10</h2></a>
+<p>Returns the base-10 logarithm of values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/log10.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">log10(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Log10 -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Log2"></a></p>
+<a class="header" href="#log2" id="log2"><h2>Log2</h2></a>
+<p>Returns the base-2 logarithm of values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/log2.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">log2(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Log2 -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Max"></a></p>
+<a class="header" href="#max" id="max"><h2>Max</h2></a>
+<p>Performs a MAX operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/max.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">max(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Max -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Min"></a></p>
+<a class="header" href="#min" id="min"><h2>Min</h2></a>
+<p>Performs a MIN operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/min.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">min(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Min -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Modulo"></a></p>
+<a class="header" href="#modulo" id="modulo"><h2>Modulo</h2></a>
+<p>Performs a modulo operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/modulo.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">modulo(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Modulo -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Multiply"></a></p>
+<a class="header" href="#multiply" id="multiply"><h2>Multiply</h2></a>
+<p>Performs a multiplication operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/multiply.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">multiply(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Multiply -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Negate"></a></p>
+<a class="header" href="#negate" id="negate"><h2>Negate</h2></a>
+<p>Changes the sign of values in a raster or the 0-1 values of a Boolean raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/negate.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">negate(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Negate -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Not"></a></p>
+<a class="header" href="#not" id="not"><h2>Not</h2></a>
+<p>Performs a logical NOT operator on two Boolean raster images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/not.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">Not(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Not -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="NotEqualTo"></a></p>
+<a class="header" href="#notequalto" id="notequalto"><h2>NotEqualTo</h2></a>
+<p>Performs a not-equal-to comparison operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/not_equal_to.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">not_equal_to(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=NotEqualTo -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Or"></a></p>
+<a class="header" href="#or" id="or"><h2>Or</h2></a>
+<p>Performs a logical OR operator on two Boolean raster images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/or.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">Or(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Or -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Power"></a></p>
+<a class="header" href="#power" id="power"><h2>Power</h2></a>
+<p>Raises the values in grid cells of one rasters, or a constant value, by values in another raster or constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/power.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">power(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Power -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="PrincipalComponentAnalysis"></a></p>
+<a class="header" href="#principalcomponentanalysis" id="principalcomponentanalysis"><h2>PrincipalComponentAnalysis</h2></a>
+<p>Performs a principal component analysis (PCA) on a multi-spectral dataset.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/principal_component_analysis.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>--out_html         </td><td> Output HTML report file</td></tr>
+<tr><td>--num_comp         </td><td> Number of component images to output; &lt;= to num. input images</td></tr>
+<tr><td>--standardized     </td><td> Perform standardized PCA?</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">principal_component_analysis(
+    inputs, 
+    out_html, 
+    num_comp=None, 
+    standardized=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PrincipalComponentAnalysis -v ^
+--wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
+--out_html=report.html --num_comp=3 --standardized 
+</code></pre>
+<p><a name="Quantiles"></a></p>
+<a class="header" href="#quantiles" id="quantiles"><h2>Quantiles</h2></a>
+<p>Transforms raster values into quantiles.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/quantiles.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--num_quantiles    </td><td> Number of quantiles</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">quantiles(
+    i, 
+    output, 
+    num_quantiles=5, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Quantiles -v --wd=&quot;/path/to/data/&quot; ^
+-i=DEM.tif -o=output.tif --num_quantiles=5 
+</code></pre>
+<p><a name="RandomField"></a></p>
+<a class="header" href="#randomfield" id="randomfield"><h2>RandomField</h2></a>
+<p>Creates an image containing random values.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/random_field.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --base         </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">random_field(
+    base, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RandomField -v --wd=&quot;/path/to/data/&quot; ^
+--base=in.tif -o=out.tif 
+</code></pre>
+<p><a name="RandomSample"></a></p>
+<a class="header" href="#randomsample" id="randomsample"><h2>RandomSample</h2></a>
+<p>This tool can be used to create a random sample of grid cells. The user specifies
+the base raster file, which is used to determine the grid dimensions and georeference
+information for the output raster, and the number of sample random samples (n). The
+output grid will contain n non-zero grid cells, randomly distributed throughout the
+raster grid, and a background value of zero. This tool is useful when performing
+statistical analyses on raster images when you wish to obtain a random sample of data.</p>
+<p>Only valid, non-nodata, cells in the base raster will be sampled.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/random_sample.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --base         </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">random_sample(
+    base, 
+    output, 
+    num_samples=1000, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RandomSample -v --wd=&quot;/path/to/data/&quot; ^
+--base=in.tif -o=out.tif --num_samples=1000 
+</code></pre>
+<p><a name="RasterHistogram"></a></p>
+<a class="header" href="#rasterhistogram" id="rasterhistogram"><h2>RasterHistogram</h2></a>
+<p>Creates a histogram from raster values.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/raster_histogram.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raster_histogram(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterHistogram -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;file1.tif&quot; -o=outfile.html 
+</code></pre>
+<p><a name="RasterSummaryStats"></a></p>
+<a class="header" href="#rastersummarystats" id="rastersummarystats"><h2>RasterSummaryStats</h2></a>
+<p>Measures a rasters average, standard deviation, num. non-nodata cells, and total.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/raster_summary_stats.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raster_summary_stats(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterSummaryStats -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif 
+</code></pre>
+<p><a name="Reciprocal"></a></p>
+<a class="header" href="#reciprocal" id="reciprocal"><h2>Reciprocal</h2></a>
+<p>Returns the reciprocal (i.e. 1 / z) of values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/reciprocal.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">reciprocal(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Reciprocal -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="RescaleValueRange"></a></p>
+<a class="header" href="#rescalevaluerange" id="rescalevaluerange"><h2>RescaleValueRange</h2></a>
+<p>Performs a min-max contrast stretch on an input greytone image.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/rescale_value_range.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_min_val      </td><td> New minimum value in output image</td></tr>
+<tr><td>--out_max_val      </td><td> New maximum value in output image</td></tr>
+<tr><td>--clip_min         </td><td> Optional lower tail clip value</td></tr>
+<tr><td>--clip_max         </td><td> Optional upper tail clip value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">rescale_value_range(
+    i, 
+    output, 
+    out_min_val, 
+    out_max_val, 
+    clip_min=None, 
+    clip_max=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RescaleValueRange -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif ^
+--out_min_val=0.0 --out_max_val=1.0
+&gt;&gt;./whitebox_tools ^
+-r=RescaleValueRange -v --wd=&quot;/path/to/data/&quot; -i=input.tif ^
+-o=output.tif --out_min_val=0.0 --out_max_val=1.0 ^
+--clip_min=45.0 --clip_max=200.0 
+</code></pre>
+<p><a name="RootMeanSquareError"></a></p>
+<a class="header" href="#rootmeansquareerror" id="rootmeansquareerror"><h2>RootMeanSquareError</h2></a>
+<p>This tool calculates the root-mean-square-error (RMSE) or root-mean-square-difference (RMSD) from two
+input rasters. If the two input rasters possess the same number of rows and columns, the RMSE is
+calucated on a cell-by-cell basis, otherwise bilinear resampling is used. In addition to RMSE,
+the tool also reports other common accuracy statistics including the mean verical error, the
+95% confidence limit (RMSE x 1.96), and the 90% linear error (LE90), which is the 90% percentile of
+the residuals between two raster surfaces. The LE90 is the most robust of the reported accuracy
+statistics when the residuals are non-Gaussian. The LE90 requires sorting the residual values, which
+can be a relatively slow operation for larger rasters.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/root_mean_square_error.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--base             </td><td> Input base raster file used for comparison</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">root_mean_square_error(
+    i, 
+    base, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RootMeanSquareError -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif 
+</code></pre>
+<p><a name="Round"></a></p>
+<a class="header" href="#round" id="round"><h2>Round</h2></a>
+<p>Rounds the values in an input raster to the nearest integer value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/round.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">round(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Round -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Sin"></a></p>
+<a class="header" href="#sin" id="sin"><h2>Sin</h2></a>
+<p>Returns the sine (sin) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/sin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">sin(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Sin -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Sinh"></a></p>
+<a class="header" href="#sinh" id="sinh"><h2>Sinh</h2></a>
+<p>Returns the hyperbolic sine (sinh) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/sinh.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">sinh(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Sinh -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Square"></a></p>
+<a class="header" href="#square" id="square"><h2>Square</h2></a>
+<p>Squares the values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/square.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">square(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Square -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="SquareRoot"></a></p>
+<a class="header" href="#squareroot" id="squareroot"><h2>SquareRoot</h2></a>
+<p>Returns the square root of the values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/sqrt.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">square_root(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SquareRoot -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Subtract"></a></p>
+<a class="header" href="#subtract" id="subtract"><h2>Subtract</h2></a>
+<p>Performs a differencing operation on two rasters or a raster and a constant value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/subtract.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
+<tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">subtract(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Subtract -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="Tan"></a></p>
+<a class="header" href="#tan" id="tan"><h2>Tan</h2></a>
+<p>Returns the tangent (tan) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/tan.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">tan(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Tan -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="Tanh"></a></p>
+<a class="header" href="#tanh" id="tanh"><h2>Tanh</h2></a>
+<p>Returns the hyperbolic tangent (tanh) of each values in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/tanh.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">tanh(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Tanh -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="ToDegrees"></a></p>
+<a class="header" href="#todegrees" id="todegrees"><h2>ToDegrees</h2></a>
+<p>Converts a raster from radians to degrees.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/to_degrees.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">to_degrees(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ToDegrees -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="ToRadians"></a></p>
+<a class="header" href="#toradians" id="toradians"><h2>ToRadians</h2></a>
+<p>Converts a raster from degrees to radians.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/to_radians.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">to_radians(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ToRadians -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a name="TrendSurface"></a></p>
+<a class="header" href="#trendsurface" id="trendsurface"><h2>TrendSurface</h2></a>
+<p>This tool can be used to interpolate a trend surface from a raster image. The
+technique uses a polynomial, least-squares regression analysis. The user must
+specify the name of the input raster file. In addition, the user must specify
+the polynomial order (1 to 10) for the analysis. A first-order polynomial is a
+planar surface with no curvature. As the polynomial order is increased, greater
+flexibility is allowed in the fitted surface. Although polynomial orders as high
+as 10 are accepted, numerical instability in the analysis often creates artifacts
+in trend surfaces of orders greater than 5. The operation will display a text
+report on completion, in addition to the output raster image. The report will
+list each of the coefficient values and the r-square value. Note that the entire
+raster image must be able to fit into computer memory, limiting the use of this
+tool to relatively small rasters. The Trend Surface (Vector Points) tool can be
+used instead if the input data is vector points contained in a shapefile.</p>
+<p>Numerical stability is enhanced by transforming the x, y, z data by their minimum
+values before performing the regression analysis. These transform parameters
+are also reported in the output report.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/trend_surface.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--order            </td><td> Polynomial order (1 to 10)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">trend_surface(
+    i, 
+    output, 
+    order=1, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TrendSurface -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o='output.tif' --order=2 
+</code></pre>
+<p><a name="TrendSurfaceVectorPoints"></a></p>
+<a class="header" href="#trendsurfacevectorpoints" id="trendsurfacevectorpoints"><h2>TrendSurfaceVectorPoints</h2></a>
+<p>This tool can be used to interpolate a trend surface from a vector points file. The
+technique uses a polynomial, least-squares regression analysis. The user must specify
+the name of the input shapefile, which must be of a 'Points' base ShapeType and select
+the attribute in the shapefile's associated attribute table for which to base the trend
+surface analysis. The attribute must be numerical. In addition, the user must specify
+the polynomial order (1 to 10) for the analysis. A first-order polynomial is a planar
+surface with no curvature. As the polynomial order is increased, greater flexibility is
+allowed in the fitted surface. Although polynomial orders as high as 10 are accepted,
+numerical instability in the analysis often creates artifacts in trend surfaces of orders
+greater than 5. The operation will display a text report on completion, in addition to
+the output raster image. The report will list each of the coefficient values and the
+r-square value. The Trend Surface tool can be used instead if the input data is a raster
+image.</p>
+<p>Numerical stability is enhanced by transforming the x, y, z data by their minimum
+values before performing the regression analysis. These transform parameters
+are also reported in the output report.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/trend_surface_vector_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--order            </td><td> Polynomial order (1 to 10)</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">trend_surface_vector_points(
+    i, 
+    field, 
+    output, 
+    cell_size, 
+    order=1, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TrendSurfaceVectorPoints -v ^
+--wd=&quot;/path/to/data/&quot; -i='input.shp' --field=ELEV ^
+-o='output.tif' --order=2 --cell_size=10.0 
+</code></pre>
+<p><a name="Truncate"></a></p>
+<a class="header" href="#truncate" id="truncate"><h2>Truncate</h2></a>
+<p>Truncates the values in a raster to the desired number of decimal places.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/truncate.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--num_decimals     </td><td> Number of decimals left after truncation (default is zero)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">truncate(
+    i, 
+    output, 
+    num_decimals=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Truncate -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif --num_decimals=2 
+</code></pre>
+<p><a name="TurningBandsSimulation"></a></p>
+<a class="header" href="#turningbandssimulation" id="turningbandssimulation"><h2>TurningBandsSimulation</h2></a>
+<p>Creates an image containing random values based on a turning-bands simulation.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/turning_bands.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --base         </td><td> Input base raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--range            </td><td> The field's range, in xy-units, related to the extent of spatial autocorrelation</td></tr>
+<tr><td>--iterations       </td><td> The number of iterations</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">turning_bands_simulation(
+    base, 
+    output, 
+    range, 
+    iterations=1000, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TurningBandsSimulation -v ^
+--wd=&quot;/path/to/data/&quot; --base=in.tif -o=out.tif --range=850.0 ^
+--iterations=2500 
+</code></pre>
+<p><a name="Xor"></a></p>
+<a class="header" href="#xor" id="xor"><h2>Xor</h2></a>
+<p>Performs a logical XOR operator on two Boolean raster images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/xor.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file</td></tr>
+<tr><td>--input2           </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">xor(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Xor -v --wd=&quot;/path/to/data/&quot; ^
+--input1='in1.tif' --input2='in2.tif' -o=output.tif 
+</code></pre>
+<p><a name="ZScores"></a></p>
+<a class="header" href="#zscores" id="zscores"><h2>ZScores</h2></a>
+<p>Standardizes the values in an input raster by converting to z-scores.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/zscores.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">z_scores(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ZScores -v --wd=&quot;/path/to/data/&quot; ^
+-i=DEM.tif -o=output.tif 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../available_tools/lidar_tools.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../available_tools/stream_network_analysis.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../available_tools/lidar_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../available_tools/stream_network_analysis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

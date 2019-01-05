@@ -1,0 +1,573 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Processing LiDAR data - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html" class="active"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#processing-lidar-data" id="processing-lidar-data"><h1>Processing LiDAR data</h1></a>
+<ul>
+<li><a href="#grid_lidar">How do I convert a LAS point cloud into a raster?</a></li>
+<li><a href="#classification">How do I exclude points with certain classifications?</a></li>
+<li><a href="#folder">I have many LAS files and want to interpolate all of them at once</a></li>
+<li><a href="#low_points">What if my data contains anomalously high/low points?</a></li>
+<li><a href="#laz">My data are in LAZ format. How do I interpolate them?</a></li>
+<li><a href="#intensity">How do I interpolate an image from the intensity data?</a></li>
+<li><a href="#resolution">How do I decide on an appropriate grid resolution?</a></li>
+<li><a href="#nodata_gaps">My raster contains NoData gaps. How do I remove these?</a></li>
+<li><a href="#mosaic">How do I combine many LiDAR tiles into a single raster?</a></li>
+<li><a href="#workflow">Is there a complete example LiDAR processing workflow available?</a></li>
+</ul>
+<p><a name="grid_lidar"></a></p>
+<a class="header" href="#how-do-i-convert-a-las-point-cloud-into-a-raster" id="how-do-i-convert-a-las-point-cloud-into-a-raster"><h2>How do I convert a LAS point cloud into a raster?</h2></a>
+<p>Converting your LiDAR data into a raster requires an interpolation operation. There are many such interpolation methods. The following is an example of how to interpolate the last-return points of a LAS (LiDAR) file using an inverse distance weighted (IDW) interpolation scheme, with a search window radius of 2.5 m, an exponent of 2.0, and an output grid resolution of 1.5 m.</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot;
+
+wbt.lidar_idw_interpolation(
+i=&quot;myFile.las&quot;,
+output=&quot;myRaster.tif&quot;,
+parameter=&quot;elevation&quot;,
+returns=&quot;last&quot;,
+resolution=1.5,
+weight=2.0,
+radius=2.5
+)
+</code></pre>
+<p>Other methods for gridding a LAS file include nearest neighbour, Delaunay triangulation (TINing), block minimum, and block maximum gridding schemes.</p>
+<p><a name="classification"></a></p>
+<a class="header" href="#how-do-i-exclude-points-with-certain-classifications" id="how-do-i-exclude-points-with-certain-classifications"><h2>How do I exclude points with certain classifications?</h2></a></h2>
+<p>It is commonly the case that points with certain class values should be excluded from the gridding of LiDAR data. For example, you may wish to exclude points associated with vegetation, buildings, bridges, utility lines, etc. The <em>LidarIdwInterpolation</em> and <em>LidarNearestNeighbourGridding</em> tools allow for excluded point classes using the <em>exclude_cls</em> parameter. The parameter takes a numeric list as input, e.g. <code>exclude_cls='3,4,5,6,7,18'</code>. Class values follow those of the LAS v.1.4 specifications:</p>
+<p><em>LAS point classification values</em></p>
+<table><thead><tr><th align="left"> Classification Value  </th><th align="left"> Meaning                              </th></tr></thead><tbody>
+<tr><td align="left"> 0                     </td><td align="left"> Created never classified</td></tr>
+<tr><td align="left"> 1                     </td><td align="left"> Unclassified3</td></tr>
+<tr><td align="left"> 2                     </td><td align="left"> Ground</td></tr>
+<tr><td align="left"> 3                     </td><td align="left"> Low Vegetation</td></tr>
+<tr><td align="left"> 4                     </td><td align="left"> Medium Vegetation</td></tr>
+<tr><td align="left"> 5                     </td><td align="left"> High Vegetation</td></tr>
+<tr><td align="left"> 6                     </td><td align="left"> Building</td></tr>
+<tr><td align="left"> 7                     </td><td align="left"> Low Point (noise)</td></tr>
+<tr><td align="left"> 8                     </td><td align="left"> Reserved</td></tr>
+<tr><td align="left"> 9                     </td><td align="left"> Water</td></tr>
+<tr><td align="left"> 10                    </td><td align="left"> Rail</td></tr>
+<tr><td align="left"> 11                    </td><td align="left"> Road Surface</td></tr>
+<tr><td align="left"> 12                    </td><td align="left"> Reserved</td></tr>
+<tr><td align="left"> 13                    </td><td align="left"> Wire – Guard (Shield)</td></tr>
+<tr><td align="left"> 14                    </td><td align="left"> Wire – Conductor (Phase)</td></tr>
+<tr><td align="left"> 15                    </td><td align="left"> Transmission Tower</td></tr>
+<tr><td align="left"> 16                    </td><td align="left"> Wire-structure Connector (e.g. Insulator)</td></tr>
+<tr><td align="left"> 17                    </td><td align="left"> Bridge Deck</td></tr>
+<tr><td align="left"> 18                    </td><td align="left"> High Noise</td></tr>
+</tbody></table>
+<p>Of course, not all LAS files have had point classifications applied and stored. To determine whether your data contains point class
+data, you can run the <em>LidarInfo</em> tool before interpolation.</p>
+<p><a name="folder"></a></p>
+<a class="header" href="#i-have-many-las-files-and-want-to-interpolate-all-of-them-at-once" id="i-have-many-las-files-and-want-to-interpolate-all-of-them-at-once"><h2>I have many LAS files and want to interpolate all of them at once</h2></a>
+<p>When you have hundreds, or even thousands, of LAS files you might be inclined to write a Python script that calls the above function for each input file contained within a folder. But that isn't the best way to handle this common situation. Instead, if the input (i) and output parameters are left unspecified, each of WhiteboxTool's LiDAR gridding methods will interpolate all of the LAS files in the working directory, e.g.</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot;
+wbt.lidar_idw_interpolation(
+parameter=&quot;elevation&quot;,
+returns=&quot;last&quot;,
+resolution=1.0,
+weight=1.0,
+radius=2.5
+)
+</code></pre>
+<p>Using this approach to folder-based interpolation has some advantages other than a greatly simplified script. WhiteboxTools will be able to parallelize the operation better, greatly improving the overall time required to interpolate the batch of files. Also, the gridding operations will be carried out with a strip of buffered data surrounding each LiDAR tile, i.e. there will be reduced edge-effects. This will reduce the potential for artifacts in the final mosaiced DEM.</p>
+<p><a name="low_points"></a></p>
+<a class="header" href="#what-if-my-data-contains-anomalously-highlow-points" id="what-if-my-data-contains-anomalously-highlow-points"><h2>What if my data contains anomalously high/low points?</h2></a>
+<p>This is a fairly common problem with LiDAR data. If you're fortunate, these points, which often fall hundreds of meters above  or below the terrain surface, will be classified appropriately. When  this is the case, you may simply exclude the points with class values of 7 (low point) and 18 (high point). Alternatively, you may use the optional <code>minz</code> and <code>maxz</code> interpolation parameters to exclude unclassified outlier points. Lastly, you may remove these points from the original point cloud data set using the <em>LidarRemoveOutliers</em> tool.</p>
+<p><a name="laz"></a></p>
+<a class="header" href="#my-data-are-in-laz-format-how-do-i-interpolate-them" id="my-data-are-in-laz-format-how-do-i-interpolate-them"><h2>My data are in LAZ format. How do I interpolate them?</h2></a>
+<p>WhiteboxTools does not currently support the compressed LiDAR format LAZ. To use these data, you will first need to decompress the files to a LAS format. You may wish to use LasTools for this purpose.</p>
+<p><a name="intensity"></a></p>
+<a class="header" href="#how-do-i-interpolate-an-image-from-the-intensity-data" id="how-do-i-interpolate-an-image-from-the-intensity-data"><h2>How do I interpolate an image from the intensity data?</h2></a>
+<p>The <code>parameter</code> argument of the IDW and nearest neighbour interpolator tools allows you to interpolate intensity data (options include 'elevation', 'intensity', 'class', 'scan angle', and 'user data'). Here is an example:</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot;
+
+wbt.lidar_nearest_neighbour_gridding(
+&quot;in.las&quot;, &quot;out.tif&quot;, parameter=&quot;intensity&quot;)
+</code></pre>
+<p><a name="resolution"></a></p>
+<a class="header" href="#how-do-i-decide-on-an-appropriate-grid-resolution" id="how-do-i-decide-on-an-appropriate-grid-resolution"><h2>How do I decide on an appropriate grid resolution?</h2></a>
+<p>You want to choose a grid resolution where the vast majority of grid cells in the area covered by data have at least one return point. If you are interpolating with last-return points only, then this will necessarily reduce the potential resolution. Ultimately, there is not single appropriate value and the range of suitable resolutions will depend on the distribution of point density with the area of coverage. If the specified resolution is too high given the point density of the LiDAR data set, many of the grid cells will either be NoData holes, or represent interpolated values from relatively distant (up to the search radius) points. A higher than necessary grid resolution will also make working with the final mosaiced DEM raster more challenging, due to the computational effort needed to work with massive rasters and increase the storage and memory requirements. It is advisable to experiment with the <em>LidarPointDensity</em> and <em>LidarPointStats</em> tools before deciding upon a grid resolution for interpolation.</p>
+<p><a name="nodata_gaps"></a></p>
+<a class="header" href="#my-raster-contains-nodata-gaps-how-do-i-remove-these" id="my-raster-contains-nodata-gaps-how-do-i-remove-these"><h2>My raster contains NoData gaps. How do I remove these?</h2></a>
+<p>First, we need to distinguish between two common areas of NoData values in the interpolated rasters of LiDAR data sets. Because LiDAR data are often collected for irregularly shaped sites, it is frequently the case that LiDAR DEMs have large NoData areas beyond the area of LiDAR point coverage. These are generally acceptable void areas and should not be altered. The more problemmatic void areas are interior data gaps (so called doughnut holes). These generally arise because the point density in an area of LiDAR coverage is lower than the grid resolution (and search radius) dictate in an area. Sometimes these NoData areas are associated with specific non-reflective surfaces, such as water, or areas of dense vegetation (and therefore the last return point density is far lower than in other areas). If the NoData gaps are extensive and spread throughout he area of coverage, that is a sign that you likely need to interpolate either with a coarser grid resolution or a larger search radius, or quite probably both. If your LiDAR DEM has a small number these void areas, and they are not extensive, then you may interpolate to remove the gaps using the <em>FillMissingData</em> tool:</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot;
+
+wbt.fill_missing_data(&quot;dem.tif&quot;, &quot;new_dem.tif&quot;, filter=11)
+</code></pre>
+<p>The choice of a filter size will depend on the extent of the largest interior void area.</p>
+<p><a name="mosaic"></a></p>
+<a class="header" href="#how-do-i-combine-many-lidar-tiles-into-a-single-raster" id="how-do-i-combine-many-lidar-tiles-into-a-single-raster"><h2>How do I combine many LiDAR tiles into a single raster?</h2></a>
+<p>Often you have many hundred LAS files, which you've intepolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
+<pre><code class="language-python">from os import listdir
+from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot;
+
+# find all GeoTIFFs in the path
+input_files = &quot;&quot;
+for f in listdir(wbt.work_dir):
+    if f.endswith(&quot;.tif&quot;):
+        input_files += &quot;;&quot; + f
+
+input_files = input_files[1:]  # strips the first ';'
+
+wbt.mosaic(inputs=input_files, output=&quot;big_DEM.tif&quot;)&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
+<p><a name="workflow"></a></p>
+<a class="header" href="#is-there-a-complete-example-lidar-processing-workflow-available" id="is-there-a-complete-example-lidar-processing-workflow-available"><h2>Is there a complete example LiDAR processing workflow available?</h2></a>
+<p>Yes! The following code is an example of some of the common tasks required in processing large LiDAR datasets of many hundreds of LAS files.</p>
+<pre><code class="language-python">import os
+from os import path
+from WBT.whitebox_tools import WhiteboxTools
+
+def main():
+
+    las_files_dir = &quot;/Users/johnlindsay/Documents/data/test_lidar/&quot;
+    filtered_las_dir = &quot;/Users/johnlindsay/Documents/data/test_lidar/filtered_LAS/&quot;
+    raster_data_dir = &quot;/Users/johnlindsay/Documents/data/test_lidar/interpolated_grids/&quot;
+
+    wbt = WhiteboxTools()
+    wbt.work_dir = las_files_dir #set working directory
+    wbt.verbose = False
+    if not os.path.exists(filtered_las_dir):
+        os.makedirs(filtered_las_dir)
+
+    # Sometimes, I like to extract all of the LAS tiles that overlap with a
+    # particular area. For example, I might want to interpolate all the files
+    # overlapping with a watershed. For this, you can use select_tiles_by_polygon.
+    # Uncomment the four lines below if you want to do this.
+    # outdir = &quot;/Users/johnlindsay/Documents/data/LAS_files_in_watershed/&quot;
+    # polygons = &quot;/Users/johnlindsay/Documents/data/LAS_files_in_watershed/watershed.shp&quot;
+    # wbt.select_tiles_by_polygon(las_files_dir, outdir, polygons)
+    # las_files_dir = outdir # this way the analysis below works only on the selected tiles.
+
+    ##################################################################################
+    # Filter the ground points in the LAS files using lidar_ground_point_filter tool #
+    ##################################################################################
+
+    # This one is the SLOWEST part of the workflow and can be avoided if you are
+    # confident that you have good point classification data, i.e. that the
+    # vegetation and building classes have been properly populated.
+    processed_files = []
+    num_filtered = 1
+    flag = True
+    while flag:
+        file_names = find_las_files(las_files_dir, processed_files)
+        if len(file_names) &gt; 0: # and len(processed_files) &lt; 3000:
+            for i in range(len(file_names)):
+                in_file = las_files_dir + file_names[i]
+                out_file = filtered_las_dir + file_names[i].replace(&quot;.las&quot;, &quot;_filtered.las&quot;)
+                print(&quot;Processing LAS {} of {} (total filtered={}) {}&quot;.format(i+1, len(file_names), num_filtered, file_names[i]))
+                processed_files.append(file_names[i])
+                wbt.lidar_ground_point_filter(in_file, out_file, radius=2.0, slope_threshold=45, height_threshold=1.0)
+                num_filtered += 1
+        else:
+            flag = False
+
+
+    ##############################
+    # Interpolate the LAS files. #
+    ##############################
+
+    # If you don't use the above ground point filter the directory below must be
+    # updated to point to the original LAS files.
+    wbt.work_dir = filtered_las_dir
+
+    # You can use either IDW, nearest neighbour, or TINing (Delaunay triangulation)
+    # for the gridding step. TINing option is available as of WhiteboxTools v0.11.
+    wbt.lidar_idw_interpolation(parameter=&quot;elevation&quot;, returns=&quot;all&quot;, resolution=2.0, weight=1.0, radius=5.0, exclude_cls='3,4,5,6,7,18')
+    # wbt.lidar_nearest_neighbour_gridding(returns=&quot;last&quot;, resolution=1.5, radius=2.5, exclude_cls='3,4,5,6,7,18')
+    # wbt.lidar_tin_gridding(parameter=&quot;elevation&quot;, returns=&quot;all&quot;, resolution=2.0, exclude_cls='3,4,5,6,7,18')
+
+    ###############################################################
+    # Now mosaic the tiles; this is done using intermediate steps #
+    ###############################################################
+    if not os.path.exists(raster_data_dir):
+        os.makedirs(raster_data_dir)
+
+    wbt.work_dir = filtered_las_dir #set working directory
+    wbt.verbose = False
+    processed_files = []
+    num_mosaiced = 1
+    flag = True
+    round = 1
+    while flag:
+        # This will mosaic a maximum of 250 tiles together; these sub-files
+        # will subsequently be merged. Mosaicing many hundreds of tiles
+        # together at one time is otherwise too intensive.
+        file_names = find_tiff_files(filtered_las_dir, processed_files, 2)
+        if len(file_names) &gt; 1:
+            in_files = &quot;&quot;
+            for i in range(len(file_names)):
+                if i &lt; len(file_names)-1:
+                    in_files += f&quot;{file_names[i]};&quot;
+                else:
+                    in_files += f&quot;{file_names[i]}&quot;
+
+                processed_files.append(file_names[i])
+                num_mosaiced += 1
+
+            out_file = raster_data_dir + f&quot;mosaic{round}.tif&quot;
+            wbt.mosaic(inputs=in_files, output=out_file, method=&quot;nn&quot;)
+            print(f&quot;Processing mosaic {round}; num. files = {num_mosaiced}&quot;)
+
+            # now clean up the individual tiles
+            for i in range(len(file_names)):
+                os.remove(filtered_las_dir + file_names[i])
+
+        else:
+            flag = False
+
+        round += 1
+
+    wbt.work_dir = raster_data_dir #set working directory
+    mosaic_file = raster_data_dir + f&quot;final_mosaic.tif&quot;
+    file_names = find_mosaic_files(raster_data_dir)
+    if len(file_names) &gt; 1:
+        in_files = &quot;&quot;
+        for i in range(len(file_names)):
+            if i &lt; len(file_names)-1:
+                in_files += f&quot;{file_names[i]};&quot;
+            else:
+                in_files += f&quot;{file_names[i]}&quot;
+
+            num_mosaiced += 1
+
+
+        wbt.mosaic(inputs=in_files, output=mosaic_file, method=&quot;nn&quot;)
+
+        # now clean up the intermediate mosaics
+        for i in range(len(file_names)):
+            os.remove(raster_data_dir + file_names[i])
+
+
+
+    ##############################################
+    # Would you like to fill in the NoData gaps? #
+    ##############################################
+    dem_nodata_filled = raster_data_dir + f&quot;DEM_gaps_filled.tif&quot;
+    wbt.fill_missing_data(mosaic_file, dem_nodata_filled, filter=11)
+
+
+    ######################################################################
+    # I usually remove off-terrain objects, like any remaining buildings #
+    ######################################################################
+    dem_no_otos = raster_data_dir + f&quot;DEM_no_OTOs.tif&quot;
+    wbt.remove_off_terrain_objects(dem_nodata_filled, dem_no_otos, filter=11, slope=15.0)
+
+
+    #####################################
+    # Would you like to smooth the DEM? #
+    #####################################
+    dem_smoothed = raster_data_dir + f&quot;DEM_smoothed.tif&quot;
+    wbt.feature_preserving_denoise(dem_no_otos, dem_smoothed, filter=11, norm_diff=8.0)
+
+
+    ################################
+    # Want to fix the depressions? #
+    ################################
+    dem_breached = raster_data_dir + f&quot;DEM_breached.tif&quot;
+    # Set the maximum breach depth appropriate for the terrain. You can
+    # also restrict breaching based on a maximum breach channel length.
+    wbt.breach_depressions(dem_smoothed, dem_breached, max_depth=5.0)
+
+    # because we restricted the use of very deep breach channels, there
+    # may still be depressions in the DEM. To get rid of these, we can
+    # perform a subsequent depression filling operation.
+    dem_filled = raster_data_dir + f&quot;DEM_filled.tif&quot;
+    wbt.fill_depressions(dem_breached, dem_filled)
+
+
+    ####################################################################
+    # Okay, now we have a good base DEM from which we can extract      #
+    # various land-surface parameters. There are really a large        #
+    # number of these parameters available, but I'll just showcase     #
+    # a few common ones here. See the User Manual for a complete list. #
+    ####################################################################
+
+    # slope
+    slope_file = raster_data_dir + f&quot;slope.tif&quot;
+    wbt.slope(dem_filled, slope_file)
+
+    # plan curvature
+    plan_curv_file = raster_data_dir + f&quot;plan_curv.tif&quot;
+    wbt.plan_curvature(dem_filled, plan_curv_file)
+
+    # profile curvature; other curvatures are available too.
+    profile_curv_file = raster_data_dir + f&quot;profile_curv.tif&quot;
+    wbt.profile_curvature(dem_filled, profile_curv_file)
+
+    # hillshade (shaded relief raster)
+    hillshade_file = raster_data_dir + f&quot;hillshade.tif&quot;
+    wbt.hillshade(dem_filled, hillshade_file)
+
+    # relative topographic position (RTP) index
+    rtp_file = raster_data_dir + f&quot;relative_topographic_position.tif&quot;
+    wbt.relative_topographic_position(dem_filled, rtp_file, filterx=11, filtery=11)
+
+    # or even better, multiscale topographic position
+    dev_max_mag = raster_data_dir + f&quot;multiscale_topo_position_mag.tif&quot;
+    dev_max_scale = raster_data_dir + f&quot;multiscale_topo_position_scale.tif&quot;
+    wbt.max_elevation_deviation(dem_filled, dev_max_mag, dev_max_scale, min_scale=1, max_scale=100, step=2)
+
+    # ruggedness index
+    ruggedness_index_file = raster_data_dir + f&quot;ruggedness_index.tif&quot;
+    wbt.ruggedness_index(dem_filled, ruggedness_index_file)
+
+    # or even better, multiscale roughness
+    roughness_mag = raster_data_dir + f&quot;multiscale_roughness_mag.tif&quot;
+    roughness_scale = raster_data_dir + f&quot;multiscale_roughness_scale.tif&quot;
+    wbt.multiscale_roughness(dem_filled, roughness_mag, roughness_scale, min_scale=1, max_scale=100, step=2)
+
+    # D-infinity flow accumulation
+    flow_accum_file = raster_data_dir + f&quot;dinf_flow_accum.tif&quot;
+    wbt.d_inf_flow_accumulation(dem_filled, flow_accum_file, log=True)
+
+    # There literally hundreds of other useful parameters that could be
+    # extracted from our DEM using WhiteboxTools. Take a look at the User Manual.
+
+
+    print(&quot;Done!&quot;)
+
+def find_las_files(input_dir, processed_files):
+    files = os.listdir(input_dir)
+    file_names = []
+    for f in files:
+        if f.endswith(&quot;.las&quot;) and f not in processed_files:
+            file_names.append(f)
+
+    return file_names
+
+
+def find_tiff_files(input_dir, processed_files, max_num=10):
+    files = os.listdir(input_dir)
+    file_names = []
+    for f in files:
+        if f.endswith(&quot;.tif&quot;) and f not in processed_files:
+            if len(file_names) &lt; max_num:
+                file_names.append(f)
+            else:
+                break
+
+    return file_names
+
+def find_mosaic_files(input_dir):
+    files = os.listdir(input_dir)
+    file_names = []
+    for f in files:
+        if &quot;mosaic&quot; in f and (f.endswith(&quot;.tif&quot;) or f.endswith(&quot;.dep&quot;)):
+            file_names.append(f)
+
+    return file_names
+
+main()
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../tutorials/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../supported_formats.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../tutorials/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../supported_formats.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

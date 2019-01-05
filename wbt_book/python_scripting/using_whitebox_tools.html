@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Using whitebox_tools.py - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html" class="active"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#using-the-whitebox_toolspy-script" id="using-the-whitebox_toolspy-script"><h1>Using the <em>whitebox_tools.py</em> script</h1></a>
+<p>Interacting with <em>WhiteboxTools</em> from Python scripts is easy. To begin, each script must start by importing the <em>WhiteboxTools</em> class, contained with the <em>whitebox_tools.py</em> script; a new <code>WhiteboxTools</code> object can then be created:</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+</code></pre>
+<p>Depending on the relative location of the <em>WhiteboxTools</em> directory and the script file that you are importing to, the import statement may need to be altered slightly. In the above script, it is assumed that the folder containing the <em>WhiteboxTools</em> files (including the <em>whitebox_tools</em> Python script) is named <code>WBT</code> (Line 1) and that the calling script that is importing WhiteboxTools is located in the parent directory of <code>WBT</code>. See <a href="#an-example-whiteboxtools-python-project">An Example WhiteboxTools Python Project</a> for more details on project set-up. The use of <code>wbt</code> to designate the WhiteboxTools object variable in the above script (Line 3) is just the convention used in this manual and other project resources. In fact, any variable name can be used for this purpose.</p>
+<p>The <code>WhiteboxTools</code> class expects to find the <em>WhiteboxTools</em> executable file (<em>whitebox_tools.exe</em> on Windows and <em>whitebox_tools</em> on other platforms) within the same directory (<code>WBT</code>) as the <em>whitebox_tools.py</em> script. If the binary file is located in a separate directory, you will need to set the executable directory as follows:</p>
+<pre><code class="language-python">wbt.set_whitebox_dir('/local/path/to/whitebox/binary/')
+# Or alternatively...
+wbt.exe_path = '/local/path/to/whitebox/binary/'
+</code></pre>
+<p>Individual tools can be called using the convenience methods provided in the <code>WhiteboxTools</code> class:</p>
+<pre><code class="language-python"># This line performs a 5 x 5 mean filter on 'inFile.tif':
+wbt.mean_filter('/file/path/inFile.tif', '/file/path/outFile.tif', 5, 5)
+</code></pre>
+<p>Each tool has a cooresponding convenience method. The listing of tools in this manual includes information about each tool's Python convienience method, including default parameter values. Parameters with default values may be optionally left off of function calls. In addition to the convenience methods, tools can be called using the <code>run_tool()</code> method, specifying the tool name and a list of tool arguments.</p>
+<pre><code class="language-python">source = &quot;source.tif&quot;
+cost = &quot;cost.tif&quot;
+out_accum = &quot;accum.tif&quot;
+out_backlink = &quot;backlink.tif&quot;
+args = []
+args.append(&quot;--source='{}'&quot;.format(source))
+args.append(&quot;--cost='{}'&quot;.format(cost))
+args.append(&quot;--out_accum='{}'&quot;.format(out_accum))
+args.append(&quot;--out_backlink='{}'&quot;.format(out_backlink))
+self.run_tool('cost_distance', args)
+</code></pre>
+<p>Each of the tool-specific convenience methods collect their parameters into a properly formated list and then ultimately call the <code>run_tools()</code> method. Notice that while internally <em>whitebox_tools.exe</em> uses CamelCase (e.g. MeanFilter) to denote tool names, the Python interface of <em>whitebox_tools.py</em> uses snake_case (e.g. mean_filter), according to Python style conventions. The only exceptions are tools with names that clash with Python keywords (e.g. <code>And()</code>, <code>Not()</code>, and <code>Or()</code>).</p>
+<p>The return value can be used to check for errors during operation:</p>
+<pre><code class="language-python">if wbt.ruggedness_index('/path/DEM.tif', '/path/ruggedness.tif') != 0:
+    # Non-zero returns indicate an error.
+    print('ERROR running ruggedness_index')
+</code></pre>
+<p>If your data files tend to be burried deeply in layers of sub-directories, specifying complete file names as input parameters can be tedius. In this case, the best option is setting the working directory before calling tools:</p>
+<pre><code class="language-python">from whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot; # Sets the Whitebox working directory
+
+# Because the working directory has been set, file arguments can be
+# specified simply using file names, without paths.
+wbt.d_inf_flow_accumulation(&quot;DEM.tif&quot;, &quot;output.tif&quot;, log=True)
+</code></pre>
+<p>An advanced text editor, such as VS Code or Atom, can provide hints and autocompletion for available tool convenience methods and their parameters, including default values (Figure 1).</p>
+<p><img src="../img/wbt_auotcomplete.png" alt="Autocompletion in Atom text editor makes calling WhiteboxTools functions easier." /></p>
+<p>Sometimes it can be useful to print a complete list of available tools:</p>
+<pre><code class="language-python">print(wbt.list_tools()) # List all tools in WhiteboxTools
+</code></pre>
+<p>The <code>list_tools()</code> method also takes an optional keywords list to search for tools:</p>
+<pre><code class="language-python"># Lists tools with 'lidar' or 'LAS' in tool name or description.
+print(wbt.list_tools(['lidar', 'LAS']))
+</code></pre>
+<p>To retrieve more detailed information for a specific tool, use the <code>tool_help()</code> method:</p>
+<pre><code class="language-python">print(wbt.tool_help(&quot;elev_percentile&quot;))
+</code></pre>
+<p><code>tool_help()</code> prints tool details including a description, tool parameters (and their flags), and example usage at the command line prompt. The above statement prints this report:</p>
+<pre><code>
+ElevPercentile
+Description:
+Calculates the elevation percentile raster from a DEM.
+Toolbox: Geomorphometric Analysis
+Parameters:
+
+Flag               Description
+-----------------  -----------
+-i, --input, --dem Input raster DEM file.
+-o, --output       Output raster file.
+--filterx          Size of the filter kernel in the x-direction.
+--filtery          Size of the filter kernel in the y-direction.
+--sig_digits       Number of significant digits.
+
+Example usage:
+&gt;&gt;./whitebox_tools -r=ElevPercentile -v --wd=&quot;/path/to/data/&quot; --dem=DEM.tif
+&gt;&gt;-o=output.tif --filterx=25
+
+
+</code></pre>
+<blockquote>
+<p><strong>A note on default parameter values</strong></p>
+<p>Each tool contains one or more parameters with default values. These will always be listed after any input parameters that do not have default values. You do not need to specify a parameter with a default value if you accept the default. That is, unless you intend to specify an input value different from the default, you may leave these parameters off of the function call. However, be mindful of the fact that Python assigns values to parameters based on order, unless parameter names are specified.</p>
+<p>Consider the Hillshade tool as an example. The User Manual gives the following function definition for the tool:</p>
+<pre><code class="language-{.python}">hillshade(
+dem,
+output,
+azimuth=315.0,
+altitude=30.0,
+zfactor=1.0,
+callback=default_callback)
+</code></pre>
+<p>The <code>dem</code> and <code>output</code> parameters do not have default values and must be specified every time you call this function. Each of the remaining parameters have default values and can, optionally, be left off of calls to the <code>hillshade</code> function. As an example, say I want to accept the default values for all the parameters except <code>altitude</code>. I would then need to use the named-parameter form of the function call:</p>
+<pre><code class="language-python">wbt.hillshade(
+&quot;DEM.tif&quot;,
+&quot;hillshade.tif&quot;,
+altitude=20.0)
+</code></pre>
+<p>If I hadn't specified the parameter name for <code>altitude</code>, Python would have assumed that the value 20.0 should be assigned to the third parameter, <code>azimuth</code>.</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../python_scripting/scripting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../python_scripting/tool_output.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../python_scripting/scripting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../python_scripting/tool_output.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

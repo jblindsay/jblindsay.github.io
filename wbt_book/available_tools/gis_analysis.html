@@ -1,0 +1,1225 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GIS analysis - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html" class="active"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#gis-analysis" id="gis-analysis"><h1>GIS Analysis</h1></a>
+<ul>
+<li><a href="#AggregateRaster">AggregateRaster</a></li>
+<li><a href="#BlockMaximumGridding">BlockMaximumGridding</a></li>
+<li><a href="#BlockMinimumGridding">BlockMinimumGridding</a></li>
+<li><a href="#Centroid">Centroid</a></li>
+<li><a href="#CentroidVector">CentroidVector</a></li>
+<li><a href="#Clump">Clump</a></li>
+<li><a href="#ConstructVectorTin">ConstructVectorTin</a></li>
+<li><a href="#CreateHexagonalVectorGrid">CreateHexagonalVectorGrid</a></li>
+<li><a href="#CreatePlane">CreatePlane</a></li>
+<li><a href="#CreateRectangularVectorGrid">CreateRectangularVectorGrid</a></li>
+<li><a href="#Dissolve">Dissolve</a></li>
+<li><a href="#EliminateCoincidentPoints">EliminateCoincidentPoints</a></li>
+<li><a href="#ExtendVectorLines">ExtendVectorLines</a></li>
+<li><a href="#ExtractNodes">ExtractNodes</a></li>
+<li><a href="#ExtractRasterValuesAtPoints">ExtractRasterValuesAtPoints</a></li>
+<li><a href="#FindLowestOrHighestPoints">FindLowestOrHighestPoints</a></li>
+<li><a href="#IdwInterpolation">IdwInterpolation</a></li>
+<li><a href="#LayerFootprint">LayerFootprint</a></li>
+<li><a href="#Medoid">Medoid</a></li>
+<li><a href="#MinimumBoundingBox">MinimumBoundingBox</a></li>
+<li><a href="#MinimumBoundingCircle">MinimumBoundingCircle</a></li>
+<li><a href="#MinimumBoundingEnvelope">MinimumBoundingEnvelope</a></li>
+<li><a href="#MinimumConvexHull">MinimumConvexHull</a></li>
+<li><a href="#NearestNeighbourGridding">NearestNeighbourGridding</a></li>
+<li><a href="#PolygonArea">PolygonArea</a></li>
+<li><a href="#PolygonLongAxis">PolygonLongAxis</a></li>
+<li><a href="#PolygonPerimeter">PolygonPerimeter</a></li>
+<li><a href="#PolygonShortAxis">PolygonShortAxis</a></li>
+<li><a href="#RasterCellAssignment">RasterCellAssignment</a></li>
+<li><a href="#Reclass">Reclass</a></li>
+<li><a href="#ReclassEqualInterval">ReclassEqualInterval</a></li>
+<li><a href="#ReclassFromFile">ReclassFromFile</a></li>
+<li><a href="#SmoothVectors">SmoothVectors</a></li>
+<li><a href="#TinGridding">TinGridding</a></li>
+<li><a href="#VectorHexBinning">VectorHexBinning</a></li>
+<li><a href="#VoronoiDiagram">VoronoiDiagram</a></li>
+</ul>
+<p><a name="AggregateRaster"></a></p>
+<a class="header" href="#aggregateraster" id="aggregateraster"><h2>AggregateRaster</h2></a>
+<p>Aggregates a raster to a lower resolution.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/aggregate_raster.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--agg_factor       </td><td> Aggregation factor, in pixels</td></tr>
+<tr><td>--type             </td><td> Statistic used to fill output pixels</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">aggregate_raster(
+    i, 
+    output, 
+    agg_factor=2, 
+    type=&quot;mean&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AggregateRaster -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif ^
+--output_text 
+</code></pre>
+<p><a name="BlockMaximumGridding"></a></p>
+<a class="header" href="#blockmaximumgridding" id="blockmaximumgridding"><h2>BlockMaximumGridding</h2></a>
+<p>Creates a raster grid based on a set of vector points and assigns grid values using a block maximum scheme.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/block_maximum.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">block_maximum_gridding(
+    i, 
+    field, 
+    output, 
+    use_z=False, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=BlockMaximumGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=ELEV -o=output.tif ^
+--cell_size=1.0
+&gt;&gt;./whitebox_tools -r=BlockMaximumGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --use_z -o=output.tif ^
+--base=existing_raster.tif 
+</code></pre>
+<p><a name="BlockMinimumGridding"></a></p>
+<a class="header" href="#blockminimumgridding" id="blockminimumgridding"><h2>BlockMinimumGridding</h2></a>
+<p>Creates a raster grid based on a set of vector points and assigns grid values using a block minimum scheme.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/block_minimum.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">block_minimum_gridding(
+    i, 
+    field, 
+    output, 
+    use_z=False, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=BlockMinimumGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=ELEV -o=output.tif ^
+--cell_size=1.0
+&gt;&gt;./whitebox_tools -r=BlockMinimumGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --use_z -o=output.tif ^
+--base=existing_raster.tif 
+</code></pre>
+<p><a name="Centroid"></a></p>
+<a class="header" href="#centroid" id="centroid"><h2>Centroid</h2></a>
+<p>This tool calculates the centroid, or average location, of raster polygon objects.
+For vector features, use the <code>CentroidVector</code> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><code>CentroidVector</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/centroid.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--text_output      </td><td> Optional text output</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">centroid(
+    i, 
+    output, 
+    text_output=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Centroid -v --wd=&quot;/path/to/data/&quot; ^
+-i=polygons.tif -o=output.tif
+&gt;&gt;./whitebox_tools -r=Centroid ^
+-v --wd=&quot;/path/to/data/&quot; -i=polygons.tif -o=output.tif ^
+--text_output 
+</code></pre>
+<p><a name="CentroidVector"></a></p>
+<a class="header" href="#centroidvector" id="centroidvector"><h2>CentroidVector</h2></a>
+<p>This can be used to identify the centroid point of a vector polyline or polygon feature or a group of
+vector points. The output is a vector shapefile of points. For multi-part polyline or polygon features,
+the user can optionally specify whether to identify the centroid of each part. The default is to treat
+multi-part features a single entity.</p>
+<p>For raster features, use the <code>Centroid</code> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><code>Centroid</code>, <code>Medoid</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/centroid_vector.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">centroid_vector(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CentroidVector -v --wd=&quot;/path/to/data/&quot; ^
+-i=in_file.shp -o=out_file.shp 
+</code></pre>
+<p><a name="Clump"></a></p>
+<a class="header" href="#clump" id="clump"><h2>Clump</h2></a>
+<p>Groups cells that form physically discrete areas, assigning them unique identifiers.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/clump.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--diag             </td><td> Flag indicating whether diagonal connections should be considered</td></tr>
+<tr><td>--zero_back        </td><td> Flag indicating whether zero values should be treated as a background</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">clump(
+    i, 
+    output, 
+    diag=True, 
+    zero_back=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Clump -v --wd=&quot;/path/to/data/&quot; ^
+-i=input.tif -o=output.tif --diag 
+</code></pre>
+<p><a name="ConstructVectorTin"></a></p>
+<a class="header" href="#constructvectortin" id="constructvectortin"><h2>ConstructVectorTin</h2></a>
+<p>This tool creates a vector triangular irregular network (TIN) for a set of vector points.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/construct_vector_tin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">construct_vector_tin(
+    i, 
+    output, 
+    field=None, 
+    use_z=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ConstructVectorTIN -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=HEIGHT ^
+-o=tin.shp
+&gt;&gt;./whitebox_tools -r=ConstructVectorTIN -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --use_z -o=tin.shp 
+</code></pre>
+<p><a name="CreateHexagonalVectorGrid"></a></p>
+<a class="header" href="#createhexagonalvectorgrid" id="createhexagonalvectorgrid"><h2>CreateHexagonalVectorGrid</h2></a>
+<p>This tool can be used to create a hexagonal vector grid. The extent of the hexagonal
+grid is based on the extent of a user-specified base file (any supported raster format,
+shapefiles, or LAS files). The user must also specify the origin of the grid (x and y
+coordinates) and the hexagonal cell width.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_hexagonal_vector_grid.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input base file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--width            </td><td> The grid cell width</td></tr>
+<tr><td>--orientation      </td><td> Grid Orientation, 'horizontal' or 'vertical'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">create_hexagonal_vector_grid(
+    i, 
+    output, 
+    width, 
+    orientation=&quot;horizontal&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CreateHexagonalVectorGrid -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp --width=10.0 ^
+--orientation=vertical 
+</code></pre>
+<p><a name="CreatePlane"></a></p>
+<a class="header" href="#createplane" id="createplane"><h2>CreatePlane</h2></a>
+<p>Creates a raster image based on the equation for a simple plane.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_plane.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--base             </td><td> Input base raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--gradient         </td><td> Slope gradient in degrees (-85.0 to 85.0)</td></tr>
+<tr><td>--aspect           </td><td> Aspect (direction) in degrees clockwise from north (0.0-360.0)</td></tr>
+<tr><td>--constant         </td><td> Constant value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">create_plane(
+    base, 
+    output, 
+    gradient=15.0, 
+    aspect=90.0, 
+    constant=0.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CreatePlane -v --wd=&quot;/path/to/data/&quot; ^
+--base=base.tif -o=NewRaster.tif --gradient=15.0 ^
+--aspect=315.0 
+</code></pre>
+<p><a name="CreateRectangularVectorGrid"></a></p>
+<a class="header" href="#createrectangularvectorgrid" id="createrectangularvectorgrid"><h2>CreateRectangularVectorGrid</h2></a>
+<p>This tool can be used to create a rectangular vector grid. The extent of the rectangular
+grid is based on the extent of a user-specified base file (any supported raster format,
+shapefiles, or LAS files). The user must also specify the origin of the grid (x and y
+coordinates) and the grid cell width and height.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_rectangular_vector_grid.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input base file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--width            </td><td> The grid cell width</td></tr>
+<tr><td>--height           </td><td> The grid cell height</td></tr>
+<tr><td>--xorig            </td><td> The grid origin x-coordinate</td></tr>
+<tr><td>--yorig            </td><td> The grid origin y-coordinate</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">create_rectangular_vector_grid(
+    i, 
+    output, 
+    width, 
+    height, 
+    xorig=0, 
+    yorig=0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CreateRectangularVectorGrid -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp --width=10.0 ^
+--height=10.0 --xorig=0.0 --yorig=0.0 
+</code></pre>
+<p><a name="Dissolve"></a></p>
+<a class="header" href="#dissolve" id="dissolve"><h2>Dissolve</h2></a>
+<p>This tool can be used to remove the interior, or shared, boundaries within a vector
+polygon coverage. You can either dissolve all interior boundaries or dissolve those
+boundaries along polygons with the same value of a user-specified attribute within
+the vector's attribute table. It may be desirable to use the <code>VectorCleaning</code> tool
+to correct any topological errors resulting from the slight misalignment of nodes
+along shared boundaries in the vector coverage before performing the <code>Dissolve</code> operation.</p>
+<p><em>See Also</em>:</p>
+<p><code>Clip</code>, <code>Erase</code>, <code>Polygonize</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/dissolve.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>--field            </td><td> Dissolve field attribute (optional)</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<tr><td>--snap             </td><td> Snap tolerance</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">dissolve(
+    i, 
+    output, 
+    field=None, 
+    snap=0.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Dissolve -v --wd=&quot;/path/to/data/&quot; ^
+-input=layer1.shp --field=SIZE -o=out_file.shp ^
+--snap=0.0000001 
+</code></pre>
+<p><a name="EliminateCoincidentPoints"></a></p>
+<a class="header" href="#eliminatecoincidentpoints" id="eliminatecoincidentpoints"><h2>EliminateCoincidentPoints</h2></a>
+<p>This tool can be used to remove any coincident, or nearly coincident, points
+from a vector points file. The user must specify the name of the input file,
+which must be of a POINTS ShapeType, the output file name, and the tolerance
+distance. All points that are within the specified tolerance distance will be
+eliminated from the output file. A tolerance distance of 0.0 indicates that
+points must be exactly coincident to be removed.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/eliminate_coincident_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--tolerance        </td><td> The distance tolerance for points</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">eliminate_coincident_points(
+    i, 
+    output, 
+    tolerance, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=EliminateCoincidentPoints -v ^
+--wd=&quot;/path/to/data/&quot; -i=input_file.shp -o=out_file.shp ^
+--tolerance=0.01 
+</code></pre>
+<p><a name="ExtendVectorLines"></a></p>
+<a class="header" href="#extendvectorlines" id="extendvectorlines"><h2>ExtendVectorLines</h2></a>
+<p>This tool can be used to extend vector lines by a specified distance. The user must
+input the names of the input and output shapefiles, the distance to extend features
+by, and whether to extend both ends, line starts, or line ends. The input shapefile
+must be of a POLYLINE base shape type and should be in a projected coordinate system.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/extend_vector_lines.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polyline file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polyline file</td></tr>
+<tr><td>--dist             </td><td> The distance to extend</td></tr>
+<tr><td>--extend           </td><td> Extend direction, 'both ends' (default), 'line start', 'line end'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">extend_vector_lines(
+    i, 
+    output, 
+    dist, 
+    extend=&quot;both ends&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ExtendVectorLines -v ^
+--wd=&quot;/path/to/data/&quot; -i=in_file.shp -o=out_file.shp ^
+--dist=10.0 --extend='both ends' 
+</code></pre>
+<p><a name="ExtractNodes"></a></p>
+<a class="header" href="#extractnodes" id="extractnodes"><h2>ExtractNodes</h2></a>
+<p>Converts vector lines or polygons into vertex points.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/extract_nodes.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector lines or polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector points file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">extract_nodes(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ExtractNodes -v --wd=&quot;/path/to/data/&quot; ^
+-i=file.shp -o=outfile.shp 
+</code></pre>
+<p><a name="ExtractRasterValuesAtPoints"></a></p>
+<a class="header" href="#extractrastervaluesatpoints" id="extractrastervaluesatpoints"><h2>ExtractRasterValuesAtPoints</h2></a>
+<p>Extracts the values of raster(s) at vector point locations.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/extract_raster_values_at_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>--points           </td><td> Input vector points file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">extract_raster_values_at_points(
+    inputs, 
+    points, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ExtractRasterValuesAtPoints -v ^
+--wd=&quot;/path/to/data/&quot; -i='image1.tif;image2.tif;image3.tif' ^
+-points=points.shp 
+</code></pre>
+<p><a name="FindLowestOrHighestPoints"></a></p>
+<a class="header" href="#findlowestorhighestpoints" id="findlowestorhighestpoints"><h2>FindLowestOrHighestPoints</h2></a>
+<p>Locates the lowest and/or highest valued cells in a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/find_lowest_or_highest_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector points file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'area' (default) and 'volume'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">find_lowest_or_highest_points(
+    i, 
+    output, 
+    out_type=&quot;lowest&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FindLowestOrHighestPoints -v ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=out.shp ^
+--out_type=highest 
+</code></pre>
+<p><a name="IdwInterpolation"></a></p>
+<a class="header" href="#idwinterpolation" id="idwinterpolation"><h2>IdwInterpolation</h2></a>
+<p>points or a fixed neighbourhood size. This tool is currently configured to perform the later
+only, using a FixedRadiusSearch structure. Using a fixed number of neighbours will require
+use of a KD-tree structure. I've been testing one Rust KD-tree library but its performance
+does not appear to be satisfactory compared to the FixedRadiusSearch. I will need to explore
+other options here.</p>
+<p>Another change that will need to be implemented is the use of a nodal function. The original
+Whitebox GAT tool allows for use of a constant or a quadratic. This tool only allows the
+former.
+This tool interpolates vector points into a raster surface using an inverse-distance weighted scheme.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/idw_interpolation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--weight           </td><td> IDW weight value</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--min_points       </td><td> Minimum number of points</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">idw_interpolation(
+    i, 
+    field, 
+    output, 
+    use_z=False, 
+    weight=2.0, 
+    radius=None, 
+    min_points=None, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=IdwInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=ELEV -o=output.tif ^
+--weight=2.0 --radius=4.0 --min_points=3 ^
+--cell_size=1.0
+&gt;&gt;./whitebox_tools -r=IdwInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --use_z -o=output.tif ^
+--weight=2.0 --radius=4.0 --min_points=3 ^
+--base=existing_raster.tif 
+</code></pre>
+<p><a name="LayerFootprint"></a></p>
+<a class="header" href="#layerfootprint" id="layerfootprint"><h2>LayerFootprint</h2></a>
+<p>This tool creates a vector polygon footprint of the area covered by a raster grid or vector
+layer. It will create a vector rectangle corresponding to the bounding box. The user must
+specify the name of the input file, which may be either a Whitebox raster or a vector, and
+the name of the output file.</p>
+<p>If an input raster grid is specified which has an irregular shape, i.e. it contains NoData
+values at the edges, the resulting vector will still correspond to the full grid extent,
+ignoring the irregular boundary. If this is not the desired effect, you should reclass the
+grid such that all cells containing valid values are assigned some positive, non-zero value,
+and then use the <code>RasterToVectorPolygons</code> tool to vectorize the irregular-shaped extent
+boundary.</p>
+<p><em>See Also</em>:</p>
+<p><code>MinimumBoundingEnvelope</code>, <code>RasterToVectorPolygons</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/layer_footprint.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster or vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">layer_footprint(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LayerFootprint -v --wd=&quot;/path/to/data/&quot; ^
+-i=file.shp -o=outfile.shp 
+</code></pre>
+<p><a name="Medoid"></a></p>
+<a class="header" href="#medoid" id="medoid"><h2>Medoid</h2></a>
+<p>This tool calculates the medoid for a series of vector features contained in a shapefile. The medoid
+of a two-dimensional feature is conceptually similar its centroid, or mean position, but the medoid
+is always a members of the input feature data set. Thus, the medoid is a measure of central tendency
+that is robust in the presence of outliers. If the input vector is of a POLYLINE or POLYGON ShapeType,
+the nodes of each feature will be used to estimate the feature medoid. If the input vector is of a
+POINT base ShapeType, the medoid will be calculated for the collection of points. While there are
+more than one competing method of calculating the medoid, this tool uses an algorithm that works as follows:</p>
+<ol>
+<li>The x-coordinate and y-coordinate of each point/node are placed into two arrays.</li>
+<li>The x- and y-coordinate arrays are then sorted and the median x-coordinate (Med X) and median
+y-coordinate (Med Y) are calculated.</li>
+<li>The point/node in the dataset that is nearest the point (Med X, Med Y) is identified as the medoid.</li>
+</ol>
+<p><em>See Also</em>:</p>
+<p><code>CentroidVector</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/medoid.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">medoid(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Medoid -v --wd=&quot;/path/to/data/&quot; ^
+-i=in_file.shp -o=out_file.shp 
+</code></pre>
+<p><a name="MinimumBoundingBox"></a></p>
+<a class="header" href="#minimumboundingbox" id="minimumboundingbox"><h2>MinimumBoundingBox</h2></a>
+<p>This tool delineates the minimum bounding box (MBB) for a group of vectors. The MBB is the smallest box to
+completely enclose a feature. The algorithm works by rotating the feature, calculating the axis-aligned
+bounding box for each rotation, and finding the box with the smallest area, length, width, or perimeter. The
+MBB is needed to compute several shape indices, such as the Elongation Ratio. The <code>MinimumBoundingEnvelop</code>
+tool can be used to calculate the axis-aligned bounding rectangle around each feature in a vector file.</p>
+<p><em>See Also</em>:</p>
+<p><code>MinimumBoundingCircle</code>, <code>MinimumBoundingEnvelope</code>, <code>MinimumConvexHull</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/minimum_bounding_box.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--criterion        </td><td> Minimization criterion; options include 'area' (default), 'length', 'width', and 'perimeter'</td></tr>
+<tr><td>--features         </td><td> Find the minimum bounding rectangles around each individual vector feature</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">minimum_bounding_box(
+    i, 
+    output, 
+    criterion=&quot;area&quot;, 
+    features=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MinimumBoundingBox -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp ^
+--criterion=length --features 
+</code></pre>
+<p><a name="MinimumBoundingCircle"></a></p>
+<a class="header" href="#minimumboundingcircle" id="minimumboundingcircle"><h2>MinimumBoundingCircle</h2></a>
+<p>This tool delineates the minimum bounding circle (MBC) for a group of vectors. The MBC is the smallest enclosing
+circle to completely enclose a feature.</p>
+<p><em>See Also</em>:</p>
+<p><code>MinimumBoundingBox</code>, <code>MinimumBoundingEnvelope</code>, <code>MinimumConvexHull</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/minimum_bounding_circle.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--features         </td><td> Find the minimum bounding circle around each individual vector feature</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">minimum_bounding_circle(
+    i, 
+    output, 
+    features=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MinimumBoundingCircle -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp --features 
+</code></pre>
+<p><a name="MinimumBoundingEnvelope"></a></p>
+<a class="header" href="#minimumboundingenvelope" id="minimumboundingenvelope"><h2>MinimumBoundingEnvelope</h2></a>
+<p>This tool delineates the minimum bounding axis-aligned box for a group of vector features. The is the smallest
+rectangle to completely enclose a feature, in which the sides of the envelope are aligned with the x and y
+axis of the coordinate system. The <code>MinimumBoundingBox</code> can be used instead to find the smallest possible
+non-axis aligned rectangular envelope.</p>
+<p><em>See Also</em>:</p>
+<p><code>MinimumBoundingBox</code>, <code>MinimumBoundingCircle</code>, <code>MinimumConvexHull</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/minimum_bounding_envelope.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--features         </td><td> Find the minimum bounding envelop around each individual vector feature</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">minimum_bounding_envelope(
+    i, 
+    output, 
+    features=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MinimumBoundingEnvelope -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp --features 
+</code></pre>
+<p><a name="MinimumConvexHull"></a></p>
+<a class="header" href="#minimumconvexhull" id="minimumconvexhull"><h2>MinimumConvexHull</h2></a>
+<p>This tool creates a vector convex polygon around vector features. The convex hull
+is a convex closure of a set of points or polygon verticies and can be may be
+conceptualized as the shape enclosed by a rubber band stretched around the point
+set. The convex hull has many applications and is most notably used in various
+shape indices. The Delaunay triangulation of a point set and its dual, the
+Voronoi diagram, are mathematically related to convex hulls.</p>
+<p><em>See Also</em>:</p>
+<p><code>MinimumBoundingBox</code>, <code>MinimumBoundingCircle</code>, <code>MinimumBoundingEnvelope</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/minimum_convex_hull.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--features         </td><td> Find the hulls around each vector feature</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">minimum_convex_hull(
+    i, 
+    output, 
+    features=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MinimumConvexHull -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp --features 
+</code></pre>
+<p><a name="NearestNeighbourGridding"></a></p>
+<a class="header" href="#nearestneighbourgridding" id="nearestneighbourgridding"><h2>NearestNeighbourGridding</h2></a>
+<p>Creates a raster grid based on a set of vector points and assigns grid values using the nearest neighbour.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/nearest_neighbour_gridding.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+<tr><td>--max_dist         </td><td> Maximum search distance (optional)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">nearest_neighbour_gridding(
+    i, 
+    field, 
+    output, 
+    use_z=False, 
+    cell_size=None, 
+    base=None, 
+    max_dist=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=NearestNeighbourGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=ELEV -o=output.tif ^
+--cell_size=1.0
+&gt;&gt;./whitebox_tools -r=NearestNeighbourGridding ^
+-v --wd=&quot;/path/to/data/&quot; -i=points.shp --use_z -o=output.tif ^
+--base=existing_raster.tif --max_dist=5.5 
+</code></pre>
+<p><a name="PolygonArea"></a></p>
+<a class="header" href="#polygonarea" id="polygonarea"><h2>PolygonArea</h2></a>
+<p>This tool calculates the area of vector polygons, adding the result to the
+vector's attribute table (AREA field). The area calculation will account
+for any holes contained within polygons. The vector should be in a
+projected coordinate system.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_area.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">polygon_area(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PolygonArea -v --wd=&quot;/path/to/data/&quot; ^
+--input=polygons.shp 
+</code></pre>
+<p><a name="PolygonLongAxis"></a></p>
+<a class="header" href="#polygonlongaxis" id="polygonlongaxis"><h2>PolygonLongAxis</h2></a>
+<p>This tool can be used to map the long axis of polygon features. The long axis is the
+longer of the two primary axes of the minimum bounding box (MBB), i.e. the smallest box
+to completely enclose a feature. The long axis is drawn for each polygon in the input
+vector file such that it passes through the centre point of the MBB. The output file is
+therefore a vector of simple two-point polylines forming a vector field.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_long_axis.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">polygon_long_axis(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PolygonLongAxis -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp 
+</code></pre>
+<p><a name="PolygonPerimeter"></a></p>
+<a class="header" href="#polygonperimeter" id="polygonperimeter"><h2>PolygonPerimeter</h2></a>
+<p>This tool calculates the perimeter of vector polygons, adding the result
+to the vector's attribute table (PERIMETER field). The area calculation will
+account for any holes contained within polygons. The vector should be in a
+a projected coordinate system.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_perimeter.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">polygon_perimeter(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PolygonPerimeter -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp 
+</code></pre>
+<p><a name="PolygonShortAxis"></a></p>
+<a class="header" href="#polygonshortaxis" id="polygonshortaxis"><h2>PolygonShortAxis</h2></a>
+<p>This tool can be used to map the short axis of polygon features. The short axis is the
+shorter of the two primary axes of the minimum bounding box (MBB), i.e. the smallest box
+to completely enclose a feature. The short axis is drawn for each polygon in the input
+vector file such that it passes through the centre point of the MBB. The output file is
+therefore a vector of simple two-point polylines forming a vector field.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_short_axis.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">polygon_short_axis(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PolygonShortAxis -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp 
+</code></pre>
+<p><a name="RasterCellAssignment"></a></p>
+<a class="header" href="#rastercellassignment" id="rastercellassignment"><h2>RasterCellAssignment</h2></a>
+<p>Assign row or column number to cells.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/raster_cell_assignment.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>-a, --assign       </td><td> Which variable would you like to assign to grid cells? Options include 'column', 'row', 'x', and 'y'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raster_cell_assignment(
+    i, 
+    output, 
+    assign=&quot;column&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterCellAssignment -v ^
+--wd=&quot;/path/to/data/&quot; -i='input.tif' -o=output.tif ^
+--assign='column' 
+</code></pre>
+<p><a name="Reclass"></a></p>
+<a class="header" href="#reclass" id="reclass"><h2>Reclass</h2></a>
+<p>Reclassifies the values in a raster image.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--reclass_vals     </td><td> Reclassification triplet values (new value; from value; to less than), e.g. '0.0;0.0;1.0;1.0;1.0;2.0'</td></tr>
+<tr><td>--assign_mode      </td><td> Optional Boolean flag indicating whether to operate in assign mode, reclass_vals values are interpreted as new value; old value pairs</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">reclass(
+    i, 
+    output, 
+    reclass_vals, 
+    assign_mode=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Reclass -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif ^
+--reclass_vals='0.0;0.0;1.0;1.0;1.0;2.0'
+&gt;&gt;./whitebox_tools ^
+-r=Reclass -v --wd=&quot;/path/to/data/&quot; -i='input.tif' ^
+-o=output.tif --reclass_vals='10;1;20;2;30;3;40;4' ^
+--assign_mode 
+</code></pre>
+<p><a name="ReclassEqualInterval"></a></p>
+<a class="header" href="#reclassequalinterval" id="reclassequalinterval"><h2>ReclassEqualInterval</h2></a>
+<p>Reclassifies the values in a raster image based on equal-ranges.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass_equal_interval.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--interval         </td><td> Class interval size</td></tr>
+<tr><td>--start_val        </td><td> Optional starting value (default is input minimum value)</td></tr>
+<tr><td>--end_val          </td><td> Optional ending value (default is input maximum value)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">reclass_equal_interval(
+    i, 
+    output, 
+    interval=10.0, 
+    start_val=None, 
+    end_val=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ReclassEqualInterval -v ^
+--wd=&quot;/path/to/data/&quot; -i='input.tif' -o=output.tif ^
+--interval=10.0 --start_val=0.0 
+</code></pre>
+<p><a name="ReclassFromFile"></a></p>
+<a class="header" href="#reclassfromfile" id="reclassfromfile"><h2>ReclassFromFile</h2></a>
+<p>Reclassifies the values in a raster image using reclass ranges in a text file.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass_from_file.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--reclass_file     </td><td> Input text file containing reclass ranges</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">reclass_from_file(
+    i, 
+    reclass_file, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ReclassFromFile -v ^
+--wd=&quot;/path/to/data/&quot; -i='input.tif' ^
+--reclass_file='reclass.txt' -o=output.tif 
+</code></pre>
+<p><a name="SmoothVectors"></a></p>
+<a class="header" href="#smoothvectors" id="smoothvectors"><h2>SmoothVectors</h2></a>
+<p>This tool smooths a vector coverage of either a POLYLINE or POLYGON base ShapeType. The algorithm
+uses a simple moving average method for smoothing, where the size of the averaging window is specified
+by the user. The default filter size is 3 and can be any odd integer larger than or equal to 3. The
+larger the averaging window, the greater the degree of line smoothing.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/smooth_vectors.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector POLYLINE or POLYGON file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<tr><td>--filter           </td><td> The filter size, any odd integer greater than or equal to 3; default is 3</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">smooth_vectors(
+    i, 
+    output, 
+    filter=3, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SmoothVectors -v --wd=&quot;/path/to/data/&quot; ^
+-i=in_file.shp -o=out_file.shp --filter=9 
+</code></pre>
+<p><a name="TinGridding"></a></p>
+<a class="header" href="#tingridding" id="tingridding"><h2>TinGridding</h2></a>
+<p>Creates a raster grid based on a triangular irregular network (TIN) fitted to vector points
+and linear interpolation within each triangular-shaped plane.</p>
+<p><em>See Also</em>:</p>
+<p><code>LidarTINGridding</code>, <code>ConstructVectorTIN</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/tin_gridding.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">tin_gridding(
+    i, 
+    output, 
+    resolution, 
+    field=None, 
+    use_z=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TINGridding -v --wd=&quot;/path/to/data/&quot; ^
+-i=points.shp --field=HEIGHT -o=tin.shp ^
+--resolution=10.0
+&gt;&gt;./whitebox_tools -r=TINGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --use_z -o=tin.shp ^
+--resolution=5.0 
+</code></pre>
+<p><a name="VectorHexBinning"></a></p>
+<a class="header" href="#vectorhexbinning" id="vectorhexbinning"><h2>VectorHexBinning</h2></a>
+<p>The practice of binning point data to form a type of 2D histogram, density plot,
+or what is sometimes called a heatmap, is quite useful as an alternative for the
+cartographic display of of very dense points sets. This is particularly the case
+when the points experience significant overlap at the displayed scale. The
+<code>PointDensity</code> tool can be used to perform binning based on a regular grid (raster
+output). This tool, by comparison, bases the binning on a hexagonal grid.</p>
+<p>The tool is similar to the <code>CreateHexagonalVectorGrid</code> tool, however instead will
+create an output hexagonal grid in which each hexagonal cell possesses a <code>COUNT</code>
+attribute which specifies the number of points from an input points file (Shapefile
+vector) that are contained within the hexagonal cell.</p>
+<p>In addition to the names of the input points file and the output Shapefile, the user
+must also specify the desired hexagon width (w), which is the distance between opposing
+sides of each hexagon. The size (s) each side of the hexagon can then be calculated as,
+s = w / [2 x cos(PI / 6)]. The area of each hexagon (A) is, A = 3s(w / 2). The user must
+also specify the orientation of the grid with options of horizontal (pointy side up) and
+vertical (flat side up).</p>
+<p><em>See Also</em>:</p>
+<p><code>LidarHexBinning</code>, <code>PointDensity</code>, <code>CreateHexagonalVectorGrid</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/vector_hex_bin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input base file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--width            </td><td> The grid cell width</td></tr>
+<tr><td>--orientation      </td><td> Grid Orientation, 'horizontal' or 'vertical'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">vector_hex_binning(
+    i, 
+    output, 
+    width, 
+    orientation=&quot;horizontal&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=VectorHexBinning -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.shp -o=outfile.shp --width=10.0 ^
+--orientation=vertical 
+</code></pre>
+<p><a name="VoronoiDiagram"></a></p>
+<a class="header" href="#voronoidiagram" id="voronoidiagram"><h2>VoronoiDiagram</h2></a>
+<p>This tool creates a vector Voronoi diagram for a set of vector points. The
+Voronoi diagram is the dual graph of the Delaunay triangulation. The tool
+operates by first constructing the Delaunay triangulation and then
+connecting the circumcenters of each triangle. Each Voronoi cell contains
+one point of the input vector points. All locations within the cell are
+nearer to the contained point than any other input point.</p>
+<p>A dense frame of 'ghost' (hidden) points is inserted around the input point
+set to limit the spatial extent of the diagram. The frame is set back from
+the bounding box of the input points by 2 x the average point  spacing. The
+polygons of these ghost points are not output, however, points that are
+situated along the edges of the data will have somewhat rounded (paraboloic)
+exterior boundaries as a result of this edge condition. If this property is
+unacceptable for application, clipping the Voronoi diagram to the convex
+hull may be a better alternative.</p>
+<p>This tool works on vector input data only. If a Voronoi diagram is needed
+to tesselate regions associated with a set of raster points, use the
+<code>EuclideanAllocation</code> tool instead. To use Voronoi diagrams for gridding
+data (i.e. raster interpolation), use the <code>NearestNeighbourGridding</code> tool.</p>
+<p><em>See Also</em>:</p>
+<p><code>ConstructVectorTIN</code>, <code>EuclideanAllocation</code>, <code>NearestNeighbourGridding</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/voronoi_diagram.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">voronoi_diagram(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=VoronoiDiagram -v --wd=&quot;/path/to/data/&quot; ^
+-i=points.shp -o=tin.shp 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../available_tools/geomorphometric_analysis.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../available_tools/gis_analysis_distance_tools.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../available_tools/geomorphometric_analysis.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../available_tools/gis_analysis_distance_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

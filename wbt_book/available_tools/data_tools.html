@@ -1,0 +1,826 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Data tools - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html" class="active"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#data-tools" id="data-tools"><h1>Data Tools</h1></a>
+<ul>
+<li><a href="#AddPointCoordinatesToTable">AddPointCoordinatesToTable</a></li>
+<li><a href="#ConvertNodataToZero">ConvertNodataToZero</a></li>
+<li><a href="#ConvertRasterFormat">ConvertRasterFormat</a></li>
+<li><a href="#ExportTableToCsv">ExportTableToCsv</a></li>
+<li><a href="#JoinTables">JoinTables</a></li>
+<li><a href="#LinesToPolygons">LinesToPolygons</a></li>
+<li><a href="#MergeTableWithCsv">MergeTableWithCsv</a></li>
+<li><a href="#MergeVectors">MergeVectors</a></li>
+<li><a href="#MultiPartToSinglePart">MultiPartToSinglePart</a></li>
+<li><a href="#NewRasterFromBase">NewRasterFromBase</a></li>
+<li><a href="#PolygonsToLines">PolygonsToLines</a></li>
+<li><a href="#PrintGeoTiffTags">PrintGeoTiffTags</a></li>
+<li><a href="#RasterToVectorLines">RasterToVectorLines</a></li>
+<li><a href="#RasterToVectorPoints">RasterToVectorPoints</a></li>
+<li><a href="#ReinitializeAttributeTable">ReinitializeAttributeTable</a></li>
+<li><a href="#RemovePolygonHoles">RemovePolygonHoles</a></li>
+<li><a href="#SetNodataValue">SetNodataValue</a></li>
+<li><a href="#SinglePartToMultiPart">SinglePartToMultiPart</a></li>
+<li><a href="#VectorLinesToRaster">VectorLinesToRaster</a></li>
+<li><a href="#VectorPointsToRaster">VectorPointsToRaster</a></li>
+<li><a href="#VectorPolygonsToRaster">VectorPolygonsToRaster</a></li>
+</ul>
+<p><a name="AddPointCoordinatesToTable"></a></p>
+<a class="header" href="#addpointcoordinatestotable" id="addpointcoordinatestotable"><h2>AddPointCoordinatesToTable</h2></a>
+<p>This tool modifies the attribute table of a vector of POINT ShapeType by adding two fields,
+XCOORD and YCOORD, containing each point's X and Y coordinates respectively.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/add_point_coordinates_to_table.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">add_point_coordinates_to_table(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AddPointCoordinatesToTable -v ^
+--wd=&quot;/path/to/data/&quot; --input=points.shp 
+</code></pre>
+<p><a name="ConvertNodataToZero"></a></p>
+<a class="header" href="#convertnodatatozero" id="convertnodatatozero"><h2>ConvertNodataToZero</h2></a>
+<p>Converts nodata values in a raster to zero.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/convert_nodata_to_zero.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">convert_nodata_to_zero(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ConvertNodataToZero -v ^
+--wd=&quot;/path/to/data/&quot; --input=in.tif -o=NewRaster.tif 
+</code></pre>
+<p><a name="ConvertRasterFormat"></a></p>
+<a class="header" href="#convertrasterformat" id="convertrasterformat"><h2>ConvertRasterFormat</h2></a>
+<p>This tool converts raster data from one format to another. It determines input/output raster
+formats based on extensions, but due to file extension naming collisions, it would be good to
+add user hints. For example, the extension 'grd' could belong to a SurferAscii or a Surfer7Binary.
+This is more important for distinguishing output files since input files can be read and
+distiguishing features idenfitied from the file structure. At the moment, this tool does not
+support user hints however.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/convert_raster_format.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">convert_raster_format(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ConvertRasterFormat -v ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="ExportTableToCsv"></a></p>
+<a class="header" href="#exporttabletocsv" id="exporttabletocsv"><h2>ExportTableToCsv</h2></a>
+<p>This tool can be used to export a vector's attribute table to a comma separated values (CSV)
+file. CSV files stores tabular data (numbers and text) in plain-text form such that each row
+corresponds to a record and each column to a field. Fields are typically separated by commas
+within records. The user must specify the name of the vector (and associated attribute file),
+the name of the output CSV file, and whether or not to include the field names as a header
+column in the output CSV file.</p>
+<p><em>See Also</em>:</p>
+<p><code>MergeTableWithCsv</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/export_table_to_csv.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--headers          </td><td> Export field names as file header?</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">export_table_to_csv(
+    i, 
+    output, 
+    headers=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ExportTableToCsv -v ^
+--wd=&quot;/path/to/data/&quot; -i=lines.shp -o=output.csv --headers 
+</code></pre>
+<p><a name="JoinTables"></a></p>
+<a class="header" href="#jointables" id="jointables"><h2>JoinTables</h2></a>
+<p>This tool can be used to join (i.e. merge) a vector's attribute table with a second table. The
+user must specify the name of the vector file (and associated attribute file) as well as the
+<em>primary key</em> within the table. The <em>primary key</em> (<code>--pkey</code> flag) is the field
+within the table that is being appended to that serves as the identifier. Additionally, the user
+must specify the name of a second vector from which the data appended into the first table will be
+derived. The <em>foreign key</em> (<code>--fkey</code> flag), the identifying field within the
+second table that corresponds with the data contained within the primary key in the table, must be
+specified. Both the primary and foreign keys should either be strings (text) or integer values.
+<em>Fields containing decimal values are not good candidates for keys.</em> Lastly, the names of the field
+within the second file to include in the merge operation can also be input (<code>--import_field</code>). If the
+<code>--import_field</code> field is not input, all fields in the attribute table of the second file, that are not
+the foreign key nor FID, will be imported to the first table.</p>
+<p>Merging works for one-to-one and many-to-one database relations. A <em>one-to-one</em> relations exists when
+each record in the attribute table corresponds to one record in the second table and each primary
+key is unique. Since each record in the attribute table is associated with a geospatial feature in
+the vector, an example of a one-to-one relation may be where the second file contains AREA and
+PERIMETER fields for each polygon feature in the vector. This is the most basic type of relation.
+A many-to-one relation would exist when each record in the first attribute table corresponds to one
+record in the second file and the primary key is NOT unique. Consider as an example a vector and
+attribute table associated with a world map of countries. Each country has one or more more polygon
+features in the shapefile, e.g. Canada has its mainland and many hundred large islands. You may want
+to append a table containing data about the population and area of each country. In this case, the
+COUNTRY columns in the attribute table and the second file serve as the primary and foreign keys
+respectively. While there may be many duplicate primary keys (all of those Canadian polygons) each
+will correspond to only one foreign key containing the population and area data. This is a
+<em>many-to-one</em> relation. The <code>JoinTables</code> tool does not support one-to-many nor many-to-many relations.</p>
+<p><em>See Also</em>:</p>
+<p><code>MergeTableWithCsv</code>, <code>ReinitializeAttributeTable</code>, <code>ExportTableToCsv</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/join_tables.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input primary vector file (i.e. the table to be modified)</td></tr>
+<tr><td>--pkey             </td><td> Primary key field</td></tr>
+<tr><td>--i2, --input2    </td><td> Input foreign vector file (i.e. source of data to be imported)</td></tr>
+<tr><td>--fkey             </td><td> Foreign key field</td></tr>
+<tr><td>--import_field     </td><td> Imported field (all fields will be imported if not specified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">join_tables(
+    input1, 
+    pkey, 
+    input2, 
+    fkey, 
+    import_field, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=JoinTables -v --wd=&quot;/path/to/data/&quot; ^
+--i1=properties.shp --pkey=TYPE --i2=land_class.shp ^
+--fkey=VALUE --import_field=NEW_VALUE 
+</code></pre>
+<p><a name="LinesToPolygons"></a></p>
+<a class="header" href="#linestopolygons" id="linestopolygons"><h2>LinesToPolygons</h2></a>
+<p>Converts vector polylines into polygons. Note that this tool will close polygons
+that are open and will ensure that the first part of an input line is interpreted
+as the polygon hull and subsequent parts are considered holes. The tool does not
+examine input lines for line crossings (self intersections), which are topological
+errors.</p>
+<p><em>See Also</em>:</p>
+<p><code>PolygonsToLines</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/lines_to_polygons.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector line file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lines_to_polygons(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LinesToPolygons -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.shp -o=output.shp 
+</code></pre>
+<p><a name="MergeTableWithCsv"></a></p>
+<a class="header" href="#mergetablewithcsv" id="mergetablewithcsv"><h2>MergeTableWithCsv</h2></a>
+<p>This tool can be used to merge a vector's attribute table with data contained within a comma
+separated values (CSV) text file. CSV files stores tabular data (numbers and text) in plain-text
+form such that each row is a record and each column a field. Fields are typically separated by
+commas although the tool will also support seimi-colon, tab, and space delimited files. The user
+must specify the name of the vector (and associated attribute file) as well as the <em>primary key</em>
+within the table. The <em>primary key</em> (<code>--pkey</code> flag) is the field within the
+table that is being appended to that serves as the unique identifier. Additionally, the user must
+specify the name of a CSV text file with either a *.csv or *.txt extension. The file must possess a
+header row, i.e. the first row must contain information about the names of the various fields. The
+<em>foreign key</em> (<code>--fkey</code> flag), that is the identifying field within the
+CSV file that corresponds with the data contained within the <em>primary key</em> in the table, must also
+be specified. Both the primary and foreign keys should either be strings (text) or integer values.
+<em>Fields containing decimal values are not good candidates for keys.</em> Lastly, the user may optionally
+specify the name of a field within the CSV file to import in the merge operation (<code>--import_field</code> flag).
+If this flag is not specified, all of the fields within the CSV, with the exception of the foreign
+key, will be appended to the attribute table.</p>
+<p>Merging works for one-to-one and many-to-one database relations. A <em>one-to-one</em> relations exists when
+each record in the attribute table corresponds to one record in the second table and each primary
+key is unique. Since each record in the attribute table is associated with a geospatial feature in
+the vector, an example of a one-to-one relation may be where the second file contains AREA and
+PERIMETER fields for each polygon feature in the vector. This is the most basic type of relation.
+A many-to-one relation would exist when each record in the first attribute table corresponds to one
+record in the second file and the primary key is NOT unique. Consider as an example a vector and
+attribute table associated with a world map of countries. Each country has one or more more polygon
+features in the shapefile, e.g. Canada has its mainland and many hundred large islands. You may want
+to append a table containing data about the population and area of each country. In this case, the
+COUNTRY columns in the attribute table and the second file serve as the primary and foreign keys
+respectively. While there may be many duplicate primary keys (all of those Canadian polygons) each
+will correspond to only one foreign key containing the population and area data. This is a
+<em>many-to-one</em> relation. The <code>JoinTables</code> tool does not support one-to-many nor many-to-many relations.</p>
+<p><em>See Also</em>:</p>
+<p><code>JoinTables</code>, <code>ReinitializeAttributeTable</code>, <code>ExportTableToCsv</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/merge_table_with_csv.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input primary vector file (i.e. the table to be modified)</td></tr>
+<tr><td>--pkey             </td><td> Primary key field</td></tr>
+<tr><td>--csv              </td><td> Input CSV file (i.e. source of data to be imported)</td></tr>
+<tr><td>--fkey             </td><td> Foreign key field</td></tr>
+<tr><td>--import_field     </td><td> Imported field (all fields will be imported if not specified)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">merge_table_with_csv(
+    i, 
+    pkey, 
+    csv, 
+    fkey, 
+    import_field=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MergeTableWithCsv -v ^
+--wd=&quot;/path/to/data/&quot; -i=properties.shp --pkey=TYPE ^
+--csv=land_class.csv --fkey=VALUE ^
+--import_field=NEW_VALUE
+&gt;&gt;./whitebox_tools -r=MergeTableWithCsv ^
+-v --wd=&quot;/path/to/data/&quot; -i=properties.shp --pkey=TYPE ^
+--csv=land_class.csv --fkey=VALUE 
+</code></pre>
+<p><a name="MergeVectors"></a></p>
+<a class="header" href="#mergevectors" id="mergevectors"><h2>MergeVectors</h2></a>
+<p>Combines two or more input vectors of the same ShapeType creating a single, new output
+vector. Importantly, the attribute table of the output vector will contain the ubiquitous
+file-specific FID, the parent file name, the parent FID, and the list of attribute fields
+that are shared among each of the input files. For a field to be considered common
+between tables, it must have the same <code>name</code> and <code>field_type</code> (i.e. data type and
+precision).</p>
+<p>Overlapping features will not be identified nor handled in the merging. If you have
+significant areas of overlap, it is advisable to use one of the vector overlay tools
+instead.</p>
+<p>The difference between <code>MergeVectors</code> and the <code>Append</code> tool is that merging takes two
+or more files and creates one new file containing the features of all inputs, and
+<code>Append</code> places the features of a single vector into another existing (appended) vector.</p>
+<p>This tool only operates on vector files. Use the <code>Mosaic</code> tool to combine raster data.</p>
+<p><em>See Also</em>:</p>
+<p><code>Append</code>, <code>Mosaic</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/merge_vectors.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input vector files</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">merge_vectors(
+    inputs, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MergeVectors -v --wd=&quot;/path/to/data/&quot; ^
+-i='polys1.shp;polys2.shp;polys3.shp' -o=out_file.shp 
+</code></pre>
+<p><a name="MultiPartToSinglePart"></a></p>
+<a class="header" href="#multiparttosinglepart" id="multiparttosinglepart"><h2>MultiPartToSinglePart</h2></a>
+<p>This tool can be used to convert a vector file containing multi-part features into a vector
+containing only single-part features. Any multi-part polygons or lines within the input
+vector file will be split into seperate features in the output file, each possessing their
+own entry in the associated attribute file. For polygon-type vectors, the user may optionally
+choose to exclude hole-parts from being separated from their containing polygons. That is,
+with the <code>--exclude_holes</code> flag, hole parts in the input vector will continue to belong to
+their enclosing polygon in the output vector.</p>
+<p><em>See Also</em>:</p>
+<p><code>SinglePartToMultiPart</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/multipart_to_singlepart.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector line or polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector line or polygon file</td></tr>
+<tr><td>--exclude_holes    </td><td> Exclude hole parts from the feature splitting? (holes will continue to belong to their features in output.)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">multi_part_to_single_part(
+    i, 
+    output, 
+    exclude_holes=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MultiPartToSinglePart -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.shp -o=output.shp ^
+--exclude_holes 
+</code></pre>
+<p><a name="NewRasterFromBase"></a></p>
+<a class="header" href="#newrasterfrombase" id="newrasterfrombase"><h2>NewRasterFromBase</h2></a>
+<p>Creates a new raster using a base image.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/new_raster.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --base         </td><td> Input base raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--value            </td><td> Constant value to fill raster with; either 'nodata' or numeric value</td></tr>
+<tr><td>--data_type        </td><td> Output raster data type; options include 'double' (64-bit), 'float' (32-bit), and 'integer' (signed 16-bit) (default is 'float')</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">new_raster_from_base(
+    base, 
+    output, 
+    value=&quot;nodata&quot;, 
+    data_type=&quot;float&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=NewRasterFromBase -v ^
+--wd=&quot;/path/to/data/&quot; --base=base.tif -o=NewRaster.tif ^
+--value=0.0 --data_type=integer
+&gt;&gt;./whitebox_tools ^
+-r=NewRasterFromBase -v --wd=&quot;/path/to/data/&quot; --base=base.tif ^
+-o=NewRaster.tif --value=nodata 
+</code></pre>
+<p><a name="PolygonsToLines"></a></p>
+<a class="header" href="#polygonstolines" id="polygonstolines"><h2>PolygonsToLines</h2></a>
+<p>Converts vector polygons into polylines.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/polygons_to_lines.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector lines file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">polygons_to_lines(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PolygonsToLines -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.shp -o=output.shp 
+</code></pre>
+<p><a name="PrintGeoTiffTags"></a></p>
+<a class="header" href="#printgeotifftags" id="printgeotifftags"><h2>PrintGeoTiffTags</h2></a>
+<p>Prints the tags within a GeoTIFF.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/print_geotiff_tags.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input GeoTIFF file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">print_geo_tiff_tags(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PrintGeoTiffTags -v ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tiff 
+</code></pre>
+<p><a name="RasterToVectorLines"></a></p>
+<a class="header" href="#rastertovectorlines" id="rastertovectorlines"><h2>RasterToVectorLines</h2></a>
+<p>This tool converts raster lines features into a vector of the POLYLINE ShapeType.
+Grid cells associated with line features will contain non-zero, non-NoData cell
+values. The algorithm requires three passes of the raster. The first pass counts
+the number of line neighbours of each line cell; the second pass traces line
+segments starting from line ends (i.e. line cells with only one neighbouring line
+cell); lastly, the final pass traces any remaining line segments, which are likely
+forming closed loops (and therefore do not have line ends).</p>
+<p>If the line raster contains streams, it is preferable to use the <code>RasterStreamsToVector</code>
+instead. This tool will use knowledge of flow directions to ensure connections
+between stream segments at confluence sites, whereas <code>RasterToVectorLines</code> will not.</p>
+<p><em>See Also</em>:</p>
+<p><code>RasterToVectorPoints</code>, <code>RasterStreamsToVector</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/raster_to_vector_lines.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster lines file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raster_to_vector_lines(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterToVectorLines -v ^
+--wd=&quot;/path/to/data/&quot; -i=lines.tif -o=lines.shp 
+</code></pre>
+<p><a name="RasterToVectorPoints"></a></p>
+<a class="header" href="#rastertovectorpoints" id="rastertovectorpoints"><h2>RasterToVectorPoints</h2></a>
+<p>Converts a raster dataset to a vector of the POINT shapetype. The user must specify
+the name of a raster file and the name of the output vector. Points will correspond
+with grid cell centre points. All grid cells containing non-zero, non-NoData values
+will be considered a point. The vector's attribute table will contain a field called
+'VALUE' that will contain the cell value for each point feature.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/raster_to_vector_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector points file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raster_to_vector_points(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterToVectorPoints -v ^
+--wd=&quot;/path/to/data/&quot; --input=points.tif -o=out.shp 
+</code></pre>
+<p><a name="ReinitializeAttributeTable"></a></p>
+<a class="header" href="#reinitializeattributetable" id="reinitializeattributetable"><h2>ReinitializeAttributeTable</h2></a>
+<p>Reinitializes a vector's attribute table deleting all fields but the feature ID (FID).
+Caution: this tool overwrites the input file's attribute table.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/reinitialize_attribute_table.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">reinitialize_attribute_table(
+    i, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ReinitializeAttributeTable -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.shp 
+</code></pre>
+<p><a name="RemovePolygonHoles"></a></p>
+<a class="header" href="#removepolygonholes" id="removepolygonholes"><h2>RemovePolygonHoles</h2></a>
+<p>This tool can be used to remove holes from the features within a vector
+polygon file. The user must specify the name of the input vector file,
+which must be of a polygon shapetype, and the name of the output file.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/remove_polygon_holes.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">remove_polygon_holes(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RemovePolygonHoles -v ^
+--wd=&quot;/path/to/data/&quot; --input=polygons.shp ^
+--output=no_holes.shp 
+</code></pre>
+<p><a name="SetNodataValue"></a></p>
+<a class="header" href="#setnodatavalue" id="setnodatavalue"><h2>SetNodataValue</h2></a>
+<p>Assign a specified value in an input image to the NoData value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/set_nodata_value.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--back_value       </td><td> Background value to set to nodata</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">set_nodata_value(
+    i, 
+    output, 
+    back_value=0.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SetNodataValue -v --wd=&quot;/path/to/data/&quot; ^
+-i=in.tif -o=newRaster.tif --back_value=1.0 
+</code></pre>
+<p><a name="SinglePartToMultiPart"></a></p>
+<a class="header" href="#singleparttomultipart" id="singleparttomultipart"><h2>SinglePartToMultiPart</h2></a>
+<p>This tool can be used to convert a vector file containing single-part features into a vector
+containing multi-part features. The user has the option to either group features based on an
+ID Field (<code>--field</code> flag), which is a categorical field within the vector's attribute table.
+The ID Field should either be of String (text) or Integer type. Fields containing decimal values
+are not good candidates for the ID Field. <strong>If no <code>--field</code> flag is specified, all features will
+be grouped together into one large multi-part vector</strong>.</p>
+<p>This tool works for vectors containing either point, line, or polygon features.
+Since vectors of a POINT ShapeType cannot represent multi-part features, the ShapeType of the
+output file will be modified to a MULTIPOINT ShapeType if the input file is of a POINT ShapeType.
+If the input vector is of a POLYGON ShapeType, the user can optionally set the algorithm to search
+for polygons that should be represented as hole parts. In the case of grouping based on an ID Field,
+hole parts are polygon features contained within larger polygons of the same ID Field value. Please
+note that searching for polygon holes may significantly increase processing time for larger polygon
+coverages.</p>
+<p><em>See Also</em>:</p>
+<p><code>MultiPartToSinglePart</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/singlepart_to_multipart.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector line or polygon file</td></tr>
+<tr><td>--field            </td><td> Grouping ID field name in attribute table</td></tr>
+<tr><td>-o, --output       </td><td> Output vector line or polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">single_part_to_multi_part(
+    i, 
+    output, 
+    field=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SinglePartToMultiPart -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.shp -o=output.shp ^
+--field='COUNTRY' 
+</code></pre>
+<p><a name="VectorLinesToRaster"></a></p>
+<a class="header" href="#vectorlinestoraster" id="vectorlinestoraster"><h2>VectorLinesToRaster</h2></a>
+<p>Converts a vector containing polylines into a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/vector_lines_to_raster.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector lines file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--nodata           </td><td> Background value to set to NoData. Without this flag, it will be set to 0.0</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">vector_lines_to_raster(
+    i, 
+    output, 
+    field=&quot;FID&quot;, 
+    nodata=True, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=VectorLinesToRaster -v ^
+--wd=&quot;/path/to/data/&quot; -i=lines.shp --field=ELEV -o=output.tif ^
+--nodata --cell_size=10.0
+        &gt;&gt;./whitebox_tools ^
+-r=VectorLinesToRaster -v --wd=&quot;/path/to/data/&quot; -i=lines.shp ^
+--field=FID -o=output.tif --base=existing_raster.tif 
+</code></pre>
+<p><a name="VectorPointsToRaster"></a></p>
+<a class="header" href="#vectorpointstoraster" id="vectorpointstoraster"><h2>VectorPointsToRaster</h2></a>
+<p>Converts a vector containing points into a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/vector_points_to_raster.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--assign           </td><td> Assignment operation, where multiple points are in the same grid cell; options include 'first', 'last' (default), 'min', 'max', 'sum'</td></tr>
+<tr><td>--nodata           </td><td> Background value to set to NoData. Without this flag, it will be set to 0.0</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">vector_points_to_raster(
+    i, 
+    output, 
+    field=&quot;FID&quot;, 
+    assign=&quot;last&quot;, 
+    nodata=True, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=VectorPointsToRaster -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=ELEV -o=output.tif ^
+--assign=min --nodata ^
+--cell_size=10.0
+        &gt;&gt;./whitebox_tools ^
+-r=VectorPointsToRaster -v --wd=&quot;/path/to/data/&quot; -i=points.shp ^
+--field=FID -o=output.tif --assign=last ^
+--base=existing_raster.tif 
+</code></pre>
+<p><a name="VectorPolygonsToRaster"></a></p>
+<a class="header" href="#vectorpolygonstoraster" id="vectorpolygonstoraster"><h2>VectorPolygonsToRaster</h2></a>
+<p>Converts a vector containing polygons into a raster.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/vector_polygons_to_raster.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector polygons file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--nodata           </td><td> Background value to set to NoData. Without this flag, it will be set to 0.0</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">vector_polygons_to_raster(
+    i, 
+    output, 
+    field=&quot;FID&quot;, 
+    nodata=True, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=VectorPolygonsToRaster -v ^
+--wd=&quot;/path/to/data/&quot; -i=lakes.shp --field=ELEV -o=output.tif ^
+--nodata --cell_size=10.0
+        &gt;&gt;./whitebox_tools ^
+-r=VectorPolygonsToRaster -v --wd=&quot;/path/to/data/&quot; ^
+-i=lakes.shp --field=ELEV -o=output.tif ^
+--base=existing_raster.tif 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../available_tools/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../available_tools/geomorphometric_analysis.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../available_tools/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../available_tools/geomorphometric_analysis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

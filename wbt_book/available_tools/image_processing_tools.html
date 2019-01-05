@@ -1,0 +1,827 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Image processing tools - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html" class="active"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#image-processing-tools" id="image-processing-tools"><h1>Image Processing Tools</h1></a>
+<ul>
+<li><a href="#ChangeVectorAnalysis">ChangeVectorAnalysis</a></li>
+<li><a href="#Closing">Closing</a></li>
+<li><a href="#CreateColourComposite">CreateColourComposite</a></li>
+<li><a href="#FlipImage">FlipImage</a></li>
+<li><a href="#IhsToRgb">IhsToRgb</a></li>
+<li><a href="#ImageStackProfile">ImageStackProfile</a></li>
+<li><a href="#IntegralImage">IntegralImage</a></li>
+<li><a href="#KMeansClustering">KMeansClustering</a></li>
+<li><a href="#LineThinning">LineThinning</a></li>
+<li><a href="#ModifiedKMeansClustering">ModifiedKMeansClustering</a></li>
+<li><a href="#Mosaic">Mosaic</a></li>
+<li><a href="#MosaicWithFeathering">MosaicWithFeathering</a></li>
+<li><a href="#NormalizedDifferenceVegetationIndex">NormalizedDifferenceVegetationIndex</a></li>
+<li><a href="#Opening">Opening</a></li>
+<li><a href="#RemoveSpurs">RemoveSpurs</a></li>
+<li><a href="#Resample">Resample</a></li>
+<li><a href="#RgbToIhs">RgbToIhs</a></li>
+<li><a href="#SplitColourComposite">SplitColourComposite</a></li>
+<li><a href="#ThickenRasterLine">ThickenRasterLine</a></li>
+<li><a href="#TophatTransform">TophatTransform</a></li>
+<li><a href="#WriteFunctionMemoryInsertion">WriteFunctionMemoryInsertion</a></li>
+</ul>
+<p><a name="ChangeVectorAnalysis"></a></p>
+<a class="header" href="#changevectoranalysis" id="changevectoranalysis"><h2>ChangeVectorAnalysis</h2></a>
+<p>Change Vector Analysis (CVA) is a change detection method that characterizes the
+magnitude and change direction in spectral space between two times. A change vector
+is the difference vector between two vectors in n-dimensional feature space defined
+for two observations of the same geographical location (i.e. corresponding pixels)
+during two dates. The CVA inputs include the set of raster images corresponding to
+the multispectral data for each date. Note that there must be the same number of
+image files (bands) for the two dates and they must be entered in the same order,
+i.e. if three bands, red, green, and blue are entered for date one, these same
+bands must be entered in the same order for date two.</p>
+<p>CVA outputs two image files. The first image contains the change vector length,
+i.e. magnitude, for each pixel in the multi-spectral dataset. The second image
+contains information about the direction of the change event in spectral feature
+space, which is related to the type of change event, e.g. deforestation will likely
+have a different change direction than say crop growth. The vector magnitude is a
+continuous numerical variable. The change vector direction is presented in the form
+of a code, referring to the multi-dimensional sector in which the change vector
+occurs. A text output will be produced to provide a key describing sector codes,
+relating the change vector to positive or negative shifts in n-dimensional feature
+space.</p>
+<p>It is common to apply a simple thresholding operation on the magnitude data to
+determine 'actual' change (i.e. change above some assumed level of error). The type
+of change (qualitatively) is then defined according to the corresponding sector code.
+Jensen (2005) provides a useful description of this approach to change detection.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/change_vector_analysis.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--date1            </td><td> Input raster files for the earlier date</td></tr>
+<tr><td>--date2            </td><td> Input raster files for the later date</td></tr>
+<tr><td>--magnitude        </td><td> Output vector magnitude raster file</td></tr>
+<tr><td>--direction        </td><td> Output vector Direction raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">change_vector_analysis(
+    date1, 
+    date2, 
+    magnitude, 
+    direction, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ChangeVectorAnalysis -v ^
+--wd=&quot;/path/to/data/&quot; ^
+--date1='d1_band1.tif;d1_band2.tif;d1_band3.tif' ^
+--date2='d2_band1.tif;d2_band2.tif;d2_band3.tif' ^
+--magnitude=mag_out.tif --direction=dir_out.tif 
+</code></pre>
+<p><a name="Closing"></a></p>
+<a class="header" href="#closing" id="closing"><h2>Closing</h2></a>
+<p>A closing is a mathematical morphology operation involving an erosion (min filter) of a dilation (max filter) set.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/closing.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">closing(
+    i, 
+    output, 
+    filterx=11, 
+    filtery=11, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Closing -v --wd=&quot;/path/to/data/&quot; ^
+-i=image.tif -o=output.tif --filter=25 
+</code></pre>
+<p><a name="CreateColourComposite"></a></p>
+<a class="header" href="#createcolourcomposite" id="createcolourcomposite"><h2>CreateColourComposite</h2></a>
+<p>Creates a colour-composite image from three bands of multispectral imagery.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/create_colour_composite.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--red              </td><td> Input red band image file</td></tr>
+<tr><td>--green            </td><td> Input green band image file</td></tr>
+<tr><td>--blue             </td><td> Input blue band image file</td></tr>
+<tr><td>--opacity          </td><td> Input opacity band image file (optional)</td></tr>
+<tr><td>-o, --output       </td><td> Output colour composite file</td></tr>
+<tr><td>--enhance          </td><td> Optional flag indicating whether a balance contrast enhancement is performed</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">create_colour_composite(
+    red, 
+    green, 
+    blue, 
+    output, 
+    opacity=None, 
+    enhance=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CreateColourComposite -v ^
+--wd=&quot;/path/to/data/&quot; --red=band3.tif --green=band2.tif ^
+--blue=band1.tif -o=output.tif
+&gt;&gt;./whitebox_tools ^
+-r=CreateColourComposite -v --wd=&quot;/path/to/data/&quot; ^
+--red=band3.tif --green=band2.tif --blue=band1.tif ^
+--opacity=a.tif -o=output.tif 
+</code></pre>
+<p><a name="FlipImage"></a></p>
+<a class="header" href="#flipimage" id="flipimage"><h2>FlipImage</h2></a>
+<p>Reflects an image in the vertical or horizontal axis.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/flip_image.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--direction        </td><td> Direction of reflection; options include 'v' (vertical), 'h' (horizontal), and 'b' (both)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">flip_image(
+    i, 
+    output, 
+    direction=&quot;vertical&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FlipImage -v --wd=&quot;/path/to/data/&quot; ^
+--input=in.tif -o=out.tif --direction=h 
+</code></pre>
+<p><a name="IhsToRgb"></a></p>
+<a class="header" href="#ihstorgb" id="ihstorgb"><h2>IhsToRgb</h2></a>
+<p>Converts intensity, hue, and saturation (IHS) images into red, green, and blue (RGB) images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/ihs_to_rgb.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--intensity        </td><td> Input intensity file</td></tr>
+<tr><td>--hue              </td><td> Input hue file</td></tr>
+<tr><td>--saturation       </td><td> Input saturation file</td></tr>
+<tr><td>--red              </td><td> Output red band file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--green            </td><td> Output green band file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--blue             </td><td> Output blue band file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>-o, --output       </td><td> Output colour-composite file. Only used if individual bands are not specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">ihs_to_rgb(
+    intensity, 
+    hue, 
+    saturation, 
+    red=None, 
+    green=None, 
+    blue=None, 
+    output=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=IhsToRgb -v --wd=&quot;/path/to/data/&quot; ^
+--intensity=intensity.tif --hue=hue.tif ^
+--saturation=saturation.tif --red=band3.tif --green=band2.tif ^
+--blue=band1.tif
+&gt;&gt;./whitebox_tools -r=IhsToRgb -v ^
+--wd=&quot;/path/to/data/&quot; --intensity=intensity.tif --hue=hue.tif ^
+--saturation=saturation.tif --composite=image.tif 
+</code></pre>
+<p><a name="ImageStackProfile"></a></p>
+<a class="header" href="#imagestackprofile" id="imagestackprofile"><h2>ImageStackProfile</h2></a>
+<p>Plots an image stack profile (i.e. signature) for a set of points and multispectral images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/image_stack_profile.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input multispectral image files</td></tr>
+<tr><td>--points           </td><td> Input vector points file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">image_stack_profile(
+    inputs, 
+    points, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ImageStackProfile -v ^
+--wd=&quot;/path/to/data/&quot; -i='image1.tif;image2.tif;image3.tif' ^
+--points=pts.shp -o=output.html 
+</code></pre>
+<p><a name="IntegralImage"></a></p>
+<a class="header" href="#integralimage" id="integralimage"><h2>IntegralImage</h2></a>
+<p>Transforms an input image (summed area table) into its integral image equivalent.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/integral_image.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">integral_image(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=IntegralImage -v --wd=&quot;/path/to/data/&quot; ^
+-i=image.tif -o=output.tif 
+</code></pre>
+<p><a name="KMeansClustering"></a></p>
+<a class="header" href="#kmeansclustering" id="kmeansclustering"><h2>KMeansClustering</h2></a>
+<p>Performs a k-means clustering operation on a multi-spectral dataset.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/k_means_clustering.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_html         </td><td> Output HTML report file</td></tr>
+<tr><td>--classes          </td><td> Number of classes</td></tr>
+<tr><td>--max_iterations   </td><td> Maximum number of iterations</td></tr>
+<tr><td>--class_change     </td><td> Minimum percent of cells changed between iterations before completion</td></tr>
+<tr><td>--initialize       </td><td> How to initialize cluster centres?</td></tr>
+<tr><td>--min_class_size   </td><td> Minimum class size, in pixels</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">k_means_clustering(
+    inputs, 
+    output, 
+    classes, 
+    out_html=None, 
+    max_iterations=10, 
+    class_change=2.0, 
+    initialize=&quot;diagonal&quot;, 
+    min_class_size=10, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=KMeansClustering -v ^
+--wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
+-o=output.tif --out_html=report.html --classes=15 ^
+--max_iterations=25 --class_change=1.5 --initialize='random' ^
+--min_class_size=500 
+</code></pre>
+<p><a name="LineThinning"></a></p>
+<a class="header" href="#linethinning" id="linethinning"><h2>LineThinning</h2></a>
+<p>Performs line thinning a on Boolean raster image; intended to be used with the RemoveSpurs tool.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/line_thin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">line_thinning(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LineThinning -v --wd=&quot;/path/to/data/&quot; ^
+--input=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="ModifiedKMeansClustering"></a></p>
+<a class="header" href="#modifiedkmeansclustering" id="modifiedkmeansclustering"><h2>ModifiedKMeansClustering</h2></a>
+<p>This modified k-means algorithm is similar to that described by Mather (2004).
+The main difference between the traditional k-means and this technique is that the user
+does not need to specify the desired number of classes/clusters prior to running the
+tool. Instead, the algorithm initializes with a very liberal overestimate of the number
+of classes and then merges classes that have cluster centres that are separated by less
+than a user-defined threshold. The main difference between this algorithm and the ISODATA
+technique is that clusters can not be broken apart into two smaller clusters.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/modified_k_means_clustering.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_html         </td><td> Output HTML report file</td></tr>
+<tr><td>--start_clusters   </td><td> Initial number of clusters</td></tr>
+<tr><td>--merger_dist      </td><td> Cluster merger distance</td></tr>
+<tr><td>--max_iterations   </td><td> Maximum number of iterations</td></tr>
+<tr><td>--class_change     </td><td> Minimum percent of cells changed between iterations before completion</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">modified_k_means_clustering(
+    inputs, 
+    output, 
+    out_html=None, 
+    start_clusters=1000, 
+    merger_dist=None, 
+    max_iterations=10, 
+    class_change=2.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ModifiedKMeansClustering -v ^
+--wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
+-o=output.tif --out_html=report.html --start_clusters=100 ^
+--merger_dist=30.0 --max_iterations=25 --class_change=1.5 
+</code></pre>
+<p><a name="Mosaic"></a></p>
+<a class="header" href="#mosaic" id="mosaic"><h2>Mosaic</h2></a>
+<p>This tool will create an image mosaic from one or more input image files using
+one of three resampling methods including, nearest neighbour, bilinear interpolation,
+and cubic convolution. The order of the input source image files is important. Grid
+cells in the output image will be assigned the corresponding value determined from the
+first image found in the list to possess an overlapping coordinate.</p>
+<p>This is the preferred mosaicing tool to use when appending multiple images with
+little to no overlapping areas, e.g. tiled data. When images have significant overlap
+areas, users are advised to use the <code>MosaicWithFeathering</code> tool instead.</p>
+<p>Resample is very similar in operation to the Mosaic tool. The Resample tool should be
+used when there is an existing image into which you would like to dump information from
+one or more source images. If the source images are more extensive than the destination
+image, i.e. there are areas that extend beyond the destination image boundaries, these
+areas will not be represented in the updated image. Grid cells in the destination image
+that are not overlapping with any of the input source images will not be updated, i.e.
+they will possess the same value as before the resampling operation. The Mosaic tool is
+used when there is no existing destination image. In this case, a new image is created
+that represents the bounding rectangle of each of the two or more input images. Grid
+cells in the output image that do not overlap with any of the input images will be
+assigned the NoData value.</p>
+<p><em>See Also</em>:
+:
+<code>MosaicWithFeathering</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mosaic.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--method           </td><td> Resampling method; options include 'nn' (nearest neighbour), 'bilinear', and 'cc' (cubic convolution)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">mosaic(
+    inputs, 
+    output, 
+    method=&quot;cc&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Mosaic -v --wd='/path/to/data/' ^
+-i='image1.tif;image2.tif;image3.tif' -o=dest.tif ^
+--method='cc' 
+</code></pre>
+<p><a name="MosaicWithFeathering"></a></p>
+<a class="header" href="#mosaicwithfeathering" id="mosaicwithfeathering"><h2>MosaicWithFeathering</h2></a>
+<p>This tool will create a mosaic from two input images. It is similar in operation to the <code>Mosaic</code> tool,
+however, this tool is the preferred method of mosaicing images when there is significant overlap between
+the images. For areas of overlap, the feathering method will calculate the output value as a weighted
+combination of the two input values, where the weights are derived from the squared distance of the
+pixel to the edge of the data in each of the input raster files. Therefore, less weight is assigned to
+an image's pixel value where the pixel is very near the edge of the image. Note that the distance is
+actually calculated to the edge of the grid and not necessarily the edge of the data, which can differ
+if the image has been rotated during registration.  The result of this feathering method is that the
+output mosaic image should have very little evidence of the original image edges within the overlapping
+area.</p>
+<p>Unlike the Mosaic tool, which can take multiple input images, this tool only accepts two input images.
+Mosaic is therefore useful when there are many, adjacent or only slightly overlapping images, e.g. for
+tiled data sets.</p>
+<p>Users may want to use the <code>HistogramMatching</code> tool prior to mosaicing if the two input images differ
+significantly in their radiometric properties. i.e. if image contrast differences exist.</p>
+<p><em>See Also</em>:
+:
+<code>Mosaic</code>, <code>HistogramMatching</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mosaic_with_feathering.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input raster file to modify</td></tr>
+<tr><td>--i2, --input2    </td><td> Input reference raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--method           </td><td> Resampling method; options include 'nn' (nearest neighbour), 'bilinear', and 'cc' (cubic convolution)</td></tr>
+<tr><td>--weight           </td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">mosaic_with_feathering(
+    input1, 
+    input2, 
+    output, 
+    method=&quot;cc&quot;, 
+    weight=4.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MosaicWithFeathering -v ^
+--wd='/path/to/data/' --input1='image1.tif' ^
+--input2='image2.tif' -o='output.tif' --method='cc' ^
+--weight=4.0 
+</code></pre>
+<p><a name="NormalizedDifferenceVegetationIndex"></a></p>
+<a class="header" href="#normalizeddifferencevegetationindex" id="normalizeddifferencevegetationindex"><h2>NormalizedDifferenceVegetationIndex</h2></a>
+<p>Calculates the normalized difference vegetation index (NDVI) from near-infrared and red imagery.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/ndvi.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--nir              </td><td> Input near-infrared band image</td></tr>
+<tr><td>--red              </td><td> Input red band image</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
+<tr><td>--osavi            </td><td> Optional flag indicating whether the optimized soil-adjusted veg index (OSAVI) should be used</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">normalized_difference_vegetation_index(
+    nir, 
+    red, 
+    output, 
+    clip=0.0, 
+    osavi=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=NormalizedDifferenceVegetationIndex -v ^
+--wd=&quot;/path/to/data/&quot; --nir=band4.tif --red=band3.tif ^
+-o=output.tif
+&gt;&gt;./whitebox_tools ^
+-r=NormalizedDifferenceVegetationIndex -v --wd=&quot;/path/to/data/&quot; ^
+--nir=band4.tif --red=band3.tif -o=output.tif --clip=1.0 ^
+--osavi 
+</code></pre>
+<p><a name="Opening"></a></p>
+<a class="header" href="#opening" id="opening"><h2>Opening</h2></a>
+<p>An opening is a mathematical morphology operation involving a dilation (max filter) of an erosion (min filter) set.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/opening.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">opening(
+    i, 
+    output, 
+    filterx=11, 
+    filtery=11, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Opening -v --wd=&quot;/path/to/data/&quot; ^
+-i=image.tif -o=output.tif --filter=25 
+</code></pre>
+<p><a name="RemoveSpurs"></a></p>
+<a class="header" href="#removespurs" id="removespurs"><h2>RemoveSpurs</h2></a>
+<p>Removes the spurs (pruning operation) from a Boolean line image.; intended to be used on the output of the LineThinning tool.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/remove_spurs.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--iterations       </td><td> Maximum number of iterations</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">remove_spurs(
+    i, 
+    output, 
+    iterations=10, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RemoveSpurs -v --wd=&quot;/path/to/data/&quot; ^
+--input=DEM.tif -o=output.tif --iterations=10 
+</code></pre>
+<p><a name="Resample"></a></p>
+<a class="header" href="#resample" id="resample"><h2>Resample</h2></a>
+<p>Resample is very similar in operation to the Mosaic tool. The Resample tool should
+be used when there is an existing image into which you would like to dump information
+from one or more source images. If the source images are more extensive than the
+destination image, i.e. there are areas that extend beyond the destination image
+boundaries, these areas will not be represented in the updated image. Grid cells in the
+destination image that are not overlapping with any of the input source images will not
+be updated, i.e. they will possess the same value as before the resampling operation. The
+Mosaic tool is used when there is no existing destination image. In this case, a new
+image is created that represents the bounding rectangle of each of the two or more input
+images. Grid cells in the output image that do not overlap with any of the input images
+will be assigned the NoData value.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/resample.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
+<tr><td>--destination      </td><td> Destination raster file</td></tr>
+<tr><td>--method           </td><td> Resampling method; options include 'nn' (nearest neighbour), 'bilinear', and 'cc' (cubic convolution)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">resample(
+    inputs, 
+    destination, 
+    method=&quot;cc&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Resample -v --wd='/path/to/data/' ^
+-i='image1.tif;image2.tif;image3.tif' --destination=dest.tif ^
+--method='cc 
+</code></pre>
+<p><a name="RgbToIhs"></a></p>
+<a class="header" href="#rgbtoihs" id="rgbtoihs"><h2>RgbToIhs</h2></a>
+<p>Converts red, green, and blue (RGB) images into intensity, hue, and saturation (IHS) images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/rgb_to_ihs.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--red              </td><td> Input red band image file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--green            </td><td> Input green band image file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--blue             </td><td> Input blue band image file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--composite        </td><td> Input colour-composite image file. Only used if individual bands are not specified</td></tr>
+<tr><td>--intensity        </td><td> Output intensity raster file</td></tr>
+<tr><td>--hue              </td><td> Output hue raster file</td></tr>
+<tr><td>--saturation       </td><td> Output saturation raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">rgb_to_ihs(
+    intensity, 
+    hue, 
+    saturation, 
+    red=None, 
+    green=None, 
+    blue=None, 
+    composite=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RgbToIhs -v --wd=&quot;/path/to/data/&quot; ^
+--red=band3.tif --green=band2.tif --blue=band1.tif ^
+--intensity=intensity.tif --hue=hue.tif ^
+--saturation=saturation.tif
+&gt;&gt;./whitebox_tools -r=RgbToIhs -v ^
+--wd=&quot;/path/to/data/&quot; --composite=image.tif ^
+--intensity=intensity.tif --hue=hue.tif ^
+--saturation=saturation.tif 
+</code></pre>
+<p><a name="SplitColourComposite"></a></p>
+<a class="header" href="#splitcolourcomposite" id="splitcolourcomposite"><h2>SplitColourComposite</h2></a>
+<p>This tool splits an RGB colour composite image into seperate multispectral images.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/split_colour_composite.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input colour composite image file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (suffixes of '_r', '_g', and '_b' will be appended)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">split_colour_composite(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SplitColourComposite -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif 
+</code></pre>
+<p><a name="ThickenRasterLine"></a></p>
+<a class="header" href="#thickenrasterline" id="thickenrasterline"><h2>ThickenRasterLine</h2></a>
+<p>Thickens single-cell wide lines within a raster image.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/thicken_line.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">thicken_raster_line(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ThickenRasterLine -v ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif 
+</code></pre>
+<p><a name="TophatTransform"></a></p>
+<a class="header" href="#tophattransform" id="tophattransform"><h2>TophatTransform</h2></a>
+<p>Performs either a white or black top-hat transform on an input image.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/tophat.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+<tr><td>--variant          </td><td> Optional variant value. Options include 'white' and 'black'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">tophat_transform(
+    i, 
+    output, 
+    filterx=11, 
+    filtery=11, 
+    variant=&quot;white&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TophatTransform -v ^
+--wd=&quot;/path/to/data/&quot; -i=image.tif -o=output.tif --filter=25 
+</code></pre>
+<p><a name="WriteFunctionMemoryInsertion"></a></p>
+<a class="header" href="#writefunctionmemoryinsertion" id="writefunctionmemoryinsertion"><h2>WriteFunctionMemoryInsertion</h2></a>
+<p>Performs a write function memory insertion for single-band multi-date change detection.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/write_func_memory_insertion.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input raster file associated with the first date</td></tr>
+<tr><td>--i2, --input2    </td><td> Input raster file associated with the second date</td></tr>
+<tr><td>--i3, --input3    </td><td> Optional input raster file associated with the third date</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">write_function_memory_insertion(
+    input1, 
+    input2, 
+    output, 
+    input3=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=WriteFunctionMemoryInsertion -v ^
+--wd=&quot;/path/to/data/&quot; -i1=input1.tif -i2=input2.tif ^
+-o=output.tif 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../available_tools/hydrological_analysis.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../available_tools/image_processing_tools_filters.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../available_tools/hydrological_analysis.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../available_tools/image_processing_tools_filters.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

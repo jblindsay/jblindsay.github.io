@@ -1,0 +1,1293 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>LiDAR tools - WhiteboxTools User Manual</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../command_prompt.html"><strong aria-hidden="true">3.1.</strong> Command-line interface</a></li><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.2.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.2.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.2.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.2.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.2.4.</strong> An example Python project</a></li></ol></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.3.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools QGIS plugin</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Usage Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html" class="active"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.1.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
+<ul>
+<li><a href="#ClassifyOverlapPoints">ClassifyOverlapPoints</a></li>
+<li><a href="#ClipLidarToPolygon">ClipLidarToPolygon</a></li>
+<li><a href="#ErasePolygonFromLidar">ErasePolygonFromLidar</a></li>
+<li><a href="#FilterLidarScanAngles">FilterLidarScanAngles</a></li>
+<li><a href="#FindFlightlineEdgePoints">FindFlightlineEdgePoints</a></li>
+<li><a href="#FlightlineOverlap">FlightlineOverlap</a></li>
+<li><a href="#LasToAscii">LasToAscii</a></li>
+<li><a href="#LasToMultipointShapefile">LasToMultipointShapefile</a></li>
+<li><a href="#LasToShapefile">LasToShapefile</a></li>
+<li><a href="#LidarBlockMaximum">LidarBlockMaximum</a></li>
+<li><a href="#LidarBlockMinimum">LidarBlockMinimum</a></li>
+<li><a href="#LidarClassifySubset">LidarClassifySubset</a></li>
+<li><a href="#LidarColourize">LidarColourize</a></li>
+<li><a href="#LidarConstructVectorTin">LidarConstructVectorTin</a></li>
+<li><a href="#LidarElevationSlice">LidarElevationSlice</a></li>
+<li><a href="#LidarGroundPointFilter">LidarGroundPointFilter</a></li>
+<li><a href="#LidarHexBinning">LidarHexBinning</a></li>
+<li><a href="#LidarHillshade">LidarHillshade</a></li>
+<li><a href="#LidarHistogram">LidarHistogram</a></li>
+<li><a href="#LidarIdwInterpolation">LidarIdwInterpolation</a></li>
+<li><a href="#LidarInfo">LidarInfo</a></li>
+<li><a href="#LidarJoin">LidarJoin</a></li>
+<li><a href="#LidarKappaIndex">LidarKappaIndex</a></li>
+<li><a href="#LidarNearestNeighbourGridding">LidarNearestNeighbourGridding</a></li>
+<li><a href="#LidarPointDensity">LidarPointDensity</a></li>
+<li><a href="#LidarPointStats">LidarPointStats</a></li>
+<li><a href="#LidarRemoveDuplicates">LidarRemoveDuplicates</a></li>
+<li><a href="#LidarRemoveOutliers">LidarRemoveOutliers</a></li>
+<li><a href="#LidarSegmentation">LidarSegmentation</a></li>
+<li><a href="#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a></li>
+<li><a href="#LidarThin">LidarThin</a></li>
+<li><a href="#LidarThinHighDensity">LidarThinHighDensity</a></li>
+<li><a href="#LidarTile">LidarTile</a></li>
+<li><a href="#LidarTileFootprint">LidarTileFootprint</a></li>
+<li><a href="#LidarTinGridding">LidarTinGridding</a></li>
+<li><a href="#LidarTophatTransform">LidarTophatTransform</a></li>
+<li><a href="#NormalVectors">NormalVectors</a></li>
+<li><a href="#SelectTilesByPolygon">SelectTilesByPolygon</a></li>
+</ul>
+<p><a name="ClassifyOverlapPoints"></a></p>
+<a class="header" href="#classifyoverlappoints" id="classifyoverlappoints"><h2>ClassifyOverlapPoints</h2></a>
+<p>Classifies or filters LAS points in regions of overlapping flight lines.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/classify_overlap_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--resolution       </td><td> The size of the square area used to evaluate nearby points in the LiDAR data</td></tr>
+<tr><td>--filter           </td><td> Filter out points from overlapping flightlines? If false, overlaps will simply be classified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">classify_overlap_points(
+    i, 
+    output, 
+    resolution=2.0, 
+    filter=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ClassifyOverlapPoints -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.las ^
+--resolution=2.0 
+</code></pre>
+<p><a name="ClipLidarToPolygon"></a></p>
+<a class="header" href="#cliplidartopolygon" id="cliplidartopolygon"><h2>ClipLidarToPolygon</h2></a>
+<p>Clips a LiDAR point cloud to a vector polygon or polygons.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/clip_lidar_to_polygon.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>--polygons         </td><td> Input vector polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">clip_lidar_to_polygon(
+    i, 
+    polygons, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ClipLidarToPolygon -v ^
+--wd=&quot;/path/to/data/&quot; -i='data.las' --polygons='lakes.shp' ^
+-o='output.las' 
+</code></pre>
+<p><a name="ErasePolygonFromLidar"></a></p>
+<a class="header" href="#erasepolygonfromlidar" id="erasepolygonfromlidar"><h2>ErasePolygonFromLidar</h2></a>
+<p>Erases (cuts out) a vector polygon or polygons from a LiDAR point cloud.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/erase_polygon_from_lidar.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>--polygons         </td><td> Input vector polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">erase_polygon_from_lidar(
+    i, 
+    polygons, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ErasePolygonFromLidar -v ^
+--wd=&quot;/path/to/data/&quot; -i='data.las' --polygons='lakes.shp' ^
+-o='output.las' 
+</code></pre>
+<p><a name="FilterLidarScanAngles"></a></p>
+<a class="header" href="#filterlidarscanangles" id="filterlidarscanangles"><h2>FilterLidarScanAngles</h2></a>
+<p>Removes points in a LAS file with scan angles greater than a threshold.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/filter_lidar_scan_angles.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--threshold        </td><td> Scan angle threshold</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">filter_lidar_scan_angles(
+    i, 
+    output, 
+    threshold, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FilterLidarScanAngles -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--threshold=10.0 
+</code></pre>
+<p><a name="FindFlightlineEdgePoints"></a></p>
+<a class="header" href="#findflightlineedgepoints" id="findflightlineedgepoints"><h2>FindFlightlineEdgePoints</h2></a>
+<p>Identifies points along a flightline's edge in a LAS file.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/find_flightline_edge_points.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">find_flightline_edge_points(
+    i, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FindFlightlineEdgePoints -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; 
+</code></pre>
+<p><a name="FlightlineOverlap"></a></p>
+<a class="header" href="#flightlineoverlap" id="flightlineoverlap"><h2>FlightlineOverlap</h2></a>
+<p>Reads a LiDAR (LAS) point file and outputs a raster containing the number of overlapping flight lines in each grid cell.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/flightline_overlap.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">flightline_overlap(
+    i=None, 
+    output=None, 
+    resolution=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FlightlineOverlap -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0&quot;
+./whitebox_tools -r=FlightlineOverlap -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=5.0 --palette=light_quant.plt 
+</code></pre>
+<p><a name="LasToAscii"></a></p>
+<a class="header" href="#lastoascii" id="lastoascii"><h2>LasToAscii</h2></a>
+<p>Converts one or more LAS files into ASCII text files.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_ascii.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">las_to_ascii(
+    inputs, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LasToAscii -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.las, file2.las, file3.las&quot; -o=outfile.las&quot; 
+</code></pre>
+<p><a name="LasToMultipointShapefile"></a></p>
+<a class="header" href="#lastomultipointshapefile" id="lastomultipointshapefile"><h2>LasToMultipointShapefile</h2></a>
+<p>Converts one or more LAS files into MultipointZ vector Shapefiles. When the input parameter is
+not specified, the tool grids all LAS files contained within the working directory.</p>
+<p>This tool can be used in place of the <code>LasToShapefile</code> tool when the number of points are
+relatively high and when the desire is to represent the x,y,z position of points only. The z
+values of LAS points will be stored in the z-array of the output Shapefile. Notice that because
+the output file stores each point in a single multi-point record, this Shapefile representation,
+while unable to represent individual point classes, return numbers, etc, is an efficient means
+of converting LAS point positional information.</p>
+<p><em>See Also</em>:</p>
+<p><code>LasToShapefile</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_multipoint_shapefile.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">las_to_multipoint_shapefile(
+    i=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LasToMultipointShapefile -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.las 
+</code></pre>
+<p><a name="LasToShapefile"></a></p>
+<a class="header" href="#lastoshapefile" id="lastoshapefile"><h2>LasToShapefile</h2></a>
+<p>This tool converts one or more LAS files into a POINT vector. When the input parameter is
+not specified, the tool grids all LAS files contained within the working directory.
+The attribute table of the output Shapefile will contain fields for the z-value,
+intensity, point class, return number, and number of return.</p>
+<p>This tool can be used in place of the <code>LasToMultipointShapefile</code> tool when the
+number of points are relatively low and when the desire is to represent more than
+simply the x,y,z position of points. Notice however that because each point in
+the input LAS file will be represented as a separate record in the output
+Shapefile, the output file will be many time larger than the equivalent output of
+the <code>LasToMultipointShapefile</code> tool. There is also a practical limit on the
+total number of records that can be held in a single Shapefile and large LAS
+files approach this limit. In these cases, the <code>LasToMultipointShapefile</code> tool
+should be preferred instead.</p>
+<p><em>See Also</em>:</p>
+<p><code>LasToMultipointShapefile</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_shapefile.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">las_to_shapefile(
+    i=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LasToShapefile -v --wd=&quot;/path/to/data/&quot; ^
+-i=input.las 
+</code></pre>
+<p><a name="LidarBlockMaximum"></a></p>
+<a class="header" href="#lidarblockmaximum" id="lidarblockmaximum"><h2>LidarBlockMaximum</h2></a>
+<p>Creates a block-maximum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_maximum.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_block_maximum(
+    i=None, 
+    output=None, 
+    resolution=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarBlockMaximum -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0&quot;
+./whitebox_tools -r=LidarBlockMaximum -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=5.0 --palette=light_quant.plt 
+</code></pre>
+<p><a name="LidarBlockMinimum"></a></p>
+<a class="header" href="#lidarblockminimum" id="lidarblockminimum"><h2>LidarBlockMinimum</h2></a>
+<p>Creates a block-minimum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_minimum.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_block_minimum(
+    i=None, 
+    output=None, 
+    resolution=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarBlockMinimum -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0&quot;
+./whitebox_tools -r=LidarBlockMinimum -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=5.0 --palette=light_quant.plt 
+</code></pre>
+<p><a name="LidarClassifySubset"></a></p>
+<a class="header" href="#lidarclassifysubset" id="lidarclassifysubset"><h2>LidarClassifySubset</h2></a>
+<p>This tool classifies points within a user-specified LiDAR point cloud (<code>--base</code>) that correpond
+with points in a subset cloud (<code>--subset</code>). The subset point cloud may have been derived by filtering
+the original point cloud. The user must specify the names of the two input LAS files (i.e.
+the full and subset clouds) and the class value (<code>--subset_class</code>) to assign the matching points. This class
+value will be assigned to points in the base cloud, overwriting their input class values in the
+output LAS file (<code>--output</code>). Class values
+should be numerical (integer valued) and shoud follow the LAS specifications below:</p>
+<table><thead><tr><th> Classification Value  </th><th> Meaning                              </th></tr></thead><tbody>
+<tr><td align="left"> 0                     </td><td align="left"> Created never classified</td></tr>
+<tr><td align="left"> 1                     </td><td align="left"> Unclassified3</td></tr>
+<tr><td align="left"> 2                     </td><td align="left"> Ground</td></tr>
+<tr><td align="left"> 3                     </td><td align="left"> Low Vegetation</td></tr>
+<tr><td align="left"> 4                     </td><td align="left"> Medium Vegetation</td></tr>
+<tr><td align="left"> 5                     </td><td align="left"> High Vegetation</td></tr>
+<tr><td align="left"> 6                     </td><td align="left"> Building</td></tr>
+<tr><td align="left"> 7                     </td><td align="left"> Low Point (noise)</td></tr>
+<tr><td align="left"> 8                     </td><td align="left"> Reserved</td></tr>
+<tr><td align="left"> 9                     </td><td align="left"> Water</td></tr>
+<tr><td align="left"> 10                    </td><td align="left"> Rail</td></tr>
+<tr><td align="left"> 11                    </td><td align="left"> Road Surface</td></tr>
+<tr><td align="left"> 12                    </td><td align="left"> Reserved</td></tr>
+<tr><td align="left"> 13                    </td><td align="left">   Wire – Guard (Shield)</td></tr>
+<tr><td align="left"> 14                    </td><td align="left"> Wire – Conductor (Phase)</td></tr>
+<tr><td align="left"> 15                    </td><td align="left"> Transmission Tower</td></tr>
+<tr><td align="left"> 16                    </td><td align="left"> Wire-structure Connector (e.g. Insulator)</td></tr>
+<tr><td align="left"> 17                    </td><td align="left"> Bridge Deck</td></tr>
+<tr><td align="left"> 18                    </td><td align="left"> High Noise</td></tr>
+</tbody></table>
+<p>The user may optionally specify a class value to be assigned to non-subset (i.e. non-matching)
+points (<code>--nonsubset_class</code>) in the base file. If this parameter is not specified, output
+non-sutset points will have the same class value as the base file.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_classify_subset.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--base             </td><td> Input base LiDAR file</td></tr>
+<tr><td>--subset           </td><td> Input subset LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--subset_class     </td><td> Subset point class value (must be 0-18; see LAS specifications)</td></tr>
+<tr><td>--nonsubset_class  </td><td> Non-subset point class value (must be 0-18; see LAS specifications)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_classify_subset(
+    base, 
+    subset, 
+    output, 
+    subset_class, 
+    nonsubset_class=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarClassifySubset -v ^
+--wd=&quot;/path/to/data/&quot; --base=&quot;full_cloud.las&quot; ^
+--subset=&quot;filtered_cloud.las&quot; -o=&quot;output.las&quot; ^
+--subset_class=2 
+</code></pre>
+<p><a name="LidarColourize"></a></p>
+<a class="header" href="#lidarcolourize" id="lidarcolourize"><h2>LidarColourize</h2></a>
+<p>Adds the red-green-blue colour fields of a LiDAR (LAS) file based on an input image.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_colourize.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--in_lidar         </td><td> Input LiDAR file</td></tr>
+<tr><td>--in_image         </td><td> Input colour image file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_colourize(
+    in_lidar, 
+    in_image, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarColourize -v --wd=&quot;/path/to/data/&quot; ^
+--in_lidar=&quot;input.las&quot; --in_image=&quot;image.tif&quot; ^
+-o=&quot;output.las&quot; 
+</code></pre>
+<p><a name="LidarConstructVectorTin"></a></p>
+<a class="header" href="#lidarconstructvectortin" id="lidarconstructvectortin"><h2>LidarConstructVectorTin</h2></a>
+<p>Creates a vector triangular irregular network (TIN) fitted to LiDAR points.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_construct_vector_tin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_construct_vector_tin(
+    i=None, 
+    output=None, 
+    returns=&quot;all&quot;, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarConstructVectorTIN -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--returns=last --exclude_cls='3,4,5,6,7,18' 
+</code></pre>
+<p><a name="LidarElevationSlice"></a></p>
+<a class="header" href="#lidarelevationslice" id="lidarelevationslice"><h2>LidarElevationSlice</h2></a>
+<p>Outputs all of the points within a LiDAR (LAS) point file that lie between a specified elevation range.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_elevation_slice.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--minz             </td><td> Minimum elevation value (optional)</td></tr>
+<tr><td>--maxz             </td><td> Maximum elevation value (optional)</td></tr>
+<tr><td>--class            </td><td> Optional boolean flag indicating whether points outside the range should be retained in output but reclassified</td></tr>
+<tr><td>--inclassval       </td><td> Optional parameter specifying the class value assigned to points within the slice</td></tr>
+<tr><td>--outclassval      </td><td> Optional parameter specifying the class value assigned to points within the slice</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_elevation_slice(
+    i, 
+    output, 
+    minz=None, 
+    maxz=None, 
+    cls=False, 
+    inclassval=2, 
+    outclassval=1, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarElevationSlice -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--minz=100.0 --maxz=250.0
+&gt;&gt;./whitebox_tools ^
+-r=LidarElevationSlice -v -i=&quot;/path/to/data/input.las&quot; ^
+-o=&quot;/path/to/data/output.las&quot; --minz=100.0 --maxz=250.0 ^
+--class
+&gt;&gt;./whitebox_tools -r=LidarElevationSlice -v ^
+-i=&quot;/path/to/data/input.las&quot; -o=&quot;/path/to/data/output.las&quot; ^
+--minz=100.0 --maxz=250.0 --inclassval=1 --outclassval=0 
+</code></pre>
+<p><a name="LidarGroundPointFilter"></a></p>
+<a class="header" href="#lidargroundpointfilter" id="lidargroundpointfilter"><h2>LidarGroundPointFilter</h2></a>
+<p>Identifies ground points within LiDAR dataset using a slope-based method.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_ground_point_filter.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--min_neighbours   </td><td> The minimum number of neighbouring points within search areas. If fewer points than this threshold are idenfied during the fixed-radius search, a subsequent kNN search is performed to identify the k number of neighbours</td></tr>
+<tr><td>--slope_threshold  </td><td> Maximum inter-point slope to be considered an off-terrain point</td></tr>
+<tr><td>--height_threshold </td><td> Inter-point height difference to be considered an off-terrain point</td></tr>
+<tr><td>--classify         </td><td> Classify points as ground (2) or off-ground (1)</td></tr>
+<tr><td>--slope_norm       </td><td> Perform initial ground slope normalization?</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_ground_point_filter(
+    i, 
+    output, 
+    radius=2.0, 
+    min_neighbours=0, 
+    slope_threshold=45.0, 
+    height_threshold=1.0, 
+    classify=True, 
+    slope_norm=True, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarGroundPointFilter -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--radius=10.0 --min_neighbours=10 --slope_threshold=30.0 ^
+--height_threshold=0.5 --classify --slope_norm 
+</code></pre>
+<p><a name="LidarHexBinning"></a></p>
+<a class="header" href="#lidarhexbinning" id="lidarhexbinning"><h2>LidarHexBinning</h2></a>
+<p>The practice of binning point data to form a type of 2D histogram, density plot,
+or what is sometimes called a heatmap, is quite useful as an alternative for the
+cartographic display of of very dense points sets. This is particularly the case
+when the points experience significant overlap at the displayed scale. The
+<code>LidarPointDensity</code> tool can be used to perform binning based on a regular grid
+(raster output). This tool, by comparison, bases the binning on a hexagonal grid.</p>
+<p>The tool is similar to the <code>CreateHexagonalVectorGrid</code> tool, however instead will
+create an output hexagonal grid in which each hexagonal cell possesses a <code>COUNT</code>
+attribute which specifies the number of points from an input points file (LAS file)
+that are contained within the hexagonal cell. The tool will also calculate the
+minimum and maximum elevations and intensity values and outputs these data to the
+attribute table.</p>
+<p>In addition to the names of the input points file and the output Shapefile, the user
+must also specify the desired hexagon width (w), which is the distance between opposing
+sides of each hexagon. The size (s) each side of the hexagon can then be calculated as,
+s = w / [2 x cos(PI / 6)]. The area of each hexagon (A) is, A = 3s(w / 2). The user must
+also specify the orientation of the grid with options of horizontal (pointy side up) and
+vertical (flat side up).</p>
+<p><em>See Also</em>:</p>
+<p><code>VectorHexBinning</code>, <code>LidarPointDensity</code>, <code>CreateHexagonalVectorGrid</code></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_hex_bin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input base file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--width            </td><td> The grid cell width</td></tr>
+<tr><td>--orientation      </td><td> Grid Orientation, 'horizontal' or 'vertical'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_hex_binning(
+    i, 
+    output, 
+    width, 
+    orientation=&quot;horizontal&quot;, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarHexBinning -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.shp --width=10.0 ^
+--orientation=vertical 
+</code></pre>
+<p><a name="LidarHillshade"></a></p>
+<a class="header" href="#lidarhillshade" id="lidarhillshade"><h2>LidarHillshade</h2></a>
+<p>Calculates a hillshade value for points within a LAS file and stores these data in the RGB field.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_hillshade.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--azimuth          </td><td> Illumination source azimuth in degrees</td></tr>
+<tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_hillshade(
+    i, 
+    output, 
+    azimuth=315.0, 
+    altitude=30.0, 
+    radius=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarHillshade -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;input.las&quot; -o=&quot;output.las&quot; --radius=10.0
+&gt;&gt;./whitebox_tools ^
+-r=LidarHillshade -v --wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; ^
+-o=&quot;output.las&quot; --azimuth=180.0 --altitude=20.0 --radius=1.0 
+</code></pre>
+<p><a name="LidarHistogram"></a></p>
+<a class="header" href="#lidarhistogram" id="lidarhistogram"><h2>LidarHistogram</h2></a>
+<p>Creates a histogram from LiDAR data.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_histogram.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+<tr><td>--parameter        </td><td> Parameter; options are 'elevation' (default), 'intensity', 'scan angle', 'class</td></tr>
+<tr><td>--clip             </td><td> Amount to clip distribution tails (in percent)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_histogram(
+    i, 
+    output, 
+    parameter=&quot;elevation&quot;, 
+    clip=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarHistogram -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.tif, file2.tif, file3.tif&quot; -o=outfile.htm ^
+--contiguity=Bishopsl 
+</code></pre>
+<p><a name="LidarIdwInterpolation"></a></p>
+<a class="header" href="#lidaridwinterpolation" id="lidaridwinterpolation"><h2>LidarIdwInterpolation</h2></a>
+<p>Interpolates LAS files using an inverse-distance weighted (IDW) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_idw_interpolation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--weight           </td><td> IDW weight value</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_idw_interpolation(
+    i=None, 
+    output=None, 
+    parameter=&quot;elevation&quot;, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    weight=1.0, 
+    radius=2.5, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarIdwInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0 --radius=5.0&quot;
+./whitebox_tools ^
+-r=LidarIdwInterpolation --wd=&quot;/path/to/data/&quot; -i=file.las ^
+-o=outfile.tif --resolution=5.0 --weight=2.0 --radius=2.0 ^
+--exclude_cls='3,4,5,6,7,18' --palette=light_quant.plt 
+</code></pre>
+<p><a name="LidarInfo"></a></p>
+<a class="header" href="#lidarinfo" id="lidarinfo"><h2>LidarInfo</h2></a>
+<p>This tool can be used to print basic information about the data contained within a LAS file, used to store LiDAR
+data. The reported information will include including data on the header, point return frequency, and classification
+data and information about the variable length records (VLRs) and geokeys.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_info.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file for summary report</td></tr>
+<tr><td>--vlr              </td><td> Flag indicating whether or not to print the variable length records (VLRs)</td></tr>
+<tr><td>--geokeys          </td><td> Flag indicating whether or not to print the geokeys</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_info(
+    i, 
+    output=None, 
+    vlr=False, 
+    geokeys=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarInfo -v --wd=&quot;/path/to/data/&quot; ^
+-i=file.las --vlr --geokeys&quot;
+./whitebox_tools -r=LidarInfo ^
+--wd=&quot;/path/to/data/&quot; -i=file.las 
+</code></pre>
+<p><a name="LidarJoin"></a></p>
+<a class="header" href="#lidarjoin" id="lidarjoin"><h2>LidarJoin</h2></a>
+<p>Joins multiple LiDAR (LAS) files into a single LAS file.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_join.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_join(
+    inputs, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarJoin -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.las, file2.las, file3.las&quot; -o=outfile.las&quot; 
+</code></pre>
+<p><a name="LidarKappaIndex"></a></p>
+<a class="header" href="#lidarkappaindex" id="lidarkappaindex"><h2>LidarKappaIndex</h2></a>
+<p>This tool performs a kappa index of agreement (KIA) analysis on the classification values of two LiDAR
+(LAS) files. The output report HTML file should be displayed automatically but can also be displayed
+afterwards in any web browser. As a measure of overall classification accuracy, the KIA is more robust
+than the percent agreement calculation because it takes into account the agreement occurring by random
+chance. In addition to the KIA, the tool will output the producer's and user's accuracy, the overall
+accuracy, and the error matrix. The KIA is often used as a means of assessing the accuracy of an image
+classification analysis; however the <code>LidarKappaIndex</code> tool performs the analysis on a point-to-point
+basis, comparing the class values of the points in one input LAS file with the corresponding nearest
+points in the second input LAS file.</p>
+<p>The user must also specify the name and resolution of an output raster file, which is used to show the
+spatial distribution of class accuracy. Each grid cell contains the overall accuracy, i.e. the points
+correctly classified divided by the total number of points contained within the cell, expressed as a
+percentage.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_kappa.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input LiDAR classification file</td></tr>
+<tr><td>--i2, --input2    </td><td> Input LiDAR reference file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--class_accuracy   </td><td> Output classification accuracy raster file</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_kappa_index(
+    input1, 
+    input2, 
+    output, 
+    class_accuracy, 
+    resolution=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarKappaIndex -v ^
+--wd=&quot;/path/to/data/&quot; --i1=class.las --i2=reference.las ^
+-o=kia.html --class_accuracy=new_file.tif --resolution=0.5 
+</code></pre>
+<p><a name="LidarNearestNeighbourGridding"></a></p>
+<a class="header" href="#lidarnearestneighbourgridding" id="lidarnearestneighbourgridding"><h2>LidarNearestNeighbourGridding</h2></a>
+<p>Grids LAS files using nearest-neighbour scheme. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_nn_gridding.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_nearest_neighbour_gridding(
+    i=None, 
+    output=None, 
+    parameter=&quot;elevation&quot;, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    radius=2.5, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarNearestNeighbourGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--returns=last --resolution=2.0 --radius=5.0&quot;
+./whitebox_tools ^
+-r=LidarNearestNeighbourGridding --wd=&quot;/path/to/data/&quot; ^
+-i=file.las -o=outfile.tif --resolution=5.0 --radius=2.0 ^
+--exclude_cls='3,4,5,6,7,18' 
+</code></pre>
+<p><a name="LidarPointDensity"></a></p>
+<a class="header" href="#lidarpointdensity" id="lidarpointdensity"><h2>LidarPointDensity</h2></a>
+<p>Calculates the spatial pattern of point density for a LiDAR data set. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_density.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_point_density(
+    i=None, 
+    output=None, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    radius=2.5, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarPointDensity -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0 --radius=5.0&quot;
+./whitebox_tools ^
+-r=LidarPointDensity -v --wd=&quot;/path/to/data/&quot; -i=file.las ^
+-o=outfile.tif --resolution=5.0 --radius=2.0 ^
+--exclude_cls='3,4,5,6,7,18' --palette=light_quant.plt 
+</code></pre>
+<p><a name="LidarPointStats"></a></p>
+<a class="header" href="#lidarpointstats" id="lidarpointstats"><h2>LidarPointStats</h2></a>
+<p>Creates several rasters summarizing the distribution of LAS point data. When the input/output parameters are not specified, the tool works on all LAS files contained within the working directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_stats.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--num_points       </td><td> Flag indicating whether or not to output the number of points raster</td></tr>
+<tr><td>--num_pulses       </td><td> Flag indicating whether or not to output the number of pulses raster</td></tr>
+<tr><td>--z_range          </td><td> Flag indicating whether or not to output the elevation range raster</td></tr>
+<tr><td>--intensity_range  </td><td> Flag indicating whether or not to output the intensity range raster</td></tr>
+<tr><td>--predom_class     </td><td> Flag indicating whether or not to output the predominant classification raster</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_point_stats(
+    i=None, 
+    resolution=1.0, 
+    num_points=True, 
+    num_pulses=False, 
+    z_range=False, 
+    intensity_range=False, 
+    predom_class=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarPointStats -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las --resolution=1.0 ^
+--num_points 
+</code></pre>
+<p><a name="LidarRemoveDuplicates"></a></p>
+<a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h2>LidarRemoveDuplicates</h2></a>
+<p>Removes duplicate points from a LiDAR data set.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/remove_duplicates.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--include_z        </td><td> Include z-values in point comparison?</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_remove_duplicates(
+    i, 
+    output, 
+    include_z=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarRemoveDuplicates -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; 
+</code></pre>
+<p><a name="LidarRemoveOutliers"></a></p>
+<a class="header" href="#lidarremoveoutliers" id="lidarremoveoutliers"><h2>LidarRemoveOutliers</h2></a>
+<p>Removes outliers (high and low points) in a LiDAR point cloud.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_outliers.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--elev_diff        </td><td> Max. elevation difference</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_remove_outliers(
+    i, 
+    output, 
+    radius=2.0, 
+    elev_diff=50.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarRemoveOutliers -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--radius=10.0 --elev_diff=25.0 
+</code></pre>
+<p><a name="LidarSegmentation"></a></p>
+<a class="header" href="#lidarsegmentation" id="lidarsegmentation"><h2>LidarSegmentation</h2></a>
+<p>Segments a LiDAR point cloud based on normal vectors.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_segmentation.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--dist, --radius  </td><td> Search Radius</td></tr>
+<tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
+<tr><td>--maxzdiff         </td><td> Maximum difference in elevation (z units) between neighbouring points of the same segment</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_segmentation(
+    i, 
+    output, 
+    radius=5.0, 
+    norm_diff=10.0, 
+    maxzdiff=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarSegmentation -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--radius=10.0 --norm_diff=2.5 --maxzdiff=0.75 
+</code></pre>
+<p><a name="LidarSegmentationBasedFilter"></a></p>
+<a class="header" href="#lidarsegmentationbasedfilter" id="lidarsegmentationbasedfilter"><h2>LidarSegmentationBasedFilter</h2></a>
+<p>Identifies ground points within LiDAR point clouds using a segmentation based approach.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_segmentation_based_filter.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--dist, --radius  </td><td> Search Radius</td></tr>
+<tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
+<tr><td>--maxzdiff         </td><td> Maximum difference in elevation (z units) between neighbouring points of the same segment</td></tr>
+<tr><td>--classify         </td><td> Classify points as ground (2) or off-ground (1)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_segmentation_based_filter(
+    i, 
+    output, 
+    radius=5.0, 
+    norm_diff=2.0, 
+    maxzdiff=1.0, 
+    classify=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarSegmentationBasedFilter -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--radius=10.0 --norm_diff=2.5 --maxzdiff=0.75 --classify 
+</code></pre>
+<p><a name="LidarThin"></a></p>
+<a class="header" href="#lidarthin" id="lidarthin"><h2>LidarThin</h2></a>
+<p>Thins a LiDAR point cloud, reducing point density.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_thin.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--resolution       </td><td> The size of the square area used to evaluate nearby points in the LiDAR data</td></tr>
+<tr><td>--method           </td><td> Point selection method; options are 'first', 'last', 'lowest' (default), 'highest', 'nearest'</td></tr>
+<tr><td>--save_filtered    </td><td> Save filtered points to seperate file?</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_thin(
+    i, 
+    output, 
+    resolution=2.0, 
+    method=&quot;lowest&quot;, 
+    save_filtered=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarThin -v --wd=&quot;/path/to/data/&quot; ^
+-i=file.las -o=outfile.las --resolution=2.0, --method=first ^
+--save_filtered 
+</code></pre>
+<p><a name="LidarThinHighDensity"></a></p>
+<a class="header" href="#lidarthinhighdensity" id="lidarthinhighdensity"><h2>LidarThinHighDensity</h2></a>
+<p>Thins points from high density areas within a LiDAR point cloud.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_thin_high_density.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--density          </td><td> Max. point density (points / m^3)</td></tr>
+<tr><td>--save_filtered    </td><td> Save filtered points to seperate file?</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_thin_high_density(
+    i, 
+    output, 
+    density, 
+    resolution=1.0, 
+    save_filtered=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarThinHighDensity -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--resolution=1.0 --density=100.0 --save_filtered 
+</code></pre>
+<p><a name="LidarTile"></a></p>
+<a class="header" href="#lidartile" id="lidartile"><h2>LidarTile</h2></a>
+<p>Tiles a LiDAR LAS file into multiple LAS files.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tile.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>--width_x          </td><td> Width of tiles in the X dimension; default 1000.0</td></tr>
+<tr><td>--width_y          </td><td> Width of tiles in the Y dimension</td></tr>
+<tr><td>--origin_x         </td><td> Origin point X coordinate for tile grid</td></tr>
+<tr><td>--origin_y         </td><td> Origin point Y coordinate for tile grid</td></tr>
+<tr><td>--min_points       </td><td> Minimum number of points contained in a tile for it to be saved</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_tile(
+    i, 
+    width_x=1000.0, 
+    width_y=1000.0, 
+    origin_x=0.0, 
+    origin_y=0.0, 
+    min_points=2, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarTile -v -i=/path/to/data/input.las ^
+--width_x=1000.0 --width_y=2500.0 -=min_points=100 
+</code></pre>
+<p><a name="LidarTileFootprint"></a></p>
+<a class="header" href="#lidartilefootprint" id="lidartilefootprint"><h2>LidarTileFootprint</h2></a>
+<p>Creates a vector polygon of the convex hull of a LiDAR point cloud. When the input/output parameters
+are not specified, the tool works with all LAS files contained within the working directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tile_footprint.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_tile_footprint(
+    output, 
+    i=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarTileFootprint -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.shp 
+</code></pre>
+<p><a name="LidarTinGridding"></a></p>
+<a class="header" href="#lidartingridding" id="lidartingridding"><h2>LidarTinGridding</h2></a>
+<p>Creates a raster grid based on a Delaunay triangular irregular network (TIN) fitted to LiDAR points.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tin_gridding.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_tin_gridding(
+    i=None, 
+    output=None, 
+    parameter=&quot;elevation&quot;, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarTINGridding -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--returns=last --resolution=2.0 --exclude_cls='3,4,5,6,7,18' 
+</code></pre>
+<p><a name="LidarTophatTransform"></a></p>
+<a class="header" href="#lidartophattransform" id="lidartophattransform"><h2>LidarTophatTransform</h2></a>
+<p>Performs a white top-hat transform on a Lidar dataset; as an estimate of height above ground, this is useful for modelling the vegetation canopy.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tophat_transform.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">lidar_tophat_transform(
+    i, 
+    output, 
+    radius=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarTophatTransform -v ^
+--wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
+--radius=10.0 
+</code></pre>
+<p><a name="NormalVectors"></a></p>
+<a class="header" href="#normalvectors" id="normalvectors"><h2>NormalVectors</h2></a>
+<p>Calculates normal vectors for points within a LAS file and stores these data (XYZ vector components) in the RGB field.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/normal_vectors.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">normal_vectors(
+    i, 
+    output, 
+    radius=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=NormalVectors -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;input.las&quot; -o=&quot;output.las&quot; --radius=10.0 
+</code></pre>
+<p><a name="SelectTilesByPolygon"></a></p>
+<a class="header" href="#selecttilesbypolygon" id="selecttilesbypolygon"><h2>SelectTilesByPolygon</h2></a>
+<p>Copies LiDAR tiles overlapping with a polygon into an output directory.</p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/select_tiles_by_polygon.rs">source code</a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--indir            </td><td> Input LAS file source directory</td></tr>
+<tr><td>--outdir           </td><td> Output directory into which LAS files within the polygon are copied</td></tr>
+<tr><td>--polygons         </td><td> Input vector polygons file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">select_tiles_by_polygon(
+    indir, 
+    outdir, 
+    polygons, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SelectTilesByPolygon -v ^
+--indir='/path/to/lidar/' --outdir='/output/path/' ^
+--polygons='watershed.shp' 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../available_tools/image_processing_tools_image_enhancement.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../available_tools/mathand_stats_tools.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../available_tools/image_processing_tools_image_enhancement.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../available_tools/mathand_stats_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
