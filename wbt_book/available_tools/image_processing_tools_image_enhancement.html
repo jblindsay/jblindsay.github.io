@@ -153,8 +153,22 @@
 <li><a href="#StandardDeviationContrastStretch">StandardDeviationContrastStretch</a></li>
 </ul>
 <p><a name="BalanceContrastEnhancement"></a></p>
-<a class="header" href="#balancecontrastenhancement" id="balancecontrastenhancement"><h2>BalanceContrastEnhancement</h2></a>
-<p>Performs a balance contrast enhancement on a colour-composite image of multispectral data.</p>
+<a class="header" href="#balancecontrastenhancement" id="balancecontrastenhancement"><h1>BalanceContrastEnhancement</h1></a>
+<p>This tool can be used to reduce colour bias in a colour composite image based on the
+technique described by Liu (1991). Colour bias is a common phenomena with colour images
+derived from multispectral imagery, whereby a higher average brightness value in one
+band results in over-representation of that band in the colour composite. The tool
+essentially applies a parabolic stretch to each of the three bands in a user specified
+RGB colour composite, forcing the histograms of each band to have the same minimum,
+maximum, and average values while maintaining their overall histogram shape. For greater
+detail on the operation of the tool, please see Liu (1991). Aside from the names of the
+input and output colour composite images, the user must also set the value of E, the
+desired output band mean, where 20 &lt; E &lt; 235.</p>
+<p><em>Reference</em>:</p>
+<p>Liu, J.G. (1991) Balance contrast enhancement technique and its application in image
+colour composition. <em>International Journal of Remote Sensing</em>, 12:10.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#directdecorrelationstretch"><strong>DirectDecorrelationStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/balance_contrast_enhancement.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -175,7 +189,7 @@
 --band_mean=120 
 </code></pre>
 <p><a name="CorrectVignetting"></a></p>
-<a class="header" href="#correctvignetting" id="correctvignetting"><h2>CorrectVignetting</h2></a>
+<a class="header" href="#correctvignetting" id="correctvignetting"><h1>CorrectVignetting</h1></a>
 <p>This tool can be used to reduce vignetting within an image. Vignetting refers to the
 reducuction of image brightness away from the image centre (i.e. the principal point).
 Vignetting is a radiometric distortion resulting from lens characteristics. The
@@ -217,8 +231,24 @@ of the HSI transform.</p>
 -n=4.0 
 </code></pre>
 <p><a name="DirectDecorrelationStretch"></a></p>
-<a class="header" href="#directdecorrelationstretch" id="directdecorrelationstretch"><h2>DirectDecorrelationStretch</h2></a>
-<p>Performs a direct decorrelation stretch enhancement on a colour-composite image of multispectral data.</p>
+<a class="header" href="#directdecorrelationstretch" id="directdecorrelationstretch"><h1>DirectDecorrelationStretch</h1></a>
+<p>The Direct Decorrelation Stretch (DDS) is a simple type of saturation stretch. The stretch is
+applied to a colour composite image and is used to improve the saturation, or colourfulness,
+of the image. The DDS operates by reducing the achromatic (grey) component of a pixel's colour
+by a scale factor (<em>k</em>), such that the red (r), green (g), and blue (b) components of the output
+colour are defined as:</p>
+<p>r<sub><em>k</em></sub> = r - <em>k</em> min(r, g, b)</p>
+<p>g<sub><em>k</em></sub> = g - <em>k</em> min(r, g, b)</p>
+<p>b<sub><em>k</em></sub> = b - <em>k</em> min(r, g, b)</p>
+<p>The achromatic factor (k) can range between 0 (no effect) and 1 (full saturation stretch),
+although typical values range from 0.3 to 0.7. A linear stretch is used afterwards to adjust
+overall image brightness. Liu and Moore (1996) recommend applying a colour balance stretch,
+such as <a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a> before using the DDS.</p>
+<p><em>Reference</em>:</p>
+<p>Liu, J.G., and Moore, J. (1996) Direct decorrelation stretch technique for RGB colour composition.
+International Journal of Remote Sensing, 17:5, 1005-1018.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a>, <a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/direct_decorrelation_stretch.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -240,7 +270,7 @@ of the HSI transform.</p>
 --wd=&quot;/path/to/data/&quot; --input=image.tif -o=output.tif -k=0.4 
 </code></pre>
 <p><a name="GammaCorrection"></a></p>
-<a class="header" href="#gammacorrection" id="gammacorrection"><h2>GammaCorrection</h2></a>
+<a class="header" href="#gammacorrection" id="gammacorrection"><h1>GammaCorrection</h1></a>
 <p>Performs a sigmoidal contrast stretch on input images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gamma_correction.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -261,7 +291,7 @@ of the HSI transform.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif --gamma=0.5 
 </code></pre>
 <p><a name="GaussianContrastStretch"></a></p>
-<a class="header" href="#gaussiancontraststretch" id="gaussiancontraststretch"><h2>GaussianContrastStretch</h2></a>
+<a class="header" href="#gaussiancontraststretch" id="gaussiancontraststretch"><h1>GaussianContrastStretch</h1></a>
 <p>Performs a Gaussian contrast stretch on input images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gaussian_contrast_stretch.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -283,8 +313,30 @@ of the HSI transform.</p>
 --num_tones=1024 
 </code></pre>
 <p><a name="HistogramEqualization"></a></p>
-<a class="header" href="#histogramequalization" id="histogramequalization"><h2>HistogramEqualization</h2></a>
-<p>Performs a histogram equalization contrast enhancment on an image.</p>
+<a class="header" href="#histogramequalization" id="histogramequalization"><h1>HistogramEqualization</h1></a>
+<p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
+as closely as possible, the CDF of a uniform distribution. Histogram equalization works
+by first calculating the histogram of the input image. This input histogram is then
+converted into a CDF. Each grid cell value in the input image is then mapped to the
+corresponding value in the uniform distribution's CDF that has an equivalent (or as close
+as possible) cumulative probability value. Histogram equalization provides a very effective
+means of performing image contrast adjustment in an efficient manner with little need for
+human input.</p>
+<p>The user must specify the name of the input image to perform histogram equalization on.
+The user must also specify the number of tones, corresponding to the number
+of histogram bins used in the analysis.</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a> is related to the <a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a> tool (used when an image's
+CDF is to be matched to a reference CDF derived from a reference image). Similarly, <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a>,
+and <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a> are similarly related tools frequently used for image contrast
+adjustment, where the reference CDFs are uniform and Gaussian (normal) respectively.</p>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>The algorithm can introduces gaps in the histograms (steps in the CDF). This is to be expected because
+the histogram is being distorted. This is more prevalent for integer-level images.</li>
+<li>Histogram equalization is not appropriate for images containing categorical (class) data.</li>
+</ul>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_equalization.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -305,8 +357,39 @@ of the HSI transform.</p>
 --num_tones=1024 
 </code></pre>
 <p><a name="HistogramMatching"></a></p>
-<a class="header" href="#histogrammatching" id="histogrammatching"><h2>HistogramMatching</h2></a>
-<p>Alters the statistical distribution of a raster image matching it to a specified PDF.</p>
+<a class="header" href="#histogrammatching" id="histogrammatching"><h1>HistogramMatching</h1></a>
+<p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
+as closely as possible, the CDF of a reference histogram. Histogram matching works by
+first calculating the histogram of the input image. This input histogram and reference
+histograms are each then converted into CDFs. Each grid cell value in the input image
+is then mapped to the corresponding value in the reference CDF that has an equivalent
+(or as close as possible) cumulative probability value. Histogram matching provides
+the most flexible means of performing image contrast adjustment.</p>
+<p>The reference histogram must be specified to the tool in the form of a text file (.txt),
+provided using the <code>--histo_file</code> flag. This file must contain two columns (delimited by
+a tab, space, comma, colon, or semicolon) where the first column contains the x value
+(i.e. the values that will be assigned to the grid cells in the output image) and the second
+column contains the frequency or probability. Note that 1) the file must not contain a
+header row, 2) each x value/frequency pair must be on a separate row, and 3) the
+frequency/probability must not be cumulative (i.e. the file must contain the histogram and
+not the CDF). The CDF will be computed for the reference histogram automatically by the tool.
+It is possible to create this type of histogram using the wide range of distribution tools
+available in most spreadsheet programs (e.g. Excel or LibreOffice's Calc program). You must
+save the file as a text-only (ASCII) file.</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a> is related to the <a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a> tool, which can be used
+when a reference CDF can be derived from a reference image. <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a> and
+<a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a> are similarly related tools frequently used for image contrast
+adjustment, where the reference CDFs are uniform and Gaussian (normal) respectively.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>The algorithm can introduces gaps in the histograms (steps in the CDF). This is to be expected
+because the histogram is being distorted. This is more prevalent for integer-level images.</li>
+<li>Histogram matching is not appropriate for images containing categorical (class) data.</li>
+<li>This tool is not intended for images containing RGB data. If this is the case, the colour
+channels should be split using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>SplitColourComposite</strong></a> tool.</li>
+</ul>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools.html#splitcolourcomposite"><strong>SplitColourComposite</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -327,8 +410,27 @@ of the HSI transform.</p>
 -o=output.tif 
 </code></pre>
 <p><a name="HistogramMatchingTwoImages"></a></p>
-<a class="header" href="#histogrammatchingtwoimages" id="histogrammatchingtwoimages"><h2>HistogramMatchingTwoImages</h2></a>
-<p>This tool alters the cumulative distribution function of a raster image to that of another image.</p>
+<a class="header" href="#histogrammatchingtwoimages" id="histogrammatchingtwoimages"><h1>HistogramMatchingTwoImages</h1></a>
+<p>This tool alters the cumulative distribution function (CDF) of a raster image to match, as closely
+as possible, the CDF of a reference image. Histogram matching works by first calculating the
+histograms of the input image (i.e. the image to be adjusted) and the reference image. These
+histograms are then converted into CDFs. Each grid cell value in the input image is then mapped
+to the corresponding value in the reference CDF that has the an equivalent (or as close as
+possible) cumulative probability value. A common application of this is to match the images from
+two sensors with slightly different responses, or images from the same sensor, but the sensor's
+response is known to change over time.The size of the two images (rows and columns) do not need
+to be the same, nor do they need to be geographically overlapping.</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a> is related to the <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a> tool, which can be used
+when a reference CDF is used directly rather than deriving it from a reference image.
+<a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a> and <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a> are similarly related tools, where the
+reference CDFs are uniform and Gaussian (normal) respectively.</p>
+<p>The algorithm may introduces gaps in the histograms (steps in the CDF). This is to be expected
+because the histograms are being distorted. This is more prevalent for integer-level images.
+Histogram matching is not appropriate for images containing categorical (class) data. It is also
+not intended for images containing RGB data, in which case, the colour channels should be split
+using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>SplitColourComposite</strong></a> tool.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools.html#splitcolourcomposite"><strong>SplitColourComposite</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching_two_images.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -349,7 +451,7 @@ of the HSI transform.</p>
 -o=output.tif 
 </code></pre>
 <p><a name="MinMaxContrastStretch"></a></p>
-<a class="header" href="#minmaxcontraststretch" id="minmaxcontraststretch"><h2>MinMaxContrastStretch</h2></a>
+<a class="header" href="#minmaxcontraststretch" id="minmaxcontraststretch"><h1>MinMaxContrastStretch</h1></a>
 <p>Performs a min-max contrast stretch on an input greytone image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_max_contrast_stretch.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -375,7 +477,7 @@ of the HSI transform.</p>
 --min_val=45.0 --max_val=200.0 --num_tones=1024 
 </code></pre>
 <p><a name="PanchromaticSharpening"></a></p>
-<a class="header" href="#panchromaticsharpening" id="panchromaticsharpening"><h2>PanchromaticSharpening</h2></a>
+<a class="header" href="#panchromaticsharpening" id="panchromaticsharpening"><h1>PanchromaticSharpening</h1></a>
 <p>Increases the spatial resolution of image data by combining multispectral bands with panchromatic data.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/pan_sharpening.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -409,7 +511,7 @@ of the HSI transform.</p>
 --output=pan_sharp.tif --method='ihs' 
 </code></pre>
 <p><a name="PercentageContrastStretch"></a></p>
-<a class="header" href="#percentagecontraststretch" id="percentagecontraststretch"><h2>PercentageContrastStretch</h2></a>
+<a class="header" href="#percentagecontraststretch" id="percentagecontraststretch"><h1>PercentageContrastStretch</h1></a>
 <p>Performs a percentage linear contrast stretch on input images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentage_contrast_stretch.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -435,7 +537,7 @@ of the HSI transform.</p>
 --tail='both' --num_tones=1024 
 </code></pre>
 <p><a name="SigmoidalContrastStretch"></a></p>
-<a class="header" href="#sigmoidalcontraststretch" id="sigmoidalcontraststretch"><h2>SigmoidalContrastStretch</h2></a>
+<a class="header" href="#sigmoidalcontraststretch" id="sigmoidalcontraststretch"><h1>SigmoidalContrastStretch</h1></a>
 <p>Performs a sigmoidal contrast stretch on input images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sigmoidal_contrast_stretch.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -461,7 +563,7 @@ of the HSI transform.</p>
 --gain=2.0 --num_tones=1024 
 </code></pre>
 <p><a name="StandardDeviationContrastStretch"></a></p>
-<a class="header" href="#standarddeviationcontraststretch" id="standarddeviationcontraststretch"><h2>StandardDeviationContrastStretch</h2></a>
+<a class="header" href="#standarddeviationcontraststretch" id="standarddeviationcontraststretch"><h1>StandardDeviationContrastStretch</h1></a>
 <p>Performs a standard-deviation contrast stretch on input images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_contrast_stretch.rs">source code</a></p>
 <p><em>Parameters</em>:</p>

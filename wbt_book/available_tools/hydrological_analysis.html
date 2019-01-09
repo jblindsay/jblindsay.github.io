@@ -184,7 +184,7 @@
 <li><a href="#Watershed">Watershed</a></li>
 </ul>
 <p><a name="AverageFlowpathSlope"></a></p>
-<a class="header" href="#averageflowpathslope" id="averageflowpathslope"><h2>AverageFlowpathSlope</h2></a>
+<a class="header" href="#averageflowpathslope" id="averageflowpathslope"><h1>AverageFlowpathSlope</h1></a>
 <p>Measures the average slope gradient from each grid cell to all upslope divide cells.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/average_flowpath_slope.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -203,7 +203,7 @@
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="AverageUpslopeFlowpathLength"></a></p>
-<a class="header" href="#averageupslopeflowpathlength" id="averageupslopeflowpathlength"><h2>AverageUpslopeFlowpathLength</h2></a>
+<a class="header" href="#averageupslopeflowpathlength" id="averageupslopeflowpathlength"><h1>AverageUpslopeFlowpathLength</h1></a>
 <p>Measures the average length of all upslope flowpaths draining each grid cell.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/average_upslope_flowpath_length.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -222,7 +222,7 @@
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="Basins"></a></p>
-<a class="header" href="#basins" id="basins"><h2>Basins</h2></a>
+<a class="header" href="#basins" id="basins"><h1>Basins</h1></a>
 <p>Identifies drainage basins that drain to the DEM edge.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/basins.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -243,7 +243,7 @@
 --d8_pntr='d8pntr.tif' -o='output.tif' 
 </code></pre>
 <p><a name="BreachDepressions"></a></p>
-<a class="header" href="#breachdepressions" id="breachdepressions"><h2>BreachDepressions</h2></a>
+<a class="header" href="#breachdepressions" id="breachdepressions"><h1>BreachDepressions</h1></a>
 <p>This tool can be used to remove the depressions in a digital elevation model, a
 common requirement of spatial hydrological operations such as flow accumulation
 and watershed modelling. The algorithm based on:</p>
@@ -254,7 +254,7 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 </blockquote>
 <p>It uses a breach-first, fill-second approach.</p>
 <p><em>See Also</em>:</p>
-<p><code>FillDepressions</code></p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -276,7 +276,7 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="BreachSingleCellPits"></a></p>
-<a class="header" href="#breachsinglecellpits" id="breachsinglecellpits"><h2>BreachSingleCellPits</h2></a>
+<a class="header" href="#breachsinglecellpits" id="breachsinglecellpits"><h1>BreachSingleCellPits</h1></a>
 <p>Removes single-cell pits from an input DEM by breaching.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_pits.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -295,14 +295,14 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="D8FlowAccumulation"></a></p>
-<a class="header" href="#d8flowaccumulation" id="d8flowaccumulation"><h2>D8FlowAccumulation</h2></a>
+<a class="header" href="#d8flowaccumulation" id="d8flowaccumulation"><h1>D8FlowAccumulation</h1></a>
 <p>This tool is used to generate a flow accumulation grid (i.e. catchment area) using the
 D8 (O'Callaghan and Mark, 1984) algorithm. This algorithm is an example of single-flow-direction
 (SFD) method because the flow entering each grid cell is routed to only one downslope neighbour,
 i.e. flow divergence is not permitted. The user must specify the name of the input digital
 elevation model (DEM). The DEM must have been hydrologically corrected to remove all spurious
-depressions and flat areas. DEM pre-processing is usually achieved using the <code>BreachDepressions</code> or
-<code>FillDepressions</code> tools.</p>
+depressions and flat areas. DEM pre-processing is usually achieved using the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools.</p>
 <p>In addition to the input DEM, the user must specify the output type. The output flow-accumulation
 can be 1) <code>cells</code> (i.e. the number of inflowing grid cells), <code>catchment area</code> (i.e. the upslope area),
 or <code>specific contributing area</code> (i.e. the catchment area divided by the flow width. The default value
@@ -317,9 +317,8 @@ however, log-transformed flow-accumulation grids must not be used to estimate ot
 indices, such as the wetness index, or relative stream power index.</p>
 <p>Grid cells possessing the <strong>NoData</strong> value in the input flow-pointer grid are assigned the <strong>NoData</strong>
 value in the output flow-accumulation image.</p>
-<p><em>See Also</em>:
-:
-<code>DInfFlowAccumulation</code>, <code>BreachDepressions</code>, <code>FillDepressions</code></p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_flow_accum.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -347,7 +346,7 @@ value in the output flow-accumulation image.</p>
 --out_type='specific catchment area' --log --clip 
 </code></pre>
 <p><a name="D8MassFlux"></a></p>
-<a class="header" href="#d8massflux" id="d8massflux"><h2>D8MassFlux</h2></a>
+<a class="header" href="#d8massflux" id="d8massflux"><h1>D8MassFlux</h1></a>
 <p>Performs a D8 mass flux calculation.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_mass_flux.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -373,7 +372,7 @@ value in the output flow-accumulation image.</p>
 --absorption=abs.tif -o=output.tif 
 </code></pre>
 <p><a name="D8Pointer"></a></p>
-<a class="header" href="#d8pointer" id="d8pointer"><h2>D8Pointer</h2></a>
+<a class="header" href="#d8pointer" id="d8pointer"><h1>D8Pointer</h1></a>
 <p>Calculates a D8 flow pointer raster from an input DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_pointer.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -394,7 +393,7 @@ value in the output flow-accumulation image.</p>
 --dem=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="DInfFlowAccumulation"></a></p>
-<a class="header" href="#dinfflowaccumulation" id="dinfflowaccumulation"><h2>DInfFlowAccumulation</h2></a>
+<a class="header" href="#dinfflowaccumulation" id="dinfflowaccumulation"><h1>DInfFlowAccumulation</h1></a>
 <p>Calculates a D-infinity flow accumulation raster from an input DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_flow_accum.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -425,7 +424,7 @@ value in the output flow-accumulation image.</p>
 --out_type=sca --threshold=10000 --log --clip 
 </code></pre>
 <p><a name="DInfMassFlux"></a></p>
-<a class="header" href="#dinfmassflux" id="dinfmassflux"><h2>DInfMassFlux</h2></a>
+<a class="header" href="#dinfmassflux" id="dinfmassflux"><h1>DInfMassFlux</h1></a>
 <p>Performs a D-infinity mass flux calculation.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_mass_flux.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -451,7 +450,7 @@ value in the output flow-accumulation image.</p>
 --absorption=abs.tif -o=output.tif 
 </code></pre>
 <p><a name="DInfPointer"></a></p>
-<a class="header" href="#dinfpointer" id="dinfpointer"><h2>DInfPointer</h2></a>
+<a class="header" href="#dinfpointer" id="dinfpointer"><h1>DInfPointer</h1></a>
 <p>Calculates a D-infinity flow pointer (flow direction) raster from an input DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_pointer.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -470,7 +469,7 @@ value in the output flow-accumulation image.</p>
 --dem=DEM.tif 
 </code></pre>
 <p><a name="DepthInSink"></a></p>
-<a class="header" href="#depthinsink" id="depthinsink"><h2>DepthInSink</h2></a>
+<a class="header" href="#depthinsink" id="depthinsink"><h1>DepthInSink</h1></a>
 <p>Measures the depth of sinks (depressions) in a DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/depth_in_sink.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -491,7 +490,7 @@ value in the output flow-accumulation image.</p>
 --dem=DEM.tif -o=output.tif --zero_background 
 </code></pre>
 <p><a name="DownslopeDistanceToStream"></a></p>
-<a class="header" href="#downslopedistancetostream" id="downslopedistancetostream"><h2>DownslopeDistanceToStream</h2></a>
+<a class="header" href="#downslopedistancetostream" id="downslopedistancetostream"><h1>DownslopeDistanceToStream</h1></a>
 <p>Measures distance to the nearest downslope stream cell.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/downslope_distance_to_stream.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -513,7 +512,7 @@ value in the output flow-accumulation image.</p>
 -o='output.tif' 
 </code></pre>
 <p><a name="DownslopeFlowpathLength"></a></p>
-<a class="header" href="#downslopeflowpathlength" id="downslopeflowpathlength"><h2>DownslopeFlowpathLength</h2></a>
+<a class="header" href="#downslopeflowpathlength" id="downslopeflowpathlength"><h1>DownslopeFlowpathLength</h1></a>
 <p>Calculates the downslope flowpath length from each cell to basin outlet.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/downslope_flowpath_length.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -543,7 +542,7 @@ value in the output flow-accumulation image.</p>
 --weights=weights.tif -o=flowpath_len.tif --esri_pntr 
 </code></pre>
 <p><a name="ElevationAboveStream"></a></p>
-<a class="header" href="#elevationabovestream" id="elevationabovestream"><h2>ElevationAboveStream</h2></a>
+<a class="header" href="#elevationabovestream" id="elevationabovestream"><h1>ElevationAboveStream</h1></a>
 <p>Calculates the elevation of cells above the nearest downslope stream cell.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/elevation_above_stream.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -565,7 +564,7 @@ value in the output flow-accumulation image.</p>
 -o='output.tif' 
 </code></pre>
 <p><a name="ElevationAboveStreamEuclidean"></a></p>
-<a class="header" href="#elevationabovestreameuclidean" id="elevationabovestreameuclidean"><h2>ElevationAboveStreamEuclidean</h2></a>
+<a class="header" href="#elevationabovestreameuclidean" id="elevationabovestreameuclidean"><h1>ElevationAboveStreamEuclidean</h1></a>
 <p>Calculates the elevation of cells above the nearest (Euclidean distance) stream cell.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/elevation_above_stream_euclidean.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -587,7 +586,7 @@ value in the output flow-accumulation image.</p>
 -o=output.tif 
 </code></pre>
 <p><a name="Fd8FlowAccumulation"></a></p>
-<a class="header" href="#fd8flowaccumulation" id="fd8flowaccumulation"><h2>Fd8FlowAccumulation</h2></a>
+<a class="header" href="#fd8flowaccumulation" id="fd8flowaccumulation"><h1>Fd8FlowAccumulation</h1></a>
 <p>Calculates an FD8 flow accumulation raster from an input DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_flow_accum.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -621,7 +620,7 @@ value in the output flow-accumulation image.</p>
 --log --clip 
 </code></pre>
 <p><a name="Fd8Pointer"></a></p>
-<a class="header" href="#fd8pointer" id="fd8pointer"><h2>Fd8Pointer</h2></a>
+<a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
 <p>Calculates an FD8 flow pointer raster from an input DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_pointer.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -640,7 +639,7 @@ value in the output flow-accumulation image.</p>
 --dem=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="FillBurn"></a></p>
-<a class="header" href="#fillburn" id="fillburn"><h2>FillBurn</h2></a>
+<a class="header" href="#fillburn" id="fillburn"><h1>FillBurn</h1></a>
 <p>Burns streams into a DEM using the FillBurn (Saunders, 1999) method. This tool uses the
 algorithm described in:</p>
 <p>Lindsay JB. 2016. The practice of DEM stream burning revisited. Earth Surface Processes
@@ -667,7 +666,7 @@ Conference. pp. 24-30.</p>
 --dem=DEM.tif --streams=streams.shp -o=dem_burned.tif 
 </code></pre>
 <p><a name="FillDepressions"></a></p>
-<a class="header" href="#filldepressions" id="filldepressions"><h2>FillDepressions</h2></a>
+<a class="header" href="#filldepressions" id="filldepressions"><h1>FillDepressions</h1></a>
 <p>Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -689,7 +688,7 @@ Conference. pp. 24-30.</p>
 --fix_flats 
 </code></pre>
 <p><a name="FillSingleCellPits"></a></p>
-<a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h2>FillSingleCellPits</h2></a>
+<a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h1>FillSingleCellPits</h1></a>
 <p>Raises pit cells to the elevation of their lowest neighbour.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_pits.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -708,7 +707,7 @@ Conference. pp. 24-30.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=NewRaster.tif 
 </code></pre>
 <p><a name="FindNoFlowCells"></a></p>
-<a class="header" href="#findnoflowcells" id="findnoflowcells"><h2>FindNoFlowCells</h2></a>
+<a class="header" href="#findnoflowcells" id="findnoflowcells"><h1>FindNoFlowCells</h1></a>
 <p>Finds grid cells with no downslope neighbours.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/find_noflow_cells.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -727,7 +726,7 @@ Conference. pp. 24-30.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=NewRaster.tif 
 </code></pre>
 <p><a name="FindParallelFlow"></a></p>
-<a class="header" href="#findparallelflow" id="findparallelflow"><h2>FindParallelFlow</h2></a>
+<a class="header" href="#findparallelflow" id="findparallelflow"><h1>FindParallelFlow</h1></a>
 <p>Finds areas of parallel flow in D8 flow direction rasters.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/find_parallel_flow.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -752,7 +751,7 @@ Conference. pp. 24-30.</p>
 --streams='streams.tif' 
 </code></pre>
 <p><a name="FlattenLakes"></a></p>
-<a class="header" href="#flattenlakes" id="flattenlakes"><h2>FlattenLakes</h2></a>
+<a class="header" href="#flattenlakes" id="flattenlakes"><h1>FlattenLakes</h1></a>
 <p>Flattens lake polygons in a raster DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flatten_lakes.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -773,7 +772,7 @@ Conference. pp. 24-30.</p>
 --dem='DEM.tif' --lakes='lakes.shp' -o='output.tif' 
 </code></pre>
 <p><a name="FloodOrder"></a></p>
-<a class="header" href="#floodorder" id="floodorder"><h2>FloodOrder</h2></a>
+<a class="header" href="#floodorder" id="floodorder"><h1>FloodOrder</h1></a>
 <p>Assigns each DEM grid cell its order in the sequence of inundations that are encountered during a search starting from the edges, moving inward at increasing elevations.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flood_order.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -792,7 +791,7 @@ Conference. pp. 24-30.</p>
 --dem=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="FlowAccumulationFullWorkflow"></a></p>
-<a class="header" href="#flowaccumulationfullworkflow" id="flowaccumulationfullworkflow"><h2>FlowAccumulationFullWorkflow</h2></a>
+<a class="header" href="#flowaccumulationfullworkflow" id="flowaccumulationfullworkflow"><h1>FlowAccumulationFullWorkflow</h1></a>
 <p>Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow pointer, and a flow accumulation raster.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flow_accum_full_workflow.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -825,11 +824,11 @@ Conference. pp. 24-30.</p>
 --out_accum='accum.tif' --out_type=sca --log --clip 
 </code></pre>
 <p><a name="FlowLengthDiff"></a></p>
-<a class="header" href="#flowlengthdiff" id="flowlengthdiff"><h2>FlowLengthDiff</h2></a>
-<p><code>FlowLengthDiff</code> calculates the local maximum absolute difference in downslope flowpath length,
+<a class="header" href="#flowlengthdiff" id="flowlengthdiff"><h1>FlowLengthDiff</h1></a>
+<p><a href="./hydrological_analysis.html#flowlengthdiff"><strong>FlowLengthDiff</strong></a> calculates the local maximum absolute difference in downslope flowpath length,
 which is useful in mapping drainage divides and ridges.</p>
 <p><em>See Also</em>:</p>
-<p><code>MaxBranchLength</code></p>
+<p><a href="./geomorphometric_analysis.html#maxbranchlength"><strong>MaxBranchLength</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flow_length_diff.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -849,7 +848,7 @@ which is useful in mapping drainage divides and ridges.</p>
 --d8_pntr=pointer.tif -o=output.tif 
 </code></pre>
 <p><a name="Hillslopes"></a></p>
-<a class="header" href="#hillslopes" id="hillslopes"><h2>Hillslopes</h2></a>
+<a class="header" href="#hillslopes" id="hillslopes"><h1>Hillslopes</h1></a>
 <p>Identifies the individual hillslopes draining to each link in a stream network.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/hillslopes.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -873,7 +872,7 @@ which is useful in mapping drainage divides and ridges.</p>
 -o='output.tif' 
 </code></pre>
 <p><a name="ImpoundmentIndex"></a></p>
-<a class="header" href="#impoundmentindex" id="impoundmentindex"><h2>ImpoundmentIndex</h2></a>
+<a class="header" href="#impoundmentindex" id="impoundmentindex"><h1>ImpoundmentIndex</h1></a>
 <p>Calculates the impoundment size resulting from damming a DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/impoundment_index.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -897,7 +896,7 @@ which is useful in mapping drainage divides and ridges.</p>
 --out_type=depth --damlength=11 
 </code></pre>
 <p><a name="Isobasins"></a></p>
-<a class="header" href="#isobasins" id="isobasins"><h2>Isobasins</h2></a>
+<a class="header" href="#isobasins" id="isobasins"><h1>Isobasins</h1></a>
 <p>Divides a landscape into nearly equal sized drainage basins (i.e. watersheds).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -918,7 +917,7 @@ which is useful in mapping drainage divides and ridges.</p>
 --dem=DEM.tif -o=output.tif --size=1000 
 </code></pre>
 <p><a name="JensonSnapPourPoints"></a></p>
-<a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h2>JensonSnapPourPoints</h2></a>
+<a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
 <p>Moves outlet points used to specify points of interest in a watershedding operation to the nearest stream cell.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/jenson_snap_pour_points.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -942,23 +941,23 @@ which is useful in mapping drainage divides and ridges.</p>
 --streams='streams.tif' -o='output.shp' --snap_dist=15.0 
 </code></pre>
 <p><a name="LongestFlowpath"></a></p>
-<a class="header" href="#longestflowpath" id="longestflowpath"><h2>LongestFlowpath</h2></a>
+<a class="header" href="#longestflowpath" id="longestflowpath"><h1>LongestFlowpath</h1></a>
 <p>This tool delineates the longest flowpaths for a group of subbasins or watersheds.
 Flowpaths are initiated along drainage divides and continue along the D8-defined
 flow direction until either the subbasin outlet or DEM edge is encountered. Each input
-subbasin/watershed will have an associated vector flowpath in the output image. <code>LongestFlowpath</code>
+subbasin/watershed will have an associated vector flowpath in the output image. <a href="./hydrological_analysis.html#longestflowpath"><strong>LongestFlowpath</strong></a>
 is similar to the <code>r.lfp</code> plugin tool for GRASS GIS. The length of the longest flowpath
 draining to an outlet is related to the time of concentration, which is a parameter
 used in certain hydrological models.</p>
 <p>The user must input the filename of a digital elevation model (DEM), a basins raster, and the
 output vector. The DEM must be depressionless and should have been pre-processed using the
-<code>BreachDepressions</code> or <code>FillDepressions</code> tool. The <em>basins raster</em> must contain features
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. The <em>basins raster</em> must contain features
 that are delineated by categorical (integer valued) unique indentifier values. All non-NoData,
 non-zero valued grid cells in the basins raster are interpreted as belonging to features.
 In practice, this tool is usual run using either a single watershed, a group of contiguous
 non-overlapping watersheds, or a series of nested subbasins. These are often derived using
-the <code>Watershed</code> tool, based on a series of input outlets, or the <code>Subbasins</code> tool, based on
-an input stream network. If subbasins are input to <code>LongestFlowpath</code>, each traced flowpath
+the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, based on a series of input outlets, or the <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a> tool, based on
+an input stream network. If subbasins are input to <a href="./hydrological_analysis.html#longestflowpath"><strong>LongestFlowpath</strong></a>, each traced flowpath
 will include only the non-overlapping portions within nested areas. Therefore, this can be a
 convienent method of delineating the longest flowpath to each bifurcation in a stream network.</p>
 <p>The output vector file will contain fields in the attribute table that identify the associated
@@ -966,7 +965,7 @@ basin unique identifier (<em>BASIN</em>), the elevation of the flowpath source p
 (<em>UP_ELEV</em>), the elevation of the outlet point (<em>DN_ELEV</em>), the length of the flowpath (<em>LENGTH</em>),
 and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured as a percent grade.</p>
 <p><em>See Also</em>:</p>
-<p><code>MaximumUpslopeFlowpath</code>, <code>BreachDepressions</code>, <code>FillDepressions</code>, <code>Watershed</code>, <code>Subbasins</code></p>
+<p><code>MaximumUpslopeFlowpath</code>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/longest_flowpath.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -987,7 +986,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 -o=output.tif 
 </code></pre>
 <p><a name="MaxUpslopeFlowpathLength"></a></p>
-<a class="header" href="#maxupslopeflowpathlength" id="maxupslopeflowpathlength"><h2>MaxUpslopeFlowpathLength</h2></a>
+<a class="header" href="#maxupslopeflowpathlength" id="maxupslopeflowpathlength"><h1>MaxUpslopeFlowpathLength</h1></a>
 <p>Measures the maximum length of all upslope flowpaths draining each grid cell.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/max_upslope_flowpath.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1006,7 +1005,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="NumInflowingNeighbours"></a></p>
-<a class="header" href="#numinflowingneighbours" id="numinflowingneighbours"><h2>NumInflowingNeighbours</h2></a>
+<a class="header" href="#numinflowingneighbours" id="numinflowingneighbours"><h1>NumInflowingNeighbours</h1></a>
 <p>Computes the number of inflowing neighbours to each cell in an input DEM based on the D8 algorithm.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/num_inflowing_neighbours.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1025,7 +1024,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="RaiseWalls"></a></p>
-<a class="header" href="#raisewalls" id="raisewalls"><h2>RaiseWalls</h2></a>
+<a class="header" href="#raisewalls" id="raisewalls"><h1>RaiseWalls</h1></a>
 <p>Raises walls in a DEM along a line or around a polygon, e.g. a watershed.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/raise_walls.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1054,7 +1053,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 --dem=dem.tif -o=output.tif --height=25.0 
 </code></pre>
 <p><a name="Rho8Pointer"></a></p>
-<a class="header" href="#rho8pointer" id="rho8pointer"><h2>Rho8Pointer</h2></a>
+<a class="header" href="#rho8pointer" id="rho8pointer"><h1>Rho8Pointer</h1></a>
 <p>Calculates a stochastic Rho8 flow pointer raster from an input DEM.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/rho8_pointer.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1075,7 +1074,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 --dem=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="Sink"></a></p>
-<a class="header" href="#sink" id="sink"><h2>Sink</h2></a>
+<a class="header" href="#sink" id="sink"><h1>Sink</h1></a>
 <p>Identifies the depressions in a DEM, giving each feature a unique identifier.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/sink.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1096,7 +1095,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 --dem=DEM.tif -o=output.tif --zero_background 
 </code></pre>
 <p><a name="SnapPourPoints"></a></p>
-<a class="header" href="#snappourpoints" id="snappourpoints"><h2>SnapPourPoints</h2></a>
+<a class="header" href="#snappourpoints" id="snappourpoints"><h1>SnapPourPoints</h1></a>
 <p>Moves outlet points used to specify points of interest in a watershedding operation to the cell with the highest flow accumulation in its neighbourhood.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/snap_pour_points.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1120,7 +1119,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 -o='output.shp' --snap_dist=15.0 
 </code></pre>
 <p><a name="StochasticDepressionAnalysis"></a></p>
-<a class="header" href="#stochasticdepressionanalysis" id="stochasticdepressionanalysis"><h2>StochasticDepressionAnalysis</h2></a>
+<a class="header" href="#stochasticdepressionanalysis" id="stochasticdepressionanalysis"><h1>StochasticDepressionAnalysis</h1></a>
 <p>Preforms a stochastic analysis of depressions within a DEM, calculating the
 probability of each cell belonging to a depression.</p>
 <p>This tool differs from the original Whitebox GAT tool in a few significant ways:</p>
@@ -1174,7 +1173,7 @@ more processors.</p>
 --range=850.0 --iterations=2500 
 </code></pre>
 <p><a name="StrahlerOrderBasins"></a></p>
-<a class="header" href="#strahlerorderbasins" id="strahlerorderbasins"><h2>StrahlerOrderBasins</h2></a>
+<a class="header" href="#strahlerorderbasins" id="strahlerorderbasins"><h1>StrahlerOrderBasins</h1></a>
 <p>Identifies Strahler-order basins from an input stream network.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/strahler_basins.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1198,7 +1197,7 @@ more processors.</p>
 --streams='streams.tif' -o='output.tif' 
 </code></pre>
 <p><a name="Subbasins"></a></p>
-<a class="header" href="#subbasins" id="subbasins"><h2>Subbasins</h2></a>
+<a class="header" href="#subbasins" id="subbasins"><h1>Subbasins</h1></a>
 <p>Identifies the catchments, or sub-basin, draining to each link in a stream network.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/subbasins.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1222,7 +1221,7 @@ more processors.</p>
 -o='output.tif' 
 </code></pre>
 <p><a name="TraceDownslopeFlowpaths"></a></p>
-<a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h2>TraceDownslopeFlowpaths</h2></a>
+<a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h1>TraceDownslopeFlowpaths</h1></a>
 <p>Traces downslope flowpaths from one or more target sites (i.e. seed points).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/trace_downslope_flowpaths.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -1248,7 +1247,7 @@ more processors.</p>
 --flow_dir=flow_directions.tif --output=flow_paths.tif 
 </code></pre>
 <p><a name="UnnestBasins"></a></p>
-<a class="header" href="#unnestbasins" id="unnestbasins"><h2>UnnestBasins</h2></a>
+<a class="header" href="#unnestbasins" id="unnestbasins"><h1>UnnestBasins</h1></a>
 <p>In some applications it is necessary to relate a measured variable for a group of
 hydrometric stations (e.g. characteristics of flow timing and duration or water
 chemistry) to some characteristics of each outlet's catchment (e.g. mean slope,
@@ -1287,7 +1286,7 @@ algorithm.</p>
 -o='output.tif' 
 </code></pre>
 <p><a name="Watershed"></a></p>
-<a class="header" href="#watershed" id="watershed"><h2>Watershed</h2></a>
+<a class="header" href="#watershed" id="watershed"><h1>Watershed</h1></a>
 <p>Identifies the watershed, or drainage basin, draining to a set of target cells.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/watershed.rs">source code</a></p>
 <p><em>Parameters</em>:</p>

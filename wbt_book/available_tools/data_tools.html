@@ -161,7 +161,7 @@
 <li><a href="#VectorPolygonsToRaster">VectorPolygonsToRaster</a></li>
 </ul>
 <p><a name="AddPointCoordinatesToTable"></a></p>
-<a class="header" href="#addpointcoordinatestotable" id="addpointcoordinatestotable"><h2>AddPointCoordinatesToTable</h2></a>
+<a class="header" href="#addpointcoordinatestotable" id="addpointcoordinatestotable"><h1>AddPointCoordinatesToTable</h1></a>
 <p>This tool modifies the attribute table of a vector of POINT ShapeType by adding two fields,
 XCOORD and YCOORD, containing each point's X and Y coordinates respectively.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/add_point_coordinates_to_table.rs">source code</a></p>
@@ -179,7 +179,7 @@ XCOORD and YCOORD, containing each point's X and Y coordinates respectively.</p>
 --wd=&quot;/path/to/data/&quot; --input=points.shp 
 </code></pre>
 <p><a name="ConvertNodataToZero"></a></p>
-<a class="header" href="#convertnodatatozero" id="convertnodatatozero"><h2>ConvertNodataToZero</h2></a>
+<a class="header" href="#convertnodatatozero" id="convertnodatatozero"><h1>ConvertNodataToZero</h1></a>
 <p>Converts nodata values in a raster to zero.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/convert_nodata_to_zero.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -198,7 +198,7 @@ XCOORD and YCOORD, containing each point's X and Y coordinates respectively.</p>
 --wd=&quot;/path/to/data/&quot; --input=in.tif -o=NewRaster.tif 
 </code></pre>
 <p><a name="ConvertRasterFormat"></a></p>
-<a class="header" href="#convertrasterformat" id="convertrasterformat"><h2>ConvertRasterFormat</h2></a>
+<a class="header" href="#convertrasterformat" id="convertrasterformat"><h1>ConvertRasterFormat</h1></a>
 <p>This tool converts raster data from one format to another. It determines input/output raster
 formats based on extensions, but due to file extension naming collisions, it would be good to
 add user hints. For example, the extension 'grd' could belong to a SurferAscii or a Surfer7Binary.
@@ -222,7 +222,7 @@ support user hints however.</p>
 --wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="ExportTableToCsv"></a></p>
-<a class="header" href="#exporttabletocsv" id="exporttabletocsv"><h2>ExportTableToCsv</h2></a>
+<a class="header" href="#exporttabletocsv" id="exporttabletocsv"><h1>ExportTableToCsv</h1></a>
 <p>This tool can be used to export a vector's attribute table to a comma separated values (CSV)
 file. CSV files stores tabular data (numbers and text) in plain-text form such that each row
 corresponds to a record and each column to a field. Fields are typically separated by commas
@@ -230,7 +230,7 @@ within records. The user must specify the name of the vector (and associated att
 the name of the output CSV file, and whether or not to include the field names as a header
 column in the output CSV file.</p>
 <p><em>See Also</em>:</p>
-<p><code>MergeTableWithCsv</code></p>
+<p><a href="./data_tools.html#mergetablewithcsv"><strong>MergeTableWithCsv</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/export_table_to_csv.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -250,7 +250,7 @@ column in the output CSV file.</p>
 --wd=&quot;/path/to/data/&quot; -i=lines.shp -o=output.csv --headers 
 </code></pre>
 <p><a name="JoinTables"></a></p>
-<a class="header" href="#jointables" id="jointables"><h2>JoinTables</h2></a>
+<a class="header" href="#jointables" id="jointables"><h1>JoinTables</h1></a>
 <p>This tool can be used to join (i.e. merge) a vector's attribute table with a second table. The
 user must specify the name of the vector file (and associated attribute file) as well as the
 <em>primary key</em> within the table. The <em>primary key</em> (<code>--pkey</code> flag) is the field
@@ -276,9 +276,9 @@ to append a table containing data about the population and area of each country.
 COUNTRY columns in the attribute table and the second file serve as the primary and foreign keys
 respectively. While there may be many duplicate primary keys (all of those Canadian polygons) each
 will correspond to only one foreign key containing the population and area data. This is a
-<em>many-to-one</em> relation. The <code>JoinTables</code> tool does not support one-to-many nor many-to-many relations.</p>
+<em>many-to-one</em> relation. The <a href="./data_tools.html#jointables"><strong>JoinTables</strong></a> tool does not support one-to-many nor many-to-many relations.</p>
 <p><em>See Also</em>:</p>
-<p><code>MergeTableWithCsv</code>, <code>ReinitializeAttributeTable</code>, <code>ExportTableToCsv</code></p>
+<p><a href="./data_tools.html#mergetablewithcsv"><strong>MergeTableWithCsv</strong></a>, <a href="./data_tools.html#reinitializeattributetable"><strong>ReinitializeAttributeTable</strong></a>, <a href="./data_tools.html#exporttabletocsv"><strong>ExportTableToCsv</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/join_tables.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -303,14 +303,14 @@ will correspond to only one foreign key containing the population and area data.
 --fkey=VALUE --import_field=NEW_VALUE 
 </code></pre>
 <p><a name="LinesToPolygons"></a></p>
-<a class="header" href="#linestopolygons" id="linestopolygons"><h2>LinesToPolygons</h2></a>
+<a class="header" href="#linestopolygons" id="linestopolygons"><h1>LinesToPolygons</h1></a>
 <p>Converts vector polylines into polygons. Note that this tool will close polygons
 that are open and will ensure that the first part of an input line is interpreted
 as the polygon hull and subsequent parts are considered holes. The tool does not
 examine input lines for line crossings (self intersections), which are topological
 errors.</p>
 <p><em>See Also</em>:</p>
-<p><code>PolygonsToLines</code></p>
+<p><a href="./data_tools.html#polygonstolines"><strong>PolygonsToLines</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/lines_to_polygons.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -328,7 +328,7 @@ errors.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.shp -o=output.shp 
 </code></pre>
 <p><a name="MergeTableWithCsv"></a></p>
-<a class="header" href="#mergetablewithcsv" id="mergetablewithcsv"><h2>MergeTableWithCsv</h2></a>
+<a class="header" href="#mergetablewithcsv" id="mergetablewithcsv"><h1>MergeTableWithCsv</h1></a>
 <p>This tool can be used to merge a vector's attribute table with data contained within a comma
 separated values (CSV) text file. CSV files stores tabular data (numbers and text) in plain-text
 form such that each row is a record and each column a field. Fields are typically separated by
@@ -358,9 +358,9 @@ to append a table containing data about the population and area of each country.
 COUNTRY columns in the attribute table and the second file serve as the primary and foreign keys
 respectively. While there may be many duplicate primary keys (all of those Canadian polygons) each
 will correspond to only one foreign key containing the population and area data. This is a
-<em>many-to-one</em> relation. The <code>JoinTables</code> tool does not support one-to-many nor many-to-many relations.</p>
+<em>many-to-one</em> relation. The <a href="./data_tools.html#jointables"><strong>JoinTables</strong></a> tool does not support one-to-many nor many-to-many relations.</p>
 <p><em>See Also</em>:</p>
-<p><code>JoinTables</code>, <code>ReinitializeAttributeTable</code>, <code>ExportTableToCsv</code></p>
+<p><a href="./data_tools.html#jointables"><strong>JoinTables</strong></a>, <a href="./data_tools.html#reinitializeattributetable"><strong>ReinitializeAttributeTable</strong></a>, <a href="./data_tools.html#exporttabletocsv"><strong>ExportTableToCsv</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/merge_table_with_csv.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -389,7 +389,7 @@ will correspond to only one foreign key containing the population and area data.
 --csv=land_class.csv --fkey=VALUE 
 </code></pre>
 <p><a name="MergeVectors"></a></p>
-<a class="header" href="#mergevectors" id="mergevectors"><h2>MergeVectors</h2></a>
+<a class="header" href="#mergevectors" id="mergevectors"><h1>MergeVectors</h1></a>
 <p>Combines two or more input vectors of the same ShapeType creating a single, new output
 vector. Importantly, the attribute table of the output vector will contain the ubiquitous
 file-specific FID, the parent file name, the parent FID, and the list of attribute fields
@@ -399,12 +399,12 @@ precision).</p>
 <p>Overlapping features will not be identified nor handled in the merging. If you have
 significant areas of overlap, it is advisable to use one of the vector overlay tools
 instead.</p>
-<p>The difference between <code>MergeVectors</code> and the <code>Append</code> tool is that merging takes two
+<p>The difference between <a href="./data_tools.html#mergevectors"><strong>MergeVectors</strong></a> and the <code>Append</code> tool is that merging takes two
 or more files and creates one new file containing the features of all inputs, and
 <code>Append</code> places the features of a single vector into another existing (appended) vector.</p>
-<p>This tool only operates on vector files. Use the <code>Mosaic</code> tool to combine raster data.</p>
+<p>This tool only operates on vector files. Use the <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> tool to combine raster data.</p>
 <p><em>See Also</em>:</p>
-<p><code>Append</code>, <code>Mosaic</code></p>
+<p><code>Append</code>, <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/merge_vectors.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -422,7 +422,7 @@ or more files and creates one new file containing the features of all inputs, an
 -i='polys1.shp;polys2.shp;polys3.shp' -o=out_file.shp 
 </code></pre>
 <p><a name="MultiPartToSinglePart"></a></p>
-<a class="header" href="#multiparttosinglepart" id="multiparttosinglepart"><h2>MultiPartToSinglePart</h2></a>
+<a class="header" href="#multiparttosinglepart" id="multiparttosinglepart"><h1>MultiPartToSinglePart</h1></a>
 <p>This tool can be used to convert a vector file containing multi-part features into a vector
 containing only single-part features. Any multi-part polygons or lines within the input
 vector file will be split into seperate features in the output file, each possessing their
@@ -431,7 +431,7 @@ choose to exclude hole-parts from being separated from their containing polygons
 with the <code>--exclude_holes</code> flag, hole parts in the input vector will continue to belong to
 their enclosing polygon in the output vector.</p>
 <p><em>See Also</em>:</p>
-<p><code>SinglePartToMultiPart</code></p>
+<p><a href="./data_tools.html#singleparttomultipart"><strong>SinglePartToMultiPart</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/multipart_to_singlepart.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -452,7 +452,7 @@ their enclosing polygon in the output vector.</p>
 --exclude_holes 
 </code></pre>
 <p><a name="NewRasterFromBase"></a></p>
-<a class="header" href="#newrasterfrombase" id="newrasterfrombase"><h2>NewRasterFromBase</h2></a>
+<a class="header" href="#newrasterfrombase" id="newrasterfrombase"><h1>NewRasterFromBase</h1></a>
 <p>Creates a new raster using a base image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/new_raster.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -479,7 +479,7 @@ their enclosing polygon in the output vector.</p>
 -o=NewRaster.tif --value=nodata 
 </code></pre>
 <p><a name="PolygonsToLines"></a></p>
-<a class="header" href="#polygonstolines" id="polygonstolines"><h2>PolygonsToLines</h2></a>
+<a class="header" href="#polygonstolines" id="polygonstolines"><h1>PolygonsToLines</h1></a>
 <p>Converts vector polygons into polylines.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/polygons_to_lines.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -498,7 +498,7 @@ their enclosing polygon in the output vector.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.shp -o=output.shp 
 </code></pre>
 <p><a name="PrintGeoTiffTags"></a></p>
-<a class="header" href="#printgeotifftags" id="printgeotifftags"><h2>PrintGeoTiffTags</h2></a>
+<a class="header" href="#printgeotifftags" id="printgeotifftags"><h1>PrintGeoTiffTags</h1></a>
 <p>Prints the tags within a GeoTIFF.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/print_geotiff_tags.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -515,7 +515,7 @@ their enclosing polygon in the output vector.</p>
 --wd=&quot;/path/to/data/&quot; --input=DEM.tiff 
 </code></pre>
 <p><a name="RasterToVectorLines"></a></p>
-<a class="header" href="#rastertovectorlines" id="rastertovectorlines"><h2>RasterToVectorLines</h2></a>
+<a class="header" href="#rastertovectorlines" id="rastertovectorlines"><h1>RasterToVectorLines</h1></a>
 <p>This tool converts raster lines features into a vector of the POLYLINE ShapeType.
 Grid cells associated with line features will contain non-zero, non-NoData cell
 values. The algorithm requires three passes of the raster. The first pass counts
@@ -523,11 +523,11 @@ the number of line neighbours of each line cell; the second pass traces line
 segments starting from line ends (i.e. line cells with only one neighbouring line
 cell); lastly, the final pass traces any remaining line segments, which are likely
 forming closed loops (and therefore do not have line ends).</p>
-<p>If the line raster contains streams, it is preferable to use the <code>RasterStreamsToVector</code>
+<p>If the line raster contains streams, it is preferable to use the <a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a>
 instead. This tool will use knowledge of flow directions to ensure connections
-between stream segments at confluence sites, whereas <code>RasterToVectorLines</code> will not.</p>
+between stream segments at confluence sites, whereas <a href="./data_tools.html#rastertovectorlines"><strong>RasterToVectorLines</strong></a> will not.</p>
 <p><em>See Also</em>:</p>
-<p><code>RasterToVectorPoints</code>, <code>RasterStreamsToVector</code></p>
+<p><a href="./data_tools.html#rastertovectorpoints"><strong>RasterToVectorPoints</strong></a>, <a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/raster_to_vector_lines.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -545,7 +545,7 @@ between stream segments at confluence sites, whereas <code>RasterToVectorLines</
 --wd=&quot;/path/to/data/&quot; -i=lines.tif -o=lines.shp 
 </code></pre>
 <p><a name="RasterToVectorPoints"></a></p>
-<a class="header" href="#rastertovectorpoints" id="rastertovectorpoints"><h2>RasterToVectorPoints</h2></a>
+<a class="header" href="#rastertovectorpoints" id="rastertovectorpoints"><h1>RasterToVectorPoints</h1></a>
 <p>Converts a raster dataset to a vector of the POINT shapetype. The user must specify
 the name of a raster file and the name of the output vector. Points will correspond
 with grid cell centre points. All grid cells containing non-zero, non-NoData values
@@ -568,7 +568,7 @@ will be considered a point. The vector's attribute table will contain a field ca
 --wd=&quot;/path/to/data/&quot; --input=points.tif -o=out.shp 
 </code></pre>
 <p><a name="ReinitializeAttributeTable"></a></p>
-<a class="header" href="#reinitializeattributetable" id="reinitializeattributetable"><h2>ReinitializeAttributeTable</h2></a>
+<a class="header" href="#reinitializeattributetable" id="reinitializeattributetable"><h1>ReinitializeAttributeTable</h1></a>
 <p>Reinitializes a vector's attribute table deleting all fields but the feature ID (FID).
 Caution: this tool overwrites the input file's attribute table.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/reinitialize_attribute_table.rs">source code</a></p>
@@ -586,7 +586,7 @@ Caution: this tool overwrites the input file's attribute table.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.shp 
 </code></pre>
 <p><a name="RemovePolygonHoles"></a></p>
-<a class="header" href="#removepolygonholes" id="removepolygonholes"><h2>RemovePolygonHoles</h2></a>
+<a class="header" href="#removepolygonholes" id="removepolygonholes"><h1>RemovePolygonHoles</h1></a>
 <p>This tool can be used to remove holes from the features within a vector
 polygon file. The user must specify the name of the input vector file,
 which must be of a polygon shapetype, and the name of the output file.</p>
@@ -608,7 +608,7 @@ which must be of a polygon shapetype, and the name of the output file.</p>
 --output=no_holes.shp 
 </code></pre>
 <p><a name="SetNodataValue"></a></p>
-<a class="header" href="#setnodatavalue" id="setnodatavalue"><h2>SetNodataValue</h2></a>
+<a class="header" href="#setnodatavalue" id="setnodatavalue"><h1>SetNodataValue</h1></a>
 <p>This tool will re-assign a user-defined background value in an input raster image the <strong>NoData</strong> value.
 More precisely, the NoData value will be changed to the specified background value and any existing
 grid cells containing the previous NoData value, if it had been defined, will be changed to this new
@@ -635,7 +635,7 @@ value is possible.</p>
 -i=in.tif -o=newRaster.tif --back_value=1.0 
 </code></pre>
 <p><a name="SinglePartToMultiPart"></a></p>
-<a class="header" href="#singleparttomultipart" id="singleparttomultipart"><h2>SinglePartToMultiPart</h2></a>
+<a class="header" href="#singleparttomultipart" id="singleparttomultipart"><h1>SinglePartToMultiPart</h1></a>
 <p>This tool can be used to convert a vector file containing single-part features into a vector
 containing multi-part features. The user has the option to either group features based on an
 ID Field (<code>--field</code> flag), which is a categorical field within the vector's attribute table.
@@ -651,7 +651,7 @@ hole parts are polygon features contained within larger polygons of the same ID 
 note that searching for polygon holes may significantly increase processing time for larger polygon
 coverages.</p>
 <p><em>See Also</em>:</p>
-<p><code>MultiPartToSinglePart</code></p>
+<p><a href="./data_tools.html#multiparttosinglepart"><strong>MultiPartToSinglePart</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/singlepart_to_multipart.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -672,7 +672,7 @@ coverages.</p>
 --field='COUNTRY' 
 </code></pre>
 <p><a name="VectorLinesToRaster"></a></p>
-<a class="header" href="#vectorlinestoraster" id="vectorlinestoraster"><h2>VectorLinesToRaster</h2></a>
+<a class="header" href="#vectorlinestoraster" id="vectorlinestoraster"><h1>VectorLinesToRaster</h1></a>
 <p>Converts a vector containing polylines into a raster.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/vector_lines_to_raster.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -703,7 +703,7 @@ coverages.</p>
 --field=FID -o=output.tif --base=existing_raster.tif 
 </code></pre>
 <p><a name="VectorPointsToRaster"></a></p>
-<a class="header" href="#vectorpointstoraster" id="vectorpointstoraster"><h2>VectorPointsToRaster</h2></a>
+<a class="header" href="#vectorpointstoraster" id="vectorpointstoraster"><h1>VectorPointsToRaster</h1></a>
 <p>Converts a vector containing points into a raster.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/vector_points_to_raster.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -738,7 +738,7 @@ coverages.</p>
 --base=existing_raster.tif 
 </code></pre>
 <p><a name="VectorPolygonsToRaster"></a></p>
-<a class="header" href="#vectorpolygonstoraster" id="vectorpolygonstoraster"><h2>VectorPolygonsToRaster</h2></a>
+<a class="header" href="#vectorpolygonstoraster" id="vectorpolygonstoraster"><h1>VectorPolygonsToRaster</h1></a>
 <p>Converts a vector containing polygons into a raster.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/vector_polygons_to_raster.rs">source code</a></p>
 <p><em>Parameters</em>:</p>

@@ -161,7 +161,7 @@
 <li><a href="#WriteFunctionMemoryInsertion">WriteFunctionMemoryInsertion</a></li>
 </ul>
 <p><a name="ChangeVectorAnalysis"></a></p>
-<a class="header" href="#changevectoranalysis" id="changevectoranalysis"><h2>ChangeVectorAnalysis</h2></a>
+<a class="header" href="#changevectoranalysis" id="changevectoranalysis"><h1>ChangeVectorAnalysis</h1></a>
 <p>Change Vector Analysis (CVA) is a change detection method that characterizes the
 magnitude and change direction in spectral space between two times. A change vector
 is the difference vector between two vectors in n-dimensional feature space defined
@@ -209,7 +209,7 @@ Jensen (2005) provides a useful description of this approach to change detection
 --magnitude=mag_out.tif --direction=dir_out.tif 
 </code></pre>
 <p><a name="Closing"></a></p>
-<a class="header" href="#closing" id="closing"><h2>Closing</h2></a>
+<a class="header" href="#closing" id="closing"><h1>Closing</h1></a>
 <p>A closing is a mathematical morphology operation involving an erosion (min filter) of a dilation (max filter) set.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/closing.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -232,7 +232,7 @@ Jensen (2005) provides a useful description of this approach to change detection
 -i=image.tif -o=output.tif --filter=25 
 </code></pre>
 <p><a name="CreateColourComposite"></a></p>
-<a class="header" href="#createcolourcomposite" id="createcolourcomposite"><h2>CreateColourComposite</h2></a>
+<a class="header" href="#createcolourcomposite" id="createcolourcomposite"><h1>CreateColourComposite</h1></a>
 <p>This tool can be used to create a colour-composite image from three bands of multi-spectral imagery.
 The user must specify the names of the input images to enter into the red, green, and blue channels
 of the resulting composite image. The output image uses the 32-bit aRGB colour model, and therefore,
@@ -241,16 +241,16 @@ be used to determine pixel opacity (the 'a' channel). If no opacity image is spe
 will be opaque. This can be useful for cropping an image to an irregular-shaped boundary. The opacity
 channel can also be used to create transparent gradients in the composite image.</p>
 <p>A balance contrast enchancment (BCE) can optionally be performed on the bands prior to creation of
-the colour composite. While this operation will add to the runtime of <code>CreateColourComposite</code>, if
+the colour composite. While this operation will add to the runtime of <a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a>, if
 the individual input bands have not already had contrast enchancements, then it is advisable that
 the BCE option be used to improve the quality of the resulting colour composite image.</p>
 <p>NoData values in any of the input images are assigned NoData values in the output image and are not
 taken into account when performing the BCE operation. Please note, not all images have NoData values
 identified. When this is the case, and when the background value is 0 (often the case with
-multispectral imagery), then the <code>CreateColourComposite</code> tool can be told to ignore zero values using
+multispectral imagery), then the <a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a> tool can be told to ignore zero values using
 the <code>--zeros</code> flag.</p>
 <p><em>See Also</em>:</p>
-<p><code>BalanceContrastEnhancment</code></p>
+<p><a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a>, <a href="./image_processing_tools.html#splitcolourcomposite"><strong>SplitColourComposite</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/create_colour_composite.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -283,7 +283,7 @@ the <code>--zeros</code> flag.</p>
 --opacity=a.tif -o=output.tif --enhance --zeros 
 </code></pre>
 <p><a name="FlipImage"></a></p>
-<a class="header" href="#flipimage" id="flipimage"><h2>FlipImage</h2></a>
+<a class="header" href="#flipimage" id="flipimage"><h1>FlipImage</h1></a>
 <p>Reflects an image in the vertical or horizontal axis.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/flip_image.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -304,7 +304,7 @@ the <code>--zeros</code> flag.</p>
 --input=in.tif -o=out.tif --direction=h 
 </code></pre>
 <p><a name="IhsToRgb"></a></p>
-<a class="header" href="#ihstorgb" id="ihstorgb"><h2>IhsToRgb</h2></a>
+<a class="header" href="#ihstorgb" id="ihstorgb"><h1>IhsToRgb</h1></a>
 <p>Converts intensity, hue, and saturation (IHS) images into red, green, and blue (RGB) images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/ihs_to_rgb.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -338,7 +338,7 @@ the <code>--zeros</code> flag.</p>
 --saturation=saturation.tif --composite=image.tif 
 </code></pre>
 <p><a name="ImageStackProfile"></a></p>
-<a class="header" href="#imagestackprofile" id="imagestackprofile"><h2>ImageStackProfile</h2></a>
+<a class="header" href="#imagestackprofile" id="imagestackprofile"><h1>ImageStackProfile</h1></a>
 <p>Plots an image stack profile (i.e. signature) for a set of points and multispectral images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/image_stack_profile.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -360,7 +360,7 @@ the <code>--zeros</code> flag.</p>
 --points=pts.shp -o=output.html 
 </code></pre>
 <p><a name="IntegralImage"></a></p>
-<a class="header" href="#integralimage" id="integralimage"><h2>IntegralImage</h2></a>
+<a class="header" href="#integralimage" id="integralimage"><h1>IntegralImage</h1></a>
 <p>Transforms an input image (summed area table) into its integral image equivalent.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/integral_image.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -379,7 +379,7 @@ the <code>--zeros</code> flag.</p>
 -i=image.tif -o=output.tif 
 </code></pre>
 <p><a name="KMeansClustering"></a></p>
-<a class="header" href="#kmeansclustering" id="kmeansclustering"><h2>KMeansClustering</h2></a>
+<a class="header" href="#kmeansclustering" id="kmeansclustering"><h1>KMeansClustering</h1></a>
 <p>Performs a k-means clustering operation on a multi-spectral dataset.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/k_means_clustering.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -413,7 +413,7 @@ the <code>--zeros</code> flag.</p>
 --min_class_size=500 
 </code></pre>
 <p><a name="LineThinning"></a></p>
-<a class="header" href="#linethinning" id="linethinning"><h2>LineThinning</h2></a>
+<a class="header" href="#linethinning" id="linethinning"><h1>LineThinning</h1></a>
 <p>Performs line thinning a on Boolean raster image; intended to be used with the RemoveSpurs tool.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/line_thin.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -432,7 +432,7 @@ the <code>--zeros</code> flag.</p>
 --input=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="ModifiedKMeansClustering"></a></p>
-<a class="header" href="#modifiedkmeansclustering" id="modifiedkmeansclustering"><h2>ModifiedKMeansClustering</h2></a>
+<a class="header" href="#modifiedkmeansclustering" id="modifiedkmeansclustering"><h1>ModifiedKMeansClustering</h1></a>
 <p>This modified k-means algorithm is similar to that described by Mather (2004).
 The main difference between the traditional k-means and this technique is that the user
 does not need to specify the desired number of classes/clusters prior to running the
@@ -469,7 +469,7 @@ technique is that clusters can not be broken apart into two smaller clusters.</p
 --merger_dist=30.0 --max_iterations=25 --class_change=1.5 
 </code></pre>
 <p><a name="Mosaic"></a></p>
-<a class="header" href="#mosaic" id="mosaic"><h2>Mosaic</h2></a>
+<a class="header" href="#mosaic" id="mosaic"><h1>Mosaic</h1></a>
 <p>This tool will create an image mosaic from one or more input image files using
 one of three resampling methods including, nearest neighbour, bilinear interpolation,
 and cubic convolution. The order of the input source image files is important. Grid
@@ -477,7 +477,7 @@ cells in the output image will be assigned the corresponding value determined fr
 first image found in the list to possess an overlapping coordinate.</p>
 <p>This is the preferred mosaicing tool to use when appending multiple images with
 little to no overlapping areas, e.g. tiled data. When images have significant overlap
-areas, users are advised to use the <code>MosaicWithFeathering</code> tool instead.</p>
+areas, users are advised to use the <a href="./image_processing_tools.html#mosaicwithfeathering"><strong>MosaicWithFeathering</strong></a> tool instead.</p>
 <p>Resample is very similar in operation to the Mosaic tool. The Resample tool should be
 used when there is an existing image into which you would like to dump information from
 one or more source images. If the source images are more extensive than the destination
@@ -490,7 +490,7 @@ that represents the bounding rectangle of each of the two or more input images. 
 cells in the output image that do not overlap with any of the input images will be
 assigned the NoData value.</p>
 <p><em>See Also</em>:</p>
-<p><code>MosaicWithFeathering</code></p>
+<p><a href="./image_processing_tools.html#mosaicwithfeathering"><strong>MosaicWithFeathering</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mosaic.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -511,8 +511,8 @@ assigned the NoData value.</p>
 --method='cc' 
 </code></pre>
 <p><a name="MosaicWithFeathering"></a></p>
-<a class="header" href="#mosaicwithfeathering" id="mosaicwithfeathering"><h2>MosaicWithFeathering</h2></a>
-<p>This tool will create a mosaic from two input images. It is similar in operation to the <code>Mosaic</code> tool,
+<a class="header" href="#mosaicwithfeathering" id="mosaicwithfeathering"><h1>MosaicWithFeathering</h1></a>
+<p>This tool will create a mosaic from two input images. It is similar in operation to the <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> tool,
 however, this tool is the preferred method of mosaicing images when there is significant overlap between
 the images. For areas of overlap, the feathering method will calculate the output value as a weighted
 combination of the two input values, where the weights are derived from the squared distance of the
@@ -525,10 +525,10 @@ area.</p>
 <p>Unlike the Mosaic tool, which can take multiple input images, this tool only accepts two input images.
 Mosaic is therefore useful when there are many, adjacent or only slightly overlapping images, e.g. for
 tiled data sets.</p>
-<p>Users may want to use the <code>HistogramMatching</code> tool prior to mosaicing if the two input images differ
+<p>Users may want to use the <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a> tool prior to mosaicing if the two input images differ
 significantly in their radiometric properties. i.e. if image contrast differences exist.</p>
 <p><em>See Also</em>:</p>
-<p><code>Mosaic</code>, <code>HistogramMatching</code></p>
+<p><a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mosaic_with_feathering.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -554,7 +554,7 @@ significantly in their radiometric properties. i.e. if image contrast difference
 --weight=4.0 
 </code></pre>
 <p><a name="NormalizedDifferenceVegetationIndex"></a></p>
-<a class="header" href="#normalizeddifferencevegetationindex" id="normalizeddifferencevegetationindex"><h2>NormalizedDifferenceVegetationIndex</h2></a>
+<a class="header" href="#normalizeddifferencevegetationindex" id="normalizeddifferencevegetationindex"><h1>NormalizedDifferenceVegetationIndex</h1></a>
 <p>Calculates the normalized difference vegetation index (NDVI) from near-infrared and red imagery.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/ndvi.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -584,7 +584,7 @@ significantly in their radiometric properties. i.e. if image contrast difference
 --osavi 
 </code></pre>
 <p><a name="Opening"></a></p>
-<a class="header" href="#opening" id="opening"><h2>Opening</h2></a>
+<a class="header" href="#opening" id="opening"><h1>Opening</h1></a>
 <p>An opening is a mathematical morphology operation involving a dilation (max filter) of an erosion (min filter) set.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/opening.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -607,7 +607,7 @@ significantly in their radiometric properties. i.e. if image contrast difference
 -i=image.tif -o=output.tif --filter=25 
 </code></pre>
 <p><a name="RemoveSpurs"></a></p>
-<a class="header" href="#removespurs" id="removespurs"><h2>RemoveSpurs</h2></a>
+<a class="header" href="#removespurs" id="removespurs"><h1>RemoveSpurs</h1></a>
 <p>Removes the spurs (pruning operation) from a Boolean line image.; intended to be used on the output of the LineThinning tool.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/remove_spurs.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -628,7 +628,7 @@ significantly in their radiometric properties. i.e. if image contrast difference
 --input=DEM.tif -o=output.tif --iterations=10 
 </code></pre>
 <p><a name="Resample"></a></p>
-<a class="header" href="#resample" id="resample"><h2>Resample</h2></a>
+<a class="header" href="#resample" id="resample"><h1>Resample</h1></a>
 <p>Resample is very similar in operation to the Mosaic tool. The Resample tool should
 be used when there is an existing image into which you would like to dump information
 from one or more source images. If the source images are more extensive than the
@@ -660,7 +660,7 @@ will be assigned the NoData value.</p>
 --method='cc 
 </code></pre>
 <p><a name="RgbToIhs"></a></p>
-<a class="header" href="#rgbtoihs" id="rgbtoihs"><h2>RgbToIhs</h2></a>
+<a class="header" href="#rgbtoihs" id="rgbtoihs"><h1>RgbToIhs</h1></a>
 <p>Converts red, green, and blue (RGB) images into intensity, hue, and saturation (IHS) images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/rgb_to_ihs.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -695,7 +695,7 @@ will be assigned the NoData value.</p>
 --saturation=saturation.tif 
 </code></pre>
 <p><a name="SplitColourComposite"></a></p>
-<a class="header" href="#splitcolourcomposite" id="splitcolourcomposite"><h2>SplitColourComposite</h2></a>
+<a class="header" href="#splitcolourcomposite" id="splitcolourcomposite"><h1>SplitColourComposite</h1></a>
 <p>This tool splits an RGB colour composite image into seperate multispectral images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/split_colour_composite.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -714,7 +714,7 @@ will be assigned the NoData value.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif 
 </code></pre>
 <p><a name="ThickenRasterLine"></a></p>
-<a class="header" href="#thickenrasterline" id="thickenrasterline"><h2>ThickenRasterLine</h2></a>
+<a class="header" href="#thickenrasterline" id="thickenrasterline"><h1>ThickenRasterLine</h1></a>
 <p>Thickens single-cell wide lines within a raster image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/thicken_line.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -733,7 +733,7 @@ will be assigned the NoData value.</p>
 --wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="TophatTransform"></a></p>
-<a class="header" href="#tophattransform" id="tophattransform"><h2>TophatTransform</h2></a>
+<a class="header" href="#tophattransform" id="tophattransform"><h1>TophatTransform</h1></a>
 <p>Performs either a white or black top-hat transform on an input image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/tophat.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -758,7 +758,7 @@ will be assigned the NoData value.</p>
 --wd=&quot;/path/to/data/&quot; -i=image.tif -o=output.tif --filter=25 
 </code></pre>
 <p><a name="WriteFunctionMemoryInsertion"></a></p>
-<a class="header" href="#writefunctionmemoryinsertion" id="writefunctionmemoryinsertion"><h2>WriteFunctionMemoryInsertion</h2></a>
+<a class="header" href="#writefunctionmemoryinsertion" id="writefunctionmemoryinsertion"><h1>WriteFunctionMemoryInsertion</h1></a>
 <p>Performs a write function memory insertion for single-band multi-date change detection.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/write_func_memory_insertion.rs">source code</a></p>
 <p><em>Parameters</em>:</p>

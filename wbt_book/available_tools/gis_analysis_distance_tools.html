@@ -146,7 +146,7 @@
 <li><a href="#EuclideanDistance">EuclideanDistance</a></li>
 </ul>
 <p><a name="BufferRaster"></a></p>
-<a class="header" href="#bufferraster" id="bufferraster"><h2>BufferRaster</h2></a>
+<a class="header" href="#bufferraster" id="bufferraster"><h1>BufferRaster</h1></a>
 <p>Maps a distance-based buffer around each non-background (non-zero/non-nodata) grid cell in an input image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/buffer_raster.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -169,7 +169,7 @@
 -i=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="CostAllocation"></a></p>
-<a class="header" href="#costallocation" id="costallocation"><h2>CostAllocation</h2></a>
+<a class="header" href="#costallocation" id="costallocation"><h1>CostAllocation</h1></a>
 <p>Identifies the source cell to which each grid cell is connected by a least-cost pathway in a cost-distance analysis.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_allocation.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -191,7 +191,7 @@
 -o='output.tif' 
 </code></pre>
 <p><a name="CostDistance"></a></p>
-<a class="header" href="#costdistance" id="costdistance"><h2>CostDistance</h2></a>
+<a class="header" href="#costdistance" id="costdistance"><h1>CostDistance</h1></a>
 <p>This tool can be used to perform cost-distance or least-cost pathway analyses. Specifically,
 this tool can be used to calculate the accumulated cost of traveling from the 'source grid
 cell' to each other grid cell in a raster dataset. It is based on the costs associated with
@@ -204,10 +204,10 @@ cost-accumulation surface raster (<code>--out_accum</code>), and the output back
 Source cells are designated as all positive, non-zero valued grid cells in the source raster.
 The cost (friction) raster can be created by combining the various cost factors associated with
 the specific problem (e.g. slope gradient, visibility, etc.) using a raster calculator or the
-<code>WeightedOverlay</code> tool.</p>
+<a href="./gis_analysis_overlay_tools.html#weightedoverlay"><strong>WeightedOverlay</strong></a> tool.</p>
 <p>While the cost-accumulation surface raster can be helpful for visualizing
 the three-dimensional characteristics of the 'cost landscape', it is actually the back-link raster
-that is used as inputs to the other two cost-distance tools, <code>CostAllocation</code> and <code>CostPathway</code>, to
+that is used as inputs to the other two cost-distance tools, <a href="./gis_analysis_distance_tools.html#costallocation"><strong>CostAllocation</strong></a> and <a href="./gis_analysis_distance_tools.html#costpathway"><strong>CostPathway</strong></a>, to
 determine the least-cost linkages among neighbouring grid cells on the cost surface. If the
 accumulated cost surface is analogous to a digital elevation model (DEM) then the back-link raster
 is equivalent to the D8 flow-direction pointer. In fact, it is created in a similar way and uses
@@ -217,7 +217,7 @@ what is used for depression filling and flow accumulation operations.</p>
 <p>NoData values in the input cost surface image are ignored during processing and assigned NoData values
 in the outputs. The output cost accumulation raster is of the float data type and continuous data scale.</p>
 <p><em>See Also</em>:</p>
-<p><code>CostAllocation</code>, <code>CostPathway</code>, <code>WeightedOverlay</code></p>
+<p><a href="./gis_analysis_distance_tools.html#costallocation"><strong>CostAllocation</strong></a>, <a href="./gis_analysis_distance_tools.html#costpathway"><strong>CostPathway</strong></a>, <a href="./gis_analysis_overlay_tools.html#weightedoverlay"><strong>WeightedOverlay</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_distance.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -240,7 +240,7 @@ in the outputs. The output cost accumulation raster is of the float data type an
 --out_backlink=backlink.tif 
 </code></pre>
 <p><a name="CostPathway"></a></p>
-<a class="header" href="#costpathway" id="costpathway"><h2>CostPathway</h2></a>
+<a class="header" href="#costpathway" id="costpathway"><h1>CostPathway</h1></a>
 <p>Performs cost-distance pathway analysis using a series of destination grid cells.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_pathway.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
@@ -264,19 +264,19 @@ in the outputs. The output cost accumulation raster is of the float data type an
 --output=cost_path.tif 
 </code></pre>
 <p><a name="EuclideanAllocation"></a></p>
-<a class="header" href="#euclideanallocation" id="euclideanallocation"><h2>EuclideanAllocation</h2></a>
+<a class="header" href="#euclideanallocation" id="euclideanallocation"><h1>EuclideanAllocation</h1></a>
 <p>This tool assigns grid cells in the output image the value of the nearest target cell in
 the input image, measured by the Euclidean distance (i.e. straight-line distance). Thus,
-<code>EuclideanAllocation</code> essentially creates the Voronoi diagram for a set of target cells.
+<a href="./gis_analysis_distance_tools.html#euclideanallocation"><strong>EuclideanAllocation</strong></a> essentially creates the Voronoi diagram for a set of target cells.
 Target cells are all non-zero, non-NoData grid cells in the input image. Distances are
-calculated using the same efficient algorithm (Shih and Wu, 2003) as the <code>EuclideanDistance</code>
+calculated using the same efficient algorithm (Shih and Wu, 2003) as the <a href="./gis_analysis_distance_tools.html#euclideandistance"><strong>EuclideanDistance</strong></a>
 tool.</p>
 <p><em>Reference</em>:
 s
 Shih FY and Wu Y-T (2004), Fast Euclidean distance transformation in two scans using a 3 x 3
 neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <p><em>See Also</em>:</p>
-<p><code>EuclideanDistance</code>, <code>VoronoiDiagram</code>, <code>CostAllocation</code></p>
+<p><a href="./gis_analysis_distance_tools.html#euclideandistance"><strong>EuclideanDistance</strong></a>, <a href="./gis_analysis.html#voronoidiagram"><strong>VoronoiDiagram</strong></a>, <a href="./gis_analysis_distance_tools.html#costallocation"><strong>CostAllocation</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/euclidean_allocation.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -294,7 +294,7 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
 <p><a name="EuclideanDistance"></a></p>
-<a class="header" href="#euclideandistance" id="euclideandistance"><h2>EuclideanDistance</h2></a>
+<a class="header" href="#euclideandistance" id="euclideandistance"><h1>EuclideanDistance</h1></a>
 <p>This tool will estimate the Euclidean distance (i.e. straight-line distance) between each
 grid cell and the nearest 'target cell' in the input image. Target cells are all non-zero,
 non-NoData grid cells. Distance in the output image is measured in the same units as the
@@ -313,7 +313,7 @@ s
 Shih FY and Wu Y-T (2004), Fast Euclidean distance transformation in two scans using a 3 x 3
 neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <p><em>See Also</em>:</p>
-<p><code>EuclideanAllocation</code>, <code>CostDistance</code></p>
+<p><a href="./gis_analysis_distance_tools.html#euclideanallocation"><strong>EuclideanAllocation</strong></a>, <a href="./gis_analysis_distance_tools.html#costdistance"><strong>CostDistance</strong></a></p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/euclidean_distance.rs">source code</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
