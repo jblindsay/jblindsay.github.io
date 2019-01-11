@@ -147,8 +147,23 @@
 </ul>
 <p><a name="BufferRaster"></a></p>
 <a class="header" href="#bufferraster" id="bufferraster"><h1>BufferRaster</h1></a>
-<p>Maps a distance-based buffer around each non-background (non-zero/non-nodata) grid cell in an input image.</p>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/buffer_raster.rs">source code</a></p>
+<p>This tool can be used to identify an area of interest within a specified distance of
+features of interest in a raster data set.</p>
+<p>The Euclidean distance (i.e. straight-line distance) is calculated between each grid
+cell and the nearest 'target cell' in the input image. Distance is calcualted using the
+efficient method of Shih and Wu (2004). Target cells are all non-zero,
+non-NoData grid cells. Because NoData values in the input image are assigned the NoData
+value in the output image, the only valid background value in the input image is zero.</p>
+<p>The user must specify the input and output image names, the desired buffer size (<code>--size</code>), and,
+optionally, whether the distance units are measured in grid cells (i.e. <code>--gridcells</code> flag).
+If the <code>--gridcells</code> flag is not specified, the linear units of the raster's coordinate
+reference system will be used.</p>
+<p><em>Reference</em>:</p>
+<p>Shih FY and Wu Y-T (2004), Fast Euclidean distance transformation in two scans using a 3 x 3
+neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_distance_tools.html#euclideandistance"><strong>EuclideanDistance</strong></a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/buffer_raster.rs">Source code on GitHub</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -168,10 +183,22 @@
 <pre><code>&gt;&gt;./whitebox_tools -r=BufferRaster -v --wd=&quot;/path/to/data/&quot; ^
 -i=DEM.tif -o=output.tif 
 </code></pre>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="CostAllocation"></a></p>
 <a class="header" href="#costallocation" id="costallocation"><h1>CostAllocation</h1></a>
-<p>Identifies the source cell to which each grid cell is connected by a least-cost pathway in a cost-distance analysis.</p>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_allocation.rs">source code</a></p>
+<p>This tool can be used to identify the 'catchment area' of each source grid cell in a
+cost-distance analysis. The user must specify the names of the input <em>source</em> and
+<em>back-link</em> raster files. Source cells (i.e. starting points for the cost-distance or
+least-cost path analysis) are designated as all positive, non-zero valued grid cells
+in the <em>source</em> raster. A <em>back-link</em> raster file can be created using the <a href="./gis_analysis_distance_tools.html#costdistance"><strong>CostDistance</strong></a>
+tool and is conceptually similar to the D8 flow-direction pointer raster grid in that
+it describes the connectivity between neighbouring cells on the accumulated cost surface.</p>
+<p>NoData values in the input <em>back-link</em> image are assigned NoData values in the output
+image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_distance_tools.html#costdistance"><strong>CostDistance</strong></a>, <a href="./gis_analysis_distance_tools.html#costpathway"><strong>CostPathway</strong></a>, <a href="./gis_analysis_distance_tools.html#euclideanallocation"><strong>EuclideanAllocation</strong></a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_allocation.rs">Source code on GitHub</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--source           </td><td> Input source raster file</td></tr>
@@ -190,6 +217,8 @@
 --source='source.tif' --backlink='backlink.tif' ^
 -o='output.tif' 
 </code></pre>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: July 4, 2017</p>
 <p><a name="CostDistance"></a></p>
 <a class="header" href="#costdistance" id="costdistance"><h1>CostDistance</h1></a>
 <p>This tool can be used to perform cost-distance or least-cost pathway analyses. Specifically,
@@ -218,7 +247,7 @@ what is used for depression filling and flow accumulation operations.</p>
 in the outputs. The output cost accumulation raster is of the float data type and continuous data scale.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./gis_analysis_distance_tools.html#costallocation"><strong>CostAllocation</strong></a>, <a href="./gis_analysis_distance_tools.html#costpathway"><strong>CostPathway</strong></a>, <a href="./gis_analysis_overlay_tools.html#weightedoverlay"><strong>WeightedOverlay</strong></a></p>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_distance.rs">source code</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_distance.rs">Source code on GitHub</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--source           </td><td> Input source raster file</td></tr>
@@ -239,10 +268,22 @@ in the outputs. The output cost accumulation raster is of the float data type an
 --source=src.tif --cost=cost.tif --out_accum=accum.tif ^
 --out_backlink=backlink.tif 
 </code></pre>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: July 4, 2017</p>
 <p><a name="CostPathway"></a></p>
 <a class="header" href="#costpathway" id="costpathway"><h1>CostPathway</h1></a>
-<p>Performs cost-distance pathway analysis using a series of destination grid cells.</p>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_pathway.rs">source code</a></p>
+<p>This tool can be used to map the least-cost pathway connecting each destination grid cell
+in a cost-distance analysis to a source cell. The user must specify the names of the input
+<em>destination</em> and <em>back-link</em> raster files. Destination cells (i.e. end points for the
+least-cost path analysis) are designated as all positive, non-zero valued grid cells in the
+<em>destination</em> raster. A <em>back-link</em> raster file can be created using the <a href="./gis_analysis_distance_tools.html#costdistance"><strong>CostDistance</strong></a>
+tool and is conceptually similar to the D8 flow-direction pointer raster grid in that it
+describes the connectivity between neighbouring cells on the accumulated cost surface. All
+background grid cells in the output image are assigned the NoData value.</p>
+<p>NoData values in the input <em>back-link</em> image are assigned NoData values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_distance_tools.html#costdistance"><strong>CostDistance</strong></a>, <a href="./gis_analysis_distance_tools.html#costallocation"><strong>CostAllocation</strong></a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_pathway.rs">Source code on GitHub</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--destination      </td><td> Input destination raster file</td></tr>
@@ -263,6 +304,8 @@ in the outputs. The output cost accumulation raster is of the float data type an
 --destination=dst.tif --backlink=backlink.tif ^
 --output=cost_path.tif 
 </code></pre>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: July 4, 2017</p>
 <p><a name="EuclideanAllocation"></a></p>
 <a class="header" href="#euclideanallocation" id="euclideanallocation"><h1>EuclideanAllocation</h1></a>
 <p>This tool assigns grid cells in the output image the value of the nearest target cell in
@@ -271,13 +314,12 @@ the input image, measured by the Euclidean distance (i.e. straight-line distance
 Target cells are all non-zero, non-NoData grid cells in the input image. Distances are
 calculated using the same efficient algorithm (Shih and Wu, 2003) as the <a href="./gis_analysis_distance_tools.html#euclideandistance"><strong>EuclideanDistance</strong></a>
 tool.</p>
-<p><em>Reference</em>:
-s
-Shih FY and Wu Y-T (2004), Fast Euclidean distance transformation in two scans using a 3 x 3
+<p><em>Reference</em>:</p>
+<p>Shih FY and Wu Y-T (2004), Fast Euclidean distance transformation in two scans using a 3 x 3
 neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./gis_analysis_distance_tools.html#euclideandistance"><strong>EuclideanDistance</strong></a>, <a href="./gis_analysis.html#voronoidiagram"><strong>VoronoiDiagram</strong></a>, <a href="./gis_analysis_distance_tools.html#costallocation"><strong>CostAllocation</strong></a></p>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/euclidean_allocation.rs">source code</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/euclidean_allocation.rs">Source code on GitHub</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -293,6 +335,8 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EuclideanAllocation -v ^
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: June 22 2017</p>
 <p><a name="EuclideanDistance"></a></p>
 <a class="header" href="#euclideandistance" id="euclideandistance"><h1>EuclideanDistance</h1></a>
 <p>This tool will estimate the Euclidean distance (i.e. straight-line distance) between each
@@ -308,13 +352,12 @@ transforming them into true Euclidean distances, and deals with NoData values th
 present. All NoData value grid cells in the input image will contain NoData values in the
 output image. As such, NoData is not a suitable background value for non-target cells.
 Background areas should be designated with zero values.</p>
-<p><em>Reference</em>:
-s
-Shih FY and Wu Y-T (2004), Fast Euclidean distance transformation in two scans using a 3 x 3
+<p><em>Reference</em>:</p>
+<p>Shih FY and Wu Y-T (2004), Fast Euclidean distance transformation in two scans using a 3 x 3
 neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./gis_analysis_distance_tools.html#euclideanallocation"><strong>EuclideanAllocation</strong></a>, <a href="./gis_analysis_distance_tools.html#costdistance"><strong>CostDistance</strong></a></p>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/euclidean_distance.rs">source code</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/euclidean_distance.rs">Source code on GitHub</a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -330,6 +373,8 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EuclideanDistance -v ^
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: June 22 2017</p>
 
                     </main>
 
