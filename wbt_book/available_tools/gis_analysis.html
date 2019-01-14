@@ -326,14 +326,16 @@ multi-part features a single entity.</p>
 <p><a name="Clump"></a></p>
 <a class="header" href="#clump" id="clump"><h1>Clump</h1></a>
 <p>This tool re-categorizes data in a raster image by grouping cells that form
-discrete, connected areas into unique categories. Essentially this will produce
+discrete, contiguous areas into unique categories. Essentially this will produce
 a patch map from an input categorical raster, assigning each feature unique
 identifiers. The input raster should either be
 Boolean (1's and 0's) or categorical. The input raster could be created using
 the <a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a> tool or one of the comparison operators (<a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a>, <a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a>,
 <a href="./mathand_stats_tools.html#equalto"><strong>EqualTo</strong></a>, <a href="./mathand_stats_tools.html#notequalto"><strong>NotEqualTo</strong></a>). Use the <em>treat zeros as background cells</em> options
 (<code>--zero_back</code>) if you would like to only assigned contiguous groups of non-zero
-values in the raster unique identifiers.</p>
+values in the raster unique identifiers. Additionally, inter-cell connectivity
+can optionally include diagonally neighbouring cells if the <code>--diag</code> flag is
+specified.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a>, <a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a>, <a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a>, <a href="./mathand_stats_tools.html#equalto"><strong>EqualTo</strong></a>, <a href="./mathand_stats_tools.html#notequalto"><strong>NotEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -569,7 +571,9 @@ must be of a POLYLINE base shape type and should be in a projected coordinate sy
 <p><em>Created</em>: 20/09/2018</p>
 <p><a name="ExtractNodes"></a></p>
 <a class="header" href="#extractnodes" id="extractnodes"><h1>ExtractNodes</h1></a>
-<p>Converts vector lines or polygons into vertex points.</p>
+<p>This tool converts vector lines or polygons into vertex points. The user must specify the
+name of the input vector, which must be of a polyline or polygon base shape type, and
+the name of the output point-type vector.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector lines or polygon file</td></tr>

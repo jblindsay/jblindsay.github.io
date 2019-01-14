@@ -495,7 +495,7 @@ print(&quot;Complete!&quot;)
 python3 wb_runner.py
 </code></pre>
 <a class="header" href="#whiteboxtools-qgis-plugin" id="whiteboxtools-qgis-plugin"><h1>WhiteboxTools QGIS Plugin</h1></a>
-<p><em>WhiteboxTools</em> functionality can also be accessed conveniently through the popular open-source geospatial software QGIS. QGIS developer <a href="https://wiki.osgeo.org/wiki/User:Alexbruy">Alexander Bruy</a> maintains a plugin for the toolbox called <a href="https://plugins.bruy.me/processing-whitebox.html">Whitebox For Processing</a>. Detailed instructions for installing and setting-up the QGIS toolbox can be found on the site.</p>
+<p><em>WhiteboxTools</em> functionality can also be accessed conveniently through the popular open-source geospatial software QGIS. QGIS developer <a href="https://wiki.osgeo.org/wiki/User:Alexbruy">Alexander Bruy</a> maintains a plugin for the toolbox called <a href="https://plugins.bruy.me/processing-whitebox.html">Whitebox For Processing</a>. The plugin works for QGIS v3 but cannot be installed on the earlier v2 series. Detailed instructions for installing and setting-up the QGIS toolbox can be found on the site.</p>
 <p><img src="img/QGIS_plugin.png" alt="The WhiteboxTools QGIS plugin toolbox" /></p>
 <blockquote>
 <p>Note that the QGIS plugin does not come with a copy of the <em>WhiteboxTools</em> executable and so you will still need to download <em>WhiteboxTools</em> from the Geomorphometry and Hydrogeomatics Research Group website prior to running the plugin.</p>
@@ -1273,7 +1273,34 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 </ul>
 <p><a name="Aspect"></a></p>
 <a class="header" href="#aspect" id="aspect"><h1>Aspect</h1></a>
-<p>Calculates an aspect raster from an input DEM.</p>
+<p>This tool calculates slope aspect (i.e. slope orientation in degrees) for each grid cell
+in an input digital elevation model (DEM). The user must specify the name of the input
+DEM (<code>--dem</code>) and the output raster image. The <em>Z conversion factor</em> is only important
+when the vertical and horizontal units are not the same in the DEM. When this is the case,
+the algorithm will multiply each elevation in the DEM by the Z conversion factor. If the
+DEM is in the geographic coordinate system (latitude and longitude), the following equation
+is used:</p>
+<pre><code>zfactor = 1.0 / (113200.0 x cos(mid_lat))
+</code></pre>
+<p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
+<p>The tool uses Horn's (1981) 3rd-order finite difference method to estimate slope. Given
+the following clock-type grid cell numbering scheme (Gallant and Wilson, 2000),</p>
+<p>|  7  |  8  |  1  | <br />
+|  6  |  9  |  2  | <br />
+|  5  |  4  |  3  |</p>
+<pre><code>aspect = 180 - arctan(fy / fx) + 90(fx / |fx|)
+</code></pre>
+<p>where,</p>
+<pre><code>fx = (z3 - z5 + 2(z2 - z6) + z1 - z7)
+</code></pre>
+<p>and,</p>
+<pre><code>fy = (z7 - z5 + 2(z8 - z4) + z1 - z3)
+</code></pre>
+<p><em>Reference</em>:</p>
+<p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
+and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#plancurvature"><strong>PlanCurvature</strong></a>, <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2895,14 +2922,16 @@ multi-part features a single entity.</p>
 <p><a name="Clump"></a></p>
 <a class="header" href="#clump" id="clump"><h1>Clump</h1></a>
 <p>This tool re-categorizes data in a raster image by grouping cells that form
-discrete, connected areas into unique categories. Essentially this will produce
+discrete, contiguous areas into unique categories. Essentially this will produce
 a patch map from an input categorical raster, assigning each feature unique
 identifiers. The input raster should either be
 Boolean (1's and 0's) or categorical. The input raster could be created using
 the <a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a> tool or one of the comparison operators (<a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a>, <a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a>,
 <a href="./mathand_stats_tools.html#equalto"><strong>EqualTo</strong></a>, <a href="./mathand_stats_tools.html#notequalto"><strong>NotEqualTo</strong></a>). Use the <em>treat zeros as background cells</em> options
 (<code>--zero_back</code>) if you would like to only assigned contiguous groups of non-zero
-values in the raster unique identifiers.</p>
+values in the raster unique identifiers. Additionally, inter-cell connectivity
+can optionally include diagonally neighbouring cells if the <code>--diag</code> flag is
+specified.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a>, <a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a>, <a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a>, <a href="./mathand_stats_tools.html#equalto"><strong>EqualTo</strong></a>, <a href="./mathand_stats_tools.html#notequalto"><strong>NotEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -3138,7 +3167,9 @@ must be of a POLYLINE base shape type and should be in a projected coordinate sy
 <p><em>Created</em>: 20/09/2018</p>
 <p><a name="ExtractNodes"></a></p>
 <a class="header" href="#extractnodes" id="extractnodes"><h1>ExtractNodes</h1></a>
-<p>Converts vector lines or polygons into vertex points.</p>
+<p>This tool converts vector lines or polygons into vertex points. The user must specify the
+name of the input vector, which must be of a polyline or polygon base shape type, and
+the name of the output point-type vector.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector lines or polygon file</td></tr>
@@ -7394,7 +7425,27 @@ Techniques and Applications (DICTA), 2010 International Conference on.</p>
 <p><em>Created</em>: 19/05/2019</p>
 <p><a name="GaussianFilter"></a></p>
 <a class="header" href="#gaussianfilter" id="gaussianfilter"><h1>GaussianFilter</h1></a>
-<p>Performs a Gaussian filter on an image.</p>
+<p>This tool can be used to perform a Gaussian filter on a raster image. A Gaussian filter
+can be used to emphasize the longer-range variability in an image, effectively acting to
+smooth the image. This can be useful for reducing the noise in an image. The algorithm
+operates by convolving a kernel of weights with each grid cell and its neighbours in an
+image. The weights of the convolution kernel are determined by the 2-dimensional Gaussian
+(i.e. normal) curve, which gives stronger weighting to cells nearer the kernel centre. It
+is this characteristic that makes the Gaussian filter an attractive alternative for image
+smoothing and noise reduction than the <a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>. The size of the filter is determined
+by setting the standard deviation parameter (<code>--sigma</code>), which is in units of grid cells;
+the larger the standard deviation the larger the resulting filter kernel. The standard
+deviation can be any number in the range 0.5-20.</p>
+<p><a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a> works with both greyscale and red-green-blue (RGB) images. RGB images are
+decomposed into intensity-hue-saturation (IHS) and the filter is applied to the intensity
+channel. NoData values in the input image are ignored during processing.</p>
+<p>Like many low-pass filters, Gaussian filtering can signficantly blur well-defined edges in
+the input image. The <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a> and <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a> offer more robust
+feature preservation during image smoothing. <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a> is relatively slow compared to
+the <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a> tool, which offers a fast-running approximatation to a
+Gaussian filter for larger kernel sizes.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7610,7 +7661,20 @@ Techniques and Applications (DICTA), 2010 International Conference on.</p>
 <p><em>Created</em>: July 11, 2017</p>
 <p><a name="MajorityFilter"></a></p>
 <a class="header" href="#majorityfilter" id="majorityfilter"><h1>MajorityFilter</h1></a>
-<p>Assigns each cell in the output grid the most frequently occurring value (mode) in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool performs a majority (or modal) filter on a raster image. A mode filter assigns each
+cell in the output grid the most commonly occurring value, i.e. mode, in a moving window centred
+on each grid cell. Mode filters should only be applied to input images of a categorical data
+scale. The input image should contain integer values but floating point data will be handled using a multiplier.
+Because it requires binning the values in the window, a relatively computationally intensive
+task, <a href="./image_processing_tools_filters.html#majorityfilter"><strong>MajorityFilter</strong></a> is considerably less efficient than other smoothing filters. This may pose a problem
+for large images or large neighbourhoods. Like all WhiteboxTools' filters, however, this tool is
+parallelized, benefitting from multi-core processors.</p>
+<p>Neighbourhood size, or filter size, is determined by the user-defined x and y dimensions. These dimensions
+should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
+<p>NoData values in the input image are ignored during filtering. When the neighbourhood around a grid cell extends
+beyond the edge of the grid, NoData values are assigned to these sites.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7660,7 +7724,24 @@ Techniques and Applications (DICTA), 2010 International Conference on.</p>
 <p><em>Created</em>: June 26, 2017</p>
 <p><a name="MeanFilter"></a></p>
 <a class="header" href="#meanfilter" id="meanfilter"><h1>MeanFilter</h1></a>
-<p>Performs a mean filter (low-pass filter) on an input image.</p>
+<p>This tool performs a mean filter operation on a raster image. A mean filter, a type of low-pass filter, can be
+used to emphasize the longer-range variability in an image, effectively acting to smooth the image. This can be
+useful for reducing the noise in an image. This tool utilized an integral image approach (Crow, 1984) to ensure highly
+efficient filtering that is invariant to filter size. The algorithm operates by calculating the average value
+in a moving window centred on each grid cell.  Neighbourhood size, or filter size, is specified in the x and y
+dimensions using the <code>--filterx</code> and <code>--filtery</code>flags. These dimensions should be odd, positive integer values,
+e.g. 3, 5, 7, 9... If the kernel filter size is the same in the x and y dimensions, the silent <code>--filter</code> flag
+may be used instead (command-line interface only).</p>
+<p>Although commonly applied in digital image processing, mean filters are
+generally considered to be quite harsh, with respect to their impact on the image, compared to other smoothing
+filters such as the edge-preserving smoothing filters including the <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools_filters.html#olympicfilter"><strong>OlympicFilter</strong></a>,
+<a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a> and even <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>.</p>
+<p><a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a> works with both greyscale and red-green-blue (RGB) images. RGB images are
+decomposed into intensity-hue-saturation (IHS) and the filter is applied to the intensity
+channel. NoData values in the input image are ignored during filtering. NoData values are assigned to all sites beyond
+the raster.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7685,7 +7766,19 @@ Techniques and Applications (DICTA), 2010 International Conference on.</p>
 <p><em>Created</em>: June 25, 2017</p>
 <p><a name="MedianFilter"></a></p>
 <a class="header" href="#medianfilter" id="medianfilter"><h1>MedianFilter</h1></a>
-<p>Performs an efficient median filter based on Huang, Yang, and Tang's (1979) method.</p>
+<p>This tool performs a median filter on a raster image. Median filters, a type of low-pass filter, can be used to emphasize
+the longer-range variability in an image, effectively acting to smooth the image. This can be useful for reducing the
+noise in an image. The algorithm operates by calculating the median value (middle value in a sorted list) in a moving
+window centred on each grid cell. Specifically, this tool uses the efficient running-median filtering algorithm of Huang
+et al. (1979). The median value is not influenced by anomolously high or low values in the distribution to the extent
+that the average is. As such, the median filter is far less sensitive to shot noise in an image than the mean filter.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>flags.
+These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
+<p><em>Reference</em>:</p>
+<p>Huang, T., Yang, G.J.T.G.Y. and Tang, G., 1979. A fast two-dimensional median filtering algorithm. IEEE
+Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
