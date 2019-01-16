@@ -187,13 +187,14 @@ main()
 </code></pre>
 <blockquote>
 <p><strong>Notes</strong>: Python is a space-sensitive programming language and you need to have the indentations absolutely correct in your script for it to run correctly. This is something that can often go wrong when you are copying and pasting code into a script file. Also, you will need to change the line <code>working_dir = &quot;/path/to/landsat/data/&quot;</code> to the folder containing your image data. <strong>Important if you are running this script on a computer running Microsoft Windows</strong>: Windows uses the backslash-slash (\) as the directory path separator but this is famously difficult for writing strings (i.e. text variables) containing file paths because \ is an <a href="https://en.wikipedia.org/wiki/Escape_character">escape character</a> in all programming languages. To deal with this, you must represent your variables containing paths in one of the following ways:</p>
-<pre><code class="language-python"># uses an escaped forward character (\\)
+<pre><code class="language-python"># Uses an escaped forward character (\\)
 wbt.work_dir = &quot;\\path\\to\\landsat\\data\\&quot;
 
-# uses a 'raw string' in which '\' is interpreted without escaped characters
-wbt.work_dir = r&quot;\path\to\landsat\data\&quot;
+# Uses a 'raw string' in which '\' is interpreted without escaped characters.
+# Because raw strings can't end with a '\', we must use double &quot; at the end.
+wbt.work_dir = r&quot;\path\to\landsat\data\&quot;&quot;
 
-# Python will also properly interpret directories using the forward
+# Python should also properly interpret directories using the forward
 # slash on Windows.
 wbt.work_dir = &quot;/path/to/landsat/data/&quot;
 </code></pre>
