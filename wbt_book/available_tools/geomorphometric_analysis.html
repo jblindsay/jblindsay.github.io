@@ -197,22 +197,26 @@ when the vertical and horizontal units are not the same in the DEM. When this is
 the algorithm will multiply each elevation in the DEM by the Z conversion factor. If the
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
-<pre><code>zfactor = 1.0 / (113200.0 x cos(mid_lat))
-</code></pre>
+<blockquote>
+<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+</blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The tool uses Horn's (1981) 3rd-order finite difference method to estimate slope. Given
 the following clock-type grid cell numbering scheme (Gallant and Wilson, 2000),</p>
 <p>|  7  |  8  |  1  | <br />
 |  6  |  9  |  2  | <br />
 |  5  |  4  |  3  |</p>
-<pre><code>aspect = 180 - arctan(fy / fx) + 90(fx / |fx|)
-</code></pre>
+<blockquote>
+<p>aspect = 180 - arctan(f<sub>y</sub> / f<sub>x</sub>) + 90(f<sub>x</sub> / |f<sub>x</sub>|)</p>
+</blockquote>
 <p>where,</p>
-<pre><code>fx = (z3 - z5 + 2(z2 - z6) + z1 - z7)
-</code></pre>
+<blockquote>
+<p>f<sub>x</sub> = (z<sub>3</sub> - z<sub>5</sub> + 2(z<sub>2</sub> - z<sub>6</sub>) + z<sub>1</sub> - z<sub>7</sub>)</p>
+</blockquote>
 <p>and,</p>
-<pre><code>fy = (z7 - z5 + 2(z8 - z4) + z1 - z3)
-</code></pre>
+<blockquote>
+<p>f<sub>y</sub> = (z<sub>7</sub> - z<sub>5</sub> + 2(z<sub>8</sub> - z<sub>4</sub>) + z<sub>1</sub> - z<sub>3</sub>)</p>
+</blockquote>
 <p><em>Reference</em>:</p>
 <p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
 and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
@@ -243,11 +247,18 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p>This tool can be used to calculate the difference between the elevation of each grid
 cell and the mean elevation of the centering local neighbourhood, normalized by standard
 deviation. Therefore, this index of topographic residual is essentially equivalent to a
-local z-score. This attribute measures the relative topographic position as a fraction of
-local relief, and so is normalized to the local surface roughness.</p>
+local z-score. This attribute measures the <em>relative topographic position</em> as a fraction of
+local relief, and so is normalized to the local surface roughness. <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>
+utilizes an integral image approach (Crow, 1984) to ensure highly efficient filtering that
+is invariant with filter size.</p>
 <p>The user must specify the name (<code>--dem</code>) of the input digital elevation model (DEM), the
 name of the output file (<code>--output</code>), and the size of the neighbourhood in the <em>x</em> and <em>y</em>
 directions (<code>--filterx</code> and <code>--filtery</code>), measured in grid size.</p>
+<p>While <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a> calculates the deviation from mean elevation (DEV) at a single, user-defined
+scale, the <a href="./geomorphometric_analysis.html#maxelevationdeviation"><strong>MaxElevationDeviation</strong></a> tool can be used to output the per-pixel maximum DEV
+value across a range of input scales.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxelevationdeviation"><strong>MaxElevationDeviation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -273,7 +284,20 @@ directions (<code>--filterx</code> and <code>--filtery</code>), measured in grid
 <p><em>Created</em>: June 21, 2017</p>
 <p><a name="DiffFromMeanElev"></a></p>
 <a class="header" href="#difffrommeanelev" id="difffrommeanelev"><h1>DiffFromMeanElev</h1></a>
-<p>Calculates difference from mean elevation (equivalent to a high-pass filter).</p>
+<p>This tool can be used to calculate the difference between the elevation of each grid
+cell and the mean elevation of the centering local neighbourhood. This is similar to what a high-pass
+filter calculates for imagery data, but is intended to work with DEM data instead. This attribute
+measures the <em>relative topographic position</em>. <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>
+utilizes an integral image approach (Crow, 1984) to ensure highly efficient filtering that
+is invariant with filter size.</p>
+<p>The user must specify the name (<code>--dem</code>) of the input digital elevation model (DEM), the
+name of the output file (<code>--output</code>), and the size of the neighbourhood in the <em>x</em> and <em>y</em>
+directions (<code>--filterx</code> and <code>--filtery</code>), measured in grid size.</p>
+<p>While <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a> calculates the DIFF at a single, user-defined
+scale, the <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a> tool can be used to output the per-pixel maximum DIFF
+value across a range of input scales.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -299,7 +323,31 @@ directions (<code>--filterx</code> and <code>--filtery</code>), measured in grid
 <p><em>Created</em>: June 25, 2017</p>
 <p><a name="DirectionalRelief"></a></p>
 <a class="header" href="#directionalrelief" id="directionalrelief"><h1>DirectionalRelief</h1></a>
-<p>Calculates relief for cells in an input DEM for a specified direction.</p>
+<p>This tool calculates the relief for each grid cell in a digital elevation model (DEM) in a specified direction.
+Directional relief is an index of the degree to which a DEM grid cell is higher or lower than its surroundings.
+It is calculated by subtracting the elevation of a DEM grid cell from the average elevation of those cells which
+lie between it and the edge of the DEM in a specified compass direction. Thus, positive values indicate that a
+grid cell is lower than the average elevation of the grid cells in a specific direction (i.e. relatively sheltered),
+whereas a negative directional relief indicates that the grid cell is higher (i.e. relatively exposed). The
+algorithm is based on a modification of the procedure described by Lapen and Martz (1993). The modifications
+include: (1) the ability to specify any direction between 0-degrees and 360-degrees (<code>--azimuth</code>), and (2) the ability to use
+a distance-limited search (<code>--max_dist</code>), such that the ray-tracing procedure terminates before the DEM edge is
+reached for longer search paths. The algorithm works by tracing a ray from each grid cell in the direction of
+interest and evaluating the average elevation along the ray. Linear interpolation is used to estimate the elevation
+of the surface where a ray does not intersect the DEM grid precisely at one of its nodes. The user must specify the
+name of an input DEM raster file, the output raster name, and a hypothetical wind direction. Furthermore, the user
+is able to constrain the maximum search distance for the ray tracing. If no maximum search distance is specified,
+each ray will be traced to the edge of the DEM. The units of the output image are the same as the input DEM.</p>
+<p>Ray-tracing is a highly computationally intensive task and therefore this tool may take considerable time to operate
+for larger sized DEMs. This tool is parallelized to aid with computational efficiency. NoData valued grid cells in the
+input image will be assigned NoData values in the output image. The output raster is of the float data type and
+continuous data scale. Directional relief is best displayed using the blue-white-red bipolar palette to distinguish
+between the positive and negative values that are present in the output.</p>
+<p><em>Reference</em>:</p>
+<p>Lapen, D. R., &amp; Martz, L. W. (1993). The measurement of two simple topographic indices of wind sheltering-exposure
+from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-779.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>, <a href="./geomorphometric_analysis.html#relativeaspect"><strong>RelativeAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -322,7 +370,7 @@ directions (<code>--filterx</code> and <code>--filtery</code>), measured in grid
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/directional_relief.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 7, 2017</p>
+<p><em>Created</em>: 07/07/2017</p>
 <p><a name="DownslopeIndex"></a></p>
 <a class="header" href="#downslopeindex" id="downslopeindex"><h1>DownslopeIndex</h1></a>
 <p>This tool can be used to calculate the downslope index described by Hjerdt et al. (2004).
@@ -418,7 +466,13 @@ rills, gullies, etc., which would otherwise be smoothed over.</p>
 <p><em>Created</em>: 06/09/2018</p>
 <p><a name="ElevAbovePit"></a></p>
 <a class="header" href="#elevabovepit" id="elevabovepit"><h1>ElevAbovePit</h1></a>
-<p>Calculate the elevation of each grid cell above the nearest downstream pit cell or grid edge cell.</p>
+<p>This tool will calculate the elevation of each grid cell in a digital elevation model (DEM) above the nearest
+downslope pit cell or grid edge cell, depending on which is encountered first during the flow-path traverse.
+The resulting image is therefore a measure of relative landscape position. The user must specify the names of
+a D8 flow pointer grid, a DEM file, and the output file. The flow pointer grid must be derived using the D8
+flow algorithm.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -436,10 +490,42 @@ rills, gullies, etc., which would otherwise be smoothed over.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_above_pit.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="ElevPercentile"></a></p>
 <a class="header" href="#elevpercentile" id="elevpercentile"><h1>ElevPercentile</h1></a>
-<p>Calculates the elevation percentile raster from a DEM.</p>
+<p>Elevation percentile (EP) is a measure of local topographic position (LTP). It expresses the vertical
+position for a digital elevation model (DEM) grid cell (z<sub>0</sub>) as the percentile of the
+elevation distribution within the filter window, such that:</p>
+<blockquote>
+<p>EP = count<sub>i∈C</sub>(z<sub>i</sub> &gt; z<sub>0</sub>) x (100 / n<sub>C</sub>)</p>
+</blockquote>
+<p>where z<sub>0</sub> is the elevation of the window's center grid cell, z<sub>i</sub> is the elevation
+of cell <em>i</em> contained within the neighboring set C, and n<sub>C</sub> is the number
+of grid cells contained within the window.</p>
+<p>EP is unsigned and expressed as a percentage, bound between 0%
+and 100%. Quantile-based estimates (e.g., the median and interquartile
+range) are often used in nonparametric statistics to provide data
+variability estimates without assuming the distribution is normal.
+Thus, EP is largely unaffected by irregularly shaped elevation frequency
+distributions or by outliers in the DEM, resulting in a highly robust metric
+of LTP. In fact, elevation distributions within small to medium sized
+neighborhoods often exhibit skewed, multimodal, and non-Gaussian
+distributions, where the occurrence of elevation errors can often result
+in distribution outliers. Thus, based on these statistical characteristics,
+EP is considered one of the most robust representation of LTP.</p>
+<p>The algorithm implemented by this tool uses the relatively efficient running-histogram filtering algorithm of Huang
+et al. (1979). Because most DEMs contain floating point data, elevation values must be rounded to be binned. The
+<code>--sig_digits</code> parameter is used to determine the level of precision preserved during this binning process. The
+algorithm is parallelized to further aid with computational efficiency.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>flags.
+These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
+<p><em>References</em>:</p>
+<p>Newman, D. R., Lindsay, J. B., &amp; Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
+for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
+<p>Huang, T., Yang, G.J.T.G.Y. and Tang, G., 1979. A fast two-dimensional median filtering algorithm. IEEE
+Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -466,7 +552,11 @@ rills, gullies, etc., which would otherwise be smoothed over.</p>
 <p><em>Created</em>: June 22, 2017</p>
 <p><a name="ElevRelativeToMinMax"></a></p>
 <a class="header" href="#elevrelativetominmax" id="elevrelativetominmax"><h1>ElevRelativeToMinMax</h1></a>
-<p>Calculates the elevation of a location relative to the minimum and maximum elevations in a DEM.</p>
+<p>This tool can be used to express the elevation of a grid cell in a digital elevation model (DEM) as a
+percentage of the relief between the DEM minimum and maximum values. As such, it provides a basic
+measure of relative topographic position.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a>, <a href="./geomorphometric_analysis.html#elevabovepit"><strong>ElevAbovePit</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -909,7 +999,36 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 <p><em>Created</em>: March 1, 2018</p>
 <p><a name="MaxElevationDeviation"></a></p>
 <a class="header" href="#maxelevationdeviation" id="maxelevationdeviation"><h1>MaxElevationDeviation</h1></a>
-<p>Calculates the maximum elevation deviation over a range of spatial scales.</p>
+<p>This tool can be used to calculate the maximum deviation from mean elevation, <em>DEVmax</em> (Lindsay et al. 2015) for each
+grid cell in a digital elevation model (DEM) across a range specified spatial scales. <em>DEV</em>
+is an elevation residual index and is essentially equivalent to a local elevation z-score.
+This attribute measures the <em>relative topographic position</em> as a fraction of
+local relief, and so is normalized to the local surface roughness. The multi-scaled calculation
+of <em>DEVmax</em> utilizes an integral image approach (Crow, 1984) to ensure highly efficient
+filtering that is invariant with filter size, which is the algorithm characteristic that allows for
+this densely sampled multi-scale analysis. In this way, <a href="./geomorphometric_analysis.html#maxelevationdeviation"><strong>MaxElevationDeviation</strong></a> allows users
+to estimate the locally optimal scale with which to estimate <em>DEV</em> on a pixel-by-pixel basis.
+This multi-scaled version of local topographic position can reveal significant terrain
+characteristics and can aid with soil, vegetation, landform, and other mapping applications
+that depend on geomorphometric characterization.</p>
+<p>The user must specify the name (<code>--dem</code>) of the input digital elevation model (DEM). The range of scales that are
+evaluated in calculating <em>DEVmax</em> are determined by the user-specified <code>--min_scale</code>, <code>--max_scale</code>, and <code>--step</code>
+parameters. All filter radii between the minimum and maximum scales, increasing by <code>step</code>, will be evaluated.
+The scale parameters are in units of grid cells and specify kernel size &quot;radii&quot; (<em>r</em>), such that:</p>
+<blockquote>
+<p><em>d</em> = 2<em>r</em> + 1</p>
+</blockquote>
+<p>That is, a radii of 1, 2, 3... yields a square filters of dimension (<em>d</em>) 3 x 3, 5 x 5, 7 x 7...</p>
+<p><em>DEV</em> is estimated at each tested filter size and every grid cell is assigned the maximum <em>DEV</em> value
+across the evaluated scales.</p>
+<p>The user must specify the file names of two output rasters, including the magnitude (<em>DEVmax</em>) and a
+second raster the assigns each pixel the scale at which <em>DEVmax</em> is encountered (<em>DEVscale</em>). The
+<em>DEVscale</em> raster can be very useful for revealing multi-scale landscape structure.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay J, Cockburn J, Russell H. 2015. An integral image approach to performing multi-scale
+topographic position analysis. Geomorphology, 245: 51-61.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1435,22 +1554,26 @@ when the vertical and horizontal units are not the same in the DEM. When this is
 the algorithm will multiply each elevation in the DEM by the Z conversion factor. If the
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
-<pre><code>zfactor = 1.0 / (113200.0 x cos(mid_lat))
-</code></pre>
+<blockquote>
+<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+</blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The tool uses Horn's (1981) 3rd-order finite difference method to estimate slope. Given
 the following clock-type grid cell numbering scheme (Gallant and Wilson, 2000),</p>
 <p>|  7  |  8  |  1  | <br />
 |  6  |  9  |  2  | <br />
 |  5  |  4  |  3  |</p>
-<pre><code>slope = arctan(fx2 + fy2)^0.5
-</code></pre>
+<blockquote>
+<p>slope = arctan(f<sub>x</sub><sup>2</sup> + f<sub>y</sub><sup>2</sup>)<sup>0.5</sup></p>
+</blockquote>
 <p>where,</p>
-<pre><code>fx = (z3 - z5 + 2(z2 - z6) + z1 - z7)
-</code></pre>
+<blockquote>
+<p>f<sub>x</sub> = (z<sub>3</sub> - z<sub>5</sub> + 2(z<sub>2</sub> - z<sub>6</sub>) + z<sub>1</sub> - z<sub>7</sub>)</p>
+</blockquote>
 <p>and,</p>
-<pre><code>fy = (z7 - z5 + 2(z8 - z4) + z1 - z3)
-</code></pre>
+<blockquote>
+<p>f<sub>y</sub> = (z<sub>7</sub> - z<sub>5</sub> + 2(z<sub>8</sub> - z<sub>4</sub>) + z<sub>1</sub> - z<sub>3</sub>)</p>
+</blockquote>
 <p><em>Reference</em>:</p>
 <p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
 and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
