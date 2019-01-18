@@ -282,7 +282,24 @@
 <p><em>Created</em>: July 12, 2017</p>
 <p><a name="FindMainStem"></a></p>
 <a class="header" href="#findmainstem" id="findmainstem"><h1>FindMainStem</h1></a>
-<p>Finds the main stem, based on stream lengths, of each stream network.</p>
+<p>This tool can be used to identify the main channel in a stream network. The user must specify the names of
+a D8 pointer (flow direction) raster (<code>--d8_pntr</code>), and a streams raster (<code>--streams</code>). The pointer raster
+is used to traverse the stream network and should only be created using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>. By default, the pointer
+raster is assumed to use the clockwise indexing method used by WhiteboxTools:</p>
+<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
+<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
+<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+</tbody></table>
+<p>If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>The streams raster should have been created using one of the DEM-based stream mapping methods, i.e. contributing
+area thresholding. Stream grid cells are designated in the streams image as all positive, non-zero values. All
+non-stream cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code> parameter
+is specified.</p>
+<p>The algorithm operates by traversing each stream and identifying the longest stream-path draining to each outlet.
+When a confluence is encountered, the traverse follows the branch with the larger distance-to-head.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -310,7 +327,7 @@
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/find_main_stem.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/06/2017</p>
 <p><a name="HackStreamOrder"></a></p>
 <a class="header" href="#hackstreamorder" id="hackstreamorder"><h1>HackStreamOrder</h1></a>
 <p>Assigns the Hack stream order to each tributary in a stream network.</p>

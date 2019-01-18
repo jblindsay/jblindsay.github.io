@@ -1430,7 +1430,7 @@ between the positive and negative values that are present in the output.</p>
 <p>Lapen, D. R., &amp; Martz, L. W. (1993). The measurement of two simple topographic indices of wind sheltering-exposure
 from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-779.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>, <a href="./geomorphometric_analysis.html#relativeaspect"><strong>RelativeAspect</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#fetchanalysis"><strong>FetchAnalysis</strong></a>, <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>, <a href="./geomorphometric_analysis.html#relativeaspect"><strong>RelativeAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1639,7 +1639,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 percentage of the relief between the DEM minimum and maximum values. As such, it provides a basic
 measure of relative topographic position.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a>, <a href="./geomorphometric_analysis.html#elevabovepit"><strong>ElevAbovePit</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#elevrelativetowatershedminmax"><strong>ElevRelativeToWatershedMinMax</strong></a>, <a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a>, <a href="./geomorphometric_analysis.html#elevabovepit"><strong>ElevAbovePit</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1657,10 +1657,15 @@ measure of relative topographic position.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_relative_to_min_max.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 12, 2017</p>
+<p><em>Created</em>: 12/07/2017</p>
 <p><a name="ElevRelativeToWatershedMinMax"></a></p>
 <a class="header" href="#elevrelativetowatershedminmax" id="elevrelativetowatershedminmax"><h1>ElevRelativeToWatershedMinMax</h1></a>
-<p>Calculates the elevation of a location relative to the minimum and maximum elevations in a watershed.</p>
+<p>This tool can be used to express the elevation of a grid cell in a digital elevation model (DEM) as a percentage
+of the relief between the watershed minimum and maximum values. As such, it provides a basic
+measure of relative topographic position. The user must specify the names of DEM (<code>--dem</code>) and watersheds (<code>--watersheds</code>)
+raster files.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#elevrelativetominmax"><strong>ElevRelativeToMinMax</strong></a>, <a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a>, <a href="./geomorphometric_analysis.html#elevabovepit"><strong>ElevAbovePit</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1681,7 +1686,7 @@ measure of relative topographic position.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_relative_to_watershed_min_max.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 12, 2017</p>
+<p><em>Created</em>: 12/07/2017</p>
 <p><a name="FeaturePreservingDenoise"></a></p>
 <a class="header" href="#featurepreservingdenoise" id="featurepreservingdenoise"><h1>FeaturePreservingDenoise</h1></a>
 <p>This tool implements a highly modified form of the DEM de-noising algorithm described
@@ -1704,8 +1709,8 @@ modifications make this tool more efficient than Sun's original method, but will
 also result in a slightly different output than what would be achieved with Sun's
 method.</p>
 <p><em>Reference</em>:</p>
-<p>Sun, Rosin, Martin, and Langbein (2007) Fast and effective feature-preserving
-mesh denoising.</p>
+<p>Sun, X., Rosin, P., Martin, R., &amp; Langbein, F. (2007). Fast and effective feature-preserving
+mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5), 925-938.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./geomorphometric_analysis.html#drainagepreservingsmoothing"><strong>DrainagePreservingSmoothing</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -1739,7 +1744,34 @@ mesh denoising.</p>
 <p><em>Created</em>: November 23, 2017</p>
 <p><a name="FetchAnalysis"></a></p>
 <a class="header" href="#fetchanalysis" id="fetchanalysis"><h1>FetchAnalysis</h1></a>
-<p>Performs an analysis of fetch or upwind distance to an obstacle.</p>
+<p>This tool creates a new raster in which each grid cell is assigned the distance, in meters, to the nearest
+topographic obstacle in a specified direction. It is a modification of the algorithm described by Lapen and
+Martz (1993). Unlike the original algorithm, Fetch Analysis is capable of analyzing fetch in any direction
+from 0-360 degrees. The user must specify the name of an input digital elevation model (DEM) raster file, the
+output raster name, a hypothetical wind direction, and a value for the height increment parameter. The algorithm
+searches each grid cell in a path following the specified wind direction until the following condition is met:</p>
+<blockquote>
+<p><em>Z</em><sub>test</sub> &gt;= <em>Z</em><sub>core</sub> + <em>DI</em></p>
+</blockquote>
+<p>where <em>Z</em><sub>core</sub> is the elevation of the grid cell at which fetch is being determined, <em>Z</em><sub>test</sub>
+is the elevation of the grid cell being tested as a topographic obstacle, <em>D</em> is the distance between the two
+grid cells in meters, and <em>I</em> is the height increment in m/m. Lapen and Martz (1993) suggest values for <em>I</em> in
+the range of 0.025 m/m to 0.1 m/m based on their study of snow re-distribution in low-relief agricultural
+landscapes of the Canadian Prairies. If the directional search does not identify an obstacle grid cell before the
+edge of the DEM is reached, the distance between the DEM edge and Zcore is entered. Edge distances are assigned
+negative values to differentiate between these artificially truncated fetch values and those for which a valid
+topographic obstacle was identified. Notice that linear interpolation is used to estimate the elevation of the
+surface where a ray (i.e. the search path) does not intersect the DEM grid precisely at one of its nodes.</p>
+<p>Ray-tracing is a highly computationally intensive task and therefore this tool may take considerable time to
+operate for larger sized DEMs. This tool is parallelized to aid with computational efficiency. NoData valued
+grid cells in the input image will be assigned NoData values in the output image. Fetch Analysis images are
+best displayed using the blue-white-red bipolar palette to distinguish between the positive and negative
+values that are present in the output.</p>
+<p><em>Reference</em>:</p>
+<p>Lapen, D. R., &amp; Martz, L. W. (1993). The measurement of two simple topographic indices of wind sheltering-exposure
+from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-779.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#directionalrelief"><strong>DirectionalRelief</strong></a>, <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>, <a href="./geomorphometric_analysis.html#relativeaspect"><strong>RelativeAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1761,10 +1793,21 @@ mesh denoising.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fetch_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 7, 2017</p>
+<p><em>Created</em>: 07/07/2017</p>
 <p><a name="FillMissingData"></a></p>
 <a class="header" href="#fillmissingdata" id="fillmissingdata"><h1>FillMissingData</h1></a>
-<p>Fills nodata holes in a DEM.</p>
+<p>This tool can be used to fill in small gaps in a raster or digital elevation model (DEM). The gaps,
+or holes, must have recognized NoData values. If gaps do not currently have this characteristic, use
+the <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> tool and ensure that the data are stored using a raster format that supports NoData
+values. All valid, non-NoData values in the input raster will be assigned the same value in the output image.</p>
+<p>The algorithm uses an inverse-distance weighted (IDW) scheme based on the valid values on the edge of
+NoData gaps to estimate gap values. The user must specify the filter size (<code>--filter</code>), which determines
+the size of gap that is filled, and the IDW weight (<code>--weight</code>).</p>
+<p>The filter size, specified in grid cells, is used to determine how far the algorithm will search for valid,
+non-NoData values. Therefore, setting a larger filter size allows for the filling of larger gaps in the input
+raster.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1787,10 +1830,12 @@ mesh denoising.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fill_missing_data.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 14, 2017</p>
+<p><em>Created</em>: 14/06/2017</p>
 <p><a name="FindRidges"></a></p>
 <a class="header" href="#findridges" id="findridges"><h1>FindRidges</h1></a>
-<p>Identifies potential ridge and peak grid cells.</p>
+<p>This tool can be used to identify ridge cells in a digital elevation model (DEM). Ridge cells are those that
+have lower neighbours either to the north and south or the east and west. Line thinning can optionally be used
+to create single-cell wide ridge networks by specifying the <code>--line_thin</code> parameter.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1813,7 +1858,31 @@ mesh denoising.</p>
 <p><em>Created</em>: 04/12/2017</p>
 <p><a name="Hillshade"></a></p>
 <a class="header" href="#hillshade" id="hillshade"><h1>Hillshade</h1></a>
-<p>Calculates a hillshade raster from an input DEM.</p>
+<p>This tool performs a hillshade operation (also called shaded relief) on an input digital elevation model (DEM).
+The user must specify the  name of the input DEM and the output hillshade image name. Other parameters that must
+be specified include the illumination source azimuth (<code>--azimuth</code>), or sun direction (0-360 degrees), the
+illumination source altitude (<code>--altitude</code>; i.e. the elevation of the sun above the horizon, measured as an angle
+from 0 to 90 degrees) and the Z conversion factor (<code>--zfactor</code>). The <em>Z conversion factor</em> is only important
+when the vertical and horizontal units are not the same in the DEM. When this is the case,
+the algorithm will multiply each elevation in the DEM by the Z conversion factor. If the
+DEM is in the geographic coordinate system (latitude and longitude), the following equation
+is used:</p>
+<blockquote>
+<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+</blockquote>
+<p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
+<p>The hillshade value (<em>HS</em>) of a DEM grid cell is calculate as:</p>
+<blockquote>
+<p><em>HS</em> = tan(<em>s</em>) / [1 - tan(<em>s</em>)<sup>2</sup>]<sup>0.5</sup> x [sin(<em>Alt</em>) / tan(<em>s</em>) - cos(<em>Alt</em>) x sin(<em>Az</em> - <em>a</em>)]</p>
+</blockquote>
+<p>where <em>s</em> and <em>a</em> are the local slope gradient and aspect (orientation) respectively and <em>Alt</em> and <em>Az</em>
+are the illumination source altitude and azimuth respectively. Slope and aspect are calculated using
+Horn's (1981) 3rd-order finate difference method.</p>
+<p><em>Reference</em>:</p>
+<p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
+and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1837,7 +1906,7 @@ mesh denoising.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="HorizonAngle"></a></p>
 <a class="header" href="#horizonangle" id="horizonangle"><h1>HorizonAngle</h1></a>
 <p>Calculates horizon angle (maximum upwind slope) for each grid cell in an input DEM.</p>
@@ -2030,7 +2099,11 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 <p><em>Created</em>: 28/08/2018</p>
 <p><a name="MaxDownslopeElevChange"></a></p>
 <a class="header" href="#maxdownslopeelevchange" id="maxdownslopeelevchange"><h1>MaxDownslopeElevChange</h1></a>
-<p>Calculates the maximum downslope change in elevation between a grid cell and its eight downslope neighbors.</p>
+<p>This tool calculates the maximum elevation drop between each grid cell and its neighbouring cells within
+a digital elevation model (DEM). The user must specify the name of the input DEM (<code>--dem</code>) and the output
+(<code>--output</code>) raster name.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#mindownslopeelevchange"><strong>MinDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2048,7 +2121,7 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_downslope_elev_change.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="MaxElevDevSignature"></a></p>
 <a class="header" href="#maxelevdevsignature" id="maxelevdevsignature"><h1>MaxElevDevSignature</h1></a>
 <p>Calculates the maximum elevation deviation over a range of spatial scales and for a set of points.</p>
@@ -2142,7 +2215,11 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 <p><em>Created</em>: July 20, 2017</p>
 <p><a name="MinDownslopeElevChange"></a></p>
 <a class="header" href="#mindownslopeelevchange" id="mindownslopeelevchange"><h1>MinDownslopeElevChange</h1></a>
-<p>Calculates the minimum downslope change in elevation between a grid cell and its eight downslope neighbors.</p>
+<p>This tool calculates the minimum elevation drop between each grid cell and its neighbouring cells within
+a digital elevation model (DEM). The user must specify the name of the input DEM (<code>--dem</code>) and the output
+(<code>--output</code>) raster name.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#maxdownslopeelevchange"><strong>MaxDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2160,7 +2237,7 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/min_downslope_elev_change.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="MultiscaleRoughness"></a></p>
 <a class="header" href="#multiscaleroughness" id="multiscaleroughness"><h1>MultiscaleRoughness</h1></a>
 <p>Calculates surface roughness over a range of spatial scales.</p>
@@ -2253,7 +2330,14 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 <p><em>Created</em>: July 19, 2017</p>
 <p><a name="NumDownslopeNeighbours"></a></p>
 <a class="header" href="#numdownslopeneighbours" id="numdownslopeneighbours"><h1>NumDownslopeNeighbours</h1></a>
-<p>Calculates the number of downslope neighbours to each grid cell in a DEM.</p>
+<p>This tool calculates the number of downslope neighbours of each grid cell in a raster digital elevation model (DEM).
+The user must specify the name of the input DEM (<code>--dem</code>) and the output (<code>--output</code>) raster name. The tool examines
+the eight neighbouring cells for each grid cell in a the DEM and counts the number of neighbours with an elevation
+less than the centre cell of the 3 x 3 window. The output image can therefore have values raning from 0 to 8. A
+raster grid cell with eight downslope neighbours is a peak and a cell with zero downslope neighbours is a pit. This
+tool can be used with the <a href="./geomorphometric_analysis.html#numupslopeneighbours"><strong>NumUpslopeNeighbours</strong></a> tool to assess the degree of local flow divergence/convergence.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#numupslopeneighbours"><strong>NumUpslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2271,10 +2355,18 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/num_downslope_neighbours.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="NumUpslopeNeighbours"></a></p>
 <a class="header" href="#numupslopeneighbours" id="numupslopeneighbours"><h1>NumUpslopeNeighbours</h1></a>
-<p>Calculates the number of upslope neighbours to each grid cell in a DEM.</p>
+<p>This tool calculates the number of upslope neighbours of each grid cell in a raster digital elevation model (DEM).
+The user must specify the name of the input DEM (<code>--dem</code>) and the output (<code>--output</code>) raster name. The tool examines
+the eight neighbouring cells for each grid cell in a the DEM and counts the number of neighbours with an elevation
+less than the centre cell of the 3 x 3 window. The output raster can therefore have values ranging from 0 to 8, although
+in a DEM that has been hydrologically conditioned (i.e. depressions and flats removed), the values of the output will
+not exceed seven. This tool can be used with the <a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a> tool to assess the degree of local flow
+divergence/convergence.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2292,7 +2384,7 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/num_upslope_neighbours.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PennockLandformClass"></a></p>
 <a class="header" href="#pennocklandformclass" id="pennocklandformclass"><h1>PennockLandformClass</h1></a>
 <p>Tool can be used to perform a simple landform classification based on measures of slope gradient
@@ -2361,7 +2453,23 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 <p><em>Created</em>: July 12, 2017</p>
 <p><a name="PercentElevRange"></a></p>
 <a class="header" href="#percentelevrange" id="percentelevrange"><h1>PercentElevRange</h1></a>
-<p>Calculates percent of elevation range from a DEM.</p>
+<p>Percent elevation range (PER) is a measure of local topographic position (LTP). It expresses the vertical
+position for a digital elevation model (DEM) grid cell (z<sub>0</sub>) as the percentage of the
+elevation range within the neighbourhood filter window, such that:</p>
+<blockquote>
+<p>PER = z<sub>0</sub> / (z<sub>max</sub> - z<sub>min</sub>) x 100</p>
+</blockquote>
+<p>where z<sub>0</sub> is the elevation of the window's center grid cell, z<sub>max</sub> is the maximum
+neighbouring elevation, and z<sub>min</sub> is the minimum neighbouring elevation.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>flags.
+These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
+<p>Compared with <a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a> and <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, PER is a less robust measure of LTP that is susceptible
+to outliers in neighbouring elevations (e.g. the presence of off-terrain objects in the DEM).</p>
+<p><em>References</em>:</p>
+<p>Newman, D. R., Lindsay, J. B., &amp; Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
+for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -2383,7 +2491,7 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/percent_elev_range.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="PlanCurvature"></a></p>
 <a class="header" href="#plancurvature" id="plancurvature"><h1>PlanCurvature</h1></a>
 <p>This tool calculates the plan curvature (i.e. contour curvature), or the rate of change in
@@ -2396,8 +2504,9 @@ WhiteboxTools reports curvature in degrees multiplied by 100 for easier interpre
 are not the same in the DEM. When this is the case, the algorithm will multiply each
 elevation in the DEM by the Z Conversion Factor. If the DEM is in the geographic coordinate
 system (latitude and longitude), the following equation is used:</p>
-<pre><code>zfactor = 1.0 / (113200.0 x cos(mid_lat))
-</code></pre>
+<blockquote>
+<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+</blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The algorithm uses the same formula for the calculation of plan curvature as Gallant and
 Wilson (2000). Plan curvature is negative for diverging flow along ridges and positive for
@@ -9341,7 +9450,14 @@ vertical (flat side up).</p>
 <p><em>Created</em>: June 14, 2017</p>
 <p><a name="LidarHistogram"></a></p>
 <a class="header" href="#lidarhistogram" id="lidarhistogram"><h1>LidarHistogram</h1></a>
-<p>Creates a histogram from LiDAR data.</p>
+<p>This tool can be used to plot a histogram of data derived from a LiDAR file. The user must specify the
+name of the input LAS file (<code>--input</code>), the name of the output HTML file (<code>--output</code>), the parameter
+(<code>--parameter</code>) to be plotted, and the amount (in percent) to clip the upper and lower tails of the f
+requency distribution (<code>--clip</code>). The LiDAR parameters that can be plotted using <a href="./lidar_tools.html#lidarhistogram"><strong>LidarHistogram</strong></a>
+include the point elevations, intensity values, scan angles, and class values.</p>
+<p>Use the <a href="./lidar_tools.html#lidarpointstats"><strong>LidarPointStats</strong></a> tool instead to examine the spatial distribution of LiDAR points.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarpointstats"><strong>LidarPointStats</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -9364,7 +9480,7 @@ vertical (flat side up).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_histogram.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: Dec. 23, 2017</p>
+<p><em>Created</em>: 23/12/2017</p>
 <p><a name="LidarIdwInterpolation"></a></p>
 <a class="header" href="#lidaridwinterpolation" id="lidaridwinterpolation"><h1>LidarIdwInterpolation</h1></a>
 <p>Interpolates LAS files using an inverse-distance weighted (IDW) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
@@ -11958,7 +12074,24 @@ are also reported in the output report.</p>
 <p><em>Created</em>: July 12, 2017</p>
 <p><a name="FindMainStem"></a></p>
 <a class="header" href="#findmainstem" id="findmainstem"><h1>FindMainStem</h1></a>
-<p>Finds the main stem, based on stream lengths, of each stream network.</p>
+<p>This tool can be used to identify the main channel in a stream network. The user must specify the names of
+a D8 pointer (flow direction) raster (<code>--d8_pntr</code>), and a streams raster (<code>--streams</code>). The pointer raster
+is used to traverse the stream network and should only be created using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>. By default, the pointer
+raster is assumed to use the clockwise indexing method used by WhiteboxTools:</p>
+<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
+<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
+<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+</tbody></table>
+<p>If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>The streams raster should have been created using one of the DEM-based stream mapping methods, i.e. contributing
+area thresholding. Stream grid cells are designated in the streams image as all positive, non-zero values. All
+non-stream cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code> parameter
+is specified.</p>
+<p>The algorithm operates by traversing each stream and identifying the longest stream-path draining to each outlet.
+When a confluence is encountered, the traverse follows the branch with the larger distance-to-head.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -11986,7 +12119,7 @@ are also reported in the output report.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/find_main_stem.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/06/2017</p>
 <p><a name="HackStreamOrder"></a></p>
 <a class="header" href="#hackstreamorder" id="hackstreamorder"><h1>HackStreamOrder</h1></a>
 <p>Assigns the Hack stream order to each tributary in a stream network.</p>
