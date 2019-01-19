@@ -152,6 +152,7 @@
 <li><a href="#FetchAnalysis">FetchAnalysis</a></li>
 <li><a href="#FillMissingData">FillMissingData</a></li>
 <li><a href="#FindRidges">FindRidges</a></li>
+<li><a href="#Geomorphons">Geomorphons</a></li>
 <li><a href="#Hillshade">Hillshade</a></li>
 <li><a href="#HorizonAngle">HorizonAngle</a></li>
 <li><a href="#HypsometricAnalysis">HypsometricAnalysis</a></li>
@@ -190,7 +191,7 @@
 </ul>
 <p><a name="Aspect"></a></p>
 <a class="header" href="#aspect" id="aspect"><h1>Aspect</h1></a>
-<p>This tool calculates slope aspect (i.e. slope orientation in degrees) for each grid cell
+<p>This tool calculates slope aspect (i.e. slope orientation in degrees clockwise from north) for each grid cell
 in an input digital elevation model (DEM). The user must specify the name of the input
 DEM (<code>--dem</code>) and the output raster image. The <em>Z conversion factor</em> is only important
 when the vertical and horizontal units are not the same in the DEM. When this is the case,
@@ -773,6 +774,36 @@ to create single-cell wide ridge networks by specifying the <code>--line_thin</c
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/find_ridges.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 04/12/2017</p>
+<p><a name="Geomorphons"></a></p>
+<a class="header" href="#geomorphons" id="geomorphons"><h1>Geomorphons</h1></a>
+<p>Computes geomorphon patterns.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>-s, --search       </td><td> Look up distance</td></tr>
+<tr><td>-t, --threshold    </td><td> Flatness threshold for the classification function (in degrees)</td></tr>
+<tr><td>-d, --tdist        </td><td> Distance (in cells) to begin reducing the flatness threshold to avoid problems with pseudo-flat lines-of-sight</td></tr>
+<tr><td>-f, --forms        </td><td> Classify geomorphons into 10 common land morphologies, else, output ternary code</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">geomorphons(
+    dem, 
+    output, 
+    search=3, 
+    threshold=0.0, 
+    tdist=0, 
+    forms=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Geomorphons -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif --slope=3.0 --prof=0.1 ^
+--plan=0.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/geomorphons.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Daniel Newman</p>
+<p><em>Created</em>: 21/09/2018</p>
 <p><a name="Hillshade"></a></p>
 <a class="header" href="#hillshade" id="hillshade"><h1>Hillshade</h1></a>
 <p>This tool performs a hillshade operation (also called shaded relief) on an input digital elevation model (DEM).
@@ -1452,7 +1483,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/plan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 1, 2017</p>
+<p><em>Created</em>: 01/06/2017</p>
 <p><a name="Profile"></a></p>
 <a class="header" href="#profile" id="profile"><h1>Profile</h1></a>
 <p>Plots profiles from digital surface models.</p>

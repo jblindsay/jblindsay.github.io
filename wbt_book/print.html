@@ -1235,6 +1235,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#FetchAnalysis">FetchAnalysis</a></li>
 <li><a href="#FillMissingData">FillMissingData</a></li>
 <li><a href="#FindRidges">FindRidges</a></li>
+<li><a href="#Geomorphons">Geomorphons</a></li>
 <li><a href="#Hillshade">Hillshade</a></li>
 <li><a href="#HorizonAngle">HorizonAngle</a></li>
 <li><a href="#HypsometricAnalysis">HypsometricAnalysis</a></li>
@@ -1273,7 +1274,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 </ul>
 <p><a name="Aspect"></a></p>
 <a class="header" href="#aspect" id="aspect"><h1>Aspect</h1></a>
-<p>This tool calculates slope aspect (i.e. slope orientation in degrees) for each grid cell
+<p>This tool calculates slope aspect (i.e. slope orientation in degrees clockwise from north) for each grid cell
 in an input digital elevation model (DEM). The user must specify the name of the input
 DEM (<code>--dem</code>) and the output raster image. The <em>Z conversion factor</em> is only important
 when the vertical and horizontal units are not the same in the DEM. When this is the case,
@@ -1856,6 +1857,36 @@ to create single-cell wide ridge networks by specifying the <code>--line_thin</c
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/find_ridges.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 04/12/2017</p>
+<p><a name="Geomorphons"></a></p>
+<a class="header" href="#geomorphons" id="geomorphons"><h1>Geomorphons</h1></a>
+<p>Computes geomorphon patterns.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>-s, --search       </td><td> Look up distance</td></tr>
+<tr><td>-t, --threshold    </td><td> Flatness threshold for the classification function (in degrees)</td></tr>
+<tr><td>-d, --tdist        </td><td> Distance (in cells) to begin reducing the flatness threshold to avoid problems with pseudo-flat lines-of-sight</td></tr>
+<tr><td>-f, --forms        </td><td> Classify geomorphons into 10 common land morphologies, else, output ternary code</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">geomorphons(
+    dem, 
+    output, 
+    search=3, 
+    threshold=0.0, 
+    tdist=0, 
+    forms=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Geomorphons -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif --slope=3.0 --prof=0.1 ^
+--plan=0.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/geomorphons.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Daniel Newman</p>
+<p><em>Created</em>: 21/09/2018</p>
 <p><a name="Hillshade"></a></p>
 <a class="header" href="#hillshade" id="hillshade"><h1>Hillshade</h1></a>
 <p>This tool performs a hillshade operation (also called shaded relief) on an input digital elevation model (DEM).
@@ -2535,7 +2566,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/plan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 1, 2017</p>
+<p><em>Created</em>: 01/06/2017</p>
 <p><a name="Profile"></a></p>
 <a class="header" href="#profile" id="profile"><h1>Profile</h1></a>
 <p>Plots profiles from digital surface models.</p>
@@ -5487,7 +5518,14 @@ accompanying database file (.dbf) as a complexity field (COMPLEXITY).</p>
 </ul>
 <p><a name="AverageFlowpathSlope"></a></p>
 <a class="header" href="#averageflowpathslope" id="averageflowpathslope"><h1>AverageFlowpathSlope</h1></a>
-<p>Measures the average slope gradient from each grid cell to all upslope divide cells.</p>
+<p>This tool calculates the average slope gradient (i.e. slope steepness in degrees) of the flowpaths that
+pass through each grid cell in an input digital elevation model (DEM). The user must specify the name of
+a DEM raster (<code>--dem</code>). It is important that this DEM is pre-processed to remove all topographic depressions and
+flat areas using a tool such as <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>. Several intermediate rasters are created and stored in
+memory during the operation of this tool, which may limit the size of DEM that can be processed, depending
+on available system resources.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#averageupslopeflowpathlength"><strong>AverageUpslopeFlowpathLength</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -5505,10 +5543,17 @@ accompanying database file (.dbf) as a complexity field (COMPLEXITY).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/average_flowpath_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 22, 2017</p>
+<p><em>Created</em>: 22/07/2017</p>
 <p><a name="AverageUpslopeFlowpathLength"></a></p>
 <a class="header" href="#averageupslopeflowpathlength" id="averageupslopeflowpathlength"><h1>AverageUpslopeFlowpathLength</h1></a>
-<p>Measures the average length of all upslope flowpaths draining each grid cell.</p>
+<p>This tool calculates the average length of the flowpaths that run through each grid cell (in map horizontal units)
+in in an input digital elevation model (DEM). The user must specify the name of
+a DEM raster (<code>--dem</code>). It is important that this DEM is pre-processed to remove all topographic depressions and
+flat areas using a tool such as <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>. Several intermediate rasters are created and stored in
+memory during the operation of this tool, which may limit the size of DEM that can be processed, depending
+on available system resources.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#averageflowpathslope"><strong>AverageFlowpathSlope</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -5526,10 +5571,29 @@ accompanying database file (.dbf) as a complexity field (COMPLEXITY).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/average_upslope_flowpath_length.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/07/2017</p>
 <p><a name="Basins"></a></p>
 <a class="header" href="#basins" id="basins"><h1>Basins</h1></a>
-<p>Identifies drainage basins that drain to the DEM edge.</p>
+<p>This tool can be used to delineate all of the drainage basins contained within a local drainage direction,
+or flow pointer raster (<code>--d8_pntr</code>), and draining to the edge of the data. The flow pointer raster must be derived using
+the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> tool and should have been extracted from a digital elevation model (DEM) that has been
+hydrologically pre-processed to remove topographic depressions and flat areas, e.g. using the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>
+tool. By default, the flow pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools:</p>
+<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
+<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
+<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+</tbody></table>
+<p>If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>The <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a> and <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tools are similar in function but while the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool identifies the upslope areas
+that drain to one or more user-specified outlet points, the <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a> tool automatically sets outlets to all grid cells
+situated along the edge of the data that do not have a defined flow direction (i.e. they do not have a lower neighbour).
+Notice that these edge outlets need not be situated along the edges of the flow-pointer raster, but rather along the
+edges of the region of valid data. That is, the DEM from which the flow-pointer has been extracted may incompletely
+fill the containing raster, if it is irregular shaped, and NoData regions may occupy the peripherals. Thus, the entire
+region of valid data in the flow pointer raster will be divided into a set of mutually exclusive basins using this tool.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -5549,18 +5613,18 @@ accompanying database file (.dbf) as a complexity field (COMPLEXITY).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/basins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><a name="BreachDepressions"></a></p>
 <a class="header" href="#breachdepressions" id="breachdepressions"><h1>BreachDepressions</h1></a>
 <p>This tool can be used to remove the depressions in a digital elevation model, a
 common requirement of spatial hydrological operations such as flow accumulation
-and watershed modelling. The algorithm based on:</p>
-<blockquote>
+and watershed modelling. The tool based on on the efficient hybrid depression
+breaching algorithm described by Lindsay (2016). It uses a breach-first, fill-second
+approach to resolving continous flowpaths through depressions.</p>
+<p><em>Reference</em>:</p>
 <p>Lindsay JB. 2016. <em>Efficient hybrid breaching-filling sink removal methods for
 flow path enforcement in digital elevation models.</em> <strong>Hydrological Processes</strong>,
 30(6): 846–857. DOI: 10.1002/hyp.10648</p>
-</blockquote>
-<p>It uses a breach-first, fill-second approach.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -5584,10 +5648,18 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="BreachSingleCellPits"></a></p>
 <a class="header" href="#breachsinglecellpits" id="breachsinglecellpits"><h1>BreachSingleCellPits</h1></a>
-<p>Removes single-cell pits from an input DEM by breaching.</p>
+<p>This tool can be used to remove pits from a digital elevation model (DEM). Pits are single grid cells
+with no downslope neighbours. They are important because they impede overland flow-paths. This tool will
+remove any pit in the input DEM (<code>--dem</code>) that can be resolved by lowering one of the eight neighbouring
+cells such that a flow-path can be created linking the pit to a second-order neighbour, i.e. a neighbouring
+cell of a neighbouring cell. Notice that this tool can be a useful pre-processing technique before running
+one of the more robust depression filling or breaching techniques (e.g. <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>), which are designed to remove larger depression features.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -5605,7 +5677,7 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_pits.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="D8FlowAccumulation"></a></p>
 <a class="header" href="#d8flowaccumulation" id="d8flowaccumulation"><h1>D8FlowAccumulation</h1></a>
 <p>This tool is used to generate a flow accumulation grid (i.e. catchment area) using the
@@ -5689,7 +5761,27 @@ value in the output flow-accumulation image.</p>
 <p><em>Created</em>: Dec. 29, 2017</p>
 <p><a name="D8Pointer"></a></p>
 <a class="header" href="#d8pointer" id="d8pointer"><h1>D8Pointer</h1></a>
-<p>Calculates a D8 flow pointer raster from an input DEM.</p>
+<p>This tool is used to generate a flow pointer grid using the simple D8 (O'Callaghan and Mark, 1984) algorithm. The
+user must specify the name (<code>--dem</code>) of a digital elevation model (DEM) that has been hydrologically
+corrected to remove all spurious depressions and flat areas. DEM pre-processing is usually achived using
+either the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. The local drainage direction raster output (<code>--output</code>)
+by this tool serves as a necessary input for several other spatial hydrology and stream network analysis tools
+in the toolset. Some tools will calculate this flow pointer raster directly from the input DEM.</p>
+<p>By default, D8 flow pointers use the following clockwise, base-2 numeric index convention:</p>
+<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
+<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
+<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+</tbody></table>
+<p>Notice that grid cells that have no lower neighbours are assigned a flow direction of zero. In a DEM that has been
+pre-processed to remove all depressions and flat areas, this condition will only occur along the edges of the grid.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>Grid cells possessing the NoData value in the input DEM are assigned the NoData value in the output image.</p>
+<p><em>Reference</em>:</p>
+<p>O'Callaghan, J. F., &amp; Mark, D. M. (1984). The extraction of drainage networks from digital elevation data.
+Computer vision, graphics, and image processing, 28(3), 323-344.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#fd8pointer"><strong>FD8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -5709,7 +5801,7 @@ value in the output flow-accumulation image.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_pointer.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 16, 2017</p>
+<p><em>Created</em>: 16/06/2017</p>
 <p><a name="DInfFlowAccumulation"></a></p>
 <a class="header" href="#dinfflowaccumulation" id="dinfflowaccumulation"><h1>DInfFlowAccumulation</h1></a>
 <p>Calculates a D-infinity flow accumulation raster from an input DEM.</p>
@@ -9462,7 +9554,7 @@ include the point elevations, intensity values, scan angles, and class values.</
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
-<tr><td>--parameter        </td><td> Parameter; options are 'elevation' (default), 'intensity', 'scan angle', 'class</td></tr>
+<tr><td>--parameter        </td><td> Parameter; options are 'elevation' (default), 'intensity', 'scan angle', 'class'</td></tr>
 <tr><td>--clip             </td><td> Amount to clip distribution tails (in percent)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -13245,6 +13337,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/image_processing_tools_image_enhancement.html#GammaCorrection">GammaCorrection</a> (Image Processing Tools → Image Enhancement)</p>
 <p><a href="available_tools/image_processing_tools_image_enhancement.html#GaussianContrastStretch">GaussianContrastStretch</a> (Image Processing Tools → Image Enhancement)</p>
 <p><a href="available_tools/image_processing_tools_filters.html#GaussianFilter">GaussianFilter</a> (Image Processing Tools → Filters)</p>
+<p><a href="available_tools/geomorphometric_analysis.html#Geomorphons">Geomorphons</a> (Geomorphometric Analysis)</p>
 <p><a href="available_tools/mathand_stats_tools.html#GreaterThan">GreaterThan</a> (Math and Stats Tools)</p>
 <p><a href="available_tools/stream_network_analysis.html#HackStreamOrder">HackStreamOrder</a> (Stream Network Analysis)</p>
 <p><a href="available_tools/image_processing_tools_filters.html#HighPassFilter">HighPassFilter</a> (Image Processing Tools → Filters)</p>
