@@ -3221,7 +3221,13 @@ specified.</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="ConstructVectorTin"></a></p>
 <a class="header" href="#constructvectortin" id="constructvectortin"><h1>ConstructVectorTin</h1></a>
-<p>This tool creates a vector triangular irregular network (TIN) for a set of vector points.</p>
+<p>This tool creates a vector triangular irregular network (TIN) for a set of vector points (<code>--input</code>)
+using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a> algorithm.
+TIN vertex heights can be assigned based on either a field in the vector's attribute table (<code>--field</code>),
+or alternatively, if the vector is of a z-dimension <em>ShapeTypeDimension</em>, the point z-values may be
+used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector points file</td></tr>
@@ -3251,8 +3257,10 @@ specified.</p>
 <a class="header" href="#createhexagonalvectorgrid" id="createhexagonalvectorgrid"><h1>CreateHexagonalVectorGrid</h1></a>
 <p>This tool can be used to create a hexagonal vector grid. The extent of the hexagonal
 grid is based on the extent of a user-specified base file (any supported raster format,
-shapefiles, or LAS files). The user must also specify the origin of the grid (x and y
-coordinates) and the hexagonal cell width.</p>
+shapefiles, or LAS files). The user must also specify the hexagonal cell width (<code>--width</code>)
+and whether the hexagonal orientation (<code>--orientation</code>) is <code>horizontal</code> or <code>vertical</code>.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#createrectangularvectorgrid"><strong>CreateRectangularVectorGrid</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input base file</td></tr>
@@ -3308,8 +3316,10 @@ coordinates) and the hexagonal cell width.</p>
 <a class="header" href="#createrectangularvectorgrid" id="createrectangularvectorgrid"><h1>CreateRectangularVectorGrid</h1></a>
 <p>This tool can be used to create a rectangular vector grid. The extent of the rectangular
 grid is based on the extent of a user-specified base file (any supported raster format,
-shapefiles, or LAS files). The user must also specify the origin of the grid (x and y
-coordinates) and the grid cell width and height.</p>
+shapefiles, or LAS files). The user must also specify the origin of the grid (<code>--xorig</code>
+and <code>--yorig</code>) and the grid cell width and height (<code>--width</code> and <code>--height</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#createhexagonalvectorgrid"><strong>CreateHexagonalVectorGrid</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input base file</td></tr>
@@ -5691,7 +5701,7 @@ depressions and flat areas. DEM pre-processing is usually achieved using the <a 
 can be 1) <code>cells</code> (i.e. the number of inflowing grid cells), <code>catchment area</code> (i.e. the upslope area),
 or <code>specific contributing area</code> (i.e. the catchment area divided by the flow width. The default value
 is <code>cells</code>. The user must also specify whether the output flow-accumulation grid should be
-log-tranformed, i.e. the output, if this option is selected, will be the natural-logarithm of the
+log-tranformed (<code>--log</code>), i.e. the output, if this option is selected, will be the natural-logarithm of the
 accumulated flow value. This is a transformation that is often performed to better visualize the
 contributing area distribution. Because contributing areas tend to be very high along valley bottoms
 and relatively low on hillslopes, when a flow-accumulation image is displayed, the distribution of
@@ -5886,7 +5896,20 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <p><em>Created</em>: June 26, 2017</p>
 <p><a name="DepthInSink"></a></p>
 <a class="header" href="#depthinsink" id="depthinsink"><h1>DepthInSink</h1></a>
-<p>Measures the depth of sinks (depressions) in a DEM.</p>
+<p>This tool measures the depth that each grid cell in an input (<code>--dem</code>) raster digital elevation model (DEM)
+lies within a sink feature, i.e. a closed topographic depression. A sink, or depression, is a bowl-like
+landscape feature, which is characterized by interior drainage and groundwater recharge. The <a href="./hydrological_analysis.html#depthinsink"><strong>DepthInSink</strong></a> tool
+operates by differencing a filled DEM, using the same depression filling method as <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, and the
+original surface model.</p>
+<p>In addition to the names of the input DEM (<code>--dem</code>) and the output raster (<code>--output</code>), the user must specify
+whether the background value (i.e. the value assigned to grid cells that are not contained within sinks) should be
+set to 0.0 (<code>--zero_background</code>) Without this optional parameter specified, the tool will use the NoData value
+as the background value.</p>
+<p><em>Reference</em>:</p>
+<p>Antonić, O., Hatic, D., &amp; Pernar, R. (2001). DEM-based depth in sink as an environmental estimator. Ecological
+Modelling, 138(1-3), 247-254.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -5906,7 +5929,7 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/depth_in_sink.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="DownslopeDistanceToStream"></a></p>
 <a class="header" href="#downslopedistancetostream" id="downslopedistancetostream"><h1>DownslopeDistanceToStream</h1></a>
 <p>This tool can be used to calculate the distance from each grid cell in a raster to the nearest stream cell,
@@ -6052,7 +6075,40 @@ Remote Sensing of Environment, 112(9), 3469-3481.</p>
 <p><em>Created</em>: 11/03/2018</p>
 <p><a name="Fd8FlowAccumulation"></a></p>
 <a class="header" href="#fd8flowaccumulation" id="fd8flowaccumulation"><h1>Fd8FlowAccumulation</h1></a>
-<p>Calculates an FD8 flow accumulation raster from an input DEM.</p>
+<p>This tool is used to generate a flow accumulation grid (i.e. contributing area) using the FD8 algorithm (Freeman,
+1991). This algorithm is an examples of a multiple-flow-direction (MFD) method because the flow entering each
+grid cell is routed to each downslope neighbour, i.e. flow divergence is permitted. The user must specify the
+name (<code>--dem</code>) of the input digital elevation model (DEM). The DEM must have been hydrologically
+corrected to remove all spurious depressions and flat areas. DEM pre-processing is usually achived using
+either the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. A value must also be specified for the exponent parameter
+(<code>--exponent</code>), a number that controls the degree of dispersion in the resulting flow-accumulation grid. A lower
+value yields greater apparent flow dispersion across divergent hillslopes. Some experimentation suggests that a
+value of 1.1 is appropriate (Freeman, 1991), although this is almost certainly landscape-dependent.</p>
+<p>In addition to the input DEM, the user must specify the output type. The output flow-accumulation
+can be 1) <code>cells</code> (i.e. the number of inflowing grid cells), <code>catchment area</code> (i.e. the upslope area),
+or <code>specific contributing area</code> (i.e. the catchment area divided by the flow width. The default value
+is <code>cells</code>. The user must also specify whether the output flow-accumulation grid should be
+log-tranformed (<code>--log</code>), i.e. the output, if this option is selected, will be the natural-logarithm of the
+accumulated flow value. This is a transformation that is often performed to better visualize the
+contributing area distribution. Because contributing areas tend to be very high along valley bottoms
+and relatively low on hillslopes, when a flow-accumulation image is displayed, the distribution of
+values on hillslopes tends to be 'washed out' because the palette is stretched out to represent the
+highest values. Log-transformation provides a means of compensating for this phenomenon. Importantly,
+however, log-transformed flow-accumulation grids must not be used to estimate other secondary terrain
+indices, such as the wetness index, or relative stream power index.</p>
+<p>The non-dispersive threshold (<code>--threshold</code>) is a flow-accumulation value (measured in upslope grid cells,
+which is directly proportional to area) above which flow dispersion is not longer permited. Grid cells with
+flow-accumulation values above this threshold will have their flow routed in a manner that is similar to
+the D8 single-flow-direction algorithm, directing all flow towards the steepest downslope neighbour. This
+is usually done under the assumption that flow dispersion, whilst appropriate on hillslope areas, is not
+realistic once flow becomes channelized.</p>
+<p>Grid cells possessing the NoData value in the input flow-pointer grid are assigned the NoData value in the
+output flow-accumulation image.</p>
+<p><em>Reference</em>:</p>
+<p>Freeman, T. G. (1991). Calculating catchment area with divergent flow based on a regular grid. Computers and
+Geosciences, 17(3), 413-422.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6085,7 +6141,7 @@ Remote Sensing of Environment, 112(9), 3469-3481.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="Fd8Pointer"></a></p>
 <a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
 <p>Calculates an FD8 flow pointer raster from an input DEM.</p>
@@ -6183,7 +6239,14 @@ Conference. pp. 24-30.</p>
 <p><em>Created</em>: July 11, 2017</p>
 <p><a name="FindNoFlowCells"></a></p>
 <a class="header" href="#findnoflowcells" id="findnoflowcells"><h1>FindNoFlowCells</h1></a>
-<p>Finds grid cells with no downslope neighbours.</p>
+<p>This tool can be used to find cells with undefined flow, i.e. no valid flow direction, based on the
+D8 flow direction algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>). These cells are therefore either at the bottom of a topographic
+depression or in the interior of a flat area. In a digital elevation model (DEM) that has been
+pre-processed to remove all depressions and flat areas (<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>), this condition will only occur
+along the edges of the grid, otherwise no-flow grid cells can be situation in the interior. The user must
+specify the name (<code>--dem</code>) of the DEM.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6201,10 +6264,15 @@ Conference. pp. 24-30.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/find_noflow_cells.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="FindParallelFlow"></a></p>
 <a class="header" href="#findparallelflow" id="findparallelflow"><h1>FindParallelFlow</h1></a>
-<p>Finds areas of parallel flow in D8 flow direction rasters.</p>
+<p>This tool can be used to find cells in a stream network grid that possess parallel flow directions based
+on an input D8 flow-pointer grid (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>). Because streams rarely flow in parallel for significant
+distances, these areas are likely errors resulting from the biased assignment of flow direction based on
+the D8 method.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
@@ -6228,10 +6296,19 @@ Conference. pp. 24-30.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/find_parallel_flow.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="FlattenLakes"></a></p>
 <a class="header" href="#flattenlakes" id="flattenlakes"><h1>FlattenLakes</h1></a>
-<p>Flattens lake polygons in a raster DEM.</p>
+<p>This tool can be used to set the elevations contained in a set of input vector lake polygons (<code>--lakes</code>) to
+a consistent value within an input (<code>--dem</code>) digital elevation model (DEM). Lake flattening is
+a common pre-processing step for DEMs intended for use in hydrological applications. This algorithm
+determines lake elevation automatically based on the minimum perimeter elevation for each lake
+polygon. The minimum perimeter elevation is assumed to be the lake outlet elevation and is assigned
+to the entire interior region of lake polygons, excluding island geometries. Note, this tool will not
+provide satisfactory results if the input vector polygons contain wide river features rather than true
+lakes.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6254,7 +6331,21 @@ Conference. pp. 24-30.</p>
 <p><em>Created</em>: 29/03/2018</p>
 <p><a name="FloodOrder"></a></p>
 <a class="header" href="#floodorder" id="floodorder"><h1>FloodOrder</h1></a>
-<p>Assigns each DEM grid cell its order in the sequence of inundations that are encountered during a search starting from the edges, moving inward at increasing elevations.</p>
+<p>This tool takes an input digital elevation model (DEM) and creates an output raster where every grid cell
+contains the flood order of that cell within the DEM. The flood order is the sequence of grid cells that
+are encountered during a search, starting from the raster grid edges and the lowest grid cell, moving inward
+at increasing elevations. This is in fact similar to how the highly efficient Wang and Liu (2006) depression
+filling algorithm and the Breach Depressions (Fast) operates. The output flood order raster contains the
+sequential order, from lowest edge cell to the highest pixel in the DEM.</p>
+<p>Like the <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool, <a href="./hydrological_analysis.html#floodorder"><strong>FloodOrder</strong></a> will read the entire DEM into memory. This may make the
+algorithm ill suited to processing massive DEMs except where the user's computer has substantial memory
+(RAM) resources.</p>
+<p><em>Reference</em>:</p>
+<p>Wang, L., and Liu, H. (2006). An efficient method for identifying and filling surface depressions in digital
+elevation models for hydrologic analysis and modelling. International Journal of Geographical Information Science,
+20(2), 193-213.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6272,7 +6363,7 @@ Conference. pp. 24-30.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flood_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 12, 2017</p>
+<p><em>Created</em>: 12/07/2017</p>
 <p><a name="FlowAccumulationFullWorkflow"></a></p>
 <a class="header" href="#flowaccumulationfullworkflow" id="flowaccumulationfullworkflow"><h1>FlowAccumulationFullWorkflow</h1></a>
 <p>Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow pointer, and a flow accumulation raster.</p>
@@ -6388,7 +6479,14 @@ which is useful in mapping drainage divides and ridges.</p>
 <p><em>Created</em>: 28/05/2018</p>
 <p><a name="Isobasins"></a></p>
 <a class="header" href="#isobasins" id="isobasins"><h1>Isobasins</h1></a>
-<p>Divides a landscape into nearly equal sized drainage basins (i.e. watersheds).</p>
+<p>This tool can be used to divide a landscape into a group of nearly equal-sized watersheds, known as <em>isobasins</em>.
+The user must specify the name (<code>--dem</code>) of a digital elevation model (DEM), the output raster name (<code>--output</code>),
+and the isobasin target area (<code>--size</code>) specified in units of grid cells. The DEM must have been hydrologically
+corrected to remove all spurious depressions and flat areas. DEM pre-processing is usually achived using either
+the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. Several temporary rasters are created during the execution
+and stored in memory of this tool.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6408,7 +6506,7 @@ which is useful in mapping drainage divides and ridges.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: December 3, 2017</p>
+<p><em>Created</em>: 03/12/2017</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
 <p>Moves outlet points used to specify points of interest in a watershedding operation to the nearest stream cell.</p>
@@ -9363,7 +9461,14 @@ non-sutset points will have the same class value as the base file.</p>
 <p><em>Created</em>: February 18, 2018</p>
 <p><a name="LidarConstructVectorTin"></a></p>
 <a class="header" href="#lidarconstructvectortin" id="lidarconstructvectortin"><h1>LidarConstructVectorTin</h1></a>
-<p>Creates a vector triangular irregular network (TIN) fitted to LiDAR points.</p>
+<p>This tool creates a vector triangular irregular network (TIN) for a set of LiDAR points (<code>--input</code>)
+using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a> algorithm.
+LiDAR points may be excluded from the triangulation operation based on a number of criteria,
+include the point return number (<code>--returns</code>), point classification value (<code>--exclude_cls</code>), or
+a minimum (<code>--minz</code>) or maximum (<code>--maxz</code>) elevation.</p>
+<p>For vector points, use the <a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
@@ -9393,7 +9498,15 @@ non-sutset points will have the same class value as the base file.</p>
 <p><em>Created</em>: 23/09/2018</p>
 <p><a name="LidarElevationSlice"></a></p>
 <a class="header" href="#lidarelevationslice" id="lidarelevationslice"><h1>LidarElevationSlice</h1></a>
-<p>Outputs all of the points within a LiDAR (LAS) point file that lie between a specified elevation range.</p>
+<p>This tool can be used to either extract or classify the elevation values (z) of LiDAR points within
+a specified elevation range (slice). In addition to the names of the input and output LiDAR files
+(<code>--input</code> and <code>--output</code>), the user must specify the lower (<code>--minz</code>) and upper (<code>--maxz</code>) bounds of
+the elevation range. By default, the tool will only output points within the elevation slice, filtering
+out all points lying outside of this range. If the <code>--class</code> parameter is used, the tool will operate
+by assigning a class value (<code>--inclassval</code>) to the classification bit of points within the slice and
+another class value (<code>--outclassval</code>) to those points falling outside the range.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarremoveoutliers"><strong>LidarRemoveOutliers</strong></a>, <a href="./lidar_tools.html#lidarclassifysubset"><strong>LidarClassifySubset</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -9429,7 +9542,7 @@ non-sutset points will have the same class value as the base file.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_elevation_slice.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 2, 2017</p>
+<p><em>Created</em>: 02/06/2017</p>
 <p><a name="LidarGroundPointFilter"></a></p>
 <a class="header" href="#lidargroundpointfilter" id="lidargroundpointfilter"><h1>LidarGroundPointFilter</h1></a>
 <p>Identifies ground points within LiDAR dataset using a slope-based method.</p>

@@ -542,7 +542,14 @@ non-sutset points will have the same class value as the base file.</p>
 <p><em>Created</em>: February 18, 2018</p>
 <p><a name="LidarConstructVectorTin"></a></p>
 <a class="header" href="#lidarconstructvectortin" id="lidarconstructvectortin"><h1>LidarConstructVectorTin</h1></a>
-<p>Creates a vector triangular irregular network (TIN) fitted to LiDAR points.</p>
+<p>This tool creates a vector triangular irregular network (TIN) for a set of LiDAR points (<code>--input</code>)
+using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a> algorithm.
+LiDAR points may be excluded from the triangulation operation based on a number of criteria,
+include the point return number (<code>--returns</code>), point classification value (<code>--exclude_cls</code>), or
+a minimum (<code>--minz</code>) or maximum (<code>--maxz</code>) elevation.</p>
+<p>For vector points, use the <a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
@@ -572,7 +579,15 @@ non-sutset points will have the same class value as the base file.</p>
 <p><em>Created</em>: 23/09/2018</p>
 <p><a name="LidarElevationSlice"></a></p>
 <a class="header" href="#lidarelevationslice" id="lidarelevationslice"><h1>LidarElevationSlice</h1></a>
-<p>Outputs all of the points within a LiDAR (LAS) point file that lie between a specified elevation range.</p>
+<p>This tool can be used to either extract or classify the elevation values (z) of LiDAR points within
+a specified elevation range (slice). In addition to the names of the input and output LiDAR files
+(<code>--input</code> and <code>--output</code>), the user must specify the lower (<code>--minz</code>) and upper (<code>--maxz</code>) bounds of
+the elevation range. By default, the tool will only output points within the elevation slice, filtering
+out all points lying outside of this range. If the <code>--class</code> parameter is used, the tool will operate
+by assigning a class value (<code>--inclassval</code>) to the classification bit of points within the slice and
+another class value (<code>--outclassval</code>) to those points falling outside the range.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarremoveoutliers"><strong>LidarRemoveOutliers</strong></a>, <a href="./lidar_tools.html#lidarclassifysubset"><strong>LidarClassifySubset</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -608,7 +623,7 @@ non-sutset points will have the same class value as the base file.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_elevation_slice.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 2, 2017</p>
+<p><em>Created</em>: 02/06/2017</p>
 <p><a name="LidarGroundPointFilter"></a></p>
 <a class="header" href="#lidargroundpointfilter" id="lidargroundpointfilter"><h1>LidarGroundPointFilter</h1></a>
 <p>Identifies ground points within LiDAR dataset using a slope-based method.</p>
