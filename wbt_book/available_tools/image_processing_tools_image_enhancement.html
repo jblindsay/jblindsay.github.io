@@ -300,7 +300,16 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 <p><em>Created</em>: July 13, 2017</p>
 <p><a name="GaussianContrastStretch"></a></p>
 <a class="header" href="#gaussiancontraststretch" id="gaussiancontraststretch"><h1>GaussianContrastStretch</h1></a>
-<p>Performs a Gaussian contrast stretch on input images.</p>
+<p>This tool performs a Gaussian stretch on a raster image. The observed histogram of the input image is fitted
+to a Gaussian histogram, i.e. normal distribution. A histogram matching technique is used to map the values from
+the input image onto the output Gaussian distribution. The user must the number of tones (<code>--num_tones</code>) used in the
+output image.</p>
+<p>This tool is related to the more general <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a> tool, which can be used to fit any frequency distribution
+to an input image, and other contrast enchancement tools such as <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a>, and <a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a>.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -468,7 +477,23 @@ using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>S
 <p><em>Created</em>: August 31, 2017</p>
 <p><a name="MinMaxContrastStretch"></a></p>
 <a class="header" href="#minmaxcontraststretch" id="minmaxcontraststretch"><h1>MinMaxContrastStretch</h1></a>
-<p>Performs a min-max contrast stretch on an input greytone image.</p>
+<p>This tool performs a minimum-maximum contrast stretch on a raster image. This operation maps each grid cell
+value in the input raster image (z) onto a new scale that ranges from the user-specified lower-tail clip
+value (<code>min_val</code>) to the upper-tail clip value (<code>max_val</code>), with the specified number of tonal values
+(<code>num_tones</code>), such that:</p>
+<blockquote>
+<p>z<sub>out</sub> = ((z<sub>in</sub> – min_val)/(max_val – min_val)) x num_tones</p>
+</blockquote>
+<p>where z<sub>out</sub> is the output value. Notice that any values in the input image that are less than
+<code>min_val</code> are assigned a value of <code>min_val</code> in the output image. Similarly, any input values greater than
+<code>max_val</code> are assigned a value of <code>max_val</code> in the output image.</p>
+<p>This is a type of linear contrast stretch with saturation at the tails of the frequency distribution. This is
+the same kind of stretch that is used to display raster type data on the fly in many GIS software packages,
+such that the lower and upper tail values are set using the minimum and maximum display values and the number
+of tonal values is determined by the number of palette entries.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -532,7 +557,24 @@ using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>S
 <p><em>Created</em>: July 27, 2017</p>
 <p><a name="PercentageContrastStretch"></a></p>
 <a class="header" href="#percentagecontraststretch" id="percentagecontraststretch"><h1>PercentageContrastStretch</h1></a>
-<p>Performs a percentage linear contrast stretch on input images.</p>
+<p>This tool performs a percentage contrast stretch on a raster image. This operation maps each grid cell value
+in the input raster image (z<sub>in</sub>) onto a new scale that ranges from a lower-tail clip value (<code>min_val</code>)
+to the upper-tail clip value (<code>max_val</code>), with the user-specified number of tonal values (<code>num_tones</code>), such that:</p>
+<blockquote>
+<p>z<sub>out</sub> = ((z<sub>in</sub> – min_val)/(max_val – min_val)) x num_tones</p>
+</blockquote>
+<p>where z<sub>out</sub> is the output value. The values of <code>min_val</code> and <code>max_val</code> are determined from the frequency
+distribution and the user-specified tail clip value (<code>--clip</code>). For example, if a value of 1% is specified, the tool
+will determine the values in the input image for which 1% of the grid cells have a lower value <code>min_val</code> and 1% of
+the grid cells have a higher value <code>max_val</code>. The user must also specify which tails (upper, lower, or both) to clip
+(<code>--tail</code>).</p>
+<p>This is a type of linear contrast stretch with saturation at the tails of the frequency distribution. This is
+the same kind of stretch that is used to display raster type data on the fly in many GIS software packages,
+such that the lower and upper tail values are set using the minimum and maximum display values and the number
+of tonal values is determined by the number of palette entries.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>

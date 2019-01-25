@@ -851,7 +851,25 @@ Conference. pp. 24-30.</p>
 <p><em>Created</em>: 01/04/2018</p>
 <p><a name="FillDepressions"></a></p>
 <a class="header" href="#filldepressions" id="filldepressions"><h1>FillDepressions</h1></a>
-<p>Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases.</p>
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
+lat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm is based on
+the computationally efficient approach of examining each cell based on its spill elevation, starting from the
+edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
+first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
+in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
+known to provide a solution to depression removal with less impact of the DEM.</p>
+<p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
+<a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
+a more natural-looking surface than the flat areas that are produced by depression filling. Importantly, the
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool algorithm implementation assumes that there are no 'donut hole' NoData gaps within the area
+of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
+the output image.</p>
+<p><em>Reference</em>:</p>
+<p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
+models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -872,7 +890,7 @@ Conference. pp. 24-30.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="FillSingleCellPits"></a></p>
 <a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h1>FillSingleCellPits</h1></a>
 <p>Raises pit cells to the elevation of their lowest neighbour.</p>

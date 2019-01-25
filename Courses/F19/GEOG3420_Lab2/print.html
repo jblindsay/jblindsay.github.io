@@ -1,0 +1,368 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GEOG3420 W19 Lab 2</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: Image Histograms</a></li><li><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Image Contrast Enhancement</a></li><li><a href="part3.html"><strong aria-hidden="true">4.</strong> Part 3: Conversion to Reflectance</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">GEOG3420 W19 Lab 2</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#geog3420-remote-sensing-of-the-environment-w19" id="geog3420-remote-sensing-of-the-environment-w19"><h1>GEOG*3420 Remote Sensing of the Environment (W19)</h1></a>
+<a class="header" href="#lab-assignment-2" id="lab-assignment-2"><h2><strong>Lab Assignment 2</strong></h2></a>
+<a class="header" href="#introduction" id="introduction"><h2>Introduction</h2></a>
+<p>The purpose of this lab exercise is to introduce students to the techniques involved in the preprocessing of satellite imagery. This includes both the conversion of raw digital numbers (DN) to radiance values, as well as various contrast enchancement techniques used to improve image quality.</p>
+<a class="header" href="#readings-and-resources" id="readings-and-resources"><h2>Readings and Resources</h2></a>
+<p>The following materials, combined with your textbook, can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li>
+<p><a href="https://landsat.usgs.gov/using-usgs-landsat-8-product">USGS Landsat 8 Product</a></p>
+</li>
+<li>
+<p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/stretch.htm">Contrast stretching</a></p>
+</li>
+<li>
+<p><a href="https://jblindsay.github.io/wbt_book/intro.html">Lindsay, J.B. 2019. The WhiteboxTools User Manual</a></p>
+</li>
+</ul>
+<a class="header" href="#before-you-begin" id="before-you-begin"><h2>Before you begin</h2></a>
+<p><strong>IMPORTANT INFORMATION</strong>: You will need to download a fresh copy of the latest version of the <a href="https://www.uoguelph.ca/%7Ehydrogeo/WhiteboxTools/index.html">WhiteboxTools</a> library before you begin this assignment. Changes have been made to the library since you completed Lab 1 and use of an older version will likely result in incorrect results. In addition, you will need to download the data associated with this lab assignment from the GEOG*3420 CourseLink site. These data, as usual, are quite large and you will need to consider data storage solutions (e.g. a dedicated USB memory stick for the course).</p>
+<a class="header" href="#what-you-need-to-hand-in" id="what-you-need-to-hand-in"><h2>What you need to hand in</h2></a>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. Notice that you will need to have paid your lab fee to have printing privileges in the Hutt building computer labs.</p>
+<a class="header" href="#part-1-image-histograms" id="part-1-image-histograms"><h1>Part 1: Image Histograms</h1></a>
+<p>Using your visiualization software of choice (e.g. Whitebox GAT, QGIS, ArcGIS), display the <code>Band1.tif</code> image, contained in the decompressed Lab 2 data folder which you should have downloaded from the CourseLink site. You should find the the image looks something like the following:</p>
+<p><img src="img/band1.png" alt="band1.tif image" /></p>
+<p>This scene contains extensive cloud cover. The clouds are so bright in this image that every other landcover appears to be extremely dark, nearly black, by comparison. Therefore, the presence of clouds is significantly degrading our ability to descern the relatively small contrast (differences in brightness) between other types of land covers. Using the <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#RasterHistogram"><strong>RasterHistogram</strong></a>, and the <strong>WhiteboxTools Runner</strong> application, calculate the frequency distribution graph (histogram) for the <code>band1.tif</code> image.</p>
+<blockquote>
+<p>Include a screenshot of the Band 1 image histogram with your Lab hand-in. (1 mark)</p>
+</blockquote>
+<p>Notice that the frequency distribution of values contained in the <code>band1</code> image is heavily skewed, with a long tail of values to the right of the distribution peak. This tail is associated with the cloud cover. Most of the non-cloud pixels in the image occupy the two peaked bins associated with the lowest DN values. The greytone values of the image display palette are being spread across the entire range of DNs contained within the image. However, most of the variation in DNs that we are interested in, that is, the range of DNs within the non-cloud portions of image, are only displayed with a very narrow range of darker tones as a result. This is the reason for the poor contrast in the displayed image.</p>
+<blockquote>
+<p>1.1. What are the minimum and maximum DNs within the <code>band1</code> image? <strong>Hint</strong> you may use either your visualization software or the <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#RasterSummaryStats"><strong>RasterSummaryStats</strong></a> tool to determine these values. The GeoTIFF file in which these data are contained has a 16-bit <em>radiometric resolution</em>. Do the image data completely occupy the <em>bit-depth</em> of the file? (3 marks)</p>
+</blockquote>
+<p>Now display the <code>band5.tif</code> image and use the <strong>RasterHistogram</strong> tool to create this image's frequency distribution.</p>
+<blockquote>
+<p>Include a screenshot of the Band 5 image histogram with your Lab hand-in. (1 mark)</p>
+</blockquote>
+<blockquote>
+<p>1.2. How would you describe the overall contrast characteristics of the the <code>band5</code> image compared with <code>band1</code>? Which is easier to distinguish individual agricultural fields in? What is the peak in the frequency distribution of the <code>band5</code> histogram associated with? (4 marks)</p>
+</blockquote>
+<a class="header" href="#part-2-contrast-enhancement" id="part-2-contrast-enhancement"><h1>Part 2: Contrast Enhancement</h1></a>
+<p>Contrast enhancements, sometimes called radiometric enchancements, are a class of image operations that modify the frequency distribution of image values in an effort optimize the contrast and overall brightness to highlight particular ranges of digital numbers (DNs). The goal of any image enchancement operation is to improve the visualization and interpretation of the data. Contrast ehancement is also an important step in the process of generating a visually appealing colour composite image. If you recall the <code>Balance Contrast Enhancement</code> option that we encountered when we used the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool, it was performing a type of contrast adjustment internally to ensure that none of the input bands were proportionally brighter than the others.</p>
+<p>There are many reasons why the contrast of satellite imagery may be poorly suited to interpretation, including atmospheric scattering and the presence of haze or cloud cover. The <code>band1</code> image from the previous section is an example of how cloud cover can signficantly degrade image quality. In this section of the lab assignment, we will try to improve image radiometric quality through the use of various contrast enchancement tools.</p>
+<p><em>WhiteboxTools</em> offers at least six common contrast enchanment methods for use with single-bands of multispectral imagery including:</p>
+<ol>
+<li><a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_image_enhancement.html#GaussianContrastStretch">GaussianContrastStretch</a></li>
+<li><a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_image_enhancement.html#HistogramEqualization">HistogramEqualization</a></li>
+<li><a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_image_enhancement.html#MinMaxContrastStretch">MinMaxContrastStretch</a></li>
+<li><a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_image_enhancement.html#PercentageContrastStretch">PercentageContrastStretch</a></li>
+<li><a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_image_enhancement.html#SigmoidalContrastStretch">SigmoidalContrastStretch</a></li>
+<li><a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_image_enhancement.html#StandardDeviationContrastStretch">StandardDeviationContrastStretch</a></li>
+</ol>
+<p>Each of these techniques for performing contrast enchancements offer various advantages and disadvantages that make them applicable under differing image conditions.</p>
+<p>First, let's explore the use of the <strong>GaussianContrastStretch</strong> tool. Using <em>VS Code</em>, create a Python script in your Lab 2 folder (which must also contain the <code>WBT</code> folder with the latest version of the <em>WhiteboxTools</em> library) called <code>contrast.py</code>. Copy the following code into your script file and run it using the <em>VS Code</em> terminal. Be sure to modify the <code>wbt.work_dir</code> to point to the folder containing your lab data.</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+def main():
+    wbt = WhiteboxTools()  # Initialize WhiteboxTools
+    wbt.work_dir = &quot;/path/to/your/lab/data/files/&quot;  # Update this
+    # perform the stretch
+    wbt.gaussian_contrast_stretch(
+        i=&quot;band1.tif&quot;,
+        output=&quot;band1_gauss_cs.tif&quot;,
+        num_tones=4096  # 12-bit depth output
+    )
+    # visualize the histogram of the resulting image
+    wbt.raster_histogram(
+        i=&quot;band1_gauss_cs.tif&quot;,
+        output=&quot;band1_gauss_cs.html&quot;
+    )
+
+    print(&quot;Operation complete!&quot;)
+
+
+main()
+</code></pre>
+<blockquote>
+<p>Include screenshots of both the resulting contrast-stretched image (<code>band1_gauss_cs.tif</code>) and the associated histogram with your lab hand-in. (2 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.1. Describe how the histogram of the stretched image compares to the original <code>band1</code> histogram. How has it been modified? (2 marks)</p>
+</blockquote>
+<p>If you haven't already done so, display the <code>band1_gauss_cs.tif</code> using your visualization software.</p>
+<blockquote>
+<p>2.2. Compare the contrast of the Gaussian stretched image to the original <code>band1</code>. In particular, what objects/land covers are associated with the darkest and the brightest parts of the image? Are you able to distinguish features, such as individual agricultural fields, better in the contrast enhanced image than the original? How much contrast is there between the water (Lake Ontario and Lake Erie) and the surrounding land? Are the streets within urban centres (e.g. Toronto) visible or are they &quot;washed out&quot;? (5 marks)</p>
+</blockquote>
+<p>Now try to modify your script to use the <strong>HistogramEqualization</strong> tool instead. Be sure to save the modification as a new file. Also, generate the histogram for this newly created histogram-equalized image as well. Be sure to examine the help for this tool in the <em>WhiteboxTools</em> User Manual, so that you are sure you are calling the <code>histogram_equalization()</code> function correctly. You will also want to modify the script so that the output files are called <code>band1_he_cs.tif</code> and <code>band1_he_cs.html</code> instead.</p>
+<blockquote>
+<p>Include your script for performing the histogram equalization contrast stretch, as well as screenshots of the resulting image (<code>band1_he_cs.tif</code>) and histogram, with your lab hand-in. (2 marks for the script + 2 marks for the screenshots = 5 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.3. Discuss the effects of the histogram equalization contrast stretch on the quality of the image. (5 marks)</p>
+</blockquote>
+<p>Finally, modify your script again, this time making it apply the <strong>MinMaxContrastStretch</strong> tool to the <code>band1</code> image. A min-max contrast stretch is one in which:</p>
+<blockquote>
+<p>DN<sub>out</sub> = ((DN<sub>in</sub> – min_val)/(max_val – min_val)) x num_tones</p>
+</blockquote>
+<p>Any DN<sub>in</sub> &lt; <code>min_val</code> is assigned <code>min_val</code> in the output and any DN<sub>in</sub> &gt; <code>max_val</code> is assigned <code>max_val</code> in the output. That is, all values in the input image below or above specified thresholds (<code>min_val</code> and <code>max_val</code>) are <em>fully saturated</em> in the output image. Use your knowledge of the original image histogram, and the DN value range (from section 1) to help guide you in setting appropriate values for the <code>min_val</code> and <code>max_val</code> parameters. Although it is somewhat subjective what these parameters should be, <code>min_val</code> should be greater than the overall image minimum and <code>max_val</code> should be set to a lower value than the image maximum. This parameterization will require some experimentation with these values until you are satified that you have set them appropriately. Remember, ideally, you would like to saturate the tonal variation within the cloud cover, in order to create an image that emphasizes as much detail in the non-cloud areas as possible. Use the level of detail in the urban areas (do the streets seem 'washed out'), the agricultural fields (can you see the differences in tones within and between fields), and the land-lake contrast as guides.</p>
+<blockquote>
+<p>Include your <strong>final</strong> script for performing the min-max contrast stretch, as well as screenshots of the resulting image (<code>band1_minmax_cs.tif</code>) and histogram, with your lab hand-in. (2 marks for the script + 2 marks for the screenshots = 5 marks)</p>
+<p>2.4. Which of the three tested contrast enchancement techniques afforded you the greatest control over the contrast properties of the output image. Be sure to provide justification for your answer. (2 marks)</p>
+<p>2.5. What were the final values that you settled on for the <code>min_val</code> and <code>max_val</code> parameters? Which of the two parameters did you find you needed to change  How did this final image compare with the other contrast enhanced images (i.e. using the Gaussian stretch and histogram equalization)?</p>
+<p>2.6. How did the shape of the histogram of the min-max contrast stretched image compare with the original image histogram? (2 marks)</p>
+</blockquote>
+<a class="header" href="#part-3-conversion-to-top-of-atmosphere-toa-reflectance" id="part-3-conversion-to-top-of-atmosphere-toa-reflectance"><h1>Part 3: Conversion to Top-of-Atmosphere (TOA) Reflectance</h1></a>
+<p>In Lab Exercise 1, we learned that the metadata file distributed with each Landsat 8 scene contains information needed to convert the raw and uncalibrated digital numbers (DNs) contained in Landsat band images into either radiance or reflectance values. Certain remote sensing applications (e.g. image classification) require the use of calibrated imagery data containing reflectance values, and sometimes, radiance values. Therefore, it is important to know how to transform the raw imagery into calibrated form.</p>
+<blockquote>
+<p>3.1. What are the differences between image DNs, radiance values, and reflectance values? (3 marks)</p>
+</blockquote>
+<p>The process of calibrating raw satellite imagery into reflectance values may include several steps, often including a conversion of DN to radiance, a model for removing the effects of varying illumination within the scene (due to the sun angle, the earth-sun distance, terrain, and clouds and cloud shadows), and an atmospheric correction model. There are varying levels of sophistication that can be used during calibration and exact process will also vary depending on the exact satellite and sensor (Landsat 8 and the OLI sensor in our case). We are going to examine the basic method used to convert Landsat 8 Level 1 DNs into reflectance values. Based on this useful <a href="https://landsat.usgs.gov/using-usgs-landsat-8-product">documentation</a> (<strong>please read this over</strong>), we can see that the basic conversion to top-of-atmosphere reflectance values, including a correction for sun angles, is:</p>
+<blockquote>
+<p>ρ = (<em>M</em> * DN + <em>A</em>) / sin(θ<sub><em>SE</em></sub>)                        (Eq. 1)</p>
+</blockquote>
+<p>where ρ is the transformed reflectance value (at a wavelength), <em>M</em> is the band-specific multiplicative rescaling factor, <em>A</em> is the band-specific additive rescaling factor, and θ<sub><em>SE</em></sub> is the sun elevation, in radians. <em>M</em>, <em>A</em>, and θ<sub><em>SE</em></sub> can each be found within the metadata file distributed with a Landsat scene and are specific to the geographic location of the scene and the time that it was acquired.</p>
+<blockquote>
+<p>3.2. What is difference between the <em>top-of-atmosphere</em> reflectance and <em>surface</em> reflectance? (2 marks)</p>
+</blockquote>
+<p>Open the metadata file associated with the lab data, <code>LC08_L1TP_018030_20170624_20170713_01_T1_MTL.txt</code>, using a text editor such as VS Code. Try to locate the sun elevation and each the reflectance rescaling parameters in the file.</p>
+<blockquote>
+<p>3.3. How do the reflectance rescaling parameters compare to the radiance rescaling parameters? What do you think this difference may imply about the pre-processing that was done on the imagery before it was made available? (3 marks)</p>
+</blockquote>
+<p>We could use Eq. 1 above to convert each of the bands within our scene data set manually. However, this would be a tediuous task and the opportunities for using the incorrect parameter by accident is fairly high. Instead, we're going to write a script to automatically read the parameters from the metadata file and then apply the DN-to-relectance transform to each of our bands. <strong>Notice, it is very important that you download the latest version of WhiteboxTools before attempting this part of the lab.</strong> There have been updates to the library since the last lab assignment that affect the following analysis. Using <em>VS Code</em>, create a Python script in your Lab 2 folder called <code>reflectance.py</code>. Copy the following code into your script file and run it using the <em>VS Code</em> terminal and <em>don't forget to modify the <code>wbt.work_dir</code> appropriate for your data location</em>.</p>
+<pre><code class="language-python">from math import radians, sin
+from WBT.whitebox_tools import WhiteboxTools
+
+
+def main():
+    wbt = WhiteboxTools()  # Initialize WhiteboxTools
+    wbt.work_dir = &quot;/path/to/your/lab/data/files/&quot;  # Update this
+    wbt.verbose = False  # This way the script won't output so many updates about progress
+
+    # Open the metadata text file associated with the Landsat scence
+    metadata = wbt.work_dir + &quot;LC08_L1TP_018030_20170624_20170713_01_T1_MTL.txt&quot;
+    fh = open(metadata)
+
+    # These two lists will contain the rescaling parameters.
+    mult_term = []
+    add_term = []
+    for line in fh:
+        # Read the file line-by-line looking for the reflectance transformation parameters
+        if &quot;REFLECTANCE_MULT_BAND_&quot; in line:
+            mult_term.append(float(line.split(&quot;=&quot;)[1].strip()))
+        elif &quot;REFLECTANCE_ADD_BAND_&quot; in line:
+            add_term.append(float(line.split(&quot;=&quot;)[1].strip()))
+        elif &quot;SUN_ELEVATION&quot; in line:
+            # We're also getting the sun elevation from the metadata. It has
+            # to be converted to a float and radians.
+            sun_elevation = radians(float(line.split(&quot;=&quot;)[1].strip()))
+    fh.close()  # Be sure to close an open file
+
+    # We'll transform the first five bands of the data set
+    for i in range(0, 5):
+        # The bands are indexed 1, 2, 3... but the mult_term list is indexed 0, 1, 2...
+        band_num = i + 1
+        print(&quot;Transforming band {}...&quot;.format(band_num))
+        inFile = &quot;band{}.tif&quot;.format(
+            band_num)
+        # This is where the DN-to-reflectance transform equation happens.
+        # It creates two temporary rasters that are continually over-written.
+        wbt.multiply(inFile, mult_term[i], &quot;tmp1.tif&quot;)
+        wbt.add(&quot;tmp1.tif&quot;, add_term[i], &quot;tmp2.tif&quot;)
+        # The final transformed raster is called bandX_reflect.tif
+        wbt.divide(&quot;tmp2.tif&quot;, sin(sun_elevation),
+                   &quot;band{}_reflect.tif&quot;.format(band_num))
+
+    # Provide some sort of indication that the job is done.
+    print(&quot;Operation complete!&quot;)
+
+
+main()
+
+</code></pre>
+<p>This script may take a fair bit of time before completing but it will at least provide you with periodic updates on progress (e.g. <code>Transforming band 1...</code>). Hopefully, the script runs without issue for you. It is however one of the longest scripts that we've seen so far and because it involves reading and parsing text data, there is the potential for system-specific bugs to occur. If you encounter errors when you run the above script, examine the script carefully to see if you can identify the source of the bug. Once you have gained a full understanding of what the script is doing (see the detailed comments), and have exhausted debugging options (e.g. adding print statements in the script to see how far it progresses, searching the Internet for solutions), then you may approach fellow students or the GTA for assistance.</p>
+<p>Once you have successfully run the script, display each of the five transformed bands using your visualization software. You will notice that they look very similar to the original bands, however, their value range is very different. Each pixel now contains an approximate reflectance value.</p>
+<blockquote>
+<p>3.4. What are the minimum and maximum values within each of the transformed images. Are these value ranges expected for reflectance data? (6 marks)</p>
+<p>3.5. Describe the specific ways that you would need to modify the above script if you wanted to perform a DN-to-<em>radiance</em> transformation instead of the DN-to-<em>reflectance</em> we performed. (Hint: be sure to read over the <a href="https://landsat.usgs.gov/using-usgs-landsat-8-product">documentation</a> before answering.) (4 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
