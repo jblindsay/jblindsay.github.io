@@ -139,7 +139,7 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 0.13  <br />
+<p>WhiteboxTools Version 0.14  <br />
 Dr. John B. Lindsay © 2017-2019  <br />
 Geomorphometry and Hydrogeomatics Research Group  <br />
 University of Guelph  <br />
@@ -1222,11 +1222,13 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <a class="header" href="#geomorphometric-analysis" id="geomorphometric-analysis"><h1>Geomorphometric Analysis</h1></a>
 <ul>
 <li><a href="#Aspect">Aspect</a></li>
+<li><a href="#CircularVarianceOfAspect">CircularVarianceOfAspect</a></li>
 <li><a href="#DevFromMeanElev">DevFromMeanElev</a></li>
 <li><a href="#DiffFromMeanElev">DiffFromMeanElev</a></li>
 <li><a href="#DirectionalRelief">DirectionalRelief</a></li>
 <li><a href="#DownslopeIndex">DownslopeIndex</a></li>
 <li><a href="#DrainagePreservingSmoothing">DrainagePreservingSmoothing</a></li>
+<li><a href="#EdgeDensity">EdgeDensity</a></li>
 <li><a href="#ElevAbovePit">ElevAbovePit</a></li>
 <li><a href="#ElevPercentile">ElevPercentile</a></li>
 <li><a href="#ElevRelativeToMinMax">ElevRelativeToMinMax</a></li>
@@ -1235,7 +1237,6 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#FetchAnalysis">FetchAnalysis</a></li>
 <li><a href="#FillMissingData">FillMissingData</a></li>
 <li><a href="#FindRidges">FindRidges</a></li>
-<li><a href="#Geomorphons">Geomorphons</a></li>
 <li><a href="#Hillshade">Hillshade</a></li>
 <li><a href="#HorizonAngle">HorizonAngle</a></li>
 <li><a href="#HypsometricAnalysis">HypsometricAnalysis</a></li>
@@ -1266,6 +1267,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#Slope">Slope</a></li>
 <li><a href="#SlopeVsElevationPlot">SlopeVsElevationPlot</a></li>
 <li><a href="#StandardDeviationOfSlope">StandardDeviationOfSlope</a></li>
+<li><a href="#SurfaceAreaRatio">SurfaceAreaRatio</a></li>
 <li><a href="#TangentialCurvature">TangentialCurvature</a></li>
 <li><a href="#TotalCurvature">TotalCurvature</a></li>
 <li><a href="#Viewshed">Viewshed</a></li>
@@ -1325,7 +1327,38 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
+<p><a name="CircularVarianceOfAspect"></a></p>
+<a class="header" href="#circularvarianceofaspect" id="circularvarianceofaspect"><h1>CircularVarianceOfAspect</h1></a>
+<p>This tool can be used to calculate the circular variance (i.e. one minus the mean resultant length) of aspect
+for an input digital elevation model (DEM). This is a measure of how variable slope aspect is within a local
+neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a> is therefore a measure of surface
+shape complexity, or texture. It will take a value near 0.0 for smooth sites and 1.0 in areas of high surface
+roughness or complex topography.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--output           </td><td> Output raster roughness scale file</td></tr>
+<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">circular_variance_of_aspect(
+    dem, 
+    output, 
+    filter=11, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CircularVarianceOfAspect -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif --out_mag=roughness_mag.tif ^
+--out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
+--step=5 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/circular_variance_of_aspect.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/01/2019</p>
 <p><a name="DevFromMeanElev"></a></p>
 <a class="header" href="#devfrommeanelev" id="devfrommeanelev"><h1>DevFromMeanElev</h1></a>
 <p>This tool can be used to calculate the difference between the elevation of each grid
@@ -1548,6 +1581,45 @@ rills, gullies, etc., which would otherwise be smoothed over.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/drainage_preserving_smoothing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay and Anthony Francioni</p>
 <p><em>Created</em>: 06/09/2018</p>
+<p><a name="EdgeDensity"></a></p>
+<a class="header" href="#edgedensity" id="edgedensity"><h1>EdgeDensity</h1></a>
+<p>This tool calculates the density of edges, or breaks-in-slope within an input digital elevation model (DEM).
+A break-in-slope occurs between two neighbouring grid cells if the angular difference between their normal
+vectors is greater than a user-specified threshold value (<code>--norm_diff</code>). <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a> calculates the proportion
+of edge cells within the neighbouring window, of square filter dimension <code>--filter</code>, surrounding each grid cell.
+Therefore, <code>EdgeDensity</code>is a measure of how complex the topographic surface is within a local neighbourhood.
+It is therefore a measure of topographic texture. It will take a value near 0.0 for smooth sites and 1.0 in areas
+of high surface roughness or complex topography.</p>
+<p>The distribution of <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a> is highly dependent upon the value of the <code>norm_diff</code> used in the calculation. This
+threshold may require experimentation to find an appropriate value and is likely dependent upon the topography and
+source data.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+<tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
+<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">edge_density(
+    dem, 
+    output, 
+    filter=11, 
+    norm_diff=5.0, 
+    zfactor=1.0, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=EdgeDensity -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif -o=output.tif --filter=15 --norm_diff=20.0 ^
+--num_iter=4 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/edge_density.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 27/01/2019</p>
 <p><a name="ElevAbovePit"></a></p>
 <a class="header" href="#elevabovepit" id="elevabovepit"><h1>ElevAbovePit</h1></a>
 <p>This tool will calculate the elevation of each grid cell in a digital elevation model (DEM) above the nearest
@@ -1857,36 +1929,6 @@ to create single-cell wide ridge networks by specifying the <code>--line_thin</c
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/find_ridges.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 04/12/2017</p>
-<p><a name="Geomorphons"></a></p>
-<a class="header" href="#geomorphons" id="geomorphons"><h1>Geomorphons</h1></a>
-<p>Computes geomorphon patterns.</p>
-<p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>-s, --search       </td><td> Look up distance</td></tr>
-<tr><td>-t, --threshold    </td><td> Flatness threshold for the classification function (in degrees)</td></tr>
-<tr><td>-d, --tdist        </td><td> Distance (in cells) to begin reducing the flatness threshold to avoid problems with pseudo-flat lines-of-sight</td></tr>
-<tr><td>-f, --forms        </td><td> Classify geomorphons into 10 common land morphologies, else, output ternary code</td></tr>
-</tbody></table>
-<p><em>Python function</em>:</p>
-<pre><code class="language-python">geomorphons(
-    dem, 
-    output, 
-    search=3, 
-    threshold=0.0, 
-    tdist=0, 
-    forms=False, 
-    callback=default_callback)
-</code></pre>
-<p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=Geomorphons -v --wd=&quot;/path/to/data/&quot; ^
---dem=DEM.tif -o=output.tif --slope=3.0 --prof=0.1 ^
---plan=0.0 
-</code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/geomorphons.rs">Source code on GitHub</a></p>
-<p><em>Author</em>: Daniel Newman</p>
-<p><em>Created</em>: 21/09/2018</p>
 <p><a name="Hillshade"></a></p>
 <a class="header" href="#hillshade" id="hillshade"><h1>Hillshade</h1></a>
 <p>This tool performs a hillshade operation (also called shaded relief) on an input digital elevation model (DEM).
@@ -2874,6 +2916,36 @@ roughness described by Grohmann et al., (2011).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/standard_deviation_of_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Anthony Francioni</p>
 <p><em>Created</em>: May 26, 2018</p>
+<p><a name="SurfaceAreaRatio"></a></p>
+<a class="header" href="#surfacearearatio" id="surfacearearatio"><h1>SurfaceAreaRatio</h1></a>
+<p>This tool calculates the ratio between the surface area and planar area of grid cells within digital elevation models (DEMs).
+The tool uses the method of Jenness (2004) to estimate the surface area of a DEM grid cell based on the elevations
+contained within the 3 x 3 neighbourhood surrounding each cell. The surface area ratio has a lower bound of 1.0 for
+perfectly flat grid cells and is greater than 1.0 for other conditions. In particular, surface area ratio is a measure of
+neighbourhood surface shape complexity (texture) and elevation variability (local slope).</p>
+<p><em>Reference</em>:</p>
+<p>Jenness, J. S. (2004). Calculating landscape surface area from digital elevation models. Wildlife Society
+Bulletin, 32(3), 829-839.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">surface_area_ratio(
+    dem, 
+    output, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SurfaceAreaRatio -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/surface_area_ratio.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 23/01/2019</p>
 <p><a name="TangentialCurvature"></a></p>
 <a class="header" href="#tangentialcurvature" id="tangentialcurvature"><h1>TangentialCurvature</h1></a>
 <p>Calculates a tangential curvature raster from an input DEM.</p>
@@ -13466,6 +13538,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/gis_analysis.html#CentroidVector">CentroidVector</a> (GIS Analysis)</p>
 <p><a href="available_tools/gis_analysis.html#Centroid">Centroid</a> (GIS Analysis)</p>
 <p><a href="available_tools/image_processing_tools.html#ChangeVectorAnalysis">ChangeVectorAnalysis</a> (Image Processing Tools)</p>
+<p><a href="available_tools/geomorphometric_analysis.html#CircularVarianceOfAspect">CircularVarianceOfAspect</a> (Geomorphometric Analysis)</p>
 <p><a href="available_tools/lidar_tools.html#ClassifyOverlapPoints">ClassifyOverlapPoints</a> (LiDAR Tools)</p>
 <p><a href="available_tools/lidar_tools.html#ClipLidarToPolygon">ClipLidarToPolygon</a> (LiDAR Tools)</p>
 <p><a href="available_tools/gis_analysis_overlay_tools.html#ClipRasterToPolygon">ClipRasterToPolygon</a> (GIS Analysis → Overlay Tools)</p>
@@ -13514,6 +13587,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/hydrological_analysis.html#DownslopeFlowpathLength">DownslopeFlowpathLength</a> (Hydrological Analysis)</p>
 <p><a href="available_tools/geomorphometric_analysis.html#DownslopeIndex">DownslopeIndex</a> (Geomorphometric Analysis)</p>
 <p><a href="available_tools/geomorphometric_analysis.html#DrainagePreservingSmoothing">DrainagePreservingSmoothing</a> (Geomorphometric Analysis)</p>
+<p><a href="available_tools/geomorphometric_analysis.html#EdgeDensity">EdgeDensity</a> (Geomorphometric Analysis)</p>
 <p><a href="available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter">EdgePreservingMeanFilter</a> (Image Processing Tools → Filters)</p>
 <p><a href="available_tools/gis_analysis_patch_shape_tools.html#EdgeProportion">EdgeProportion</a> (GIS Analysis → Patch Shape Tools)</p>
 <p><a href="available_tools/geomorphometric_analysis.html#ElevAbovePit">ElevAbovePit</a> (Geomorphometric Analysis)</p>
@@ -13568,7 +13642,6 @@ SOFTWARE.</p>
 <p><a href="available_tools/image_processing_tools_image_enhancement.html#GammaCorrection">GammaCorrection</a> (Image Processing Tools → Image Enhancement)</p>
 <p><a href="available_tools/image_processing_tools_image_enhancement.html#GaussianContrastStretch">GaussianContrastStretch</a> (Image Processing Tools → Image Enhancement)</p>
 <p><a href="available_tools/image_processing_tools_filters.html#GaussianFilter">GaussianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#Geomorphons">Geomorphons</a> (Geomorphometric Analysis)</p>
 <p><a href="available_tools/mathand_stats_tools.html#GreaterThan">GreaterThan</a> (Math and Stats Tools)</p>
 <p><a href="available_tools/stream_network_analysis.html#HackStreamOrder">HackStreamOrder</a> (Stream Network Analysis)</p>
 <p><a href="available_tools/image_processing_tools_filters.html#HighPassFilter">HighPassFilter</a> (Image Processing Tools → Filters)</p>
@@ -13797,6 +13870,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/hydrological_analysis.html#Subbasins">Subbasins</a> (Hydrological Analysis)</p>
 <p><a href="available_tools/mathand_stats_tools.html#Subtract">Subtract</a> (Math and Stats Tools)</p>
 <p><a href="available_tools/gis_analysis_overlay_tools.html#SumOverlay">SumOverlay</a> (GIS Analysis → Overlay Tools)</p>
+<p><a href="available_tools/geomorphometric_analysis.html#SurfaceAreaRatio">SurfaceAreaRatio</a> (Geomorphometric Analysis)</p>
 <p><a href="available_tools/gis_analysis_overlay_tools.html#SymmetricalDifference">SymmetricalDifference</a> (GIS Analysis → Overlay Tools)</p>
 <p><a href="available_tools/mathand_stats_tools.html#Tan">Tan</a> (Math and Stats Tools)</p>
 <p><a href="available_tools/geomorphometric_analysis.html#TangentialCurvature">TangentialCurvature</a> (Geomorphometric Analysis)</p>
