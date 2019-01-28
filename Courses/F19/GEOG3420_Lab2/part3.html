@@ -155,16 +155,19 @@
 </blockquote>
 <p>We could use Eq. 1 above to convert each of the bands within our scene data set manually. However, this would be a tediuous task and the opportunities for using the incorrect parameter by accident is fairly high. Instead, we're going to write a script to automatically read the parameters from the metadata file and then apply the DN-to-relectance transform to each of our bands. <strong>Notice, it is very important that you download the latest version of WhiteboxTools before attempting this part of the lab.</strong> There have been updates to the library since the last lab assignment that affect the following analysis. Using <em>VS Code</em>, create a Python script in your Lab 2 folder called <code>reflectance.py</code>. Copy the following code into your script file and run it using the <em>VS Code</em> terminal and <em>don't forget to modify the <code>wbt.work_dir</code> appropriate for your data location</em>.</p>
 <pre><code class="language-python">from math import radians, sin
+import os
 from WBT.whitebox_tools import WhiteboxTools
 
 
 def main():
     wbt = WhiteboxTools()  # Initialize WhiteboxTools
-    wbt.work_dir = &quot;/path/to/your/lab/data/files/&quot;  # Update this
+    wbt.work_dir = os.path.join(os.path.dirname(
+        __file__), &quot;lab2_data&quot;)  # Update this
     wbt.verbose = False  # This way the script won't output so many updates about progress
 
     # Open the metadata text file associated with the Landsat scence
-    metadata = wbt.work_dir + &quot;LC08_L1TP_018030_20170624_20170713_01_T1_MTL.txt&quot;
+    metadata = os.path.join(
+        wbt.work_dir, &quot;LC08_L1TP_018030_20170624_20170713_01_T1_MTL.txt&quot;)
     fh = open(metadata)
 
     # These two lists will contain the rescaling parameters.

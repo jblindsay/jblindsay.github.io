@@ -173,7 +173,7 @@
 <p>Include a screenshot of the Band 5 image histogram with your Lab hand-in. (1 mark)</p>
 </blockquote>
 <blockquote>
-<p>1.2. How would you describe the overall contrast characteristics of the the <code>band5</code> image compared with <code>band1</code>? Which is easier to distinguish individual agricultural fields in? What is the peak in the frequency distribution of the <code>band5</code> histogram associated with? (4 marks)</p>
+<p>1.2. How would you describe the overall contrast characteristics of the <code>band5</code> image compared with <code>band1</code>? Which is easier to distinguish individual agricultural fields in? What is the peak in the frequency distribution of the <code>band5</code> histogram associated with? (4 marks)</p>
 </blockquote>
 <a class="header" href="#part-2-contrast-enhancement" id="part-2-contrast-enhancement"><h1>Part 2: Contrast Enhancement</h1></a>
 <p>Contrast enhancements, sometimes called radiometric enchancements, are a class of image operations that modify the frequency distribution of image values in an effort optimize the contrast and overall brightness to highlight particular ranges of digital numbers (DNs). The goal of any image enchancement operation is to improve the visualization and interpretation of the data. Contrast ehancement is also an important step in the process of generating a visually appealing colour composite image. If you recall the <code>Balance Contrast Enhancement</code> option that we encountered when we used the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool, it was performing a type of contrast adjustment internally to ensure that none of the input bands were proportionally brighter than the others.</p>
@@ -223,7 +223,7 @@ main()
 </blockquote>
 <p>Now try to modify your script to use the <strong>HistogramEqualization</strong> tool instead. Be sure to save the modification as a new file. Also, generate the histogram for this newly created histogram-equalized image as well. Be sure to examine the help for this tool in the <em>WhiteboxTools</em> User Manual, so that you are sure you are calling the <code>histogram_equalization()</code> function correctly. You will also want to modify the script so that the output files are called <code>band1_he_cs.tif</code> and <code>band1_he_cs.html</code> instead.</p>
 <blockquote>
-<p>Include your script for performing the histogram equalization contrast stretch, as well as screenshots of the resulting image (<code>band1_he_cs.tif</code>) and histogram, with your lab hand-in. (2 marks for the script + 2 marks for the screenshots = 5 marks)</p>
+<p>Include your script for performing the histogram equalization contrast stretch, as well as screenshots of the resulting image (<code>band1_he_cs.tif</code>) and histogram, with your lab hand-in. (3 marks for the script + 2 marks for the screenshots = 5 marks)</p>
 </blockquote>
 <blockquote>
 <p>2.3. Discuss the effects of the histogram equalization contrast stretch on the quality of the image. (5 marks)</p>
@@ -234,9 +234,9 @@ main()
 </blockquote>
 <p>Any DN<sub>in</sub> &lt; <code>min_val</code> is assigned <code>min_val</code> in the output and any DN<sub>in</sub> &gt; <code>max_val</code> is assigned <code>max_val</code> in the output. That is, all values in the input image below or above specified thresholds (<code>min_val</code> and <code>max_val</code>) are <em>fully saturated</em> in the output image. Use your knowledge of the original image histogram, and the DN value range (from section 1) to help guide you in setting appropriate values for the <code>min_val</code> and <code>max_val</code> parameters. Although it is somewhat subjective what these parameters should be, <code>min_val</code> should be greater than the overall image minimum and <code>max_val</code> should be set to a lower value than the image maximum. This parameterization will require some experimentation with these values until you are satified that you have set them appropriately. Remember, ideally, you would like to saturate the tonal variation within the cloud cover, in order to create an image that emphasizes as much detail in the non-cloud areas as possible. Use the level of detail in the urban areas (do the streets seem 'washed out'), the agricultural fields (can you see the differences in tones within and between fields), and the land-lake contrast as guides.</p>
 <blockquote>
-<p>Include your <strong>final</strong> script for performing the min-max contrast stretch, as well as screenshots of the resulting image (<code>band1_minmax_cs.tif</code>) and histogram, with your lab hand-in. (2 marks for the script + 2 marks for the screenshots = 5 marks)</p>
-<p>2.4. Which of the three tested contrast enchancement techniques afforded you the greatest control over the contrast properties of the output image. Be sure to provide justification for your answer. (2 marks)</p>
-<p>2.5. What were the final values that you settled on for the <code>min_val</code> and <code>max_val</code> parameters? Which of the two parameters did you find you needed to change  How did this final image compare with the other contrast enhanced images (i.e. using the Gaussian stretch and histogram equalization)?</p>
+<p>Include your <strong>final</strong> script for performing the min-max contrast stretch, as well as screenshots of the resulting image (<code>band1_minmax_cs.tif</code>) and histogram, with your lab hand-in. (3 marks for the script + 2 marks for the screenshots = 5 marks)</p>
+<p>2.4. Which of the three tested contrast enhancement techniques afforded you the greatest control over the contrast properties of the output image. Be sure to provide justification for your answer. (2 marks)</p>
+<p>2.5. What were the final values that you settled on for the <code>min_val</code> and <code>max_val</code> parameters? Which of the two parameters did you find you needed to change. How did this final image compare with the other contrast enhanced images (i.e. using the Gaussian stretch and histogram equalization)? (6 marks)</p>
 <p>2.6. How did the shape of the histogram of the min-max contrast stretched image compare with the original image histogram? (2 marks)</p>
 </blockquote>
 <a class="header" href="#part-3-conversion-to-top-of-atmosphere-toa-reflectance" id="part-3-conversion-to-top-of-atmosphere-toa-reflectance"><h1>Part 3: Conversion to Top-of-Atmosphere (TOA) Reflectance</h1></a>
@@ -258,16 +258,19 @@ main()
 </blockquote>
 <p>We could use Eq. 1 above to convert each of the bands within our scene data set manually. However, this would be a tediuous task and the opportunities for using the incorrect parameter by accident is fairly high. Instead, we're going to write a script to automatically read the parameters from the metadata file and then apply the DN-to-relectance transform to each of our bands. <strong>Notice, it is very important that you download the latest version of WhiteboxTools before attempting this part of the lab.</strong> There have been updates to the library since the last lab assignment that affect the following analysis. Using <em>VS Code</em>, create a Python script in your Lab 2 folder called <code>reflectance.py</code>. Copy the following code into your script file and run it using the <em>VS Code</em> terminal and <em>don't forget to modify the <code>wbt.work_dir</code> appropriate for your data location</em>.</p>
 <pre><code class="language-python">from math import radians, sin
+import os
 from WBT.whitebox_tools import WhiteboxTools
 
 
 def main():
     wbt = WhiteboxTools()  # Initialize WhiteboxTools
-    wbt.work_dir = &quot;/path/to/your/lab/data/files/&quot;  # Update this
+    wbt.work_dir = os.path.join(os.path.dirname(
+        __file__), &quot;lab2_data&quot;)  # Update this
     wbt.verbose = False  # This way the script won't output so many updates about progress
 
     # Open the metadata text file associated with the Landsat scence
-    metadata = wbt.work_dir + &quot;LC08_L1TP_018030_20170624_20170713_01_T1_MTL.txt&quot;
+    metadata = os.path.join(
+        wbt.work_dir, &quot;LC08_L1TP_018030_20170624_20170713_01_T1_MTL.txt&quot;)
     fh = open(metadata)
 
     # These two lists will contain the rescaling parameters.
