@@ -665,7 +665,21 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 <p><em>Created</em>: July 12, 2017</p>
 <p><a name="StreamLinkIdentifier"></a></p>
 <a class="header" href="#streamlinkidentifier" id="streamlinkidentifier"><h1>StreamLinkIdentifier</h1></a>
-<p>Assigns a unique identifier to each link in a stream network.</p>
+<p>This tool can be used to assign each link in a stream network a unique numeric identifier. This grid is
+used by a number of other stream network analysis tools.</p>
+<p>The input streams file (<code>--streams</code>) is used to designate which grid cells contain a stream and the pointer
+image is used to traverse the stream network. Stream cells are designated in the streams image as all values
+greater than zero. Thus, all non-stream or background grid cells are commonly assigned either zeros or NoData
+values. Background cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code>
+parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>The user must specify the name of a flow pointer (flow direction) raster (<code>--d8_pntr</code>), a streams raster
+(<code>--streams</code>), and the output raster (<code>--output</code>). The flow pointer and streams rasters should be generated
+using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This will require a depressionless DEM, processed using either the
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. flow direction) raster, and the output raster.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -693,7 +707,7 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_id.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="StreamLinkLength"></a></p>
 <a class="header" href="#streamlinklength" id="streamlinklength"><h1>StreamLinkLength</h1></a>
 <p>Estimates the length of each link (or tributary) in a stream network.</p>

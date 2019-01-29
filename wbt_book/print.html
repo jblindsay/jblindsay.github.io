@@ -171,7 +171,8 @@ Sponsored by:</p>
 </ul>
 </blockquote>
 <a class="header" href="#what-can-whiteboxtools-do" id="what-can-whiteboxtools-do"><h2>What can WhiteboxTools do?</h2></a>
-<p><em>WhiteboxTools</em> can be used to perform common geographical information systems (GIS) analysis operations, such as cost-distance analysis, distance buffering, and raster reclassification. Remote sensing and image processing tasks include image enhancement (e.g. panchromatic sharpening, contrast adjustments), image mosaicking, numerous filtering operations, simple classification (k-means clustering), and common image transformations. <em>WhiteboxTools</em> also contains advanced tooling for spatial hydrological analysis (e.g. flow-accumulation, watershed delineation, stream network analysis, sink removal), terrain analysis (e.g. common terrain indices such as slope, curvatures, wetness index, hillshading; hypsometric analysis; multi-scale topographic position analysis), and LiDAR data processing. LiDAR point clouds can be interrogated (LidarInfo, LidarHistogram), segmented, tiled and joined, analyzed for outliers, interpolated to rasters (DEMs, intensity images), and ground-points can be classified or filtered. <em>WhiteboxTools</em> is not a cartographic or spatial data visualization package; instead it is meant to serve as an analytical backend for other data visualization software, mainly GIS.</p>
+<p><em>WhiteboxTools</em> can be used to perform common geographical information systems (GIS) analysis operations, such as cost-distance analysis, distance buffering, and raster reclassification. Remote sensing and image processing tasks include image enhancement (e.g. panchromatic sharpening, contrast adjustments), image mosaicking, numerous filtering operations, simple classification (k-means clustering), and common image transformations. <em>WhiteboxTools</em> also contains advanced tooling for spatial hydrological analysis (e.g. flow-accumulation, watershed delineation, stream network analysis, sink removal), geomorphometric analysis (e.g. common terrain indices such as slope, curvatures, wetness index, hillshading; hypsometric analysis; multi-scale topographic position analysis), and LiDAR data processing. LiDAR point clouds can be interrogated (LidarInfo, LidarHistogram), segmented, tiled and joined, analyzed for outliers, interpolated to rasters (DEMs, intensity images), and ground-points can be classified or filtered.</p>
+<p><em>WhiteboxTools</em> is not a cartographic or spatial data visualization package; instead it is meant to serve as an analytical backend for other data visualization software, mainly GIS (e.g. Whitebox GAT and <a href="./qgis_plugin.html">QGIS</a>).</p>
 <a class="header" href="#whiteboxtools-vs-whitebox-geospatial-analysis-tools-gat" id="whiteboxtools-vs-whitebox-geospatial-analysis-tools-gat"><h2>WhiteboxTools vs. Whitebox Geospatial Analysis Tools (GAT)</h2></a>
 <p>Although <em>WhiteboxTools</em> was first developed with to serve as a source of plugin tools for the <a href="http://www.uoguelph.ca/%7Ehydrogeo/Whitebox/"><em>Whitebox Geospatial Analysis Tools</em></a> (GAT) open-source GIS project, the tools contained in the library are stand-alone and can run outside of the larger <em>Whitebox GAT</em> project. See <a href="#interacting-with-whiteboxtools-from-the-command-prompt">Interacting With <em>WhiteboxTools</em> From the Command Prompt</a> for further details. There have been a large number of requests to call <em>Whitebox GAT</em> tools and functionality from outside of the <em>Whitebox GAT</em> user-interface (e.g. from Python automation scripts). <em>WhiteboxTools</em> is intended to meet these usage requirements. For example, a <a href="https://plugins.bruy.me/plugins/plugins.xml"><em>WhiteboxTools</em> plug-in for QGIS</a> is available.</p>
 <blockquote>
@@ -5703,7 +5704,7 @@ accompanying database file (.dbf) as a complexity field (COMPLEXITY).</p>
 <li><a href="#FlowAccumulationFullWorkflow">FlowAccumulationFullWorkflow</a></li>
 <li><a href="#FlowLengthDiff">FlowLengthDiff</a></li>
 <li><a href="#Hillslopes">Hillslopes</a></li>
-<li><a href="#ImpoundmentIndex">ImpoundmentIndex</a></li>
+<li><a href="#ImpoundmentSizeIndex">ImpoundmentSizeIndex</a></li>
 <li><a href="#Isobasins">Isobasins</a></li>
 <li><a href="#JensonSnapPourPoints">JensonSnapPourPoints</a></li>
 <li><a href="#LongestFlowpath">LongestFlowpath</a></li>
@@ -5820,17 +5821,20 @@ region of valid data in the flow pointer raster will be divided into a set of mu
 <p><em>Created</em>: 01/07/2017</p>
 <p><a name="BreachDepressions"></a></p>
 <a class="header" href="#breachdepressions" id="breachdepressions"><h1>BreachDepressions</h1></a>
-<p>This tool can be used to remove the depressions in a digital elevation model, a
+<p>This tool can be used to remove the depressions in a digital elevation model (DEM), a
 common requirement of spatial hydrological operations such as flow accumulation
 and watershed modelling. The tool based on on the efficient hybrid depression
 breaching algorithm described by Lindsay (2016). It uses a breach-first, fill-second
 approach to resolving continous flowpaths through depressions.</p>
+<p>Notice that when the input DEM (<code>--dem</code>) contains deep, single-cell pits, it can be useful
+to apply the <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a> before <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, to avoid the creation of
+deep breach trenches.</p>
 <p><em>Reference</em>:</p>
 <p>Lindsay JB. 2016. <em>Efficient hybrid breaching-filling sink removal methods for
 flow path enforcement in digital elevation models.</em> <strong>Hydrological Processes</strong>,
 30(6): 846–857. DOI: 10.1002/hyp.10648</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -5863,7 +5867,7 @@ cell of a neighbouring cell. Notice that this tool can be a useful pre-processin
 one of the more robust depression filling or breaching techniques (e.g. <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and
 <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>), which are designed to remove larger depression features.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6338,7 +6342,29 @@ Geosciences, 17(3), 413-422.</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="Fd8Pointer"></a></p>
 <a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
-<p>Calculates an FD8 flow pointer raster from an input DEM.</p>
+<p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the FD8 (Freeman, 1991) algorithm.
+FD8 is a multiple-flow-direction (MFD) method because the flow entering each grid cell is routed one or more
+downslope neighbours, i.e. flow divergence is permitted. The user must specify the name of a digital elevation model
+(DEM; <code>--dem</code>) that has been hydrologically corrected to remove all spurious depressions and flat areas.
+DEM pre-processing is usually achived using the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools.</p>
+<p>By default, D8 flow pointers use the following clockwise, base-2 numeric index convention:</p>
+<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
+<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
+<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+</tbody></table>
+<p>In the case of the FD8 algorithm, some portion of the flow entering a grid cell will be sent to each downslope
+neighbour. Thus, the FD8 flow-pointer value is the sum of each of the individual pointers for all downslope neighbours.
+For example, if a grid cell has downslope neighbours to the northeast, east, and south the corresponding FD8
+flow-pointer value will be 1 + 2 + 8 = 11. Using the naming convention above, this is the only combination of
+flow-pointers that will result in the combined value of 11. Using the base-2 naming convention allows for the
+storage of complex combinations of flow-points using a single numeric value, which is the reason for using this
+somewhat odd convention.</p>
+<p><em>Reference</em>:</p>
+<p>Freeman, T. G. (1991). Calculating catchment area with divergent flow based on a regular grid. Computers and
+Geosciences, 17(3), 413-422.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6356,7 +6382,7 @@ Geosciences, 17(3), 413-422.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_pointer.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="FillBurn"></a></p>
 <a class="header" href="#fillburn" id="fillburn"><h1>FillBurn</h1></a>
 <p>Burns streams into a DEM using the FillBurn (Saunders, 1999) method. This tool uses the
@@ -6430,7 +6456,14 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <p><em>Created</em>: 28/06/2017</p>
 <p><a name="FillSingleCellPits"></a></p>
 <a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h1>FillSingleCellPits</h1></a>
-<p>Raises pit cells to the elevation of their lowest neighbour.</p>
+<p>This tool can be used to remove pits from a digital elevation model (DEM). Pits are single grid cells with no
+downslope neighbours. They are important because they impede overland flow-paths. This tool will remove any
+pits in the input DEM that can be resolved by raising the elevation of the pit such that flow will continue
+past the pit cell to one of the downslope neighbours. Notice that this tool can be a useful pre-processing
+technique before running one of the more robust depression breaching (<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>) or filling
+(<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>) techniques, which are designed to remove larger depression features.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachsinglecellpits"><strong>BreachSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6448,7 +6481,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_pits.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="FindNoFlowCells"></a></p>
 <a class="header" href="#findnoflowcells" id="findnoflowcells"><h1>FindNoFlowCells</h1></a>
 <p>This tool can be used to find cells with undefined flow, i.e. no valid flow direction, based on the
@@ -6639,7 +6672,22 @@ which is useful in mapping drainage divides and ridges.</p>
 <p><em>Created</em>: July 8, 2017</p>
 <p><a name="Hillslopes"></a></p>
 <a class="header" href="#hillslopes" id="hillslopes"><h1>Hillslopes</h1></a>
-<p>Identifies the individual hillslopes draining to each link in a stream network.</p>
+<p>This tool will identify the hillslopes associated with a user-specified stream network. Hillslopes
+include the catchment areas draining to the left and right sides of each stream link in the network as well
+as the catchment areas draining to all channel heads. <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a> are conceptually similar to <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>,
+except that sub-basins do not distinguish between the right-bank and left-bank catchment areas of stream links.
+The <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a> tool simply assigns a unique identifier to each stream link in a stream network. Each hillslope
+output by this tool is assigned a unique, positive identifier  value. All grid cells in the output raster that
+coincide with a stream cell are assigned an idenifiter of zero, i.e. stream cells do not belong to any hillslope.</p>
+<p>The user must specify the name of a flow pointer
+(flow direction) raster (<code>--d8_pntr</code>), a streams raster (<code>--streams</code>), and the output raster (<code>--output</code>).
+The flow pointer and streams rasters should be generated using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This will require
+a depressionless DEM, processed using either the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>NoData values in the input flow pointer raster are assigned NoData values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a>, <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -6662,10 +6710,23 @@ which is useful in mapping drainage divides and ridges.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/hillslopes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 16, 2017</p>
-<p><a name="ImpoundmentIndex"></a></p>
-<a class="header" href="#impoundmentindex" id="impoundmentindex"><h1>ImpoundmentIndex</h1></a>
-<p>Calculates the impoundment size resulting from damming a DEM.</p>
+<p><em>Created</em>: 16/07/2017</p>
+<p><a name="ImpoundmentSizeIndex"></a></p>
+<a class="header" href="#impoundmentsizeindex" id="impoundmentsizeindex"><h1>ImpoundmentSizeIndex</h1></a>
+<p>This tool can be used to calculate the impoundment size index (ISI) from a digital elevation model (DEM).
+The ISI is a land-surface parameter related to the size of the impoundment that would result from inserting
+a dam of a user-specified maximum length (<code>--damlength</code>) into each DEM grid cell. In addition to an
+output dam-height raster (same name as <code>--output</code> file but with an <em>_dam_height</em> suffix appended), the tool outputs
+a measure of impoundment size (<code>--out_type</code>) related to impoundment average depth, total volume, or flooded area.</p>
+<p>Please note that this tool performs an extremely complex and computationally intensive flow-accumulation operation.
+As such, it may take a substantial amount of processing time and may encounter issues (including memory issues) when
+applied to very large DEMs. It is not necessary to pre-process the input DEM (<code>--dem</code>) to remove topographic depressions
+and flat areas. The internal flow-accumulation operation will not be confounded by the presence of these features.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay, JB (2015) Modelling the spatial pattern of potential impoundment size from DEMs.
+Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/modelling-the-spatial-pattern-of-potential-impoundment-size-from-dems/">Whitebox Blog</a></p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6674,7 +6735,7 @@ which is useful in mapping drainage divides and ridges.</p>
 <tr><td>--damlength        </td><td> Maximum length of thr dam</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">impoundment_index(
+<pre><code class="language-python">impoundment_size_index(
     dem, 
     output, 
     damlength, 
@@ -6682,7 +6743,7 @@ which is useful in mapping drainage divides and ridges.</p>
     callback=default_callback)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentIndex -v ^
+<pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentSizeIndex -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif ^
 --out_type=depth --damlength=11 
 </code></pre>
@@ -6721,7 +6782,26 @@ and stored in memory of this tool.</p>
 <p><em>Created</em>: 03/12/2017</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
-<p>Moves outlet points used to specify points of interest in a watershedding operation to the nearest stream cell.</p>
+<p>The <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
+operation) (<code>--pour_pts</code>) to the location coincident with the nearest stream cell (<code>--stream</code>) value within
+a specified maximum distance (<code>--snap_dist</code>). The pour points file (<code>--pour_pts</code>) must be a vector file of <em>Point</em> ShapeType.</p>
+<p>If the output of the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool is to be used with the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, the streams raster should
+be generated by extracting the streams using the <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a> algorithm. The snap distance (<code>--snap_dist</code>), measured
+in map units (e.g meters), must also be specified. This distance will serve as the search radius placed around each pour
+point during the search for the nearst stream cell.</p>
+<p>Lindsay et al. (2008) provide a detailed discussion of the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> technique, and other less sophisticated
+but commonly used techniques (<a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a>) for adjusting pour point locations used in watershedding operations. In
+most cases, the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool should be prefered over <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> for applications of
+repositioning outlet points used in watershedding operations onto the digital stream lines contained in local drainage
+direction rasters. Jenson's method relocates outlet points to the <em>nearest</em> stream cell while <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> relocated
+outlets to the <em>largest</em> stream (designated by the largest flow accumulation value). In the common situation where outlet
+cells are position near the confluence point of smaller tributary streams, the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool may re-position
+outlets on the main-trunk stream, which will result in watershed delineation of incorrect sub-basins.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived stream
+networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
@@ -6744,7 +6824,7 @@ and stored in memory of this tool.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/jenson_snap_pour_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/06/2017</p>
 <p><a name="LongestFlowpath"></a></p>
 <a class="header" href="#longestflowpath" id="longestflowpath"><h1>LongestFlowpath</h1></a>
 <p>This tool delineates the longest flowpaths for a group of subbasins or watersheds.
@@ -6890,7 +6970,13 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <p><em>Created</em>: July 16, 2017</p>
 <p><a name="Sink"></a></p>
 <a class="header" href="#sink" id="sink"><h1>Sink</h1></a>
-<p>Identifies the depressions in a DEM, giving each feature a unique identifier.</p>
+<p>This tool identifies each sink (i.e. topographic depression) in a raster digital elevation model (DEM). A
+sink, or depression, is a bowl-like landscape feature, which is characterized by interior drainage. Each
+identified sink in the input DEM is assigned a unique, non-zero, positive value in the ouput raster. The
+<a href="./hydrological_analysis.html#sink"><strong>Sink</strong></a> tool essentially runs the <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool followed by the <a href="./gis_analysis.html#clump"><strong>Clump</strong></a> tool on all modified grid
+cells.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./gis_analysis.html#clump"><strong>Clump</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6910,10 +6996,30 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/sink.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><a name="SnapPourPoints"></a></p>
 <a class="header" href="#snappourpoints" id="snappourpoints"><h1>SnapPourPoints</h1></a>
-<p>Moves outlet points used to specify points of interest in a watershedding operation to the cell with the highest flow accumulation in its neighbourhood.</p>
+<p>The <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
+operation) (<code>--pour_pts</code>) to the location coincident with the highest flow accumulation (<code>--flow_accum</code>) value within
+a specified maximum distance (<code>--snap_dist</code>). The pour points file (<code>--pour_pts</code>) must be a vector file of <em>Point</em> ShapeType.</p>
+<p>If the output of the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool is to be used with the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, the flow accumulation raster should
+be generated using the <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a> algorithm. The snap distance (<code>--snap_dist</code>), measured in map units (e.g.
+meters), must also be specified. This distance will serve as the search radius placed around each pour point during the
+search for the maximum flow accumulation. In general, each outlet will be relocated the distance specified by the snap
+distance.</p>
+<p>Lindsay et al. (2008) provide a detailed discussion of the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> technique, and other more sophisticated
+techniques for adjusting pour point locations used in watershedding operations including Jenson's snap pour points
+(<a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>) method. In most cases, the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool should be prefered for applications of
+repositioning outlet points used in watershedding operations onto the digital stream lines contained in local drainage
+direction rasters. Jenson's method relocates outlet points to the <em>nearest</em> stream cell while <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> relocated
+outlets to the <em>largest</em> stream (designated by the largest flow accumulation value). In the common situation where outlet
+cells are position near the confluence point of smaller tributary streams, the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool may re-position
+outlets on the main-trunk stream, which will result in watershed delineation of incorrect sub-basins.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived stream
+networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
@@ -6936,7 +7042,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/snap_pour_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/072017</p>
 <p><a name="StochasticDepressionAnalysis"></a></p>
 <a class="header" href="#stochasticdepressionanalysis" id="stochasticdepressionanalysis"><h1>StochasticDepressionAnalysis</h1></a>
 <p>Preforms a stochastic analysis of depressions within a DEM, calculating the
@@ -6968,6 +7074,11 @@ performance, particularly when the tool is applied on hardware with four or
 more processors.</p>
 </li>
 </ol>
+<p><em>Reference</em>:</p>
+<p>Lindsay, J. B., &amp; Creed, I. F. (2005). Sensitivity of digital landscapes to artifact depressions in
+remotely-sensed DEMs. Photogrammetric Engineering &amp; Remote Sensing, 71(9), 1029-1036.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#impoundmentsizeindex"><strong>ImpoundmentSizeIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -6995,7 +7106,17 @@ more processors.</p>
 <p><em>Created</em>: 11/05/2018</p>
 <p><a name="StrahlerOrderBasins"></a></p>
 <a class="header" href="#strahlerorderbasins" id="strahlerorderbasins"><h1>StrahlerOrderBasins</h1></a>
-<p>Identifies Strahler-order basins from an input stream network.</p>
+<p>This tool will identify the catchment areas of each Horton-Strahler stream order link in a user-specified
+stream network (<code>--streams</code>), i.e. the network's <em>Strahler basins</em>. The tool effectively performs a Horton-Strahler
+stream ordering operation (<a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>) followed by by a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> operation. The user must specify the name of a
+flow pointer (flow direction) raster (<code>--d8_pntr</code>), a streams raster (<code>--streams</code>), and the output raster
+(<code>--output</code>). The flow pointer and streams rasters should be generated using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This
+will require a depressionless DEM, processed using either the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>NoData values in the input flow pointer raster are assigned NoData values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -7018,10 +7139,23 @@ more processors.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/strahler_basins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="Subbasins"></a></p>
 <a class="header" href="#subbasins" id="subbasins"><h1>Subbasins</h1></a>
-<p>Identifies the catchments, or sub-basin, draining to each link in a stream network.</p>
+<p>This tool will identify the catchment areas to each link in a user-specified stream network, i.e. the
+network's sub-basins. <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a> effectively performs a stream link ID operation (<a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a>) followed by
+a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> operation. The user must specify the name of a flow pointer (flow direction) raster (<code>--d8_pntr</code>),
+a streams raster (<code>--streams</code>), and the output raster (<code>--output</code>). The flow pointer and streams rasters should
+be generated using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This will require a depressionless DEM, processed using either
+the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p><a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a> are conceptually similar to sub-basins, except that sub-basins do not distinguish between the
+right-bank and left-bank catchment areas of stream links. The Sub-basins tool simply assigns a unique identifier
+to each stream link in a stream network.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>NoData values in the input flow pointer raster are assigned NoData values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a>, <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
@@ -7044,7 +7178,7 @@ more processors.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/subbasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><a name="TraceDownslopeFlowpaths"></a></p>
 <a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h1>TraceDownslopeFlowpaths</h1></a>
 <p>Traces downslope flowpaths from one or more target sites (i.e. seed points).</p>
@@ -12935,7 +13069,21 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 <p><em>Created</em>: July 12, 2017</p>
 <p><a name="StreamLinkIdentifier"></a></p>
 <a class="header" href="#streamlinkidentifier" id="streamlinkidentifier"><h1>StreamLinkIdentifier</h1></a>
-<p>Assigns a unique identifier to each link in a stream network.</p>
+<p>This tool can be used to assign each link in a stream network a unique numeric identifier. This grid is
+used by a number of other stream network analysis tools.</p>
+<p>The input streams file (<code>--streams</code>) is used to designate which grid cells contain a stream and the pointer
+image is used to traverse the stream network. Stream cells are designated in the streams image as all values
+greater than zero. Thus, all non-stream or background grid cells are commonly assigned either zeros or NoData
+values. Background cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code>
+parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>The user must specify the name of a flow pointer (flow direction) raster (<code>--d8_pntr</code>), a streams raster
+(<code>--streams</code>), and the output raster (<code>--output</code>). The flow pointer and streams rasters should be generated
+using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This will require a depressionless DEM, processed using either the
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. flow direction) raster, and the output raster.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -12963,7 +13111,7 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_id.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="StreamLinkLength"></a></p>
 <a class="header" href="#streamlinklength" id="streamlinklength"><h1>StreamLinkLength</h1></a>
 <p>Estimates the length of each link (or tributary) in a stream network.</p>
@@ -13506,7 +13654,7 @@ main()
 </code></pre>
 <a class="header" href="#supported-data-formats" id="supported-data-formats"><h1>Supported Data Formats</h1></a>
 <a class="header" href="#raster-formats" id="raster-formats"><h2>Raster formats</h2></a>
-<p>The <em>WhiteboxTools</em> library can currently support reading/writing raster data in GeoTIFF (.tif), <em>Whitebox GAT</em>(.tas and .dep), ESRI (ArcGIS) ASCII (.txt) and binary (.flt and .hdr), GRASS GIS, Idrisi (.rdc and .rst), SAGA GIS (binary--.sdat and .sgrd--and ASCII formats), and Surfer 7 (.grd) data formats. <em>The BigTIFF (64-bit) and multi-band GeoTIFF formats are not currently supported.</em> The library is primarily tested using Whitebox raster and GeoTIFF data sets and if you encounter issues when reading/writing data in other formats, you should report the <a href="#reporting-bugs">issue</a>.</p>
+<p>The <em>WhiteboxTools</em> library can currently support reading/writing raster data in GeoTIFF (.tif), Whitebox GAT (.tas and .dep), ESRI (ArcGIS) ASCII (.txt) and binary (.flt and .hdr), GRASS GIS, Idrisi (.rdc and .rst), SAGA GIS (binary--.sdat and .sgrd--and ASCII formats), and Surfer 7 (.grd) data formats. <em>The BigTIFF (64-bit) and multi-band GeoTIFF formats are not currently supported.</em> The library is primarily tested using Whitebox raster and GeoTIFF data sets and if you encounter issues when reading/writing data in other formats, you should report the <a href="#reporting-bugs">issue</a>.</p>
 <blockquote>
 <p>Throughout this manual code examples that manipulate raster files all use the GeoTIFF format (.tif) but any of the supported file extensions can be used in its place.</p>
 </blockquote>
@@ -13601,405 +13749,1205 @@ SOFTWARE.</p>
 <p><em>Whitebox GAT</em> is frequently praised for its consistent design and ease of use. Like <em>Whitebox GAT</em>, <em>WhiteboxTools</em> follows the convention of <em>one tool for one function</em>. For example, in <em>WhiteboxTools</em> assigning the links in a stream channel network their Horton, Strahler, Shreve, or Hack stream ordering numbers requires running separate tools (i.e. <em>HortonStreamOrder</em>, <em>StrahlerStreamOrder</em>, <em>ShreveStreamMagnitude</em>, and <em>HackStreamOrder</em>). By contrast, in GRASS GIS<sup>1</sup> and ArcGIS single tools (i.e. the <em>r.stream.order</em> and <em>Stream Order</em> tools respectively) can be configured to output different channel ordering schemes. The <em>WhiteboxTools</em> design is intended to simplify the user experience and to make it easier to find the right tool for a task. With more specific tool names that are reflective of their specific purposes, users are not as reliant on reading help documentation to identify the tool for the task at hand. Similarly, it is not uncommon for tools in other GIS to have multiple outputs. For example, in GRASS GIS the <em>r.slope.aspect</em> tool can be configured to output slope, aspect, profile curvature, plan curvature, and several other common terrain surface derivatives. Based on the <em>one tool for one function</em> design approach of <em>WhiteboxTools</em>, multiple outputs are indicative that a tool should be split into different, more specific tools. Are you more likely to go to a tool named <em>r.slope.aspect</em> or <em>TangentialCurvature</em> when you want to create a tangential curvature raster from a DEM? If you're new to the software and are unfamiliar with it, probably the later is more obvious. The <em>WhiteboxTools</em> design approach also has the added benefit of simplifying the documentation for tools. The one downside to this design approach, however, is that it results (or will result) in a large number of tools, often with signifcant overlap in function.</p>
 <p><sup>1</sup> NOTE: It is not my intent to criticize GRASS GIS, as I deeply respect the work that the GRASS developers have contributed. Rather, I am contrasting the consequences of <em>WhiteboxTools'</em> design philosophy to that of other GIS.</p>
 <a class="header" href="#index-of-tools" id="index-of-tools"><h1>Index of Tools</h1></a>
-<p><a href="available_tools/mathand_stats_tools.html#AbsoluteValue">AbsoluteValue</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#AdaptiveFilter">AdaptiveFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/data_tools.html#AddPointCoordinatesToTable">AddPointCoordinatesToTable</a> (Data Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Add">Add</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis.html#AggregateRaster">AggregateRaster</a> (GIS Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#And">And</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Anova">Anova</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ArcCos">ArcCos</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ArcSin">ArcSin</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ArcTan">ArcTan</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#Aspect">Aspect</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Atan2">Atan2</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#AttributeCorrelation">AttributeCorrelation</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#AttributeHistogram">AttributeHistogram</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#AttributeScattergram">AttributeScattergram</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#AverageFlowpathSlope">AverageFlowpathSlope</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#AverageOverlay">AverageOverlay</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#AverageUpslopeFlowpathLength">AverageUpslopeFlowpathLength</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#BalanceContrastEnhancement">BalanceContrastEnhancement</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/hydrological_analysis.html#Basins">Basins</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#BilateralFilter">BilateralFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis.html#BlockMaximumGridding">BlockMaximumGridding</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#BlockMinimumGridding">BlockMinimumGridding</a> (GIS Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#BreachDepressions">BreachDepressions</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#BreachSingleCellPits">BreachSingleCellPits</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/gis_analysis_distance_tools.html#BufferRaster">BufferRaster</a> (GIS Analysis → Distance Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Ceil">Ceil</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis.html#CentroidVector">CentroidVector</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#Centroid">Centroid</a> (GIS Analysis)</p>
-<p><a href="available_tools/image_processing_tools.html#ChangeVectorAnalysis">ChangeVectorAnalysis</a> (Image Processing Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#CircularVarianceOfAspect">CircularVarianceOfAspect</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/lidar_tools.html#ClassifyOverlapPoints">ClassifyOverlapPoints</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#ClipLidarToPolygon">ClipLidarToPolygon</a> (LiDAR Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#ClipRasterToPolygon">ClipRasterToPolygon</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#Clip">Clip</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#Closing">Closing</a> (Image Processing Tools)</p>
-<p><a href="available_tools/gis_analysis.html#Clump">Clump</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#CompactnessRatio">CompactnessRatio</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#ConservativeSmoothingFilter">ConservativeSmoothingFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis.html#ConstructVectorTin">ConstructVectorTin</a> (GIS Analysis)</p>
-<p><a href="available_tools/data_tools.html#ConvertNodataToZero">ConvertNodataToZero</a> (Data Tools)</p>
-<p><a href="available_tools/data_tools.html#ConvertRasterFormat">ConvertRasterFormat</a> (Data Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#CornerDetection">CornerDetection</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#CorrectVignetting">CorrectVignetting</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Cos">Cos</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Cosh">Cosh</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis_distance_tools.html#CostAllocation">CostAllocation</a> (GIS Analysis → Distance Tools)</p>
-<p><a href="available_tools/gis_analysis_distance_tools.html#CostDistance">CostDistance</a> (GIS Analysis → Distance Tools)</p>
-<p><a href="available_tools/gis_analysis_distance_tools.html#CostPathway">CostPathway</a> (GIS Analysis → Distance Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#CountIf">CountIf</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#CreateColourComposite">CreateColourComposite</a> (Image Processing Tools)</p>
-<p><a href="available_tools/gis_analysis.html#CreateHexagonalVectorGrid">CreateHexagonalVectorGrid</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#CreatePlane">CreatePlane</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#CreateRectangularVectorGrid">CreateRectangularVectorGrid</a> (GIS Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#CrispnessIndex">CrispnessIndex</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#CrossTabulation">CrossTabulation</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#CumulativeDistribution">CumulativeDistribution</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#D8FlowAccumulation">D8FlowAccumulation</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#D8MassFlux">D8MassFlux</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#D8Pointer">D8Pointer</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#DInfFlowAccumulation">DInfFlowAccumulation</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#DInfMassFlux">DInfMassFlux</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#DInfPointer">DInfPointer</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Decrement">Decrement</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#DepthInSink">DepthInSink</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#DevFromMeanElev">DevFromMeanElev</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#DiffFromMeanElev">DiffFromMeanElev</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#DiffOfGaussianFilter">DiffOfGaussianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#Difference">Difference</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#DirectDecorrelationStretch">DirectDecorrelationStretch</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#DirectionalRelief">DirectionalRelief</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#Dissolve">Dissolve</a> (GIS Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#DistanceToOutlet">DistanceToOutlet</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#DiversityFilter">DiversityFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Divide">Divide</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#DownslopeDistanceToStream">DownslopeDistanceToStream</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#DownslopeFlowpathLength">DownslopeFlowpathLength</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#DownslopeIndex">DownslopeIndex</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#DrainagePreservingSmoothing">DrainagePreservingSmoothing</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#EdgeDensity">EdgeDensity</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter">EdgePreservingMeanFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#EdgeProportion">EdgeProportion</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#ElevAbovePit">ElevAbovePit</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#ElevPercentile">ElevPercentile</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#ElevRelativeToMinMax">ElevRelativeToMinMax</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#ElevRelativeToWatershedMinMax">ElevRelativeToWatershedMinMax</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#ElevationAboveStreamEuclidean">ElevationAboveStreamEuclidean</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#ElevationAboveStream">ElevationAboveStream</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#EliminateCoincidentPoints">EliminateCoincidentPoints</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#ElongationRatio">ElongationRatio</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#EmbossFilter">EmbossFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/mathand_stats_tools.html#EqualTo">EqualTo</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/lidar_tools.html#ErasePolygonFromLidar">ErasePolygonFromLidar</a> (LiDAR Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#ErasePolygonFromRaster">ErasePolygonFromRaster</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#Erase">Erase</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/gis_analysis_distance_tools.html#EuclideanAllocation">EuclideanAllocation</a> (GIS Analysis → Distance Tools)</p>
-<p><a href="available_tools/gis_analysis_distance_tools.html#EuclideanDistance">EuclideanDistance</a> (GIS Analysis → Distance Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Exp2">Exp2</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Exp">Exp</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/data_tools.html#ExportTableToCsv">ExportTableToCsv</a> (Data Tools)</p>
-<p><a href="available_tools/gis_analysis.html#ExtendVectorLines">ExtendVectorLines</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#ExtractNodes">ExtractNodes</a> (GIS Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ExtractRasterStatistics">ExtractRasterStatistics</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis.html#ExtractRasterValuesAtPoints">ExtractRasterValuesAtPoints</a> (GIS Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#ExtractStreams">ExtractStreams</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#ExtractValleys">ExtractValleys</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#FarthestChannelHead">FarthestChannelHead</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#FastAlmostGaussianFilter">FastAlmostGaussianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/hydrological_analysis.html#Fd8FlowAccumulation">Fd8FlowAccumulation</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#Fd8Pointer">Fd8Pointer</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#FeaturePreservingDenoise">FeaturePreservingDenoise</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#FetchAnalysis">FetchAnalysis</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#FillBurn">FillBurn</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#FillDepressions">FillDepressions</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#FillMissingData">FillMissingData</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#FillSingleCellPits">FillSingleCellPits</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/lidar_tools.html#FilterLidarScanAngles">FilterLidarScanAngles</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#FindFlightlineEdgePoints">FindFlightlineEdgePoints</a> (LiDAR Tools)</p>
-<p><a href="available_tools/gis_analysis.html#FindLowestOrHighestPoints">FindLowestOrHighestPoints</a> (GIS Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#FindMainStem">FindMainStem</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#FindNoFlowCells">FindNoFlowCells</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#FindParallelFlow">FindParallelFlow</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#FindPatchOrClassEdgeCells">FindPatchOrClassEdgeCells</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#FindRidges">FindRidges</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#FlattenLakes">FlattenLakes</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/lidar_tools.html#FlightlineOverlap">FlightlineOverlap</a> (LiDAR Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#FlipImage">FlipImage</a> (Image Processing Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#FloodOrder">FloodOrder</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Floor">Floor</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#FlowAccumulationFullWorkflow">FlowAccumulationFullWorkflow</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#FlowLengthDiff">FlowLengthDiff</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#GammaCorrection">GammaCorrection</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#GaussianContrastStretch">GaussianContrastStretch</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#GaussianFilter">GaussianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/mathand_stats_tools.html#GreaterThan">GreaterThan</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#HackStreamOrder">HackStreamOrder</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#HighPassFilter">HighPassFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#HighPassMedianFilter">HighPassMedianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#HighestPosition">HighestPosition</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#Hillshade">Hillshade</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#Hillslopes">Hillslopes</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#HistogramEqualization">HistogramEqualization</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#HistogramMatchingTwoImages">HistogramMatchingTwoImages</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#HistogramMatching">HistogramMatching</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#HoleProportion">HoleProportion</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#HorizonAngle">HorizonAngle</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#HortonStreamOrder">HortonStreamOrder</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#HypsometricAnalysis">HypsometricAnalysis</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#IdwInterpolation">IdwInterpolation</a> (GIS Analysis)</p>
-<p><a href="available_tools/image_processing_tools.html#IhsToRgb">IhsToRgb</a> (Image Processing Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ImageAutocorrelation">ImageAutocorrelation</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ImageCorrelation">ImageCorrelation</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ImageRegression">ImageRegression</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#ImageStackProfile">ImageStackProfile</a> (Image Processing Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#ImpoundmentIndex">ImpoundmentIndex</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#InPlaceAdd">InPlaceAdd</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#InPlaceDivide">InPlaceDivide</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#InPlaceMultiply">InPlaceMultiply</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#InPlaceSubtract">InPlaceSubtract</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Increment">Increment</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#IntegerDivision">IntegerDivision</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#IntegralImage">IntegralImage</a> (Image Processing Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#Intersect">Intersect</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#IsNoData">IsNoData</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#Isobasins">Isobasins</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#JensonSnapPourPoints">JensonSnapPourPoints</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/data_tools.html#JoinTables">JoinTables</a> (Data Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#KMeansClustering">KMeansClustering</a> (Image Processing Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#KNearestMeanFilter">KNearestMeanFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/mathand_stats_tools.html#KappaIndex">KappaIndex</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#KsTestForNormality">KsTestForNormality</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#LaplacianFilter">LaplacianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#LaplacianOfGaussianFilter">LaplacianOfGaussianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/lidar_tools.html#LasToAscii">LasToAscii</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LasToMultipointShapefile">LasToMultipointShapefile</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LasToShapefile">LasToShapefile</a> (LiDAR Tools)</p>
-<p><a href="available_tools/gis_analysis.html#LayerFootprint">LayerFootprint</a> (GIS Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#LeeFilter">LeeFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/stream_network_analysis.html#LengthOfUpstreamChannels">LengthOfUpstreamChannels</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#LessThan">LessThan</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarBlockMaximum">LidarBlockMaximum</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarBlockMinimum">LidarBlockMinimum</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarClassifySubset">LidarClassifySubset</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarColourize">LidarColourize</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarConstructVectorTin">LidarConstructVectorTin</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarElevationSlice">LidarElevationSlice</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarGroundPointFilter">LidarGroundPointFilter</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarHexBinning">LidarHexBinning</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarHillshade">LidarHillshade</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarHistogram">LidarHistogram</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarIdwInterpolation">LidarIdwInterpolation</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarInfo">LidarInfo</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarJoin">LidarJoin</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarKappaIndex">LidarKappaIndex</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarNearestNeighbourGridding">LidarNearestNeighbourGridding</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarPointDensity">LidarPointDensity</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarPointStats">LidarPointStats</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarRemoveDuplicates">LidarRemoveDuplicates</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarRemoveOutliers">LidarRemoveOutliers</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarSegmentation">LidarSegmentation</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarThinHighDensity">LidarThinHighDensity</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarThin">LidarThin</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarTileFootprint">LidarTileFootprint</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarTile">LidarTile</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarTinGridding">LidarTinGridding</a> (LiDAR Tools)</p>
-<p><a href="available_tools/lidar_tools.html#LidarTophatTransform">LidarTophatTransform</a> (LiDAR Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#LineDetectionFilter">LineDetectionFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#LineIntersections">LineIntersections</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#LineThinning">LineThinning</a> (Image Processing Tools)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#LinearityIndex">LinearityIndex</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/data_tools.html#LinesToPolygons">LinesToPolygons</a> (Data Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ListUniqueValues">ListUniqueValues</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Ln">Ln</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Log10">Log10</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Log2">Log2</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#LongProfileFromPoints">LongProfileFromPoints</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#LongProfile">LongProfile</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#LongestFlowpath">LongestFlowpath</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#LowestPosition">LowestPosition</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#MajorityFilter">MajorityFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#MaxAbsoluteOverlay">MaxAbsoluteOverlay</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MaxAnisotropyDevSignature">MaxAnisotropyDevSignature</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MaxAnisotropyDev">MaxAnisotropyDev</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MaxBranchLength">MaxBranchLength</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MaxDifferenceFromMean">MaxDifferenceFromMean</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MaxDownslopeElevChange">MaxDownslopeElevChange</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MaxElevDevSignature">MaxElevDevSignature</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MaxElevationDeviation">MaxElevationDeviation</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#MaxOverlay">MaxOverlay</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#MaxUpslopeFlowpathLength">MaxUpslopeFlowpathLength</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Max">Max</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#MaximumFilter">MaximumFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#MeanFilter">MeanFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#MedianFilter">MedianFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis.html#Medoid">Medoid</a> (GIS Analysis)</p>
-<p><a href="available_tools/data_tools.html#MergeTableWithCsv">MergeTableWithCsv</a> (Data Tools)</p>
-<p><a href="available_tools/data_tools.html#MergeVectors">MergeVectors</a> (Data Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#MinAbsoluteOverlay">MinAbsoluteOverlay</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MinDownslopeElevChange">MinDownslopeElevChange</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#MinMaxContrastStretch">MinMaxContrastStretch</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#MinOverlay">MinOverlay</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Min">Min</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis.html#MinimumBoundingBox">MinimumBoundingBox</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#MinimumBoundingCircle">MinimumBoundingCircle</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#MinimumBoundingEnvelope">MinimumBoundingEnvelope</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#MinimumConvexHull">MinimumConvexHull</a> (GIS Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#MinimumFilter">MinimumFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools.html#ModifiedKMeansClustering">ModifiedKMeansClustering</a> (Image Processing Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Modulo">Modulo</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#MosaicWithFeathering">MosaicWithFeathering</a> (Image Processing Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#Mosaic">Mosaic</a> (Image Processing Tools)</p>
-<p><a href="available_tools/data_tools.html#MultiPartToSinglePart">MultiPartToSinglePart</a> (Data Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Multiply">Multiply</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleRoughnessSignature">MultiscaleRoughnessSignature</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleRoughness">MultiscaleRoughness</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleTopographicPositionImage">MultiscaleTopographicPositionImage</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#NearestNeighbourGridding">NearestNeighbourGridding</a> (GIS Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Negate">Negate</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/data_tools.html#NewRasterFromBase">NewRasterFromBase</a> (Data Tools)</p>
-<p><a href="available_tools/lidar_tools.html#NormalVectors">NormalVectors</a> (LiDAR Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#NormalizedDifferenceVegetationIndex">NormalizedDifferenceVegetationIndex</a> (Image Processing Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#NotEqualTo">NotEqualTo</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Not">Not</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#NumDownslopeNeighbours">NumDownslopeNeighbours</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#NumInflowingNeighbours">NumInflowingNeighbours</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#NumUpslopeNeighbours">NumUpslopeNeighbours</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#OlympicFilter">OlympicFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools.html#Opening">Opening</a> (Image Processing Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Or">Or</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#PanchromaticSharpening">PanchromaticSharpening</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#PatchOrientation">PatchOrientation</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#PennockLandformClass">PennockLandformClass</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#PercentElevRange">PercentElevRange</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#PercentEqualTo">PercentEqualTo</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#PercentGreaterThan">PercentGreaterThan</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#PercentLessThan">PercentLessThan</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#PercentageContrastStretch">PercentageContrastStretch</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#PercentileFilter">PercentileFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#PerimeterAreaRatio">PerimeterAreaRatio</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#PickFromList">PickFromList</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#PlanCurvature">PlanCurvature</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#PolygonArea">PolygonArea</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#PolygonLongAxis">PolygonLongAxis</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#PolygonPerimeter">PolygonPerimeter</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#PolygonShortAxis">PolygonShortAxis</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#Polygonize">Polygonize</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/data_tools.html#PolygonsToLines">PolygonsToLines</a> (Data Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Power">Power</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#PrewittFilter">PrewittFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/mathand_stats_tools.html#PrincipalComponentAnalysis">PrincipalComponentAnalysis</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/data_tools.html#PrintGeoTiffTags">PrintGeoTiffTags</a> (Data Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#ProfileCurvature">ProfileCurvature</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#Profile">Profile</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Quantiles">Quantiles</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#RadiusOfGyration">RadiusOfGyration</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#RaiseWalls">RaiseWalls</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#RandomField">RandomField</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#RandomSample">RandomSample</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#RangeFilter">RangeFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis.html#RasterCellAssignment">RasterCellAssignment</a> (GIS Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#RasterHistogram">RasterHistogram</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#RasterStreamsToVector">RasterStreamsToVector</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#RasterSummaryStats">RasterSummaryStats</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/data_tools.html#RasterToVectorLines">RasterToVectorLines</a> (Data Tools)</p>
-<p><a href="available_tools/data_tools.html#RasterToVectorPoints">RasterToVectorPoints</a> (Data Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#RasterizeStreams">RasterizeStreams</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Reciprocal">Reciprocal</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis.html#ReclassEqualInterval">ReclassEqualInterval</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#ReclassFromFile">ReclassFromFile</a> (GIS Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#Reclass">Reclass</a> (GIS Analysis)</p>
-<p><a href="available_tools/data_tools.html#ReinitializeAttributeTable">ReinitializeAttributeTable</a> (Data Tools)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#RelatedCircumscribingCircle">RelatedCircumscribingCircle</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#RelativeAspect">RelativeAspect</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#RelativeStreamPowerIndex">RelativeStreamPowerIndex</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#RelativeTopographicPosition">RelativeTopographicPosition</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#RemoveOffTerrainObjects">RemoveOffTerrainObjects</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/data_tools.html#RemovePolygonHoles">RemovePolygonHoles</a> (Data Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#RemoveShortStreams">RemoveShortStreams</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/image_processing_tools.html#RemoveSpurs">RemoveSpurs</a> (Image Processing Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#Resample">Resample</a> (Image Processing Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#RescaleValueRange">RescaleValueRange</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#RgbToIhs">RgbToIhs</a> (Image Processing Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#Rho8Pointer">Rho8Pointer</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#RobertsCrossFilter">RobertsCrossFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/mathand_stats_tools.html#RootMeanSquareError">RootMeanSquareError</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Round">Round</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#RuggednessIndex">RuggednessIndex</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#ScharrFilter">ScharrFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#SedimentTransportIndex">SedimentTransportIndex</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/lidar_tools.html#SelectTilesByPolygon">SelectTilesByPolygon</a> (LiDAR Tools)</p>
-<p><a href="available_tools/data_tools.html#SetNodataValue">SetNodataValue</a> (Data Tools)</p>
-<p><a href="available_tools/gis_analysis_patch_shape_tools.html#ShapeComplexityIndex">ShapeComplexityIndex</a> (GIS Analysis → Patch Shape Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#ShreveStreamMagnitude">ShreveStreamMagnitude</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#SigmoidalContrastStretch">SigmoidalContrastStretch</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Sin">Sin</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/data_tools.html#SinglePartToMultiPart">SinglePartToMultiPart</a> (Data Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Sinh">Sinh</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#Sink">Sink</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#SlopeVsElevationPlot">SlopeVsElevationPlot</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#Slope">Slope</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#SmoothVectors">SmoothVectors</a> (GIS Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#SnapPourPoints">SnapPourPoints</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#SobelFilter">SobelFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools.html#SplitColourComposite">SplitColourComposite</a> (Image Processing Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#SplitWithLines">SplitWithLines</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#SquareRoot">SquareRoot</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Square">Square</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#StandardDeviationContrastStretch">StandardDeviationContrastStretch</a> (Image Processing Tools → Image Enhancement)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#StandardDeviationFilter">StandardDeviationFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#StandardDeviationOfSlope">StandardDeviationOfSlope</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#StochasticDepressionAnalysis">StochasticDepressionAnalysis</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#StrahlerOrderBasins">StrahlerOrderBasins</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#StrahlerStreamOrder">StrahlerStreamOrder</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#StreamLinkClass">StreamLinkClass</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#StreamLinkIdentifier">StreamLinkIdentifier</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#StreamLinkLength">StreamLinkLength</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#StreamLinkSlope">StreamLinkSlope</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/stream_network_analysis.html#StreamSlopeContinuous">StreamSlopeContinuous</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#Subbasins">Subbasins</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Subtract">Subtract</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#SumOverlay">SumOverlay</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#SurfaceAreaRatio">SurfaceAreaRatio</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#SymmetricalDifference">SymmetricalDifference</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Tan">Tan</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#TangentialCurvature">TangentialCurvature</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Tanh">Tanh</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#ThickenRasterLine">ThickenRasterLine</a> (Image Processing Tools)</p>
-<p><a href="available_tools/gis_analysis.html#TinGridding">TinGridding</a> (GIS Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ToDegrees">ToDegrees</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ToRadians">ToRadians</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/image_processing_tools.html#TophatTransform">TophatTransform</a> (Image Processing Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#TopologicalStreamOrder">TopologicalStreamOrder</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#TotalCurvature">TotalCurvature</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#TotalFilter">TotalFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/hydrological_analysis.html#TraceDownslopeFlowpaths">TraceDownslopeFlowpaths</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#TrendSurfaceVectorPoints">TrendSurfaceVectorPoints</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#TrendSurface">TrendSurface</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/stream_network_analysis.html#TributaryIdentifier">TributaryIdentifier</a> (Stream Network Analysis)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Truncate">Truncate</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#TurningBandsSimulation">TurningBandsSimulation</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#Union">Union</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/hydrological_analysis.html#UnnestBasins">UnnestBasins</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#UnsharpMasking">UnsharpMasking</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/image_processing_tools_filters.html#UserDefinedWeightsFilter">UserDefinedWeightsFilter</a> (Image Processing Tools → Filters)</p>
-<p><a href="available_tools/gis_analysis.html#VectorHexBinning">VectorHexBinning</a> (GIS Analysis)</p>
-<p><a href="available_tools/data_tools.html#VectorLinesToRaster">VectorLinesToRaster</a> (Data Tools)</p>
-<p><a href="available_tools/data_tools.html#VectorPointsToRaster">VectorPointsToRaster</a> (Data Tools)</p>
-<p><a href="available_tools/data_tools.html#VectorPolygonsToRaster">VectorPolygonsToRaster</a> (Data Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#Viewshed">Viewshed</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#VisibilityIndex">VisibilityIndex</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/gis_analysis.html#VoronoiDiagram">VoronoiDiagram</a> (GIS Analysis)</p>
-<p><a href="available_tools/hydrological_analysis.html#Watershed">Watershed</a> (Hydrological Analysis)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#WeightedOverlay">WeightedOverlay</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#WeightedSum">WeightedSum</a> (GIS Analysis → Overlay Tools)</p>
-<p><a href="available_tools/geomorphometric_analysis.html#WetnessIndex">WetnessIndex</a> (Geomorphometric Analysis)</p>
-<p><a href="available_tools/image_processing_tools.html#WriteFunctionMemoryInsertion">WriteFunctionMemoryInsertion</a> (Image Processing Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#Xor">Xor</a> (Math and Stats Tools)</p>
-<p><a href="available_tools/mathand_stats_tools.html#ZScores">ZScores</a> (Math and Stats Tools)</p>
+<ol>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#AbsoluteValue">AbsoluteValue</a>: Calculates the absolute value of every cell in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#AdaptiveFilter">AdaptiveFilter</a>: Performs an adaptive filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#AddPointCoordinatesToTable">AddPointCoordinatesToTable</a>: Modifies the attribute table of a point vector by adding fields containing each point's X and Y coordinates. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Add">Add</a>: Performs an addition operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#AggregateRaster">AggregateRaster</a>: Aggregates a raster to a lower resolution. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#And">And</a>: Performs a logical AND operator on two Boolean raster images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Anova">Anova</a>: Performs an analysis of variance (ANOVA) test on a raster dataset. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ArcCos">ArcCos</a>: Returns the inverse cosine (arccos) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ArcSin">ArcSin</a>: Returns the inverse sine (arcsin) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ArcTan">ArcTan</a>: Returns the inverse tangent (arctan) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#Aspect">Aspect</a>: Calculates an aspect raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Atan2">Atan2</a>: Returns the 2-argument inverse tangent (atan2). Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#AttributeCorrelation">AttributeCorrelation</a>: Performs a correlation analysis on attribute fields from a vector database. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#AttributeHistogram">AttributeHistogram</a>: Creates a histogram for the field values of a vector's attribute table. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#AttributeScattergram">AttributeScattergram</a>: Creates a scattergram for two field values of a vector's attribute table. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#AverageFlowpathSlope">AverageFlowpathSlope</a>: Measures the average slope gradient from each grid cell to all upslope divide cells. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#AverageOverlay">AverageOverlay</a>: Calculates the average for each grid cell from a group of raster images. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#AverageUpslopeFlowpathLength">AverageUpslopeFlowpathLength</a>: Measures the average length of all upslope flowpaths draining each grid cell. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#BalanceContrastEnhancement">BalanceContrastEnhancement</a>: Performs a balance contrast enhancement on a colour-composite image of multispectral data. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Basins">Basins</a>: Identifies drainage basins that drain to the DEM edge. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#BilateralFilter">BilateralFilter</a>: A bilateral filter is an edge-preserving smoothing filter introduced by Tomasi and Manduchi (1998). Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#BlockMaximumGridding">BlockMaximumGridding</a>: Creates a raster grid based on a set of vector points and assigns grid values using a block maximum scheme. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#BlockMinimumGridding">BlockMinimumGridding</a>: Creates a raster grid based on a set of vector points and assigns grid values using a block minimum scheme. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#BreachDepressions">BreachDepressions</a>: Breaches all of the depressions in a DEM using Lindsay's (2016) algorithm. This should be preferred over depression filling in most cases. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#BreachSingleCellPits">BreachSingleCellPits</a>: Removes single-cell pits from an input DEM by breaching. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_distance_tools.html#BufferRaster">BufferRaster</a>: Maps a distance-based buffer around each non-background (non-zero/non-nodata) grid cell in an input image. Found in <em>GIS Analysis → Distance Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Ceil">Ceil</a>: Returns the smallest (closest to negative infinity) value that is greater than or equal to the values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#CentroidVector">CentroidVector</a>: Identifes the centroid point of a vector polyline or polygon feature or a group of vector points. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#Centroid">Centroid</a>: Calculates the centroid, or average location, of raster polygon objects. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#ChangeVectorAnalysis">ChangeVectorAnalysis</a>: Performs a change vector analysis on a two-date multi-spectral dataset. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#CircularVarianceOfAspect">CircularVarianceOfAspect</a>: Calculates the circular variance of aspect at a scale for a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#ClassifyOverlapPoints">ClassifyOverlapPoints</a>: Classifies or filters LAS points in regions of overlapping flight lines. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#ClipLidarToPolygon">ClipLidarToPolygon</a>: Clips a LiDAR point cloud to a vector polygon or polygons. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#ClipRasterToPolygon">ClipRasterToPolygon</a>: Clips a raster to a vector polygon. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#Clip">Clip</a>: Extract all the features, or parts of features, that overlap with the features of the clip vector. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#Closing">Closing</a>: A closing is a mathematical morphology operation involving an erosion (min filter) of a dilation (max filter) set. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#Clump">Clump</a>: Groups cells that form discrete areas, assigning them unique identifiers. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#CompactnessRatio">CompactnessRatio</a>: Calculates the compactness ratio (A/P), a measure of shape complexity, for vector polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#ConservativeSmoothingFilter">ConservativeSmoothingFilter</a>: Performs a conservative-smoothing filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#ConstructVectorTin">ConstructVectorTin</a>: Creates a vector triangular irregular network (TIN) for a set of vector points. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#ConvertNodataToZero">ConvertNodataToZero</a>: Converts nodata values in a raster to zero. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#ConvertRasterFormat">ConvertRasterFormat</a>: Converts raster data from one format to another. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#CornerDetection">CornerDetection</a>: Identifies corner patterns in boolean images using hit-and-miss pattern mattching. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#CorrectVignetting">CorrectVignetting</a>: Corrects the darkening of images towards corners. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Cos">Cos</a>: Returns the cosine (cos) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Cosh">Cosh</a>: Returns the hyperbolic cosine (cosh) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_distance_tools.html#CostAllocation">CostAllocation</a>: Identifies the source cell to which each grid cell is connected by a least-cost pathway in a cost-distance analysis. Found in <em>GIS Analysis → Distance Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_distance_tools.html#CostDistance">CostDistance</a>: Performs cost-distance accumulation on a cost surface and a group of source cells. Found in <em>GIS Analysis → Distance Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_distance_tools.html#CostPathway">CostPathway</a>: Performs cost-distance pathway analysis using a series of destination grid cells. Found in <em>GIS Analysis → Distance Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#CountIf">CountIf</a>: Counts the number of occurrences of a specified value in a cell-stack of rasters. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#CreateColourComposite">CreateColourComposite</a>: Creates a colour-composite image from three bands of multispectral imagery. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#CreateHexagonalVectorGrid">CreateHexagonalVectorGrid</a>: Creates a hexagonal vector grid. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#CreatePlane">CreatePlane</a>: Creates a raster image based on the equation for a simple plane. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#CreateRectangularVectorGrid">CreateRectangularVectorGrid</a>: Creates a rectangular vector grid. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#CrispnessIndex">CrispnessIndex</a>: Calculates the Crispness Index, which is used to quantify how crisp (or conversely how fuzzy) a probability image is. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#CrossTabulation">CrossTabulation</a>: Performs a cross-tabulation on two categorical images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#CumulativeDistribution">CumulativeDistribution</a>: Converts a raster image to its cumulative distribution function. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#D8FlowAccumulation">D8FlowAccumulation</a>: Calculates a D8 flow accumulation raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#D8MassFlux">D8MassFlux</a>: Performs a D8 mass flux calculation. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#D8Pointer">D8Pointer</a>: Calculates a D8 flow pointer raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#DInfFlowAccumulation">DInfFlowAccumulation</a>: Calculates a D-infinity flow accumulation raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#DInfMassFlux">DInfMassFlux</a>: Performs a D-infinity mass flux calculation. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#DInfPointer">DInfPointer</a>: Calculates a D-infinity flow pointer (flow direction) raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Decrement">Decrement</a>: Decreases the values of each grid cell in an input raster by 1.0 (see also InPlaceSubtract). Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#DepthInSink">DepthInSink</a>: Measures the depth of sinks (depressions) in a DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#DevFromMeanElev">DevFromMeanElev</a>: Calculates deviation from mean elevation. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#DiffFromMeanElev">DiffFromMeanElev</a>: Calculates difference from mean elevation (equivalent to a high-pass filter). Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#DiffOfGaussianFilter">DiffOfGaussianFilter</a>: Performs a Difference of Gaussian (DoG) filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#Difference">Difference</a>: Outputs the features that occur in one of the two vector inputs but not both, i.e. no overlapping features. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#DirectDecorrelationStretch">DirectDecorrelationStretch</a>: Performs a direct decorrelation stretch enhancement on a colour-composite image of multispectral data. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#DirectionalRelief">DirectionalRelief</a>: Calculates relief for cells in an input DEM for a specified direction. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#Dissolve">Dissolve</a>: Removes the interior, or shared, boundaries within a vector polygon coverage. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#DistanceToOutlet">DistanceToOutlet</a>: Calculates the distance of stream grid cells to the channel network outlet cell. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#DiversityFilter">DiversityFilter</a>: Assigns each cell in the output grid the number of different values in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Divide">Divide</a>: Performs a division operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#DownslopeDistanceToStream">DownslopeDistanceToStream</a>: Measures distance to the nearest downslope stream cell. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#DownslopeFlowpathLength">DownslopeFlowpathLength</a>: Calculates the downslope flowpath length from each cell to basin outlet. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#DownslopeIndex">DownslopeIndex</a>: Calculates the Hjerdt et al. (2004) downslope index. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#DrainagePreservingSmoothing">DrainagePreservingSmoothing</a>: Reduces short-scale variation in an input DEM while preserving breaks-in-slope and small drainage features using a modified Sun et al. (2007) algorithm. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#EdgeDensity">EdgeDensity</a>: Calculates the density of edges, or breaks-in-slope within DEMs. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter">EdgePreservingMeanFilter</a>: Performs a simple edge-preserving mean filter on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#EdgeProportion">EdgeProportion</a>: Calculate the proportion of cells in a raster polygon that are edge cells. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#ElevAbovePit">ElevAbovePit</a>: Calculate the elevation of each grid cell above the nearest downstream pit cell or grid edge cell. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#ElevPercentile">ElevPercentile</a>: Calculates the elevation percentile raster from a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#ElevRelativeToMinMax">ElevRelativeToMinMax</a>: Calculates the elevation of a location relative to the minimum and maximum elevations in a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#ElevRelativeToWatershedMinMax">ElevRelativeToWatershedMinMax</a>: Calculates the elevation of a location relative to the minimum and maximum elevations in a watershed. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#ElevationAboveStreamEuclidean">ElevationAboveStreamEuclidean</a>: Calculates the elevation of cells above the nearest (Euclidean distance) stream cell. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#ElevationAboveStream">ElevationAboveStream</a>: Calculates the elevation of cells above the nearest downslope stream cell. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#EliminateCoincidentPoints">EliminateCoincidentPoints</a>: Removes any coincident, or nearly coincident, points from a vector points file. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#ElongationRatio">ElongationRatio</a>: Calculates the elongation ratio for vector polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#EmbossFilter">EmbossFilter</a>: Performs an emboss filter on an image, similar to a hillshade operation. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#EqualTo">EqualTo</a>: Performs a equal-to comparison operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#ErasePolygonFromLidar">ErasePolygonFromLidar</a>: Erases (cuts out) a vector polygon or polygons from a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#ErasePolygonFromRaster">ErasePolygonFromRaster</a>: Erases (cuts out) a vector polygon from a raster. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#Erase">Erase</a>: Removes all the features, or parts of features, that overlap with the features of the erase vector polygon. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_distance_tools.html#EuclideanAllocation">EuclideanAllocation</a>: Assigns grid cells in the output raster the value of the nearest target cell in the input image, measured by the Shih and Wu (2004) Euclidean distance transform. Found in <em>GIS Analysis → Distance Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_distance_tools.html#EuclideanDistance">EuclideanDistance</a>: Calculates the Shih and Wu (2004) Euclidean distance transform. Found in <em>GIS Analysis → Distance Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Exp2">Exp2</a>: Returns the exponential (base 2) of values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Exp">Exp</a>: Returns the exponential (base e) of values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#ExportTableToCsv">ExportTableToCsv</a>: Exports an attribute table to a CSV text file. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#ExtendVectorLines">ExtendVectorLines</a>: Extends vector lines by a specified distance. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#ExtractNodes">ExtractNodes</a>: Converts vector lines or polygons into vertex points. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ExtractRasterStatistics">ExtractRasterStatistics</a>: Extracts descriptive statistics for a group of patches in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#ExtractRasterValuesAtPoints">ExtractRasterValuesAtPoints</a>: Extracts the values of raster(s) at vector point locations. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#ExtractStreams">ExtractStreams</a>: Extracts stream grid cells from a flow accumulation raster. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#ExtractValleys">ExtractValleys</a>: Identifies potential valley bottom grid cells based on local topolography alone. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#FarthestChannelHead">FarthestChannelHead</a>: Calculates the distance to the furthest upstream channel head for each stream cell. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#FastAlmostGaussianFilter">FastAlmostGaussianFilter</a>: Performs a fast approximate Gaussian filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Fd8FlowAccumulation">Fd8FlowAccumulation</a>: Calculates an FD8 flow accumulation raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Fd8Pointer">Fd8Pointer</a>: Calculates an FD8 flow pointer raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#FeaturePreservingDenoise">FeaturePreservingDenoise</a>: Reduces short-scale variation in an input DEM using a modified Sun et al. (2007) algorithm. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#FetchAnalysis">FetchAnalysis</a>: Performs an analysis of fetch or upwind distance to an obstacle. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FillBurn">FillBurn</a>: Burns streams into a DEM using the FillBurn (Saunders, 1999) method. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FillDepressions">FillDepressions</a>: Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#FillMissingData">FillMissingData</a>: Fills NoData holes in a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FillSingleCellPits">FillSingleCellPits</a>: Raises pit cells to the elevation of their lowest neighbour. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#FilterLidarScanAngles">FilterLidarScanAngles</a>: Removes points in a LAS file with scan angles greater than a threshold. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#FindFlightlineEdgePoints">FindFlightlineEdgePoints</a>: Identifies points along a flightline's edge in a LAS file. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#FindLowestOrHighestPoints">FindLowestOrHighestPoints</a>: Locates the lowest and/or highest valued cells in a raster. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#FindMainStem">FindMainStem</a>: Finds the main stem, based on stream lengths, of each stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FindNoFlowCells">FindNoFlowCells</a>: Finds grid cells with no downslope neighbours. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FindParallelFlow">FindParallelFlow</a>: Finds areas of parallel flow in D8 flow direction rasters. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#FindPatchOrClassEdgeCells">FindPatchOrClassEdgeCells</a>: Finds all cells located on the edge of patch or class features. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#FindRidges">FindRidges</a>: Identifies potential ridge and peak grid cells. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FlattenLakes">FlattenLakes</a>: Flattens lake polygons in a raster DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#FlightlineOverlap">FlightlineOverlap</a>: Reads a LiDAR (LAS) point file and outputs a raster containing the number of overlapping flight lines in each grid cell. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#FlipImage">FlipImage</a>: Reflects an image in the vertical or horizontal axis. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FloodOrder">FloodOrder</a>: Assigns each DEM grid cell its order in the sequence of inundations that are encountered during a search starting from the edges, moving inward at increasing elevations. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Floor">Floor</a>: Returns the largest (closest to positive infinity) value that is less than or equal to the values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FlowAccumulationFullWorkflow">FlowAccumulationFullWorkflow</a>: Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow pointer, and a flow accumulation raster. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FlowLengthDiff">FlowLengthDiff</a>: Calculates the local maximum absolute difference in downslope flowpath length, useful in mapping drainage divides and ridges. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#GammaCorrection">GammaCorrection</a>: Performs a sigmoidal contrast stretch on input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#GaussianContrastStretch">GaussianContrastStretch</a>: Performs a Gaussian contrast stretch on input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#GaussianFilter">GaussianFilter</a>: Performs a Gaussian filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#GreaterThan">GreaterThan</a>: Performs a greater-than comparison operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#HackStreamOrder">HackStreamOrder</a>: Assigns the Hack stream order to each tributary in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#HighPassFilter">HighPassFilter</a>: Performs a high-pass filter on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#HighPassMedianFilter">HighPassMedianFilter</a>: Performs a high pass median filter on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#HighestPosition">HighestPosition</a>: Identifies the stack position of the maximum value within a raster stack on a cell-by-cell basis. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#Hillshade">Hillshade</a>: Calculates a hillshade raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Hillslopes">Hillslopes</a>: Identifies the individual hillslopes draining to each link in a stream network. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#HistogramEqualization">HistogramEqualization</a>: Performs a histogram equalization contrast enhancment on an image. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#HistogramMatchingTwoImages">HistogramMatchingTwoImages</a>: This tool alters the cumulative distribution function of a raster image to that of another image. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#HistogramMatching">HistogramMatching</a>: Alters the statistical distribution of a raster image matching it to a specified PDF. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#HoleProportion">HoleProportion</a>: Calculates the proportion of the total area of a polygon's holes relative to the area of the polygon's hull. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#HorizonAngle">HorizonAngle</a>: Calculates horizon angle (maximum upwind slope) for each grid cell in an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#HortonStreamOrder">HortonStreamOrder</a>: Assigns the Horton stream order to each tributary in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#HypsometricAnalysis">HypsometricAnalysis</a>: Calculates a hypsometric curve for one or more DEMs. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#IdwInterpolation">IdwInterpolation</a>: Interpolates vector points into a raster surface using an inverse-distance weighted scheme. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#IhsToRgb">IhsToRgb</a>: Converts intensity, hue, and saturation (IHS) images into red, green, and blue (RGB) images. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ImageAutocorrelation">ImageAutocorrelation</a>: Performs Moran's I analysis on two or more input images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ImageCorrelation">ImageCorrelation</a>: Performs image correlation on two or more input images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ImageRegression">ImageRegression</a>: Performs image regression analysis on two input images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#ImageStackProfile">ImageStackProfile</a>: Plots an image stack profile (i.e. signature) for a set of points and multispectral images. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#ImpoundmentSizeIndex">ImpoundmentSizeIndex</a>: Calculates the impoundment size resulting from damming a DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#InPlaceAdd">InPlaceAdd</a>: Performs an in-place addition operation (input1 += input2). Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#InPlaceDivide">InPlaceDivide</a>: Performs an in-place division operation (input1 /= input2). Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#InPlaceMultiply">InPlaceMultiply</a>: Performs an in-place multiplication operation (input1 *= input2). Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#InPlaceSubtract">InPlaceSubtract</a>: Performs an in-place subtraction operation (input1 -= input2). Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Increment">Increment</a>: Increases the values of each grid cell in an input raster by 1.0. (see also InPlaceAdd) Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#IntegerDivision">IntegerDivision</a>: Performs an integer division operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#IntegralImage">IntegralImage</a>: Transforms an input image (summed area table) into its integral image equivalent. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#Intersect">Intersect</a>: Identifies the parts of features in common between two input vector layers. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#IsNoData">IsNoData</a>: Identifies NoData valued pixels in an image. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Isobasins">Isobasins</a>: Divides a landscape into nearly equal sized drainage basins (i.e. watersheds). Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#JensonSnapPourPoints">JensonSnapPourPoints</a>: Moves outlet points used to specify points of interest in a watershedding operation to the nearest stream cell. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#JoinTables">JoinTables</a>: Merge a vector's attribute table with another table based on a common field. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#KMeansClustering">KMeansClustering</a>: Performs a k-means clustering operation on a multi-spectral dataset. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#KNearestMeanFilter">KNearestMeanFilter</a>: A k-nearest mean filter is a type of edge-preserving smoothing filter. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#KappaIndex">KappaIndex</a>: Performs a kappa index of agreement (KIA) analysis on two categorical raster files. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#KsTestForNormality">KsTestForNormality</a>: Evaluates whether the values in a raster are normally distributed. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#LaplacianFilter">LaplacianFilter</a>: Performs a Laplacian filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#LaplacianOfGaussianFilter">LaplacianOfGaussianFilter</a>: Performs a Laplacian-of-Gaussian (LoG) filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LasToAscii">LasToAscii</a>: Converts one or more LAS files into ASCII text files. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LasToMultipointShapefile">LasToMultipointShapefile</a>: Converts one or more LAS files into MultipointZ vector Shapefiles. When the input parameter is not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LasToShapefile">LasToShapefile</a>: Converts one or more LAS files into a vector Shapefile of POINT ShapeType. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#LayerFootprint">LayerFootprint</a>: Creates a vector polygon footprint of the area covered by a raster grid or vector layer. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#LeeFilter">LeeFilter</a>: Performs a Lee (Sigma) smoothing filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#LengthOfUpstreamChannels">LengthOfUpstreamChannels</a>: Calculates the total length of channels upstream. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#LessThan">LessThan</a>: Performs a less-than comparison operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarBlockMaximum">LidarBlockMaximum</a>: Creates a block-maximum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarBlockMinimum">LidarBlockMinimum</a>: Creates a block-minimum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarClassifySubset">LidarClassifySubset</a>: Classifies the values in one LiDAR point cloud that correpond with points in a subset cloud. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarColourize">LidarColourize</a>: Adds the red-green-blue colour fields of a LiDAR (LAS) file based on an input image. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarConstructVectorTin">LidarConstructVectorTin</a>: Creates a vector triangular irregular network (TIN) fitted to LiDAR points. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarElevationSlice">LidarElevationSlice</a>: Outputs all of the points within a LiDAR (LAS) point file that lie between a specified elevation range. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarGroundPointFilter">LidarGroundPointFilter</a>: Identifies ground points within LiDAR dataset using a slope-based method. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarHexBinning">LidarHexBinning</a>: Hex-bins a set of LiDAR points. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarHillshade">LidarHillshade</a>: Calculates a hillshade value for points within a LAS file and stores these data in the RGB field. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarHistogram">LidarHistogram</a>: Creates a histogram of LiDAR data. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarIdwInterpolation">LidarIdwInterpolation</a>: Interpolates LAS files using an inverse-distance weighted (IDW) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarInfo">LidarInfo</a>: Prints information about a LiDAR (LAS) dataset, including header, point return frequency, and classification data and information about the variable length records (VLRs) and geokeys. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarJoin">LidarJoin</a>: Joins multiple LiDAR (LAS) files into a single LAS file. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarKappaIndex">LidarKappaIndex</a>: Performs a kappa index of agreement (KIA) analysis on the classifications of two LAS files. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarNearestNeighbourGridding">LidarNearestNeighbourGridding</a>: Grids LAS files using nearest-neighbour scheme. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarPointDensity">LidarPointDensity</a>: Calculates the spatial pattern of point density for a LiDAR data set. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarPointStats">LidarPointStats</a>: Creates several rasters summarizing the distribution of LAS point data. When the input/output parameters are not specified, the tool works on all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarRemoveDuplicates">LidarRemoveDuplicates</a>: Removes duplicate points from a LiDAR data set. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarRemoveOutliers">LidarRemoveOutliers</a>: Removes outliers (high and low points) in a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a>: Identifies ground points within LiDAR point clouds using a segmentation based approach. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarSegmentation">LidarSegmentation</a>: Segments a LiDAR point cloud based on normal vectors. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarThinHighDensity">LidarThinHighDensity</a>: Thins points from high density areas within a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarThin">LidarThin</a>: Thins a LiDAR point cloud, reducing point density. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarTileFootprint">LidarTileFootprint</a>: Creates a vector polygon of the convex hull of a LiDAR point cloud. When the input/output parameters are not specified, the tool works with all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarTile">LidarTile</a>: Tiles a LiDAR LAS file into multiple LAS files. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarTinGridding">LidarTinGridding</a>: Creates a raster grid based on a Delaunay triangular irregular network (TIN) fitted to LiDAR points. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarTophatTransform">LidarTophatTransform</a>: Performs a white top-hat transform on a Lidar dataset; as an estimate of height above ground, this is useful for modelling the vegetation canopy. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#LineDetectionFilter">LineDetectionFilter</a>: Performs a line-detection filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#LineIntersections">LineIntersections</a>: Identifies points where the features of two vector line layers intersect. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#LineThinning">LineThinning</a>: Performs line thinning a on Boolean raster image; intended to be used with the RemoveSpurs tool. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#LinearityIndex">LinearityIndex</a>: Calculates the linearity index for vector polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#LinesToPolygons">LinesToPolygons</a>: Converts vector polylines to polygons. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ListUniqueValues">ListUniqueValues</a>: Lists the unique values contained in a field witin a vector's attribute table. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Ln">Ln</a>: Returns the natural logarithm of values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Log10">Log10</a>: Returns the base-10 logarithm of values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Log2">Log2</a>: Returns the base-2 logarithm of values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#LongProfileFromPoints">LongProfileFromPoints</a>: Plots the longitudinal profiles from flow-paths initiating from a set of vector points. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#LongProfile">LongProfile</a>: Plots the stream longitudinal profiles for one or more rivers. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#LongestFlowpath">LongestFlowpath</a>: Delineates the longest flowpaths for a group of subbasins or watersheds. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#LowestPosition">LowestPosition</a>: Identifies the stack position of the minimum value within a raster stack on a cell-by-cell basis. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#MajorityFilter">MajorityFilter</a>: Assigns each cell in the output grid the most frequently occurring value (mode) in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#MaxAbsoluteOverlay">MaxAbsoluteOverlay</a>: Evaluates the maximum absolute value for each grid cell from a stack of input rasters. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MaxAnisotropyDevSignature">MaxAnisotropyDevSignature</a>: Calculates the anisotropy in deviation from mean for points over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MaxAnisotropyDev">MaxAnisotropyDev</a>: Calculates the maximum anisotropy (directionality) in elevation deviation over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MaxBranchLength">MaxBranchLength</a>: Lindsay and Seibert's (2013) branch length index is used to map drainage divides or ridge lines. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MaxDifferenceFromMean">MaxDifferenceFromMean</a>: Calculates the maximum difference from mean elevation over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MaxDownslopeElevChange">MaxDownslopeElevChange</a>: Calculates the maximum downslope change in elevation between a grid cell and its eight downslope neighbors. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MaxElevDevSignature">MaxElevDevSignature</a>: Calculates the maximum elevation deviation over a range of spatial scales and for a set of points. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MaxElevationDeviation">MaxElevationDeviation</a>: Calculates the maximum elevation deviation over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#MaxOverlay">MaxOverlay</a>: Evaluates the maximum value for each grid cell from a stack of input rasters. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#MaxUpslopeFlowpathLength">MaxUpslopeFlowpathLength</a>: Measures the maximum length of all upslope flowpaths draining each grid cell. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Max">Max</a>: Performs a MAX operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#MaximumFilter">MaximumFilter</a>: Assigns each cell in the output grid the maximum value in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#MeanFilter">MeanFilter</a>: Performs a mean filter (low-pass filter) on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#MedianFilter">MedianFilter</a>: Performs a median filter on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#Medoid">Medoid</a>: Calculates the medoid for a series of vector features contained in a shapefile. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#MergeTableWithCsv">MergeTableWithCsv</a>: Merge a vector's attribute table with a table contained within a CSV text file. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#MergeVectors">MergeVectors</a>: Combines two or more input vectors of the same ShapeType creating a single, new output vector. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#MinAbsoluteOverlay">MinAbsoluteOverlay</a>: Evaluates the minimum absolute value for each grid cell from a stack of input rasters. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MinDownslopeElevChange">MinDownslopeElevChange</a>: Calculates the minimum downslope change in elevation between a grid cell and its eight downslope neighbors. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#MinMaxContrastStretch">MinMaxContrastStretch</a>: Performs a min-max contrast stretch on an input greytone image. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#MinOverlay">MinOverlay</a>: Evaluates the minimum value for each grid cell from a stack of input rasters. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Min">Min</a>: Performs a MIN operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#MinimumBoundingBox">MinimumBoundingBox</a>: Creates a vector minimum bounding rectangle around vector features. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#MinimumBoundingCircle">MinimumBoundingCircle</a>: Delineates the minimum bounding circle (i.e. smallest enclosing circle) for a group of vectors. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#MinimumBoundingEnvelope">MinimumBoundingEnvelope</a>: Creates a vector axis-aligned minimum bounding rectangle (envelope) around vector features. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#MinimumConvexHull">MinimumConvexHull</a>: Creates a vector convex polygon around vector features. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#MinimumFilter">MinimumFilter</a>: Assigns each cell in the output grid the minimum value in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#ModifiedKMeansClustering">ModifiedKMeansClustering</a>: Performs a modified k-means clustering operation on a multi-spectral dataset. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Modulo">Modulo</a>: Performs a modulo operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#MosaicWithFeathering">MosaicWithFeathering</a>: Mosaics two images together using a feathering technique in overlapping areas to reduce edge-effects. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#Mosaic">Mosaic</a>: Mosaics two or more images together. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#MultiPartToSinglePart">MultiPartToSinglePart</a>: Converts a vector file containing multi-part features into a vector containing only single-part features. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Multiply">Multiply</a>: Performs a multiplication operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleRoughnessSignature">MultiscaleRoughnessSignature</a>: Calculates the surface roughness for points over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleRoughness">MultiscaleRoughness</a>: Calculates surface roughness over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleTopographicPositionImage">MultiscaleTopographicPositionImage</a>: Creates a multiscale topographic position image from three DEVmax rasters of differing spatial scale ranges. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#NearestNeighbourGridding">NearestNeighbourGridding</a>: Creates a raster grid based on a set of vector points and assigns grid values using the nearest neighbour. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Negate">Negate</a>: Changes the sign of values in a raster or the 0-1 values of a Boolean raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#NewRasterFromBase">NewRasterFromBase</a>: Creates a new raster using a base image. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#NormalVectors">NormalVectors</a>: Calculates normal vectors for points within a LAS file and stores these data (XYZ vector components) in the RGB field. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#NormalizedDifferenceVegetationIndex">NormalizedDifferenceVegetationIndex</a>: Calculates the normalized difference vegetation index (NDVI) from near-infrared and red imagery. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#NotEqualTo">NotEqualTo</a>: Performs a not-equal-to comparison operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Not">Not</a>: Performs a logical NOT operator on two Boolean raster images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#NumDownslopeNeighbours">NumDownslopeNeighbours</a>: Calculates the number of downslope neighbours to each grid cell in a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#NumInflowingNeighbours">NumInflowingNeighbours</a>: Computes the number of inflowing neighbours to each cell in an input DEM based on the D8 algorithm. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#NumUpslopeNeighbours">NumUpslopeNeighbours</a>: Calculates the number of upslope neighbours to each grid cell in a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#OlympicFilter">OlympicFilter</a>: Performs an olympic smoothing filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#Opening">Opening</a>: An opening is a mathematical morphology operation involving a dilation (max filter) of an erosion (min filter) set. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Or">Or</a>: Performs a logical OR operator on two Boolean raster images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#PanchromaticSharpening">PanchromaticSharpening</a>: Increases the spatial resolution of image data by combining multispectral bands with panchromatic data. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#PatchOrientation">PatchOrientation</a>: Calculates the orientation of vector polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#PennockLandformClass">PennockLandformClass</a>: Classifies hillslope zones based on slope, profile curvature, and plan curvature. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#PercentElevRange">PercentElevRange</a>: Calculates percent of elevation range from a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#PercentEqualTo">PercentEqualTo</a>: Calculates the percentage of a raster stack that have cell values equal to an input on a cell-by-cell basis. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#PercentGreaterThan">PercentGreaterThan</a>: Calculates the percentage of a raster stack that have cell values greather than an input on a cell-by-cell basis. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#PercentLessThan">PercentLessThan</a>: Calculates the percentage of a raster stack that have cell values less than an input on a cell-by-cell basis. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#PercentageContrastStretch">PercentageContrastStretch</a>: Performs a percentage linear contrast stretch on input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#PercentileFilter">PercentileFilter</a>: Performs a percentile filter on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#PerimeterAreaRatio">PerimeterAreaRatio</a>: Calculates the perimeter-area ratio of vector polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#PickFromList">PickFromList</a>: Outputs the value from a raster stack specified by a position raster. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#PlanCurvature">PlanCurvature</a>: Calculates a plan (contour) curvature raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#PolygonArea">PolygonArea</a>: Calculates the area of vector polygons. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#PolygonLongAxis">PolygonLongAxis</a>: This tool can be used to map the long axis of polygon features. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#PolygonPerimeter">PolygonPerimeter</a>: Calculates the perimeter of vector polygons. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#PolygonShortAxis">PolygonShortAxis</a>: This tool can be used to map the short axis of polygon features. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#Polygonize">Polygonize</a>: Creates a polygon layer from two or more intersecting line features contained in one or more input vector line files. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#PolygonsToLines">PolygonsToLines</a>: Converts vector polygons to polylines. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Power">Power</a>: Raises the values in grid cells of one rasters, or a constant value, by values in another raster or constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#PrewittFilter">PrewittFilter</a>: Performs a Prewitt edge-detection filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#PrincipalComponentAnalysis">PrincipalComponentAnalysis</a>: Performs a principal component analysis (PCA) on a multi-spectral dataset. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#PrintGeoTiffTags">PrintGeoTiffTags</a>: Prints the tags within a GeoTIFF. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#ProfileCurvature">ProfileCurvature</a>: Calculates a profile curvature raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#Profile">Profile</a>: Plots profiles from digital surface models. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Quantiles">Quantiles</a>: Transforms raster values into quantiles. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#RadiusOfGyration">RadiusOfGyration</a>: Calculates the distance of cells from their polygon's centroid. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#RaiseWalls">RaiseWalls</a>: Raises walls in a DEM along a line or around a polygon, e.g. a watershed. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#RandomField">RandomField</a>: Creates an image containing random values. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#RandomSample">RandomSample</a>: Creates an image containing randomly located sample grid cells with unique IDs. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#RangeFilter">RangeFilter</a>: Assigns each cell in the output grid the range of values in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#RasterCellAssignment">RasterCellAssignment</a>: Assign row or column number to cells. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#RasterHistogram">RasterHistogram</a>: Creates a histogram from raster values. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#RasterStreamsToVector">RasterStreamsToVector</a>: Converts a raster stream file into a vector file. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#RasterSummaryStats">RasterSummaryStats</a>: Measures a rasters min, max, average, standard deviation, num. non-nodata cells, and total. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#RasterToVectorLines">RasterToVectorLines</a>: Converts a raster lines features into a vector of the POLYLINE shapetype Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#RasterToVectorPoints">RasterToVectorPoints</a>: Converts a raster dataset to a vector of the POINT shapetype. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#RasterizeStreams">RasterizeStreams</a>: Rasterizes vector streams based on Lindsay (2016) method. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Reciprocal">Reciprocal</a>: Returns the reciprocal (i.e. 1 / z) of values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#ReclassEqualInterval">ReclassEqualInterval</a>: Reclassifies the values in a raster image based on equal-ranges. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#ReclassFromFile">ReclassFromFile</a>: Reclassifies the values in a raster image using reclass ranges in a text file. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#Reclass">Reclass</a>: Reclassifies the values in a raster image. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#ReinitializeAttributeTable">ReinitializeAttributeTable</a>: Reinitializes a vector's attribute table deleting all fields but the feature ID (FID). Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#RelatedCircumscribingCircle">RelatedCircumscribingCircle</a>: Calculates the related circumscribing circle of vector polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#RelativeAspect">RelativeAspect</a>: Calculates relative aspect (relative to a user-specified direction) from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#RelativeStreamPowerIndex">RelativeStreamPowerIndex</a>: Calculates the relative stream power index. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#RelativeTopographicPosition">RelativeTopographicPosition</a>: Calculates the relative topographic position index from a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#RemoveOffTerrainObjects">RemoveOffTerrainObjects</a>: Removes off-terrain objects from a raster digital elevation model (DEM). Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#RemovePolygonHoles">RemovePolygonHoles</a>: Removes holes within the features of a vector polygon file. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#RemoveShortStreams">RemoveShortStreams</a>: Removes short first-order streams from a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#RemoveSpurs">RemoveSpurs</a>: Removes the spurs (pruning operation) from a Boolean line image.; intended to be used on the output of the LineThinning tool. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#Resample">Resample</a>: Resamples one or more input images into a destination image. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#RescaleValueRange">RescaleValueRange</a>: Performs a min-max contrast stretch on an input greytone image. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#RgbToIhs">RgbToIhs</a>: Converts red, green, and blue (RGB) images into intensity, hue, and saturation (IHS) images. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Rho8Pointer">Rho8Pointer</a>: Calculates a stochastic Rho8 flow pointer raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#RobertsCrossFilter">RobertsCrossFilter</a>: Performs a Robert's cross edge-detection filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#RootMeanSquareError">RootMeanSquareError</a>: Calculates the RMSE and other accuracy statistics. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Round">Round</a>: Rounds the values in an input raster to the nearest integer value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#RuggednessIndex">RuggednessIndex</a>: Calculates the Riley et al.'s (1999) terrain ruggedness index from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#ScharrFilter">ScharrFilter</a>: Performs a Scharr edge-detection filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#SedimentTransportIndex">SedimentTransportIndex</a>: Calculates the sediment transport index. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#SelectTilesByPolygon">SelectTilesByPolygon</a>: Copies LiDAR tiles overlapping with a polygon into an output directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#SetNodataValue">SetNodataValue</a>: Assign a specified value in an input image to the NoData value. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_patch_shape_tools.html#ShapeComplexityIndex">ShapeComplexityIndex</a>: Calculates overall polygon shape complexity or irregularity. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#ShreveStreamMagnitude">ShreveStreamMagnitude</a>: Assigns the Shreve stream magnitude to each link in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#SigmoidalContrastStretch">SigmoidalContrastStretch</a>: Performs a sigmoidal contrast stretch on input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Sin">Sin</a>: Returns the sine (sin) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#SinglePartToMultiPart">SinglePartToMultiPart</a>: Converts a vector file containing multi-part features into a vector containing only single-part features. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Sinh">Sinh</a>: Returns the hyperbolic sine (sinh) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Sink">Sink</a>: Identifies the depressions in a DEM, giving each feature a unique identifier. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#SlopeVsElevationPlot">SlopeVsElevationPlot</a>: Creates a slope vs. elevation plot for one or more DEMs. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#Slope">Slope</a>: Calculates a slope raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#SmoothVectors">SmoothVectors</a>: Smooths a vector coverage of either a POLYLINE or POLYGON base ShapeType. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#SnapPourPoints">SnapPourPoints</a>: Moves outlet points used to specify points of interest in a watershedding operation to the cell with the highest flow accumulation in its neighbourhood. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#SobelFilter">SobelFilter</a>: Performs a Sobel edge-detection filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#SplitColourComposite">SplitColourComposite</a>: This tool splits an RGB colour composite image into seperate multispectral images. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#SplitWithLines">SplitWithLines</a>: Splits the lines or polygons in one layer using the lines in another layer. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#SquareRoot">SquareRoot</a>: Returns the square root of the values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Square">Square</a>: Squares the values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#StandardDeviationContrastStretch">StandardDeviationContrastStretch</a>: Performs a standard-deviation contrast stretch on input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#StandardDeviationFilter">StandardDeviationFilter</a>: Assigns each cell in the output grid the standard deviation of values in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#StandardDeviationOfSlope">StandardDeviationOfSlope</a>: Calculates the standard deviation of slope from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#StochasticDepressionAnalysis">StochasticDepressionAnalysis</a>: Preforms a stochastic analysis of depressions within a DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#StrahlerOrderBasins">StrahlerOrderBasins</a>: Identifies Strahler-order basins from an input stream network. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#StrahlerStreamOrder">StrahlerStreamOrder</a>: Assigns the Strahler stream order to each link in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#StreamLinkClass">StreamLinkClass</a>: Identifies the exterior/interior links and nodes in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#StreamLinkIdentifier">StreamLinkIdentifier</a>: Assigns a unique identifier to each link in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#StreamLinkLength">StreamLinkLength</a>: Estimates the length of each link (or tributary) in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#StreamLinkSlope">StreamLinkSlope</a>: Estimates the average slope of each link (or tributary) in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#StreamSlopeContinuous">StreamSlopeContinuous</a>: Estimates the slope of each grid cell in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Subbasins">Subbasins</a>: Identifies the catchments, or sub-basin, draining to each link in a stream network. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Subtract">Subtract</a>: Performs a differencing operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#SumOverlay">SumOverlay</a>: Calculates the sum for each grid cell from a group of raster images. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#SurfaceAreaRatio">SurfaceAreaRatio</a>: Calculates a the surface area ratio of each grid cell in an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#SymmetricalDifference">SymmetricalDifference</a>: Outputs the features that occur in one of the two vector inputs but not both, i.e. no overlapping features. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Tan">Tan</a>: Returns the tangent (tan) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#TangentialCurvature">TangentialCurvature</a>: Calculates a tangential curvature raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Tanh">Tanh</a>: Returns the hyperbolic tangent (tanh) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#ThickenRasterLine">ThickenRasterLine</a>: Thickens single-cell wide lines within a raster image. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#TinGridding">TinGridding</a>: Creates a raster grid based on a triangular irregular network (TIN) fitted to vector points. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ToDegrees">ToDegrees</a>: Converts a raster from radians to degrees. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ToRadians">ToRadians</a>: Converts a raster from degrees to radians. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#TophatTransform">TophatTransform</a>: Performs either a white or black top-hat transform on an input image. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#TopologicalStreamOrder">TopologicalStreamOrder</a>: Assigns each link in a stream network its topological order. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#TotalCurvature">TotalCurvature</a>: Calculates a total curvature raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#TotalFilter">TotalFilter</a>: Performs a total filter on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#TraceDownslopeFlowpaths">TraceDownslopeFlowpaths</a>: Traces downslope flowpaths from one or more target sites (i.e. seed points). Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#TrendSurfaceVectorPoints">TrendSurfaceVectorPoints</a>: Estimates a trend surface from vector points. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#TrendSurface">TrendSurface</a>: Estimates the trend surface of an input raster file. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/stream_network_analysis.html#TributaryIdentifier">TributaryIdentifier</a>: Assigns a unique identifier to each tributary in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Truncate">Truncate</a>: Truncates the values in a raster to the desired number of decimal places. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#TurningBandsSimulation">TurningBandsSimulation</a>: Creates an image containing random values based on a turning-bands simulation. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#Union">Union</a>: Splits vector layers at their overlaps, creating a layer containing all the portions from both input and overlay layers. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#UnnestBasins">UnnestBasins</a>: Extract whole watersheds for a set of outlet points. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#UnsharpMasking">UnsharpMasking</a>: An image sharpening technique that enhances edges. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools_filters.html#UserDefinedWeightsFilter">UserDefinedWeightsFilter</a>: Performs a user-defined weights filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#VectorHexBinning">VectorHexBinning</a>: Hex-bins a set of vector points. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#VectorLinesToRaster">VectorLinesToRaster</a>: Converts a vector containing polylines into a raster. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#VectorPointsToRaster">VectorPointsToRaster</a>: Converts a vector containing points into a raster. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#VectorPolygonsToRaster">VectorPolygonsToRaster</a>: Converts a vector containing polygons into a raster. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#Viewshed">Viewshed</a>: Identifies the viewshed for a point or set of points. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#VisibilityIndex">VisibilityIndex</a>: Estimates the relative visibility of sites in a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#VoronoiDiagram">VoronoiDiagram</a>: Creates a vector Voronoi diagram for a set of vector points. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#Watershed">Watershed</a>: Identifies the watershed, or drainage basin, draining to a set of target cells. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#WeightedOverlay">WeightedOverlay</a>: Performs a weighted sum on multiple input rasters after converting each image to a common scale. The tool performs a multi-criteria evaluation (MCE). Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#WeightedSum">WeightedSum</a>: Performs a weighted-sum overlay on multiple input raster images. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#WetnessIndex">WetnessIndex</a>: Calculates the topographic wetness index, Ln(A / tan(slope)). Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/image_processing_tools.html#WriteFunctionMemoryInsertion">WriteFunctionMemoryInsertion</a>: Performs a write function memory insertion for single-band multi-date change detection. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#Xor">Xor</a>: Performs a logical XOR operator on two Boolean raster images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ZScores">ZScores</a>: Standardizes the values in an input raster by converting to z-scores. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+</ol>
 
                     </main>
 

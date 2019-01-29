@@ -166,7 +166,7 @@
 <li><a href="#FlowAccumulationFullWorkflow">FlowAccumulationFullWorkflow</a></li>
 <li><a href="#FlowLengthDiff">FlowLengthDiff</a></li>
 <li><a href="#Hillslopes">Hillslopes</a></li>
-<li><a href="#ImpoundmentIndex">ImpoundmentIndex</a></li>
+<li><a href="#ImpoundmentSizeIndex">ImpoundmentSizeIndex</a></li>
 <li><a href="#Isobasins">Isobasins</a></li>
 <li><a href="#JensonSnapPourPoints">JensonSnapPourPoints</a></li>
 <li><a href="#LongestFlowpath">LongestFlowpath</a></li>
@@ -283,17 +283,20 @@ region of valid data in the flow pointer raster will be divided into a set of mu
 <p><em>Created</em>: 01/07/2017</p>
 <p><a name="BreachDepressions"></a></p>
 <a class="header" href="#breachdepressions" id="breachdepressions"><h1>BreachDepressions</h1></a>
-<p>This tool can be used to remove the depressions in a digital elevation model, a
+<p>This tool can be used to remove the depressions in a digital elevation model (DEM), a
 common requirement of spatial hydrological operations such as flow accumulation
 and watershed modelling. The tool based on on the efficient hybrid depression
 breaching algorithm described by Lindsay (2016). It uses a breach-first, fill-second
 approach to resolving continous flowpaths through depressions.</p>
+<p>Notice that when the input DEM (<code>--dem</code>) contains deep, single-cell pits, it can be useful
+to apply the <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a> before <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, to avoid the creation of
+deep breach trenches.</p>
 <p><em>Reference</em>:</p>
 <p>Lindsay JB. 2016. <em>Efficient hybrid breaching-filling sink removal methods for
 flow path enforcement in digital elevation models.</em> <strong>Hydrological Processes</strong>,
 30(6): 846–857. DOI: 10.1002/hyp.10648</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -326,7 +329,7 @@ cell of a neighbouring cell. Notice that this tool can be a useful pre-processin
 one of the more robust depression filling or breaching techniques (e.g. <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and
 <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>), which are designed to remove larger depression features.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -801,7 +804,29 @@ Geosciences, 17(3), 413-422.</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="Fd8Pointer"></a></p>
 <a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
-<p>Calculates an FD8 flow pointer raster from an input DEM.</p>
+<p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the FD8 (Freeman, 1991) algorithm.
+FD8 is a multiple-flow-direction (MFD) method because the flow entering each grid cell is routed one or more
+downslope neighbours, i.e. flow divergence is permitted. The user must specify the name of a digital elevation model
+(DEM; <code>--dem</code>) that has been hydrologically corrected to remove all spurious depressions and flat areas.
+DEM pre-processing is usually achived using the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools.</p>
+<p>By default, D8 flow pointers use the following clockwise, base-2 numeric index convention:</p>
+<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
+<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
+<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+</tbody></table>
+<p>In the case of the FD8 algorithm, some portion of the flow entering a grid cell will be sent to each downslope
+neighbour. Thus, the FD8 flow-pointer value is the sum of each of the individual pointers for all downslope neighbours.
+For example, if a grid cell has downslope neighbours to the northeast, east, and south the corresponding FD8
+flow-pointer value will be 1 + 2 + 8 = 11. Using the naming convention above, this is the only combination of
+flow-pointers that will result in the combined value of 11. Using the base-2 naming convention allows for the
+storage of complex combinations of flow-points using a single numeric value, which is the reason for using this
+somewhat odd convention.</p>
+<p><em>Reference</em>:</p>
+<p>Freeman, T. G. (1991). Calculating catchment area with divergent flow based on a regular grid. Computers and
+Geosciences, 17(3), 413-422.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -819,7 +844,7 @@ Geosciences, 17(3), 413-422.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_pointer.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="FillBurn"></a></p>
 <a class="header" href="#fillburn" id="fillburn"><h1>FillBurn</h1></a>
 <p>Burns streams into a DEM using the FillBurn (Saunders, 1999) method. This tool uses the
@@ -893,7 +918,14 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <p><em>Created</em>: 28/06/2017</p>
 <p><a name="FillSingleCellPits"></a></p>
 <a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h1>FillSingleCellPits</h1></a>
-<p>Raises pit cells to the elevation of their lowest neighbour.</p>
+<p>This tool can be used to remove pits from a digital elevation model (DEM). Pits are single grid cells with no
+downslope neighbours. They are important because they impede overland flow-paths. This tool will remove any
+pits in the input DEM that can be resolved by raising the elevation of the pit such that flow will continue
+past the pit cell to one of the downslope neighbours. Notice that this tool can be a useful pre-processing
+technique before running one of the more robust depression breaching (<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>) or filling
+(<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>) techniques, which are designed to remove larger depression features.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachsinglecellpits"><strong>BreachSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -911,7 +943,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_pits.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="FindNoFlowCells"></a></p>
 <a class="header" href="#findnoflowcells" id="findnoflowcells"><h1>FindNoFlowCells</h1></a>
 <p>This tool can be used to find cells with undefined flow, i.e. no valid flow direction, based on the
@@ -1102,7 +1134,22 @@ which is useful in mapping drainage divides and ridges.</p>
 <p><em>Created</em>: July 8, 2017</p>
 <p><a name="Hillslopes"></a></p>
 <a class="header" href="#hillslopes" id="hillslopes"><h1>Hillslopes</h1></a>
-<p>Identifies the individual hillslopes draining to each link in a stream network.</p>
+<p>This tool will identify the hillslopes associated with a user-specified stream network. Hillslopes
+include the catchment areas draining to the left and right sides of each stream link in the network as well
+as the catchment areas draining to all channel heads. <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a> are conceptually similar to <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>,
+except that sub-basins do not distinguish between the right-bank and left-bank catchment areas of stream links.
+The <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a> tool simply assigns a unique identifier to each stream link in a stream network. Each hillslope
+output by this tool is assigned a unique, positive identifier  value. All grid cells in the output raster that
+coincide with a stream cell are assigned an idenifiter of zero, i.e. stream cells do not belong to any hillslope.</p>
+<p>The user must specify the name of a flow pointer
+(flow direction) raster (<code>--d8_pntr</code>), a streams raster (<code>--streams</code>), and the output raster (<code>--output</code>).
+The flow pointer and streams rasters should be generated using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This will require
+a depressionless DEM, processed using either the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>NoData values in the input flow pointer raster are assigned NoData values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a>, <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -1125,10 +1172,23 @@ which is useful in mapping drainage divides and ridges.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/hillslopes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 16, 2017</p>
-<p><a name="ImpoundmentIndex"></a></p>
-<a class="header" href="#impoundmentindex" id="impoundmentindex"><h1>ImpoundmentIndex</h1></a>
-<p>Calculates the impoundment size resulting from damming a DEM.</p>
+<p><em>Created</em>: 16/07/2017</p>
+<p><a name="ImpoundmentSizeIndex"></a></p>
+<a class="header" href="#impoundmentsizeindex" id="impoundmentsizeindex"><h1>ImpoundmentSizeIndex</h1></a>
+<p>This tool can be used to calculate the impoundment size index (ISI) from a digital elevation model (DEM).
+The ISI is a land-surface parameter related to the size of the impoundment that would result from inserting
+a dam of a user-specified maximum length (<code>--damlength</code>) into each DEM grid cell. In addition to an
+output dam-height raster (same name as <code>--output</code> file but with an <em>_dam_height</em> suffix appended), the tool outputs
+a measure of impoundment size (<code>--out_type</code>) related to impoundment average depth, total volume, or flooded area.</p>
+<p>Please note that this tool performs an extremely complex and computationally intensive flow-accumulation operation.
+As such, it may take a substantial amount of processing time and may encounter issues (including memory issues) when
+applied to very large DEMs. It is not necessary to pre-process the input DEM (<code>--dem</code>) to remove topographic depressions
+and flat areas. The internal flow-accumulation operation will not be confounded by the presence of these features.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay, JB (2015) Modelling the spatial pattern of potential impoundment size from DEMs.
+Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/modelling-the-spatial-pattern-of-potential-impoundment-size-from-dems/">Whitebox Blog</a></p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1137,7 +1197,7 @@ which is useful in mapping drainage divides and ridges.</p>
 <tr><td>--damlength        </td><td> Maximum length of thr dam</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">impoundment_index(
+<pre><code class="language-python">impoundment_size_index(
     dem, 
     output, 
     damlength, 
@@ -1145,7 +1205,7 @@ which is useful in mapping drainage divides and ridges.</p>
     callback=default_callback)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentIndex -v ^
+<pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentSizeIndex -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif ^
 --out_type=depth --damlength=11 
 </code></pre>
@@ -1184,7 +1244,26 @@ and stored in memory of this tool.</p>
 <p><em>Created</em>: 03/12/2017</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
-<p>Moves outlet points used to specify points of interest in a watershedding operation to the nearest stream cell.</p>
+<p>The <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
+operation) (<code>--pour_pts</code>) to the location coincident with the nearest stream cell (<code>--stream</code>) value within
+a specified maximum distance (<code>--snap_dist</code>). The pour points file (<code>--pour_pts</code>) must be a vector file of <em>Point</em> ShapeType.</p>
+<p>If the output of the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool is to be used with the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, the streams raster should
+be generated by extracting the streams using the <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a> algorithm. The snap distance (<code>--snap_dist</code>), measured
+in map units (e.g meters), must also be specified. This distance will serve as the search radius placed around each pour
+point during the search for the nearst stream cell.</p>
+<p>Lindsay et al. (2008) provide a detailed discussion of the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> technique, and other less sophisticated
+but commonly used techniques (<a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a>) for adjusting pour point locations used in watershedding operations. In
+most cases, the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool should be prefered over <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> for applications of
+repositioning outlet points used in watershedding operations onto the digital stream lines contained in local drainage
+direction rasters. Jenson's method relocates outlet points to the <em>nearest</em> stream cell while <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> relocated
+outlets to the <em>largest</em> stream (designated by the largest flow accumulation value). In the common situation where outlet
+cells are position near the confluence point of smaller tributary streams, the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool may re-position
+outlets on the main-trunk stream, which will result in watershed delineation of incorrect sub-basins.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived stream
+networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
@@ -1207,7 +1286,7 @@ and stored in memory of this tool.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/jenson_snap_pour_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/06/2017</p>
 <p><a name="LongestFlowpath"></a></p>
 <a class="header" href="#longestflowpath" id="longestflowpath"><h1>LongestFlowpath</h1></a>
 <p>This tool delineates the longest flowpaths for a group of subbasins or watersheds.
@@ -1353,7 +1432,13 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <p><em>Created</em>: July 16, 2017</p>
 <p><a name="Sink"></a></p>
 <a class="header" href="#sink" id="sink"><h1>Sink</h1></a>
-<p>Identifies the depressions in a DEM, giving each feature a unique identifier.</p>
+<p>This tool identifies each sink (i.e. topographic depression) in a raster digital elevation model (DEM). A
+sink, or depression, is a bowl-like landscape feature, which is characterized by interior drainage. Each
+identified sink in the input DEM is assigned a unique, non-zero, positive value in the ouput raster. The
+<a href="./hydrological_analysis.html#sink"><strong>Sink</strong></a> tool essentially runs the <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool followed by the <a href="./gis_analysis.html#clump"><strong>Clump</strong></a> tool on all modified grid
+cells.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./gis_analysis.html#clump"><strong>Clump</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1373,10 +1458,30 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/sink.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><a name="SnapPourPoints"></a></p>
 <a class="header" href="#snappourpoints" id="snappourpoints"><h1>SnapPourPoints</h1></a>
-<p>Moves outlet points used to specify points of interest in a watershedding operation to the cell with the highest flow accumulation in its neighbourhood.</p>
+<p>The <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
+operation) (<code>--pour_pts</code>) to the location coincident with the highest flow accumulation (<code>--flow_accum</code>) value within
+a specified maximum distance (<code>--snap_dist</code>). The pour points file (<code>--pour_pts</code>) must be a vector file of <em>Point</em> ShapeType.</p>
+<p>If the output of the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool is to be used with the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, the flow accumulation raster should
+be generated using the <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a> algorithm. The snap distance (<code>--snap_dist</code>), measured in map units (e.g.
+meters), must also be specified. This distance will serve as the search radius placed around each pour point during the
+search for the maximum flow accumulation. In general, each outlet will be relocated the distance specified by the snap
+distance.</p>
+<p>Lindsay et al. (2008) provide a detailed discussion of the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> technique, and other more sophisticated
+techniques for adjusting pour point locations used in watershedding operations including Jenson's snap pour points
+(<a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>) method. In most cases, the <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool should be prefered for applications of
+repositioning outlet points used in watershedding operations onto the digital stream lines contained in local drainage
+direction rasters. Jenson's method relocates outlet points to the <em>nearest</em> stream cell while <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> relocated
+outlets to the <em>largest</em> stream (designated by the largest flow accumulation value). In the common situation where outlet
+cells are position near the confluence point of smaller tributary streams, the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool may re-position
+outlets on the main-trunk stream, which will result in watershed delineation of incorrect sub-basins.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived stream
+networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
@@ -1399,7 +1504,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/snap_pour_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/072017</p>
 <p><a name="StochasticDepressionAnalysis"></a></p>
 <a class="header" href="#stochasticdepressionanalysis" id="stochasticdepressionanalysis"><h1>StochasticDepressionAnalysis</h1></a>
 <p>Preforms a stochastic analysis of depressions within a DEM, calculating the
@@ -1431,6 +1536,11 @@ performance, particularly when the tool is applied on hardware with four or
 more processors.</p>
 </li>
 </ol>
+<p><em>Reference</em>:</p>
+<p>Lindsay, J. B., &amp; Creed, I. F. (2005). Sensitivity of digital landscapes to artifact depressions in
+remotely-sensed DEMs. Photogrammetric Engineering &amp; Remote Sensing, 71(9), 1029-1036.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#impoundmentsizeindex"><strong>ImpoundmentSizeIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1458,7 +1568,17 @@ more processors.</p>
 <p><em>Created</em>: 11/05/2018</p>
 <p><a name="StrahlerOrderBasins"></a></p>
 <a class="header" href="#strahlerorderbasins" id="strahlerorderbasins"><h1>StrahlerOrderBasins</h1></a>
-<p>Identifies Strahler-order basins from an input stream network.</p>
+<p>This tool will identify the catchment areas of each Horton-Strahler stream order link in a user-specified
+stream network (<code>--streams</code>), i.e. the network's <em>Strahler basins</em>. The tool effectively performs a Horton-Strahler
+stream ordering operation (<a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>) followed by by a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> operation. The user must specify the name of a
+flow pointer (flow direction) raster (<code>--d8_pntr</code>), a streams raster (<code>--streams</code>), and the output raster
+(<code>--output</code>). The flow pointer and streams rasters should be generated using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This
+will require a depressionless DEM, processed using either the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>NoData values in the input flow pointer raster are assigned NoData values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -1481,10 +1601,23 @@ more processors.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/strahler_basins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="Subbasins"></a></p>
 <a class="header" href="#subbasins" id="subbasins"><h1>Subbasins</h1></a>
-<p>Identifies the catchments, or sub-basin, draining to each link in a stream network.</p>
+<p>This tool will identify the catchment areas to each link in a user-specified stream network, i.e. the
+network's sub-basins. <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a> effectively performs a stream link ID operation (<a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a>) followed by
+a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> operation. The user must specify the name of a flow pointer (flow direction) raster (<code>--d8_pntr</code>),
+a streams raster (<code>--streams</code>), and the output raster (<code>--output</code>). The flow pointer and streams rasters should
+be generated using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This will require a depressionless DEM, processed using either
+the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p><a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a> are conceptually similar to sub-basins, except that sub-basins do not distinguish between the
+right-bank and left-bank catchment areas of stream links. The Sub-basins tool simply assigns a unique identifier
+to each stream link in a stream network.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>NoData values in the input flow pointer raster are assigned NoData values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a>, <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
@@ -1507,7 +1640,7 @@ more processors.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/subbasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><a name="TraceDownslopeFlowpaths"></a></p>
 <a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h1>TraceDownslopeFlowpaths</h1></a>
 <p>Traces downslope flowpaths from one or more target sites (i.e. seed points).</p>
