@@ -212,7 +212,14 @@ Jensen (2005) provides a useful description of this approach to change detection
 <p><em>Created</em>: 29/04/2018</p>
 <p><a name="Closing"></a></p>
 <a class="header" href="#closing" id="closing"><h1>Closing</h1></a>
-<p>A closing is a mathematical morphology operation involving an erosion (min filter) of a dilation (max filter) set.</p>
+<p>This tool performs a closing operation on an input greyscale image (<code>--input</code>). A
+<a href="https://en.wikipedia.org/wiki/Closing_(morphology)">closing</a> is a mathematical morphology operation involving
+an erosion (minimum filter) of a dilation (maximum filter) set. <a href="./image_processing_tools.html#closing"><strong>Closing</strong></a> operations, together with the
+<a href="./image_processing_tools.html#opening"><strong>Opening</strong></a> operation, is frequently used in the fields of computer vision and digital image processing for
+image noise removal. The user must specify the size of the moving
+window in both the x and y directions (<code>--filterx</code> and <code>--filtery</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#opening"><strong>Opening</strong></a>, <a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -234,7 +241,7 @@ Jensen (2005) provides a useful description of this approach to change detection
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/closing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="CreateColourComposite"></a></p>
 <a class="header" href="#createcolourcomposite" id="createcolourcomposite"><h1>CreateColourComposite</h1></a>
 <p>This tool can be used to create a colour-composite image from three bands of multi-spectral imagery.
@@ -290,7 +297,9 @@ the <code>--zeros</code> flag.</p>
 <p><em>Created</em>: July 19, 2017</p>
 <p><a name="FlipImage"></a></p>
 <a class="header" href="#flipimage" id="flipimage"><h1>FlipImage</h1></a>
-<p>Reflects an image in the vertical or horizontal axis.</p>
+<p>This tool can be used to flip, or reflect, an image (<code>--input</code>) either vertically, horizontally, or both. The
+axis of reflection is specified using the <code>--direction</code> parameter. The input image is not reflected in place;
+rather, the reflected image is stored in a separate output (<code>--output</code>) file.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -310,7 +319,7 @@ the <code>--zeros</code> flag.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/flip_image.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="IhsToRgb"></a></p>
 <a class="header" href="#ihstorgb" id="ihstorgb"><h1>IhsToRgb</h1></a>
 <p>Converts intensity, hue, and saturation (IHS) images into red, green, and blue (RGB) images.</p>
@@ -430,7 +439,15 @@ the <code>--zeros</code> flag.</p>
 <p><em>Created</em>: Dec. 27, 2017</p>
 <p><a name="LineThinning"></a></p>
 <a class="header" href="#linethinning" id="linethinning"><h1>LineThinning</h1></a>
-<p>Performs line thinning a on Boolean raster image; intended to be used with the RemoveSpurs tool.</p>
+<p>This image processing tool reduces all polygons in a Boolean raster image to their single-cell wide skeletons.
+This operation is sometimes called line thinning or skeletonization. In fact, the input image need not be truly
+Boolean (i.e. contain only 1's and 0's). All non-zero, positive values are considered to be foreground pixels while
+all zero valued cells are considered background pixels. The <a href="./image_processing_tools.html#removespurs"><strong>RemoveSpurs</strong></a> tool is useful for cleaning up an image
+before performing a line thinning operation.</p>
+<p>Note: Unlike other filter-based operations in <em>WhiteboxTools</em>, this algorithm can't easily be parallelized because
+the output raster must be read and written to during the same loop.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#removespurs"><strong>RemoveSpurs</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -611,7 +628,14 @@ significantly in their radiometric properties. i.e. if image contrast difference
 <p><em>Created</em>: June 26, 2017</p>
 <p><a name="Opening"></a></p>
 <a class="header" href="#opening" id="opening"><h1>Opening</h1></a>
-<p>An opening is a mathematical morphology operation involving a dilation (max filter) of an erosion (min filter) set.</p>
+<p>This tool performs an opening operation on an input greyscale image (<code>--input</code>). An
+<a href="https://en.wikipedia.org/wiki/Opening_(morphology)">opening</a> is a mathematical morphology operation involving
+a dilation (maximum filter) on an erosion (minimum filter) set. <a href="./image_processing_tools.html#opening"><strong>Opening</strong></a> operations, together with the
+<a href="./image_processing_tools.html#closing"><strong>Closing</strong></a> operation, is frequently used in the fields of computer vision and digital image processing for
+image noise removal. The user must specify the size of the moving window in both the x and y directions
+(<code>--filterx</code> and <code>--filtery</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#closing"><strong>Closing</strong></a>, <a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -633,10 +657,18 @@ significantly in their radiometric properties. i.e. if image contrast difference
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/opening.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="RemoveSpurs"></a></p>
 <a class="header" href="#removespurs" id="removespurs"><h1>RemoveSpurs</h1></a>
-<p>Removes the spurs (pruning operation) from a Boolean line image.; intended to be used on the output of the LineThinning tool.</p>
+<p>This image processing tool removes small irregularities (i.e. spurs) on the boundaries of objects in a
+Boolean input raster image (<code>--input</code>). This operation is sometimes called pruning. Remove Spurs is a useful tool
+for cleaning an image before performing a line thinning operation. In fact, the input image need not be truly
+Boolean (i.e. contain only 1's and 0's). All non-zero, positive values are considered to be foreground pixels
+while all zero valued cells are considered background pixels.</p>
+<p>Note: Unlike other filter-based operations in <em>WhiteboxTools</em>, this algorithm can't easily be parallelized because
+the output raster must be read and written to during the same loop.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#linethinning"><strong>LineThinning</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -656,7 +688,7 @@ significantly in their radiometric properties. i.e. if image contrast difference
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/remove_spurs.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><a name="Resample"></a></p>
 <a class="header" href="#resample" id="resample"><h1>Resample</h1></a>
 <p>Resample is very similar in operation to the Mosaic tool. The Resample tool should

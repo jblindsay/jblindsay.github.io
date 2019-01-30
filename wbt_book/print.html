@@ -7350,7 +7350,14 @@ Jensen (2005) provides a useful description of this approach to change detection
 <p><em>Created</em>: 29/04/2018</p>
 <p><a name="Closing"></a></p>
 <a class="header" href="#closing" id="closing"><h1>Closing</h1></a>
-<p>A closing is a mathematical morphology operation involving an erosion (min filter) of a dilation (max filter) set.</p>
+<p>This tool performs a closing operation on an input greyscale image (<code>--input</code>). A
+<a href="https://en.wikipedia.org/wiki/Closing_(morphology)">closing</a> is a mathematical morphology operation involving
+an erosion (minimum filter) of a dilation (maximum filter) set. <a href="./image_processing_tools.html#closing"><strong>Closing</strong></a> operations, together with the
+<a href="./image_processing_tools.html#opening"><strong>Opening</strong></a> operation, is frequently used in the fields of computer vision and digital image processing for
+image noise removal. The user must specify the size of the moving
+window in both the x and y directions (<code>--filterx</code> and <code>--filtery</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#opening"><strong>Opening</strong></a>, <a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7372,7 +7379,7 @@ Jensen (2005) provides a useful description of this approach to change detection
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/closing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="CreateColourComposite"></a></p>
 <a class="header" href="#createcolourcomposite" id="createcolourcomposite"><h1>CreateColourComposite</h1></a>
 <p>This tool can be used to create a colour-composite image from three bands of multi-spectral imagery.
@@ -7428,7 +7435,9 @@ the <code>--zeros</code> flag.</p>
 <p><em>Created</em>: July 19, 2017</p>
 <p><a name="FlipImage"></a></p>
 <a class="header" href="#flipimage" id="flipimage"><h1>FlipImage</h1></a>
-<p>Reflects an image in the vertical or horizontal axis.</p>
+<p>This tool can be used to flip, or reflect, an image (<code>--input</code>) either vertically, horizontally, or both. The
+axis of reflection is specified using the <code>--direction</code> parameter. The input image is not reflected in place;
+rather, the reflected image is stored in a separate output (<code>--output</code>) file.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7448,7 +7457,7 @@ the <code>--zeros</code> flag.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/flip_image.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="IhsToRgb"></a></p>
 <a class="header" href="#ihstorgb" id="ihstorgb"><h1>IhsToRgb</h1></a>
 <p>Converts intensity, hue, and saturation (IHS) images into red, green, and blue (RGB) images.</p>
@@ -7568,7 +7577,15 @@ the <code>--zeros</code> flag.</p>
 <p><em>Created</em>: Dec. 27, 2017</p>
 <p><a name="LineThinning"></a></p>
 <a class="header" href="#linethinning" id="linethinning"><h1>LineThinning</h1></a>
-<p>Performs line thinning a on Boolean raster image; intended to be used with the RemoveSpurs tool.</p>
+<p>This image processing tool reduces all polygons in a Boolean raster image to their single-cell wide skeletons.
+This operation is sometimes called line thinning or skeletonization. In fact, the input image need not be truly
+Boolean (i.e. contain only 1's and 0's). All non-zero, positive values are considered to be foreground pixels while
+all zero valued cells are considered background pixels. The <a href="./image_processing_tools.html#removespurs"><strong>RemoveSpurs</strong></a> tool is useful for cleaning up an image
+before performing a line thinning operation.</p>
+<p>Note: Unlike other filter-based operations in <em>WhiteboxTools</em>, this algorithm can't easily be parallelized because
+the output raster must be read and written to during the same loop.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#removespurs"><strong>RemoveSpurs</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7749,7 +7766,14 @@ significantly in their radiometric properties. i.e. if image contrast difference
 <p><em>Created</em>: June 26, 2017</p>
 <p><a name="Opening"></a></p>
 <a class="header" href="#opening" id="opening"><h1>Opening</h1></a>
-<p>An opening is a mathematical morphology operation involving a dilation (max filter) of an erosion (min filter) set.</p>
+<p>This tool performs an opening operation on an input greyscale image (<code>--input</code>). An
+<a href="https://en.wikipedia.org/wiki/Opening_(morphology)">opening</a> is a mathematical morphology operation involving
+a dilation (maximum filter) on an erosion (minimum filter) set. <a href="./image_processing_tools.html#opening"><strong>Opening</strong></a> operations, together with the
+<a href="./image_processing_tools.html#closing"><strong>Closing</strong></a> operation, is frequently used in the fields of computer vision and digital image processing for
+image noise removal. The user must specify the size of the moving window in both the x and y directions
+(<code>--filterx</code> and <code>--filtery</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#closing"><strong>Closing</strong></a>, <a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7771,10 +7795,18 @@ significantly in their radiometric properties. i.e. if image contrast difference
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/opening.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="RemoveSpurs"></a></p>
 <a class="header" href="#removespurs" id="removespurs"><h1>RemoveSpurs</h1></a>
-<p>Removes the spurs (pruning operation) from a Boolean line image.; intended to be used on the output of the LineThinning tool.</p>
+<p>This image processing tool removes small irregularities (i.e. spurs) on the boundaries of objects in a
+Boolean input raster image (<code>--input</code>). This operation is sometimes called pruning. Remove Spurs is a useful tool
+for cleaning an image before performing a line thinning operation. In fact, the input image need not be truly
+Boolean (i.e. contain only 1's and 0's). All non-zero, positive values are considered to be foreground pixels
+while all zero valued cells are considered background pixels.</p>
+<p>Note: Unlike other filter-based operations in <em>WhiteboxTools</em>, this algorithm can't easily be parallelized because
+the output raster must be read and written to during the same loop.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#linethinning"><strong>LineThinning</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -7794,7 +7826,7 @@ significantly in their radiometric properties. i.e. if image contrast difference
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/remove_spurs.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><a name="Resample"></a></p>
 <a class="header" href="#resample" id="resample"><h1>Resample</h1></a>
 <p>Resample is very similar in operation to the Mosaic tool. The Resample tool should
@@ -12655,7 +12687,18 @@ are also reported in the output report.</p>
 <p><em>Created</em>: July 12, 2017</p>
 <p><a name="FarthestChannelHead"></a></p>
 <a class="header" href="#farthestchannelhead" id="farthestchannelhead"><h1>FarthestChannelHead</h1></a>
-<p>Calculates the distance to the furthest upstream channel head for each stream cell.</p>
+<p>This tool calculates the upstream distance to the farthest stream head for each grid cell belonging to a
+raster stream network. The user must specify the name of a raster containing streams data (<code>--streams</code>), where
+stream grid cells are denoted by all positive non-zero values, and a D8 flow pointer (i.e. flow direction) raster
+(<code>--d8_pntr</code>). The pointer image is used to traverse the stream network and must only be created using the D8 algorithm.
+Stream cells are designated in the streams image as all values
+greater than zero. Thus, all non-stream or background grid cells are commonly assigned either zeros or NoData
+values. Background cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code>
+parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#findmainstem"><strong>FindMainStem</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -12683,7 +12726,7 @@ are also reported in the output report.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/farthest_channel_head.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 12, 2017</p>
+<p><em>Created</em>: 12/07/2017</p>
 <p><a name="FindMainStem"></a></p>
 <a class="header" href="#findmainstem" id="findmainstem"><h1>FindMainStem</h1></a>
 <p>This tool can be used to identify the main channel in a stream network. The user must specify the names of
@@ -12734,7 +12777,28 @@ When a confluence is encountered, the traverse follows the branch with the large
 <p><em>Created</em>: 27/06/2017</p>
 <p><a name="HackStreamOrder"></a></p>
 <a class="header" href="#hackstreamorder" id="hackstreamorder"><h1>HackStreamOrder</h1></a>
-<p>Assigns the Hack stream order to each tributary in a stream network.</p>
+<p>This tool can be used to assign the Hack stream order to each link in a stream network. According to this common
+stream numbering system, the main stream is assigned an order of one. All tributaries to the main stream (i.e. the trunk)
+are assigned an order of two; tributaries to second-order links are assigned an order of three, and so on. The trunk or
+main stream of the stream network can be defined either based on the furthest upstream distance, at each bifurcation
+(i.e. network junction).</p>
+<p>Stream order is often used in hydro-geomorphic and ecological studies to quantify the relative size and importance of a
+stream segment to the overall river system. Unlike some other stream ordering systems, e.g. Horton-Strahler stream order
+(<a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>) and Shreve's stream magnitude (<a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a>), Hack's stream ordering method increases
+from the catchment outlet towards the channel heads. This has the main advantage that the catchment outlet is likely to
+be accurately located while the channel network extent may be less accurately mapped.</p>
+<p>The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
+are designated in the streams image as all positive, nonzero values. Thus all non-stream or background grid cells are
+commonly assigned either zeros or NoData values. The pointer image is used to traverse the stream network and should only
+be created using the D8 algorithm. Background cells will be assigned the NoData value in the output image, unless the
+<code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>Reference</em>:</p>
+<p>Hack, J. T. (1957). Studies of longitudinal stream profiles in Virginia and Maryland (Vol. 294). US Government
+Printing Office.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -12762,10 +12826,30 @@ When a confluence is encountered, the traverse follows the branch with the large
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/hack_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="HortonStreamOrder"></a></p>
 <a class="header" href="#hortonstreamorder" id="hortonstreamorder"><h1>HortonStreamOrder</h1></a>
-<p>Assigns the Horton stream order to each tributary in a stream network.</p>
+<p>This tool can be used to assign the Strahler stream order to each link in a stream network. Stream ordering is often used
+in hydro-geomorphic and ecological studies to quantify the relative size and importance of a stream segment to the overall
+river system. There are several competing stream ordering schemes. Based on to this common stream numbering system, headwater
+stream links are assigned an order of one. Stream order only increases downstream when two links of equal order join, otherwise
+the downstream link is assigned the larger of the two link orders.</p>
+<p>Strahler order and Horton order are similar approaches to assigning stream network hierarchy. Horton stream
+order essentially starts with the Strahler order scheme, but subsequently replaces each of the assigned stream order
+value along the main trunk of the network with the order value of the outlet. The main channel is not treated
+differently compared with other tributaries in the Strahler ordering scheme.</p>
+<p>The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
+are designated in the streams image as all positive, nonzero values. Thus all non-stream or background grid cells are
+commonly assigned either zeros or NoData values. The pointer image is used to traverse the stream network and should only
+be created using the D8 algorithm. Background cells will be assigned the NoData value in the output image, unless the
+<code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>Reference</em>:</p>
+<p>Horton, R. E. (1945). Erosional development of streams and their drainage basins; hydrophysical approach to quantitative
+morphology. Geological society of America bulletin, 56(3), 275-370.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a>, <a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -12793,7 +12877,7 @@ When a confluence is encountered, the traverse follows the branch with the large
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/horton_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="LengthOfUpstreamChannels"></a></p>
 <a class="header" href="#lengthofupstreamchannels" id="lengthofupstreamchannels"><h1>LengthOfUpstreamChannels</h1></a>
 <p>Calculates the total length of channels upstream.</p>
@@ -12976,7 +13060,21 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 <p><em>Created</em>: June 28, 2017</p>
 <p><a name="ShreveStreamMagnitude"></a></p>
 <a class="header" href="#shrevestreammagnitude" id="shrevestreammagnitude"><h1>ShreveStreamMagnitude</h1></a>
-<p>Assigns the Shreve stream magnitude to each link in a stream network.</p>
+<p>This tool can be used to assign the Shreve stream magnitude to each link in a stream network. Stream ordering is often used
+in hydro-geomorphic and ecological studies to quantify the relative size and importance of a stream segment to the overall
+river system. There are several competing stream ordering schemes. Shreve stream magnitude is equal to the number of
+headwater links upstream of each link. Headwater stream links are assigned a magnitude of one.</p>
+<p>The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
+are designated in the streams raster as all positive, nonzero values. Thus all non-stream or background grid cells are
+commonly assigned either zeros or NoData values. The pointer image is used to traverse the stream network and should only
+be created using the D8 algorithm. Background cells will be assigned the NoData value in the output image, unless the
+<code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>Reference</em>:</p>
+<p>Shreve, R. L. (1966). Statistical law of stream numbers. The Journal of Geology, 74(1), 17-37.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <code>StrahlerStreamMagnitude</code>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -13004,10 +13102,30 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/shreve_magnitude.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="StrahlerStreamOrder"></a></p>
 <a class="header" href="#strahlerstreamorder" id="strahlerstreamorder"><h1>StrahlerStreamOrder</h1></a>
-<p>Assigns the Strahler stream order to each link in a stream network.</p>
+<p>This tool can be used to assign the Strahler stream order to each link in a stream network. Stream ordering is often used
+in hydro-geomorphic and ecological studies to quantify the relative size and importance of a stream segment to the overall
+river system. There are several competing stream ordering schemes. Based on to this common stream numbering system, headwater
+stream links are assigned an order of one. Stream order only increases downstream when two links of equal order join, otherwise
+the downstream link is assigned the larger of the two link orders.</p>
+<p>Strahler order and Horton order are similar approaches to assigning stream network hierarchy. Horton stream
+order essentially starts with the Strahler order scheme, but subsequently replaces each of the assigned stream order
+value along the main trunk of the network with the order value of the outlet. The main channel is not treated
+differently compared with other tributaries in the Strahler ordering scheme.</p>
+<p>The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
+are designated in the streams image as all positive, nonzero values. Thus all non-stream or background grid cells are
+commonly assigned either zeros or NoData values. The pointer image is used to traverse the stream network and should only
+be created using the D8 algorithm. Background cells will be assigned the NoData value in the output image, unless the
+<code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>Reference</em>:</p>
+<p>Strahler, A. N. (1957). Quantitative analysis of watershed geomorphology. Eos, Transactions American Geophysical Union,
+38(6), 913-920.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -13035,10 +13153,31 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/strahler_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="StreamLinkClass"></a></p>
 <a class="header" href="#streamlinkclass" id="streamlinkclass"><h1>StreamLinkClass</h1></a>
-<p>Identifies the exterior/interior links and nodes in a stream network.</p>
+<p>This tool identifies all interior and exterior links, and source, link, and sink nodes in an input stream network
+(<code>--streams</code>). The input streams file is used to designate which grid cells contain a stream and the pointer
+image is used to traverse the stream network. Stream cells are designated in the streams image as all values
+greater than zero. Thus, all non-stream or background grid cells are commonly assigned either zeros or NoData
+values. Background cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code>
+parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>Each feature is assigned the following identifier in the output image:</p>
+<table><thead><tr><th>Value </th><th> Stream Type</th></tr></thead><tbody>
+<tr><td>1    </td><td> Exterior Link</td></tr>
+<tr><td>2    </td><td> Interior Link</td></tr>
+<tr><td>3    </td><td> Source Node (head water)</td></tr>
+<tr><td>4    </td><td> Link Node</td></tr>
+<tr><td>5    </td><td> Sink Node</td></tr>
+</tbody></table>
+<p>The user must specify the names of an input stream file, a pointer (flow direction) file (<code>--d8_pntr</code>)
+and the output raster file (<code>--output</code>). The flow pointer and streams rasters should be generated
+using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm. This will require a depressionless DEM, processed using either the
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. flow direction) raster, and the output raster.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -13066,7 +13205,7 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_class.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 12, 2017</p>
+<p><em>Created</em>: 12/07/2017</p>
 <p><a name="StreamLinkIdentifier"></a></p>
 <a class="header" href="#streamlinkidentifier" id="streamlinkidentifier"><h1>StreamLinkIdentifier</h1></a>
 <p>This tool can be used to assign each link in a stream network a unique numeric identifier. This grid is
@@ -13114,7 +13253,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>Created</em>: 25/06/2017</p>
 <p><a name="StreamLinkLength"></a></p>
 <a class="header" href="#streamlinklength" id="streamlinklength"><h1>StreamLinkLength</h1></a>
-<p>Estimates the length of each link (or tributary) in a stream network.</p>
+<p>This tool can be used to measure the length of each link in a stream network. The user must specify the names of
+a stream link ID raster (<code>--linkid</code>), created using the <a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a> and D8 pointer raster (<code>--d8_pntr</code>).
+The flow pointer raster is used to traverse the stream network and should only be created using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm.
+Stream cells are designated in the stream link ID raster as all non-zero, positive values. Background cells will be
+assigned the NoData value in the output image, unless the <code>--zero_background</code> parameter is used, in which case non-stream
+cells will be assinged zero values in the output.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./stream_network_analysis.html#streamlinkslope"><strong>StreamLinkSlope</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -13143,7 +13289,7 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_length.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/06/2017</p>
 <p><a name="StreamLinkSlope"></a></p>
 <a class="header" href="#streamlinkslope" id="streamlinkslope"><h1>StreamLinkSlope</h1></a>
 <p>Estimates the average slope of each link (or tributary) in a stream network.</p>
@@ -13214,7 +13360,20 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>Created</em>: July 6, 2017</p>
 <p><a name="TopologicalStreamOrder"></a></p>
 <a class="header" href="#topologicalstreamorder" id="topologicalstreamorder"><h1>TopologicalStreamOrder</h1></a>
-<p>Assigns each link in a stream network its topological order.</p>
+<p>This tool can be used to assign the topological stream order to each link in a stream network. According to this
+stream numbering system, the link directly draining to the outlet is assigned an order of one. Each of the two
+tributaries draining to the order-one link are assigned an order of two, and so on until the most distant link from
+the catchment outlet has been assigned an order. The topological order can therefore be thought of as a measure of
+the topological distance of each link in the network to the catchment outlet and is likely to be related to travel time.</p>
+<p>The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
+are designated in the streams image as all positive, nonzero values. Thus all non-stream or background grid cells are
+commonly assigned either zeros or NoData values. The pointer image is used to traverse the stream network and should only
+be created using the D8 algorithm. Background cells will be assigned the NoData value in the output image, unless the
+<code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -13242,7 +13401,7 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/topological_stream_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="TributaryIdentifier"></a></p>
 <a class="header" href="#tributaryidentifier" id="tributaryidentifier"><h1>TributaryIdentifier</h1></a>
 <p>Assigns a unique identifier to each tributary in a stream network.</p>
