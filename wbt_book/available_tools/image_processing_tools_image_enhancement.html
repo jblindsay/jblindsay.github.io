@@ -189,7 +189,7 @@ colour composition. <em>International Journal of Remote Sensing</em>, 12:10.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/balance_contrast_enhancement.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 19, 2017</p>
+<p><em>Created</em>: 19/07/2017</p>
 <p><a name="CorrectVignetting"></a></p>
 <a class="header" href="#correctvignetting" id="correctvignetting"><h1>CorrectVignetting</h1></a>
 <p>This tool can be used to reduce vignetting within an image. Vignetting refers to the
@@ -274,7 +274,7 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/direct_decorrelation_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 21, 2017</p>
+<p><em>Created</em>: 21/07/2017</p>
 <p><a name="GammaCorrection"></a></p>
 <a class="header" href="#gammacorrection" id="gammacorrection"><h1>GammaCorrection</h1></a>
 <p>Performs a sigmoidal contrast stretch on input images.</p>
@@ -376,7 +376,7 @@ the histogram is being distorted. This is more prevalent for integer-level image
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_equalization.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: August 26, 2017</p>
+<p><em>Created</em>: 26/08/2017</p>
 <p><a name="HistogramMatching"></a></p>
 <a class="header" href="#histogrammatching" id="histogrammatching"><h1>HistogramMatching</h1></a>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
@@ -431,7 +431,7 @@ channels should be split using the <a href="./image_processing_tools.html#splitc
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 14, 2017</p>
+<p><em>Created</em>: 14/09/2017</p>
 <p><a name="HistogramMatchingTwoImages"></a></p>
 <a class="header" href="#histogrammatchingtwoimages" id="histogrammatchingtwoimages"><h1>HistogramMatchingTwoImages</h1></a>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match, as closely
@@ -474,7 +474,7 @@ using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>S
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching_two_images.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: August 31, 2017</p>
+<p><em>Created</em>: 31/08/2017</p>
 <p><a name="MinMaxContrastStretch"></a></p>
 <a class="header" href="#minmaxcontraststretch" id="minmaxcontraststretch"><h1>MinMaxContrastStretch</h1></a>
 <p>This tool performs a minimum-maximum contrast stretch on a raster image. This operation maps each grid cell
@@ -518,7 +518,7 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_max_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="PanchromaticSharpening"></a></p>
 <a class="header" href="#panchromaticsharpening" id="panchromaticsharpening"><h1>PanchromaticSharpening</h1></a>
 <p>Increases the spatial resolution of image data by combining multispectral bands with panchromatic data.</p>
@@ -599,10 +599,31 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentage_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="SigmoidalContrastStretch"></a></p>
 <a class="header" href="#sigmoidalcontraststretch" id="sigmoidalcontraststretch"><h1>SigmoidalContrastStretch</h1></a>
-<p>Performs a sigmoidal contrast stretch on input images.</p>
+<p>This tool performs a sigmoidal stretch on a raster image. This is a transformation where the input image value for a
+grid cell (z<sub>in</sub>) is transformed to an output value zout such that:</p>
+<blockquote>
+<p>z<sub>out</sub> = (1.0 / (1.0 + exp(<em>gain</em>(<em>cutoff</em> - z))) - <em>a</em> ) / <em>b</em> x <em>num_tones</em></p>
+</blockquote>
+<p>where,</p>
+<blockquote>
+<p>z = (z<sub>in</sub> - <em>MIN</em>) / <em>RANGE</em>,</p>
+</blockquote>
+<blockquote>
+<p><em>a</em> = 1.0 / (1.0 + exp(<em>gain</em> x <em>cutoff</em>)),</p>
+</blockquote>
+<blockquote>
+<p><em>b</em> = 1.0 / (1.0 + exp(<em>gain</em> x (<em>cutoff</em> - 1.0))) - 1.0 / (1.0 + exp(<em>gain</em> x <em>cutoff</em>)),</p>
+</blockquote>
+<p><em>MIN</em> and <em>RANGE</em> are the minimum value and data range in the input image respectively and <em>gain</em> and <em>cutoff</em> are
+user specified parameters (<code>--gain</code>, <code>--cutoff</code>).</p>
+<p>Like all of <em>WhiteboxTools</em>'s contrast enhancement tools, this operation will work on either greyscale or RGB input
+images.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>,  <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -627,10 +648,23 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sigmoidal_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="StandardDeviationContrastStretch"></a></p>
 <a class="header" href="#standarddeviationcontraststretch" id="standarddeviationcontraststretch"><h1>StandardDeviationContrastStretch</h1></a>
-<p>Performs a standard-deviation contrast stretch on input images.</p>
+<p>This tool performs a standard deviation contrast stretch on a raster image. This operation maps each grid cell value
+in the input raster image (z<sub>in</sub>) onto a new scale that ranges from a lower-tail clip value (<code>min_val</code>)
+to the upper-tail clip value (<code>max_val</code>), with the user-specified number of tonal values (<code>num_tones</code>), such that:</p>
+<blockquote>
+<p>z<sub>out</sub> = ((z<sub>in</sub> – min_val)/(max_val – min_val)) x num_tones</p>
+</blockquote>
+<p>where z<sub>out</sub> is the output value. The values of <code>min_val</code> and <code>max_val</code> are determined based on the image
+mean and standard deviation. Specifically, the user must specify the number of standard deviations (<code>--clip</code> or
+<code>--stdev</code>) to be used in determining the min and max clip values. The tool will then calculate the input image mean
+and standard deviation and estimate the clip values from these statistics.</p>
+<p>This is the same kind of stretch that is used to display raster type data on the fly in many GIS software packages.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>,  <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -653,7 +687,7 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 
                     </main>
 

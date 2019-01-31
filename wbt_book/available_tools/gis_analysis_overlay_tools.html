@@ -392,7 +392,18 @@ the erase file will be assigned the NoData background value in the output file.<
 <p><em>Created</em>: 27/03/2018</p>
 <p><a name="HighestPosition"></a></p>
 <a class="header" href="#highestposition" id="highestposition"><h1>HighestPosition</h1></a>
-<p>Identifies the stack position of the maximum value within a raster stack on a cell-by-cell basis.</p>
+<p>This tool identifies the stack position (index) of the maximum value within a raster stack on a cell-by-cell
+basis. For example, if five raster images (<code>--inputs</code>) are input to the tool, the output raster (<code>--output</code>)
+would show which of the five input rasters contained the highest value for each grid cell. The index value in
+the output raster is the zero-order number of the raster stack, i.e. if the highest value in the stack is
+contained in the first image, the output value would be 0; if the highest stack value were the second image,
+the output value would be 1, and so on. If any of the cell values within the stack is NoData, the output raster
+will contain the NoData value for the corresponding grid cell. The index value is related to the order of the
+input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#lowestposition"><strong>LowestPosition</strong></a>, <a href="./gis_analysis_overlay_tools.html#pickfromlist"><strong>PickFromList</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -411,7 +422,7 @@ the erase file will be assigned the NoData background value in the output file.<
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/highest_pos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="Intersect"></a></p>
 <a class="header" href="#intersect" id="intersect"><h1>Intersect</h1></a>
 <p>The result of the <a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a> vector overlay operation includes all the feature parts that
@@ -493,7 +504,18 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 <p><em>Created</em>: 16/10/2018</p>
 <p><a name="LowestPosition"></a></p>
 <a class="header" href="#lowestposition" id="lowestposition"><h1>LowestPosition</h1></a>
-<p>Identifies the stack position of the minimum value within a raster stack on a cell-by-cell basis.</p>
+<p>This tool identifies the stack position (index) of the minimum value within a raster stack on a cell-by-cell
+basis. For example, if five raster images (<code>--inputs</code>) are input to the tool, the output raster (<code>--output</code>)
+would show which of the five input rasters contained the lowest value for each grid cell. The index value in
+the output raster is the zero-order number of the raster stack, i.e. if the lowest value in the stack is
+contained in the first image, the output value would be 0; if the lowest stack value were the second image,
+the output value would be 1, and so on. If any of the cell values within the stack is NoData, the output raster
+will contain the NoData value for the corresponding grid cell. The index value is related to the order of the
+input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#highestposition"><strong>HighestPosition</strong></a>, <a href="./gis_analysis_overlay_tools.html#pickfromlist"><strong>PickFromList</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -511,10 +533,17 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/lowest_pos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 4, 2017</p>
+<p><em>Created</em>: 04/07/2017</p>
 <p><a name="MaxAbsoluteOverlay"></a></p>
 <a class="header" href="#maxabsoluteoverlay" id="maxabsoluteoverlay"><h1>MaxAbsoluteOverlay</h1></a>
-<p>Evaluates the maximum absolute value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the maximum absolute (non-negative) value in each cell of a grid from a set of
+input images (<code>--inputs</code>). NoData values in any of the input images will result in a NoData pixel in the output
+image.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows
+and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -533,10 +562,16 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/max_abs_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="MaxOverlay"></a></p>
 <a class="header" href="#maxoverlay" id="maxoverlay"><h1>MaxOverlay</h1></a>
-<p>Evaluates the maximum value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the maximum value in each cell of a grid from a set of input images (<code>--inputs</code>).
+NoData values in any of the input images will result in a NoData pixel in the output image (<code>--output</code>). It is
+similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a> mathematical tool, except that it will accept more than two input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -554,10 +589,17 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/max_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="MinAbsoluteOverlay"></a></p>
 <a class="header" href="#minabsoluteoverlay" id="minabsoluteoverlay"><h1>MinAbsoluteOverlay</h1></a>
-<p>Evaluates the minimum absolute value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the minimum absolute (non-negative) value in each cell of a grid from a set of
+input images (<code>--inputs</code>). NoData values in any of the input images will result in a NoData pixel in the output
+image.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows
+and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -576,10 +618,16 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/min_abs_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="MinOverlay"></a></p>
 <a class="header" href="#minoverlay" id="minoverlay"><h1>MinOverlay</h1></a>
-<p>Evaluates the minimum value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the minimum value in each cell of a grid from a set of input images (<code>--inputs</code>).
+NoData values in any of the input images will result in a NoData pixel in the output image (<code>--output</code>). It is
+similar to the <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a> mathematical tool, except that it will accept more than two input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -597,10 +645,20 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/min_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PercentEqualTo"></a></p>
 <a class="header" href="#percentequalto" id="percentequalto"><h1>PercentEqualTo</h1></a>
-<p>Calculates the percentage of a raster stack that have cell values equal to an input on a cell-by-cell basis.</p>
+<p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values equal to an input <em>comparison</em>
+raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
+in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
+number of rasters within the stack that have the same grid cell value as the corresponding grid cell in the <em>comparison</em>
+raster. This count is then expressed as a percentage of the number of rasters contained within the stack and output.
+If any of the rasters within the stack contain the NoData value, the corresponding grid cell in the output raster will
+be assigned NoData.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#percentgreaterthan"><strong>PercentGreaterThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentlessthan"><strong>PercentLessThan</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -621,10 +679,20 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_equal_to.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PercentGreaterThan"></a></p>
 <a class="header" href="#percentgreaterthan" id="percentgreaterthan"><h1>PercentGreaterThan</h1></a>
-<p>Calculates the percentage of a raster stack that have cell values greather than an input on a cell-by-cell basis.</p>
+<p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values greater than an input <em>comparison</em>
+raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
+in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
+number of rasters within the stack with larger grid cell values greater than the corresponding grid cell in the <em>comparison</em>
+raster. This count is then expressed as a percentage of the number of rasters contained within the stack and output.
+If any of the rasters within the stack contain the NoData value, the corresponding grid cell in the output raster will
+be assigned NoData.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#percentlessthan"><strong>PercentLessThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentequalto"><strong>PercentEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -645,10 +713,20 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_greater_than.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PercentLessThan"></a></p>
 <a class="header" href="#percentlessthan" id="percentlessthan"><h1>PercentLessThan</h1></a>
-<p>Calculates the percentage of a raster stack that have cell values less than an input on a cell-by-cell basis.</p>
+<p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values less than an input <em>comparison</em>
+raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
+in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
+number of rasters within the stack with larger grid cell values less than the corresponding grid cell in the <em>comparison</em>
+raster. This count is then expressed as a percentage of the number of rasters contained within the stack and output.
+If any of the rasters within the stack contain the NoData value, the corresponding grid cell in the output raster will
+be assigned NoData.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#percentgreaterthan"><strong>PercentGreaterThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentequalto"><strong>PercentEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -669,7 +747,7 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_less_than.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PickFromList"></a></p>
 <a class="header" href="#pickfromlist" id="pickfromlist"><h1>PickFromList</h1></a>
 <p>This tool outputs the cell value from a raster stack specified (<code>--inputs</code>) by a position raster (<code>--pos_input</code>). The
@@ -763,10 +841,10 @@ and all of the attributes (excluding <code>FID</code>'s) of the input layer.</p>
 <p><em>Created</em>: 17/10/2018</p>
 <p><a name="SumOverlay"></a></p>
 <a class="header" href="#sumoverlay" id="sumoverlay"><h1>SumOverlay</h1></a>
-<p>This tool calculates the sum for each grid cell from a group of raster images.</p>
+<p>This tool calculates the sum for each grid cell from a group of raster images (<code>--inputs</code>). NoData values in any of the input
+images will result in a NoData pixel in the output image (<code>--output</code>).</p>
 <p><em>Warning</em>:</p>
-<p>Each of the input rasters must have the same spatial extent and number of rows
-and columns.</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./gis_analysis_overlay_tools.html#weightedsum"><strong>WeightedSum</strong></a></p>
 <p><em>Parameters</em>:</p>

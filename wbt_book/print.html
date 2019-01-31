@@ -1741,7 +1741,7 @@ algorithm is parallelized to further aid with computational efficiency.</p>
 <p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>flags.
 These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
 <p><em>References</em>:</p>
-<p>Newman, D. R., Lindsay, J. B., &amp; Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
+<p>Newman, D. R., Lindsay, J. B., and Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
 for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p>Huang, T., Yang, G.J.T.G.Y. and Tang, G., 1979. A fast two-dimensional median filtering algorithm. IEEE
 Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
@@ -2646,10 +2646,10 @@ These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).
 <p>Compared with <a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a> and <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, PER is a less robust measure of LTP that is susceptible
 to outliers in neighbouring elevations (e.g. the presence of off-terrain objects in the DEM).</p>
 <p><em>References</em>:</p>
-<p>Newman, D. R., Lindsay, J. B., &amp; Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
+<p>Newman, D. R., Lindsay, J. B., and Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
 for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#relativetopographicposition"><strong>RelativeTopographicPosition</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -2718,7 +2718,15 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 01/06/2017</p>
 <p><a name="Profile"></a></p>
 <a class="header" href="#profile" id="profile"><h1>Profile</h1></a>
-<p>Plots profiles from digital surface models.</p>
+<p>This tool can be used to plot the data profile, along a set of one or more vector lines (<code>--lines</code>), in
+an input (<code>--surface</code>) digital elevation model (DEM), or other surface model. The data profile plots
+surface height (y-axis) against distance along profile (x-axis). The tool outputs an interactive SVG line
+graph embedded in an HTML document (<code>--output</code>). If the vector lines file contains multiple line features,
+the output plot will contain each of the input profiles.</p>
+<p>If you want to extract the <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> of a river,
+use the <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#longprofile"><strong>LongProfile</strong></a>, <a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--lines            </td><td> Input vector line file</td></tr>
@@ -2738,7 +2746,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/profile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 21, 2018</p>
+<p><em>Created</em>: 21/02/2018</p>
 <p><a name="ProfileCurvature"></a></p>
 <a class="header" href="#profilecurvature" id="profilecurvature"><h1>ProfileCurvature</h1></a>
 <p>Calculates a profile curvature raster from an input DEM.</p>
@@ -2764,7 +2772,20 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 22/062017</p>
 <p><a name="RelativeAspect"></a></p>
 <a class="header" href="#relativeaspect" id="relativeaspect"><h1>RelativeAspect</h1></a>
-<p>Calculates relative aspect (relative to a user-specified direction) from an input DEM.</p>
+<p>This tool creates a new raster in which each grid cell is assigned the terrain aspect relative to a user-specified
+direction (<code>--azimuth</code>). Relative terrain aspect is the angular distance (measured in degrees) between the land-surface
+aspect and the assumed regional wind azimuth (Bohner and Antonic, 2007). It is bound between 0-degrees (windward direction)
+and 180-degrees (leeward direction). Relative terrain aspect is the simplest of the measures of topographic exposure to
+wind, taking into account terrain orientation only and neglecting the influences of topographic shadowing by distant
+landforms and the deflection of wind by topography.</p>
+<p>The user must specify the name of a digital elevation model (DEM) (<code>--dem</code>) and an azimuth (i.e. a wind direction). The
+Z Conversion Factor (<code>--zfactor</code>) is only important when the vertical and horizontal units are not the same in the DEM.
+When this is the case, the algorithm will multiply each elevation in the DEM by the Z Conversion Factor.</p>
+<p><em>Reference</em>:</p>
+<p>Böhner, J., and Antonić, O. (2009). Land-surface parameters specific to topo-climatology. Developments in Soil
+Science, 33, 195-226.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2815,7 +2836,30 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: July 2, 2017</p>
 <p><a name="RelativeTopographicPosition"></a></p>
 <a class="header" href="#relativetopographicposition" id="relativetopographicposition"><h1>RelativeTopographicPosition</h1></a>
-<p>Calculates the relative topographic position index from a DEM.</p>
+<p>Relative topographic position (RTP) is an index of local topographic position (i.e. how
+elevated or low-lying a site is relative to its surroundings) and is a modification of percent
+elevation range (PER; <a href="./geomorphometric_analysis.html#percentelevrange"><strong>PercentElevRange</strong></a>) and accounts for the elevation distribution. Rather than
+positioning the central cell's elevation solely between the filter extrema, RTP is a piece-wise
+function that positions the central elevation relative to the minimum (z<sub>min</sub>), mean (μ),
+and maximum values (z<sub>max</sub>), within a local neighbourhood of a user-specified size (<code>--filterx</code>,
+<code>--filtery</code>), such that:</p>
+<blockquote>
+<p>RTP = (z<sub>0</sub> − μ) / (μ − z<sub>min</sub>), if z<sub>0</sub> &lt; μ</p>
+<p>OR</p>
+<p>RTP = (z<sub>0</sub> − μ) / (z<sub>max</sub> - μ), if z<sub>0</sub> &gt;= μ
+</p>
+</blockquote>
+<p>The resulting index is bound by the interval [−1, 1], where the sign indicates if the cell is above or below
+than the filter mean. Although RTP uses the mean to define two linear functions, the reliance on the filter
+extrema is expected to result in sensitivity to outliers. Furthermore, the use of the mean implies assumptions
+of unimodal and symmetrical elevation distribution.</p>
+<p>In many cases, Elevation Percentile (<a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>) and deviation from mean elevation (<a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>)
+provide more suitable and robust measures of relative topographic position.</p>
+<p><em>Reference</em>:</p>
+<p>Newman, D. R., Lindsay, J. B., and Cockburn, J. M. H. (2018). Evaluating metrics of local topographic
+position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#percentelevrange"><strong>PercentElevRange</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2838,7 +2882,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_topographic_position.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 6, 2017</p>
+<p><em>Created</em>: 06/06/2017</p>
 <p><a name="RemoveOffTerrainObjects"></a></p>
 <a class="header" href="#removeoffterrainobjects" id="removeoffterrainobjects"><h1>RemoveOffTerrainObjects</h1></a>
 <p>Removes off-terrain objects from a raster digital elevation model (DEM).</p>
@@ -4829,7 +4873,18 @@ the erase file will be assigned the NoData background value in the output file.<
 <p><em>Created</em>: 27/03/2018</p>
 <p><a name="HighestPosition"></a></p>
 <a class="header" href="#highestposition" id="highestposition"><h1>HighestPosition</h1></a>
-<p>Identifies the stack position of the maximum value within a raster stack on a cell-by-cell basis.</p>
+<p>This tool identifies the stack position (index) of the maximum value within a raster stack on a cell-by-cell
+basis. For example, if five raster images (<code>--inputs</code>) are input to the tool, the output raster (<code>--output</code>)
+would show which of the five input rasters contained the highest value for each grid cell. The index value in
+the output raster is the zero-order number of the raster stack, i.e. if the highest value in the stack is
+contained in the first image, the output value would be 0; if the highest stack value were the second image,
+the output value would be 1, and so on. If any of the cell values within the stack is NoData, the output raster
+will contain the NoData value for the corresponding grid cell. The index value is related to the order of the
+input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#lowestposition"><strong>LowestPosition</strong></a>, <a href="./gis_analysis_overlay_tools.html#pickfromlist"><strong>PickFromList</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -4848,7 +4903,7 @@ the erase file will be assigned the NoData background value in the output file.<
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/highest_pos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="Intersect"></a></p>
 <a class="header" href="#intersect" id="intersect"><h1>Intersect</h1></a>
 <p>The result of the <a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a> vector overlay operation includes all the feature parts that
@@ -4930,7 +4985,18 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 <p><em>Created</em>: 16/10/2018</p>
 <p><a name="LowestPosition"></a></p>
 <a class="header" href="#lowestposition" id="lowestposition"><h1>LowestPosition</h1></a>
-<p>Identifies the stack position of the minimum value within a raster stack on a cell-by-cell basis.</p>
+<p>This tool identifies the stack position (index) of the minimum value within a raster stack on a cell-by-cell
+basis. For example, if five raster images (<code>--inputs</code>) are input to the tool, the output raster (<code>--output</code>)
+would show which of the five input rasters contained the lowest value for each grid cell. The index value in
+the output raster is the zero-order number of the raster stack, i.e. if the lowest value in the stack is
+contained in the first image, the output value would be 0; if the lowest stack value were the second image,
+the output value would be 1, and so on. If any of the cell values within the stack is NoData, the output raster
+will contain the NoData value for the corresponding grid cell. The index value is related to the order of the
+input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#highestposition"><strong>HighestPosition</strong></a>, <a href="./gis_analysis_overlay_tools.html#pickfromlist"><strong>PickFromList</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -4948,10 +5014,17 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/lowest_pos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 4, 2017</p>
+<p><em>Created</em>: 04/07/2017</p>
 <p><a name="MaxAbsoluteOverlay"></a></p>
 <a class="header" href="#maxabsoluteoverlay" id="maxabsoluteoverlay"><h1>MaxAbsoluteOverlay</h1></a>
-<p>Evaluates the maximum absolute value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the maximum absolute (non-negative) value in each cell of a grid from a set of
+input images (<code>--inputs</code>). NoData values in any of the input images will result in a NoData pixel in the output
+image.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows
+and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -4970,10 +5043,16 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/max_abs_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="MaxOverlay"></a></p>
 <a class="header" href="#maxoverlay" id="maxoverlay"><h1>MaxOverlay</h1></a>
-<p>Evaluates the maximum value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the maximum value in each cell of a grid from a set of input images (<code>--inputs</code>).
+NoData values in any of the input images will result in a NoData pixel in the output image (<code>--output</code>). It is
+similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a> mathematical tool, except that it will accept more than two input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -4991,10 +5070,17 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/max_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="MinAbsoluteOverlay"></a></p>
 <a class="header" href="#minabsoluteoverlay" id="minabsoluteoverlay"><h1>MinAbsoluteOverlay</h1></a>
-<p>Evaluates the minimum absolute value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the minimum absolute (non-negative) value in each cell of a grid from a set of
+input images (<code>--inputs</code>). NoData values in any of the input images will result in a NoData pixel in the output
+image.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows
+and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -5013,10 +5099,16 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/min_abs_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="MinOverlay"></a></p>
 <a class="header" href="#minoverlay" id="minoverlay"><h1>MinOverlay</h1></a>
-<p>Evaluates the minimum value for each grid cell from a stack of input rasters.</p>
+<p>This tool can be used to find the minimum value in each cell of a grid from a set of input images (<code>--inputs</code>).
+NoData values in any of the input images will result in a NoData pixel in the output image (<code>--output</code>). It is
+similar to the <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a> mathematical tool, except that it will accept more than two input images.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -5034,10 +5126,20 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/min_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PercentEqualTo"></a></p>
 <a class="header" href="#percentequalto" id="percentequalto"><h1>PercentEqualTo</h1></a>
-<p>Calculates the percentage of a raster stack that have cell values equal to an input on a cell-by-cell basis.</p>
+<p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values equal to an input <em>comparison</em>
+raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
+in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
+number of rasters within the stack that have the same grid cell value as the corresponding grid cell in the <em>comparison</em>
+raster. This count is then expressed as a percentage of the number of rasters contained within the stack and output.
+If any of the rasters within the stack contain the NoData value, the corresponding grid cell in the output raster will
+be assigned NoData.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#percentgreaterthan"><strong>PercentGreaterThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentlessthan"><strong>PercentLessThan</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -5058,10 +5160,20 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_equal_to.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PercentGreaterThan"></a></p>
 <a class="header" href="#percentgreaterthan" id="percentgreaterthan"><h1>PercentGreaterThan</h1></a>
-<p>Calculates the percentage of a raster stack that have cell values greather than an input on a cell-by-cell basis.</p>
+<p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values greater than an input <em>comparison</em>
+raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
+in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
+number of rasters within the stack with larger grid cell values greater than the corresponding grid cell in the <em>comparison</em>
+raster. This count is then expressed as a percentage of the number of rasters contained within the stack and output.
+If any of the rasters within the stack contain the NoData value, the corresponding grid cell in the output raster will
+be assigned NoData.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#percentlessthan"><strong>PercentLessThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentequalto"><strong>PercentEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -5082,10 +5194,20 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_greater_than.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PercentLessThan"></a></p>
 <a class="header" href="#percentlessthan" id="percentlessthan"><h1>PercentLessThan</h1></a>
-<p>Calculates the percentage of a raster stack that have cell values less than an input on a cell-by-cell basis.</p>
+<p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values less than an input <em>comparison</em>
+raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
+in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
+number of rasters within the stack with larger grid cell values less than the corresponding grid cell in the <em>comparison</em>
+raster. This count is then expressed as a percentage of the number of rasters contained within the stack and output.
+If any of the rasters within the stack contain the NoData value, the corresponding grid cell in the output raster will
+be assigned NoData.</p>
+<p><em>Warning</em>:</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#percentgreaterthan"><strong>PercentGreaterThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentequalto"><strong>PercentEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -5106,7 +5228,7 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_less_than.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PickFromList"></a></p>
 <a class="header" href="#pickfromlist" id="pickfromlist"><h1>PickFromList</h1></a>
 <p>This tool outputs the cell value from a raster stack specified (<code>--inputs</code>) by a position raster (<code>--pos_input</code>). The
@@ -5200,10 +5322,10 @@ and all of the attributes (excluding <code>FID</code>'s) of the input layer.</p>
 <p><em>Created</em>: 17/10/2018</p>
 <p><a name="SumOverlay"></a></p>
 <a class="header" href="#sumoverlay" id="sumoverlay"><h1>SumOverlay</h1></a>
-<p>This tool calculates the sum for each grid cell from a group of raster images.</p>
+<p>This tool calculates the sum for each grid cell from a group of raster images (<code>--inputs</code>). NoData values in any of the input
+images will result in a NoData pixel in the output image (<code>--output</code>).</p>
 <p><em>Warning</em>:</p>
-<p>Each of the input rasters must have the same spatial extent and number of rows
-and columns.</p>
+<p>Each of the input rasters must have the same spatial extent and number of rows and columns.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./gis_analysis_overlay_tools.html#weightedsum"><strong>WeightedSum</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -7489,7 +7611,7 @@ the <code>--zeros</code> flag.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/create_colour_composite.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 19, 2017</p>
+<p><em>Created</em>: 19/07/2017</p>
 <p><a name="FlipImage"></a></p>
 <a class="header" href="#flipimage" id="flipimage"><h1>FlipImage</h1></a>
 <p>This tool can be used to flip, or reflect, an image (<code>--input</code>) either vertically, horizontally, or both. The
@@ -7743,7 +7865,7 @@ technique is that clusters can not be broken apart into two smaller clusters.</p
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/modified_k_means_clustering.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: Dec. 30, 2017</p>
+<p><em>Created</em>: 30/12/2017</p>
 <p><a name="Mosaic"></a></p>
 <a class="header" href="#mosaic" id="mosaic"><h1>Mosaic</h1></a>
 <p>This tool will create an image mosaic from one or more input image files using
@@ -7787,7 +7909,7 @@ assigned the NoData value.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mosaic.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: January 2 2018</p>
+<p><em>Created</em>: 02/01/2018</p>
 <p><a name="MosaicWithFeathering"></a></p>
 <a class="header" href="#mosaicwithfeathering" id="mosaicwithfeathering"><h1>MosaicWithFeathering</h1></a>
 <p>This tool will create a mosaic from two input images. It is similar in operation to the <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> tool,
@@ -7961,7 +8083,7 @@ will be assigned the NoData value.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/resample.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: January 1 2018</p>
+<p><em>Created</em>: 01/01/2018</p>
 <p><a name="RgbToIhs"></a></p>
 <a class="header" href="#rgbtoihs" id="rgbtoihs"><h1>RgbToIhs</h1></a>
 <p>This tool transforms three raster images of multispectral data (red, green, and blue channels) into their equivalent
@@ -8049,7 +8171,7 @@ suffixes appended.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/split_colour_composite.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 15, 2017</p>
+<p><em>Created</em>: 15/07/2017</p>
 <p><a name="ThickenRasterLine"></a></p>
 <a class="header" href="#thickenrasterline" id="thickenrasterline"><h1>ThickenRasterLine</h1></a>
 <p>This image processing tool can be used to thicken single-cell wide lines within a raster file along diagonal
@@ -9169,7 +9291,7 @@ colour composition. <em>International Journal of Remote Sensing</em>, 12:10.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/balance_contrast_enhancement.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 19, 2017</p>
+<p><em>Created</em>: 19/07/2017</p>
 <p><a name="CorrectVignetting"></a></p>
 <a class="header" href="#correctvignetting" id="correctvignetting"><h1>CorrectVignetting</h1></a>
 <p>This tool can be used to reduce vignetting within an image. Vignetting refers to the
@@ -9254,7 +9376,7 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/direct_decorrelation_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 21, 2017</p>
+<p><em>Created</em>: 21/07/2017</p>
 <p><a name="GammaCorrection"></a></p>
 <a class="header" href="#gammacorrection" id="gammacorrection"><h1>GammaCorrection</h1></a>
 <p>Performs a sigmoidal contrast stretch on input images.</p>
@@ -9356,7 +9478,7 @@ the histogram is being distorted. This is more prevalent for integer-level image
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_equalization.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: August 26, 2017</p>
+<p><em>Created</em>: 26/08/2017</p>
 <p><a name="HistogramMatching"></a></p>
 <a class="header" href="#histogrammatching" id="histogrammatching"><h1>HistogramMatching</h1></a>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
@@ -9411,7 +9533,7 @@ channels should be split using the <a href="./image_processing_tools.html#splitc
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 14, 2017</p>
+<p><em>Created</em>: 14/09/2017</p>
 <p><a name="HistogramMatchingTwoImages"></a></p>
 <a class="header" href="#histogrammatchingtwoimages" id="histogrammatchingtwoimages"><h1>HistogramMatchingTwoImages</h1></a>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match, as closely
@@ -9454,7 +9576,7 @@ using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>S
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching_two_images.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: August 31, 2017</p>
+<p><em>Created</em>: 31/08/2017</p>
 <p><a name="MinMaxContrastStretch"></a></p>
 <a class="header" href="#minmaxcontraststretch" id="minmaxcontraststretch"><h1>MinMaxContrastStretch</h1></a>
 <p>This tool performs a minimum-maximum contrast stretch on a raster image. This operation maps each grid cell
@@ -9498,7 +9620,7 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_max_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="PanchromaticSharpening"></a></p>
 <a class="header" href="#panchromaticsharpening" id="panchromaticsharpening"><h1>PanchromaticSharpening</h1></a>
 <p>Increases the spatial resolution of image data by combining multispectral bands with panchromatic data.</p>
@@ -9579,10 +9701,31 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentage_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="SigmoidalContrastStretch"></a></p>
 <a class="header" href="#sigmoidalcontraststretch" id="sigmoidalcontraststretch"><h1>SigmoidalContrastStretch</h1></a>
-<p>Performs a sigmoidal contrast stretch on input images.</p>
+<p>This tool performs a sigmoidal stretch on a raster image. This is a transformation where the input image value for a
+grid cell (z<sub>in</sub>) is transformed to an output value zout such that:</p>
+<blockquote>
+<p>z<sub>out</sub> = (1.0 / (1.0 + exp(<em>gain</em>(<em>cutoff</em> - z))) - <em>a</em> ) / <em>b</em> x <em>num_tones</em></p>
+</blockquote>
+<p>where,</p>
+<blockquote>
+<p>z = (z<sub>in</sub> - <em>MIN</em>) / <em>RANGE</em>,</p>
+</blockquote>
+<blockquote>
+<p><em>a</em> = 1.0 / (1.0 + exp(<em>gain</em> x <em>cutoff</em>)),</p>
+</blockquote>
+<blockquote>
+<p><em>b</em> = 1.0 / (1.0 + exp(<em>gain</em> x (<em>cutoff</em> - 1.0))) - 1.0 / (1.0 + exp(<em>gain</em> x <em>cutoff</em>)),</p>
+</blockquote>
+<p><em>MIN</em> and <em>RANGE</em> are the minimum value and data range in the input image respectively and <em>gain</em> and <em>cutoff</em> are
+user specified parameters (<code>--gain</code>, <code>--cutoff</code>).</p>
+<p>Like all of <em>WhiteboxTools</em>'s contrast enhancement tools, this operation will work on either greyscale or RGB input
+images.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>,  <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -9607,10 +9750,23 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sigmoidal_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="StandardDeviationContrastStretch"></a></p>
 <a class="header" href="#standarddeviationcontraststretch" id="standarddeviationcontraststretch"><h1>StandardDeviationContrastStretch</h1></a>
-<p>Performs a standard-deviation contrast stretch on input images.</p>
+<p>This tool performs a standard deviation contrast stretch on a raster image. This operation maps each grid cell value
+in the input raster image (z<sub>in</sub>) onto a new scale that ranges from a lower-tail clip value (<code>min_val</code>)
+to the upper-tail clip value (<code>max_val</code>), with the user-specified number of tonal values (<code>num_tones</code>), such that:</p>
+<blockquote>
+<p>z<sub>out</sub> = ((z<sub>in</sub> – min_val)/(max_val – min_val)) x num_tones</p>
+</blockquote>
+<p>where z<sub>out</sub> is the output value. The values of <code>min_val</code> and <code>max_val</code> are determined based on the image
+mean and standard deviation. Specifically, the user must specify the number of standard deviations (<code>--clip</code> or
+<code>--stdev</code>) to be used in determining the min and max clip values. The tool will then calculate the input image mean
+and standard deviation and estimate the clip values from these statistics.</p>
+<p>This is the same kind of stretch that is used to display raster type data on the fly in many GIS software packages.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>,  <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>,
+<a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -9633,7 +9789,7 @@ of tonal values is determined by the number of palette entries.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
 <ul>
 <li><a href="#ClassifyOverlapPoints">ClassifyOverlapPoints</a></li>
@@ -13000,7 +13156,7 @@ differently compared with other tributaries in the Strahler ordering scheme.</p>
 <p>The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
 are designated in the streams image as all positive, nonzero values. Thus all non-stream or background grid cells are
 commonly assigned either zeros or NoData values. The pointer image is used to traverse the stream network and should only
-be created using the D8 algorithm. Background cells will be assigned the NoData value in the output image, unless the
+be created using the D8 algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>). Background cells will be assigned the NoData value in the output image, unless the
 <code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
 <p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
 If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
@@ -13070,7 +13226,26 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 <p><em>Created</em>: July 11, 2017</p>
 <p><a name="LongProfile"></a></p>
 <a class="header" href="#longprofile" id="longprofile"><h1>LongProfile</h1></a>
-<p>Plots the stream longitudinal profiles for one or more rivers.</p>
+<p>This tool can be used to create a <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> plot.
+A longitudinal stream profile is a plot of elevation against downstream distance. Most long profiles use distance
+from channel head as the distance measure. This tool, however, uses the distance to the stream network outlet cell,
+or mouth, as the distance measure. The reason for this difference is that while for any one location within a stream
+network there is only ever one downstream outlet, there is usually many upstream channel heads. Thus plotted using
+the traditional downstream-distance method, the same point within a network will plot in many different long profile
+locations, whereas it will always plot on one unique location in the distance-to-mouth method. One consequence of
+this difference is that the long profile will be oriented from right-to-left rather than left-to-right, as would
+traditionally be the case.</p>
+<p>The tool outputs an interactive SVG line graph embedded in an HTML document (<code>--output</code>). The user must specify the
+names of a D8 pointer (<code>--d8_pntr</code>) image (flow direction), a streams raster image
+(<code>--streams</code>), and a digital elevation model (<code>--dem</code>). Stream cells are designated in the streams image as all
+positive, nonzero values. Thus all non-stream or background grid cells are commonly assigned either zeros or NoData
+values. The pointer image is used to traverse the stream network and should only be created using the D8 algorithm
+(<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>). The streams image should be derived using a flow accumulation based stream network extraction
+algorithm, also based on the D8 flow algorithm.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#longprofilefrompoints"><strong>LongProfileFromPoints</strong></a>, <a href="./geomorphometric_analysis.html#profile"><strong>Profile</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -13095,7 +13270,7 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/long_profile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 20, 2018</p>
+<p><em>Created</em>: 20/02/2018</p>
 <p><a name="LongProfileFromPoints"></a></p>
 <a class="header" href="#longprofilefrompoints" id="longprofilefrompoints"><h1>LongProfileFromPoints</h1></a>
 <p>Plots the longitudinal profiles from flow-paths initiating from a set of vector points.</p>
@@ -13123,7 +13298,7 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/long_profile_from_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 21, 2018</p>
+<p><em>Created</em>: 21/02/2018</p>
 <p><a name="RasterStreamsToVector"></a></p>
 <a class="header" href="#rasterstreamstovector" id="rasterstreamstovector"><h1>RasterStreamsToVector</h1></a>
 <p>This tool converts a raster stream file into a vector file. The user must specify: 1)
@@ -13135,6 +13310,8 @@ integer value. The database file will also have a field for the length of each
 link in the stream network. The flow pointer file must be calculated from a DEM with
 all topographic depressions and flat areas removed and must be calculated using the
 D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#rasterizestreams"><strong>RasterizeStreams</strong></a>, <a href="./data_tools.html#rastertovectorlines"><strong>RasterToVectorLines</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--streams          </td><td> Input raster streams file</td></tr>
@@ -13170,7 +13347,7 @@ is determined.</p>
 <p>Lindsay JB. 2016. The practice of DEM stream burning revisited. Earth Surface Processes and Landforms,
 41(5): 658–668. DOI: 10.1002/esp.3888</p>
 <p><em>See Also</em>:</p>
-<p><a href="./stream_network_analysis.html#rasterizestreams"><strong>RasterizeStreams</strong></a></p>
+<p><a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--streams          </td><td> Input vector streams file</td></tr>

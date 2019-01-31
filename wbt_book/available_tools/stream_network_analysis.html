@@ -405,7 +405,7 @@ differently compared with other tributaries in the Strahler ordering scheme.</p>
 <p>The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
 are designated in the streams image as all positive, nonzero values. Thus all non-stream or background grid cells are
 commonly assigned either zeros or NoData values. The pointer image is used to traverse the stream network and should only
-be created using the D8 algorithm. Background cells will be assigned the NoData value in the output image, unless the
+be created using the D8 algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>). Background cells will be assigned the NoData value in the output image, unless the
 <code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
 <p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
 If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
@@ -475,7 +475,26 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 <p><em>Created</em>: July 11, 2017</p>
 <p><a name="LongProfile"></a></p>
 <a class="header" href="#longprofile" id="longprofile"><h1>LongProfile</h1></a>
-<p>Plots the stream longitudinal profiles for one or more rivers.</p>
+<p>This tool can be used to create a <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> plot.
+A longitudinal stream profile is a plot of elevation against downstream distance. Most long profiles use distance
+from channel head as the distance measure. This tool, however, uses the distance to the stream network outlet cell,
+or mouth, as the distance measure. The reason for this difference is that while for any one location within a stream
+network there is only ever one downstream outlet, there is usually many upstream channel heads. Thus plotted using
+the traditional downstream-distance method, the same point within a network will plot in many different long profile
+locations, whereas it will always plot on one unique location in the distance-to-mouth method. One consequence of
+this difference is that the long profile will be oriented from right-to-left rather than left-to-right, as would
+traditionally be the case.</p>
+<p>The tool outputs an interactive SVG line graph embedded in an HTML document (<code>--output</code>). The user must specify the
+names of a D8 pointer (<code>--d8_pntr</code>) image (flow direction), a streams raster image
+(<code>--streams</code>), and a digital elevation model (<code>--dem</code>). Stream cells are designated in the streams image as all
+positive, nonzero values. Thus all non-stream or background grid cells are commonly assigned either zeros or NoData
+values. The pointer image is used to traverse the stream network and should only be created using the D8 algorithm
+(<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>). The streams image should be derived using a flow accumulation based stream network extraction
+algorithm, also based on the D8 flow algorithm.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#longprofilefrompoints"><strong>LongProfileFromPoints</strong></a>, <a href="./geomorphometric_analysis.html#profile"><strong>Profile</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -500,7 +519,7 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/long_profile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 20, 2018</p>
+<p><em>Created</em>: 20/02/2018</p>
 <p><a name="LongProfileFromPoints"></a></p>
 <a class="header" href="#longprofilefrompoints" id="longprofilefrompoints"><h1>LongProfileFromPoints</h1></a>
 <p>Plots the longitudinal profiles from flow-paths initiating from a set of vector points.</p>
@@ -528,7 +547,7 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/long_profile_from_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 21, 2018</p>
+<p><em>Created</em>: 21/02/2018</p>
 <p><a name="RasterStreamsToVector"></a></p>
 <a class="header" href="#rasterstreamstovector" id="rasterstreamstovector"><h1>RasterStreamsToVector</h1></a>
 <p>This tool converts a raster stream file into a vector file. The user must specify: 1)
@@ -540,6 +559,8 @@ integer value. The database file will also have a field for the length of each
 link in the stream network. The flow pointer file must be calculated from a DEM with
 all topographic depressions and flat areas removed and must be calculated using the
 D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#rasterizestreams"><strong>RasterizeStreams</strong></a>, <a href="./data_tools.html#rastertovectorlines"><strong>RasterToVectorLines</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--streams          </td><td> Input raster streams file</td></tr>
@@ -575,7 +596,7 @@ is determined.</p>
 <p>Lindsay JB. 2016. The practice of DEM stream burning revisited. Earth Surface Processes and Landforms,
 41(5): 658–668. DOI: 10.1002/esp.3888</p>
 <p><em>See Also</em>:</p>
-<p><a href="./stream_network_analysis.html#rasterizestreams"><strong>RasterizeStreams</strong></a></p>
+<p><a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--streams          </td><td> Input vector streams file</td></tr>

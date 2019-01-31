@@ -594,7 +594,7 @@ algorithm is parallelized to further aid with computational efficiency.</p>
 <p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>flags.
 These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
 <p><em>References</em>:</p>
-<p>Newman, D. R., Lindsay, J. B., &amp; Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
+<p>Newman, D. R., Lindsay, J. B., and Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
 for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p>Huang, T., Yang, G.J.T.G.Y. and Tang, G., 1979. A fast two-dimensional median filtering algorithm. IEEE
 Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
@@ -1499,10 +1499,10 @@ These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).
 <p>Compared with <a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a> and <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, PER is a less robust measure of LTP that is susceptible
 to outliers in neighbouring elevations (e.g. the presence of off-terrain objects in the DEM).</p>
 <p><em>References</em>:</p>
-<p>Newman, D. R., Lindsay, J. B., &amp; Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
+<p>Newman, D. R., Lindsay, J. B., and Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
 for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#relativetopographicposition"><strong>RelativeTopographicPosition</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -1571,7 +1571,15 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 01/06/2017</p>
 <p><a name="Profile"></a></p>
 <a class="header" href="#profile" id="profile"><h1>Profile</h1></a>
-<p>Plots profiles from digital surface models.</p>
+<p>This tool can be used to plot the data profile, along a set of one or more vector lines (<code>--lines</code>), in
+an input (<code>--surface</code>) digital elevation model (DEM), or other surface model. The data profile plots
+surface height (y-axis) against distance along profile (x-axis). The tool outputs an interactive SVG line
+graph embedded in an HTML document (<code>--output</code>). If the vector lines file contains multiple line features,
+the output plot will contain each of the input profiles.</p>
+<p>If you want to extract the <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> of a river,
+use the <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#longprofile"><strong>LongProfile</strong></a>, <a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--lines            </td><td> Input vector line file</td></tr>
@@ -1591,7 +1599,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/profile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 21, 2018</p>
+<p><em>Created</em>: 21/02/2018</p>
 <p><a name="ProfileCurvature"></a></p>
 <a class="header" href="#profilecurvature" id="profilecurvature"><h1>ProfileCurvature</h1></a>
 <p>Calculates a profile curvature raster from an input DEM.</p>
@@ -1617,7 +1625,20 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 22/062017</p>
 <p><a name="RelativeAspect"></a></p>
 <a class="header" href="#relativeaspect" id="relativeaspect"><h1>RelativeAspect</h1></a>
-<p>Calculates relative aspect (relative to a user-specified direction) from an input DEM.</p>
+<p>This tool creates a new raster in which each grid cell is assigned the terrain aspect relative to a user-specified
+direction (<code>--azimuth</code>). Relative terrain aspect is the angular distance (measured in degrees) between the land-surface
+aspect and the assumed regional wind azimuth (Bohner and Antonic, 2007). It is bound between 0-degrees (windward direction)
+and 180-degrees (leeward direction). Relative terrain aspect is the simplest of the measures of topographic exposure to
+wind, taking into account terrain orientation only and neglecting the influences of topographic shadowing by distant
+landforms and the deflection of wind by topography.</p>
+<p>The user must specify the name of a digital elevation model (DEM) (<code>--dem</code>) and an azimuth (i.e. a wind direction). The
+Z Conversion Factor (<code>--zfactor</code>) is only important when the vertical and horizontal units are not the same in the DEM.
+When this is the case, the algorithm will multiply each elevation in the DEM by the Z Conversion Factor.</p>
+<p><em>Reference</em>:</p>
+<p>Böhner, J., and Antonić, O. (2009). Land-surface parameters specific to topo-climatology. Developments in Soil
+Science, 33, 195-226.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1668,7 +1689,30 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: July 2, 2017</p>
 <p><a name="RelativeTopographicPosition"></a></p>
 <a class="header" href="#relativetopographicposition" id="relativetopographicposition"><h1>RelativeTopographicPosition</h1></a>
-<p>Calculates the relative topographic position index from a DEM.</p>
+<p>Relative topographic position (RTP) is an index of local topographic position (i.e. how
+elevated or low-lying a site is relative to its surroundings) and is a modification of percent
+elevation range (PER; <a href="./geomorphometric_analysis.html#percentelevrange"><strong>PercentElevRange</strong></a>) and accounts for the elevation distribution. Rather than
+positioning the central cell's elevation solely between the filter extrema, RTP is a piece-wise
+function that positions the central elevation relative to the minimum (z<sub>min</sub>), mean (μ),
+and maximum values (z<sub>max</sub>), within a local neighbourhood of a user-specified size (<code>--filterx</code>,
+<code>--filtery</code>), such that:</p>
+<blockquote>
+<p>RTP = (z<sub>0</sub> − μ) / (μ − z<sub>min</sub>), if z<sub>0</sub> &lt; μ</p>
+<p>OR</p>
+<p>RTP = (z<sub>0</sub> − μ) / (z<sub>max</sub> - μ), if z<sub>0</sub> &gt;= μ
+</p>
+</blockquote>
+<p>The resulting index is bound by the interval [−1, 1], where the sign indicates if the cell is above or below
+than the filter mean. Although RTP uses the mean to define two linear functions, the reliance on the filter
+extrema is expected to result in sensitivity to outliers. Furthermore, the use of the mean implies assumptions
+of unimodal and symmetrical elevation distribution.</p>
+<p>In many cases, Elevation Percentile (<a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>) and deviation from mean elevation (<a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>)
+provide more suitable and robust measures of relative topographic position.</p>
+<p><em>Reference</em>:</p>
+<p>Newman, D. R., Lindsay, J. B., and Cockburn, J. M. H. (2018). Evaluating metrics of local topographic
+position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#percentelevrange"><strong>PercentElevRange</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1691,7 +1735,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_topographic_position.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 6, 2017</p>
+<p><em>Created</em>: 06/06/2017</p>
 <p><a name="RemoveOffTerrainObjects"></a></p>
 <a class="header" href="#removeoffterrainobjects" id="removeoffterrainobjects"><h1>RemoveOffTerrainObjects</h1></a>
 <p>Removes off-terrain objects from a raster digital elevation model (DEM).</p>
