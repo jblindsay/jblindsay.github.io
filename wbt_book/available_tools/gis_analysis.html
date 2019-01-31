@@ -177,7 +177,12 @@
 </ul>
 <p><a name="AggregateRaster"></a></p>
 <a class="header" href="#aggregateraster" id="aggregateraster"><h1>AggregateRaster</h1></a>
-<p>Aggregates a raster to a lower resolution.</p>
+<p>This tool can be used to reduce the grid resolution of a raster by a user specified amount. For example, using
+an aggregation factor (<code>--agg_factor</code>) of 2 would result in a raster with half the number of rows and columns.
+The grid cell values (<code>--type</code>) in the output image will consist of the mean, sum, maximum, minimum, or range
+of the overlapping grid cells in the input raster (four cells in the case of an aggregation factor of 2).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#resample"><strong>Resample</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -200,7 +205,7 @@
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/aggregate_raster.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: December 13, 2017</p>
+<p><em>Created</em>: 13/12/2017</p>
 <p><a name="BlockMaximumGridding"></a></p>
 <a class="header" href="#blockmaximumgridding" id="blockmaximumgridding"><h1>BlockMaximumGridding</h1></a>
 <p>Creates a raster grid based on a set of vector points and assigns grid values using a block maximum scheme.</p>
@@ -427,7 +432,16 @@ and whether the hexagonal orientation (<code>--orientation</code>) is <code>hori
 <p><em>Created</em>: 15/09/2018</p>
 <p><a name="CreatePlane"></a></p>
 <a class="header" href="#createplane" id="createplane"><h1>CreatePlane</h1></a>
-<p>Creates a raster image based on the equation for a simple plane.</p>
+<p>This tool can be used to create a new raster with values that are determined by the equation of a simple plane. The user
+must specify the name of a base raster (<code>--base</code>) from which the output raster coordinate and dimensional information
+will be taken. In addition the user must specify the values of the planar slope gradient (S; <code>--gradient</code>; <code>--aspect</code>)
+in degrees, the planar slope direction or aspect (A; 0 to 360 degrees), and an constant value (k; <code>--constant</code>). The
+equation of the plane is as follows:</p>
+<blockquote>
+<p>Z = tan(S) × sin(A - 180) × X + tan(S) × cos(A - 180) × Y + k</p>
+</blockquote>
+<p>where X and Y are the X and Y coordinates of each grid cell in the grid. Notice that A is the direction,
+or azimuth, that the plane is facing</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--base             </td><td> Input base raster file</td></tr>
@@ -452,7 +466,7 @@ and whether the hexagonal orientation (<code>--orientation</code>) is <code>hori
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_plane.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="CreateRectangularVectorGrid"></a></p>
 <a class="header" href="#createrectangularvectorgrid" id="createrectangularvectorgrid"><h1>CreateRectangularVectorGrid</h1></a>
 <p>This tool can be used to create a rectangular vector grid. The extent of the rectangular
@@ -606,16 +620,26 @@ the name of the output point-type vector.</p>
 <p><em>Created</em>: 04/09/2018</p>
 <p><a name="ExtractRasterValuesAtPoints"></a></p>
 <a class="header" href="#extractrastervaluesatpoints" id="extractrastervaluesatpoints"><h1>ExtractRasterValuesAtPoints</h1></a>
-<p>Extracts the values of raster(s) at vector point locations.</p>
+<p>This tool can be used to extract the values of one or more rasters (<code>--inputs</code>) at the sites of a set of vector points.
+By default, the data is output to the attribute table of the input points (<code>--points</code>) vector; however,
+if the <code>--out_text</code> parameter is specified, the tool will additionally output point values as text data
+to standard output (<em>stdout</em>). Attribute fields will be added to the table of the points file, with field
+names, <em>VALUE1</em>, <em>VALUE2</em>, <em>VALUE3</em>, etc. each corresponding to the order of input rasters.</p>
+<p>If you need to plot a chart of values from a raster stack at a set of points, the <a href="./image_processing_tools.html#imagestackprofile"><strong>ImageStackProfile</strong></a> may be
+more suitable for this application.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#imagestackprofile"><strong>ImageStackProfile</strong></a>, <a href="./gis_analysis.html#findlowestorhighestpoints"><strong>FindLowestOrHighestPoints</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
 <tr><td>--points           </td><td> Input vector points file</td></tr>
+<tr><td>--out_text         </td><td> Output point values as text? Otherwise, the only output is to to the points file's attribute table</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">extract_raster_values_at_points(
     inputs, 
     points, 
+    out_text=False, 
     callback=default_callback)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
@@ -628,7 +652,13 @@ the name of the output point-type vector.</p>
 <p><em>Created</em>: 17/06/2018</p>
 <p><a name="FindLowestOrHighestPoints"></a></p>
 <a class="header" href="#findlowestorhighestpoints" id="findlowestorhighestpoints"><h1>FindLowestOrHighestPoints</h1></a>
-<p>Locates the lowest and/or highest valued cells in a raster.</p>
+<p>This tool locates the lowest and/or highest cells in a raster and outputs these locations to a vector
+points file. The user must specify the name of the input raster (<code>--input</code>) and the name of the output
+vector file (<code>--output</code>). The user also has the option (<code>--out_type</code>) to locate either the lowest value,
+highest value, or both values. The output vector's attribute table will contain fields for the points
+XY coordinates and their values.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#extractrastervaluesatpoints"><strong>ExtractRasterValuesAtPoints</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>

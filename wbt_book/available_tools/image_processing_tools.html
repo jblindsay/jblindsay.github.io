@@ -184,7 +184,11 @@ space.</p>
 <p>It is common to apply a simple thresholding operation on the magnitude data to
 determine 'actual' change (i.e. change above some assumed level of error). The type
 of change (qualitatively) is then defined according to the corresponding sector code.
-Jensen (2005) provides a useful description of this approach to change detection.</p>
+Jensen (2015) provides a useful description of this approach to change detection.</p>
+<p><em>Reference</em>:</p>
+<p>Jensen, J. R. (2015). Introductory Digital Image Processing: A Remote Sensing Perspective.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#writefunctionmemoryinsertion"><strong>WriteFunctionMemoryInsertion</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--date1            </td><td> Input raster files for the earlier date</td></tr>
@@ -322,7 +326,31 @@ rather, the reflected image is stored in a separate output (<code>--output</code
 <p><em>Created</em>: 11/07/2017</p>
 <p><a name="IhsToRgb"></a></p>
 <a class="header" href="#ihstorgb" id="ihstorgb"><h1>IhsToRgb</h1></a>
-<p>Converts intensity, hue, and saturation (IHS) images into red, green, and blue (RGB) images.</p>
+<p>This tool transforms three intensity, hue, and saturation (IHS; sometimes HSI or HIS) raster images into three
+equivalent multispectral images corresponding with the red, green, and blue channels of an RGB composite. Intensity
+refers to the brightness of a color, hue is related to the dominant wavelength of light and is perceived as color,
+and saturation is the purity of the color (Koutsias et al., 2000). There are numerous algorithms for performing a
+red-green-blue (RGB) to IHS transformation. This tool uses the transformation described by Haydn (1982). Note that,
+based on this transformation, the input IHS values must follow the ranges:</p>
+<blockquote>
+<p>0 &lt; I &lt; 3</p>
+<p>0 &lt; H &lt; 3</p>
+<p>0 &lt; S &lt; 1</p>
+</blockquote>
+<p>The output red, green, and blue images will have values ranging from 0 to 255. The user must specify the names of the
+intensity, hue, and saturation images (<code>--intensity</code>, <code>--hue</code>, <code>--saturation</code>). These images will generally be created using
+the <a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a> tool. The user must also specify the names of the output red, green, and blue images (<code>--red</code>, <code>--green</code>,
+<code>--blue</code>). Image enhancements, such as contrast stretching, are often performed on the individual IHS components, which are
+then inverse transformed back in RGB components using this tool. The output RGB components can then be used to create an
+improved color composite image.</p>
+<p><em>References</em>:</p>
+<p>Haydn, R., Dalke, G.W. and Henkel, J. (1982) Application of the IHS color transform to the processing of multisensor
+data and image enhancement. Proc. of the Inter- national Symposium on Remote Sensing of Arid and Semiarid Lands,
+Cairo, 599-616.</p>
+<p>Koutsias, N., Karteris, M., and Chuvico, E. (2000). The use of intensity-hue-saturation transformation of Landsat-5 Thematic
+Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sensing, 66(7), 829-840.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--intensity        </td><td> Input intensity file</td></tr>
@@ -355,10 +383,21 @@ rather, the reflected image is stored in a separate output (<code>--output</code
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/ihs_to_rgb.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 25, 2017</p>
+<p><em>Created</em>: 25/07/2017</p>
 <p><a name="ImageStackProfile"></a></p>
 <a class="header" href="#imagestackprofile" id="imagestackprofile"><h1>ImageStackProfile</h1></a>
-<p>Plots an image stack profile (i.e. signature) for a set of points and multispectral images.</p>
+<p>This tool can be used to plot an image stack profile (i.e. a signature) for a set of points (<code>--points</code>) and
+a multispectral image stack (<code>--inputs</code>). The tool outputs an interactive SVG line graph embedded in an
+HTML document (<code>--output</code>). If the input points vector contains multiple points, each input point will
+be associated with a single line in the output plot. The order of vertices in each signature line is
+determined by the order of images specified in the <code>--inputs</code> parameter. At least two input images are
+required to run this operation. Note that this tool does not require multispectral images as
+inputs; other types of data may also be used as the image stack. Also note that the input images should be
+single-band, continuous greytone rasters. RGB colour images are not good candidates for this tool.</p>
+<p>If you require the raster values to be saved in the vector points file's attribute table, or if you need
+the raster values to be output as text, you may use the <a href="./gis_analysis.html#extractrastervaluesatpoints"><strong>ExtractRasterValuesAtPoints</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#extractrastervaluesatpoints"><strong>ExtractRasterValuesAtPoints</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input multispectral image files</td></tr>
@@ -379,10 +418,19 @@ rather, the reflected image is stored in a separate output (<code>--output</code
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/image_stack_profile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: March 15, 2018</p>
+<p><em>Created</em>: 15/03/2018</p>
 <p><a name="IntegralImage"></a></p>
 <a class="header" href="#integralimage" id="integralimage"><h1>IntegralImage</h1></a>
-<p>Transforms an input image (summed area table) into its integral image equivalent.</p>
+<p>This tool transforms an input raster image into an integral image, or summed area table. Integral images are
+the two-dimensional equivalent to a cumulative distribution function. Each pixel contains the sum of all
+pixels contained within the enclosing rectangle above and to the left of a pixel. Images with a very large
+number of grid cells will likely experience numerical overflow errors when converted to an integral image.
+Integral images are used in a wide variety of computer vision and digital image processing applications,
+including texture mapping. They allow for the efficient calculation of very large filters and are the
+basis of several of <em>WhiteboxTools</em>'s image filters.</p>
+<p><em>Reference</em>:</p>
+<p>Crow, F. C. (1984, January). Summed-area tables for texture mapping. In ACM SIGGRAPH computer graphics
+(Vol. 18, No. 3, pp. 207-212). ACM.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -400,7 +448,7 @@ rather, the reflected image is stored in a separate output (<code>--output</code
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/integral_image.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="KMeansClustering"></a></p>
 <a class="header" href="#kmeansclustering" id="kmeansclustering"><h1>KMeansClustering</h1></a>
 <p>Performs a k-means clustering operation on a multi-spectral dataset.</p>
@@ -447,7 +495,7 @@ before performing a line thinning operation.</p>
 <p>Note: Unlike other filter-based operations in <em>WhiteboxTools</em>, this algorithm can't easily be parallelized because
 the output raster must be read and written to during the same loop.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./image_processing_tools.html#removespurs"><strong>RemoveSpurs</strong></a></p>
+<p><a href="./image_processing_tools.html#removespurs"><strong>RemoveSpurs</strong></a>, <a href="./image_processing_tools.html#thickenrasterline"><strong>ThickenRasterLine</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -725,7 +773,32 @@ will be assigned the NoData value.</p>
 <p><em>Created</em>: January 1 2018</p>
 <p><a name="RgbToIhs"></a></p>
 <a class="header" href="#rgbtoihs" id="rgbtoihs"><h1>RgbToIhs</h1></a>
-<p>Converts red, green, and blue (RGB) images into intensity, hue, and saturation (IHS) images.</p>
+<p>This tool transforms three raster images of multispectral data (red, green, and blue channels) into their equivalent
+intensity, hue, and saturation (IHS; sometimes HSI or HIS) images. Intensity refers to the brightness of a color, hue
+is related to the dominant wavelength of light and is perceived as color, and saturation is the purity of the color
+(Koutsias et al., 2000). There are numerous algorithms for performing a red-green-blue (RGB) to IHS transformation.
+This tool uses the transformation described by Haydn (1982). Note that, based on this transformation, the output
+IHS values follow the ranges:</p>
+<blockquote>
+<p>0 &lt; I &lt; 3</p>
+<p>0 &lt; H &lt; 3</p>
+<p>0 &lt; S &lt; 1</p>
+</blockquote>
+<p>The user must specify the names of the red, green, and blue images (<code>--red</code>, <code>--green</code>, <code>--blue</code>). Importantly, these
+images need not necessarily correspond with the specific regions of the electromagnetic spectrum that are red, green,
+and blue. Rather, the input images are three multispectral images that could be used to create a RGB color composite.
+The user must also specify the names of the output intensity, hue, and saturation images (<code>--intensity</code>, <code>--hue</code>,
+<code>--saturation</code>). Image enhancements, such as contrast stretching, are often performed on the IHS components, which are
+then inverse transformed back in RGB components to then create an improved color composite image.
+/
+<em>References</em>:</p>
+<p>Haydn, R., Dalke, G.W. and Henkel, J. (1982) Application of the IHS color transform to the processing of multisensor
+data and image enhancement. Proc. of the Inter- national Symposium on Remote Sensing of Arid and Semiarid Lands,
+Cairo, 599-616.</p>
+<p>Koutsias, N., Karteris, M., and Chuvico, E. (2000). The use of intensity-hue-saturation transformation of Landsat-5 Thematic
+Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sensing, 66(7), 829-840.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#ihstorgb"><strong>IhsToRgb</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--red              </td><td> Input red band image file. Optionally specified if colour-composite not specified</td></tr>
@@ -759,10 +832,15 @@ will be assigned the NoData value.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/rgb_to_ihs.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 25, 2017</p>
+<p><em>Created</em>: 25/07/2017</p>
 <p><a name="SplitColourComposite"></a></p>
 <a class="header" href="#splitcolourcomposite" id="splitcolourcomposite"><h1>SplitColourComposite</h1></a>
-<p>This tool splits an RGB colour composite image into seperate multispectral images.</p>
+<p>This tool can be used to split a red-green-blue (RGB) colour-composite image into three separate bands of
+multi-spectral imagery. The user must specify the input image (<code>--input</code>) and output image (<code>--output</code>).
+The tool creates three output images, each based on the <code>--output</code> parameter and with the <code>_r</code>, <code>_g</code>, and <code>_b</code>
+suffixes appended.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input colour composite image file</td></tr>
@@ -783,7 +861,19 @@ will be assigned the NoData value.</p>
 <p><em>Created</em>: July 15, 2017</p>
 <p><a name="ThickenRasterLine"></a></p>
 <a class="header" href="#thickenrasterline" id="thickenrasterline"><h1>ThickenRasterLine</h1></a>
-<p>Thickens single-cell wide lines within a raster image.</p>
+<p>This image processing tool can be used to thicken single-cell wide lines within a raster file along diagonal
+sections of the lines. Because of the limitation of the raster data format, single-cell wide raster lines can
+be traversed along diaganol sections without passing through a line grid cell. This causes problems for various
+raster analysis functions for which lines are intended to be barriers. This tool will thicken raster lines,
+such that it is impossible to cross a line without passing through a line grid cell. While this can also be
+achieved using a maximum filter, unlike the filter approach, this tool will result in the smallest possible
+thickening to achieve the desired result.</p>
+<p>All non-zero, positive values are considered to be foreground pixels while all zero valued cells or NoData cells
+are considered background pixels.</p>
+<p>Note: Unlike other filter-based operations in <em>WhiteboxTools</em>, this algorithm can't easily be parallelized because
+the output raster must be read and written to during the same loop.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#linethinning"><strong>LineThinning</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -801,7 +891,7 @@ will be assigned the NoData value.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/thicken_line.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 4, 2017</p>
+<p><em>Created</em>: 04/07/2017</p>
 <p><a name="TophatTransform"></a></p>
 <a class="header" href="#tophattransform" id="tophattransform"><h1>TophatTransform</h1></a>
 <p>Performs either a white or black top-hat transform on an input image.</p>
@@ -831,7 +921,23 @@ will be assigned the NoData value.</p>
 <p><em>Created</em>: June 28, 2017</p>
 <p><a name="WriteFunctionMemoryInsertion"></a></p>
 <a class="header" href="#writefunctionmemoryinsertion" id="writefunctionmemoryinsertion"><h1>WriteFunctionMemoryInsertion</h1></a>
-<p>Performs a write function memory insertion for single-band multi-date change detection.</p>
+<p>Jensen (2015) describes write function memory (WFM) insertion as a simple yet effective method of visualizing
+land-cover change between two or three dates. WFM insertion may be used to qualitatively inspect change in any
+type of registered, multi-date imagery. The technique operates by creating a red-green-blue (RGB) colour composite
+image based on co-registered imagery from two or three dates. If two dates are input, the first date image will be
+put into the red channel, while the second date image will be put into both the green and blue channels. The result
+is an image where the areas of change are displayed as red (date 1 is brighter than date 2) and cyan (date 1 is
+darker than date 2), and areas of little change are represented in grey-tones. The larger the change in pixel
+brightness between dates, the more intense the resulting colour will be.</p>
+<p>If images from three dates are input, the resulting composite can contain many distinct colours. Again, more
+intense the colours are indicative of areas of greater land-cover change among the dates, while areas of little
+change are represented in grey-tones. Interpreting the direction of change is more difficult when three dates are
+used. Note that for multi-spectral imagery, only one band from each date can be used for creating a WFM insertion
+image.</p>
+<p><em>Reference</em>:</p>
+<p>Jensen, J. R. (2015). Introductory Digital Image Processing: A Remote Sensing Perspective.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a>, <a href="./image_processing_tools.html#changevectoranalysis"><strong>ChangeVectorAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file associated with the first date</td></tr>
@@ -854,7 +960,7 @@ will be assigned the NoData value.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/write_func_memory_insertion.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 18, 2017</p>
+<p><em>Created</em>: 18/07/2017</p>
 
                     </main>
 

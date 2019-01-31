@@ -315,7 +315,7 @@ value across a range of input scales.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/dev_from_mean_elev.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 21, 2017</p>
+<p><em>Created</em>: 21/06/2017</p>
 <p><a name="DiffFromMeanElev"></a></p>
 <a class="header" href="#difffrommeanelev" id="difffrommeanelev"><h1>DiffFromMeanElev</h1></a>
 <p>This tool can be used to calculate the difference between the elevation of each grid
@@ -354,7 +354,7 @@ value across a range of input scales.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/diff_from_mean_elev.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="DirectionalRelief"></a></p>
 <a class="header" href="#directionalrelief" id="directionalrelief"><h1>DirectionalRelief</h1></a>
 <p>This tool calculates the relief for each grid cell in a digital elevation model (DEM) in a specified direction.
@@ -732,7 +732,7 @@ mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5),
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_denoise.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: November 23, 2017</p>
+<p><em>Created</em>: 23/11/2017</p>
 <p><a name="FetchAnalysis"></a></p>
 <a class="header" href="#fetchanalysis" id="fetchanalysis"><h1>FetchAnalysis</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the distance, in meters, to the nearest
@@ -900,7 +900,26 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="HorizonAngle"></a></p>
 <a class="header" href="#horizonangle" id="horizonangle"><h1>HorizonAngle</h1></a>
-<p>Calculates horizon angle (maximum upwind slope) for each grid cell in an input DEM.</p>
+<p>This tool calculates the horizon angle (<em>Sx</em>), i.e. the maximum slope along a specified azimuth (0-360 degrees) for
+each grid cell in an input digital elevation model (DEM). Horizon angle is sometime referred to as the maximum upwind
+slope in wind exposure/sheltering studies. Positive values can be considered sheltered with respect to the azimuth and
+negative values are exposed. Thus, <em>Sx</em> is a measure of exposure to a wind from a specific direction. The algorithm works
+by tracing a ray from each grid cell in the direction of interest and evaluating the slope for each location in which the
+DEM grid is intersected by the ray. Linear interpolation is used to estimate the elevation of the surface where a ray does
+not intersect the DEM grid precisely at one of its nodes.</p>
+<p>The user is able to constrain the maximum search distance (<code>--max_dist</code>) for the ray tracing by entering a valid maximum
+search distance value (in the same units as the X-Y coordinates of the input raster DEM). If the maximum search distance
+is left blank, each ray will be traced to the edge of the DEM, which will add to the computational time.</p>
+<p>Maximum upwind slope should not be calculated for very extensive areas over which the Earth's curvature must be taken into
+account. Also, this index does not take into account the deflection of wind by topography. However, averaging the horizon
+angle over a window of directions can yield a more robust measure of exposure, compensating for the deflection of wind from
+its regional average by the topography. For example, if you are interested in measuring the exposure of a landscape to a
+northerly wind, you could perform the following calculation:</p>
+<blockquote>
+<p>Sx(N) = [Sx(345)+Sx(350)+Sx(355)+Sx(0)+Sx(5)+Sx(10)+Sx(15)] / 7.0</p>
+</blockquote>
+<p>Ray-tracing is a highly computationally intensive task and therefore this tool may take considerable time to operate for
+larger sized DEMs. Maximum upwind slope is best displayed using a Grey scale palette that is inverted.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -922,10 +941,14 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/horizon_angle.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 7, 2017</p>
+<p><em>Created</em>: 07/07/2017</p>
 <p><a name="HypsometricAnalysis"></a></p>
 <a class="header" href="#hypsometricanalysis" id="hypsometricanalysis"><h1>HypsometricAnalysis</h1></a>
-<p>Calculates a hypsometric curve for one or more DEMs.</p>
+<p>This tool can be used to derive the hypsometric curve, or area-altitude curve, of one or more
+input digital elevation models (DEMs) (<code>--inputs</code>). A hypsometric curve is a histogram or cumulative
+distribution function of elevations in a geographical area.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#slopevselevationplot"><strong>SlopeVsElevationPlot</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input DEM files</td></tr>
@@ -946,7 +969,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hypsometric_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: January 30, 2018</p>
+<p><em>Created</em>: 30/01/2018</p>
 <p><a name="MaxAnisotropyDev"></a></p>
 <a class="header" href="#maxanisotropydev" id="maxanisotropydev"><h1>MaxAnisotropyDev</h1></a>
 <p>Calculates the maximum anisotropy (directionality) in elevation deviation over a range of spatial scales.</p>
@@ -1591,7 +1614,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/prof_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/062017</p>
 <p><a name="RelativeAspect"></a></p>
 <a class="header" href="#relativeaspect" id="relativeaspect"><h1>RelativeAspect</h1></a>
 <p>Calculates relative aspect (relative to a user-specified direction) from an input DEM.</p>
@@ -1616,7 +1639,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 17, 2017</p>
+<p><em>Created</em>: 17/06/2017</p>
 <p><a name="RelativeStreamPowerIndex"></a></p>
 <a class="header" href="#relativestreampowerindex" id="relativestreampowerindex"><h1>RelativeStreamPowerIndex</h1></a>
 <p>Calculates the relative stream power index.</p>
@@ -1800,7 +1823,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
 <p>Creates a slope vs. elevation plot for one or more DEMs.</p>
@@ -1905,7 +1928,7 @@ Bulletin, 32(3), 829-839.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/tan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="TotalCurvature"></a></p>
 <a class="header" href="#totalcurvature" id="totalcurvature"><h1>TotalCurvature</h1></a>
 <p>Calculates a total curvature raster from an input DEM.</p>
@@ -1928,7 +1951,7 @@ Bulletin, 32(3), 829-839.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/total_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="Viewshed"></a></p>
 <a class="header" href="#viewshed" id="viewshed"><h1>Viewshed</h1></a>
 <p>Identifies the viewshed for a point or set of points.</p>
