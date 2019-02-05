@@ -496,6 +496,9 @@ print(&quot;Complete!&quot;)
 <p><em>WhiteboxTools</em> is available on <a href="https://cran.r-project.org/">CRAN</a> and can be installed with the command:</p>
 <pre><code class="language-python">install.packages(&quot;whitebox&quot;)
 </code></pre>
+<p>Or if you prefer R-Forge:</p>
+<pre><code class="language-python">install.packages(&quot;whitebox&quot;, repos=&quot;http://R-Forge.R-project.org&quot;)
+</code></pre>
 <p>You can alternatively install the development version of the <em>R</em> package <strong>whitebox</strong> from the <a href="https://github.com/giswqs/whiteboxR">GitHub repository</a> as follows:</p>
 <pre><code class="language-python">if (!require(devtools)) install.packages('devtools')
 devtools::install_github(&quot;giswqs/whiteboxR&quot;)
@@ -1630,8 +1633,8 @@ rills, gullies, etc., which would otherwise be smoothed over.</p>
     output, 
     filter=11, 
     norm_diff=15.0, 
-    num_iter=10, 
-    max_diff=2.0, 
+    num_iter=3, 
+    max_diff=0.5, 
     reduction=80.0, 
     dfm=0.15, 
     zfactor=1.0, 
@@ -1867,8 +1870,8 @@ mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5),
     output, 
     filter=11, 
     norm_diff=15.0, 
-    num_iter=10, 
-    max_diff=2.0, 
+    num_iter=3, 
+    max_diff=0.5, 
     zfactor=1.0, 
     callback=default_callback)
 </code></pre>
@@ -8102,9 +8105,8 @@ images need not necessarily correspond with the specific regions of the electrom
 and blue. Rather, the input images are three multispectral images that could be used to create a RGB color composite.
 The user must also specify the names of the output intensity, hue, and saturation images (<code>--intensity</code>, <code>--hue</code>,
 <code>--saturation</code>). Image enhancements, such as contrast stretching, are often performed on the IHS components, which are
-then inverse transformed back in RGB components to then create an improved color composite image.
-/
-<em>References</em>:</p>
+then inverse transformed back in RGB components to then create an improved color composite image.</p>
+<p><em>References</em>:</p>
 <p>Haydn, R., Dalke, G.W. and Henkel, J. (1982) Application of the IHS color transform to the processing of multisensor
 data and image enhancement. Proc. of the Inter- national Symposium on Remote Sensing of Arid and Semiarid Lands,
 Cairo, 599-616.</p>
@@ -9379,7 +9381,13 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 <p><em>Created</em>: 21/07/2017</p>
 <p><a name="GammaCorrection"></a></p>
 <a class="header" href="#gammacorrection" id="gammacorrection"><h1>GammaCorrection</h1></a>
-<p>Performs a sigmoidal contrast stretch on input images.</p>
+<p>This tool performs a gamma colour correction transform on an input image (<code>--input</code>), such that each
+input pixel value (z<sub>in</sub><sup>) is mapped to the corresponding output value (z<sub>out</sub>) as:</p>
+<blockquote>
+<p>z<sub>out</sub> = z<sub>in</sub><sup><code>gamma</code></sup></p>
+</blockquote>
+<p>The user must specify the value of the <code>gamma</code> parameter. The input image may be of either a greyscale or RGB colour
+composite data type.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -9399,7 +9407,7 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gamma_correction.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="GaussianContrastStretch"></a></p>
 <a class="header" href="#gaussiancontraststretch" id="gaussiancontraststretch"><h1>GaussianContrastStretch</h1></a>
 <p>This tool performs a Gaussian stretch on a raster image. The observed histogram of the input image is fitted
@@ -9859,7 +9867,15 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <p><em>Created</em>: 27/04/2018</p>
 <p><a name="ClipLidarToPolygon"></a></p>
 <a class="header" href="#cliplidartopolygon" id="cliplidartopolygon"><h1>ClipLidarToPolygon</h1></a>
-<p>Clips a LiDAR point cloud to a vector polygon or polygons.</p>
+<p>This tool can be used to isolate, or clip, all of the LiDAR points in a LAS file (<code>--input</code>) contained within
+one or more vector polygon features. The user must specify the name of the input clip file (--polygons), wich
+must be a vector of a Polygon base shape type. The clip file may contain multiple polygon features and polygon hole
+parts will be respected during clipping, i.e. LiDAR points within polygon holes will be removed from the output LAS
+file.</p>
+<p>Use the <a href="./lidar_tools.html#erasepolygonfromlidar"><strong>ErasePolygonFromLidar</strong></a> tool to perform the complementary operation of removing points from a LAS file
+that are contained within a set of polygons.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#erasepolygonfromlidar"><strong>ErasePolygonFromLidar</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#cliprastertopolygon"><strong>ClipRasterToPolygon</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -9883,7 +9899,15 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <p><em>Created</em>: 25/04/2018</p>
 <p><a name="ErasePolygonFromLidar"></a></p>
 <a class="header" href="#erasepolygonfromlidar" id="erasepolygonfromlidar"><h1>ErasePolygonFromLidar</h1></a>
-<p>Erases (cuts out) a vector polygon or polygons from a LiDAR point cloud.</p>
+<p>This tool can be used to remove, or erase, all of the LiDAR points in a LAS file (<code>--input</code>) contained within
+one or more vector polygon features. The user must specify the name of the input clip file (--polygons), wich
+must be a vector of a Polygon base shape type. The clip file may contain multiple polygon features and polygon hole
+parts will be respected during clipping, i.e. LiDAR points within polygon holes will be remain in the output LAS
+file.</p>
+<p>Use the <a href="./lidar_tools.html#cliplidartopolygon"><strong>ClipLidarToPolygon</strong></a> tool to perform the complementary operation of clipping (isolating) points from a LAS file
+that are contained within a set of polygons, while removing points that lie outside the input polygons.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#cliplidartopolygon"><strong>ClipLidarToPolygon</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#cliprastertopolygon"><strong>ClipRasterToPolygon</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -10494,7 +10518,11 @@ data and information about the variable length records (VLRs) and geokeys.</p>
 <p><em>Created</em>: June 1, 2017</p>
 <p><a name="LidarJoin"></a></p>
 <a class="header" href="#lidarjoin" id="lidarjoin"><h1>LidarJoin</h1></a>
-<p>Joins multiple LiDAR (LAS) files into a single LAS file.</p>
+<p>This tool can be used to merge multiple LiDAR LAS files into a single output LAS file. Due to their large size,
+LiDAR data sets are often tiled into smaller, non-overlapping tiles. Sometimes it is more convenient to combine
+multiple tiles together for data processing and <a href="./lidar_tools.html#lidarjoin"><strong>LidarJoin</strong></a> can be used for this purpose.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidartile"><strong>LidarTile</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -10512,7 +10540,7 @@ data and information about the variable length records (VLRs) and geokeys.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_join.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 21, 2017</p>
+<p><em>Created</em>: 21/06/2017</p>
 <p><a name="LidarKappaIndex"></a></p>
 <a class="header" href="#lidarkappaindex" id="lidarkappaindex"><h1>LidarKappaIndex</h1></a>
 <p>This tool performs a kappa index of agreement (KIA) analysis on the classification values of two LiDAR
@@ -10831,12 +10859,19 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <p><em>Created</em>: February 6, 2018</p>
 <p><a name="LidarTile"></a></p>
 <a class="header" href="#lidartile" id="lidartile"><h1>LidarTile</h1></a>
-<p>Tiles a LiDAR LAS file into multiple LAS files.</p>
+<p>This tool can be used to break a LiDAR LAS file into multiple, non-overlapping tiles, each saved as a
+single LAS file. The user must specify the parameter of the tile grid, including its origin (<code>--origin_x</code> and
+<code>--origin_y</code>) and the tile width and height (<code>--width</code> and <code>--height</code>). Tiles containing fewer points than
+specified in the <code>--min_points</code> parameter will not be output. This can be useful when tiling terrestrial LiDAR
+datasets because the low point density at the edges of the point cloud (i.e. most distant from the scan
+station) can result in poorly populated tiles containing relatively few points.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarjoin"><strong>LidarJoin</strong></a>, <a href="./lidar_tools.html#lidartilefootprint"><strong>LidarTileFootprint</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
-<tr><td>--width_x          </td><td> Width of tiles in the X dimension; default 1000.0</td></tr>
-<tr><td>--width_y          </td><td> Width of tiles in the Y dimension</td></tr>
+<tr><td>--width            </td><td> Width of tiles in the X dimension; default 1000.0</td></tr>
+<tr><td>--height           </td><td> Height of tiles in the Y dimension</td></tr>
 <tr><td>--origin_x         </td><td> Origin point X coordinate for tile grid</td></tr>
 <tr><td>--origin_y         </td><td> Origin point Y coordinate for tile grid</td></tr>
 <tr><td>--min_points       </td><td> Minimum number of points contained in a tile for it to be saved</td></tr>
@@ -10844,8 +10879,8 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">lidar_tile(
     i, 
-    width_x=1000.0, 
-    width_y=1000.0, 
+    width=1000.0, 
+    height=1000.0, 
     origin_x=0.0, 
     origin_y=0.0, 
     min_points=2, 
@@ -10853,15 +10888,23 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarTile -v -i=/path/to/data/input.las ^
---width_x=1000.0 --width_y=2500.0 -=min_points=100 
+--width=1000.0 --height=2500.0 -=min_points=100 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="LidarTileFootprint"></a></p>
 <a class="header" href="#lidartilefootprint" id="lidartilefootprint"><h1>LidarTileFootprint</h1></a>
-<p>Creates a vector polygon of the convex hull of a LiDAR point cloud. When the input/output parameters
-are not specified, the tool works with all LAS files contained within the working directory.</p>
+<p>This tool can be used to create a vector polygon of the convex hull of a LiDAR point cloud (i.e. LAS file).
+If the user specified an input file (<code>--input</code>) and output file (<code>--output</code>), the tool will calculate the convex
+hull, containing all of the data points, and output this feature to a vector polygon file. If the <code>input</code> and
+<code>output</code> parameters are left unspecified, the tool will calculate the hulls of every LAS file contained within the
+working directory and output these features to a single vector polygon file. If this is the desired mode of
+operation, it is important to specify the working directory (<code>--wd</code>) containing the group of LAS files; do not
+specify the optional <code>--input</code> and <code>--output</code> parameters in this case. Each polygon in the output vector will contain
+a <code>LAS_NM</code> field, specifying the source LAS file name, and a <code>NUM_PNTS</code> field, containing the number of points
+within the source file. This output can therefore be useful to create an index map of a large tiled LiDAR dataset.</p>
+<p><a href="./lidar_tools.html#lidartile"><strong>LidarTile</strong></a>, <a href="./gis_analysis.html#layerfootprint"><strong>LayerFootprint</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -12274,7 +12317,49 @@ cells in two input rasters or one input raster and a constant value.</p>
 <p><em>Created</em>: July 6, 2017</p>
 <p><a name="PrincipalComponentAnalysis"></a></p>
 <a class="header" href="#principalcomponentanalysis" id="principalcomponentanalysis"><h1>PrincipalComponentAnalysis</h1></a>
-<p>Performs a principal component analysis (PCA) on a multi-spectral dataset.</p>
+<p>Principal component analysis (PCA) is a common data reduction technique that is used to reduce the dimensionality of
+multi-dimensional space. In the field of remote sensing, PCA is often used to reduce the number of bands of
+multi-spectral, or hyper-spectral, imagery. Image correlation analysis often reveals a substantial level of correlation
+among bands of multi-spectral imagery. This correlation represents data redundancy, i.e. fewer images than the number
+of bands are required to represent the same information, where the information is related to variation within the imagery.
+PCA transforms the original data set of <em>n</em> bands into <em>n</em> 'component' images, where each component image is uncorrelated
+with all other components. The technique works by transforming the axes of the multi-spectral space such that it coincides
+with the directions of greatest correlation. Each of these new axes are orthogonal to one another, i.e. they are at right
+angles. PCA is therefore a type of coordinate system transformation. The PCA component images are arranged such that the
+greatest amount of variance (or information) within the original data set, is contained within the first component and the
+amount of variance decreases with each component. It is often the case that the majority of the information contained in a
+multi-spectral data set can be represented by the first three or four PCA components. The higher-order components are often
+associated with noise in the original data set.</p>
+<p>The user must specify the names of the multiple input images (<code>--inputs</code>). Additionally, the user must specify whether to
+perform a standardized PCA (<code>--standardized</code>) and the number of output components (<code>--num_comp</code>) to generate (all components
+will be output unless otherwise specified). A standardized PCA is performed using the correlation matrix rather than the
+variance-covariance matrix. This is appropriate when the variances in the input images differ substantially, such as would be
+the case if they contained values that were recorded in different units (e.g. feet and meters) or on different scales (e.g.
+8-bit vs. 16 bit).</p>
+<p>Several outputs will be generated when the tool has completed. The PCA report will be embeded within an output (<code>--output</code>)
+HTML file, which should be automatically displayed after the tool has completed. This report contains useful data summarizing
+the results of the PCA, including the explained variances of each factor, the Eigenvalues and Eigenvectors associated with
+factors, the factor loadings, and a scree plot. The first table that is in the PCA report lists the amount of explained
+variance (in non-cumulative and cumulative form), the Eigenvalue, and the Eigenvector for each component. Each of the PCA
+components refer to the newly created, transformed images that are created by running the tool. The amount of explained
+variance associated with each component can be thought of as a measure of how much information content within the original
+multi-spectral data set that a component has. The higher this value is, the more important the component is. This same
+information is presented in graphical form in the <em>scree plot</em>, found at the bottom of the PCA report. The Eigenvalue is
+another measure of the information content of a component and the eigenvector describes the mathematical transformation
+(rotation coordinates) that correspond to a particular component image.</p>
+<p>Factor loadings are also output in a table within the PCA text report (second table). These loading values describe the
+correlation (i.e. <em>r</em> values) between each of the PCA components (columns) and the original images (rows). These values
+show you how the information contained in an image is spread among the components. An analysis of factor loadings can be
+reveal useful information about the data set. For example, it can help to identify groups of similar images.</p>
+<p>PCA is used to reduce the number of band images necessary for classification (i.e. as a data reduction technique), for
+noise reduction, and for change detection applications. When used as a change detection technique, the major PCA components
+tend to be associated with stable elements of the data set while variance due to land-cover change tend to manifest in the
+high-order, 'change components'. When used as a noise reduction technique, an inverse PCA is generally performed, leaving
+out one or more of the high-order PCA components, which account for noise variance.</p>
+<p>Note: the current implementation reads every raster into memory at one time. This is because of the calculation of the
+co-variances. As such, if the entire image stack cannot fit in memory, the tool will likely experience an out-ofs-memory error.
+This tool should be run using the <code>--wd</code> flag to spectify the working directory into which the component images will be
+written.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -14672,7 +14757,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/hydrological_analysis.html#FlowLengthDiff">FlowLengthDiff</a>: Calculates the local maximum absolute difference in downslope flowpath length, useful in mapping drainage divides and ridges. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/image_processing_tools_image_enhancement.html#GammaCorrection">GammaCorrection</a>: Performs a sigmoidal contrast stretch on input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
+<p><a href="available_tools/image_processing_tools_image_enhancement.html#GammaCorrection">GammaCorrection</a>: Performs a gamma correction on an input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools_image_enhancement.html#GaussianContrastStretch">GaussianContrastStretch</a>: Performs a Gaussian contrast stretch on input images. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>

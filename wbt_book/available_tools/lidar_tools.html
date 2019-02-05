@@ -205,7 +205,15 @@
 <p><em>Created</em>: 27/04/2018</p>
 <p><a name="ClipLidarToPolygon"></a></p>
 <a class="header" href="#cliplidartopolygon" id="cliplidartopolygon"><h1>ClipLidarToPolygon</h1></a>
-<p>Clips a LiDAR point cloud to a vector polygon or polygons.</p>
+<p>This tool can be used to isolate, or clip, all of the LiDAR points in a LAS file (<code>--input</code>) contained within
+one or more vector polygon features. The user must specify the name of the input clip file (--polygons), wich
+must be a vector of a Polygon base shape type. The clip file may contain multiple polygon features and polygon hole
+parts will be respected during clipping, i.e. LiDAR points within polygon holes will be removed from the output LAS
+file.</p>
+<p>Use the <a href="./lidar_tools.html#erasepolygonfromlidar"><strong>ErasePolygonFromLidar</strong></a> tool to perform the complementary operation of removing points from a LAS file
+that are contained within a set of polygons.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#erasepolygonfromlidar"><strong>ErasePolygonFromLidar</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#cliprastertopolygon"><strong>ClipRasterToPolygon</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -229,7 +237,15 @@
 <p><em>Created</em>: 25/04/2018</p>
 <p><a name="ErasePolygonFromLidar"></a></p>
 <a class="header" href="#erasepolygonfromlidar" id="erasepolygonfromlidar"><h1>ErasePolygonFromLidar</h1></a>
-<p>Erases (cuts out) a vector polygon or polygons from a LiDAR point cloud.</p>
+<p>This tool can be used to remove, or erase, all of the LiDAR points in a LAS file (<code>--input</code>) contained within
+one or more vector polygon features. The user must specify the name of the input clip file (--polygons), wich
+must be a vector of a Polygon base shape type. The clip file may contain multiple polygon features and polygon hole
+parts will be respected during clipping, i.e. LiDAR points within polygon holes will be remain in the output LAS
+file.</p>
+<p>Use the <a href="./lidar_tools.html#cliplidartopolygon"><strong>ClipLidarToPolygon</strong></a> tool to perform the complementary operation of clipping (isolating) points from a LAS file
+that are contained within a set of polygons, while removing points that lie outside the input polygons.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#cliplidartopolygon"><strong>ClipLidarToPolygon</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#cliprastertopolygon"><strong>ClipRasterToPolygon</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -840,7 +856,11 @@ data and information about the variable length records (VLRs) and geokeys.</p>
 <p><em>Created</em>: June 1, 2017</p>
 <p><a name="LidarJoin"></a></p>
 <a class="header" href="#lidarjoin" id="lidarjoin"><h1>LidarJoin</h1></a>
-<p>Joins multiple LiDAR (LAS) files into a single LAS file.</p>
+<p>This tool can be used to merge multiple LiDAR LAS files into a single output LAS file. Due to their large size,
+LiDAR data sets are often tiled into smaller, non-overlapping tiles. Sometimes it is more convenient to combine
+multiple tiles together for data processing and <a href="./lidar_tools.html#lidarjoin"><strong>LidarJoin</strong></a> can be used for this purpose.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidartile"><strong>LidarTile</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -858,7 +878,7 @@ data and information about the variable length records (VLRs) and geokeys.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_join.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 21, 2017</p>
+<p><em>Created</em>: 21/06/2017</p>
 <p><a name="LidarKappaIndex"></a></p>
 <a class="header" href="#lidarkappaindex" id="lidarkappaindex"><h1>LidarKappaIndex</h1></a>
 <p>This tool performs a kappa index of agreement (KIA) analysis on the classification values of two LiDAR
@@ -1177,12 +1197,19 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <p><em>Created</em>: February 6, 2018</p>
 <p><a name="LidarTile"></a></p>
 <a class="header" href="#lidartile" id="lidartile"><h1>LidarTile</h1></a>
-<p>Tiles a LiDAR LAS file into multiple LAS files.</p>
+<p>This tool can be used to break a LiDAR LAS file into multiple, non-overlapping tiles, each saved as a
+single LAS file. The user must specify the parameter of the tile grid, including its origin (<code>--origin_x</code> and
+<code>--origin_y</code>) and the tile width and height (<code>--width</code> and <code>--height</code>). Tiles containing fewer points than
+specified in the <code>--min_points</code> parameter will not be output. This can be useful when tiling terrestrial LiDAR
+datasets because the low point density at the edges of the point cloud (i.e. most distant from the scan
+station) can result in poorly populated tiles containing relatively few points.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarjoin"><strong>LidarJoin</strong></a>, <a href="./lidar_tools.html#lidartilefootprint"><strong>LidarTileFootprint</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
-<tr><td>--width_x          </td><td> Width of tiles in the X dimension; default 1000.0</td></tr>
-<tr><td>--width_y          </td><td> Width of tiles in the Y dimension</td></tr>
+<tr><td>--width            </td><td> Width of tiles in the X dimension; default 1000.0</td></tr>
+<tr><td>--height           </td><td> Height of tiles in the Y dimension</td></tr>
 <tr><td>--origin_x         </td><td> Origin point X coordinate for tile grid</td></tr>
 <tr><td>--origin_y         </td><td> Origin point Y coordinate for tile grid</td></tr>
 <tr><td>--min_points       </td><td> Minimum number of points contained in a tile for it to be saved</td></tr>
@@ -1190,8 +1217,8 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">lidar_tile(
     i, 
-    width_x=1000.0, 
-    width_y=1000.0, 
+    width=1000.0, 
+    height=1000.0, 
     origin_x=0.0, 
     origin_y=0.0, 
     min_points=2, 
@@ -1199,15 +1226,23 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarTile -v -i=/path/to/data/input.las ^
---width_x=1000.0 --width_y=2500.0 -=min_points=100 
+--width=1000.0 --height=2500.0 -=min_points=100 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="LidarTileFootprint"></a></p>
 <a class="header" href="#lidartilefootprint" id="lidartilefootprint"><h1>LidarTileFootprint</h1></a>
-<p>Creates a vector polygon of the convex hull of a LiDAR point cloud. When the input/output parameters
-are not specified, the tool works with all LAS files contained within the working directory.</p>
+<p>This tool can be used to create a vector polygon of the convex hull of a LiDAR point cloud (i.e. LAS file).
+If the user specified an input file (<code>--input</code>) and output file (<code>--output</code>), the tool will calculate the convex
+hull, containing all of the data points, and output this feature to a vector polygon file. If the <code>input</code> and
+<code>output</code> parameters are left unspecified, the tool will calculate the hulls of every LAS file contained within the
+working directory and output these features to a single vector polygon file. If this is the desired mode of
+operation, it is important to specify the working directory (<code>--wd</code>) containing the group of LAS files; do not
+specify the optional <code>--input</code> and <code>--output</code> parameters in this case. Each polygon in the output vector will contain
+a <code>LAS_NM</code> field, specifying the source LAS file name, and a <code>NUM_PNTS</code> field, containing the number of points
+within the source file. This output can therefore be useful to create an index map of a large tiled LiDAR dataset.</p>
+<p><a href="./lidar_tools.html#lidartile"><strong>LidarTile</strong></a>, <a href="./gis_analysis.html#layerfootprint"><strong>LayerFootprint</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
