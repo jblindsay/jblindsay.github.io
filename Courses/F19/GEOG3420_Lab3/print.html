@@ -257,7 +257,10 @@ print(&quot;All done!&quot;)
 <p>1.1. Describe the impact that stretching the intensity and saturation bands had on the natural-colour composite image. Include a screenshot of the enhanced image with your final report. <strong>(3 marks)</strong></p>
 <p>1.2. How much did we clip the tails of the intensity and saturation bands by? <strong>(2 marks)</strong></p>
 </blockquote>
-<p>Now experiment with adjusting each of the intensity and saturation stretch parameters (i.e. <code>clip</code> and <code>tail</code> values in the <code>percentage_contrast_stretch</code> function) to see if you can further refine the image quality. Include the colour composite resulting from your best (most refined) transformation and also include the final stretch parameter values used to create the image. <strong>(3 marks)</strong></p>
+<p>Now experiment with adjusting each of the intensity and saturation stretch parameters (i.e. <code>clip</code> and <code>tail</code> values in the <code>percentage_contrast_stretch</code> function) to see if you can further refine the image quality.</p>
+<blockquote>
+<p>Include the colour composite resulting from your best (most refined) transformation and also include the final stretch parameter values used to create the image. <strong>(3 marks)</strong></p>
+</blockquote>
 <p>The <code>enhance</code> optional parameter used in the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool performs an automated adjustment similar to the HSI-transform based stretch of the composite image. However, when we need more control over this adjustment, manually manipulating the HSI values as we have above is our best option.</p>
 <a class="header" href="#part-2-principal-component-analysis" id="part-2-principal-component-analysis"><h1>Part 2: Principal Component Analysis</h1></a>
 <p>This part of the lab exercise is designed to familiarize students with Principal Component Analysis (PCA) for multispectral imagery.</p>
@@ -266,8 +269,9 @@ print(&quot;All done!&quot;)
 </blockquote>
 <a class="header" href="#correlation-among-multispectral-images" id="correlation-among-multispectral-images"><h2>Correlation Among Multispectral Images</h2></a>
 <p>Correlation is a statistical technique that is used to evaluate the degree of association between two variables. Correlation, usually designated by the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson <em>r</em> value</a>, can be positive (indicating that as variable <em>X</em> increases in value variable <em>Y</em> also tends to increase) or negative (as <em>X</em> increases, <em>Y</em> tends to decrease in value). Correlation values vary from -1, indicating a strong negative association between variables, and 1, indicating a strong positive association. An <em>r</em>-value of 0 indicates that there is no statistical association between the two test variables.</p>
-<p>Correlation provides a valuable tool for assessing the degree to which the brightness values in different bands of multispectral imagery are associated with one another. Use WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#ImageCorrelation"><strong>ImageCorrelation</strong></a> tool to generate the correlation matrix for each of the bands ofthe K-W/Cambridge/Guelph Landsat 8 scene. Include the correlation matrix with your final lab report <strong>(1 mark)</strong>.</p>
+<p>Correlation provides a valuable tool for assessing the degree to which the brightness values in different bands of multispectral imagery are associated with one another. Use WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#ImageCorrelation"><strong>ImageCorrelation</strong></a> tool to generate the correlation matrix for each of the bands ofthe K-W/Cambridge/Guelph Landsat 8 scene.</p>
 <blockquote>
+<p>Include the correlation matrix with your final lab report <strong>(1 mark)</strong>.</p>
 <p>2.1. Using the generated correlation matrix identify any groups of images that exhibit strong correlation, i.e. <em>r</em>-values of 0.9 or greater and -0.9 or less? <strong>(3 marks)</strong></p>
 <p>2.2. Which of the seven bands is the most unique, i.e. does not exhibit a high degree of correlation with any other bands in the data set? <strong>(1 mark)</strong></p>
 </blockquote>
@@ -293,8 +297,9 @@ wbt.principal_component_analysis(
     standardized=False
 )
 </code></pre>
-<p>Several outputs will be generated when the tool has completed. An HTML PCA report will be created and, hopefully, automatically displayed. This report contains useful data to help us interpret the results of the analysis. The first table that is in the PCA report lists the amount of explained variance (in non-cumulative and cumulative form), the eigenvalue, and the eigenvector for each component. Yikes, that's a lot of jargon that you're probably unfamiliar with! Okay, take a deep breath and let's look at it more closely. First of all, each of the seven components refer to the seven newly created, transformed images that we have created by running this tool. You can think of the amount of explained variance associated with each component as a measure of how much information content within the original multi-spectral data set that a component has. The higher this value is, the more important the component is. In fact, this same information is presented in graphical form in the <em>Scree Plot</em> that was also output when the tool completed. Include the PCA report table and the scree plot in your final report <strong>(2 marks)</strong>.</p>
+<p>Several outputs will be generated when the tool has completed. An HTML PCA report will be created and, hopefully, automatically displayed. This report contains useful data to help us interpret the results of the analysis. The first table that is in the PCA report lists the amount of explained variance (in non-cumulative and cumulative form), the eigenvalue, and the eigenvector for each component. Yikes, that's a lot of jargon that you're probably unfamiliar with! Okay, take a deep breath and let's look at it more closely. First of all, each of the seven components refer to the seven newly created, transformed images that we have created by running this tool. You can think of the amount of explained variance associated with each component as a measure of how much information content within the original multi-spectral data set that a component has. The higher this value is, the more important the component is. In fact, this same information is presented in graphical form in the <em>Scree Plot</em> that was also output when the tool completed.</p>
 <blockquote>
+<p>Include the PCA report table and the scree plot in your final report <strong>(2 marks)</strong>.</p>
 <p>2.3. How does the amount of information, i.e. explained variance, vary by component number? <strong>(1 mark)</strong></p>
 </blockquote>
 <p>The eigenvalue is really just a related measure of information content and the eigenvector simply describes the mathematical transformation (rotation coordinates) that correspond to a particular component image. Neither of these two things are all that important for us now. They are necessary if you ever want to perform an <em>inverse PCA</em>, taking the components, or a subset of them, and transforming them back into the original coordinate system. This is sometimes a useful thing to do if you are using PCA for noise reduction applications.</p>
@@ -311,7 +316,11 @@ wbt.principal_component_analysis(
 <blockquote>
 <p>2.7. Do the factor loadings reveal any natural groupings of similar images? If so, identify the groupings. <strong>(2 marks)</strong></p>
 </blockquote>
-<p>You may recall that near the start of this section I said that PCA transforms the original image data set into a set of uncorrelated images. You will want to run the <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#ImageCorrelation"><strong>ImageCorrelation</strong></a> tool on the seven PCA components to confirm that this is the case and include the correlation results in your final report <strong>(1 mark)</strong>. PCA is one heck of a nifty trick, isn't it?</p>
+<p>You may recall that near the start of this section I said that PCA transforms the original image data set into a set of uncorrelated images.</p>
+<blockquote>
+<p>You will want to run the <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#ImageCorrelation"><strong>ImageCorrelation</strong></a> tool on the seven PCA components to confirm that this is the case and include the correlation results in your final report <strong>(1 mark)</strong>.</p>
+</blockquote>
+<p>PCA is one heck of a nifty trick, isn't it?</p>
 <a class="header" href="#creating-a-pca-composite-image" id="creating-a-pca-composite-image"><h2>Creating a PCA Composite Image</h2></a>
 <p>By creating a colour-composite image of the first three PCA components (i.e <em>PCA_component1</em>, <em>PCA_component2</em>, <em>PCA_component3</em>), we are able to create a colour image that contains almost the same amount of information as the entire original data set of seven bands. Similarly, a colour composite of three of the higher PCA components (i.e <em>PCA_component5</em>, <em>PCA_component6</em>, <em>PCA_component7</em>), alows us to exam the <em>noise</em> parts of the data set. Use the following script to generate these two colour-composite images.</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
@@ -354,8 +363,9 @@ wbt.create_colour_composite(
 print(&quot;All done!&quot;)
 
 </code></pre>
-<p>Once the script has completed, display <code>PCA123RGB.tif</code> and <code>PCA567RGB.tif</code> in the data visualization software. Include screenshots of these two images with your final Lab report <strong>(2 marks)</strong>.</p>
+<p>Once the script has completed, display <code>PCA123RGB.tif</code> and <code>PCA567RGB.tif</code> in the data visualization software.</p>
 <blockquote>
+<p>Include screenshots of these two images with your final Lab report <strong>(2 marks)</strong>.</p>
 <p>2.8. What colours are the various common land-covers in the scene, including pavement (urban), bare soil, crop cover, forest, and water, displayed with in the 'signal-component' image (<code>PCA123RGB.tif</code>)? Hint: it may help to look at your enhanced natural-colour composite image to pick out sites with these various land-covers. <strong>(5 marks)</strong></p>
 <p>2.9. Examining the noise-component image (<code>PCA567RGB.tif</code>), describe the relative noise content within urban vs rural areas within the scene. <strong>(2 marks)</strong></p>
 </blockquote>
@@ -447,7 +457,7 @@ print(&quot;All done!&quot;)
 </blockquote>
 <p>Modify the script again, this time change the filter tool to perform a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MedianFilter"><strong>MedianFilter</strong></a> (be sure to look at the help documentation description of tool parameters; use <code>sig_digits=0</code>) and a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter"><strong>EdgePreservingMeanFilter</strong></a> (use parameters <code>threshold=40</code> and <code>filter=7</code>).</p>
 <blockquote>
-<p>3.3. How do the median and edge-preserving mean filters compare, with respect to their ability to smooth patches while preserving edges and linear features, to the earlier 7 × 7 mean filter? <em>(4 marks)</em></p>
+<p>3.3. How do the median and edge-preserving mean filters compare, with respect to their ability to smooth patches while preserving edges and linear features, to the earlier 7 × 7 mean filter? <strong>(4 marks)</strong></p>
 </blockquote>
 <a class="header" href="#edge-detection" id="edge-detection"><h3>Edge Detection</h3></a>
 <p>Spatial convolution filters can be used for many common image processing tasks other than noise reduction. One common task is edge-dection, which is often used during automated mapping operations. Apply a 3 × 3 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#SobelFilter">Sobel edge-detection filter</a> to the <code>natural_colour_hsi.tif</code> image using the following script:</p>
@@ -466,8 +476,9 @@ wbt.sobel_filter(
     clip=1.0
 )
 </code></pre>
-<p>Notice, that unlike the previous filters, there is no need to split the input colour composite image apart before applying the Sobel filter. This tool will work well with the RGB composite input image. When the script has successfully completed, display the resulting image using your data visualization software and include a screenshot of the Sobel image with your Lab report <strong>(1 mark)</strong>.</p>
+<p>Notice, that unlike the previous filters, there is no need to split the input colour composite image apart before applying the Sobel filter. This tool will work well with the RGB composite input image. When the script has successfully completed, display the resulting image using your data visualization software.</p>
 <blockquote>
+<p>Include a screenshot of the Sobel image with your Lab report <strong>(1 mark)</strong>.</p>
 <p>3.4. How well does the filter work to highlight edges between adjacent land-use patches and linear features? <strong>(2 mark)</strong></p>
 </blockquote>
 <p>Modify the Sobel script to run using the <strong>EdgePreservingMeanFilter</strong> colour composite image created in the previous lab part as the input image.</p>

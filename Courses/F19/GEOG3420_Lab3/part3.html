@@ -224,7 +224,7 @@ print(&quot;All done!&quot;)
 </blockquote>
 <p>Modify the script again, this time change the filter tool to perform a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MedianFilter"><strong>MedianFilter</strong></a> (be sure to look at the help documentation description of tool parameters; use <code>sig_digits=0</code>) and a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter"><strong>EdgePreservingMeanFilter</strong></a> (use parameters <code>threshold=40</code> and <code>filter=7</code>).</p>
 <blockquote>
-<p>3.3. How do the median and edge-preserving mean filters compare, with respect to their ability to smooth patches while preserving edges and linear features, to the earlier 7 × 7 mean filter? <em>(4 marks)</em></p>
+<p>3.3. How do the median and edge-preserving mean filters compare, with respect to their ability to smooth patches while preserving edges and linear features, to the earlier 7 × 7 mean filter? <strong>(4 marks)</strong></p>
 </blockquote>
 <a class="header" href="#edge-detection" id="edge-detection"><h3>Edge Detection</h3></a>
 <p>Spatial convolution filters can be used for many common image processing tasks other than noise reduction. One common task is edge-dection, which is often used during automated mapping operations. Apply a 3 × 3 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#SobelFilter">Sobel edge-detection filter</a> to the <code>natural_colour_hsi.tif</code> image using the following script:</p>
@@ -243,8 +243,9 @@ wbt.sobel_filter(
     clip=1.0
 )
 </code></pre>
-<p>Notice, that unlike the previous filters, there is no need to split the input colour composite image apart before applying the Sobel filter. This tool will work well with the RGB composite input image. When the script has successfully completed, display the resulting image using your data visualization software and include a screenshot of the Sobel image with your Lab report <strong>(1 mark)</strong>.</p>
+<p>Notice, that unlike the previous filters, there is no need to split the input colour composite image apart before applying the Sobel filter. This tool will work well with the RGB composite input image. When the script has successfully completed, display the resulting image using your data visualization software.</p>
 <blockquote>
+<p>Include a screenshot of the Sobel image with your Lab report <strong>(1 mark)</strong>.</p>
 <p>3.4. How well does the filter work to highlight edges between adjacent land-use patches and linear features? <strong>(2 mark)</strong></p>
 </blockquote>
 <p>Modify the Sobel script to run using the <strong>EdgePreservingMeanFilter</strong> colour composite image created in the previous lab part as the input image.</p>
