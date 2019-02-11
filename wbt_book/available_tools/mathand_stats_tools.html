@@ -725,6 +725,8 @@ For example, this tool can be used to measure the maximum or average slope gradi
 for each of a group of watersheds (feature definitions). Although the data raster can contain any
 type of data, the feature definition raster must be categorical, i.e. it must define area entities
 using integer values.</p>
+<p>The <code>--stat</code> parameter can take the values, 'average', 'minimum', 'maximum', 'range',
+'standard deviation', or 'total'.</p>
 <p>If an output image name is specified, the tool will assign the descriptive statistic value to
 each of the spatial entities defined in the feature definition raster. If text output is selected,
 an HTML table will be output, which can then be readily copied into a spreadsheet program for
@@ -738,7 +740,7 @@ descriptive statistic.</p>
 <tr><td>-i, --input        </td><td> Input data raster file</td></tr>
 <tr><td>--features         </td><td> Input feature definition raster file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--stat             </td><td> Statistic to extract</td></tr>
+<tr><td>--stat             </td><td> Statistic to extract, including 'average', 'minimum', 'maximum', 'range', 'standard deviation', and 'total'</td></tr>
 <tr><td>--out_table        </td><td> Output HTML Table file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -1471,14 +1473,14 @@ written.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--out_html         </td><td> Output HTML report file</td></tr>
+<tr><td>--out_html, --output</td><td> Output HTML report file</td></tr>
 <tr><td>--num_comp         </td><td> Number of component images to output; &lt;= to num. input images</td></tr>
 <tr><td>--standardized     </td><td> Perform standardized PCA?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">principal_component_analysis(
     inputs, 
-    out_html, 
+    output, 
     num_comp=None, 
     standardized=False, 
     callback=default_callback)
@@ -1486,7 +1488,7 @@ written.</p>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PrincipalComponentAnalysis -v ^
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
---out_html=report.html --num_comp=3 --standardized 
+--output=report.html --num_comp=3 --standardized 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/principal_component_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>

@@ -139,12 +139,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 0.14  <br />
+<p>WhiteboxTools Version 0.14.1  <br />
 Dr. John B. Lindsay © 2017-2019  <br />
 Geomorphometry and Hydrogeomatics Research Group  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-January 4, 2019
+February 10, 2019
 <br />
 <br />
 <br />
@@ -185,7 +185,7 @@ Sponsored by:</p>
 <p>Lindsay, JB. 2014. <a href="https://www.researchgate.net/publication/271205138_The_Whitebox_Geospatial_Analysis_Tools_project_and_open-access_GIS">The Whitebox Geospatial Analysis Tools project and open-access GIS</a>. Proceedings of the GIS Research UK 22nd Annual Conference, The University of Glasgow, 16-18 April, DOI: 10.13140/RG.2.1.1010.8962.</p>
 </div>
 <a class="header" href="#setting-up-whiteboxtool" id="setting-up-whiteboxtool"><h1>Setting Up <em>WhiteboxTool</em></h1></a>
-<p><em>WhiteboxTools</em> is a stand-alone executable command-line program with no actual installation. Simply <a href="http://www.uoguelph.ca/%7Ehydrogeo/WhiteboxTools/index.html">download the appropriate file for your system</a> and decompress the folder. Pre-compiled binaries can be downloaded from the <a href="http://www.uoguelph.ca/%7Ehydrogeo/WhiteboxTools/download.html"><em>Geomorphometry and Hydrogeomatics Research Group</em></a> software web site for various supported operating systems. Depending on your operating system, you may need to grant the <em>WhiteboxTools</em> executable file execution privileges before running it.</p>
+<p><em>WhiteboxTools</em> is a stand-alone executable command-line program with no actual installation. Download the appropriate file for your system from the <a href="https://github.com/jblindsay/whitebox-tools/releases/latest">GitHub site</a> or from the <a href="https://www.uoguelph.ca/%7Ehydrogeo/WhiteboxTools/download.html">Geomorphometry and Hydrogeomatics Research Group homepage</a> and decompress the folder. Pre-compiled binaries can be downloaded for MS Windows, MacOS, and Linux operating systems. Depending on your operating system, you may need to grant the <em>WhiteboxTools</em> executable file execution privileges before running it.</p>
 <p>If you intend to use WhiteboxTools from the <a href="command_prompt.html">command prompt</a> (i.e. a terminal application), you may wish to add the directory containing the WhiteboxTools executable file to your system <strong>PATH</strong> variable. Doing so will greatly simplify usage of the library from your terminal. Instructions for doing this depend on your operating system and can be found on the Internet.</p>
 <p>If you intend to use the <a href="python_scripting/scripting.html">Python programming interface</a> for <em>WhiteboxTools</em> you will need to have <a href="https://www.python.org/downloads/">Python 3</a> installed. Please note that the Python interface will not work correctly with Python 2. If your system has Python 2 as the default Python version, it is possible to install Python 3 alongside your current version. You may need to use the <code>python3</code> command in place of the usual <code>python</code> if this is the case.</p>
 <a class="header" href="#building-whiteboxtools-from-source-code" id="building-whiteboxtools-from-source-code"><h2>Building WhiteboxTools From Source Code</h2></a>
@@ -3251,6 +3251,7 @@ Bulletin, 32(3), 829-839.</p>
 <li><a href="#PolygonLongAxis">PolygonLongAxis</a></li>
 <li><a href="#PolygonPerimeter">PolygonPerimeter</a></li>
 <li><a href="#PolygonShortAxis">PolygonShortAxis</a></li>
+<li><a href="#RasterArea">RasterArea</a></li>
 <li><a href="#RasterCellAssignment">RasterCellAssignment</a></li>
 <li><a href="#Reclass">Reclass</a></li>
 <li><a href="#ReclassEqualInterval">ReclassEqualInterval</a></li>
@@ -4038,6 +4039,9 @@ Voronoi diagram, are mathematically related to convex hulls.</p>
 vector's attribute table (AREA field). The area calculation will account
 for any holes contained within polygons. The vector should be in a
 projected coordinate system.</p>
+<p>To calculate the area of raster polygons, use the <a href="./gis_analysis.html#rasterarea"><strong>RasterArea</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#rasterarea"><strong>RasterArea</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
@@ -4126,6 +4130,45 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_short_axis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
+<p><a name="RasterArea"></a></p>
+<a class="header" href="#rasterarea" id="rasterarea"><h1>RasterArea</h1></a>
+<p>This tools estimates the area of each category, polygon, or patch in an input raster. The input raster must be categorical
+in data scale. Rasters with floating-point cell values are not good candidates for an area analysis. The user must specify
+whether the output is given in <code>grid cells</code> or <code>map units</code> (<code>--units</code>). Map Units are physical units, e.g. if the rasters's
+scale is in metres, areas will report in square-metres. Notice that square-metres can be converted into hectares by dividing
+by 10,000 and into square-kilometres by dividing by 1,000,000. If the input raster is in geographic coordinates (i.e.
+latitude and longitude) a warning will be issued and areas will be estimated based on per-row calculated degree lengths.</p>
+<p>The tool can be run with a raster output (<code>--output</code>), a text output (<code>--out_text</code>), or both. If niether outputs are specified,
+the tool will automatically output a raster named <code>area.tif</code>.</p>
+<p>Zero values in the input raster may be excluded from the area analysis if the <code>--zero_back</code> flag is used.</p>
+<p>To calculate the area of vector polygons, use the <a href="./gis_analysis.html#polygonarea"><strong>PolygonArea</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#polygonarea"><strong>PolygonArea</strong></a>, <a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_text         </td><td> Would you like to output polygon areas to text?</td></tr>
+<tr><td>--units            </td><td> Area units; options include 'grid cells' and 'map units'</td></tr>
+<tr><td>--zero_back        </td><td> Flag indicating whether zero values should be treated as a background</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raster_area(
+    i, 
+    output=None, 
+    out_text=False, 
+    units=&quot;grid cells&quot;, 
+    zero_back=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterArea -v --wd=&quot;/path/to/data/&quot; ^
+-i=input.tif -o=output.tif --out_text --units='grid cells' ^
+--zero_back 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/raster_area.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 10/02/2019</p>
 <p><a name="RasterCellAssignment"></a></p>
 <a class="header" href="#rastercellassignment" id="rastercellassignment"><h1>RasterCellAssignment</h1></a>
 <p>This tool can be used to create a new raster with the same coordinates and dimensions
@@ -7649,8 +7692,8 @@ and saturation is the purity of the color (Koutsias et al., 2000). There are num
 red-green-blue (RGB) to IHS transformation. This tool uses the transformation described by Haydn (1982). Note that,
 based on this transformation, the input IHS values must follow the ranges:</p>
 <blockquote>
-<p>0 &lt; I &lt; 3</p>
-<p>0 &lt; H &lt; 3</p>
+<p>0 &lt; I &lt; 1</p>
+<p>0 &lt; H &lt; 2PI</p>
 <p>0 &lt; S &lt; 1</p>
 </blockquote>
 <p>The output red, green, and blue images will have values ranging from 0 to 255. The user must specify the names of the
@@ -7666,7 +7709,7 @@ Cairo, 599-616.</p>
 <p>Koutsias, N., Karteris, M., and Chuvico, E. (2000). The use of intensity-hue-saturation transformation of Landsat-5 Thematic
 Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sensing, 66(7), 829-840.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
+<p><a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a>, <a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a>, <a href="./image_processing_tools_image_enhancement.html#directdecorrelationstretch"><strong>DirectDecorrelationStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--intensity        </td><td> Input intensity file</td></tr>
@@ -8096,8 +8139,8 @@ is related to the dominant wavelength of light and is perceived as color, and sa
 This tool uses the transformation described by Haydn (1982). Note that, based on this transformation, the output
 IHS values follow the ranges:</p>
 <blockquote>
-<p>0 &lt; I &lt; 3</p>
-<p>0 &lt; H &lt; 3</p>
+<p>0 &lt; I &lt; 1</p>
+<p>0 &lt; H &lt; 2PI</p>
 <p>0 &lt; S &lt; 1</p>
 </blockquote>
 <p>The user must specify the names of the red, green, and blue images (<code>--red</code>, <code>--green</code>, <code>--blue</code>). Importantly, these
@@ -8113,7 +8156,7 @@ Cairo, 599-616.</p>
 <p>Koutsias, N., Karteris, M., and Chuvico, E. (2000). The use of intensity-hue-saturation transformation of Landsat-5 Thematic
 Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sensing, 66(7), 829-840.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./image_processing_tools.html#ihstorgb"><strong>IhsToRgb</strong></a></p>
+<p><a href="./image_processing_tools.html#ihstorgb"><strong>IhsToRgb</strong></a>, <a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a>, <a href="./image_processing_tools_image_enhancement.html#directdecorrelationstretch"><strong>DirectDecorrelationStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--red              </td><td> Input red band image file. Optionally specified if colour-composite not specified</td></tr>
@@ -8159,7 +8202,7 @@ suffixes appended.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input colour composite image file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file (suffixes of '_r', '_g', and '_b' will be appended)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (suffixes of _r, _g, and _b will be appended)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">split_colour_composite(
@@ -8464,7 +8507,20 @@ image.</p>
 <p><em>Created</em>: July 5, 2017</p>
 <p><a name="EdgePreservingMeanFilter"></a></p>
 <a class="header" href="#edgepreservingmeanfilter" id="edgepreservingmeanfilter"><h1>EdgePreservingMeanFilter</h1></a>
-<p>Performs a simple edge-preserving mean filter on an input image.</p>
+<p>This tool performs a type of edge-preserving mean filter operation on an input image (<code>--input</code>). The filter, a
+type of low-pass filter, can be used to emphasize the longer-range variability in an image, effectively acting to
+smooth the image and to reduce noise in the image. The algorithm calculates the average value in a moving window
+centred on each grid cell, including in the averaging only the set of neighbouring values for which the absolute
+value difference with the centre value is less than a specified threshold value (<code>--threshold</code>). It is, therefore,
+similar to the <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, except all neighbours within the threshold difference are equally weighted and
+neighbour distance is not accounted for. Filter kernels are always square, and filter size, is specified using
+the <code>--filter</code> parameter. This dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9...</p>
+<p>This tool works with both greyscale and red-green-blue (RGB) input images. RGB images are decomposed into
+intensity-hue-saturation (IHS) and the filter is applied to the intensity channel. If an RGB image is input, the
+threshold value must be in the range 0.0-1.0 (more likely less than 0.15), where a value of 1.0 would result in an ordinary mean filter
+(<a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>). NoData values in the input image are ignored during filtering.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -8851,17 +8907,20 @@ used to emphasize the longer-range variability in an image, effectively acting t
 useful for reducing the noise in an image. This tool utilizes an integral image approach (Crow, 1984) to ensure highly
 efficient filtering that is invariant to filter size. The algorithm operates by calculating the average value
 in a moving window centred on each grid cell.  Neighbourhood size, or filter size, is specified in the x and y
-dimensions using the <code>--filterx</code> and <code>--filtery</code>flags. These dimensions should be odd, positive integer values,
+dimensions using the <code>--filterx</code> and <code>--filtery</code> flags. These dimensions should be odd, positive integer values,
 e.g. 3, 5, 7, 9... If the kernel filter size is the same in the x and y dimensions, the silent <code>--filter</code> flag
 may be used instead (command-line interface only).</p>
 <p>Although commonly applied in digital image processing, mean filters are
 generally considered to be quite harsh, with respect to their impact on the image, compared to other smoothing
 filters such as the edge-preserving smoothing filters including the <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools_filters.html#olympicfilter"><strong>OlympicFilter</strong></a>,
 <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a> and even <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>.</p>
-<p><a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a> works with both greyscale and red-green-blue (RGB) images. RGB images are
+<p>This tool works with both greyscale and red-green-blue (RGB) images. RGB images are
 decomposed into intensity-hue-saturation (IHS) and the filter is applied to the intensity
 channel. NoData values in the input image are ignored during filtering. NoData values are assigned to all sites beyond
 the raster.</p>
+<p><em>Reference</em>:</p>
+<p>Crow, F. C. (1984, January). Summed-area tables for texture mapping. In ACM SIGGRAPH computer graphics (Vol. 18, No.
+3, pp. 207-212). ACM.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -8885,7 +8944,7 @@ the raster.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mean_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="MedianFilter"></a></p>
 <a class="header" href="#medianfilter" id="medianfilter"><h1>MedianFilter</h1></a>
 <p>This tool performs a median filter on a raster image. Median filters, a type of low-pass filter, can be used to emphasize
@@ -9697,7 +9756,7 @@ of tonal values is determined by the number of palette entries.</p>
 <pre><code class="language-python">percentage_contrast_stretch(
     i, 
     output, 
-    clip=0.0, 
+    clip=1.0, 
     tail=&quot;both&quot;, 
     num_tones=256, 
     callback=default_callback)
@@ -10003,7 +10062,16 @@ that are contained within a set of polygons, while removing points that lie outs
 <p><em>Created</em>: June 19, 2017</p>
 <p><a name="LasToAscii"></a></p>
 <a class="header" href="#lastoascii" id="lastoascii"><h1>LasToAscii</h1></a>
-<p>Converts one or more LAS files into ASCII text files.</p>
+<p>This tool can be used to convert one or more LAS file, containing LiDAR data, into ASCII files. The user must
+specify the name(s) of the input LAS file(s) (<code>--inputs</code>). Each input file will have a coorespondingly named
+output file with a <code>.csv</code> file extension. CSV files are comma separated value files and contain tabular data
+with each column cooresponding to a field in the table and each row a point value. Fields are separated by
+commas in the ASCII formated file. The output point data, each on a seperate line, will take the format:</p>
+<pre><code>x,y,z,intensity,class,return,num_returns,scan_angle&quot;
+</code></pre>
+<p>Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60forabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR point data into a LAS file.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60forabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -10019,7 +10087,7 @@ that are contained within a set of polygons, while removing points that lie outs
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_ascii.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 16, 2017</p>
+<p><em>Created</em>: 16/07/2017</p>
 <p><a name="LasToMultipointShapefile"></a></p>
 <a class="header" href="#lastomultipointshapefile" id="lastomultipointshapefile"><h1>LasToMultipointShapefile</h1></a>
 <p>Converts one or more LAS files into MultipointZ vector Shapefiles. When the input parameter is
@@ -11617,6 +11685,8 @@ For example, this tool can be used to measure the maximum or average slope gradi
 for each of a group of watersheds (feature definitions). Although the data raster can contain any
 type of data, the feature definition raster must be categorical, i.e. it must define area entities
 using integer values.</p>
+<p>The <code>--stat</code> parameter can take the values, 'average', 'minimum', 'maximum', 'range',
+'standard deviation', or 'total'.</p>
 <p>If an output image name is specified, the tool will assign the descriptive statistic value to
 each of the spatial entities defined in the feature definition raster. If text output is selected,
 an HTML table will be output, which can then be readily copied into a spreadsheet program for
@@ -11630,7 +11700,7 @@ descriptive statistic.</p>
 <tr><td>-i, --input        </td><td> Input data raster file</td></tr>
 <tr><td>--features         </td><td> Input feature definition raster file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--stat             </td><td> Statistic to extract</td></tr>
+<tr><td>--stat             </td><td> Statistic to extract, including 'average', 'minimum', 'maximum', 'range', 'standard deviation', and 'total'</td></tr>
 <tr><td>--out_table        </td><td> Output HTML Table file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -12363,14 +12433,14 @@ written.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--out_html         </td><td> Output HTML report file</td></tr>
+<tr><td>--out_html, --output</td><td> Output HTML report file</td></tr>
 <tr><td>--num_comp         </td><td> Number of component images to output; &lt;= to num. input images</td></tr>
 <tr><td>--standardized     </td><td> Perform standardized PCA?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">principal_component_analysis(
     inputs, 
-    out_html, 
+    output, 
     num_comp=None, 
     standardized=False, 
     callback=default_callback)
@@ -12378,7 +12448,7 @@ written.</p>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PrincipalComponentAnalysis -v ^
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
---out_html=report.html --num_comp=3 --standardized 
+--output=report.html --num_comp=3 --standardized 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/principal_component_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -15262,6 +15332,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools_filters.html#RangeFilter">RangeFilter</a>: Assigns each cell in the output grid the range of values in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#RasterArea">RasterArea</a>: Calculates the area of polygons or classes within a raster image. Found in <em>GIS Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis.html#RasterCellAssignment">RasterCellAssignment</a>: Assign row or column number to cells. Found in <em>GIS Analysis</em>.</p>

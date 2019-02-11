@@ -341,7 +341,16 @@ that are contained within a set of polygons, while removing points that lie outs
 <p><em>Created</em>: June 19, 2017</p>
 <p><a name="LasToAscii"></a></p>
 <a class="header" href="#lastoascii" id="lastoascii"><h1>LasToAscii</h1></a>
-<p>Converts one or more LAS files into ASCII text files.</p>
+<p>This tool can be used to convert one or more LAS file, containing LiDAR data, into ASCII files. The user must
+specify the name(s) of the input LAS file(s) (<code>--inputs</code>). Each input file will have a coorespondingly named
+output file with a <code>.csv</code> file extension. CSV files are comma separated value files and contain tabular data
+with each column cooresponding to a field in the table and each row a point value. Fields are separated by
+commas in the ASCII formated file. The output point data, each on a seperate line, will take the format:</p>
+<pre><code>x,y,z,intensity,class,return,num_returns,scan_angle&quot;
+</code></pre>
+<p>Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60forabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR point data into a LAS file.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60forabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -357,7 +366,7 @@ that are contained within a set of polygons, while removing points that lie outs
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_ascii.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 16, 2017</p>
+<p><em>Created</em>: 16/07/2017</p>
 <p><a name="LasToMultipointShapefile"></a></p>
 <a class="header" href="#lastomultipointshapefile" id="lastomultipointshapefile"><h1>LasToMultipointShapefile</h1></a>
 <p>Converts one or more LAS files into MultipointZ vector Shapefiles. When the input parameter is

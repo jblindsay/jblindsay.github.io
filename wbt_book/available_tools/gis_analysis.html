@@ -166,6 +166,7 @@
 <li><a href="#PolygonLongAxis">PolygonLongAxis</a></li>
 <li><a href="#PolygonPerimeter">PolygonPerimeter</a></li>
 <li><a href="#PolygonShortAxis">PolygonShortAxis</a></li>
+<li><a href="#RasterArea">RasterArea</a></li>
 <li><a href="#RasterCellAssignment">RasterCellAssignment</a></li>
 <li><a href="#Reclass">Reclass</a></li>
 <li><a href="#ReclassEqualInterval">ReclassEqualInterval</a></li>
@@ -953,6 +954,9 @@ Voronoi diagram, are mathematically related to convex hulls.</p>
 vector's attribute table (AREA field). The area calculation will account
 for any holes contained within polygons. The vector should be in a
 projected coordinate system.</p>
+<p>To calculate the area of raster polygons, use the <a href="./gis_analysis.html#rasterarea"><strong>RasterArea</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#rasterarea"><strong>RasterArea</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
@@ -1041,6 +1045,45 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_short_axis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
+<p><a name="RasterArea"></a></p>
+<a class="header" href="#rasterarea" id="rasterarea"><h1>RasterArea</h1></a>
+<p>This tools estimates the area of each category, polygon, or patch in an input raster. The input raster must be categorical
+in data scale. Rasters with floating-point cell values are not good candidates for an area analysis. The user must specify
+whether the output is given in <code>grid cells</code> or <code>map units</code> (<code>--units</code>). Map Units are physical units, e.g. if the rasters's
+scale is in metres, areas will report in square-metres. Notice that square-metres can be converted into hectares by dividing
+by 10,000 and into square-kilometres by dividing by 1,000,000. If the input raster is in geographic coordinates (i.e.
+latitude and longitude) a warning will be issued and areas will be estimated based on per-row calculated degree lengths.</p>
+<p>The tool can be run with a raster output (<code>--output</code>), a text output (<code>--out_text</code>), or both. If niether outputs are specified,
+the tool will automatically output a raster named <code>area.tif</code>.</p>
+<p>Zero values in the input raster may be excluded from the area analysis if the <code>--zero_back</code> flag is used.</p>
+<p>To calculate the area of vector polygons, use the <a href="./gis_analysis.html#polygonarea"><strong>PolygonArea</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#polygonarea"><strong>PolygonArea</strong></a>, <a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_text         </td><td> Would you like to output polygon areas to text?</td></tr>
+<tr><td>--units            </td><td> Area units; options include 'grid cells' and 'map units'</td></tr>
+<tr><td>--zero_back        </td><td> Flag indicating whether zero values should be treated as a background</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">raster_area(
+    i, 
+    output=None, 
+    out_text=False, 
+    units=&quot;grid cells&quot;, 
+    zero_back=False, 
+    callback=default_callback)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterArea -v --wd=&quot;/path/to/data/&quot; ^
+-i=input.tif -o=output.tif --out_text --units='grid cells' ^
+--zero_back 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/raster_area.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 10/02/2019</p>
 <p><a name="RasterCellAssignment"></a></p>
 <a class="header" href="#rastercellassignment" id="rastercellassignment"><h1>RasterCellAssignment</h1></a>
 <p>This tool can be used to create a new raster with the same coordinates and dimensions

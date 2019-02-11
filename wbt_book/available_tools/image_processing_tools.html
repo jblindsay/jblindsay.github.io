@@ -333,8 +333,8 @@ and saturation is the purity of the color (Koutsias et al., 2000). There are num
 red-green-blue (RGB) to IHS transformation. This tool uses the transformation described by Haydn (1982). Note that,
 based on this transformation, the input IHS values must follow the ranges:</p>
 <blockquote>
-<p>0 &lt; I &lt; 3</p>
-<p>0 &lt; H &lt; 3</p>
+<p>0 &lt; I &lt; 1</p>
+<p>0 &lt; H &lt; 2PI</p>
 <p>0 &lt; S &lt; 1</p>
 </blockquote>
 <p>The output red, green, and blue images will have values ranging from 0 to 255. The user must specify the names of the
@@ -350,7 +350,7 @@ Cairo, 599-616.</p>
 <p>Koutsias, N., Karteris, M., and Chuvico, E. (2000). The use of intensity-hue-saturation transformation of Landsat-5 Thematic
 Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sensing, 66(7), 829-840.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
+<p><a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a>, <a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a>, <a href="./image_processing_tools_image_enhancement.html#directdecorrelationstretch"><strong>DirectDecorrelationStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--intensity        </td><td> Input intensity file</td></tr>
@@ -780,8 +780,8 @@ is related to the dominant wavelength of light and is perceived as color, and sa
 This tool uses the transformation described by Haydn (1982). Note that, based on this transformation, the output
 IHS values follow the ranges:</p>
 <blockquote>
-<p>0 &lt; I &lt; 3</p>
-<p>0 &lt; H &lt; 3</p>
+<p>0 &lt; I &lt; 1</p>
+<p>0 &lt; H &lt; 2PI</p>
 <p>0 &lt; S &lt; 1</p>
 </blockquote>
 <p>The user must specify the names of the red, green, and blue images (<code>--red</code>, <code>--green</code>, <code>--blue</code>). Importantly, these
@@ -797,7 +797,7 @@ Cairo, 599-616.</p>
 <p>Koutsias, N., Karteris, M., and Chuvico, E. (2000). The use of intensity-hue-saturation transformation of Landsat-5 Thematic
 Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sensing, 66(7), 829-840.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./image_processing_tools.html#ihstorgb"><strong>IhsToRgb</strong></a></p>
+<p><a href="./image_processing_tools.html#ihstorgb"><strong>IhsToRgb</strong></a>, <a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a>, <a href="./image_processing_tools_image_enhancement.html#directdecorrelationstretch"><strong>DirectDecorrelationStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--red              </td><td> Input red band image file. Optionally specified if colour-composite not specified</td></tr>
@@ -843,7 +843,7 @@ suffixes appended.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input colour composite image file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file (suffixes of '_r', '_g', and '_b' will be appended)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (suffixes of _r, _g, and _b will be appended)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">split_colour_composite(

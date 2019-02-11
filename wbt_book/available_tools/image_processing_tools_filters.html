@@ -324,7 +324,20 @@
 <p><em>Created</em>: July 5, 2017</p>
 <p><a name="EdgePreservingMeanFilter"></a></p>
 <a class="header" href="#edgepreservingmeanfilter" id="edgepreservingmeanfilter"><h1>EdgePreservingMeanFilter</h1></a>
-<p>Performs a simple edge-preserving mean filter on an input image.</p>
+<p>This tool performs a type of edge-preserving mean filter operation on an input image (<code>--input</code>). The filter, a
+type of low-pass filter, can be used to emphasize the longer-range variability in an image, effectively acting to
+smooth the image and to reduce noise in the image. The algorithm calculates the average value in a moving window
+centred on each grid cell, including in the averaging only the set of neighbouring values for which the absolute
+value difference with the centre value is less than a specified threshold value (<code>--threshold</code>). It is, therefore,
+similar to the <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, except all neighbours within the threshold difference are equally weighted and
+neighbour distance is not accounted for. Filter kernels are always square, and filter size, is specified using
+the <code>--filter</code> parameter. This dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9...</p>
+<p>This tool works with both greyscale and red-green-blue (RGB) input images. RGB images are decomposed into
+intensity-hue-saturation (IHS) and the filter is applied to the intensity channel. If an RGB image is input, the
+threshold value must be in the range 0.0-1.0 (more likely less than 0.15), where a value of 1.0 would result in an ordinary mean filter
+(<a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>). NoData values in the input image are ignored during filtering.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -711,17 +724,20 @@ used to emphasize the longer-range variability in an image, effectively acting t
 useful for reducing the noise in an image. This tool utilizes an integral image approach (Crow, 1984) to ensure highly
 efficient filtering that is invariant to filter size. The algorithm operates by calculating the average value
 in a moving window centred on each grid cell.  Neighbourhood size, or filter size, is specified in the x and y
-dimensions using the <code>--filterx</code> and <code>--filtery</code>flags. These dimensions should be odd, positive integer values,
+dimensions using the <code>--filterx</code> and <code>--filtery</code> flags. These dimensions should be odd, positive integer values,
 e.g. 3, 5, 7, 9... If the kernel filter size is the same in the x and y dimensions, the silent <code>--filter</code> flag
 may be used instead (command-line interface only).</p>
 <p>Although commonly applied in digital image processing, mean filters are
 generally considered to be quite harsh, with respect to their impact on the image, compared to other smoothing
 filters such as the edge-preserving smoothing filters including the <a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools_filters.html#olympicfilter"><strong>OlympicFilter</strong></a>,
 <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a> and even <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>.</p>
-<p><a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a> works with both greyscale and red-green-blue (RGB) images. RGB images are
+<p>This tool works with both greyscale and red-green-blue (RGB) images. RGB images are
 decomposed into intensity-hue-saturation (IHS) and the filter is applied to the intensity
 channel. NoData values in the input image are ignored during filtering. NoData values are assigned to all sites beyond
 the raster.</p>
+<p><em>Reference</em>:</p>
+<p>Crow, F. C. (1984, January). Summed-area tables for texture mapping. In ACM SIGGRAPH computer graphics (Vol. 18, No.
+3, pp. 207-212). ACM.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./image_processing_tools_filters.html#bilateralfilter"><strong>BilateralFilter</strong></a>, <a href="./image_processing_tools_filters.html#edgepreservingmeanfilter"><strong>EdgePreservingMeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a>, <a href="./image_processing_tools.html#rgbtoihs"><strong>RgbToIhs</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -745,7 +761,7 @@ the raster.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mean_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="MedianFilter"></a></p>
 <a class="header" href="#medianfilter" id="medianfilter"><h1>MedianFilter</h1></a>
 <p>This tool performs a median filter on a raster image. Median filters, a type of low-pass filter, can be used to emphasize
