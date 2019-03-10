@@ -516,13 +516,15 @@ the output raster must be read and written to during the same loop.</p>
 <p><em>Created</em>: 05/07/2017</p>
 <p><a name="ModifiedKMeansClustering"></a></p>
 <a class="header" href="#modifiedkmeansclustering" id="modifiedkmeansclustering"><h1>ModifiedKMeansClustering</h1></a>
-<p>This modified k-means algorithm is similar to that described by Mather (2004).
+<p>This modified k-means algorithm is similar to that described by Mather and Koch (2011).
 The main difference between the traditional k-means and this technique is that the user
 does not need to specify the desired number of classes/clusters prior to running the
 tool. Instead, the algorithm initializes with a very liberal overestimate of the number
 of classes and then merges classes that have cluster centres that are separated by less
 than a user-defined threshold. The main difference between this algorithm and the ISODATA
 technique is that clusters can not be broken apart into two smaller clusters.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#kmeansclustering"><strong>KMeansClustering</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -673,11 +675,11 @@ one of the most common image-derived products in remote sensing, is calculated a
 </blockquote>
 <p>The normalized burn ratio 1 (NBR1) and normalized burn ration 2 (NBR2) are:</p>
 <blockquote>
-<p>NBR = (NIR - SWIR2) / (NIR + SWIR2)</p>
-<p>NBR = (SWIR1 - SWIR2) / (SWIR1 + SWIR2)</p>
+<p>NBR1 = (NIR - SWIR2) / (NIR + SWIR2)</p>
+<p>NBR2 = (SWIR1 - SWIR2) / (SWIR1 + SWIR2)</p>
 </blockquote>
 <p>In addition to NDIs, <em>Simple Ratios</em> of image bands, are also commonly used as inputs to other remote sensing
-applications like image classification. Simple ratios can be calculated using the <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> tool. Division by zeoro,
+applications like image classification. Simple ratios can be calculated using the <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> tool. Division by zero,
 in this case, will result in an output NoData value.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a></p>

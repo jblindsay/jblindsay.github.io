@@ -7403,8 +7403,9 @@ networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
 <p><em>Created</em>: 27/072017</p>
 <p><a name="StochasticDepressionAnalysis"></a></p>
 <a class="header" href="#stochasticdepressionanalysis" id="stochasticdepressionanalysis"><h1>StochasticDepressionAnalysis</h1></a>
-<p>Preforms a stochastic analysis of depressions within a DEM, calculating the
-probability of each cell belonging to a depression.</p>
+<p>This tool performs a stochastic analysis of depressions within a DEM, calculating the
+probability of each cell belonging to a depression. This land-surface prameter
+(p<sub>dep</sub>) has been widely applied in wetland and bottom-land mapping applications.</p>
 <p>This tool differs from the original Whitebox GAT tool in a few significant ways:</p>
 <ol>
 <li>
@@ -7436,7 +7437,7 @@ more processors.</p>
 <p>Lindsay, J. B., &amp; Creed, I. F. (2005). Sensitivity of digital landscapes to artifact depressions in
 remotely-sensed DEMs. Photogrammetric Engineering &amp; Remote Sensing, 71(9), 1029-1036.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#impoundmentsizeindex"><strong>ImpoundmentSizeIndex</strong></a></p>
+<p><a href="./hydrological_analysis.html#impoundmentsizeindex"><strong>ImpoundmentSizeIndex</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -8012,13 +8013,15 @@ the output raster must be read and written to during the same loop.</p>
 <p><em>Created</em>: 05/07/2017</p>
 <p><a name="ModifiedKMeansClustering"></a></p>
 <a class="header" href="#modifiedkmeansclustering" id="modifiedkmeansclustering"><h1>ModifiedKMeansClustering</h1></a>
-<p>This modified k-means algorithm is similar to that described by Mather (2004).
+<p>This modified k-means algorithm is similar to that described by Mather and Koch (2011).
 The main difference between the traditional k-means and this technique is that the user
 does not need to specify the desired number of classes/clusters prior to running the
 tool. Instead, the algorithm initializes with a very liberal overestimate of the number
 of classes and then merges classes that have cluster centres that are separated by less
 than a user-defined threshold. The main difference between this algorithm and the ISODATA
 technique is that clusters can not be broken apart into two smaller clusters.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#kmeansclustering"><strong>KMeansClustering</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -8169,11 +8172,11 @@ one of the most common image-derived products in remote sensing, is calculated a
 </blockquote>
 <p>The normalized burn ratio 1 (NBR1) and normalized burn ration 2 (NBR2) are:</p>
 <blockquote>
-<p>NBR = (NIR - SWIR2) / (NIR + SWIR2)</p>
-<p>NBR = (SWIR1 - SWIR2) / (SWIR1 + SWIR2)</p>
+<p>NBR1 = (NIR - SWIR2) / (NIR + SWIR2)</p>
+<p>NBR2 = (SWIR1 - SWIR2) / (SWIR1 + SWIR2)</p>
 </blockquote>
 <p>In addition to NDIs, <em>Simple Ratios</em> of image bands, are also commonly used as inputs to other remote sensing
-applications like image classification. Simple ratios can be calculated using the <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> tool. Division by zeoro,
+applications like image classification. Simple ratios can be calculated using the <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> tool. Division by zero,
 in this case, will result in an output NoData value.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a></p>
@@ -10539,9 +10542,9 @@ with each column cooresponding to a field in the table and each row a point valu
 commas in the ASCII formated file. The output point data, each on a seperate line, will take the format:</p>
 <pre><code>x,y,z,intensity,class,return,num_returns,scan_angle
 </code></pre>
-<p>Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60forabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR point data into a LAS file.</p>
+<p>Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR point data into a LAS file.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60forabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
+<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -13447,7 +13450,27 @@ are also reported in the output report.</p>
 <p><em>Created</em>: July 6, 2017</p>
 <p><a name="TurningBandsSimulation"></a></p>
 <a class="header" href="#turningbandssimulation" id="turningbandssimulation"><h1>TurningBandsSimulation</h1></a>
-<p>Creates an image containing random values based on a turning-bands simulation.</p>
+<p>This tool can be used to create a random field using the turning bands algorithm. The user must specify
+the name of a base raster image (<code>--base</code>) from which the output raster will derive its geographical
+information, dimensions (rows and columns), and other information. In addition, the range (<code>--range</code>), in
+x-y units, must be specified. The range determines the correlation length of the resulting field. For a
+good description of how the algorithm works, see Carr (2002). The turning bands method creates a number
+of 1-D simulations (called bands) and fuses these together to create a 2-D error field. There is no
+natural stopping condition in this process, so the user must specify the number of bands to create
+(<code>--iterations</code>). The default value of 1000 iterations is reasonable. The fewer iterations used, the
+more prevalent the 1-D simulations will be in the output error image, effectively creating artifacts.
+Run time increases with the number of iterations.</p>
+<p>Turning bands simulation is a commonly applied technique in Monte Carlo style simulations of uncertainty.
+As such, it is frequently run many times during a simulation (often 1000s of times). When this is the
+case, algorithm performance and efficiency are key considerations. One alternative method to efficiently
+generate spatially autcorrelated random fields is to apply the <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a> tool to the
+output of the <a href="./mathand_stats_tools.html#randomfield"><strong>RandomField</strong></a> tool. This can be used to generate a random field with the desired spatial
+characteristics and frequency distribution. This is the alternative approach used by the
+<a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a> tool.</p>
+<p><em>Reference</em>:</p>
+<p>Carr, J. R. (2002). Data visualization in the geosciences. Upper Saddle River, NJ: Prentice Hall. pp. 267.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#randomfield"><strong>RandomField</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a>, <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --base         </td><td> Input base raster file</td></tr>
@@ -13470,10 +13493,17 @@ are also reported in the output report.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/turning_bands.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 14, 2017</p>
+<p><em>Created</em>: 14/07/2017</p>
 <p><a name="Xor"></a></p>
 <a class="header" href="#xor" id="xor"><h1>Xor</h1></a>
-<p>Performs a logical XOR operator on two Boolean raster images.</p>
+<p>This tool is a Boolean operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
+THE FIRST input raster (<code>--input1</code>) has a <em>True</em> value BUT NOT THE SECOND raster (<code>--input2</code>) are assigned
+1 in the output raster, otherwise grid cells are assigned a value of 0. All non-zero values in the input
+rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
+cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
+the output raster (<code>--output</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#not"><strong>Not</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -13493,7 +13523,7 @@ are also reported in the output report.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/xor.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
+<p><em>Created</em>: 2/07/2017</p>
 <p><a name="ZScores"></a></p>
 <a class="header" href="#zscores" id="zscores"><h1>ZScores</h1></a>
 <p>Standardizes the values in an input raster by converting to z-scores.</p>
