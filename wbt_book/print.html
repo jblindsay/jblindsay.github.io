@@ -7948,7 +7948,23 @@ basis of several of <em>WhiteboxTools</em>'s image filters.</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="KMeansClustering"></a></p>
 <a class="header" href="#kmeansclustering" id="kmeansclustering"><h1>KMeansClustering</h1></a>
-<p>Performs a k-means clustering operation on a multi-spectral dataset.</p>
+<p>This tool can be used to perform a k-means clustering operation on two or more input
+images (<code>--inputs</code>), typically several bands of multi-spectral satellite imagery. The
+tool creates two outputs, including the classified image (<code>--output</code> and a classification
+HTML report (<code>--out_html</code>). The user must specify the number of class (<code>--classes</code>), which should be
+known <em>a priori</em>, and the strategy for initializing class clusters (<code>--initialize</code>). The initilization
+strategies include &quot;diagonal&quot; (clusters are initially located randomly along the multi-dimensional diagonal
+of spectral space) and &quot;random&quot; (clusters are initially located randomly throughout spectral space).
+The algorithm will continue updating cluster center locations with each iteration of the process until
+either the user-specified maximum number of iterations (<code>--max_iterations</code>) is reached, or until a
+stability criteria (<code>--class_change</code>) is achieved. The stability criteria is the percent of the total
+number of pixels in the image that are changed among the class values between consecutive iterations.
+Lastly, the user must specify the minimum allowable number of pixels in a cluster (<code>--min_class_size</code>).</p>
+<p>Note, each of the input images must have the same number of rows and columns and the same spatial extent
+because the analysis is performed on a pixel-by-pixel basis. <strong>NoData</strong> values in any of the input images
+will result in the removal of the corresponding pixel from the analysis.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#modifiedkmeansclustering"><strong>ModifiedKMeansClustering</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -8020,6 +8036,9 @@ tool. Instead, the algorithm initializes with a very liberal overestimate of the
 of classes and then merges classes that have cluster centres that are separated by less
 than a user-defined threshold. The main difference between this algorithm and the ISODATA
 technique is that clusters can not be broken apart into two smaller clusters.</p>
+<p><em>Reference</em>:</p>
+<p>Mather, P. M., &amp; Koch, M. (2011). Computer processing of remotely-sensed images: an
+introduction. John Wiley &amp; Sons.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./image_processing_tools.html#kmeansclustering"><strong>KMeansClustering</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -11675,7 +11694,10 @@ within the source file. This output can therefore be useful to create an index m
 <p><a name="Add"></a></p>
 <a class="header" href="#add" id="add"><h1>Add</h1></a>
 <p>This tool creates a new raster in which each grid cell is equal to the addition of the corresponding grid
-cells in two input rasters or one input raster and a constant value.</p>
+cells in two input rasters or one input raster and a constant value. If two images are input, both
+images must possess the same number of rows and columns and spatial extent, as the analysis will be
+carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
+images, the cell will be excluded from the analysis.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -11998,7 +12020,18 @@ read:</p>
 <p><em>Created</em>: August 15, 2017</p>
 <p><a name="CrossTabulation"></a></p>
 <a class="header" href="#crosstabulation" id="crosstabulation"><h1>CrossTabulation</h1></a>
-<p>Performs a cross-tabulation on two categorical images.</p>
+<p>This tool can be used to perform a cross-tabulation on two input raster images (<code>--i1</code> and <code>--i2</code>) containing
+categorical data, i.e. classes. It will output a <a href="https://en.wikipedia.org/wiki/Contingency_table">contingency table</a>
+in HTML format (<code>--output</code>). A contingency table, also known as a cross tabulation or crosstab, is a type of table
+that displays the multivariate frequency distribution of the variables. These tables provide a basic picture of the
+interrelation between two categorical variables and can help find interactions between them. <a href="./mathand_stats_tools.html#crosstabulation"><strong>CrossTabulation</strong></a>
+can provide useful information about the nature of land-use/land-cover (LULC) changes between two dates of classified
+multi-spectral satellite imagery. For example, the extent of urban expansion could be described using the information
+about the extent of pixels in an 'urban' class in Date 2 that were previously assigned to other classes (e.g.
+agricultural LULC categories) in the Date 1 imagery.</p>
+<p>Both input images must share the same grid, as the analysis requires a comparison of a pair of images on a cell-by-cell
+basis. If a grid cell contains a <strong>NoData</strong> value in either of the input images, the cell will be excluded from the
+analysis.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file 1</td></tr>
@@ -12019,7 +12052,7 @@ read:</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cross_tabulation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: Dec. 18, 2017</p>
+<p><em>Created</em>: 18/12/2017</p>
 <p><a name="CumulativeDistribution"></a></p>
 <a class="header" href="#cumulativedistribution" id="cumulativedistribution"><h1>CumulativeDistribution</h1></a>
 <p>Converts a raster image to its cumulative distribution function.</p>
@@ -12065,7 +12098,10 @@ read:</p>
 <p><a name="Divide"></a></p>
 <a class="header" href="#divide" id="divide"><h1>Divide</h1></a>
 <p>This tool creates a new raster in which each grid cell is equal to the division of the corresponding grid
-cells in two input rasters or one input raster and a constant value.</p>
+cells in two input rasters or one input raster and a constant value. If two images are input, both
+images must possess the same number of rows and columns and spatial extent, as the analysis will be
+carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
+images, the cell will be excluded from the analysis.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -12273,7 +12309,28 @@ descriptive statistic.</p>
 <p><em>Created</em>: Dec. 16, 2017</p>
 <p><a name="ImageCorrelation"></a></p>
 <a class="header" href="#imagecorrelation" id="imagecorrelation"><h1>ImageCorrelation</h1></a>
-<p>Performs image correlation on two or more input images.</p>
+<p>This tool can be used to estimate the Pearson product-moment correlation coefficient (<em>r</em>) between two or
+more input images (<code>--inputs</code>). The <em>r</em>-value is a measure of the linear association in the variation of
+the input variables (images, in this case). The coefficient ranges from -1.0, indicated a perfect negative
+linear association, to 1.0, indicated a perfect positive linear association. An <em>r</em>-value of 0.0 indicates
+no correlation between the test variables.</p>
+<p>Note that this index is a measure of the linear association; two variables may be strongly related by a
+non-linear association (e.g. a power function curve) which will lead to an apparent weak association based
+on the Pearson coefficient. In fact, non-linear associations are very common among spatial variables,
+e.g. terrain indices such as slope and contributing area. In such cases, it is advisable that the input
+images are transformed prior to the estimation of the Pearson coefficient, or that an alternative,
+non-parametric statistic be used, e.g. the Spearman rank correlation coefficient.</p>
+<p>The user must specify the names of two or more input images (<code>--inputs</code>). All input images must share the
+same grid, as the coefficient requires a comparison of a pair of images on a grid-cell-by-grid-cell basis.
+If more than two image names are selected, the correlation coefficient will be calculated for each pair of
+images and reported in the HTML output report (<code>--output</code>) as a correlation matrix. Caution must be
+exercised when attempted to estimate the significance of a correlation coefficient derived from image data.
+The very high <em>N</em>-value (essentially the number of pixels in the image pair) means that even small correlation
+coefficients can be found to be statistically significant, despite being practically insignificant.</p>
+<p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
+between images.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -12292,10 +12349,26 @@ descriptive statistic.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_correlation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 3, 2017</p>
+<p><em>Created</em>: 03/09/2017</p>
 <p><a name="ImageRegression"></a></p>
 <a class="header" href="#imageregression" id="imageregression"><h1>ImageRegression</h1></a>
-<p>Performs image regression analysis on two input images.</p>
+<p>This tool performs a bivariate linear regression analysis on two input raster images. The first image
+(<code>--i1</code>) is considered to be the independent variable while the second image (<code>--i2</code>) is considered to
+be the dependent variable in the analysis. Both input images must share the same grid, as the coefficient
+requires a comparison of a pair of images on a grid-cell-by-grid-cell basis. The tool will output an HTML
+report (<code>--output</code>) summarizing the regression model, an Analysis of Variance (ANOVA), and the
+significance of the regression coefficients. The regression residuals can optionally be output as a new
+raster image (<code>--out_residuals</code>) and the user can also optionally specify to standardize the residuals
+(<code>--standardize</code>).</p>
+<p>Note that the analysis performs a linear regression; two variables may be strongly related by a non-linear
+association (e.g. a power function curve) which will lead to an apparently weak fitting regression model.
+In fact, non-linear relations are very common among spatial variables, e.g. terrain indices such as slope
+and contributing area. In such cases, it is advisable that the input images are transformed prior to the
+analysis.</p>
+<p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
+between images.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file (independent variable, X)</td></tr>
@@ -12321,7 +12394,7 @@ descriptive statistic.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_regression.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 27, 2017</p>
+<p><em>Created</em>: 27/09/2017</p>
 <p><a name="InPlaceAdd"></a></p>
 <a class="header" href="#inplaceadd" id="inplaceadd"><h1>InPlaceAdd</h1></a>
 <p>Performs an in-place addition operation (input1 += input2).</p>
@@ -12725,7 +12798,10 @@ statistical significance says nothing about the practical significance of a diff
 <p><a name="Multiply"></a></p>
 <a class="header" href="#multiply" id="multiply"><h1>Multiply</h1></a>
 <p>This tool creates a new raster in which each grid cell is equal to the multiplication (product) of the corresponding grid
-cells in two input rasters or one input raster and a constant value.</p>
+cells in two input rasters or one input raster and a constant value. If two images are input, both
+images must possess the same number of rows and columns and spatial extent, as the analysis will be
+carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
+images, the cell will be excluded from the analysis.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <code>InPlaceMulitply</code></p>
 <p><em>Parameters</em>:</p>
@@ -12951,10 +13027,18 @@ written.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/quantiles.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><a name="RandomField"></a></p>
 <a class="header" href="#randomfield" id="randomfield"><h1>RandomField</h1></a>
-<p>Creates an image containing random values.</p>
+<p>This tool can be used to a raster image filled with random values drawn from a standard normal distribution.
+The values range from appoximately -4.0 to 4.0, with a mean of 0 and a standard deviation of 1.0. The
+dimensions and georeferencing of the output random field (<code>--output</code>) are based on an existing, user-specified
+raster grid (<code>--base</code>). Note that the output field will not possess any spatial autocorrelation. If spatially
+autocorrelated random fields are desired, the <a href="./mathand_stats_tools.html#turningbandssimulation"><strong>TurningBandsSimulation</strong></a> tool is more appropriate, or alternatively,
+the <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a> tool may be used to force spatial autocorrelation onto the distribution of the
+<a href="./mathand_stats_tools.html#randomfield"><strong>RandomField</strong></a> tool.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#turningbandssimulation"><strong>TurningBandsSimulation</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --base         </td><td> Input raster file</td></tr>
@@ -12972,7 +13056,7 @@ written.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/random_field.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="RandomSample"></a></p>
 <a class="header" href="#randomsample" id="randomsample"><h1>RandomSample</h1></a>
 <p>This tool can be used to create a random sample of grid cells. The user specifies
@@ -13237,7 +13321,10 @@ can be a relatively slow operation for larger rasters.</p>
 <p><a name="Subtract"></a></p>
 <a class="header" href="#subtract" id="subtract"><h1>Subtract</h1></a>
 <p>This tool creates a new raster in which each grid cell is equal to the subtraction (difference) of the corresponding grid
-cells in two input rasters or one input raster and a constant value.</p>
+cells in two input rasters or one input raster and a constant value. If two images are input, both
+images must possess the same number of rows and columns and spatial extent, as the analysis will be
+carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
+images, the cell will be excluded from the analysis.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>,  <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -13523,7 +13610,7 @@ the output raster (<code>--output</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/xor.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 2/07/2017</p>
+<p><em>Created</em>: 02/07/2017</p>
 <p><a name="ZScores"></a></p>
 <a class="header" href="#zscores" id="zscores"><h1>ZScores</h1></a>
 <p>Standardizes the values in an input raster by converting to z-scores.</p>

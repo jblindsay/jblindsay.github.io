@@ -451,7 +451,23 @@ basis of several of <em>WhiteboxTools</em>'s image filters.</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="KMeansClustering"></a></p>
 <a class="header" href="#kmeansclustering" id="kmeansclustering"><h1>KMeansClustering</h1></a>
-<p>Performs a k-means clustering operation on a multi-spectral dataset.</p>
+<p>This tool can be used to perform a k-means clustering operation on two or more input
+images (<code>--inputs</code>), typically several bands of multi-spectral satellite imagery. The
+tool creates two outputs, including the classified image (<code>--output</code> and a classification
+HTML report (<code>--out_html</code>). The user must specify the number of class (<code>--classes</code>), which should be
+known <em>a priori</em>, and the strategy for initializing class clusters (<code>--initialize</code>). The initilization
+strategies include &quot;diagonal&quot; (clusters are initially located randomly along the multi-dimensional diagonal
+of spectral space) and &quot;random&quot; (clusters are initially located randomly throughout spectral space).
+The algorithm will continue updating cluster center locations with each iteration of the process until
+either the user-specified maximum number of iterations (<code>--max_iterations</code>) is reached, or until a
+stability criteria (<code>--class_change</code>) is achieved. The stability criteria is the percent of the total
+number of pixels in the image that are changed among the class values between consecutive iterations.
+Lastly, the user must specify the minimum allowable number of pixels in a cluster (<code>--min_class_size</code>).</p>
+<p>Note, each of the input images must have the same number of rows and columns and the same spatial extent
+because the analysis is performed on a pixel-by-pixel basis. <strong>NoData</strong> values in any of the input images
+will result in the removal of the corresponding pixel from the analysis.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#modifiedkmeansclustering"><strong>ModifiedKMeansClustering</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -523,6 +539,9 @@ tool. Instead, the algorithm initializes with a very liberal overestimate of the
 of classes and then merges classes that have cluster centres that are separated by less
 than a user-defined threshold. The main difference between this algorithm and the ISODATA
 technique is that clusters can not be broken apart into two smaller clusters.</p>
+<p><em>Reference</em>:</p>
+<p>Mather, P. M., &amp; Koch, M. (2011). Computer processing of remotely-sensed images: an
+introduction. John Wiley &amp; Sons.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./image_processing_tools.html#kmeansclustering"><strong>KMeansClustering</strong></a></p>
 <p><em>Parameters</em>:</p>
