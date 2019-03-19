@@ -139,12 +139,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 0.14.1  <br />
+<p>WhiteboxTools Version 0.15.1  <br />
 Dr. John B. Lindsay © 2017-2019  <br />
 Geomorphometry and Hydrogeomatics Research Group  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-February 10, 2019
+March 10, 2019
 <br />
 <br />
 <br />
@@ -498,10 +498,7 @@ print(&quot;Complete!&quot;)
 <a class="header" href="#interfacing-with-r" id="interfacing-with-r"><h1>Interfacing With <em>R</em></h1></a>
 <p>In addition to the Python interface, the <em>WhiteboxTools</em> library is also accessible from an <a href="https://www.r-project.org/"><em>R</em></a> language package. <em>R</em> is a common programming language used within the statistical and scientific computing communities and the <em>R WhiteboxTools</em> package targets these groups. Prof. <a href="https://lidarblog.com/index.html">Qiusheng Wu</a>, at Binghamton University (SUNY) maintains the <em>R</em> package.</p>
 <a class="header" href="#installation" id="installation"><h2>Installation</h2></a>
-<p><em>WhiteboxTools</em> is available on <a href="https://cran.r-project.org/">CRAN</a> and can be installed with the command:</p>
-<pre><code class="language-python">install.packages(&quot;whitebox&quot;)
-</code></pre>
-<p>Or if you prefer R-Forge:</p>
+<p><em>WhiteboxTools</em> is available on <a href="https://r-forge.r-project.org/">R-Forge</a> and can be installed with the command:</p>
 <pre><code class="language-python">install.packages(&quot;whitebox&quot;, repos=&quot;http://R-Forge.R-project.org&quot;)
 </code></pre>
 <p>You can alternatively install the development version of the <em>R</em> package <strong>whitebox</strong> from the <a href="https://github.com/giswqs/whiteboxR">GitHub repository</a> as follows:</p>
@@ -4209,7 +4206,24 @@ image (<code>--input</code>).</p>
 <p><em>Created</em>: August 10, 2017</p>
 <p><a name="Reclass"></a></p>
 <a class="header" href="#reclass" id="reclass"><h1>Reclass</h1></a>
-<p>Reclassifies the values in a raster image.</p>
+<p>This tool creates a new raster in which the value of each grid cell is determined by an input raster (<code>--input</code>) and a
+collection of user-defined classes. The user must specify the <em>New</em> value, the <em>From</em> value, and the <em>To Just Less Than</em>
+value of each class triplet of the reclass string. Classes must be mutually exclusive, i.e. non-overlapping. For example:</p>
+<blockquote>
+<p>--reclass_vals='0.0;0.0;1.0;1.0;1.0;2.0'</p>
+</blockquote>
+<p>The above reclass string assigns 0.0 to all grid cells in the input image with values from 0.0-1.0 and an output
+value of 1.0 from to inputs from 1.0-2.0. Alternatively, if the <code>--assign_mode</code> flag is specified, <a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a> will
+operate in assign mode, using a reclass string composed of paired values:</p>
+<blockquote>
+<p>--reclass_vals='0.0;1.0;1.0;2.0'</p>
+</blockquote>
+<p>Here, 0.0 is assigned to input grid cell values of 1.0 and 1.0 is output for all input cells with a value of 2.0.</p>
+<p>Any values in the input raster that do not fall within one of the classes will be assigned its original value in the
+output raster. NoData values in the input raster will be assigned NoData values in the output raster, unless NoData is
+used in one of the user-defined reclass ranges (notice that it is valid to enter 'NoData' in these ranges).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#reclassequalinterval"><strong>ReclassEqualInterval</strong></a>, <a href="./gis_analysis.html#reclassfromfile"><strong>ReclassFromFile</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -4236,10 +4250,16 @@ image (<code>--input</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 9, 2017</p>
+<p><em>Created</em>: 09/09/2017</p>
 <p><a name="ReclassEqualInterval"></a></p>
 <a class="header" href="#reclassequalinterval" id="reclassequalinterval"><h1>ReclassEqualInterval</h1></a>
-<p>Reclassifies the values in a raster image based on equal-ranges.</p>
+<p>This tool reclassifies the values in an input raster (<code>--input</code>) file based on an equal-interval scheme, where the
+user must specify the reclass interval value (<code>--interval</code>), the starting value (<code>--start_val</code>), and optionally,
+the ending value (<code>--end_val</code>). Grid cells containing values that fall outside of the range defined by the starting
+and ending values, will be assigned their original values in the output grid. If the user does not specify an ending
+value, the tool will assign a very large positive value.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a>, <a href="./gis_analysis.html#reclassfromfile"><strong>ReclassFromFile</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -4264,10 +4284,22 @@ image (<code>--input</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass_equal_interval.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><a name="ReclassFromFile"></a></p>
 <a class="header" href="#reclassfromfile" id="reclassfromfile"><h1>ReclassFromFile</h1></a>
-<p>Reclassifies the values in a raster image using reclass ranges in a text file.</p>
+<p>This tool creates a new raster image in which the value of each grid cell is determined by the values in an
+input raster image (<code>--input</code>) and a reclass file (<code>--reclass_file</code>). The reclass file is a text file
+containing two or three columns, delimited (i.e. separated) by either a space, tab, or comma. The columns
+describe respectively the <em>New</em> value, the <em>From</em> value, and the <em>To Just Less Than</em> value. Classes must be
+mutually exclusive, i.e. non-overlapping.</p>
+<p>If only two columns are present in the reclass file, i.e. the <em>From</em> column is left blank, the tool will
+operate in assign mode. That is, any cell in the input image that is equal to the <em>From</em> value (contained
+in the second column) will be assigned the <em>New</em> value (contained in the first column) in the output image.</p>
+<p>Any values in the input raster that do not fall within one of the classes will be assigned its original
+value in the output raster. TNoData values in the input raster will be assigned NoData values in the output
+raster.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a>, <a href="./gis_analysis.html#reclassequalinterval"><strong>ReclassEqualInterval</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -4288,7 +4320,7 @@ image (<code>--input</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass_from_file.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 10, 2017</p>
+<p><em>Created</em>: 10/09/2017</p>
 <p><a name="SmoothVectors"></a></p>
 <a class="header" href="#smoothvectors" id="smoothvectors"><h1>SmoothVectors</h1></a>
 <p>This tool smooths a vector coverage of either a POLYLINE or POLYGON base ShapeType. The algorithm
@@ -6501,7 +6533,7 @@ stream mapping methods, i.e. contributing area thresholding. Stream cells are de
 non-zero values. The output of this tool, along with the <a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a> tool, can be useful for preliminary
 flood plain mapping when combined with high-accuracy DEM data.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a></p>
+<p><a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a>, <a href="./stream_network_analysis.html#distancetooutlet"><strong>DistanceToOutlet</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -13764,7 +13796,18 @@ scale, i.e. it should be on a continuous scale.</p>
 </ul>
 <p><a name="DistanceToOutlet"></a></p>
 <a class="header" href="#distancetooutlet" id="distancetooutlet"><h1>DistanceToOutlet</h1></a>
-<p>Calculates the distance of stream grid cells to the channel network outlet cell.</p>
+<p>This tool calculates the distance of stream grid cells to the channel network outlet cell for each grid cell belonging to a
+raster stream network. The user must specify the name of a raster containing streams data (<code>--streams</code>), where
+stream grid cells are denoted by all positive non-zero values, and a D8 flow pointer (i.e. flow direction) raster
+(<code>--d8_pntr</code>). The pointer image is used to traverse the stream network and must only be created using the D8 algorithm.
+Stream cells are designated in the streams image as all values
+greater than zero. Thus, all non-stream or background grid cells are commonly assigned either zeros or NoData
+values. Background cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code>
+parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#downslopedistancetostream"><strong>DownslopeDistanceToStream</strong></a>, <a href="./stream_network_analysis.html#lengthofupstreamchannels"><strong>LengthOfUpstreamChannels</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -13792,10 +13835,27 @@ scale, i.e. it should be on a continuous scale.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/dist_to_outlet.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 13, 2017</p>
+<p><em>Created</em>: 13/07/2017</p>
 <p><a name="ExtractStreams"></a></p>
 <a class="header" href="#extractstreams" id="extractstreams"><h1>ExtractStreams</h1></a>
-<p>Extracts stream grid cells from a flow accumulation raster.</p>
+<p>This tool can be used to extract, or map, the likely stream cells from an input flow-accumulation image
+(<code>--flow_accum</code>). The algorithm applies a threshold to the input flow accumulation image such that streams
+are considered to be all grid cells with accumulation values greater than the specified threshold
+(<code>--threshold</code>). As such, this threshold represents the minimum area (area is used here as a surrogate
+for discharge) required to <em>initiate and maintain a channel</em>. Smaller threshold values result in more
+extensive stream networks and vice versa. Unfortunately there is very little guidance regarding an appropriate
+method for determining the channel initiation area threshold. As such, it is frequently determined either by
+examining map or imagery data or by experimentation until a suitable or desirable channel network is
+identified. Notice that the threshold value will be unique for each landscape and dataset (including source
+and grid resolution), further complicating its <em>a priori</em> determination. There is also evidence that in some
+landscape the threshold is a combined upslope area-slope function. Generally, a lower threshold is appropriate
+in humid climates and a higher threshold is appropriate in areas underlain by more resistant bedrock. Climate
+and bedrock resistance are two factors related to drainage density, i.e. the extent to which a landscape is
+dissected by drainage channels.</p>
+<p>The background value of the ouput raster (<code>--output</code>) will be the NoData value unless the <code>--zero_background</code>
+flag is specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--flow_accum       </td><td> Input raster D8 flow accumulation file</td></tr>
@@ -13818,7 +13878,7 @@ scale, i.e. it should be on a continuous scale.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/extract_streams.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="ExtractValleys"></a></p>
 <a class="header" href="#extractvalleys" id="extractvalleys"><h1>ExtractValleys</h1></a>
 <p>Identifies potential valley bottom grid cells based on local topolography alone.</p>
@@ -13863,7 +13923,7 @@ parameter is used, in which case non-stream cells will be assinged zero values i
 <p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
 If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./stream_network_analysis.html#findmainstem"><strong>FindMainStem</strong></a></p>
+<p><a href="./stream_network_analysis.html#lengthofupstreamchannels"><strong>LengthOfUpstreamChannels</strong></a>, <a href="./stream_network_analysis.html#findmainstem"><strong>FindMainStem</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -14045,7 +14105,18 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><a name="LengthOfUpstreamChannels"></a></p>
 <a class="header" href="#lengthofupstreamchannels" id="lengthofupstreamchannels"><h1>LengthOfUpstreamChannels</h1></a>
-<p>Calculates the total length of channels upstream.</p>
+<p>This tool calculates, for each stream grid cell in an input streams raster (<code>--streams</code>) the
+total length of channels upstream. The user must specify the name of a raster containing streams data (<code>--streams</code>), where
+stream grid cells are denoted by all positive non-zero values, and a D8 flow pointer (i.e. flow direction) raster
+(<code>--d8_pntr</code>). The pointer image is used to traverse the stream network and must only be created using the D8 algorithm.
+Stream cells are designated in the streams image as all values greater than zero. Thus, all non-stream or background
+grid cells are commonly assigned either zeros or NoData values. Background cells will be assigned the NoData value
+in the output image, unless the <code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged
+zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#farthestchannelhead"><strong>FarthestChannelHead</strong></a>, <a href="./stream_network_analysis.html#findmainstem"><strong>FindMainStem</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -14073,7 +14144,7 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/total_length_channels.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="LongProfile"></a></p>
 <a class="header" href="#longprofile" id="longprofile"><h1>LongProfile</h1></a>
 <p>This tool can be used to create a <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> plot.
@@ -14123,7 +14194,18 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>Created</em>: 20/02/2018</p>
 <p><a name="LongProfileFromPoints"></a></p>
 <a class="header" href="#longprofilefrompoints" id="longprofilefrompoints"><h1>LongProfileFromPoints</h1></a>
-<p>Plots the longitudinal profiles from flow-paths initiating from a set of vector points.</p>
+<p>This tool can be used to create a <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> plot
+for a set of vector points (<code>--points</code>).  A longitudinal stream profile is a plot of elevation against downstream
+distance. Most long profiles use distance from channel head as the distance measure. This tool, however, uses the
+distance to the outlet cell, or mouth, as the distance measure.</p>
+<p>The tool outputs an interactive SVG line graph embedded in an HTML document (<code>--output</code>). The user must specify the
+names of a D8 pointer (<code>--d8_pntr</code>) image (flow direction), a vector points file (<code>--points</code>), and a digital
+elevation model (<code>--dem</code>). The pointer image is used to traverse the flow path issuing from each initiation point
+in the vector file; this pointer file should only be created using the D8 algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>).</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#longprofile"><strong>LongProfile</strong></a>, <a href="./geomorphometric_analysis.html#profile"><strong>Profile</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -14494,7 +14576,19 @@ cells will be assinged zero values in the output.</p>
 <p><em>Created</em>: 27/06/2017</p>
 <p><a name="StreamLinkSlope"></a></p>
 <a class="header" href="#streamlinkslope" id="streamlinkslope"><h1>StreamLinkSlope</h1></a>
-<p>Estimates the average slope of each link (or tributary) in a stream network.</p>
+<p>This tool can be used to measure the average slope gradient, in degrees, of each link in a raster stream
+network. To estimate the slope of individual grid cells in a raster stream network, use the
+<a href="./stream_network_analysis.html#streamslopecontinuous"><strong>StreamSlopeContinuous</strong></a> tool instead. The user must specify the names of a stream link identifier raster image (<code>--linkid</code>), a D8
+pointer image (<code>--d8_pntr</code>), and a digital elevation model (<code>--dem</code>). The pointer image is used to traverse the
+stream network and must only be created using the D8 algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>).
+Stream cells are designated in the streams image as all values greater than zero. Thus, all non-stream or background
+grid cells are commonly assigned either zeros or NoData values. Background cells will be assigned the NoData value
+in the output image, unless the <code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged
+zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#streamslopecontinuous"><strong>StreamSlopeContinuous</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
@@ -14525,10 +14619,22 @@ cells will be assinged zero values in the output.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
+<p><em>Created</em>: 27/06/2017</p>
 <p><a name="StreamSlopeContinuous"></a></p>
 <a class="header" href="#streamslopecontinuous" id="streamslopecontinuous"><h1>StreamSlopeContinuous</h1></a>
-<p>Estimates the slope of each grid cell in a stream network.</p>
+<p>This tool can be used to measure the slope gradient, in degrees, each grid cell in a raster stream network. To
+estimate the average slope for each link in a stream network, use the
+<a href="./stream_network_analysis.html#streamlinkslope"><strong>StreamLinkSlope</strong></a> tool instead. The user must specify the names of a stream raster image (<code>--streams</code>), a D8
+pointer image (<code>--d8_pntr</code>), and a digital elevation model (<code>--dem</code>). The pointer image is used to traverse the
+stream network and must only be created using the D8 algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>).
+Stream cells are designated in the streams image as all values greater than zero. Thus, all non-stream or background
+grid cells are commonly assigned either zeros or NoData values. Background cells will be assigned the NoData value
+in the output image, unless the <code>--zero_background</code> parameter is used, in which case non-stream cells will be assinged
+zero values in the output.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./stream_network_analysis.html#streamlinkslope"><strong>StreamLinkSlope</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
