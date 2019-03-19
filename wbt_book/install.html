@@ -143,9 +143,14 @@
 <a class="header" href="#building-whiteboxtools-from-source-code" id="building-whiteboxtools-from-source-code"><h2>Building WhiteboxTools From Source Code</h2></a>
 <p>Most users rely on the pre-compiled versions of WhiteboxTools and will never need to compile the software from its source code. There are two circumstances under which you may find that you need to build your own binary executable: 1) if you need a binary compiled for a platform other than the project-supported operating systems, and 2) if you require a bleeding-edge feature or bug-fix only available in the development branch. It is likely that <em>WhiteboxTools</em> will work on a wider variety of operating systems and architectures than those of the distributed pre-compiled binaries. If you do not find your operating system/architecture in the list of available <em>WhiteboxTool</em> binaries, then compilation from source code will be necessary. WhiteboxTools can be compiled from the source code with the following steps:</p>
 <ol>
-<li>
-<p>Install the Rust compiler; Rustup is recommended for this purpose. Further instruction can be found at this <a href="https://www.rust-lang.org/en-US/install.html">link</a>.</p>
-</li>
+<li>Install the Rust compiler; <strong>Rustup</strong> is recommended for this purpose. Further instruction can be found at this <a href="https://www.rust-lang.org/en-US/install.html">link</a>.</li>
+</ol>
+<p>The proper way to install <strong>Rustup</strong> depends on your operating system and instructions can be found on the <a href="https://www.rust-lang.org/en-US/install.html">Rust install page</a>. For Unix-type OSs (including linux and MacOS), the recommended install command is:</p>
+<p><code>curl https://sh.rustup.rs -sSf | sh</code></p>
+<p>After installing <strong>Rustup</strong>, install the Rust compiler and tools (including the <strong>Cargo</strong> package manager and build tool):</p>
+<p><code>rustup install stable</code></p>
+<p>Note, you may need to install a linker in addition to the Rust compiler (e.g. MS Visual C++ 2015 Build Tools on MS Windows; XCode on MacOS).</p>
+<ol start="2">
 <li>
 <p>Download the <em>WhiteboxTools</em> <a href="https://github.com/jblindsay/whitebox-tools">source code</a>. To download the code, click the green Clone or download button on the GitHub repository site.</p>
 </li>
@@ -159,7 +164,7 @@
 <pre><code>&gt;&gt; cd /path/to/folder/whitebox_tools/
 </code></pre>
 <ol start="5">
-<li>Finally, use the rust package manager Cargo, which will be installed alongside Rust, to compile the executable:</li>
+<li>Finally, use the rust package manager <strong>Cargo</strong>, which will be installed alongside Rust, to compile the executable:</li>
 </ol>
 <pre><code>&gt;&gt; cargo build --release
 </code></pre>
@@ -167,7 +172,7 @@
 <blockquote>
 <p>The '&gt;&gt;' is shorthand used in this document to denote the command prompt and is not intended to be typed.</p>
 </blockquote>
-<p>Be sure to follow the instructions for installing Rust carefully. In particular, if you are installing on Microsoft Windows, you must have a linker installed prior to installing the Rust compiler (<em>rustc</em>). The Rust webpage recommends either the <strong>MS Visual C++ 2015 Build Tools</strong> or the GNU equivalent and offers details for each installation approach. You should also consider using <strong>RustUp</strong> to install the Rust compiler.</p>
+<p>Be sure to follow the instructions for installing Rust carefully. In particular, if you are installing on Microsoft Windows, you must have a linker installed prior to installing the Rust compiler (<em>rustc</em>). The Rust webpage recommends either the <strong>MS Visual C++ 2015 Build Tools</strong> or the GNU equivalent and offers details for each installation approach.</p>
 
                     </main>
 

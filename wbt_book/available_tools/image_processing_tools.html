@@ -550,7 +550,7 @@ introduction. John Wiley &amp; Sons.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--out_html         </td><td> Output HTML report file</td></tr>
 <tr><td>--start_clusters   </td><td> Initial number of clusters</td></tr>
-<tr><td>--merger_dist      </td><td> Cluster merger distance</td></tr>
+<tr><td>--merge_dist       </td><td> Cluster merger distance</td></tr>
 <tr><td>--max_iterations   </td><td> Maximum number of iterations</td></tr>
 <tr><td>--class_change     </td><td> Minimum percent of cells changed between iterations before completion</td></tr>
 </tbody></table>
@@ -560,7 +560,7 @@ introduction. John Wiley &amp; Sons.</p>
     output, 
     out_html=None, 
     start_clusters=1000, 
-    merger_dist=None, 
+    merge_dist=None, 
     max_iterations=10, 
     class_change=2.0, 
     callback=default_callback)
@@ -569,7 +569,7 @@ introduction. John Wiley &amp; Sons.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ModifiedKMeansClustering -v ^
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
 -o=output.tif --out_html=report.html --start_clusters=100 ^
---merger_dist=30.0 --max_iterations=25 --class_change=1.5 
+--merge_dist=30.0 --max_iterations=25 --class_change=1.5 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/modified_k_means_clustering.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -949,7 +949,19 @@ the output raster must be read and written to during the same loop.</p>
 <p><em>Created</em>: 04/07/2017</p>
 <p><a name="TophatTransform"></a></p>
 <a class="header" href="#tophattransform" id="tophattransform"><h1>TophatTransform</h1></a>
-<p>Performs either a white or black top-hat transform on an input image.</p>
+<p>This tool performs either a white or black <a href="https://en.wikipedia.org/wiki/Top-hat_transform">top-hat transform</a>
+on an input image. A top-hat transform is a common digital image processing operation used for various tasks, such
+as feature extraction, background equalization, and image enhancement. The size of the rectangular <em>structuring element</em>
+used in the filtering can be specified using the <code>--filterx</code> and <code>--filtery</code> flags.</p>
+<p>There are two distinct types of top-hat transform including <em>white</em> and <em>black</em> top-hat transforms. The white top-hat
+transform is defined as the difference between the input image and its <a href="https://en.wikipedia.org/wiki/Opening_(morphology)">opening</a>
+by some structuring element. An opening operation is the <a href="https://en.wikipedia.org/wiki/Dilation_(morphology)">dilation</a>
+(maximum filter) of an <a href="https://en.wikipedia.org/wiki/Erosion_(morphology)">erosion</a> (minimum filter) image.
+The black top-hat transform, by comparison, is defined as the difference between the
+<a href="https://en.wikipedia.org/wiki/Closing_(morphology)">closing</a> and the input image. The user specifies which of the two
+flavours of top-hat transform the tool should perform by specifying either 'white' or 'black' with the <code>--variant</code> flag.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#closing"><strong>Closing</strong></a>, <a href="./image_processing_tools.html#opening"><strong>Opening</strong></a>, <a href="./image_processing_tools_filters.html#maximumfilter"><strong>MaximumFilter</strong></a>, <a href="./image_processing_tools_filters.html#minimumfilter"><strong>MinimumFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -973,7 +985,7 @@ the output raster must be read and written to during the same loop.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/tophat.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="WriteFunctionMemoryInsertion"></a></p>
 <a class="header" href="#writefunctionmemoryinsertion" id="writefunctionmemoryinsertion"><h1>WriteFunctionMemoryInsertion</h1></a>
 <p>Jensen (2015) describes write function memory (WFM) insertion as a simple yet effective method of visualizing

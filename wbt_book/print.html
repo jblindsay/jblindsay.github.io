@@ -191,9 +191,14 @@ Sponsored by:</p>
 <a class="header" href="#building-whiteboxtools-from-source-code" id="building-whiteboxtools-from-source-code"><h2>Building WhiteboxTools From Source Code</h2></a>
 <p>Most users rely on the pre-compiled versions of WhiteboxTools and will never need to compile the software from its source code. There are two circumstances under which you may find that you need to build your own binary executable: 1) if you need a binary compiled for a platform other than the project-supported operating systems, and 2) if you require a bleeding-edge feature or bug-fix only available in the development branch. It is likely that <em>WhiteboxTools</em> will work on a wider variety of operating systems and architectures than those of the distributed pre-compiled binaries. If you do not find your operating system/architecture in the list of available <em>WhiteboxTool</em> binaries, then compilation from source code will be necessary. WhiteboxTools can be compiled from the source code with the following steps:</p>
 <ol>
-<li>
-<p>Install the Rust compiler; Rustup is recommended for this purpose. Further instruction can be found at this <a href="https://www.rust-lang.org/en-US/install.html">link</a>.</p>
-</li>
+<li>Install the Rust compiler; <strong>Rustup</strong> is recommended for this purpose. Further instruction can be found at this <a href="https://www.rust-lang.org/en-US/install.html">link</a>.</li>
+</ol>
+<p>The proper way to install <strong>Rustup</strong> depends on your operating system and instructions can be found on the <a href="https://www.rust-lang.org/en-US/install.html">Rust install page</a>. For Unix-type OSs (including linux and MacOS), the recommended install command is:</p>
+<p><code>curl https://sh.rustup.rs -sSf | sh</code></p>
+<p>After installing <strong>Rustup</strong>, install the Rust compiler and tools (including the <strong>Cargo</strong> package manager and build tool):</p>
+<p><code>rustup install stable</code></p>
+<p>Note, you may need to install a linker in addition to the Rust compiler (e.g. MS Visual C++ 2015 Build Tools on MS Windows; XCode on MacOS).</p>
+<ol start="2">
 <li>
 <p>Download the <em>WhiteboxTools</em> <a href="https://github.com/jblindsay/whitebox-tools">source code</a>. To download the code, click the green Clone or download button on the GitHub repository site.</p>
 </li>
@@ -207,7 +212,7 @@ Sponsored by:</p>
 <pre><code>&gt;&gt; cd /path/to/folder/whitebox_tools/
 </code></pre>
 <ol start="5">
-<li>Finally, use the rust package manager Cargo, which will be installed alongside Rust, to compile the executable:</li>
+<li>Finally, use the rust package manager <strong>Cargo</strong>, which will be installed alongside Rust, to compile the executable:</li>
 </ol>
 <pre><code>&gt;&gt; cargo build --release
 </code></pre>
@@ -215,7 +220,7 @@ Sponsored by:</p>
 <blockquote>
 <p>The '&gt;&gt;' is shorthand used in this document to denote the command prompt and is not intended to be typed.</p>
 </blockquote>
-<p>Be sure to follow the instructions for installing Rust carefully. In particular, if you are installing on Microsoft Windows, you must have a linker installed prior to installing the Rust compiler (<em>rustc</em>). The Rust webpage recommends either the <strong>MS Visual C++ 2015 Build Tools</strong> or the GNU equivalent and offers details for each installation approach. You should also consider using <strong>RustUp</strong> to install the Rust compiler.</p>
+<p>Be sure to follow the instructions for installing Rust carefully. In particular, if you are installing on Microsoft Windows, you must have a linker installed prior to installing the Rust compiler (<em>rustc</em>). The Rust webpage recommends either the <strong>MS Visual C++ 2015 Build Tools</strong> or the GNU equivalent and offers details for each installation approach.</p>
 <a class="header" href="#using-whiteboxtools" id="using-whiteboxtools"><h1>Using <em>WhiteboxTools</em></h1></a>
 <p>Users interact with the <em>WhiteboxTools</em> platform either from a <a href="./command_prompt.html">command prompt</a> (i.e. terminal), through the <a href="python_scripting/scripting.html">Python</a> or <a href="./r_interface.html"><em>R</em> language</a> interfaces, or from one of the available <a href="./qgis_plugin.html">graphical user interfaces (GUI)</a> applications.</p>
 <a class="header" href="#command-line-interface" id="command-line-interface"><h1>Command-Line Interface</h1></a>
@@ -8047,7 +8052,7 @@ introduction. John Wiley &amp; Sons.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--out_html         </td><td> Output HTML report file</td></tr>
 <tr><td>--start_clusters   </td><td> Initial number of clusters</td></tr>
-<tr><td>--merger_dist      </td><td> Cluster merger distance</td></tr>
+<tr><td>--merge_dist       </td><td> Cluster merger distance</td></tr>
 <tr><td>--max_iterations   </td><td> Maximum number of iterations</td></tr>
 <tr><td>--class_change     </td><td> Minimum percent of cells changed between iterations before completion</td></tr>
 </tbody></table>
@@ -8057,7 +8062,7 @@ introduction. John Wiley &amp; Sons.</p>
     output, 
     out_html=None, 
     start_clusters=1000, 
-    merger_dist=None, 
+    merge_dist=None, 
     max_iterations=10, 
     class_change=2.0, 
     callback=default_callback)
@@ -8066,7 +8071,7 @@ introduction. John Wiley &amp; Sons.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ModifiedKMeansClustering -v ^
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
 -o=output.tif --out_html=report.html --start_clusters=100 ^
---merger_dist=30.0 --max_iterations=25 --class_change=1.5 
+--merge_dist=30.0 --max_iterations=25 --class_change=1.5 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/modified_k_means_clustering.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -8446,7 +8451,19 @@ the output raster must be read and written to during the same loop.</p>
 <p><em>Created</em>: 04/07/2017</p>
 <p><a name="TophatTransform"></a></p>
 <a class="header" href="#tophattransform" id="tophattransform"><h1>TophatTransform</h1></a>
-<p>Performs either a white or black top-hat transform on an input image.</p>
+<p>This tool performs either a white or black <a href="https://en.wikipedia.org/wiki/Top-hat_transform">top-hat transform</a>
+on an input image. A top-hat transform is a common digital image processing operation used for various tasks, such
+as feature extraction, background equalization, and image enhancement. The size of the rectangular <em>structuring element</em>
+used in the filtering can be specified using the <code>--filterx</code> and <code>--filtery</code> flags.</p>
+<p>There are two distinct types of top-hat transform including <em>white</em> and <em>black</em> top-hat transforms. The white top-hat
+transform is defined as the difference between the input image and its <a href="https://en.wikipedia.org/wiki/Opening_(morphology)">opening</a>
+by some structuring element. An opening operation is the <a href="https://en.wikipedia.org/wiki/Dilation_(morphology)">dilation</a>
+(maximum filter) of an <a href="https://en.wikipedia.org/wiki/Erosion_(morphology)">erosion</a> (minimum filter) image.
+The black top-hat transform, by comparison, is defined as the difference between the
+<a href="https://en.wikipedia.org/wiki/Closing_(morphology)">closing</a> and the input image. The user specifies which of the two
+flavours of top-hat transform the tool should perform by specifying either 'white' or 'black' with the <code>--variant</code> flag.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#closing"><strong>Closing</strong></a>, <a href="./image_processing_tools.html#opening"><strong>Opening</strong></a>, <a href="./image_processing_tools_filters.html#maximumfilter"><strong>MaximumFilter</strong></a>, <a href="./image_processing_tools_filters.html#minimumfilter"><strong>MinimumFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -8470,7 +8487,7 @@ the output raster must be read and written to during the same loop.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/tophat.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 28, 2017</p>
+<p><em>Created</em>: 28/06/2017</p>
 <p><a name="WriteFunctionMemoryInsertion"></a></p>
 <a class="header" href="#writefunctionmemoryinsertion" id="writefunctionmemoryinsertion"><h1>WriteFunctionMemoryInsertion</h1></a>
 <p>Jensen (2015) describes write function memory (WFM) insertion as a simple yet effective method of visualizing
@@ -11875,7 +11892,15 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Created</em>: 29/04/2018</p>
 <p><a name="AttributeHistogram"></a></p>
 <a class="header" href="#attributehistogram" id="attributehistogram"><h1>AttributeHistogram</h1></a>
-<p>Creates a histogram for the field values of a vector's attribute table.</p>
+<p>This tool can be used to create a histogram, which is a graph displaying the frequency
+distribution of data, for the values contained in a field of an input vector's attribute
+table. The user must specify the name of an input vector (<code>--input</code>) and the name of one
+of the fields (<code>--field</code>) contained in the associated attribute table. The tool output
+(<code>--output</code>) is an HTML formated histogram analysis report. If the specified field
+is non-numerical, the tool will produce a bar-chart of class frequency, similar to the
+tabular output of the <a href="./mathand_stats_tools.html#listuniquevalues"><strong>ListUniqueValues</strong></a> tool.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#listuniquevalues"><strong>ListUniqueValues</strong></a>, <a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -11899,7 +11924,13 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Created</em>: 12/04/2018</p>
 <p><a name="AttributeScattergram"></a></p>
 <a class="header" href="#attributescattergram" id="attributescattergram"><h1>AttributeScattergram</h1></a>
-<p>Creates a scattergram for two field values of a vector's attribute table.</p>
+<p>This tool can be used to create a <a href="https://en.wikipedia.org/wiki/Scatter_plot">scattergram</a> for
+two numerical fields (<code>--fieldx</code> and <code>--fieldy</code>) contained within an input vector's attribute
+table (<code>--input</code>). The user must specify the name of an input shapefile and the name of two of
+the fields contained it the associated attribute table. The tool output (<code>--output</code>) is an
+HTML formated report containing a graphical scattergram plot.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -12055,7 +12086,14 @@ analysis.</p>
 <p><em>Created</em>: 18/12/2017</p>
 <p><a name="CumulativeDistribution"></a></p>
 <a class="header" href="#cumulativedistribution" id="cumulativedistribution"><h1>CumulativeDistribution</h1></a>
-<p>Converts a raster image to its cumulative distribution function.</p>
+<p>This tool converts the values in an input image (<code>--input</code>) into
+[cumulative probabilities]<a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative distribution function</a>.
+Therefore, the output raster (<code>--output</code>) will contain the cumulative probability value (0-1) of
+of values equal to or less than the value in the corresponding grid cell in the input image. NoData
+values in the input image are not considered during the transformation and remain NoData values in
+the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#zscores"><strong>ZScores</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -12073,10 +12111,14 @@ analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cumulative_dist.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 22 2017</p>
+<p><em>Created</em>: 22/07/2017</p>
 <p><a name="Decrement"></a></p>
 <a class="header" href="#decrement" id="decrement"><h1>Decrement</h1></a>
-<p>Decreases the values of each grid cell in an input raster by 1.0 (see also InPlaceSubtract).</p>
+<p>This tool can be used to decrease the values of each grid cell in an input raster (<code>--input</code>)
+by 1.0. Note that this tool will modify the input raster. If you would rather create a new
+raster file, leaving the input unmodified, use the <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -12094,7 +12136,7 @@ analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/decrement.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="Divide"></a></p>
 <a class="header" href="#divide" id="divide"><h1>Divide</h1></a>
 <p>This tool creates a new raster in which each grid cell is equal to the division of the corresponding grid
@@ -12397,7 +12439,17 @@ between images.</p>
 <p><em>Created</em>: 27/09/2017</p>
 <p><a name="InPlaceAdd"></a></p>
 <a class="header" href="#inplaceadd" id="inplaceadd"><h1>InPlaceAdd</h1></a>
-<p>Performs an in-place addition operation (input1 += input2).</p>
+<p>This tool performs an in-place addition, or increment operation (i.e. <code>input1 += input2</code>). The
+user must specify the names of two input images (<code>--input1</code> and <code>--input2</code>) and the tool will
+add the values of <code>input2</code> to the <code>input1</code> raster on a pixel-by-pixel basis. Therefore, the
+<code>input1</code> raster is modified by this tool. Note that <code>input2</code> may either be an existing raster
+file or a constant value. If <code>input2</code> is a raster, it must have the same dimensions (rows and
+columns) as <code>input1</code>.</p>
+<p>The difference between this tool and the <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a> tool is that <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a> does not modify either of its
+two operands, and instead creates a new output raster to save the resultant value into.</p>
+<p>If <code>input2 = 1</code>, use the <a href="./mathand_stats_tools.html#increment"><strong>Increment</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#increment"><strong>Increment</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -12421,7 +12473,17 @@ between images.</p>
 <p><em>Created</em>: 18/03/2018</p>
 <p><a name="InPlaceDivide"></a></p>
 <a class="header" href="#inplacedivide" id="inplacedivide"><h1>InPlaceDivide</h1></a>
-<p>Performs an in-place division operation (input1 /= input2).</p>
+<p>This tool performs an in-place division operation (i.e. <code>input1 /= input2</code>). The
+user must specify the names of two input images (<code>--input1</code> and <code>--input2</code>) and the tool will
+divide the <code>input1</code> raster by the <code>input2</code> values on a pixel-by-pixel basis. Therefore, the
+<code>input1</code> raster is modified by this tool. Note that <code>input2</code> may either be an existing raster
+file or a non-zero constant value. If <code>input2</code> is a raster, it must have the same dimensions (rows and
+columns) as <code>input1</code>. Zero-valued pixels in <code>input2</code> will be assigned the NoData value in
+<code>input1</code> after this operation.</p>
+<p>The difference between this tool and the <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> tool is that <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> does not modify either of its
+two operands, and instead creates a new output raster to save the resultant value into.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -12445,7 +12507,16 @@ between images.</p>
 <p><em>Created</em>: 18/03/2018</p>
 <p><a name="InPlaceMultiply"></a></p>
 <a class="header" href="#inplacemultiply" id="inplacemultiply"><h1>InPlaceMultiply</h1></a>
-<p>Performs an in-place multiplication operation (input1 *= input2).</p>
+<p>This tool performs an in-place multiplication operation (i.e. <code>input1 *= input2</code>). The
+user must specify the names of two input images (<code>--input1</code> and <code>--input2</code>) and the tool will
+multiply the <code>input1</code> raster by the <code>input2</code> values on a pixel-by-pixel basis. Therefore, the
+<code>input1</code> raster is modified by this tool. Note that <code>input2</code> may either be an existing raster
+file or a constant value. If <code>input2</code> is a raster, it must have the same dimensions (rows and
+columns) as <code>input1</code>.</p>
+<p>The difference between this tool and the <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a> tool is that <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a> does not modify either of its
+two operands, and instead creates a new output raster to save the resultant value into.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -12469,7 +12540,17 @@ between images.</p>
 <p><em>Created</em>: 18/03/2018</p>
 <p><a name="InPlaceSubtract"></a></p>
 <a class="header" href="#inplacesubtract" id="inplacesubtract"><h1>InPlaceSubtract</h1></a>
-<p>Performs an in-place subtraction operation (input1 -= input2).</p>
+<p>This tool performs an in-place subtraction, or decrement operation (i.e. <code>input1 -= input2</code>). The
+user must specify the names of two input images (<code>--input1</code> and <code>--input2</code>) and the tool will
+subtact the values of <code>input2</code> from the <code>input1</code> raster on a pixel-by-pixel basis. Therefore, the
+<code>input1</code> raster is modified by this tool. Note that <code>input2</code> may either be an existing raster
+file or a constant value. If <code>input2</code> is a raster, it must have the same dimensions (rows and
+columns) as <code>input1</code>.</p>
+<p>The difference between this tool and the <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a> tool is that <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a> does not modify either of its
+two operands, and instead creates a new output raster to save the resultant value into.</p>
+<p>If <code>input2 = 1</code>, use the <a href="./mathand_stats_tools.html#decrement"><strong>Decrement</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#decrement"><strong>Decrement</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -12493,7 +12574,11 @@ between images.</p>
 <p><em>Created</em>: 18/03/2018</p>
 <p><a name="Increment"></a></p>
 <a class="header" href="#increment" id="increment"><h1>Increment</h1></a>
-<p>Increases the values of each grid cell in an input raster by 1.0. (see also InPlaceAdd)</p>
+<p>This tool can be used to increase the values of each grid cell in an input raster (<code>--input</code>)
+by 1.0. Note that this tool will modify the input raster. If you would rather create a new
+raster file, leaving the input unmodified, use the <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a> tool instead.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -12511,7 +12596,7 @@ between images.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/increment.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="IntegerDivision"></a></p>
 <a class="header" href="#integerdivision" id="integerdivision"><h1>IntegerDivision</h1></a>
 <p>Performs an integer division operation on two rasters or a raster and a constant value.</p>
@@ -12641,7 +12726,16 @@ statistical significance says nothing about the practical significance of a diff
 <p><em>Created</em>: July 1, 2017</p>
 <p><a name="ListUniqueValues"></a></p>
 <a class="header" href="#listuniquevalues" id="listuniquevalues"><h1>ListUniqueValues</h1></a>
-<p>Lists the unique values contained in a field witin a vector's attribute table.</p>
+<p>This tool can be used to list each of the unique values contained within a categorical field
+of an input vector file's attribute table. The tool outputs an HTML formated report (<code>--output</code>)
+containing a table of the unique values and their frequency of occurrence within the data. The user must
+specify the name of an input shapefile (<code>--input</code>) and the name of one of the fields (<code>--field</code>)
+contained in the associated attribute table. The specified field <em>should not contained floating-point
+numerical data</em>, since the number of categories will likely equal the number of records, which may be
+quite large. The tool effectively provides tabular output that is similar to the graphical output
+provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a> tool, which, however, can be applied to continuous data.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -13091,6 +13185,8 @@ statistical analyses on raster images when you wish to obtain a random sample of
 <p>This tool produces a histogram (i.e. a frequency distribution graph) for the values contained within
 an input raster file (<code>--input</code>). The histogram will be embeded within an output (<code>--output</code>)
 HTML file, which should be automatically displayed after the tool has completed.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -13613,7 +13709,16 @@ the output raster (<code>--output</code>).</p>
 <p><em>Created</em>: 02/07/2017</p>
 <p><a name="ZScores"></a></p>
 <a class="header" href="#zscores" id="zscores"><h1>ZScores</h1></a>
-<p>Standardizes the values in an input raster by converting to z-scores.</p>
+<p>This tool will transform the values in an input raster image (<code>--input</code>) into
+<a href="https://en.wikipedia.org/wiki/Standard_score">z-scores</a>. Z-scores are also called standard scores,
+normal scores, or z-values. A z-score is a dimensionless quantity that is calculated by subtracting
+the mean from an individual raw value and then dividing the difference by the standard deviation.
+This conversion process is called <em>standardizing</em> or <em>normalizing</em> and the result is sometimes referred
+to as a standardized variable. The mean and standard deviation are estimated using all values in the
+input image except for NoData values. The input image should not have a Boolean or categorical data
+scale, i.e. it should be on a continuous scale.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#cumulativedistribution"><strong>CumulativeDistribution</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -13631,7 +13736,7 @@ the output raster (<code>--output</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/zscores.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <a class="header" href="#stream-network-analysis" id="stream-network-analysis"><h1>Stream Network Analysis</h1></a>
 <ul>
 <li><a href="#DistanceToOutlet">DistanceToOutlet</a></li>
