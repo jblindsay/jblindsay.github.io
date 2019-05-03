@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -185,6 +189,9 @@
 </li>
 <li>
 <p><a href="available_tools/hydrological_analysis.html#AverageFlowpathSlope">AverageFlowpathSlope</a>: Measures the average slope gradient from each grid cell to all upslope divide cells. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#AverageNormalVectorAngularDeviation">AverageNormalVectorAngularDeviation</a>: Calculates the circular variance of aspect at a scale for a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis_overlay_tools.html#AverageOverlay">AverageOverlay</a>: Calculates the average for each grid cell from a group of raster images. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
@@ -848,6 +855,9 @@
 </li>
 <li>
 <p><a href="available_tools/gis_analysis.html#Medoid">Medoid</a>: Calculates the medoid for a series of vector features contained in a shapefile. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#MergeLineSegments">MergeLineSegments</a>: Splits vector layers at their overlaps, creating a layer containing all the portions from both input and overlay layers. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/data_tools.html#MergeTableWithCsv">MergeTableWithCsv</a>: Merge a vector's attribute table with a table contained within a CSV text file. Found in <em>Data Tools</em>.</p>

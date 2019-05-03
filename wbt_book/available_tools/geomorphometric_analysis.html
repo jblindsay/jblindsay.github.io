@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -139,6 +143,7 @@
                         <a class="header" href="#geomorphometric-analysis" id="geomorphometric-analysis"><h1>Geomorphometric Analysis</h1></a>
 <ul>
 <li><a href="#Aspect">Aspect</a></li>
+<li><a href="#AverageNormalVectorAngularDeviation">AverageNormalVectorAngularDeviation</a></li>
 <li><a href="#CircularVarianceOfAspect">CircularVarianceOfAspect</a></li>
 <li><a href="#DevFromMeanElev">DevFromMeanElev</a></li>
 <li><a href="#DiffFromMeanElev">DiffFromMeanElev</a></li>
@@ -214,12 +219,13 @@ the following clock-type grid cell numbering scheme (Gallant and Wilson, 2000),<
 </blockquote>
 <p>where,</p>
 <blockquote>
-<p>f<sub>x</sub> = (z<sub>3</sub> - z<sub>5</sub> + 2(z<sub>2</sub> - z<sub>6</sub>) + z<sub>1</sub> - z<sub>7</sub>)</p>
+<p>f<sub>x</sub> = (z<sub>3</sub> - z<sub>5</sub> + 2(z<sub>2</sub> - z<sub>6</sub>) + z<sub>1</sub> - z<sub>7</sub>) / 8 * Δx</p>
 </blockquote>
 <p>and,</p>
 <blockquote>
-<p>f<sub>y</sub> = (z<sub>7</sub> - z<sub>5</sub> + 2(z<sub>8</sub> - z<sub>4</sub>) + z<sub>1</sub> - z<sub>3</sub>)</p>
+<p>f<sub>y</sub> = (z<sub>7</sub> - z<sub>5</sub> + 2(z<sub>8</sub> - z<sub>4</sub>) + z<sub>1</sub> - z<sub>3</sub>) / 8 * Δy</p>
 </blockquote>
+<p>Δx and Δy are the grid resolutions in the x and y direction respectively</p>
 <p><em>Reference</em>:</p>
 <p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
 and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
@@ -232,11 +238,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">aspect(
+<pre><code class="language-python">wbt.aspect(
     dem, 
     output, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Aspect -v --wd=&quot;/path/to/data/&quot; ^
@@ -245,27 +252,56 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
+<p><a name="AverageNormalVectorAngularDeviation"></a></p>
+<a class="header" href="#averagenormalvectorangulardeviation" id="averagenormalvectorangulardeviation"><h1>AverageNormalVectorAngularDeviation</h1></a>
+<p>This tool</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--output           </td><td> Output raster file</td></tr>
+<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.average_normal_vector_angular_deviation(
+    dem, 
+    output, 
+    filter=11, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AverageNormalVectorAngularDeviation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif --out_mag=roughness_mag.tif ^
+--out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
+--step=5 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/average_normal_vector_angular_deviation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/01/2019</p>
 <p><a name="CircularVarianceOfAspect"></a></p>
 <a class="header" href="#circularvarianceofaspect" id="circularvarianceofaspect"><h1>CircularVarianceOfAspect</h1></a>
 <p>This tool can be used to calculate the circular variance (i.e. one minus the mean resultant length) of aspect
 for an input digital elevation model (DEM). This is a measure of how variable slope aspect is within a local
-neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a> is therefore a measure of surface
-shape complexity, or texture. It will take a value near 0.0 for smooth sites and 1.0 in areas of high surface
+neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a> is therefore a measure of <strong>surface
+shape complexity</strong>, or texture. It will take a value of 0.0 for smooth sites and near 1.0 in areas of high surface
 roughness or complex topography.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--output           </td><td> Output raster roughness scale file</td></tr>
+<tr><td>--output           </td><td> Output raster file</td></tr>
 <tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">circular_variance_of_aspect(
+<pre><code class="language-python">wbt.circular_variance_of_aspect(
     dem, 
     output, 
     filter=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CircularVarianceOfAspect -v ^
@@ -301,12 +337,13 @@ value across a range of input scales.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">dev_from_mean_elev(
+<pre><code class="language-python">wbt.dev_from_mean_elev(
     dem, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DevFromMeanElev -v ^
@@ -340,12 +377,13 @@ value across a range of input scales.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">diff_from_mean_elev(
+<pre><code class="language-python">wbt.diff_from_mean_elev(
     dem, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DiffFromMeanElev -v ^
@@ -390,12 +428,13 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">directional_relief(
+<pre><code class="language-python">wbt.directional_relief(
     dem, 
     output, 
     azimuth=0.0, 
     max_dist=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DirectionalRelief -v ^
@@ -440,12 +479,13 @@ doi:10.1029/2004WR003130.</p>
 <tr><td>--out_type         </td><td> Output type, options include 'tangent', 'degrees', 'radians', 'distance' (default is 'tangent')</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">downslope_index(
+<pre><code class="language-python">wbt.downslope_index(
     dem, 
     output, 
     drop=2.0, 
     out_type=&quot;tangent&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DownslopeIndex -v --wd=&quot;/path/to/data/&quot; ^
@@ -478,7 +518,7 @@ rills, gullies, etc., which would otherwise be smoothed over.</p>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">drainage_preserving_smoothing(
+<pre><code class="language-python">wbt.drainage_preserving_smoothing(
     dem, 
     output, 
     filter=11, 
@@ -488,7 +528,8 @@ rills, gullies, etc., which would otherwise be smoothed over.</p>
     reduction=80.0, 
     dfm=0.15, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DrainagePreservingSmoothing -v ^
@@ -522,13 +563,14 @@ texture of any of the available roughness tools.</p>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">edge_density(
+<pre><code class="language-python">wbt.edge_density(
     dem, 
     output, 
     filter=11, 
     norm_diff=5.0, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EdgeDensity -v --wd=&quot;/path/to/data/&quot; ^
@@ -553,10 +595,11 @@ flow algorithm.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">elev_above_pit(
+<pre><code class="language-python">wbt.elev_above_pit(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevAbovePit -v --wd=&quot;/path/to/data/&quot; ^
@@ -609,13 +652,14 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <tr><td>--sig_digits       </td><td> Number of significant digits</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">elev_percentile(
+<pre><code class="language-python">wbt.elev_percentile(
     dem, 
     output, 
     filterx=11, 
     filtery=11, 
     sig_digits=2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevPercentile -v --wd=&quot;/path/to/data/&quot; ^
@@ -623,7 +667,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_percentile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="ElevRelativeToMinMax"></a></p>
 <a class="header" href="#elevrelativetominmax" id="elevrelativetominmax"><h1>ElevRelativeToMinMax</h1></a>
 <p>This tool can be used to express the elevation of a grid cell in a digital elevation model (DEM) as a
@@ -637,10 +681,11 @@ measure of relative topographic position.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">elev_relative_to_min_max(
+<pre><code class="language-python">wbt.elev_relative_to_min_max(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevRelativeToMinMax -v ^
@@ -664,11 +709,12 @@ raster files.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">elev_relative_to_watershed_min_max(
+<pre><code class="language-python">wbt.elev_relative_to_watershed_min_max(
     dem, 
     watersheds, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevRelativeToWatershedMinMax -v ^
@@ -715,7 +761,7 @@ mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5),
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">feature_preserving_denoise(
+<pre><code class="language-python">wbt.feature_preserving_denoise(
     dem, 
     output, 
     filter=11, 
@@ -723,7 +769,8 @@ mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5),
     num_iter=3, 
     max_diff=0.5, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FeaturePreservingDenoise -v ^
@@ -771,12 +818,13 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <tr><td>--hgt_inc          </td><td> Height increment value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fetch_analysis(
+<pre><code class="language-python">wbt.fetch_analysis(
     dem, 
     output, 
     azimuth=0.0, 
     hgt_inc=0.05, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FetchAnalysis -v --wd=&quot;/path/to/data/&quot; ^
@@ -807,12 +855,13 @@ raster.</p>
 <tr><td>--weight           </td><td> IDW weight value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fill_missing_data(
+<pre><code class="language-python">wbt.fill_missing_data(
     i, 
     output, 
     filter=11, 
     weight=2.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FillMissingData -v ^
@@ -834,11 +883,12 @@ to create single-cell wide ridge networks by specifying the <code>--line_thin</c
 <tr><td>--line_thin        </td><td> Optional flag indicating whether post-processing line-thinning should be performed</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">find_ridges(
+<pre><code class="language-python">wbt.find_ridges(
     dem, 
     output, 
     line_thin=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FindRidges -v --wd=&quot;/path/to/data/&quot; ^
@@ -883,13 +933,14 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">hillshade(
+<pre><code class="language-python">wbt.hillshade(
     dem, 
     output, 
     azimuth=315.0, 
     altitude=30.0, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Hillshade -v --wd=&quot;/path/to/data/&quot; ^
@@ -928,12 +979,13 @@ larger sized DEMs. Maximum upwind slope is best displayed using a Grey scale pal
 <tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">horizon_angle(
+<pre><code class="language-python">wbt.horizon_angle(
     dem, 
     output, 
     azimuth=0.0, 
     max_dist=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HorizonAngle -v --wd=&quot;/path/to/data/&quot; ^
@@ -956,11 +1008,12 @@ distribution function of elevations in a geographical area.</p>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">hypsometric_analysis(
+<pre><code class="language-python">wbt.hypsometric_analysis(
     inputs, 
     output, 
     watershed=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HypsometricAnalysis -v ^
@@ -983,14 +1036,15 @@ distribution function of elevations in a geographical area.</p>
 <tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_anisotropy_dev(
+<pre><code class="language-python">wbt.max_anisotropy_dev(
     dem, 
     out_mag, 
     out_scale, 
     max_scale, 
     min_scale=3, 
     step=2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxAnisotropyDev -v ^
@@ -1014,14 +1068,15 @@ distribution function of elevations in a geographical area.</p>
 <tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_anisotropy_dev_signature(
+<pre><code class="language-python">wbt.max_anisotropy_dev_signature(
     dem, 
     points, 
     output, 
     max_scale, 
     min_scale=1, 
     step=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxAnisotropyDevSignature -v ^
@@ -1067,11 +1122,12 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 <tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_branch_length(
+<pre><code class="language-python">wbt.max_branch_length(
     dem, 
     output, 
     log=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxBranchLength -v ^
@@ -1093,14 +1149,15 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 <tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_difference_from_mean(
+<pre><code class="language-python">wbt.max_difference_from_mean(
     dem, 
     out_mag, 
     out_scale, 
     min_scale, 
     max_scale, 
     step=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxDifferenceFromMean -v ^
@@ -1117,17 +1174,18 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 a digital elevation model (DEM). The user must specify the name of the input DEM (<code>--dem</code>) and the output
 (<code>--output</code>) raster name.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#mindownslopeelevchange"><strong>MinDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#mindownslopeelevchange"><strong>MinDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_downslope_elev_change(
+<pre><code class="language-python">wbt.max_downslope_elev_change(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxDownslopeElevChange -v ^
@@ -1149,14 +1207,15 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_elev_dev_signature(
+<pre><code class="language-python">wbt.max_elev_dev_signature(
     dem, 
     points, 
     output, 
     min_scale, 
     max_scale, 
     step=10, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxElevDevSignature -v ^
@@ -1209,14 +1268,15 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 <tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_elevation_deviation(
+<pre><code class="language-python">wbt.max_elevation_deviation(
     dem, 
     out_mag, 
     out_scale, 
     min_scale, 
     max_scale, 
     step=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxElevationDeviation -v ^
@@ -1233,17 +1293,18 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 a digital elevation model (DEM). The user must specify the name of the input DEM (<code>--dem</code>) and the output
 (<code>--output</code>) raster name.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#maxdownslopeelevchange"><strong>MaxDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#maxdownslopeelevchange"><strong>MaxDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">min_downslope_elev_change(
+<pre><code class="language-python">wbt.min_downslope_elev_change(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinDownslopeElevChange -v ^
@@ -1265,14 +1326,15 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">multiscale_roughness(
+<pre><code class="language-python">wbt.multiscale_roughness(
     dem, 
     out_mag, 
     out_scale, 
     max_scale, 
     min_scale=1, 
     step=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MultiscaleRoughness -v ^
@@ -1282,7 +1344,7 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 26, 2018</p>
+<p><em>Created</em>: 26/022018</p>
 <p><a name="MultiscaleRoughnessSignature"></a></p>
 <a class="header" href="#multiscaleroughnesssignature" id="multiscaleroughnesssignature"><h1>MultiscaleRoughnessSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -1296,14 +1358,15 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">multiscale_roughness_signature(
+<pre><code class="language-python">wbt.multiscale_roughness_signature(
     dem, 
     points, 
     output, 
     max_scale, 
     min_scale=1, 
     step=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MultiscaleRoughnessSignature -v ^
@@ -1345,13 +1408,14 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 <tr><td>--lightness        </td><td> Image lightness value (default is 1.2)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">multiscale_topographic_position_image(
+<pre><code class="language-python">wbt.multiscale_topographic_position_image(
     local, 
     meso, 
     broad, 
     output, 
     lightness=1.2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MultiscaleTopographicPositionImage -v ^
@@ -1377,10 +1441,11 @@ tool can be used with the <a href="./geomorphometric_analysis.html#numupslopenei
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">num_downslope_neighbours(
+<pre><code class="language-python">wbt.num_downslope_neighbours(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NumDownslopeNeighbours -v ^
@@ -1396,20 +1461,21 @@ The user must specify the name of the input DEM (<code>--dem</code>) and the out
 the eight neighbouring cells for each grid cell in a the DEM and counts the number of neighbours with an elevation
 less than the centre cell of the 3 x 3 window. The output raster can therefore have values ranging from 0 to 8, although
 in a DEM that has been hydrologically conditioned (i.e. depressions and flats removed), the values of the output will
-not exceed seven. This tool can be used with the <a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a> tool to assess the degree of local flow
+not exceed seven. This tool can be used with the <a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a> tool to assess the degree of local flow
 divergence/convergence.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#n.html"><strong>NumDownslopeNeighbours</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">num_upslope_neighbours(
+<pre><code class="language-python">wbt.num_upslope_neighbours(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NumUpslopeNeighbours -v ^
@@ -1467,14 +1533,15 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">pennock_landform_class(
+<pre><code class="language-python">wbt.pennock_landform_class(
     dem, 
     output, 
     slope=3.0, 
     prof=0.1, 
     plan=0.0, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PennockLandformClass -v ^
@@ -1511,12 +1578,13 @@ for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">percent_elev_range(
+<pre><code class="language-python">wbt.percent_elev_range(
     dem, 
     output, 
     filterx=3, 
     filtery=3, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PercentElevRange -v ^
@@ -1556,11 +1624,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">plan_curvature(
+<pre><code class="language-python">wbt.plan_curvature(
     dem, 
     output, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PlanCurvature -v --wd=&quot;/path/to/data/&quot; ^
@@ -1587,11 +1656,12 @@ use the <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile
 <tr><td>-o, --output       </td><td> Output HTML file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">profile(
+<pre><code class="language-python">wbt.profile(
     lines, 
     surface, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Profile -v --wd=&quot;/path/to/data/&quot; ^
@@ -1610,11 +1680,12 @@ use the <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">profile_curvature(
+<pre><code class="language-python">wbt.profile_curvature(
     dem, 
     output, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ProfileCurvature -v ^
@@ -1647,12 +1718,13 @@ Science, 33, 195-226.</p>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">relative_aspect(
+<pre><code class="language-python">wbt.relative_aspect(
     dem, 
     output, 
     azimuth=0.0, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RelativeAspect -v --wd=&quot;/path/to/data/&quot; ^
@@ -1672,12 +1744,13 @@ Science, 33, 195-226.</p>
 <tr><td>--exponent         </td><td> SCA exponent value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">relative_stream_power_index(
+<pre><code class="language-python">wbt.relative_stream_power_index(
     sca, 
     slope, 
     output, 
     exponent=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RelativeStreamPowerIndex -v ^
@@ -1721,12 +1794,13 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">relative_topographic_position(
+<pre><code class="language-python">wbt.relative_topographic_position(
     dem, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RelativeTopographicPosition -v ^
@@ -1747,12 +1821,13 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <tr><td>--slope            </td><td> Slope threshold value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">remove_off_terrain_objects(
+<pre><code class="language-python">wbt.remove_off_terrain_objects(
     dem, 
     output, 
     filter=11, 
     slope=15.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RemoveOffTerrainObjects -v ^
@@ -1772,11 +1847,12 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">ruggedness_index(
+<pre><code class="language-python">wbt.ruggedness_index(
     dem, 
     output, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RuggednessIndex -v ^
@@ -1797,13 +1873,14 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <tr><td>--slope_exponent   </td><td> Slope exponent value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">sediment_transport_index(
+<pre><code class="language-python">wbt.sediment_transport_index(
     sca, 
     slope, 
     output, 
     sca_exponent=0.4, 
     slope_exponent=1.3, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SedimentTransportIndex -v ^
@@ -1837,12 +1914,13 @@ the following clock-type grid cell numbering scheme (Gallant and Wilson, 2000),<
 </blockquote>
 <p>where,</p>
 <blockquote>
-<p>f<sub>x</sub> = (z<sub>3</sub> - z<sub>5</sub> + 2(z<sub>2</sub> - z<sub>6</sub>) + z<sub>1</sub> - z<sub>7</sub>)</p>
+<p>f<sub>x</sub> = (z<sub>3</sub> - z<sub>5</sub> + 2(z<sub>2</sub> - z<sub>6</sub>) + z<sub>1</sub> - z<sub>7</sub>) / 8 * Δx</p>
 </blockquote>
 <p>and,</p>
 <blockquote>
-<p>f<sub>y</sub> = (z<sub>7</sub> - z<sub>5</sub> + 2(z<sub>8</sub> - z<sub>4</sub>) + z<sub>1</sub> - z<sub>3</sub>)</p>
+<p>f<sub>y</sub> = (z<sub>7</sub> - z<sub>5</sub> + 2(z<sub>8</sub> - z<sub>4</sub>) + z<sub>1</sub> - z<sub>3</sub>) / * Δy</p>
 </blockquote>
+<p>Δx and Δy are the grid resolutions in the x and y direction respectively</p>
 <p><em>Reference</em>:</p>
 <p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
 and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
@@ -1855,11 +1933,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">slope(
+<pre><code class="language-python">wbt.slope(
     dem, 
     output, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Slope -v --wd=&quot;/path/to/data/&quot; ^
@@ -1878,11 +1957,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">slope_vs_elevation_plot(
+<pre><code class="language-python">wbt.slope_vs_elevation_plot(
     inputs, 
     output, 
     watershed=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SlopeVsElevationPlot -v ^
@@ -1905,13 +1985,14 @@ roughness described by Grohmann et al., (2011).</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">standard_deviation_of_slope(
+<pre><code class="language-python">wbt.standard_deviation_of_slope(
     i, 
     output, 
     zfactor=1.0, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StandardDeviationOfSlope -v ^
@@ -1938,10 +2019,11 @@ Bulletin, 32(3), 829-839.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">surface_area_ratio(
+<pre><code class="language-python">wbt.surface_area_ratio(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SurfaceAreaRatio -v ^
@@ -1960,11 +2042,12 @@ Bulletin, 32(3), 829-839.</p>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">tangential_curvature(
+<pre><code class="language-python">wbt.tangential_curvature(
     dem, 
     output, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TangentialCurvature -v ^
@@ -1983,11 +2066,12 @@ Bulletin, 32(3), 829-839.</p>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">total_curvature(
+<pre><code class="language-python">wbt.total_curvature(
     dem, 
     output, 
     zfactor=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TotalCurvature -v --wd=&quot;/path/to/data/&quot; ^
@@ -2007,12 +2091,13 @@ Bulletin, 32(3), 829-839.</p>
 <tr><td>--height           </td><td> Viewing station height, in z units</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">viewshed(
+<pre><code class="language-python">wbt.viewshed(
     dem, 
     stations, 
     output, 
     height=2.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Viewshed -v --wd=&quot;/path/to/data/&quot; ^
@@ -2033,12 +2118,13 @@ Bulletin, 32(3), 829-839.</p>
 <tr><td>--res_factor       </td><td> The resolution factor determines the density of measured viewsheds</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">visibility_index(
+<pre><code class="language-python">wbt.visibility_index(
     dem, 
     output, 
     height=2.0, 
     res_factor=2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=VisibilityIndex -v ^
@@ -2058,11 +2144,12 @@ Bulletin, 32(3), 829-839.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">wetness_index(
+<pre><code class="language-python">wbt.wetness_index(
     sca, 
     slope, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=WetnessIndex -v --wd=&quot;/path/to/data/&quot; ^

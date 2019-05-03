@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -199,10 +203,11 @@ on available system resources.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">average_flowpath_slope(
+<pre><code class="language-python">wbt.average_flowpath_slope(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AverageFlowpathSlope -v ^
@@ -227,10 +232,11 @@ on available system resources.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">average_upslope_flowpath_length(
+<pre><code class="language-python">wbt.average_upslope_flowpath_length(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AverageUpslopeFlowpathLength -v ^
@@ -268,11 +274,12 @@ region of valid data in the flow pointer raster will be divided into a set of mu
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">basins(
+<pre><code class="language-python">wbt.basins(
     d8_pntr, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Basins -v --wd=&quot;/path/to/data/&quot; ^
@@ -320,14 +327,15 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 <tr><td>--fill_pits        </td><td> Optional flag indicating whether to fill single-cell pits</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">breach_depressions(
+<pre><code class="language-python">wbt.breach_depressions(
     dem, 
     output, 
     max_depth=None, 
     max_length=None, 
     flat_increment=None, 
     fill_pits=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BreachDepressions -v ^
@@ -353,10 +361,11 @@ one of the more robust depression filling or breaching techniques (e.g. <a href=
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">breach_single_cell_pits(
+<pre><code class="language-python">wbt.breach_single_cell_pits(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BreachSingleCellPits -v ^
@@ -399,13 +408,14 @@ value in the output flow-accumulation image.</p>
 <tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">d8_flow_accumulation(
+<pre><code class="language-python">wbt.d8_flow_accumulation(
     dem, 
     output, 
     out_type=&quot;cells&quot;, 
     log=False, 
     clip=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=D8FlowAccumulation -v ^
@@ -430,13 +440,14 @@ value in the output flow-accumulation image.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">d8_mass_flux(
+<pre><code class="language-python">wbt.d8_mass_flux(
     dem, 
     loading, 
     efficiency, 
     absorption, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=D8MassFlux -v --wd=&quot;/path/to/data/&quot; ^
@@ -476,11 +487,12 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">d8_pointer(
+<pre><code class="language-python">wbt.d8_pointer(
     dem, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=D8Pointer -v --wd=&quot;/path/to/data/&quot; ^
@@ -491,7 +503,32 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <p><em>Created</em>: 16/06/2017</p>
 <p><a name="DInfFlowAccumulation"></a></p>
 <a class="header" href="#dinfflowaccumulation" id="dinfflowaccumulation"><h1>DInfFlowAccumulation</h1></a>
-<p>Calculates a D-infinity flow accumulation raster from an input DEM.</p>
+<p>This tool is used to generate a flow accumulation grid (i.e. contributing area) using the D-infinity algorithm
+(Tarboton, 1997). This algorithm is an examples of a multiple-flow-direction (MFD) method because the flow entering
+each grid cell is routed to one or two downslope neighbour, i.e. flow divergence is permitted. The user must
+specify the name of the input pointer-grid, which has been created either from the Dinf flow-pointer tool. The
+flow-pointer grid should be created from a digital elevation model (DEM) that has been hydrologically corrected
+to remove all spurious depressions and flat areas. DEM pre-processing is usually achieved using the
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>In addition to the input flow-pointer grid name, the user must specify the output type (<code>--out_type</code>). The output
+flow-accumulation
+can be 1) specific catchment area (SCA), which is the upslope contributing area divided by the contour length (taken
+as the grid resolution), 2) total catchment area in square-metres, or 3) the number of upslope grid cells. The user
+must also specify whether the output flow-accumulation grid should be log-tranformed, i.e. the output, if this option
+is selected, will be the natural-logarithm of the accumulated area. This is a transformation that is often performed
+to better visualize the contributing area distribution. Because contributing areas tend to be very high along valley
+bottoms and relatively low on hillslopes, when a flow-accumulation image is displayed, the distribution of values on
+hillslopes tends to be 'washed out' because the palette is stretched out to represent the highest values.
+Log-transformation (<code>--log</code>) provides a means of compensating for this phenomenon. Importantly, however, log-transformed
+flow-accumulation grids must not be used to estimate other secondary terrain indices, such as the wetness index, or
+relative stream power index.</p>
+<p>Grid cells possessing the NoData value in the input flow-pointer grid are assigned the NoData value in the output
+flow-accumulation image. The output raster is of the float data type and continuous data scale.</p>
+<p><em>Reference</em>:</p>
+<p>Tarboton, D. G. (1997). A new method for the determination of flow directions and upslope areas in grid digital
+elevation models. Water resources research, 33(2), 309-319.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -502,14 +539,15 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">d_inf_flow_accumulation(
+<pre><code class="language-python">wbt.d_inf_flow_accumulation(
     dem, 
     output, 
     out_type=&quot;Specific Contributing Area&quot;, 
     threshold=None, 
     log=False, 
     clip=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DInfFlowAccumulation -v ^
@@ -521,7 +559,7 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 24, 2017</p>
+<p><em>Created</em>: 24/06/2017</p>
 <p><a name="DInfMassFlux"></a></p>
 <a class="header" href="#dinfmassflux" id="dinfmassflux"><h1>DInfMassFlux</h1></a>
 <p>Performs a D-infinity mass flux calculation.</p>
@@ -534,13 +572,14 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">d_inf_mass_flux(
+<pre><code class="language-python">wbt.d_inf_mass_flux(
     dem, 
     loading, 
     efficiency, 
     absorption, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DInfMassFlux -v --wd=&quot;/path/to/data/&quot; ^
@@ -559,10 +598,11 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">d_inf_pointer(
+<pre><code class="language-python">wbt.d_inf_pointer(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DInfPointer -v --wd=&quot;/path/to/data/&quot; ^
@@ -594,11 +634,12 @@ Modelling, 138(1-3), 247-254.</p>
 <tr><td>--zero_background  </td><td> Flag indicating whether the background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">depth_in_sink(
+<pre><code class="language-python">wbt.depth_in_sink(
     dem, 
     output, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DepthInSink -v --wd=&quot;/path/to/data/&quot; ^
@@ -625,11 +666,12 @@ flood plain mapping when combined with high-accuracy DEM data.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">downslope_distance_to_stream(
+<pre><code class="language-python">wbt.downslope_distance_to_stream(
     dem, 
     streams, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DownslopeDistanceToStream -v ^
@@ -651,13 +693,14 @@ flood plain mapping when combined with high-accuracy DEM data.</p>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">downslope_flowpath_length(
+<pre><code class="language-python">wbt.downslope_flowpath_length(
     d8_pntr, 
     output, 
     watersheds=None, 
     weights=None, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DownslopeFlowpathLength -v ^
@@ -697,11 +740,12 @@ Remote Sensing of Environment, 112(9), 3469-3481.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">elevation_above_stream(
+<pre><code class="language-python">wbt.elevation_above_stream(
     dem, 
     streams, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevationAboveStream -v ^
@@ -736,11 +780,12 @@ Remote Sensing of Environment, 112(9), 3469-3481.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">elevation_above_stream_euclidean(
+<pre><code class="language-python">wbt.elevation_above_stream_euclidean(
     dem, 
     streams, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevationAboveStreamEuclidean -v ^
@@ -797,7 +842,7 @@ Geosciences, 17(3), 413-422.</p>
 <tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fd8_flow_accumulation(
+<pre><code class="language-python">wbt.fd8_flow_accumulation(
     dem, 
     output, 
     out_type=&quot;specific contributing area&quot;, 
@@ -805,7 +850,8 @@ Geosciences, 17(3), 413-422.</p>
     threshold=None, 
     log=False, 
     clip=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FD8FlowAccumulation -v ^
@@ -850,10 +896,11 @@ Geosciences, 17(3), 413-422.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fd8_pointer(
+<pre><code class="language-python">wbt.fd8_pointer(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FD8Pointer -v --wd=&quot;/path/to/data/&quot; ^
@@ -878,11 +925,12 @@ Conference. pp. 24-30.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fill_burn(
+<pre><code class="language-python">wbt.fill_burn(
     dem, 
     streams, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FillBurn -v --wd=&quot;/path/to/data/&quot; ^
@@ -919,11 +967,12 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <tr><td>--fix_flats        </td><td> Optional flag indicating whether flat areas should have a small gradient applied</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fill_depressions(
+<pre><code class="language-python">wbt.fill_depressions(
     dem, 
     output, 
     fix_flats=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FillDepressions -v ^
@@ -949,10 +998,11 @@ technique before running one of the more robust depression breaching (<a href=".
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fill_single_cell_pits(
+<pre><code class="language-python">wbt.fill_single_cell_pits(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FillSingleCellPits -v ^
@@ -977,10 +1027,11 @@ specify the name (<code>--dem</code>) of the DEM.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">find_no_flow_cells(
+<pre><code class="language-python">wbt.find_no_flow_cells(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FindNoFlowCells -v ^
@@ -1004,11 +1055,12 @@ the D8 method.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">find_parallel_flow(
+<pre><code class="language-python">wbt.find_parallel_flow(
     d8_pntr, 
     streams, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FindParallelFlow -v ^
@@ -1040,11 +1092,12 @@ lakes.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">flatten_lakes(
+<pre><code class="language-python">wbt.flatten_lakes(
     dem, 
     lakes, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FlattenLakes -v --wd=&quot;/path/to/data/&quot; ^
@@ -1076,10 +1129,11 @@ elevation models for hydrologic analysis and modelling. International Journal of
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">flood_order(
+<pre><code class="language-python">wbt.flood_order(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FloodOrder -v --wd=&quot;/path/to/data/&quot; ^
@@ -1103,7 +1157,7 @@ elevation models for hydrologic analysis and modelling. International Journal of
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">flow_accumulation_full_workflow(
+<pre><code class="language-python">wbt.flow_accumulation_full_workflow(
     dem, 
     out_dem, 
     out_pntr, 
@@ -1112,7 +1166,8 @@ elevation models for hydrologic analysis and modelling. International Journal of
     log=False, 
     clip=False, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FlowAccumulationFullWorkflow -v ^
@@ -1136,11 +1191,12 @@ which is useful in mapping drainage divides and ridges.</p>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">flow_length_diff(
+<pre><code class="language-python">wbt.flow_length_diff(
     d8_pntr, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FlowLengthDiff -v --wd=&quot;/path/to/data/&quot; ^
@@ -1175,12 +1231,13 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">hillslopes(
+<pre><code class="language-python">wbt.hillslopes(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Hillslopes -v --wd=&quot;/path/to/data/&quot; ^
@@ -1214,12 +1271,13 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
 <tr><td>--damlength        </td><td> Maximum length of thr dam</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">impoundment_size_index(
+<pre><code class="language-python">wbt.impoundment_size_index(
     dem, 
     output, 
     damlength, 
     out_type=&quot;depth&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentSizeIndex -v ^
@@ -1246,11 +1304,12 @@ and stored in memory of this tool.</p>
 <tr><td>--size             </td><td> Target basin size, in grid cells</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">isobasins(
+<pre><code class="language-python">wbt.isobasins(
     dem, 
     output, 
     size, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Isobasins -v --wd=&quot;/path/to/data/&quot; ^
@@ -1289,12 +1348,13 @@ networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
 <tr><td>--snap_dist        </td><td> Maximum snap distance in map units</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">jenson_snap_pour_points(
+<pre><code class="language-python">wbt.jenson_snap_pour_points(
     pour_pts, 
     streams, 
     output, 
     snap_dist, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=JensonSnapPourPoints -v ^
@@ -1337,11 +1397,12 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">longest_flowpath(
+<pre><code class="language-python">wbt.longest_flowpath(
     dem, 
     basins, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LongestFlowpath -v ^
@@ -1360,10 +1421,11 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_upslope_flowpath_length(
+<pre><code class="language-python">wbt.max_upslope_flowpath_length(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxUpslopeFlowpathLength -v ^
@@ -1381,10 +1443,11 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">num_inflowing_neighbours(
+<pre><code class="language-python">wbt.num_inflowing_neighbours(
     dem, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NumInflowingNeighbours -v ^
@@ -1405,13 +1468,14 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <tr><td>--height           </td><td> Wall height</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raise_walls(
+<pre><code class="language-python">wbt.raise_walls(
     i, 
     dem, 
     output, 
     breach=None, 
     height=100.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RaiseWalls -v --wd=&quot;/path/to/data/&quot; ^
@@ -1434,11 +1498,12 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">rho8_pointer(
+<pre><code class="language-python">wbt.rho8_pointer(
     dem, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Rho8Pointer -v --wd=&quot;/path/to/data/&quot; ^
@@ -1463,11 +1528,12 @@ cells.</p>
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">sink(
+<pre><code class="language-python">wbt.sink(
     dem, 
     output, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Sink -v --wd=&quot;/path/to/data/&quot; ^
@@ -1507,12 +1573,13 @@ networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
 <tr><td>--snap_dist        </td><td> Maximum snap distance in map units</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">snap_pour_points(
+<pre><code class="language-python">wbt.snap_pour_points(
     pour_pts, 
     flow_accum, 
     output, 
     snap_dist, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SnapPourPoints -v --wd=&quot;/path/to/data/&quot; ^
@@ -1532,10 +1599,10 @@ probability of each cell belonging to a depression. This land-surface prameter
 <li>
 <p>The Whitebox GAT tool took an error histogram as an input. In practice people found
 it difficult to create this input. Usually they just generated a normal distribution
-in a spreadsheet using information about the DEM RMSE. As such, this tool takes a
-RMSE input and generates the histogram internally. This is far more convienent for
-most applications but loses the flexibility of specifying the error distribution
-more completely.</p>
+in a spreadsheet using information about the DEM root-mean-square-error (RMSE). As
+such, this tool takes a RMSE input and generates the histogram internally. This is
+more convienent for most applications but loses the flexibility of specifying the
+error distribution more completely.</p>
 </li>
 <li>
 <p>The Whitebox GAT tool generated the error fields using the turning bands method.
@@ -1544,16 +1611,26 @@ and then applies local spatial averaging using a Gaussian filter (the size of
 which depends of the error autocorrelation length input) to increase the level of
 autocorrelation. We use the Fast Almost Gaussian Filter of Peter Kovesi (2010),
 which uses five repeat passes of a mean filter, based on an integral image. This
-filter method is highly efficient. This results in a very significant performance
+filter method is highly efficient. This results in a significant performance
 increase compared with the original tool.</p>
 </li>
 <li>
-<p>The tool operates concurrently, compared with the original tool which calculated
-pdep in serial. Again, this parallel processing can significantly improve the
-performance, particularly when the tool is applied on hardware with four or
-more processors.</p>
+<p>Parts of the tool's workflow utilize parallel processing. However, the depression
+filling operation, which is the most time-consuming part of the workflow, is
+not parallelized.</p>
 </li>
 </ol>
+<p>In addition to the input DEM (<code>--dem</code>) and output p<sub>dep</sub> file name (<code>--output</code>), the user
+must specify the nature of the error model, including the root-mean-square error (<code>--rmse</code>) and
+the error field correlation length (<code>--range</code>). These parameters determine the statistical frequency
+distribution and spatial characteristics of the modeled error fields added to the DEM in each
+iteration of the simulation. The user must also specify the number of iterations (<code>--iterations</code>).
+A larger number of iterations will produce a smoother p<sub>dep</sub> raster.</p>
+<p>This tool creates several temporary rasters in memory and, as a result, is very memory hungry.
+This will necessarily limit the size of DEMs that can be processed on more memory-constrained
+systems. As a rough guide for usage, <strong>the computer system will need 6-10 times more memory than
+the file size of the DEM</strong>. If your computer possesses insufficient memory, you may consider
+splitting the input DEM apart into smaller tiles.</p>
 <p><em>Reference</em>:</p>
 <p>Lindsay, J. B., &amp; Creed, I. F. (2005). Sensitivity of digital landscapes to artifact depressions in
 remotely-sensed DEMs. Photogrammetric Engineering &amp; Remote Sensing, 71(9), 1029-1036.</p>
@@ -1568,13 +1645,14 @@ remotely-sensed DEMs. Photogrammetric Engineering &amp; Remote Sensing, 71(9), 1
 <tr><td>--iterations       </td><td> The number of iterations</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">stochastic_depression_analysis(
+<pre><code class="language-python">wbt.stochastic_depression_analysis(
     dem, 
     output, 
     rmse, 
     range, 
-    iterations=1000, 
-    callback=default_callback)
+    iterations=100, 
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StochasticDepressionAnalysis -v ^
@@ -1605,12 +1683,13 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">strahler_order_basins(
+<pre><code class="language-python">wbt.strahler_order_basins(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StrahlerOrderBasins -v ^
@@ -1644,12 +1723,13 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">subbasins(
+<pre><code class="language-python">wbt.subbasins(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Subbasins -v --wd=&quot;/path/to/data/&quot; ^
@@ -1671,13 +1751,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">trace_downslope_flowpaths(
+<pre><code class="language-python">wbt.trace_downslope_flowpaths(
     seed_pts, 
     d8_pntr, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TraceDownslopeFlowpaths -v ^
@@ -1713,12 +1794,13 @@ algorithm.</p>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">unnest_basins(
+<pre><code class="language-python">wbt.unnest_basins(
     d8_pntr, 
     pour_pts, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=UnnestBasins -v --wd=&quot;/path/to/data/&quot; ^
@@ -1739,12 +1821,13 @@ algorithm.</p>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">watershed(
+<pre><code class="language-python">wbt.watershed(
     d8_pntr, 
     pour_pts, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Watershed -v --wd=&quot;/path/to/data/&quot; ^

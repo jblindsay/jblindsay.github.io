@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -188,12 +192,13 @@
 <tr><td>--filter           </td><td> Filter out points from overlapping flightlines? If false, overlaps will simply be classified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">classify_overlap_points(
+<pre><code class="language-python">wbt.classify_overlap_points(
     i, 
     output, 
     resolution=2.0, 
     filter=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ClassifyOverlapPoints -v ^
@@ -221,11 +226,12 @@ that are contained within a set of polygons.</p>
 <tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">clip_lidar_to_polygon(
+<pre><code class="language-python">wbt.clip_lidar_to_polygon(
     i, 
     polygons, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ClipLidarToPolygon -v ^
@@ -253,11 +259,12 @@ that are contained within a set of polygons, while removing points that lie outs
 <tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">erase_polygon_from_lidar(
+<pre><code class="language-python">wbt.erase_polygon_from_lidar(
     i, 
     polygons, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ErasePolygonFromLidar -v ^
@@ -277,11 +284,12 @@ that are contained within a set of polygons, while removing points that lie outs
 <tr><td>--threshold        </td><td> Scan angle threshold</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">filter_lidar_scan_angles(
+<pre><code class="language-python">wbt.filter_lidar_scan_angles(
     i, 
     output, 
     threshold, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FilterLidarScanAngles -v ^
@@ -300,10 +308,11 @@ that are contained within a set of polygons, while removing points that lie outs
 <tr><td>-o, --output       </td><td> Output file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">find_flightline_edge_points(
+<pre><code class="language-python">wbt.find_flightline_edge_points(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FindFlightlineEdgePoints -v ^
@@ -322,11 +331,12 @@ that are contained within a set of polygons, while removing points that lie outs
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">flightline_overlap(
+<pre><code class="language-python">wbt.flightline_overlap(
     i=None, 
     output=None, 
     resolution=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FlightlineOverlap -v ^
@@ -356,9 +366,10 @@ commas in the ASCII formated file. The output point data, each on a seperate lin
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">las_to_ascii(
+<pre><code class="language-python">wbt.las_to_ascii(
     inputs, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LasToAscii -v --wd=&quot;/path/to/data/&quot; ^
@@ -384,9 +395,10 @@ of converting LAS point positional information.</p>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">las_to_multipoint_shapefile(
+<pre><code class="language-python">wbt.las_to_multipoint_shapefile(
     i=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LasToMultipointShapefile -v ^
@@ -417,9 +429,10 @@ should be preferred instead.</p>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">las_to_shapefile(
+<pre><code class="language-python">wbt.las_to_shapefile(
     i=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LasToShapefile -v --wd=&quot;/path/to/data/&quot; ^
@@ -438,11 +451,12 @@ should be preferred instead.</p>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_block_maximum(
+<pre><code class="language-python">wbt.lidar_block_maximum(
     i=None, 
     output=None, 
     resolution=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarBlockMaximum -v ^
@@ -465,11 +479,12 @@ should be preferred instead.</p>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_block_minimum(
+<pre><code class="language-python">wbt.lidar_block_minimum(
     i=None, 
     output=None, 
     resolution=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarBlockMinimum -v ^
@@ -524,13 +539,14 @@ non-sutset points will have the same class value as the base file.</p>
 <tr><td>--nonsubset_class  </td><td> Non-subset point class value (must be 0-18; see LAS specifications)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_classify_subset(
+<pre><code class="language-python">wbt.lidar_classify_subset(
     base, 
     subset, 
     output, 
     subset_class, 
     nonsubset_class=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarClassifySubset -v ^
@@ -551,11 +567,12 @@ non-sutset points will have the same class value as the base file.</p>
 <tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_colourize(
+<pre><code class="language-python">wbt.lidar_colourize(
     in_lidar, 
     in_image, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarColourize -v --wd=&quot;/path/to/data/&quot; ^
@@ -585,14 +602,15 @@ a minimum (<code>--minz</code>) or maximum (<code>--maxz</code>) elevation.</p>
 <tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_construct_vector_tin(
+<pre><code class="language-python">wbt.lidar_construct_vector_tin(
     i=None, 
     output=None, 
     returns=&quot;all&quot;, 
     exclude_cls=None, 
     minz=None, 
     maxz=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarConstructVectorTIN -v ^
@@ -624,7 +642,7 @@ another class value (<code>--outclassval</code>) to those points falling outside
 <tr><td>--outclassval      </td><td> Optional parameter specifying the class value assigned to points within the slice</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_elevation_slice(
+<pre><code class="language-python">wbt.lidar_elevation_slice(
     i, 
     output, 
     minz=None, 
@@ -632,7 +650,8 @@ another class value (<code>--outclassval</code>) to those points falling outside
     cls=False, 
     inclassval=2, 
     outclassval=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarElevationSlice -v ^
@@ -664,7 +683,7 @@ another class value (<code>--outclassval</code>) to those points falling outside
 <tr><td>--slope_norm       </td><td> Perform initial ground slope normalization?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_ground_point_filter(
+<pre><code class="language-python">wbt.lidar_ground_point_filter(
     i, 
     output, 
     radius=2.0, 
@@ -673,7 +692,8 @@ another class value (<code>--outclassval</code>) to those points falling outside
     height_threshold=1.0, 
     classify=True, 
     slope_norm=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarGroundPointFilter -v ^
@@ -714,12 +734,13 @@ vertical (flat side up).</p>
 <tr><td>--orientation      </td><td> Grid Orientation, 'horizontal' or 'vertical'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_hex_binning(
+<pre><code class="language-python">wbt.lidar_hex_binning(
     i, 
     output, 
     width, 
     orientation=&quot;horizontal&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarHexBinning -v ^
@@ -741,13 +762,14 @@ vertical (flat side up).</p>
 <tr><td>--radius           </td><td> Search Radius</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_hillshade(
+<pre><code class="language-python">wbt.lidar_hillshade(
     i, 
     output, 
     azimuth=315.0, 
     altitude=30.0, 
     radius=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarHillshade -v --wd=&quot;/path/to/data/&quot; ^
@@ -777,12 +799,13 @@ include the point elevations, intensity values, scan angles, and class values.</
 <tr><td>--clip             </td><td> Amount to clip distribution tails (in percent)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_histogram(
+<pre><code class="language-python">wbt.lidar_histogram(
     i, 
     output, 
     parameter=&quot;elevation&quot;, 
     clip=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarHistogram -v --wd=&quot;/path/to/data/&quot; ^
@@ -809,7 +832,7 @@ include the point elevations, intensity values, scan angles, and class values.</
 <tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_idw_interpolation(
+<pre><code class="language-python">wbt.lidar_idw_interpolation(
     i=None, 
     output=None, 
     parameter=&quot;elevation&quot;, 
@@ -820,7 +843,8 @@ include the point elevations, intensity values, scan angles, and class values.</
     exclude_cls=None, 
     minz=None, 
     maxz=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarIdwInterpolation -v ^
@@ -847,12 +871,13 @@ data and information about the variable length records (VLRs) and geokeys.</p>
 <tr><td>--geokeys          </td><td> Flag indicating whether or not to print the geokeys</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_info(
+<pre><code class="language-python">wbt.lidar_info(
     i, 
     output=None, 
     vlr=False, 
     geokeys=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarInfo -v --wd=&quot;/path/to/data/&quot; ^
@@ -876,10 +901,11 @@ multiple tiles together for data processing and <a href="./lidar_tools.html#lida
 <tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_join(
+<pre><code class="language-python">wbt.lidar_join(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarJoin -v --wd=&quot;/path/to/data/&quot; ^
@@ -912,13 +938,14 @@ percentage.</p>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_kappa_index(
+<pre><code class="language-python">wbt.lidar_kappa_index(
     input1, 
     input2, 
     output, 
     class_accuracy, 
     resolution=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarKappaIndex -v ^
@@ -944,7 +971,7 @@ percentage.</p>
 <tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_nearest_neighbour_gridding(
+<pre><code class="language-python">wbt.lidar_nearest_neighbour_gridding(
     i=None, 
     output=None, 
     parameter=&quot;elevation&quot;, 
@@ -954,7 +981,8 @@ percentage.</p>
     exclude_cls=None, 
     minz=None, 
     maxz=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarNearestNeighbourGridding -v ^
@@ -983,7 +1011,7 @@ percentage.</p>
 <tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_point_density(
+<pre><code class="language-python">wbt.lidar_point_density(
     i=None, 
     output=None, 
     returns=&quot;all&quot;, 
@@ -992,7 +1020,8 @@ percentage.</p>
     exclude_cls=None, 
     minz=None, 
     maxz=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarPointDensity -v ^
@@ -1020,7 +1049,7 @@ percentage.</p>
 <tr><td>--predom_class     </td><td> Flag indicating whether or not to output the predominant classification raster</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_point_stats(
+<pre><code class="language-python">wbt.lidar_point_stats(
     i=None, 
     resolution=1.0, 
     num_points=True, 
@@ -1028,7 +1057,8 @@ percentage.</p>
     z_range=False, 
     intensity_range=False, 
     predom_class=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarPointStats -v ^
@@ -1051,11 +1081,12 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <tr><td>--include_z        </td><td> Include z-values in point comparison?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_remove_duplicates(
+<pre><code class="language-python">wbt.lidar_remove_duplicates(
     i, 
     output, 
     include_z=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarRemoveDuplicates -v ^
@@ -1075,12 +1106,13 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <tr><td>--elev_diff        </td><td> Max. elevation difference</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_remove_outliers(
+<pre><code class="language-python">wbt.lidar_remove_outliers(
     i, 
     output, 
     radius=2.0, 
     elev_diff=50.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarRemoveOutliers -v ^
@@ -1102,13 +1134,14 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <tr><td>--maxzdiff         </td><td> Maximum difference in elevation (z units) between neighbouring points of the same segment</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_segmentation(
+<pre><code class="language-python">wbt.lidar_segmentation(
     i, 
     output, 
     radius=5.0, 
     norm_diff=10.0, 
     maxzdiff=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarSegmentation -v ^
@@ -1131,14 +1164,15 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <tr><td>--classify         </td><td> Classify points as ground (2) or off-ground (1)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_segmentation_based_filter(
+<pre><code class="language-python">wbt.lidar_segmentation_based_filter(
     i, 
     output, 
     radius=5.0, 
     norm_diff=2.0, 
     maxzdiff=1.0, 
     classify=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarSegmentationBasedFilter -v ^
@@ -1160,13 +1194,14 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <tr><td>--save_filtered    </td><td> Save filtered points to seperate file?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_thin(
+<pre><code class="language-python">wbt.lidar_thin(
     i, 
     output, 
     resolution=2.0, 
     method=&quot;lowest&quot;, 
     save_filtered=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarThin -v --wd=&quot;/path/to/data/&quot; ^
@@ -1188,13 +1223,14 @@ by their x, y, and optionally (<code>--include_z</code>) z coordinates.</p>
 <tr><td>--save_filtered    </td><td> Save filtered points to seperate file?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_thin_high_density(
+<pre><code class="language-python">wbt.lidar_thin_high_density(
     i, 
     output, 
     density, 
     resolution=1.0, 
     save_filtered=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarThinHighDensity -v ^
@@ -1224,14 +1260,15 @@ station) can result in poorly populated tiles containing relatively few points.<
 <tr><td>--min_points       </td><td> Minimum number of points contained in a tile for it to be saved</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_tile(
+<pre><code class="language-python">wbt.lidar_tile(
     i, 
     width=1000.0, 
     height=1000.0, 
     origin_x=0.0, 
     origin_y=0.0, 
     min_points=2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarTile -v -i=/path/to/data/input.las ^
@@ -1242,26 +1279,37 @@ station) can result in poorly populated tiles containing relatively few points.<
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="LidarTileFootprint"></a></p>
 <a class="header" href="#lidartilefootprint" id="lidartilefootprint"><h1>LidarTileFootprint</h1></a>
-<p>This tool can be used to create a vector polygon of the convex hull of a LiDAR point cloud (i.e. LAS file).
-If the user specified an input file (<code>--input</code>) and output file (<code>--output</code>), the tool will calculate the convex
-hull, containing all of the data points, and output this feature to a vector polygon file. If the <code>input</code> and
-<code>output</code> parameters are left unspecified, the tool will calculate the hulls of every LAS file contained within the
+<p>This tool can be used to create a vector polygon of the bounding box or convex hull of a LiDAR point cloud (i.e. LAS file).
+If the user specified an input file (<code>--input</code>) and output file (<code>--output</code>), the tool will calculate the footprint,
+containing all of the data points, and output this feature to a vector polygon file. If the <code>input</code> and
+<code>output</code> parameters are left unspecified, the tool will calculate the footprint of every LAS file contained within the
 working directory and output these features to a single vector polygon file. If this is the desired mode of
 operation, it is important to specify the working directory (<code>--wd</code>) containing the group of LAS files; do not
 specify the optional <code>--input</code> and <code>--output</code> parameters in this case. Each polygon in the output vector will contain
-a <code>LAS_NM</code> field, specifying the source LAS file name, and a <code>NUM_PNTS</code> field, containing the number of points
-within the source file. This output can therefore be useful to create an index map of a large tiled LiDAR dataset.</p>
-<p><a href="./lidar_tools.html#lidartile"><strong>LidarTile</strong></a>, <a href="./gis_analysis.html#layerfootprint"><strong>LayerFootprint</strong></a></p>
+a <code>LAS_NM</code> field, specifying the source LAS file name, a <code>NUM_PNTS</code> field, containing the number of points
+within the source file, and Z_MIN and Z_MAX fields, containing the minimum and maximum elevations. This output can
+therefore be useful to create an index map of a large tiled LiDAR dataset.</p>
+<p>By default, this tool identifies the axis-aligned minimum rectangular hull, or bounding box, containing the points
+in each of the input tiles. If the user specifies the <code>--hull</code> flag, the tool will identify the
+<a href="https://en.wikipedia.org/wiki/Convex_hull">minimum convex hull</a> instead of the bounding box. This option is considerably
+more computationally intensive and will be a far longer running operation if many tiles are specified as inputs.</p>
+<p><strong>A note on LAZ file inputs:</strong> While WhiteboxTools does not currently support the reading and writing of the compressed
+LiDAR format <code>LAZ</code>, it is able to read <code>LAZ</code> file headers. This tool, when run in in the bounding box mode (rather than
+the convex hull mode), is able to take <code>LAZ</code> input files.</p>
+<p><a href="./lidar_tools.html#lidartile"><strong>LidarTile</strong></a>, <a href="./gis_analysis.html#layerfootprint"><strong>LayerFootprint</strong></a>, <a href="./gis_analysis.html#minimumboundingbox"><strong>MinimumBoundingBox</strong></a>, <a href="./gis_analysis.html#minimumconvexhull"><strong>MinimumConvexHull</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--hull             </td><td> Identify the convex hull around points</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_tile_footprint(
+<pre><code class="language-python">wbt.lidar_tile_footprint(
     output, 
     i=None, 
-    callback=default_callback)
+    hull=False, 
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarTileFootprint -v ^
@@ -1286,7 +1334,7 @@ within the source file. This output can therefore be useful to create an index m
 <tr><td>--max_triangle_edge_length</td><td> Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_tin_gridding(
+<pre><code class="language-python">wbt.lidar_tin_gridding(
     i=None, 
     output=None, 
     parameter=&quot;elevation&quot;, 
@@ -1296,7 +1344,8 @@ within the source file. This output can therefore be useful to create an index m
     minz=None, 
     maxz=None, 
     max_triangle_edge_length=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarTINGridding -v ^
@@ -1309,7 +1358,16 @@ within the source file. This output can therefore be useful to create an index m
 <p><em>Created</em>: 21/09/2018</p>
 <p><a name="LidarTophatTransform"></a></p>
 <a class="header" href="#lidartophattransform" id="lidartophattransform"><h1>LidarTophatTransform</h1></a>
-<p>Performs a white top-hat transform on a Lidar dataset; as an estimate of height above ground, this is useful for modelling the vegetation canopy.</p>
+<p>This tool performs a white <a href="https://en.wikipedia.org/wiki/Top-hat_transform">top-hat transform</a> on a LiDAR point cloud.
+A top-hat transform is a common digital image processing operation used for various tasks, such
+as feature extraction, background equalization, and image enhancement. When applied to a LiDAR point cloud, the white
+top-hat transform provides an estimate of <em>height above ground</em>, which is useful for modelling the vegetation canopy.</p>
+<p>The white top-hat transform is defined as the difference between a point's original elevation and its
+<a href="https://en.wikipedia.org/wiki/Opening_(morphology)">opening</a>. The opening operation can be thought of as the local
+neighbourhood maximum of a previous local minimum surface. The user must specify the size of the neighbourhood using the
+<code>--radius</code> parameter.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a>, <a href="./image_processing_tools.html#closing"><strong>Closing</strong></a>, <a href="./image_processing_tools.html#opening"><strong>Opening</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -1317,11 +1375,12 @@ within the source file. This output can therefore be useful to create an index m
 <tr><td>--radius           </td><td> Search Radius</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lidar_tophat_transform(
+<pre><code class="language-python">wbt.lidar_tophat_transform(
     i, 
     output, 
     radius=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarTophatTransform -v ^
@@ -1341,11 +1400,12 @@ within the source file. This output can therefore be useful to create an index m
 <tr><td>--radius           </td><td> Search Radius</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">normal_vectors(
+<pre><code class="language-python">wbt.normal_vectors(
     i, 
     output, 
     radius=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NormalVectors -v --wd=&quot;/path/to/data/&quot; ^
@@ -1356,7 +1416,12 @@ within the source file. This output can therefore be useful to create an index m
 <p><em>Created</em>: June 26, 2017</p>
 <p><a name="SelectTilesByPolygon"></a></p>
 <a class="header" href="#selecttilesbypolygon" id="selecttilesbypolygon"><h1>SelectTilesByPolygon</h1></a>
-<p>Copies LiDAR tiles overlapping with a polygon into an output directory.</p>
+<p>This tool copies LiDAR tiles overlapping with a polygon into an output directory.</p>
+<p><strong>A note on LAZ file inputs:</strong> While WhiteboxTools does not currently support the reading and writing of the compressed
+LiDAR format <code>LAZ</code>, it is able to read <code>LAZ</code> file headers. Because this tool only requires information contained
+in the input file's header (i.e. the bounding box of the data), it is able to take <code>LAZ</code> input files.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidartilefootprint"><strong>LidarTileFootprint</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--indir            </td><td> Input LAS file source directory</td></tr>
@@ -1364,11 +1429,12 @@ within the source file. This output can therefore be useful to create an index m
 <tr><td>--polygons         </td><td> Input vector polygons file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">select_tiles_by_polygon(
+<pre><code class="language-python">wbt.select_tiles_by_polygon(
     indir, 
     outdir, 
     polygons, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SelectTilesByPolygon -v ^

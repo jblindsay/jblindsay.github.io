@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -176,11 +180,12 @@ colour composition. <em>International Journal of Remote Sensing</em>, 12:10.</p>
 <tr><td>--band_mean        </td><td> Band mean value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">balance_contrast_enhancement(
+<pre><code class="language-python">wbt.balance_contrast_enhancement(
     i, 
     output, 
     band_mean=100.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BalanceContrastEnhancement -v ^
@@ -216,14 +221,15 @@ of the HSI transform.</p>
 <tr><td>-n                  </td><td> The 'n' parameter</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">correct_vignetting(
+<pre><code class="language-python">wbt.correct_vignetting(
     i, 
     pp, 
     output, 
     focal_length=304.8, 
     image_width=228.6, 
     n=4.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CorrectVignetting -v ^
@@ -261,12 +267,13 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 <tr><td>--clip             </td><td> Optional percent to clip the upper tail by during the stretch</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">direct_decorrelation_stretch(
+<pre><code class="language-python">wbt.direct_decorrelation_stretch(
     i, 
     output, 
     k=0.5, 
     clip=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DirectDecorrelationStretch -v ^
@@ -291,11 +298,12 @@ composite data type.</p>
 <tr><td>--gamma            </td><td> Gamma value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">gamma_correction(
+<pre><code class="language-python">wbt.gamma_correction(
     i, 
     output, 
     gamma=0.5, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=GammaCorrection -v ^
@@ -323,11 +331,12 @@ to an input image, and other contrast enchancement tools such as <a href="./imag
 <tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">gaussian_contrast_stretch(
+<pre><code class="language-python">wbt.gaussian_contrast_stretch(
     i, 
     output, 
     num_tones=256, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=GaussianContrastStretch -v ^
@@ -369,11 +378,12 @@ the histogram is being distorted. This is more prevalent for integer-level image
 <tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">histogram_equalization(
+<pre><code class="language-python">wbt.histogram_equalization(
     i, 
     output, 
     num_tones=256, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HistogramEqualization -v ^
@@ -424,11 +434,12 @@ channels should be split using the <a href="./image_processing_tools.html#splitc
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">histogram_matching(
+<pre><code class="language-python">wbt.histogram_matching(
     i, 
     histo_file, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HistogramMatching -v ^
@@ -467,11 +478,12 @@ using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>S
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">histogram_matching_two_images(
+<pre><code class="language-python">wbt.histogram_matching_two_images(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HistogramMatchingTwoImages -v ^
@@ -509,13 +521,14 @@ of tonal values is determined by the number of palette entries.</p>
 <tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">min_max_contrast_stretch(
+<pre><code class="language-python">wbt.min_max_contrast_stretch(
     i, 
     output, 
     min_val, 
     max_val, 
     num_tones=256, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinMaxContrastStretch -v ^
@@ -553,7 +566,7 @@ corresponds closely to the green (band 2), red (band 3), and near-infrared (band
 <tr><td>--method           </td><td> Options include 'brovey' (default) and 'ihs'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">panchromatic_sharpening(
+<pre><code class="language-python">wbt.panchromatic_sharpening(
     pan, 
     output, 
     red=None, 
@@ -561,7 +574,8 @@ corresponds closely to the green (band 2), red (band 3), and near-infrared (band
     blue=None, 
     composite=None, 
     method=&quot;brovey&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PanchromaticSharpening -v ^
@@ -604,13 +618,14 @@ of tonal values is determined by the number of palette entries.</p>
 <tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">percentage_contrast_stretch(
+<pre><code class="language-python">wbt.percentage_contrast_stretch(
     i, 
     output, 
     clip=1.0, 
     tail=&quot;both&quot;, 
     num_tones=256, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PercentageContrastStretch -v ^
@@ -653,13 +668,14 @@ images.</p>
 <tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">sigmoidal_contrast_stretch(
+<pre><code class="language-python">wbt.sigmoidal_contrast_stretch(
     i, 
     output, 
     cutoff=0.0, 
     gain=1.0, 
     num_tones=256, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SigmoidalContrastStretch -v ^
@@ -693,12 +709,13 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">standard_deviation_contrast_stretch(
+<pre><code class="language-python">wbt.standard_deviation_contrast_stretch(
     i, 
     output, 
     stdev=2.0, 
     num_tones=256, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StandardDeviationContrastStretch -v ^

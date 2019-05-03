@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -184,13 +188,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">distance_to_outlet(
+<pre><code class="language-python">wbt.distance_to_outlet(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DistanceToOutlet -v ^
@@ -231,12 +236,13 @@ flag is specified.</p>
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">extract_streams(
+<pre><code class="language-python">wbt.extract_streams(
     flow_accum, 
     output, 
     threshold, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ExtractStreams -v --wd=&quot;/path/to/data/&quot; ^
@@ -248,23 +254,66 @@ flag is specified.</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><a name="ExtractValleys"></a></p>
 <a class="header" href="#extractvalleys" id="extractvalleys"><h1>ExtractValleys</h1></a>
-<p>Identifies potential valley bottom grid cells based on local topolography alone.</p>
+<p>This tool can be used to extract channel networks from an input digital elevation models (<code>--dem</code>) using
+one of three techniques that are based on local topography alone.</p>
+<p>The Lindsay (2006) 'lower-quartile' method (<code>--variant='LQ'</code>) algorithm is a type of 'valley recognition'
+method. Other channel mapping methods, such as the Johnston and Rosenfeld (1975) algorithm, experience
+problems because channel profiles are not always 'v'-shaped, nor are they always apparent in small
+3 x 3 windows. The lower-quartile method was developed as an alternative and more flexible valley
+recognition channel mapping technique. The lower-quartile method operates by running a filter over the
+DEM that calculates the percentile value of the centre cell with respect to the distribution of
+elevations within the filter window. The roving window is circular, the diameter of which should reflect
+the topographic variation of the area (e.g. the channel width or average hillslope length). If this variant
+is selected, the user must specify the filter size (<code>--filter</code>), in pixels, and this value should be an odd
+number (e.g. 3, 5, 7, etc.). The appropriateness of the selected window diameter will depend on the grid
+resolution relative to the scale of topographic features. Cells that are within the lower quartile of the
+distribution of elevations of their neighbourhood are flagged. Thus, the algorithm identifies grid cells
+that are in relatively low topographic positions at a local scale. This approach to channel mapping is only
+appropriate in fluvial landscapes. In regions containing numerous lakes and wetlands, the algorithm will
+pick out the edges of features.</p>
+<p>The Johnston and Rosenfeld (1975) algorithm (<code>--variant='JandR'</code>) is a type of 'valley recognition' method
+and operates as follows: channel cells are flagged in a 3 x 3 window if the north and south neighbours are
+higher than the centre grid cell or if the east and west neighbours meet this same criterion. The group of
+cells that are flagged after one pass of the roving window constituted the drainage network. This method is
+best applied to DEMs that are relatively smooth and do not exhibit high levels of short-range roughness. As
+such, it may be desirable to use a smoothing filter before applying this tool. The <a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a>
+is a good option for removing DEM roughness while preserving the topographic information contain in
+breaks-in-slope (i.e. edges).</p>
+<p>The Peucker and Douglas (1975) algorithm (<code>--variant='PandD'</code>) is one of the simplest and earliest algorithms
+for topography-based network extraction. Their 'valley recognition' method operates by passing a 2 x 2 roving
+window over a DEM and flagging the highest grid cell in each group of four. Once the window has passed over
+the entire DEM, channel grid cells are left unflagged. This method is also best applied to DEMs that are relatively
+smooth and do not exhibit high levels of short-range roughness. Pre-processing the DEM with the <a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a>
+tool may also be useful when applying this method.</p>
+<p>Each of these methods of extracting valley networks result in line networks that can be wider than a single
+grid cell. As such, it is often desirable to thin the resulting network using a line-thinning algorithm.
+The option to perform line-thinning is provided by the tool as a post-processing step (<code>--line_thin</code>).</p>
+<p><em>References</em>:</p>
+<p>Johnston, E. G., &amp; Rosenfeld, A. (1975). Digital detection of pits, peaks, ridges, and ravines. IEEE
+Transactions on Systems, Man, and Cybernetics, (4), 472-480.</p>
+<p>Lindsay, J. B. (2006). Sensitivity of channel mapping techniques to uncertainty in digital elevation data.
+International Journal of Geographical Information Science, 20(6), 669-692.</p>
+<p>Peucker, T. K., &amp; Douglas, D. H. (1975). Detection of surface-specific points by local parallel
+processing of discrete terrain elevation data. Computer Graphics and image processing, 4(4), 375-387.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--variant          </td><td> Options include 'lq' (lower quartile), 'JandR' (Johnston and Rosenfeld), and 'PandD' (Peucker and Douglas); default is 'lq'</td></tr>
+<tr><td>--variant          </td><td> Options include 'LQ' (lower quartile), 'JandR' (Johnston and Rosenfeld), and 'PandD' (Peucker and Douglas); default is 'LQ'</td></tr>
 <tr><td>--line_thin        </td><td> Optional flag indicating whether post-processing line-thinning should be performed</td></tr>
 <tr><td>--filter           </td><td> Optional argument (only used when variant='lq') providing the filter size, in grid cells, used for lq-filtering (default is 5)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">extract_valleys(
+<pre><code class="language-python">wbt.extract_valleys(
     dem, 
     output, 
     variant=&quot;Lower Quartile&quot;, 
     line_thin=True, 
     filter=5, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ExtractValleys -v --wd=&quot;/path/to/data/&quot; ^
@@ -300,13 +349,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">farthest_channel_head(
+<pre><code class="language-python">wbt.farthest_channel_head(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FarthestChannelHead -v ^
@@ -348,13 +398,14 @@ When a confluence is encountered, the traverse follows the branch with the large
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">find_main_stem(
+<pre><code class="language-python">wbt.find_main_stem(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FindMainStem -v --wd=&quot;/path/to/data/&quot; ^
@@ -400,13 +451,14 @@ Printing Office.</p>
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">hack_stream_order(
+<pre><code class="language-python">wbt.hack_stream_order(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HackStreamOrder -v ^
@@ -451,13 +503,14 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">horton_stream_order(
+<pre><code class="language-python">wbt.horton_stream_order(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HortonStreamOrder -v ^
@@ -493,13 +546,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">length_of_upstream_channels(
+<pre><code class="language-python">wbt.length_of_upstream_channels(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LengthOfUpstreamChannels -v ^
@@ -543,13 +597,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">long_profile(
+<pre><code class="language-python">wbt.long_profile(
     d8_pntr, 
     streams, 
     dem, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LongProfile -v --wd=&quot;/path/to/data/&quot; ^
@@ -582,13 +637,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">long_profile_from_points(
+<pre><code class="language-python">wbt.long_profile_from_points(
     d8_pntr, 
     points, 
     dem, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LongProfileFromPoints -v ^
@@ -619,12 +675,13 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raster_streams_to_vector(
+<pre><code class="language-python">wbt.raster_streams_to_vector(
     streams, 
     d8_pntr, 
     output, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterStreamsToVector -v ^
@@ -656,13 +713,14 @@ is determined.</p>
 <tr><td>--feature_id       </td><td> Use feature number as output value?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">rasterize_streams(
+<pre><code class="language-python">wbt.rasterize_streams(
     streams, 
     base, 
     output, 
     nodata=True, 
     feature_id=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterizeStreams -v ^
@@ -693,13 +751,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">remove_short_streams(
+<pre><code class="language-python">wbt.remove_short_streams(
     d8_pntr, 
     streams, 
     output, 
     min_length, 
     esri_pntr=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RemoveShortStreams -v ^
@@ -735,13 +794,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">shreve_stream_magnitude(
+<pre><code class="language-python">wbt.shreve_stream_magnitude(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ShreveStreamMagnitude -v ^
@@ -786,13 +846,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">strahler_stream_order(
+<pre><code class="language-python">wbt.strahler_stream_order(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StrahlerStreamOrder -v ^
@@ -838,13 +899,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">stream_link_class(
+<pre><code class="language-python">wbt.stream_link_class(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StreamLinkClass -v ^
@@ -883,13 +945,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">stream_link_identifier(
+<pre><code class="language-python">wbt.stream_link_identifier(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StreamLinkIdentifier -v ^
@@ -921,13 +984,14 @@ cells will be assinged zero values in the output.</p>
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">stream_link_length(
+<pre><code class="language-python">wbt.stream_link_length(
     d8_pntr, 
     linkid, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StreamLinkLength -v ^
@@ -966,14 +1030,15 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">stream_link_slope(
+<pre><code class="language-python">wbt.stream_link_slope(
     d8_pntr, 
     linkid, 
     dem, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StreamLinkSlope -v ^
@@ -1012,14 +1077,15 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">stream_slope_continuous(
+<pre><code class="language-python">wbt.stream_slope_continuous(
     d8_pntr, 
     streams, 
     dem, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StreamSlopeContinuous -v ^
@@ -1058,13 +1124,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">topological_stream_order(
+<pre><code class="language-python">wbt.topological_stream_order(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TopologicalStreamOrder -v ^
@@ -1106,13 +1173,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">tributary_identifier(
+<pre><code class="language-python">wbt.tributary_identifier(
     d8_pntr, 
     streams, 
     output, 
     esri_pntr=False, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TributaryIdentifier -v ^

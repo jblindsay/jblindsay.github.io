@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -192,12 +196,13 @@ of the overlapping grid cells in the input raster (four cells in the case of an 
 <tr><td>--type             </td><td> Statistic used to fill output pixels</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">aggregate_raster(
+<pre><code class="language-python">wbt.aggregate_raster(
     i, 
     output, 
     agg_factor=2, 
     type=&quot;mean&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AggregateRaster -v ^
@@ -220,14 +225,15 @@ of the overlapping grid cells in the input raster (four cells in the case of an 
 <tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">block_maximum_gridding(
+<pre><code class="language-python">wbt.block_maximum_gridding(
     i, 
     field, 
     output, 
     use_z=False, 
     cell_size=None, 
     base=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BlockMaximumGridding -v ^
@@ -253,14 +259,15 @@ of the overlapping grid cells in the input raster (four cells in the case of an 
 <tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">block_minimum_gridding(
+<pre><code class="language-python">wbt.block_minimum_gridding(
     i, 
     field, 
     output, 
     use_z=False, 
     cell_size=None, 
     base=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BlockMinimumGridding -v ^
@@ -286,11 +293,12 @@ For vector features, use the <a href="./gis_analysis.html#centroidvector"><stron
 <tr><td>--text_output      </td><td> Optional text output</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">centroid(
+<pre><code class="language-python">wbt.centroid(
     i, 
     output, 
     text_output=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Centroid -v --wd=&quot;/path/to/data/&quot; ^
@@ -317,10 +325,11 @@ multi-part features a single entity.</p>
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">centroid_vector(
+<pre><code class="language-python">wbt.centroid_vector(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CentroidVector -v --wd=&quot;/path/to/data/&quot; ^
@@ -352,12 +361,13 @@ specified.</p>
 <tr><td>--zero_back        </td><td> Flag indicating whether zero values should be treated as a background</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">clump(
+<pre><code class="language-python">wbt.clump(
     i, 
     output, 
     diag=True, 
     zero_back=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Clump -v --wd=&quot;/path/to/data/&quot; ^
@@ -383,12 +393,13 @@ used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a hre
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">construct_vector_tin(
+<pre><code class="language-python">wbt.construct_vector_tin(
     i, 
     output, 
     field=None, 
     use_z=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ConstructVectorTIN -v ^
@@ -416,12 +427,13 @@ and whether the hexagonal orientation (<code>--orientation</code>) is <code>hori
 <tr><td>--orientation      </td><td> Grid Orientation, 'horizontal' or 'vertical'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">create_hexagonal_vector_grid(
+<pre><code class="language-python">wbt.create_hexagonal_vector_grid(
     i, 
     output, 
     width, 
     orientation=&quot;horizontal&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CreateHexagonalVectorGrid -v ^
@@ -452,13 +464,14 @@ or azimuth, that the plane is facing</p>
 <tr><td>--constant         </td><td> Constant value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">create_plane(
+<pre><code class="language-python">wbt.create_plane(
     base, 
     output, 
     gradient=15.0, 
     aspect=90.0, 
     constant=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CreatePlane -v --wd=&quot;/path/to/data/&quot; ^
@@ -486,14 +499,15 @@ and <code>--yorig</code>) and the grid cell width and height (<code>--width</cod
 <tr><td>--yorig            </td><td> The grid origin y-coordinate</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">create_rectangular_vector_grid(
+<pre><code class="language-python">wbt.create_rectangular_vector_grid(
     i, 
     output, 
     width, 
     height, 
     xorig=0, 
     yorig=0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CreateRectangularVectorGrid -v ^
@@ -521,12 +535,13 @@ along shared boundaries in the vector coverage before performing the <a href="./
 <tr><td>--snap             </td><td> Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">dissolve(
+<pre><code class="language-python">wbt.dissolve(
     i, 
     output, 
     field=None, 
     snap=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Dissolve -v --wd=&quot;/path/to/data/&quot; ^
@@ -553,11 +568,12 @@ points must be exactly coincident to be removed.</p>
 <tr><td>--tolerance        </td><td> The distance tolerance for points</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">eliminate_coincident_points(
+<pre><code class="language-python">wbt.eliminate_coincident_points(
     i, 
     output, 
     tolerance, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EliminateCoincidentPoints -v ^
@@ -581,12 +597,13 @@ must be of a POLYLINE base shape type and should be in a projected coordinate sy
 <tr><td>--extend           </td><td> Extend direction, 'both ends' (default), 'line start', 'line end'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">extend_vector_lines(
+<pre><code class="language-python">wbt.extend_vector_lines(
     i, 
     output, 
     dist, 
     extend=&quot;both ends&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ExtendVectorLines -v ^
@@ -607,10 +624,11 @@ the name of the output point-type vector.</p>
 <tr><td>-o, --output       </td><td> Output vector points file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">extract_nodes(
+<pre><code class="language-python">wbt.extract_nodes(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ExtractNodes -v --wd=&quot;/path/to/data/&quot; ^
@@ -637,11 +655,12 @@ more suitable for this application.</p>
 <tr><td>--out_text         </td><td> Output point values as text? Otherwise, the only output is to to the points file's attribute table</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">extract_raster_values_at_points(
+<pre><code class="language-python">wbt.extract_raster_values_at_points(
     inputs, 
     points, 
     out_text=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ExtractRasterValuesAtPoints -v ^
@@ -667,11 +686,12 @@ XY coordinates and their values.</p>
 <tr><td>--out_type         </td><td> Output type; one of 'area' (default) and 'volume'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">find_lowest_or_highest_points(
+<pre><code class="language-python">wbt.find_lowest_or_highest_points(
     i, 
     output, 
     out_type=&quot;lowest&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FindLowestOrHighestPoints -v ^
@@ -705,7 +725,7 @@ This tool interpolates vector points into a raster surface using an inverse-dist
 <tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">idw_interpolation(
+<pre><code class="language-python">wbt.idw_interpolation(
     i, 
     field, 
     output, 
@@ -715,7 +735,8 @@ This tool interpolates vector points into a raster surface using an inverse-dist
     min_points=None, 
     cell_size=None, 
     base=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=IdwInterpolation -v ^
@@ -750,10 +771,11 @@ boundary.</p>
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">layer_footprint(
+<pre><code class="language-python">wbt.layer_footprint(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LayerFootprint -v --wd=&quot;/path/to/data/&quot; ^
@@ -785,10 +807,11 @@ y-coordinate (Med Y) are calculated.</li>
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">medoid(
+<pre><code class="language-python">wbt.medoid(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Medoid -v --wd=&quot;/path/to/data/&quot; ^
@@ -814,12 +837,13 @@ tool can be used to calculate the axis-aligned bounding rectangle around each fe
 <tr><td>--features         </td><td> Find the minimum bounding rectangles around each individual vector feature</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">minimum_bounding_box(
+<pre><code class="language-python">wbt.minimum_bounding_box(
     i, 
     output, 
     criterion=&quot;area&quot;, 
     features=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinimumBoundingBox -v ^
@@ -842,11 +866,12 @@ circle to completely enclose a feature.</p>
 <tr><td>--features         </td><td> Find the minimum bounding circle around each individual vector feature</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">minimum_bounding_circle(
+<pre><code class="language-python">wbt.minimum_bounding_circle(
     i, 
     output, 
     features=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinimumBoundingCircle -v ^
@@ -870,11 +895,12 @@ non-axis aligned rectangular envelope.</p>
 <tr><td>--features         </td><td> Find the minimum bounding envelop around each individual vector feature</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">minimum_bounding_envelope(
+<pre><code class="language-python">wbt.minimum_bounding_envelope(
     i, 
     output, 
     features=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinimumBoundingEnvelope -v ^
@@ -900,11 +926,12 @@ Voronoi diagram, are mathematically related to convex hulls.</p>
 <tr><td>--features         </td><td> Find the hulls around each vector feature</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">minimum_convex_hull(
+<pre><code class="language-python">wbt.minimum_convex_hull(
     i, 
     output, 
     features=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinimumConvexHull -v ^
@@ -927,7 +954,7 @@ Voronoi diagram, are mathematically related to convex hulls.</p>
 <tr><td>--max_dist         </td><td> Maximum search distance (optional)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">nearest_neighbour_gridding(
+<pre><code class="language-python">wbt.nearest_neighbour_gridding(
     i, 
     field, 
     output, 
@@ -935,7 +962,8 @@ Voronoi diagram, are mathematically related to convex hulls.</p>
     cell_size=None, 
     base=None, 
     max_dist=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NearestNeighbourGridding -v ^
@@ -962,9 +990,10 @@ projected coordinate system.</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">polygon_area(
+<pre><code class="language-python">wbt.polygon_area(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PolygonArea -v --wd=&quot;/path/to/data/&quot; ^
@@ -986,10 +1015,11 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">polygon_long_axis(
+<pre><code class="language-python">wbt.polygon_long_axis(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PolygonLongAxis -v ^
@@ -1009,9 +1039,10 @@ a projected coordinate system.</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">polygon_perimeter(
+<pre><code class="language-python">wbt.polygon_perimeter(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PolygonPerimeter -v ^
@@ -1033,10 +1064,11 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">polygon_short_axis(
+<pre><code class="language-python">wbt.polygon_short_axis(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PolygonShortAxis -v ^
@@ -1068,13 +1100,14 @@ the tool will automatically output a raster named <code>area.tif</code>.</p>
 <tr><td>--zero_back        </td><td> Flag indicating whether zero values should be treated as a background</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raster_area(
+<pre><code class="language-python">wbt.raster_area(
     i, 
     output=None, 
     out_text=False, 
     units=&quot;grid cells&quot;, 
     zero_back=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterArea -v --wd=&quot;/path/to/data/&quot; ^
@@ -1100,11 +1133,12 @@ image (<code>--input</code>).</p>
 <tr><td>-a, --assign       </td><td> Which variable would you like to assign to grid cells? Options include 'column', 'row', 'x', and 'y'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raster_cell_assignment(
+<pre><code class="language-python">wbt.raster_cell_assignment(
     i, 
     output, 
     assign=&quot;column&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterCellAssignment -v ^
@@ -1142,12 +1176,13 @@ used in one of the user-defined reclass ranges (notice that it is valid to enter
 <tr><td>--assign_mode      </td><td> Optional Boolean flag indicating whether to operate in assign mode, reclass_vals values are interpreted as new value; old value pairs</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">reclass(
+<pre><code class="language-python">wbt.reclass(
     i, 
     output, 
     reclass_vals, 
     assign_mode=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Reclass -v --wd=&quot;/path/to/data/&quot; ^
@@ -1179,13 +1214,14 @@ value, the tool will assign a very large positive value.</p>
 <tr><td>--end_val          </td><td> Optional ending value (default is input maximum value)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">reclass_equal_interval(
+<pre><code class="language-python">wbt.reclass_equal_interval(
     i, 
     output, 
     interval=10.0, 
     start_val=None, 
     end_val=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ReclassEqualInterval -v ^
@@ -1217,11 +1253,12 @@ raster.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">reclass_from_file(
+<pre><code class="language-python">wbt.reclass_from_file(
     i, 
     reclass_file, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ReclassFromFile -v ^
@@ -1244,11 +1281,12 @@ larger the averaging window, the greater the degree of line smoothing.</p>
 <tr><td>--filter           </td><td> The filter size, any odd integer greater than or equal to 3; default is 3</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">smooth_vectors(
+<pre><code class="language-python">wbt.smooth_vectors(
     i, 
     output, 
     filter=3, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SmoothVectors -v --wd=&quot;/path/to/data/&quot; ^
@@ -1272,13 +1310,14 @@ and linear interpolation within each triangular-shaped plane.</p>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">tin_gridding(
+<pre><code class="language-python">wbt.tin_gridding(
     i, 
     output, 
     resolution, 
     field=None, 
     use_z=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TINGridding -v --wd=&quot;/path/to/data/&quot; ^
@@ -1319,12 +1358,13 @@ vertical (flat side up).</p>
 <tr><td>--orientation      </td><td> Grid Orientation, 'horizontal' or 'vertical'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">vector_hex_binning(
+<pre><code class="language-python">wbt.vector_hex_binning(
     i, 
     output, 
     width, 
     orientation=&quot;horizontal&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=VectorHexBinning -v ^
@@ -1362,10 +1402,11 @@ data (i.e. raster interpolation), use the <a href="./gis_analysis.html#nearestne
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">voronoi_diagram(
+<pre><code class="language-python">wbt.voronoi_diagram(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=VoronoiDiagram -v --wd=&quot;/path/to/data/&quot; ^

@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -173,10 +177,11 @@ positive, non-zero whole numbers.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">boundary_shape_complexity(
+<pre><code class="language-python">wbt.boundary_shape_complexity(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BoundaryShapeComplexity -v ^
@@ -203,9 +208,10 @@ an increase in polygon size will cause a change in the compactness ratio.</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">compactness_ratio(
+<pre><code class="language-python">wbt.compactness_ratio(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CompactnessRatio -v ^
@@ -232,11 +238,12 @@ be positive, non-zero whole numbers.</p>
 <tr><td>--output_text      </td><td> flag indicating whether a text report should also be output</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">edge_proportion(
+<pre><code class="language-python">wbt.edge_proportion(
     i, 
     output, 
     output_text=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EdgeProportion -v --wd=&quot;/path/to/data/&quot; ^
@@ -265,9 +272,10 @@ compact nature of these polygon.</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">elongation_ratio(
+<pre><code class="language-python">wbt.elongation_ratio(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElongationRatio -v ^
@@ -291,10 +299,11 @@ and NoData-valued grid cells are interpreted as background cells by the tool.</p
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">find_patch_or_class_edge_cells(
+<pre><code class="language-python">wbt.find_patch_or_class_edge_cells(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FindPatchOrClassEdgeCells -v ^
@@ -317,9 +326,10 @@ database file as a new field (HOLE_PROP).</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">hole_proportion(
+<pre><code class="language-python">wbt.hole_proportion(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HoleProportion -v --wd=&quot;/path/to/data/&quot; ^
@@ -349,9 +359,10 @@ polygon feature will be placed in the accompanying attribute table as a new fiel
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">linearity_index(
+<pre><code class="language-python">wbt.linearity_index(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LinearityIndex -v --wd=&quot;/path/to/data/&quot; ^
@@ -381,10 +392,11 @@ be positive, non-zero whole numbers.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">narrowness_index(
+<pre><code class="language-python">wbt.narrowness_index(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NarrownessIndex -v ^
@@ -412,9 +424,10 @@ oriented nearly vertical or horizontal.</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">patch_orientation(
+<pre><code class="language-python">wbt.patch_orientation(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PatchOrientation -v ^
@@ -439,9 +452,10 @@ database file.</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">perimeter_area_ratio(
+<pre><code class="language-python">wbt.perimeter_area_ratio(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PerimeterAreaRatio -v ^
@@ -469,11 +483,12 @@ data.</p>
 <tr><td>--text_output      </td><td> Optional text output</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">radius_of_gyration(
+<pre><code class="language-python">wbt.radius_of_gyration(
     i, 
     output, 
     text_output=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RadiusOfGyration -v ^
@@ -507,9 +522,10 @@ a low related circumscribing circle index owing to the compact nature of these p
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">related_circumscribing_circle(
+<pre><code class="language-python">wbt.related_circumscribing_circle(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RelatedCircumscribingCircle -v ^
@@ -547,9 +563,10 @@ accompanying database file (.dbf) as a complexity field (COMPLEXITY).</p>
 <tr><td>-i, --input        </td><td> Input vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">shape_complexity_index(
+<pre><code class="language-python">wbt.shape_complexity_index(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ShapeComplexityIndex -v ^
@@ -573,10 +590,11 @@ designated by their unique identifers. Identifer values should be positive, non-
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">shape_complexity_index_raster(
+<pre><code class="language-python">wbt.shape_complexity_index_raster(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ShapeComplexityIndexRaster -v ^

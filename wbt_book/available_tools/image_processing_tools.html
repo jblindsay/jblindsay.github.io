@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -197,12 +201,13 @@ Jensen (2015) provides a useful description of this approach to change detection
 <tr><td>--direction        </td><td> Output vector Direction raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">change_vector_analysis(
+<pre><code class="language-python">wbt.change_vector_analysis(
     date1, 
     date2, 
     magnitude, 
     direction, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ChangeVectorAnalysis -v ^
@@ -232,12 +237,13 @@ window in both the x and y directions (<code>--filterx</code> and <code>--filter
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">closing(
+<pre><code class="language-python">wbt.closing(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Closing -v --wd=&quot;/path/to/data/&quot; ^
@@ -277,7 +283,7 @@ the <code>--zeros</code> flag.</p>
 <tr><td>--zeros            </td><td> Optional flag to indicate if zeros are nodata values</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">create_colour_composite(
+<pre><code class="language-python">wbt.create_colour_composite(
     red, 
     green, 
     blue, 
@@ -285,7 +291,8 @@ the <code>--zeros</code> flag.</p>
     opacity=None, 
     enhance=True, 
     zeros=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CreateColourComposite -v ^
@@ -311,11 +318,12 @@ rather, the reflected image is stored in a separate output (<code>--output</code
 <tr><td>--direction        </td><td> Direction of reflection; options include 'v' (vertical), 'h' (horizontal), and 'b' (both)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">flip_image(
+<pre><code class="language-python">wbt.flip_image(
     i, 
     output, 
     direction=&quot;vertical&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FlipImage -v --wd=&quot;/path/to/data/&quot; ^
@@ -362,7 +370,7 @@ Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sens
 <tr><td>-o, --output       </td><td> Output colour-composite file. Only used if individual bands are not specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">ihs_to_rgb(
+<pre><code class="language-python">wbt.ihs_to_rgb(
     intensity, 
     hue, 
     saturation, 
@@ -370,7 +378,8 @@ Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sens
     green=None, 
     blue=None, 
     output=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=IhsToRgb -v --wd=&quot;/path/to/data/&quot; ^
@@ -405,11 +414,12 @@ the raster values to be output as text, you may use the <a href="./gis_analysis.
 <tr><td>-o, --output       </td><td> Output HTML file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">image_stack_profile(
+<pre><code class="language-python">wbt.image_stack_profile(
     inputs, 
     points, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ImageStackProfile -v ^
@@ -437,10 +447,11 @@ basis of several of <em>WhiteboxTools</em>'s image filters.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">integral_image(
+<pre><code class="language-python">wbt.integral_image(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=IntegralImage -v --wd=&quot;/path/to/data/&quot; ^
@@ -480,7 +491,7 @@ will result in the removal of the corresponding pixel from the analysis.</p>
 <tr><td>--min_class_size   </td><td> Minimum class size, in pixels</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">k_means_clustering(
+<pre><code class="language-python">wbt.k_means_clustering(
     inputs, 
     output, 
     classes, 
@@ -489,7 +500,8 @@ will result in the removal of the corresponding pixel from the analysis.</p>
     class_change=2.0, 
     initialize=&quot;diagonal&quot;, 
     min_class_size=10, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=KMeansClustering -v ^
@@ -518,10 +530,11 @@ the output raster must be read and written to during the same loop.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">line_thinning(
+<pre><code class="language-python">wbt.line_thinning(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LineThinning -v --wd=&quot;/path/to/data/&quot; ^
@@ -555,7 +568,7 @@ introduction. John Wiley &amp; Sons.</p>
 <tr><td>--class_change     </td><td> Minimum percent of cells changed between iterations before completion</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">modified_k_means_clustering(
+<pre><code class="language-python">wbt.modified_k_means_clustering(
     inputs, 
     output, 
     out_html=None, 
@@ -563,7 +576,8 @@ introduction. John Wiley &amp; Sons.</p>
     merge_dist=None, 
     max_iterations=10, 
     class_change=2.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ModifiedKMeansClustering -v ^
@@ -604,11 +618,12 @@ assigned the NoData value.</p>
 <tr><td>--method           </td><td> Resampling method; options include 'nn' (nearest neighbour), 'bilinear', and 'cc' (cubic convolution)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">mosaic(
+<pre><code class="language-python">wbt.mosaic(
     inputs, 
     output, 
     method=&quot;cc&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Mosaic -v --wd='/path/to/data/' ^
@@ -646,13 +661,14 @@ significantly in their radiometric properties. i.e. if image contrast difference
 <tr><td>--weight           </td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">mosaic_with_feathering(
+<pre><code class="language-python">wbt.mosaic_with_feathering(
     input1, 
     input2, 
     output, 
     method=&quot;cc&quot;, 
     weight=4.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MosaicWithFeathering -v ^
@@ -711,13 +727,14 @@ in this case, will result in an output NoData value.</p>
 <tr><td>--correction       </td><td> Optional adjustment value (e.g. 1, or 0.16 for the optimal soil adjusted vegetation index, OSAVI)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">normalized_difference_index(
+<pre><code class="language-python">wbt.normalized_difference_index(
     input1, 
     input2, 
     output, 
     clip=0.0, 
     correction=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NormalizedDifferenceIndex -v ^
@@ -748,12 +765,13 @@ image noise removal. The user must specify the size of the moving window in both
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">opening(
+<pre><code class="language-python">wbt.opening(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Opening -v --wd=&quot;/path/to/data/&quot; ^
@@ -780,11 +798,12 @@ the output raster must be read and written to during the same loop.</p>
 <tr><td>--iterations       </td><td> Maximum number of iterations</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">remove_spurs(
+<pre><code class="language-python">wbt.remove_spurs(
     i, 
     output, 
     iterations=10, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RemoveSpurs -v --wd=&quot;/path/to/data/&quot; ^
@@ -813,11 +832,12 @@ will be assigned the NoData value.</p>
 <tr><td>--method           </td><td> Resampling method; options include 'nn' (nearest neighbour), 'bilinear', and 'cc' (cubic convolution)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">resample(
+<pre><code class="language-python">wbt.resample(
     inputs, 
     destination, 
     method=&quot;cc&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Resample -v --wd='/path/to/data/' ^
@@ -865,7 +885,7 @@ Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sens
 <tr><td>--saturation       </td><td> Output saturation raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">rgb_to_ihs(
+<pre><code class="language-python">wbt.rgb_to_ihs(
     intensity, 
     hue, 
     saturation, 
@@ -873,7 +893,8 @@ Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sens
     green=None, 
     blue=None, 
     composite=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RgbToIhs -v --wd=&quot;/path/to/data/&quot; ^
@@ -891,25 +912,30 @@ Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sens
 <p><a name="SplitColourComposite"></a></p>
 <a class="header" href="#splitcolourcomposite" id="splitcolourcomposite"><h1>SplitColourComposite</h1></a>
 <p>This tool can be used to split a red-green-blue (RGB) colour-composite image into three separate bands of
-multi-spectral imagery. The user must specify the input image (<code>--input</code>) and output image (<code>--output</code>).
-The tool creates three output images, each based on the <code>--output</code> parameter and with the <code>_r</code>, <code>_g</code>, and <code>_b</code>
-suffixes appended.</p>
+multi-spectral imagery. The user must specify the input image (<code>--input</code>) and output red, green, blue images
+(<code>--red</code>, <code>--green</code>, <code>--blue</code>).</p>
 <p><em>See Also</em>:</p>
 <p><a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input colour composite image file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file (suffixes of _r, _g, and _b will be appended)</td></tr>
+<tr><td>--red              </td><td> Output red band file</td></tr>
+<tr><td>--green            </td><td> Output green band file</td></tr>
+<tr><td>--blue             </td><td> Output blue band file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">split_colour_composite(
+<pre><code class="language-python">wbt.split_colour_composite(
     i, 
-    output, 
-    callback=default_callback)
+    red=None, 
+    green=None, 
+    blue=None, 
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SplitColourComposite -v ^
---wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif 
+--wd=&quot;/path/to/data/&quot; -i=input.tif --red=red.tif ^
+--green=green.tif --blue=blue.tif 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/split_colour_composite.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -935,10 +961,11 @@ the output raster must be read and written to during the same loop.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">thicken_raster_line(
+<pre><code class="language-python">wbt.thicken_raster_line(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ThickenRasterLine -v ^
@@ -971,13 +998,14 @@ flavours of top-hat transform the tool should perform by specifying either 'whit
 <tr><td>--variant          </td><td> Optional variant value. Options include 'white' and 'black'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">tophat_transform(
+<pre><code class="language-python">wbt.tophat_transform(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
     variant=&quot;white&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TophatTransform -v ^
@@ -1013,12 +1041,13 @@ image.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">write_function_memory_insertion(
+<pre><code class="language-python">wbt.write_function_memory_insertion(
     input1, 
     input2, 
     output, 
     input3=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=WriteFunctionMemoryInsertion -v ^

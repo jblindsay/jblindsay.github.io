@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -194,13 +198,14 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--threshold        </td><td> Difference from mean threshold, in standard deviations</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">adaptive_filter(
+<pre><code class="language-python">wbt.adaptive_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
     threshold=2.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AdaptiveFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -240,12 +245,13 @@ determines the intensity domain contribution to kernel weightings.</p>
 <tr><td>--sigma_int        </td><td> Standard deviation in intensity in pixels</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">bilateral_filter(
+<pre><code class="language-python">wbt.bilateral_filter(
     i, 
     output, 
     sigma_dist=0.75, 
     sigma_int=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BilateralFilter -v ^
@@ -278,12 +284,13 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">conservative_smoothing_filter(
+<pre><code class="language-python">wbt.conservative_smoothing_filter(
     i, 
     output, 
     filterx=3, 
     filtery=3, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ConservativeSmoothingFilter -v ^
@@ -308,10 +315,11 @@ grid cells are interpreted by the algorithm as background values.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">corner_detection(
+<pre><code class="language-python">wbt.corner_detection(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CornerDetection -v ^
@@ -353,12 +361,13 @@ however, reduce overall image contrast.</p>
 <tr><td>--sigma2           </td><td> Standard deviation distance in pixels</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">diff_of_gaussian_filter(
+<pre><code class="language-python">wbt.diff_of_gaussian_filter(
     i, 
     output, 
     sigma1=2.0, 
     sigma2=4.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DiffOfGaussianFilter -v ^
@@ -379,12 +388,13 @@ however, reduce overall image contrast.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">diversity_filter(
+<pre><code class="language-python">wbt.diversity_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DiversityFilter -v ^
@@ -417,12 +427,13 @@ threshold value must be in the range 0.0-1.0 (more likely less than 0.15), where
 <tr><td>--threshold        </td><td> Maximum difference in values</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">edge_preserving_mean_filter(
+<pre><code class="language-python">wbt.edge_preserving_mean_filter(
     i, 
     output, 
     threshold, 
     filter=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EdgePreservingMeanFilter -v ^
@@ -499,12 +510,13 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">emboss_filter(
+<pre><code class="language-python">wbt.emboss_filter(
     i, 
     output, 
     direction=&quot;n&quot;, 
     clip=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EmbossFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -532,11 +544,12 @@ Techniques and Applications (DICTA), 2010 International Conference on.</p>
 <tr><td>--sigma            </td><td> Standard deviation distance in pixels</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">fast_almost_gaussian_filter(
+<pre><code class="language-python">wbt.fast_almost_gaussian_filter(
     i, 
     output, 
     sigma=1.8, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FastAlmostGaussianFilter -v ^
@@ -575,11 +588,12 @@ Gaussian filter for larger kernel sizes.</p>
 <tr><td>--sigma            </td><td> Standard deviation distance in pixels</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">gaussian_filter(
+<pre><code class="language-python">wbt.gaussian_filter(
     i, 
     output, 
     sigma=0.75, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=GaussianFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -605,12 +619,13 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">high_pass_filter(
+<pre><code class="language-python">wbt.high_pass_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HighPassFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -627,7 +642,7 @@ the grid cell at the centre of the window from the median value in the surroundi
 <p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>
 flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
 <p><em>See Also</em>:</p>
-<p><a href="./image_processing_tools_filters.html#highpassmedianfilter"><strong>HighPassMedianFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a></p>
+<p><a href="./image_processing_tools_filters.html#highpassfilter"><strong>HighPassFilter</strong></a>, <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -637,13 +652,14 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--sig_digits       </td><td> Number of significant digits</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">high_pass_median_filter(
+<pre><code class="language-python">wbt.high_pass_median_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
     sig_digits=2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HighPassMedianFilter -v ^
@@ -675,13 +691,14 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>-k                  </td><td> k-value in pixels; this is the number of nearest-valued neighbours to use</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">k_nearest_mean_filter(
+<pre><code class="language-python">wbt.k_nearest_mean_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
     k=5, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=KNearestMeanFilter -v ^
@@ -753,12 +770,13 @@ The user may also optionally clip the output image distribution tails by a speci
 <tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">laplacian_filter(
+<pre><code class="language-python">wbt.laplacian_filter(
     i, 
     output, 
     variant=&quot;3x3(1)&quot;, 
     clip=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LaplacianFilter -v ^
@@ -778,11 +796,12 @@ The user may also optionally clip the output image distribution tails by a speci
 <tr><td>--sigma            </td><td> Standard deviation in pixels</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">laplacian_of_gaussian_filter(
+<pre><code class="language-python">wbt.laplacian_of_gaussian_filter(
     i, 
     output, 
     sigma=0.75, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LaplacianOfGaussianFilter -v ^
@@ -804,14 +823,15 @@ The user may also optionally clip the output image distribution tails by a speci
 <tr><td>-m                  </td><td> M-threshold value the minimum allowable number of pixels within the intensity range</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lee_filter(
+<pre><code class="language-python">wbt.lee_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
     sigma=10.0, 
     m=5.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LeeFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -869,13 +889,14 @@ the output image distribution tails by a specified amount (e.g. 1%).</p>
 <tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">line_detection_filter(
+<pre><code class="language-python">wbt.line_detection_filter(
     i, 
     output, 
     variant=&quot;vertical&quot;, 
     absvals=False, 
     clip=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LineDetectionFilter -v ^
@@ -909,12 +930,13 @@ beyond the edge of the grid, NoData values are assigned to these sites.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">majority_filter(
+<pre><code class="language-python">wbt.majority_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MajorityFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -934,12 +956,13 @@ beyond the edge of the grid, NoData values are assigned to these sites.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">maximum_filter(
+<pre><code class="language-python">wbt.maximum_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaximumFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -979,12 +1002,13 @@ the raster.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">mean_filter(
+<pre><code class="language-python">wbt.mean_filter(
     i, 
     output, 
     filterx=3, 
     filtery=3, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MeanFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1017,13 +1041,14 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <tr><td>--sig_digits       </td><td> Number of significant digits</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">median_filter(
+<pre><code class="language-python">wbt.median_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
     sig_digits=2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MedianFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1031,7 +1056,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/median_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 15, 2017</p>
+<p><em>Created</em>: 15/07/2017</p>
 <p><a name="MinimumFilter"></a></p>
 <a class="header" href="#minimumfilter" id="minimumfilter"><h1>MinimumFilter</h1></a>
 <p>Assigns each cell in the output grid the minimum value in a moving window centred on each grid cell in the input raster.</p>
@@ -1043,12 +1068,13 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">minimum_filter(
+<pre><code class="language-python">wbt.minimum_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinimumFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1075,12 +1101,13 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">olympic_filter(
+<pre><code class="language-python">wbt.olympic_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=OlympicFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1101,13 +1128,14 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--sig_digits       </td><td> Number of significant digits</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">percentile_filter(
+<pre><code class="language-python">wbt.percentile_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
     sig_digits=2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PercentileFilter -v ^
@@ -1146,11 +1174,12 @@ the following schemes to calculate x and y slopes:</p>
 <tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">prewitt_filter(
+<pre><code class="language-python">wbt.prewitt_filter(
     i, 
     output, 
     clip=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PrewittFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1170,12 +1199,13 @@ the following schemes to calculate x and y slopes:</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">range_filter(
+<pre><code class="language-python">wbt.range_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RangeFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1194,11 +1224,12 @@ the following schemes to calculate x and y slopes:</p>
 <tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">roberts_cross_filter(
+<pre><code class="language-python">wbt.roberts_cross_filter(
     i, 
     output, 
     clip=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RobertsCrossFilter -v ^
@@ -1217,11 +1248,12 @@ the following schemes to calculate x and y slopes:</p>
 <tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">scharr_filter(
+<pre><code class="language-python">wbt.scharr_filter(
     i, 
     output, 
     clip=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ScharrFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1262,12 +1294,13 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent (default is 0.0)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">sobel_filter(
+<pre><code class="language-python">wbt.sobel_filter(
     i, 
     output, 
     variant=&quot;3x3&quot;, 
     clip=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SobelFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1287,12 +1320,13 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">standard_deviation_filter(
+<pre><code class="language-python">wbt.standard_deviation_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StandardDeviationFilter -v ^
@@ -1317,12 +1351,13 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">total_filter(
+<pre><code class="language-python">wbt.total_filter(
     i, 
     output, 
     filterx=11, 
     filtery=11, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TotalFilter -v --wd=&quot;/path/to/data/&quot; ^
@@ -1343,13 +1378,14 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <tr><td>--threshold        </td><td> Controls the minimal brightness change that will be sharpened</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">unsharp_masking(
+<pre><code class="language-python">wbt.unsharp_masking(
     i, 
     output, 
     sigma=0.75, 
     amount=100.0, 
     threshold=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=UnsharpMasking -v --wd=&quot;/path/to/data/&quot; ^
@@ -1384,13 +1420,14 @@ in these cases.</p>
 <tr><td>--normalize        </td><td> Normalize kernel weights? This can reduce edge effects and lessen the impact of data gaps (nodata) but is not suited when the kernel weights sum to zero</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">user_defined_weights_filter(
+<pre><code class="language-python">wbt.user_defined_weights_filter(
     i, 
     weights, 
     output, 
     center=&quot;center&quot;, 
     normalize=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=UserDefinedWeightsFilter -v ^

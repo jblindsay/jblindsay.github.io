@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -151,6 +155,7 @@
 <li><a href="#LowestPosition">LowestPosition</a></li>
 <li><a href="#MaxAbsoluteOverlay">MaxAbsoluteOverlay</a></li>
 <li><a href="#MaxOverlay">MaxOverlay</a></li>
+<li><a href="#MergeLineSegments">MergeLineSegments</a></li>
 <li><a href="#MinAbsoluteOverlay">MinAbsoluteOverlay</a></li>
 <li><a href="#MinOverlay">MinOverlay</a></li>
 <li><a href="#PercentEqualTo">PercentEqualTo</a></li>
@@ -181,10 +186,11 @@ parallel processing.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">average_overlay(
+<pre><code class="language-python">wbt.average_overlay(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AverageOverlay -v --wd='/path/to/data/' ^
@@ -210,11 +216,12 @@ clip vector must consist of polygons.</p>
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">clip(
+<pre><code class="language-python">wbt.clip(
     i, 
     clip, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Clip -v --wd=&quot;/path/to/data/&quot; ^
@@ -243,12 +250,13 @@ The grid resolution of output raster is the same as the input raster.</p>
 <tr><td>--maintain_dimensions</td><td> Maintain input raster dimensions?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">clip_raster_to_polygon(
+<pre><code class="language-python">wbt.clip_raster_to_polygon(
     i, 
     polygons, 
     output, 
     maintain_dimensions=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ClipRasterToPolygon -v ^
@@ -274,11 +282,12 @@ spatial extent. An error will be issued if this is not the case.</p>
 <tr><td>--value            </td><td> Search value (e.g. countif value = 5.0)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">count_if(
+<pre><code class="language-python">wbt.count_if(
     inputs, 
     output, 
     value, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CountIf -v --wd='/path/to/data/' ^
@@ -319,11 +328,12 @@ resulting from the overlay operation.</p>
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">difference(
+<pre><code class="language-python">wbt.difference(
     i, 
     overlay, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Difference -v --wd=&quot;/path/to/data/&quot; ^
@@ -347,11 +357,12 @@ vector features, or target features.</p>
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">erase(
+<pre><code class="language-python">wbt.erase(
     i, 
     erase, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Erase -v --wd=&quot;/path/to/data/&quot; ^
@@ -376,11 +387,12 @@ the erase file will be assigned the NoData background value in the output file.<
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">erase_polygon_from_raster(
+<pre><code class="language-python">wbt.erase_polygon_from_raster(
     i, 
     polygons, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ErasePolygonFromRaster -v ^
@@ -410,10 +422,11 @@ input images.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">highest_position(
+<pre><code class="language-python">wbt.highest_position(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HighestPosition -v ^
@@ -453,12 +466,13 @@ resulting from the overlay operation.</p>
 <tr><td>--snap             </td><td> Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">intersect(
+<pre><code class="language-python">wbt.intersect(
     i, 
     overlay, 
     output, 
     snap=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Intersect -v --wd=&quot;/path/to/data/&quot; ^
@@ -488,11 +502,12 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 <tr><td>-o, --output       </td><td> Output vector point file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">line_intersections(
+<pre><code class="language-python">wbt.line_intersections(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LineIntersections -v ^
@@ -522,10 +537,11 @@ input images.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lowest_position(
+<pre><code class="language-python">wbt.lowest_position(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LowestPosition -v --wd='/path/to/data/' ^
@@ -550,10 +566,11 @@ and columns.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_absolute_overlay(
+<pre><code class="language-python">wbt.max_absolute_overlay(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxAbsoluteOverlay -v ^
@@ -578,10 +595,11 @@ similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max_overlay(
+<pre><code class="language-python">wbt.max_overlay(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxOverlay -v --wd='/path/to/data/' ^
@@ -590,6 +608,48 @@ similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/max_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
+<p><a name="MergeLineSegments"></a></p>
+<a class="header" href="#mergelinesegments" id="mergelinesegments"><h1>MergeLineSegments</h1></a>
+<p>This tool splits vector layers at their overlaps, creating a layer containing all the portions from both
+input and overlay layers. The <em>Union</em> is related to the Boolean
+<strong>OR</strong> operation in  set theory and is one of the common vector overlay
+operations in GIS. The user must specify  the names of the input and overlay vector files
+as well as the output vector file name. The tool operates on vector points,
+lines, or polygon, but both the input and overlay files must contain the same ShapeType.</p>
+<p>The attributes of the two input vectors will be merged in the output attribute table.
+Fields that are duplicated between the inputs will share a single attribute in the
+output. Fields that only exist in one of the two inputs will be populated by <code>null</code>
+in the output table. Multipoint ShapeTypes however will simply contain a single
+ouptut feature indentifier (<code>FID</code>) attribute. Also, note that depending on the
+ShapeType (polylines and polygons), <code>Measure</code> and <code>Z</code> ShapeDimension data will not
+be transfered to the output geometries. If the input attribute table contains fields
+that measure the geometric properties of their associated features (e.g. length or area),
+these fields will not be updated to reflect changes in geometry shape and size
+resulting from the overlay operation.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a>, <a href="./gis_analysis_overlay_tools.html#difference"><strong>Difference</strong></a>, <a href="./gis_analysis_overlay_tools.html#symmetricaldifference"><strong>SymmetricalDifference</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<tr><td>--snap             </td><td> Snap tolerance</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.merge_line_segments(
+    i, 
+    output, 
+    snap=0.0, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MergeLineSegments -v ^
+--wd=&quot;/path/to/data/&quot; -input=layer1.shp -o=out_file.shp ^
+--snap=0.0000001 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/merge_line_segments.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 09/04/2019</p>
 <p><a name="MinAbsoluteOverlay"></a></p>
 <a class="header" href="#minabsoluteoverlay" id="minabsoluteoverlay"><h1>MinAbsoluteOverlay</h1></a>
 <p>This tool can be used to find the minimum absolute (non-negative) value in each cell of a grid from a set of
@@ -606,10 +666,11 @@ and columns.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">min_absolute_overlay(
+<pre><code class="language-python">wbt.min_absolute_overlay(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinAbsoluteOverlay -v ^
@@ -634,10 +695,11 @@ similar to the <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">min_overlay(
+<pre><code class="language-python">wbt.min_overlay(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinOverlay -v --wd='/path/to/data/' ^
@@ -666,11 +728,12 @@ be assigned NoData.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">percent_equal_to(
+<pre><code class="language-python">wbt.percent_equal_to(
     inputs, 
     comparison, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PercentEqualTo -v --wd='/path/to/data/' ^
@@ -700,11 +763,12 @@ be assigned NoData.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">percent_greater_than(
+<pre><code class="language-python">wbt.percent_greater_than(
     inputs, 
     comparison, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PercentGreaterThan -v ^
@@ -734,11 +798,12 @@ be assigned NoData.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">percent_less_than(
+<pre><code class="language-python">wbt.percent_less_than(
     inputs, 
     comparison, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PercentLessThan -v ^
@@ -767,11 +832,12 @@ and columns and spatial extent. An error will be issued if this is not the case.
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">pick_from_list(
+<pre><code class="language-python">wbt.pick_from_list(
     inputs, 
     pos_input, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PickFromList -v --wd='/path/to/data/' ^
@@ -797,10 +863,11 @@ tool does not deal with line intersection in the same way that the <a href="./gi
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">polygonize(
+<pre><code class="language-python">wbt.polygonize(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Polygonize -v --wd=&quot;/path/to/data/&quot; ^
@@ -826,11 +893,12 @@ and all of the attributes (excluding <code>FID</code>'s) of the input layer.</p>
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">split_with_lines(
+<pre><code class="language-python">wbt.split_with_lines(
     i, 
     split, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SplitWithLines -v --wd=&quot;/path/to/data/&quot; ^
@@ -853,10 +921,11 @@ images will result in a NoData pixel in the output image (<code>--output</code>)
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">sum_overlay(
+<pre><code class="language-python">wbt.sum_overlay(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SumOverlay -v --wd='/path/to/data/' ^
@@ -897,12 +966,13 @@ resulting from the overlay operation.</p>
 <tr><td>--snap             </td><td> Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">symmetrical_difference(
+<pre><code class="language-python">wbt.symmetrical_difference(
     i, 
     overlay, 
     output, 
     snap=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SymmetricalDifference -v ^
@@ -940,12 +1010,13 @@ resulting from the overlay operation.</p>
 <tr><td>--snap             </td><td> Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">union(
+<pre><code class="language-python">wbt.union(
     i, 
     overlay, 
     output, 
     snap=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Union -v --wd=&quot;/path/to/data/&quot; ^
@@ -954,7 +1025,7 @@ resulting from the overlay operation.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/union.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 5/11/2018</p>
+<p><em>Created</em>: 05/11/2018</p>
 <p><a name="WeightedOverlay"></a></p>
 <a class="header" href="#weightedoverlay" id="weightedoverlay"><h1>WeightedOverlay</h1></a>
 <p>This tool performs a weighted overlay on multiple input images. It can be used to
@@ -986,14 +1057,15 @@ and columns.</p>
 <tr><td>--scale_max        </td><td> Suitability scale maximum value (common values are 1.0, 100.0, and 255.0)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">weighted_overlay(
+<pre><code class="language-python">wbt.weighted_overlay(
     factors, 
     weights, 
     output, 
     cost=None, 
     constraints=None, 
     scale_max=1.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=WeightedOverlay -v ^
@@ -1022,11 +1094,12 @@ and columns.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">weighted_sum(
+<pre><code class="language-python">wbt.weighted_sum(
     inputs, 
     weights, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=WeightedSum -v --wd='/path/to/data/' ^

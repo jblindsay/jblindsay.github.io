@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -224,10 +228,11 @@
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">absolute_value(
+<pre><code class="language-python">wbt.absolute_value(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AbsoluteValue -v --wd=&quot;/path/to/data/&quot; ^
@@ -252,11 +257,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">add(
+<pre><code class="language-python">wbt.add(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Add -v --wd=&quot;/path/to/data/&quot; ^
@@ -275,11 +281,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">And(
+<pre><code class="language-python">wbt.And(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=And -v --wd=&quot;/path/to/data/&quot; ^
@@ -298,11 +305,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output HTML file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">anova(
+<pre><code class="language-python">wbt.anova(
     i, 
     features, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Anova -v --wd=&quot;/path/to/data/&quot; ^
@@ -320,10 +328,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">arc_cos(
+<pre><code class="language-python">wbt.arc_cos(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ArcCos -v --wd=&quot;/path/to/data/&quot; ^
@@ -341,10 +350,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">arc_sin(
+<pre><code class="language-python">wbt.arc_sin(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ArcSin -v --wd=&quot;/path/to/data/&quot; ^
@@ -362,10 +372,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">arc_tan(
+<pre><code class="language-python">wbt.arc_tan(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ArcTan -v --wd=&quot;/path/to/data/&quot; ^
@@ -384,11 +395,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">atan2(
+<pre><code class="language-python">wbt.atan2(
     input_y, 
     input_x, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Atan2 -v --wd=&quot;/path/to/data/&quot; ^
@@ -406,10 +418,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">attribute_correlation(
+<pre><code class="language-python">wbt.attribute_correlation(
     i, 
     output=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AttributeCorrelation -v ^
@@ -436,11 +449,12 @@ tabular output of the <a href="./mathand_stats_tools.html#listuniquevalues"><str
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">attribute_histogram(
+<pre><code class="language-python">wbt.attribute_histogram(
     i, 
     field, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AttributeHistogram -v ^
@@ -468,13 +482,14 @@ HTML formated report containing a graphical scattergram plot.</p>
 <tr><td>--trendline        </td><td> Draw the trendline</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">attribute_scattergram(
+<pre><code class="language-python">wbt.attribute_scattergram(
     i, 
     fieldx, 
     fieldy, 
     output, 
     trendline=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AttributeScattergram -v ^
@@ -493,10 +508,11 @@ HTML formated report containing a graphical scattergram plot.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">ceil(
+<pre><code class="language-python">wbt.ceil(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Ceil -v --wd=&quot;/path/to/data/&quot; ^
@@ -514,10 +530,11 @@ HTML formated report containing a graphical scattergram plot.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">cos(
+<pre><code class="language-python">wbt.cos(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Cos -v --wd=&quot;/path/to/data/&quot; ^
@@ -535,10 +552,11 @@ HTML formated report containing a graphical scattergram plot.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">cosh(
+<pre><code class="language-python">wbt.cosh(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Cosh -v --wd=&quot;/path/to/data/&quot; ^
@@ -549,24 +567,44 @@ HTML formated report containing a graphical scattergram plot.</p>
 <p><em>Created</em>: July 6, 2017</p>
 <p><a name="CrispnessIndex"></a></p>
 <a class="header" href="#crispnessindex" id="crispnessindex"><h1>CrispnessIndex</h1></a>
-<p>This index (C) is taken from Lindsay (2006) Sensitivity of channel mapping techniques to uncertainty in digital
-elevation data:</p>
+<p>The Crispness Index (<em>C</em>) provides a means of quantifying the crispness, or fuzziness, of a membership
+probability (MP) image. MP images describe the probability of each grid cell belonging to some feature
+or class. MP images contain values ranging from 0 to 1.</p>
+<p>The index, as described by Lindsay (2006), is the ratio between the sum of the squared differences (from
+the image mean) in the MP image divided by the sum of the squared differences for the Boolean case in which
+the total probability, summed for the image, is arranged crisply.</p>
+<p><em>C</em> is closely related to a family of relative variation coefficients that measure variation in an MP
+image relative to the maximum possible variation (i.e. when the total probability is arranged such that grid
+cells contain only 1s or 0s). Notice that 0 &lt; <em>C</em> &lt; 1 and a low <em>C</em>-value indicates a nearly uniform spatial
+distribution of any probability value, and <em>C</em> = 1 indicates a crisp spatial probability distribution,
+containing only 1's and 0's.</p>
+<p><em>C</em> is calculated as follows:</p>
+<blockquote>
 <p>C = SS_mp ∕ SS_B = [∑(pij − p-bar)^2] ∕ [ ∑pij(1 − p-bar)^2 + p2(RC − ∑pij)]</p>
-<p>Please note that there is an error in the original published equation. Specifically, the denominator
+</blockquote>
+<p>Note that there is an error in the original published equation. Specifically, the denominator
 read:</p>
+<blockquote>
 <p>∑pij(1 - p_bar)^2 + p_bar^2 (RC - ∑pij)</p>
+</blockquote>
 <p>instead of the original:</p>
+<blockquote>
 <p>∑pij(1 - p_bar^2) - p_bar^2 (RC - ∑pij)</p>
+</blockquote>
+<p><em>References</em>:</p>
+<p>Lindsay, J. B. (2006). Sensitivity of channel mapping techniques to uncertainty in digital elevation data.
+International Journal of Geographical Information Science, 20(6), 669-692.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
 <tr><td>-o, --output       </td><td> Optional output html file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">crispness_index(
+<pre><code class="language-python">wbt.crispness_index(
     i, 
     output=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CrispnessIndex -v --wd=&quot;/path/to/data/&quot; ^
@@ -576,7 +614,7 @@ read:</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/crispness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: August 15, 2017</p>
+<p><em>Created</em>: 15/08/2017</p>
 <p><a name="CrossTabulation"></a></p>
 <a class="header" href="#crosstabulation" id="crosstabulation"><h1>CrossTabulation</h1></a>
 <p>This tool can be used to perform a cross-tabulation on two input raster images (<code>--i1</code> and <code>--i2</code>) containing
@@ -598,11 +636,12 @@ analysis.</p>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">cross_tabulation(
+<pre><code class="language-python">wbt.cross_tabulation(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CrossTabulation -v ^
@@ -628,10 +667,11 @@ the output image.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">cumulative_distribution(
+<pre><code class="language-python">wbt.cumulative_distribution(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CumulativeDistribution -v ^
@@ -653,10 +693,11 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">decrement(
+<pre><code class="language-python">wbt.decrement(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Decrement -v --wd=&quot;/path/to/data/&quot; ^
@@ -681,11 +722,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">divide(
+<pre><code class="language-python">wbt.divide(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Divide -v --wd=&quot;/path/to/data/&quot; ^
@@ -704,11 +746,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">equal_to(
+<pre><code class="language-python">wbt.equal_to(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EqualTo -v --wd=&quot;/path/to/data/&quot; ^
@@ -726,10 +769,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">exp(
+<pre><code class="language-python">wbt.exp(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Exp -v --wd=&quot;/path/to/data/&quot; ^
@@ -747,10 +791,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">exp2(
+<pre><code class="language-python">wbt.exp2(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Exp2 -v --wd=&quot;/path/to/data/&quot; ^
@@ -786,13 +831,14 @@ descriptive statistic.</p>
 <tr><td>--out_table        </td><td> Output HTML Table file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">extract_raster_statistics(
+<pre><code class="language-python">wbt.extract_raster_statistics(
     i, 
     features, 
     output=None, 
     stat=&quot;average&quot;, 
     out_table=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ExtractRasterStatistics -v ^
@@ -815,10 +861,11 @@ descriptive statistic.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">floor(
+<pre><code class="language-python">wbt.floor(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Floor -v --wd=&quot;/path/to/data/&quot; ^
@@ -838,12 +885,13 @@ descriptive statistic.</p>
 <tr><td>--incl_equals      </td><td> Perform a greater-than-or-equal-to operation</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">greater_than(
+<pre><code class="language-python">wbt.greater_than(
     input1, 
     input2, 
     output, 
     incl_equals=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=GreaterThan -v --wd=&quot;/path/to/data/&quot; ^
@@ -863,11 +911,12 @@ descriptive statistic.</p>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">image_autocorrelation(
+<pre><code class="language-python">wbt.image_autocorrelation(
     inputs, 
     output, 
     contiguity=&quot;Rook&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ImageAutocorrelation -v ^
@@ -907,10 +956,11 @@ between images.</p>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">image_correlation(
+<pre><code class="language-python">wbt.image_correlation(
     inputs, 
     output=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ImageCorrelation -v ^
@@ -948,13 +998,14 @@ between images.</p>
 <tr><td>--standardize      </td><td> Optional flag indicating whether to standardize the residuals map</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">image_regression(
+<pre><code class="language-python">wbt.image_regression(
     input1, 
     input2, 
     output, 
     out_residuals=None, 
     standardize=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ImageRegression -v ^
@@ -984,10 +1035,11 @@ two operands, and instead creates a new output raster to save the resultant valu
 <tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">in_place_add(
+<pre><code class="language-python">wbt.in_place_add(
     input1, 
     input2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=InPlaceAdd -v --wd=&quot;/path/to/data/&quot; ^
@@ -1018,10 +1070,11 @@ two operands, and instead creates a new output raster to save the resultant valu
 <tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">in_place_divide(
+<pre><code class="language-python">wbt.in_place_divide(
     input1, 
     input2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=InPlaceDivide -v --wd=&quot;/path/to/data/&quot; ^
@@ -1051,10 +1104,11 @@ two operands, and instead creates a new output raster to save the resultant valu
 <tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">in_place_multiply(
+<pre><code class="language-python">wbt.in_place_multiply(
     input1, 
     input2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=InPlaceMultiply -v ^
@@ -1085,10 +1139,11 @@ two operands, and instead creates a new output raster to save the resultant valu
 <tr><td>--input2           </td><td> Input raster file or constant value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">in_place_subtract(
+<pre><code class="language-python">wbt.in_place_subtract(
     input1, 
     input2, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=InPlaceSubtract -v ^
@@ -1113,10 +1168,11 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">increment(
+<pre><code class="language-python">wbt.increment(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Increment -v --wd=&quot;/path/to/data/&quot; ^
@@ -1135,11 +1191,12 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">integer_division(
+<pre><code class="language-python">wbt.integer_division(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=IntegerDivision -v ^
@@ -1151,17 +1208,23 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 <p><em>Created</em>: July 6, 2017</p>
 <p><a name="IsNoData"></a></p>
 <a class="header" href="#isnodata" id="isnodata"><h1>IsNoData</h1></a>
-<p>Identifies NoData valued pixels in an image.</p>
+<p>This tool can be used to identify areas of NoData values within an input image.The user must specify the name
+of the input and output (<code>--input</code> and <code>--output</code>) raster images. Grid cells containing the NoData value in
+the input image will be assigned a value of 1.0 in the output image. All non-NoData valued grid cells will
+be assigned 0.0 in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">is_no_data(
+<pre><code class="language-python">wbt.is_no_data(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=IsNoData -v --wd=&quot;/path/to/data/&quot; ^
@@ -1169,7 +1232,7 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/isnodata.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><a name="KappaIndex"></a></p>
 <a class="header" href="#kappaindex" id="kappaindex"><h1>KappaIndex</h1></a>
 <p>Performs a kappa index of agreement (KIA) analysis on two categorical raster files.</p>
@@ -1180,11 +1243,12 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 <tr><td>-o, --output       </td><td> Output HTML file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">kappa_index(
+<pre><code class="language-python">wbt.kappa_index(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=KappaIndex -v --wd=&quot;/path/to/data/&quot; ^
@@ -1210,11 +1274,12 @@ statistical significance says nothing about the practical significance of a diff
 <tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">ks_test_for_normality(
+<pre><code class="language-python">wbt.ks_test_for_normality(
     i, 
     output, 
     num_samples=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=KSTestForNormality -v ^
@@ -1237,12 +1302,13 @@ statistical significance says nothing about the practical significance of a diff
 <tr><td>--incl_equals      </td><td> Perform a less-than-or-equal-to operation</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">less_than(
+<pre><code class="language-python">wbt.less_than(
     input1, 
     input2, 
     output, 
     incl_equals=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LessThan -v --wd=&quot;/path/to/data/&quot; ^
@@ -1271,11 +1337,12 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">list_unique_values(
+<pre><code class="language-python">wbt.list_unique_values(
     i, 
     field, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ListUniqueValues -v ^
@@ -1294,10 +1361,11 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">ln(
+<pre><code class="language-python">wbt.ln(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Ln -v --wd=&quot;/path/to/data/&quot; ^
@@ -1315,10 +1383,11 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">log10(
+<pre><code class="language-python">wbt.log10(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Log10 -v --wd=&quot;/path/to/data/&quot; ^
@@ -1336,10 +1405,11 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">log2(
+<pre><code class="language-python">wbt.log2(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Log2 -v --wd=&quot;/path/to/data/&quot; ^
@@ -1358,11 +1428,12 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">max(
+<pre><code class="language-python">wbt.max(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Max -v --wd=&quot;/path/to/data/&quot; ^
@@ -1381,11 +1452,12 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">min(
+<pre><code class="language-python">wbt.min(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Min -v --wd=&quot;/path/to/data/&quot; ^
@@ -1404,11 +1476,12 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">modulo(
+<pre><code class="language-python">wbt.modulo(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Modulo -v --wd=&quot;/path/to/data/&quot; ^
@@ -1433,11 +1506,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">multiply(
+<pre><code class="language-python">wbt.multiply(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Multiply -v --wd=&quot;/path/to/data/&quot; ^
@@ -1455,10 +1529,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">negate(
+<pre><code class="language-python">wbt.negate(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Negate -v --wd=&quot;/path/to/data/&quot; ^
@@ -1477,11 +1552,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">Not(
+<pre><code class="language-python">wbt.Not(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Not -v --wd=&quot;/path/to/data/&quot; ^
@@ -1500,11 +1576,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">not_equal_to(
+<pre><code class="language-python">wbt.not_equal_to(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NotEqualTo -v --wd=&quot;/path/to/data/&quot; ^
@@ -1523,11 +1600,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">Or(
+<pre><code class="language-python">wbt.Or(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Or -v --wd=&quot;/path/to/data/&quot; ^
@@ -1546,11 +1624,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">power(
+<pre><code class="language-python">wbt.power(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Power -v --wd=&quot;/path/to/data/&quot; ^
@@ -1612,12 +1691,13 @@ written.</p>
 <tr><td>--standardized     </td><td> Perform standardized PCA?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">principal_component_analysis(
+<pre><code class="language-python">wbt.principal_component_analysis(
     inputs, 
     output, 
     num_comp=None, 
     standardized=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PrincipalComponentAnalysis -v ^
@@ -1637,11 +1717,12 @@ written.</p>
 <tr><td>--num_quantiles    </td><td> Number of quantiles</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">quantiles(
+<pre><code class="language-python">wbt.quantiles(
     i, 
     output, 
     num_quantiles=5, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Quantiles -v --wd=&quot;/path/to/data/&quot; ^
@@ -1667,10 +1748,11 @@ the <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><st
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">random_field(
+<pre><code class="language-python">wbt.random_field(
     base, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RandomField -v --wd=&quot;/path/to/data/&quot; ^
@@ -1695,11 +1777,12 @@ statistical analyses on raster images when you wish to obtain a random sample of
 <tr><td>--num_samples      </td><td> Number of samples</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">random_sample(
+<pre><code class="language-python">wbt.random_sample(
     base, 
     output, 
     num_samples=1000, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RandomSample -v --wd=&quot;/path/to/data/&quot; ^
@@ -1721,10 +1804,11 @@ HTML file, which should be automatically displayed after the tool has completed.
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raster_histogram(
+<pre><code class="language-python">wbt.raster_histogram(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterHistogram -v ^
@@ -1743,9 +1827,10 @@ variance, and standard deviation. These summary statistics are output to the sys
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raster_summary_stats(
+<pre><code class="language-python">wbt.raster_summary_stats(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterSummaryStats -v ^
@@ -1763,10 +1848,11 @@ variance, and standard deviation. These summary statistics are output to the sys
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">reciprocal(
+<pre><code class="language-python">wbt.reciprocal(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Reciprocal -v --wd=&quot;/path/to/data/&quot; ^
@@ -1788,14 +1874,15 @@ variance, and standard deviation. These summary statistics are output to the sys
 <tr><td>--clip_max         </td><td> Optional upper tail clip value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">rescale_value_range(
+<pre><code class="language-python">wbt.rescale_value_range(
     i, 
     output, 
     out_min_val, 
     out_max_val, 
     clip_min=None, 
     clip_max=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RescaleValueRange -v ^
@@ -1825,10 +1912,11 @@ can be a relatively slow operation for larger rasters.</p>
 <tr><td>--base             </td><td> Input base raster file used for comparison</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">root_mean_square_error(
+<pre><code class="language-python">wbt.root_mean_square_error(
     i, 
     base, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RootMeanSquareError -v ^
@@ -1846,10 +1934,11 @@ can be a relatively slow operation for larger rasters.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">round(
+<pre><code class="language-python">wbt.round(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Round -v --wd=&quot;/path/to/data/&quot; ^
@@ -1867,10 +1956,11 @@ can be a relatively slow operation for larger rasters.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">sin(
+<pre><code class="language-python">wbt.sin(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Sin -v --wd=&quot;/path/to/data/&quot; ^
@@ -1888,10 +1978,11 @@ can be a relatively slow operation for larger rasters.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">sinh(
+<pre><code class="language-python">wbt.sinh(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Sinh -v --wd=&quot;/path/to/data/&quot; ^
@@ -1909,10 +2000,11 @@ can be a relatively slow operation for larger rasters.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">square(
+<pre><code class="language-python">wbt.square(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Square -v --wd=&quot;/path/to/data/&quot; ^
@@ -1930,10 +2022,11 @@ can be a relatively slow operation for larger rasters.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">square_root(
+<pre><code class="language-python">wbt.square_root(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SquareRoot -v --wd=&quot;/path/to/data/&quot; ^
@@ -1958,11 +2051,12 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">subtract(
+<pre><code class="language-python">wbt.subtract(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Subtract -v --wd=&quot;/path/to/data/&quot; ^
@@ -1980,10 +2074,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">tan(
+<pre><code class="language-python">wbt.tan(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Tan -v --wd=&quot;/path/to/data/&quot; ^
@@ -2001,10 +2096,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">tanh(
+<pre><code class="language-python">wbt.tanh(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Tanh -v --wd=&quot;/path/to/data/&quot; ^
@@ -2022,10 +2118,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">to_degrees(
+<pre><code class="language-python">wbt.to_degrees(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ToDegrees -v --wd=&quot;/path/to/data/&quot; ^
@@ -2043,10 +2140,11 @@ images, the cell will be excluded from the analysis.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">to_radians(
+<pre><code class="language-python">wbt.to_radians(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ToRadians -v --wd=&quot;/path/to/data/&quot; ^
@@ -2080,11 +2178,12 @@ are also reported in the output report.</p>
 <tr><td>--order            </td><td> Polynomial order (1 to 10)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">trend_surface(
+<pre><code class="language-python">wbt.trend_surface(
     i, 
     output, 
     order=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TrendSurface -v --wd=&quot;/path/to/data/&quot; ^
@@ -2120,13 +2219,14 @@ are also reported in the output report.</p>
 <tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">trend_surface_vector_points(
+<pre><code class="language-python">wbt.trend_surface_vector_points(
     i, 
     field, 
     output, 
     cell_size, 
     order=1, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TrendSurfaceVectorPoints -v ^
@@ -2146,11 +2246,12 @@ are also reported in the output report.</p>
 <tr><td>--num_decimals     </td><td> Number of decimals left after truncation (default is zero)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">truncate(
+<pre><code class="language-python">wbt.truncate(
     i, 
     output, 
     num_decimals=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Truncate -v --wd=&quot;/path/to/data/&quot; ^
@@ -2190,12 +2291,13 @@ characteristics and frequency distribution. This is the alternative approach use
 <tr><td>--iterations       </td><td> The number of iterations</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">turning_bands_simulation(
+<pre><code class="language-python">wbt.turning_bands_simulation(
     base, 
     output, 
     range, 
     iterations=1000, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=TurningBandsSimulation -v ^
@@ -2222,11 +2324,12 @@ the output raster (<code>--output</code>).</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">xor(
+<pre><code class="language-python">wbt.xor(
     input1, 
     input2, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Xor -v --wd=&quot;/path/to/data/&quot; ^
@@ -2253,10 +2356,11 @@ scale, i.e. it should be on a continuous scale.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">z_scores(
+<pre><code class="language-python">wbt.z_scores(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ZScores -v --wd=&quot;/path/to/data/&quot; ^

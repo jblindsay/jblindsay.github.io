@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -171,12 +175,13 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <tr><td>--gridcells        </td><td> Optional flag to indicate that the 'size' threshold should be measured in grid cells instead of the default map units</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">buffer_raster(
+<pre><code class="language-python">wbt.buffer_raster(
     i, 
     output, 
     size, 
     gridcells=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BufferRaster -v --wd=&quot;/path/to/data/&quot; ^
@@ -205,11 +210,12 @@ image.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">cost_allocation(
+<pre><code class="language-python">wbt.cost_allocation(
     source, 
     backlink, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CostAllocation -v --wd=&quot;/path/to/data/&quot; ^
@@ -255,12 +261,13 @@ in the outputs. The output cost accumulation raster is of the float data type an
 <tr><td>--out_backlink     </td><td> Output backlink raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">cost_distance(
+<pre><code class="language-python">wbt.cost_distance(
     source, 
     cost, 
     out_accum, 
     out_backlink, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CostDistance -v --wd=&quot;/path/to/data/&quot; ^
@@ -291,12 +298,13 @@ background grid cells in the output image are assigned the NoData value.</p>
 <tr><td>--zero_background  </td><td> Flag indicating whether zero values should be treated as a background</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">cost_pathway(
+<pre><code class="language-python">wbt.cost_pathway(
     destination, 
     backlink, 
     output, 
     zero_background=False, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=CostPathway -v --wd=&quot;/path/to/data/&quot; ^
@@ -325,10 +333,11 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">euclidean_allocation(
+<pre><code class="language-python">wbt.euclidean_allocation(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EuclideanAllocation -v ^
@@ -363,10 +372,11 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">euclidean_distance(
+<pre><code class="language-python">wbt.euclidean_distance(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=EuclideanDistance -v ^

@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -169,9 +173,10 @@ XCOORD and YCOORD, containing each point's X and Y coordinates respectively.</p>
 <tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">add_point_coordinates_to_table(
+<pre><code class="language-python">wbt.add_point_coordinates_to_table(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AddPointCoordinatesToTable -v ^
@@ -182,17 +187,24 @@ XCOORD and YCOORD, containing each point's X and Y coordinates respectively.</p>
 <p><em>Created</em>: 25/09/2018</p>
 <p><a name="ConvertNodataToZero"></a></p>
 <a class="header" href="#convertnodatatozero" id="convertnodatatozero"><h1>ConvertNodataToZero</h1></a>
-<p>Converts nodata values in a raster to zero.</p>
+<p>This tool can be used to change the value within the grid cells of a raster file (<code>--input</code>) that contain
+NoData to zero. The most common reason for using this tool is to change the background region of a raster
+image such that it can be included in analysis since NoData values are usually ignored by by most tools.
+This change, however, will result in the background no longer displaying transparently in most GIS. This
+change can be reversed using the <code>SetNoDataValue</code> tool.</p>
+<p><em>See Also</em>:</p>
+<p><code>SetNoDataValue</code>, <code>IsNodata</code></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">convert_nodata_to_zero(
+<pre><code class="language-python">wbt.convert_nodata_to_zero(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ConvertNodataToZero -v ^
@@ -200,7 +212,7 @@ XCOORD and YCOORD, containing each point's X and Y coordinates respectively.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/convert_nodata_to_zero.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 11, 2017</p>
+<p><em>Created</em>: 11/07/2017</p>
 <p><a name="ConvertRasterFormat"></a></p>
 <a class="header" href="#convertrasterformat" id="convertrasterformat"><h1>ConvertRasterFormat</h1></a>
 <p>This tool converts raster data from one format to another. It determines input/output raster
@@ -215,10 +227,11 @@ support user hints however.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">convert_raster_format(
+<pre><code class="language-python">wbt.convert_raster_format(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ConvertRasterFormat -v ^
@@ -244,11 +257,12 @@ column in the output CSV file.</p>
 <tr><td>--headers          </td><td> Export field names as file header?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">export_table_to_csv(
+<pre><code class="language-python">wbt.export_table_to_csv(
     i, 
     output, 
     headers=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ExportTableToCsv -v ^
@@ -296,13 +310,14 @@ will correspond to only one foreign key containing the population and area data.
 <tr><td>--import_field     </td><td> Imported field (all fields will be imported if not specified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">join_tables(
+<pre><code class="language-python">wbt.join_tables(
     input1, 
     pkey, 
     input2, 
     fkey, 
     import_field, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=JoinTables -v --wd=&quot;/path/to/data/&quot; ^
@@ -327,10 +342,11 @@ errors.</p>
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">lines_to_polygons(
+<pre><code class="language-python">wbt.lines_to_polygons(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LinesToPolygons -v ^
@@ -382,13 +398,14 @@ will correspond to only one foreign key containing the population and area data.
 <tr><td>--import_field     </td><td> Imported field (all fields will be imported if not specified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">merge_table_with_csv(
+<pre><code class="language-python">wbt.merge_table_with_csv(
     i, 
     pkey, 
     csv, 
     fkey, 
     import_field=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MergeTableWithCsv -v ^
@@ -425,10 +442,11 @@ or more files and creates one new file containing the features of all inputs, an
 <tr><td>-o, --output       </td><td> Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">merge_vectors(
+<pre><code class="language-python">wbt.merge_vectors(
     inputs, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MergeVectors -v --wd=&quot;/path/to/data/&quot; ^
@@ -455,11 +473,12 @@ their enclosing polygon in the output vector.</p>
 <tr><td>--exclude_holes    </td><td> Exclude hole parts from the feature splitting? (holes will continue to belong to their features in output.)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">multi_part_to_single_part(
+<pre><code class="language-python">wbt.multi_part_to_single_part(
     i, 
     output, 
     exclude_holes=True, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=MultiPartToSinglePart -v ^
@@ -487,12 +506,13 @@ multiplying the base image by zero and adding the constant value.</p>
 <tr><td>--data_type        </td><td> Output raster data type; options include 'double' (64-bit), 'float' (32-bit), and 'integer' (signed 16-bit) (default is 'float')</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">new_raster_from_base(
+<pre><code class="language-python">wbt.new_raster_from_base(
     base, 
     output, 
     value=&quot;nodata&quot;, 
     data_type=&quot;float&quot;, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NewRasterFromBase -v ^
@@ -516,10 +536,11 @@ multiplying the base image by zero and adding the constant value.</p>
 <tr><td>-o, --output       </td><td> Output vector lines file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">polygons_to_lines(
+<pre><code class="language-python">wbt.polygons_to_lines(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PolygonsToLines -v ^
@@ -541,9 +562,10 @@ GeoKeys will also be interpreted as per the GeoTIFF specification.</p>
 <tr><td>-i, --input        </td><td> Input GeoTIFF file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">print_geo_tiff_tags(
+<pre><code class="language-python">wbt.print_geo_tiff_tags(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PrintGeoTiffTags -v ^
@@ -572,10 +594,11 @@ between stream segments at confluence sites, whereas <a href="./data_tools.html#
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raster_to_vector_lines(
+<pre><code class="language-python">wbt.raster_to_vector_lines(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterToVectorLines -v ^
@@ -597,10 +620,11 @@ will be considered a point. The vector's attribute table will contain a field ca
 <tr><td>-o, --output       </td><td> Output vector points file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">raster_to_vector_points(
+<pre><code class="language-python">wbt.raster_to_vector_points(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RasterToVectorPoints -v ^
@@ -618,9 +642,10 @@ Caution: this tool overwrites the input file's attribute table.</p>
 <tr><td>-i, --input        </td><td> Input vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">reinitialize_attribute_table(
+<pre><code class="language-python">wbt.reinitialize_attribute_table(
     i, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ReinitializeAttributeTable -v ^
@@ -640,10 +665,11 @@ which must be of a polygon shapetype, and the name of the output file.</p>
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">remove_polygon_holes(
+<pre><code class="language-python">wbt.remove_polygon_holes(
     i, 
     output, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RemovePolygonHoles -v ^
@@ -662,6 +688,8 @@ value. Most WhiteboxTools tools recognize NoData grid cells and treat them speci
 are also often displayed transparently by GIS software. The user must specify the names of the input and
 output rasters and the background value. The default background value is zero, although any numeric
 value is possible.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a>, <code>IsNodata</code></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -669,11 +697,12 @@ value is possible.</p>
 <tr><td>--back_value       </td><td> Background value to set to nodata</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">set_nodata_value(
+<pre><code class="language-python">wbt.set_nodata_value(
     i, 
     output, 
     back_value=0.0, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SetNodataValue -v --wd=&quot;/path/to/data/&quot; ^
@@ -707,11 +736,12 @@ coverages.</p>
 <tr><td>-o, --output       </td><td> Output vector line or polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">single_part_to_multi_part(
+<pre><code class="language-python">wbt.single_part_to_multi_part(
     i, 
     output, 
     field=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SinglePartToMultiPart -v ^
@@ -723,7 +753,27 @@ coverages.</p>
 <p><em>Created</em>: 27/09/2018</p>
 <p><a name="VectorLinesToRaster"></a></p>
 <a class="header" href="#vectorlinestoraster" id="vectorlinestoraster"><h1>VectorLinesToRaster</h1></a>
-<p>Converts a vector containing polylines into a raster.</p>
+<p>This tool can be used to convert a vector lines or polygon file into a raster grid of lines. If a vector of one
+of the polygon shapetypes is selected, the resulting raster will outline the polygons without filling these
+features. Use the <code>VectorPolygonToRaster</code> tool if you need to fill the polygon features.</p>
+<p>The user must specify the name of the input vector (<code>--input</code>) and the output raster file (<code>--output</code>). The Field
+Name (<code>--field</code>) is
+the field from the attributes table, from which the tool will retrieve the information to assign to
+grid cells in the output raster. Note that if this field contains numerical data with no decimals, the output raster
+data type will be INTEGER; if it contains decimals it will be of a FLOAT data type. The field must contain numerical
+data. If the user does not supply a Field Name parameter, each feature in the raster will be assigned the record
+number of the feature. The assignment operation determines how the situation of multiple points contained within the
+same grid cell is handled. The background value is the value that is assigned to grid cells in the output raster that
+do not correspond to the location of any points in the input vector. This value can be any numerical value (e.g. 0)
+or the string 'NoData', which is the default.</p>
+<p>If the user optionally specifies the <code>--cell_size</code> parameter then the coordinates will be determined by the input
+vector (i.e. the bounding box) and the specified Cell Size. This will also determine the number of rows and columns
+in the output raster. If the user instead specifies the optional base raster file parameter (<code>--base</code>), the output raster's
+coordinates (i.e. north, south, east, west) and row and column count will be the same as the base file. If the user
+does not specify either of these two optional parameters, the tool will determine the cell size automatically as the
+maximum of the north-south extent (determined from the shapefile's bounding box) or the east-west extent divided by 500.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./data_tools.html#vectorpointstoraster"><strong>VectorPointsToRaster</strong></a>, <a href="./data_tools.html#vectorpolygonstoraster"><strong>VectorPolygonsToRaster</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector lines file</td></tr>
@@ -734,14 +784,15 @@ coverages.</p>
 <tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">vector_lines_to_raster(
+<pre><code class="language-python">wbt.vector_lines_to_raster(
     i, 
     output, 
     field=&quot;FID&quot;, 
     nodata=True, 
     cell_size=None, 
     base=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=VectorLinesToRaster -v ^
@@ -784,7 +835,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">vector_points_to_raster(
+<pre><code class="language-python">wbt.vector_points_to_raster(
     i, 
     output, 
     field=&quot;FID&quot;, 
@@ -792,7 +843,8 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
     nodata=True, 
     cell_size=None, 
     base=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=VectorPointsToRaster -v ^
@@ -820,14 +872,15 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">vector_polygons_to_raster(
+<pre><code class="language-python">wbt.vector_polygons_to_raster(
     i, 
     output, 
     field=&quot;FID&quot;, 
     nodata=True, 
     cell_size=None, 
     base=None, 
-    callback=default_callback)
+    callback=default_callback
+)
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=VectorPolygonsToRaster -v ^
