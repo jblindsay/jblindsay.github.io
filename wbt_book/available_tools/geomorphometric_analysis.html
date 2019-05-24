@@ -188,6 +188,7 @@
 <li><a href="#SedimentTransportIndex">SedimentTransportIndex</a></li>
 <li><a href="#Slope">Slope</a></li>
 <li><a href="#SlopeVsElevationPlot">SlopeVsElevationPlot</a></li>
+<li><a href="#SphericalStdDevOfNormals">SphericalStdDevOfNormals</a></li>
 <li><a href="#StandardDeviationOfSlope">StandardDeviationOfSlope</a></li>
 <li><a href="#SurfaceAreaRatio">SurfaceAreaRatio</a></li>
 <li><a href="#TangentialCurvature">TangentialCurvature</a></li>
@@ -254,9 +255,22 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="AverageNormalVectorAngularDeviation"></a></p>
 <a class="header" href="#averagenormalvectorangulardeviation" id="averagenormalvectorangulardeviation"><h1>AverageNormalVectorAngularDeviation</h1></a>
-<p>This tool</p>
+<p>This tool characterizes the spatial distribution of the average normal vector angular deviation, a measure of
+surface roughness. Working in the field of 3D printing, Ko et al. (2016) defined a measure of surface roughness
+based on quantifying the angular deviations in the direction of the normal vector of a real surface from its ideal
+(i.e. smoothed) form. This measure of surface complexity is therefore in units of degrees. Specifically, roughness
+is defined in this study as the neighborhood-averaged difference in the normal vectors of the original DEM and a
+smoothed DEM surface. Smoothed surfaces are derived by applying a Gaussian blur of the same size as the
+neighborhood (<code>--filter</code>).</p>
+<p>The <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a> tool calculates the same measure of surface roughness, except that it is designed to
+work with multiple spatial scales.</p>
+<p><em>Reference</em>:</p>
+<p>Ko, M., Kang, H., ulrim Kim, J., Lee, Y., &amp; Hwang, J. E. (2016, July). How to measure quality of affordable 3D
+printing: Cultivating quantitative index in the user community. In International Conference on Human-Computer
+Interaction (pp. 116-121). Springer, Cham.</p>
+<p>Lindsay, J. B., &amp; Newman, D. R. (2018). Hyper-scale analysis of surface roughness. PeerJ Preprints, 6, e27110v1.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -287,8 +301,24 @@ for an input digital elevation model (DEM). This is a measure of how variable sl
 neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a> is therefore a measure of <strong>surface
 shape complexity</strong>, or texture. It will take a value of 0.0 for smooth sites and near 1.0 in areas of high surface
 roughness or complex topography.</p>
+<p>The local neighbourhood size (<code>--filter</code>) must be any odd integer equal to or greater than three. Grohmann et al. (2010) found that
+vector dispersion, a related measure of angular variance, increases monotonically with scale. This is the result
+of the angular dispersion measure integrating (accumulating) all of the surface variance of smaller scales up to the
+test scale. A more interesting scale relation can therefore be estimated by isolating the amount of surface complexity
+associated with specific scale ranges. That is, at large spatial scales, the metric should reflect
+the texture of large-scale landforms rather than the accumulated complexity at all smaller scales, including
+microtopographic roughness. As such, <strong><em>this tool normalizes the surface complexity of scales that are smaller than
+the filter size by applying Gaussian blur</em></strong> (with a standard deviation of one-third the filter size) to the DEM prior
+to calculating <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>. In this way, the resulting distribution is able to isolate and highlight
+the surface shape complexity associated with landscape features of a similar scale to that of the filter size.</p>
+<p>This tool makes extensive use of <a href="https://en.wikipedia.org/wiki/Summed-area_table">integral images</a>
+(i.e. summed-area tables) and parallel processing to ensure computational efficiency. It may, however, require
+substantial memory resources when applied to larger DEMs.</p>
+<p><em>References</em>:</p>
+<p>Grohmann, C. H., Smith, M. J., &amp; Riccomini, C. (2010). Multiscale analysis of topographic surface roughness in the
+Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing</em>, 49(4), 1200-1213.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1949,7 +1979,18 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
-<p>Creates a slope vs. elevation plot for one or more DEMs.</p>
+<p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
+Similary to a hypsometric analysis (<a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a>), the slope-elevation relation can reveal the basic
+topographic character of a site. The output of this analysis is an HTML document (<code>--output</code>) that contains the
+slope-elevation chart. The tool can plot multiple slope-elevation analyses on the same chart by specifying multiple
+input DEM files (<code>--inputs</code>). Each input DEM can have an optional watershed in which the slope-elevation analysis is
+confined by specifying the optional <code>--watershed</code> flag. If multiple input DEMs are used, and a watershed is used to
+confine the analysis to a sub-area, there must be the same number of input raster watershed files as input DEM files.
+The order of the DEM and watershed files must the be same (i.e. the first DEM file must correspond to the first
+watershed file, the second DEM file to the second watershed file, etc.). Each watershed file may contain one or more
+watersheds, designated by unique identifiers.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input DEM files</td></tr>
@@ -1971,7 +2012,63 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope_vs_elev_plot.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 1, 2018</p>
+<p><em>Created</em>: 01/02/2018</p>
+<p><a name="SphericalStdDevOfNormals"></a></p>
+<a class="header" href="#sphericalstddevofnormals" id="sphericalstddevofnormals"><h1>SphericalStdDevOfNormals</h1></a>
+<p>This tool can be used to calculate the spherical standard deviation of the distribution of surface normals
+for an input digital elevation model (DEM; <code>--dem</code>). This is a measure of the angular dispersion of the surface
+normal vectors within a local neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>
+is therefore a measure of surface shape complexity, texture, and roughness. The <a href="https://en.wikipedia.org/wiki/Directional_statistics#Measures_of_location_and_spread">
+spherical standard deviation</a> (<em>s<sub>h</sub></em>) is defined as:</p>
+<blockquote>
+<p><em>s<sub>h</sub></em> = √[-2ln(<em>R<sub>h</sub></em> / <em>N</em>)] × 180 / π</p>
+</blockquote>
+<p>where <em>R<sub>h</sub></em> is the resultant vector length and <em>N</em> is the number of unit normal vectors
+within the local neighbourhood. <em>s<sub>h</sub></em> is measured in degrees and is zero for simple planes and increases
+infinitely with increasing surface complexity or roughness.</p>
+<p>The local neighbourhood size (<code>--filter</code>) must be any odd integer equal to or greater than three. Grohmann et al. (2010) found that
+vector dispersion, a related measure of angular dispersion, increases monotonically with scale. This is the result
+of the angular dispersion measure integrating (accumulating) all of the surface variance of smaller scales up to the
+test scale. A more interesting scale relation can therefore be estimated by isolating the amount of surface complexity
+associated with specific scale ranges. That is, at large spatial scales, <em>s<sub>h</sub></em> should reflect
+the texture of large-scale landforms rather than the accumulated complexity at all smaller scales, including
+microtopographic roughness. As such, <strong><em>this tool normalizes the surface complexity of scales that are smaller than
+the filter size by applying Gaussian blur</em></strong> (with a standard deviation of one-third the filter size) to the DEM prior
+to calculating <em>R<sub>h</sub></em>. In this way, the resulting distribution is able to isolate and highlight
+the surface shape complexity associated with landscape features of a similar scale to that of the filter size.</p>
+<p>This tool makes extensive use of <a href="https://en.wikipedia.org/wiki/Summed-area_table">integral images</a>
+(i.e. summed-area tables) and parallel processing to ensure computational efficiency. It may, however, require
+substantial memory resources when applied to larger DEMs.</p>
+<p><em>References</em>:</p>
+<p>Grohmann, C. H., Smith, M. J., &amp; Riccomini, C. (2010). Multiscale analysis of topographic surface roughness in the
+Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing</em>, 49(4), 1200-1213.</p>
+<p>Hodgson, M. E., and Gaile, G. L. (1999). A cartographic modeling approach for surface orientation-related applications.
+<em>Photogrammetric Engineering and Remote Sensing</em>, 65(1), 85-95.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--output           </td><td> Output raster file</td></tr>
+<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.spherical_std_dev_of_normals(
+    dem, 
+    output, 
+    filter=11, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SphericalStdDevOfNormals -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif --out_mag=roughness_mag.tif ^
+--out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
+--step=5 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/05/2019</p>
 <p><a name="StandardDeviationOfSlope"></a></p>
 <a class="header" href="#standarddeviationofslope" id="standarddeviationofslope"><h1>StandardDeviationOfSlope</h1></a>
 <p>Calculates the standard deviation of slope from an input DEM, a metric of

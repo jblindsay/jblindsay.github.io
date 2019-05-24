@@ -143,12 +143,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 0.15.1  <br />
+<p>WhiteboxTools Version 0.16.0  <br />
 Dr. John B. Lindsay © 2017-2019  <br />
 Geomorphometry and Hydrogeomatics Research Group  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-March 10, 2019
+May 24, 2019
 <br />
 <br />
 <br />
@@ -1392,6 +1392,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#SedimentTransportIndex">SedimentTransportIndex</a></li>
 <li><a href="#Slope">Slope</a></li>
 <li><a href="#SlopeVsElevationPlot">SlopeVsElevationPlot</a></li>
+<li><a href="#SphericalStdDevOfNormals">SphericalStdDevOfNormals</a></li>
 <li><a href="#StandardDeviationOfSlope">StandardDeviationOfSlope</a></li>
 <li><a href="#SurfaceAreaRatio">SurfaceAreaRatio</a></li>
 <li><a href="#TangentialCurvature">TangentialCurvature</a></li>
@@ -1458,9 +1459,22 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="AverageNormalVectorAngularDeviation"></a></p>
 <a class="header" href="#averagenormalvectorangulardeviation" id="averagenormalvectorangulardeviation"><h1>AverageNormalVectorAngularDeviation</h1></a>
-<p>This tool</p>
+<p>This tool characterizes the spatial distribution of the average normal vector angular deviation, a measure of
+surface roughness. Working in the field of 3D printing, Ko et al. (2016) defined a measure of surface roughness
+based on quantifying the angular deviations in the direction of the normal vector of a real surface from its ideal
+(i.e. smoothed) form. This measure of surface complexity is therefore in units of degrees. Specifically, roughness
+is defined in this study as the neighborhood-averaged difference in the normal vectors of the original DEM and a
+smoothed DEM surface. Smoothed surfaces are derived by applying a Gaussian blur of the same size as the
+neighborhood (<code>--filter</code>).</p>
+<p>The <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a> tool calculates the same measure of surface roughness, except that it is designed to
+work with multiple spatial scales.</p>
+<p><em>Reference</em>:</p>
+<p>Ko, M., Kang, H., ulrim Kim, J., Lee, Y., &amp; Hwang, J. E. (2016, July). How to measure quality of affordable 3D
+printing: Cultivating quantitative index in the user community. In International Conference on Human-Computer
+Interaction (pp. 116-121). Springer, Cham.</p>
+<p>Lindsay, J. B., &amp; Newman, D. R. (2018). Hyper-scale analysis of surface roughness. PeerJ Preprints, 6, e27110v1.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1491,8 +1505,24 @@ for an input digital elevation model (DEM). This is a measure of how variable sl
 neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a> is therefore a measure of <strong>surface
 shape complexity</strong>, or texture. It will take a value of 0.0 for smooth sites and near 1.0 in areas of high surface
 roughness or complex topography.</p>
+<p>The local neighbourhood size (<code>--filter</code>) must be any odd integer equal to or greater than three. Grohmann et al. (2010) found that
+vector dispersion, a related measure of angular variance, increases monotonically with scale. This is the result
+of the angular dispersion measure integrating (accumulating) all of the surface variance of smaller scales up to the
+test scale. A more interesting scale relation can therefore be estimated by isolating the amount of surface complexity
+associated with specific scale ranges. That is, at large spatial scales, the metric should reflect
+the texture of large-scale landforms rather than the accumulated complexity at all smaller scales, including
+microtopographic roughness. As such, <strong><em>this tool normalizes the surface complexity of scales that are smaller than
+the filter size by applying Gaussian blur</em></strong> (with a standard deviation of one-third the filter size) to the DEM prior
+to calculating <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>. In this way, the resulting distribution is able to isolate and highlight
+the surface shape complexity associated with landscape features of a similar scale to that of the filter size.</p>
+<p>This tool makes extensive use of <a href="https://en.wikipedia.org/wiki/Summed-area_table">integral images</a>
+(i.e. summed-area tables) and parallel processing to ensure computational efficiency. It may, however, require
+substantial memory resources when applied to larger DEMs.</p>
+<p><em>References</em>:</p>
+<p>Grohmann, C. H., Smith, M. J., &amp; Riccomini, C. (2010). Multiscale analysis of topographic surface roughness in the
+Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing</em>, 49(4), 1200-1213.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -3153,7 +3183,18 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
-<p>Creates a slope vs. elevation plot for one or more DEMs.</p>
+<p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
+Similary to a hypsometric analysis (<a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a>), the slope-elevation relation can reveal the basic
+topographic character of a site. The output of this analysis is an HTML document (<code>--output</code>) that contains the
+slope-elevation chart. The tool can plot multiple slope-elevation analyses on the same chart by specifying multiple
+input DEM files (<code>--inputs</code>). Each input DEM can have an optional watershed in which the slope-elevation analysis is
+confined by specifying the optional <code>--watershed</code> flag. If multiple input DEMs are used, and a watershed is used to
+confine the analysis to a sub-area, there must be the same number of input raster watershed files as input DEM files.
+The order of the DEM and watershed files must the be same (i.e. the first DEM file must correspond to the first
+watershed file, the second DEM file to the second watershed file, etc.). Each watershed file may contain one or more
+watersheds, designated by unique identifiers.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input DEM files</td></tr>
@@ -3175,7 +3216,63 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope_vs_elev_plot.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: February 1, 2018</p>
+<p><em>Created</em>: 01/02/2018</p>
+<p><a name="SphericalStdDevOfNormals"></a></p>
+<a class="header" href="#sphericalstddevofnormals" id="sphericalstddevofnormals"><h1>SphericalStdDevOfNormals</h1></a>
+<p>This tool can be used to calculate the spherical standard deviation of the distribution of surface normals
+for an input digital elevation model (DEM; <code>--dem</code>). This is a measure of the angular dispersion of the surface
+normal vectors within a local neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>
+is therefore a measure of surface shape complexity, texture, and roughness. The <a href="https://en.wikipedia.org/wiki/Directional_statistics#Measures_of_location_and_spread">
+spherical standard deviation</a> (<em>s<sub>h</sub></em>) is defined as:</p>
+<blockquote>
+<p><em>s<sub>h</sub></em> = √[-2ln(<em>R<sub>h</sub></em> / <em>N</em>)] × 180 / π</p>
+</blockquote>
+<p>where <em>R<sub>h</sub></em> is the resultant vector length and <em>N</em> is the number of unit normal vectors
+within the local neighbourhood. <em>s<sub>h</sub></em> is measured in degrees and is zero for simple planes and increases
+infinitely with increasing surface complexity or roughness.</p>
+<p>The local neighbourhood size (<code>--filter</code>) must be any odd integer equal to or greater than three. Grohmann et al. (2010) found that
+vector dispersion, a related measure of angular dispersion, increases monotonically with scale. This is the result
+of the angular dispersion measure integrating (accumulating) all of the surface variance of smaller scales up to the
+test scale. A more interesting scale relation can therefore be estimated by isolating the amount of surface complexity
+associated with specific scale ranges. That is, at large spatial scales, <em>s<sub>h</sub></em> should reflect
+the texture of large-scale landforms rather than the accumulated complexity at all smaller scales, including
+microtopographic roughness. As such, <strong><em>this tool normalizes the surface complexity of scales that are smaller than
+the filter size by applying Gaussian blur</em></strong> (with a standard deviation of one-third the filter size) to the DEM prior
+to calculating <em>R<sub>h</sub></em>. In this way, the resulting distribution is able to isolate and highlight
+the surface shape complexity associated with landscape features of a similar scale to that of the filter size.</p>
+<p>This tool makes extensive use of <a href="https://en.wikipedia.org/wiki/Summed-area_table">integral images</a>
+(i.e. summed-area tables) and parallel processing to ensure computational efficiency. It may, however, require
+substantial memory resources when applied to larger DEMs.</p>
+<p><em>References</em>:</p>
+<p>Grohmann, C. H., Smith, M. J., &amp; Riccomini, C. (2010). Multiscale analysis of topographic surface roughness in the
+Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing</em>, 49(4), 1200-1213.</p>
+<p>Hodgson, M. E., and Gaile, G. L. (1999). A cartographic modeling approach for surface orientation-related applications.
+<em>Photogrammetric Engineering and Remote Sensing</em>, 65(1), 85-95.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--output           </td><td> Output raster file</td></tr>
+<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.spherical_std_dev_of_normals(
+    dem, 
+    output, 
+    filter=11, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=SphericalStdDevOfNormals -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif --out_mag=roughness_mag.tif ^
+--out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
+--step=5 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/05/2019</p>
 <p><a name="StandardDeviationOfSlope"></a></p>
 <a class="header" href="#standarddeviationofslope" id="standarddeviationofslope"><h1>StandardDeviationOfSlope</h1></a>
 <p>Calculates the standard deviation of slope from an input DEM, a metric of
@@ -5352,24 +5449,13 @@ similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a>
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="MergeLineSegments"></a></p>
 <a class="header" href="#mergelinesegments" id="mergelinesegments"><h1>MergeLineSegments</h1></a>
-<p>This tool splits vector layers at their overlaps, creating a layer containing all the portions from both
-input and overlay layers. The <em>Union</em> is related to the Boolean
-<strong>OR</strong> operation in  set theory and is one of the common vector overlay
-operations in GIS. The user must specify  the names of the input and overlay vector files
-as well as the output vector file name. The tool operates on vector points,
-lines, or polygon, but both the input and overlay files must contain the same ShapeType.</p>
-<p>The attributes of the two input vectors will be merged in the output attribute table.
-Fields that are duplicated between the inputs will share a single attribute in the
-output. Fields that only exist in one of the two inputs will be populated by <code>null</code>
-in the output table. Multipoint ShapeTypes however will simply contain a single
-ouptut feature indentifier (<code>FID</code>) attribute. Also, note that depending on the
-ShapeType (polylines and polygons), <code>Measure</code> and <code>Z</code> ShapeDimension data will not
-be transfered to the output geometries. If the input attribute table contains fields
-that measure the geometric properties of their associated features (e.g. length or area),
-these fields will not be updated to reflect changes in geometry shape and size
-resulting from the overlay operation.</p>
+<p>Vector lines can sometimes contain two features that are connected by a shared end vertex. This tool
+identifies connected line features in an input vector file (<code>--input</code>) and merges them in the output
+file (<code>--output</code>). Two line features are merged if their ends are coincident, and are not coincident
+with any other feature (i.e. a bifurcation junction). End vertices are considered to be coincident if
+they are within the specified snap distance (<code>--snap</code>).</p>
 <p><em>See Also</em>:</p>
-<p><a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a>, <a href="./gis_analysis_overlay_tools.html#difference"><strong>Difference</strong></a>, <a href="./gis_analysis_overlay_tools.html#symmetricaldifference"><strong>SymmetricalDifference</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
+<p><a href="./gis_analysis_overlay_tools.html#splitwithlines"><strong>SplitWithLines</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector file</td></tr>
@@ -5628,6 +5714,8 @@ The user must also specify an split layer (<code>--split</code>), of POLYLINE Sh
 to bisect the input geometries.</p>
 <p>Each split geometry's attribute record will contain <code>FID</code> and <code>PARENT_FID</code> values
 and all of the attributes (excluding <code>FID</code>'s) of the input layer.</p>
+<p><em>See Also</em>:</p>
+<p>'MergeLineSegments'</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector line or polygon file</td></tr>
@@ -7510,8 +7598,10 @@ outlets to the <em>largest</em> stream (designated by the largest flow accumulat
 cells are position near the confluence point of smaller tributary streams, the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool may re-position
 outlets on the main-trunk stream, which will result in watershed delineation of incorrect sub-basins.</p>
 <p><em>Reference</em>:</p>
-<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived stream
-networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p>Jenson, S. K. (1991), Applications of hydrological information automati-cally extracted from digital elevation
+models, Hydrological Processes, 5, 31–44, doi:10.1002/hyp.3360050104.</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived
+stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -7986,7 +8076,37 @@ algorithm.</p>
 <p><em>Created</em>: 27/04/2018</p>
 <p><a name="Watershed"></a></p>
 <a class="header" href="#watershed" id="watershed"><h1>Watershed</h1></a>
-<p>Identifies the watershed, or drainage basin, draining to a set of target cells.</p>
+<p>This tool will perform a watershedding operation based on a group of input vector pour points (<code>--pour_pts</code>),
+i.e. outlets or points-of-interest. Watershedding is a procedure that identifies all of the cells upslope of
+a cell of interest (pour point) that are connected to the pour point by a flow-path. The user must specify the
+name of a D8-derived flow pointer (flow direction) raster (<code>--d8_pntr</code>), a vector pour point file (<code>--pour_pts</code>),
+and the output raster (<code>--output</code>). The pour points must be of a Point ShapeType (i.e. Point, PointZ, PointM,
+MultiPoint, MultiPointZ, MultiPointM). Watersheds will be assigned the input pour point FID value. The flow
+pointer raster must be generated using the D8 algorithm, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>.</p>
+<p>Pour point vectors can be attained by on-screen digitizing to designate these points-of-interest locations.
+Because pour points are usually, although not always, situated on a stream network, it is recommended that you
+use Jenson's method (<a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>) to snap pour points on the stream network. This will ensure that
+the digitized outlets are coincident with the digital stream contained within the DEM flowpaths. If this is not
+done prior to inputting a pour-point set to the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, anomalously small watersheds may be ouput, as
+pour points that fall off of the main flow path (even by one cell) in the D8 pointer will yield very different
+catchment areas.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>There are several tools that perform similar watershedding operations in WhiteboxTools. <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> is appropriate
+to use when you have a set of specific locations for which you need to derive the watershed areas. Use the <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a>
+tool instead when you simply want to find the watersheds draining to each outlet situated along the edge of a
+DEM. The <a href="./hydrological_analysis.html#isobasins"><strong>Isobasins</strong></a> tool can be used to divide a landscape into roughly equally sized watersheds. The <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>
+and <a href="./hydrological_analysis.html#strahlerorderbasins"><strong>StrahlerOrderBasins</strong></a> are useful when you need to find the areas draining to each link within a stream network.
+Finally, <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a> can be used to idenfity the areas draining the each of the left and right banks of a stream
+network.</p>
+<p><em>Reference</em>:</p>
+<p>Jenson, S. K. (1991), Applications of hydrological information automati-cally extracted from digital elevation
+models, Hydrological Processes, 5, 31–44, doi:10.1002/hyp.3360050104.</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived
+stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a>, <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>, <a href="./hydrological_analysis.html#isobasins"><strong>Isobasins</strong></a>, <a href="./hydrological_analysis.html#strahlerorderbasins"><strong>StrahlerOrderBasins</strong></a>, <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a>, <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>,
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
@@ -8010,7 +8130,7 @@ algorithm.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/watershed.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <a class="header" href="#image-processing-tools" id="image-processing-tools"><h1>Image Processing Tools</h1></a>
 <ul>
 <li><a href="#ChangeVectorAnalysis">ChangeVectorAnalysis</a></li>
@@ -9167,7 +9287,14 @@ however, reduce overall image contrast.</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="DiversityFilter"></a></p>
 <a class="header" href="#diversityfilter" id="diversityfilter"><h1>DiversityFilter</h1></a>
-<p>Assigns each cell in the output grid the number of different values in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool assigns each cell in the output grid the number of different values in a moving window centred on
+each grid cell in the input raster. The input image should contain integer values but floating point data
+are allowable and will be handled by multiplying pixel values by 1000 and rounding. Neighbourhood size, or
+filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags. These
+dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same
+in the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#majorityfilter"><strong>MajorityFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -9190,7 +9317,7 @@ however, reduce overall image contrast.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/diversity_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><a name="EdgePreservingMeanFilter"></a></p>
 <a class="header" href="#edgepreservingmeanfilter" id="edgepreservingmeanfilter"><h1>EdgePreservingMeanFilter</h1></a>
 <p>This tool performs a type of edge-preserving mean filter operation on an input image (<code>--input</code>). The filter, a
@@ -9735,7 +9862,16 @@ beyond the edge of the grid, NoData values are assigned to these sites.</p>
 <p><em>Created</em>: July 6, 2017</p>
 <p><a name="MaximumFilter"></a></p>
 <a class="header" href="#maximumfilter" id="maximumfilter"><h1>MaximumFilter</h1></a>
-<p>Assigns each cell in the output grid the maximum value in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool assigns each cell in the output grid (<code>--output</code>) the maximum value in a moving window centred on each grid
+cell in the input raster (<code>--input</code>). A maximum filter is the equivalent of the mathematical morphological
+<a href="https://en.wikipedia.org/wiki/Mathematical_morphology#Dilation">dilation</a> operator.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags.
+These dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same in
+the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p>This tool takes advantage of the redundancy between overlapping, neighbouring filters to enhance computationally
+efficiency. Like most of WhiteboxTools' filters, it is also parallelized for further efficiency.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#minimumfilter"><strong>MinimumFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -9758,7 +9894,7 @@ beyond the edge of the grid, NoData values are assigned to these sites.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/max_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="MeanFilter"></a></p>
 <a class="header" href="#meanfilter" id="meanfilter"><h1>MeanFilter</h1></a>
 <p>This tool performs a mean filter operation on a raster image. A mean filter, a type of low-pass filter, can be
@@ -9847,7 +9983,16 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><em>Created</em>: 15/07/2017</p>
 <p><a name="MinimumFilter"></a></p>
 <a class="header" href="#minimumfilter" id="minimumfilter"><h1>MinimumFilter</h1></a>
-<p>Assigns each cell in the output grid the minimum value in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool assigns each cell in the output grid (<code>--output</code>) the minimum value in a moving window centred on each grid
+cell in the input raster (<code>--input</code>). A maximum filter is the equivalent of the mathematical morphological
+<a href="https://en.wikipedia.org/wiki/Mathematical_morphology#Erosion">erosion</a> operator.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags.
+These dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same in
+the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p>This tool takes advantage of the redundancy between overlapping, neighbouring filters to enhance computationally
+efficiency. Like most of WhiteboxTools' filters, it is also parallelized for further efficiency.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#maximumfilter"><strong>MaximumFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -9870,7 +10015,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="OlympicFilter"></a></p>
 <a class="header" href="#olympicfilter" id="olympicfilter"><h1>OlympicFilter</h1></a>
 <p>This filter is a modification of the <a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, whereby the highest and lowest values in the kernel are
@@ -9906,7 +10051,24 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="PercentileFilter"></a></p>
 <a class="header" href="#percentilefilter" id="percentilefilter"><h1>PercentileFilter</h1></a>
-<p>Performs a percentile filter on an input image.</p>
+<p>This tool calculates the percentile of the center cell in a moving filter window applied to an input image (`--input).
+This indicates the value below which a given percentage of the neighbouring values in within the filter fall. For example,
+the 35th percentile is the value below which 35% of the neighbouring values in the filter window may be found. As such,
+the percentile of a pixel value is indicative of the relative location of the site within the statistical distribution
+of values contained within a filter window. When applied to input digital elevation models, percentile is a measure of
+local topographic position, or elevation residual.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags.
+These dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same in
+the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p>This tool takes advantage of the redundancy between overlapping, neighbouring filters to enhance computationally
+efficiency, using a method similar to Huang et al. (1979). This efficient method of calculating percentiles requires
+rounding of floating-point inputs, and therefore the user must specify the number of significant digits (<code>--sig_digits</code>)
+to be used during the processing. Like most of WhiteboxTools' filters, this tool is also parallelized for further efficiency.</p>
+<p><em>Reference</em>:</p>
+<p>Huang, T., Yang, G.J.T.G.Y. and Tang, G., 1979. A fast two-dimensional median filtering algorithm. IEEE
+Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -9931,7 +10093,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentile_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PrewittFilter"></a></p>
 <a class="header" href="#prewittfilter" id="prewittfilter"><h1>PrewittFilter</h1></a>
 <p>This tool performs a 3 × 3 Prewitt edge-detection filter on a raster image. The Prewitt filter
@@ -11018,7 +11180,7 @@ that are contained within a set of polygons, while removing points that lie outs
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/flightline_overlap.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 19, 2017</p>
+<p><em>Created</em>: 19/06/2017</p>
 <p><a name="LasToAscii"></a></p>
 <a class="header" href="#lastoascii" id="lastoascii"><h1>LasToAscii</h1></a>
 <p>This tool can be used to convert one or more LAS file, containing LiDAR data, into ASCII files. The user must
@@ -11138,7 +11300,7 @@ should be preferred instead.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_maximum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
+<p><em>Created</em>: 02/07/2017</p>
 <p><a name="LidarBlockMinimum"></a></p>
 <a class="header" href="#lidarblockminimum" id="lidarblockminimum"><h1>LidarBlockMinimum</h1></a>
 <p>Creates a block-minimum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -11166,7 +11328,7 @@ should be preferred instead.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_minimum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
+<p><em>Created</em>: 02/07/2017</p>
 <p><a name="LidarClassifySubset"></a></p>
 <a class="header" href="#lidarclassifysubset" id="lidarclassifysubset"><h1>LidarClassifySubset</h1></a>
 <p>This tool classifies points within a user-specified LiDAR point cloud (<code>--base</code>) that correpond
@@ -11527,7 +11689,7 @@ include the point elevations, intensity values, scan angles, and class values.</
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_idw_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 3, 2017</p>
+<p><em>Created</em>: 03/07/2017</p>
 <p><a name="LidarInfo"></a></p>
 <a class="header" href="#lidarinfo" id="lidarinfo"><h1>LidarInfo</h1></a>
 <p>This tool can be used to print basic information about the data contained within a LAS file, used to store LiDAR
@@ -11665,7 +11827,7 @@ percentage.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_nn_gridding.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><a name="LidarPointDensity"></a></p>
 <a class="header" href="#lidarpointdensity" id="lidarpointdensity"><h1>LidarPointDensity</h1></a>
 <p>Calculates the spatial pattern of point density for a LiDAR data set. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -11704,7 +11866,7 @@ percentage.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 10, 2017</p>
+<p><em>Created</em>: 10/07/2017</p>
 <p><a name="LidarPointStats"></a></p>
 <a class="header" href="#lidarpointstats" id="lidarpointstats"><h1>LidarPointStats</h1></a>
 <p>Creates several rasters summarizing the distribution of LAS point data. When the input/output parameters are not specified, the tool works on all LAS files contained within the working directory.</p>
@@ -11737,7 +11899,7 @@ percentage.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_stats.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: Feb. 18, 2018</p>
+<p><em>Created</em>: 18/02/2018</p>
 <p><a name="LidarRemoveDuplicates"></a></p>
 <a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h1>LidarRemoveDuplicates</h1></a>
 <p>This tool removes duplicate points from a LiDAR data set. Duplicates are determined
@@ -16587,7 +16749,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/gis_analysis.html#Medoid">Medoid</a>: Calculates the medoid for a series of vector features contained in a shapefile. Found in <em>GIS Analysis</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/gis_analysis_overlay_tools.html#MergeLineSegments">MergeLineSegments</a>: Splits vector layers at their overlaps, creating a layer containing all the portions from both input and overlay layers. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#MergeLineSegments">MergeLineSegments</a>: Merges vector line segments into larger features. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/data_tools.html#MergeTableWithCsv">MergeTableWithCsv</a>: Merge a vector's attribute table with a table contained within a CSV text file. Found in <em>Data Tools</em>.</p>
@@ -16921,6 +17083,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools_filters.html#SobelFilter">SobelFilter</a>: Performs a Sobel edge-detection filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#SphericalStdDevOfNormals">SphericalStdDevOfNormals</a>: Calculates the spherical standard deviation of surface normals for a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools.html#SplitColourComposite">SplitColourComposite</a>: This tool splits an RGB colour composite image into seperate multispectral images. Found in <em>Image Processing Tools</em>.</p>

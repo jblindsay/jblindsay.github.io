@@ -1336,8 +1336,10 @@ outlets to the <em>largest</em> stream (designated by the largest flow accumulat
 cells are position near the confluence point of smaller tributary streams, the <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool may re-position
 outlets on the main-trunk stream, which will result in watershed delineation of incorrect sub-basins.</p>
 <p><em>Reference</em>:</p>
-<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived stream
-networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p>Jenson, S. K. (1991), Applications of hydrological information automati-cally extracted from digital elevation
+models, Hydrological Processes, 5, 31–44, doi:10.1002/hyp.3360050104.</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived
+stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -1812,7 +1814,37 @@ algorithm.</p>
 <p><em>Created</em>: 27/04/2018</p>
 <p><a name="Watershed"></a></p>
 <a class="header" href="#watershed" id="watershed"><h1>Watershed</h1></a>
-<p>Identifies the watershed, or drainage basin, draining to a set of target cells.</p>
+<p>This tool will perform a watershedding operation based on a group of input vector pour points (<code>--pour_pts</code>),
+i.e. outlets or points-of-interest. Watershedding is a procedure that identifies all of the cells upslope of
+a cell of interest (pour point) that are connected to the pour point by a flow-path. The user must specify the
+name of a D8-derived flow pointer (flow direction) raster (<code>--d8_pntr</code>), a vector pour point file (<code>--pour_pts</code>),
+and the output raster (<code>--output</code>). The pour points must be of a Point ShapeType (i.e. Point, PointZ, PointM,
+MultiPoint, MultiPointZ, MultiPointM). Watersheds will be assigned the input pour point FID value. The flow
+pointer raster must be generated using the D8 algorithm, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>.</p>
+<p>Pour point vectors can be attained by on-screen digitizing to designate these points-of-interest locations.
+Because pour points are usually, although not always, situated on a stream network, it is recommended that you
+use Jenson's method (<a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>) to snap pour points on the stream network. This will ensure that
+the digitized outlets are coincident with the digital stream contained within the DEM flowpaths. If this is not
+done prior to inputting a pour-point set to the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, anomalously small watersheds may be ouput, as
+pour points that fall off of the main flow path (even by one cell) in the D8 pointer will yield very different
+catchment areas.</p>
+<p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>There are several tools that perform similar watershedding operations in WhiteboxTools. <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> is appropriate
+to use when you have a set of specific locations for which you need to derive the watershed areas. Use the <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a>
+tool instead when you simply want to find the watersheds draining to each outlet situated along the edge of a
+DEM. The <a href="./hydrological_analysis.html#isobasins"><strong>Isobasins</strong></a> tool can be used to divide a landscape into roughly equally sized watersheds. The <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>
+and <a href="./hydrological_analysis.html#strahlerorderbasins"><strong>StrahlerOrderBasins</strong></a> are useful when you need to find the areas draining to each link within a stream network.
+Finally, <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a> can be used to idenfity the areas draining the each of the left and right banks of a stream
+network.</p>
+<p><em>Reference</em>:</p>
+<p>Jenson, S. K. (1991), Applications of hydrological information automati-cally extracted from digital elevation
+models, Hydrological Processes, 5, 31–44, doi:10.1002/hyp.3360050104.</p>
+<p>Lindsay JB, Rothwell JJ, and Davies H. 2008. Mapping outlet points used for watershed delineation onto DEM-derived
+stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a>, <a href="./hydrological_analysis.html#subbasins"><strong>Subbasins</strong></a>, <a href="./hydrological_analysis.html#isobasins"><strong>Isobasins</strong></a>, <a href="./hydrological_analysis.html#strahlerorderbasins"><strong>StrahlerOrderBasins</strong></a>, <a href="./hydrological_analysis.html#hillslopes"><strong>Hillslopes</strong></a>, <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a>,
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
@@ -1836,7 +1868,7 @@ algorithm.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/watershed.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 
                     </main>
 

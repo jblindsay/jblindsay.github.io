@@ -610,24 +610,13 @@ similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a>
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="MergeLineSegments"></a></p>
 <a class="header" href="#mergelinesegments" id="mergelinesegments"><h1>MergeLineSegments</h1></a>
-<p>This tool splits vector layers at their overlaps, creating a layer containing all the portions from both
-input and overlay layers. The <em>Union</em> is related to the Boolean
-<strong>OR</strong> operation in  set theory and is one of the common vector overlay
-operations in GIS. The user must specify  the names of the input and overlay vector files
-as well as the output vector file name. The tool operates on vector points,
-lines, or polygon, but both the input and overlay files must contain the same ShapeType.</p>
-<p>The attributes of the two input vectors will be merged in the output attribute table.
-Fields that are duplicated between the inputs will share a single attribute in the
-output. Fields that only exist in one of the two inputs will be populated by <code>null</code>
-in the output table. Multipoint ShapeTypes however will simply contain a single
-ouptut feature indentifier (<code>FID</code>) attribute. Also, note that depending on the
-ShapeType (polylines and polygons), <code>Measure</code> and <code>Z</code> ShapeDimension data will not
-be transfered to the output geometries. If the input attribute table contains fields
-that measure the geometric properties of their associated features (e.g. length or area),
-these fields will not be updated to reflect changes in geometry shape and size
-resulting from the overlay operation.</p>
+<p>Vector lines can sometimes contain two features that are connected by a shared end vertex. This tool
+identifies connected line features in an input vector file (<code>--input</code>) and merges them in the output
+file (<code>--output</code>). Two line features are merged if their ends are coincident, and are not coincident
+with any other feature (i.e. a bifurcation junction). End vertices are considered to be coincident if
+they are within the specified snap distance (<code>--snap</code>).</p>
 <p><em>See Also</em>:</p>
-<p><a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a>, <a href="./gis_analysis_overlay_tools.html#difference"><strong>Difference</strong></a>, <a href="./gis_analysis_overlay_tools.html#symmetricaldifference"><strong>SymmetricalDifference</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
+<p><a href="./gis_analysis_overlay_tools.html#splitwithlines"><strong>SplitWithLines</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector file</td></tr>
@@ -886,6 +875,8 @@ The user must also specify an split layer (<code>--split</code>), of POLYLINE Sh
 to bisect the input geometries.</p>
 <p>Each split geometry's attribute record will contain <code>FID</code> and <code>PARENT_FID</code> values
 and all of the attributes (excluding <code>FID</code>'s) of the input layer.</p>
+<p><em>See Also</em>:</p>
+<p>'MergeLineSegments'</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector line or polygon file</td></tr>

@@ -379,7 +379,14 @@ however, reduce overall image contrast.</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="DiversityFilter"></a></p>
 <a class="header" href="#diversityfilter" id="diversityfilter"><h1>DiversityFilter</h1></a>
-<p>Assigns each cell in the output grid the number of different values in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool assigns each cell in the output grid the number of different values in a moving window centred on
+each grid cell in the input raster. The input image should contain integer values but floating point data
+are allowable and will be handled by multiplying pixel values by 1000 and rounding. Neighbourhood size, or
+filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags. These
+dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same
+in the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#majorityfilter"><strong>MajorityFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -402,7 +409,7 @@ however, reduce overall image contrast.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/diversity_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><a name="EdgePreservingMeanFilter"></a></p>
 <a class="header" href="#edgepreservingmeanfilter" id="edgepreservingmeanfilter"><h1>EdgePreservingMeanFilter</h1></a>
 <p>This tool performs a type of edge-preserving mean filter operation on an input image (<code>--input</code>). The filter, a
@@ -947,7 +954,16 @@ beyond the edge of the grid, NoData values are assigned to these sites.</p>
 <p><em>Created</em>: July 6, 2017</p>
 <p><a name="MaximumFilter"></a></p>
 <a class="header" href="#maximumfilter" id="maximumfilter"><h1>MaximumFilter</h1></a>
-<p>Assigns each cell in the output grid the maximum value in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool assigns each cell in the output grid (<code>--output</code>) the maximum value in a moving window centred on each grid
+cell in the input raster (<code>--input</code>). A maximum filter is the equivalent of the mathematical morphological
+<a href="https://en.wikipedia.org/wiki/Mathematical_morphology#Dilation">dilation</a> operator.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags.
+These dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same in
+the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p>This tool takes advantage of the redundancy between overlapping, neighbouring filters to enhance computationally
+efficiency. Like most of WhiteboxTools' filters, it is also parallelized for further efficiency.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#minimumfilter"><strong>MinimumFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -970,7 +986,7 @@ beyond the edge of the grid, NoData values are assigned to these sites.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/max_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="MeanFilter"></a></p>
 <a class="header" href="#meanfilter" id="meanfilter"><h1>MeanFilter</h1></a>
 <p>This tool performs a mean filter operation on a raster image. A mean filter, a type of low-pass filter, can be
@@ -1059,7 +1075,16 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><em>Created</em>: 15/07/2017</p>
 <p><a name="MinimumFilter"></a></p>
 <a class="header" href="#minimumfilter" id="minimumfilter"><h1>MinimumFilter</h1></a>
-<p>Assigns each cell in the output grid the minimum value in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool assigns each cell in the output grid (<code>--output</code>) the minimum value in a moving window centred on each grid
+cell in the input raster (<code>--input</code>). A maximum filter is the equivalent of the mathematical morphological
+<a href="https://en.wikipedia.org/wiki/Mathematical_morphology#Erosion">erosion</a> operator.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags.
+These dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same in
+the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p>This tool takes advantage of the redundancy between overlapping, neighbouring filters to enhance computationally
+efficiency. Like most of WhiteboxTools' filters, it is also parallelized for further efficiency.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#maximumfilter"><strong>MaximumFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1082,7 +1107,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="OlympicFilter"></a></p>
 <a class="header" href="#olympicfilter" id="olympicfilter"><h1>OlympicFilter</h1></a>
 <p>This filter is a modification of the <a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, whereby the highest and lowest values in the kernel are
@@ -1118,7 +1143,24 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><em>Created</em>: 26/06/2017</p>
 <p><a name="PercentileFilter"></a></p>
 <a class="header" href="#percentilefilter" id="percentilefilter"><h1>PercentileFilter</h1></a>
-<p>Performs a percentile filter on an input image.</p>
+<p>This tool calculates the percentile of the center cell in a moving filter window applied to an input image (`--input).
+This indicates the value below which a given percentage of the neighbouring values in within the filter fall. For example,
+the 35th percentile is the value below which 35% of the neighbouring values in the filter window may be found. As such,
+the percentile of a pixel value is indicative of the relative location of the site within the statistical distribution
+of values contained within a filter window. When applied to input digital elevation models, percentile is a measure of
+local topographic position, or elevation residual.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code> flags.
+These dimensions should be odd, positive integer values, e.g. 3, 5, 7, 9... If the kernel filter size is the same in
+the x and y dimensions, the silent <code>--filter</code> flag may be used instead (command-line interface only).</p>
+<p>This tool takes advantage of the redundancy between overlapping, neighbouring filters to enhance computationally
+efficiency, using a method similar to Huang et al. (1979). This efficient method of calculating percentiles requires
+rounding of floating-point inputs, and therefore the user must specify the number of significant digits (<code>--sig_digits</code>)
+to be used during the processing. Like most of WhiteboxTools' filters, this tool is also parallelized for further efficiency.</p>
+<p><em>Reference</em>:</p>
+<p>Huang, T., Yang, G.J.T.G.Y. and Tang, G., 1979. A fast two-dimensional median filtering algorithm. IEEE
+Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1143,7 +1185,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentile_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="PrewittFilter"></a></p>
 <a class="header" href="#prewittfilter" id="prewittfilter"><h1>PrewittFilter</h1></a>
 <p>This tool performs a 3 × 3 Prewitt edge-detection filter on a raster image. The Prewitt filter
