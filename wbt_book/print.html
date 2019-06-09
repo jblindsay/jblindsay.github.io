@@ -1376,6 +1376,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#MinDownslopeElevChange">MinDownslopeElevChange</a></li>
 <li><a href="#MultiscaleRoughness">MultiscaleRoughness</a></li>
 <li><a href="#MultiscaleRoughnessSignature">MultiscaleRoughnessSignature</a></li>
+<li><a href="#MultiscaleStdDevNormals">MultiscaleStdDevNormals</a></li>
 <li><a href="#MultiscaleTopographicPositionImage">MultiscaleTopographicPositionImage</a></li>
 <li><a href="#NumDownslopeNeighbours">NumDownslopeNeighbours</a></li>
 <li><a href="#NumUpslopeNeighbours">NumUpslopeNeighbours</a></li>
@@ -2578,7 +2579,7 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 26/022018</p>
+<p><em>Created</em>: 26/02/2018</p>
 <p><a name="MultiscaleRoughnessSignature"></a></p>
 <a class="header" href="#multiscaleroughnesssignature" id="multiscaleroughnesssignature"><h1>MultiscaleRoughnessSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -2611,6 +2612,38 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: February 27, 2018</p>
+<p><a name="MultiscaleStdDevNormals"></a></p>
+<a class="header" href="#multiscalestddevnormals" id="multiscalestddevnormals"><h1>MultiscaleStdDevNormals</h1></a>
+<p>Calculates surface roughness over a range of spatial scales.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--out_mag          </td><td> Output raster roughness magnitude file</td></tr>
+<tr><td>--out_scale        </td><td> Output raster roughness scale file</td></tr>
+<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.multiscale_std_dev_normals(
+    dem, 
+    out_mag, 
+    out_scale, 
+    max_scale, 
+    min_scale=1, 
+    step=1, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MultiscaleStdDevNormals -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif --out_mag=roughness_mag.tif ^
+--out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
+--step=5 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_std_dev_normals.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 05/06/2019</p>
 <p><a name="MultiscaleTopographicPositionImage"></a></p>
 <a class="header" href="#multiscaletopographicpositionimage" id="multiscaletopographicpositionimage"><h1>MultiscaleTopographicPositionImage</h1></a>
 <p>This tool creates a multiscale topographic position (MTP) image (<a href="https://www.uoguelph.ca/%7Ehydrogeo/pubs/UpdatedPosterMapSm.png">see here for an
@@ -2906,7 +2939,29 @@ use the <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile
 <p><em>Created</em>: 21/02/2018</p>
 <p><a name="ProfileCurvature"></a></p>
 <a class="header" href="#profilecurvature" id="profilecurvature"><h1>ProfileCurvature</h1></a>
-<p>Calculates a profile curvature raster from an input DEM.</p>
+<p>This tool calculates the profile curvature, or the rate of change in slope along a flow line,
+from a digital elevation model (DEM). Curvature is the second
+derivative of the topographic surface defined by a DEM. Profile curvature characterizes the
+degree of downslope acceleration or deceleration within the landscape (Gallant and Wilson, 2000).
+The user must specify the name of the input DEM (<code>--dem</code>) and the output raster image.
+WhiteboxTools reports curvature in degrees multiplied by 100 for easier interpretation because
+curvature values are typically very small. The
+<em>Z conversion factor</em> (<code>--zfactor</code>) is only important when the vertical and horizontal units
+are not the same in the DEM. When this is the case, the algorithm will multiply each
+elevation in the DEM by the Z Conversion Factor. If the DEM is in the geographic coordinate
+system (latitude and longitude), the following equation is used:</p>
+<blockquote>
+<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+</blockquote>
+<p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
+<p>The algorithm uses the same formula for the calculation of plan curvature as Gallant and
+Wilson (2000). Profile curvature is negative for slope increasing downhill (convex flow profile,
+typical of upper slopes) and positive for slope decreasing downhill (concave, typical of lower slopes).</p>
+<p><em>Reference</em>:</p>
+<p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
+and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a>, <a href="./geomorphometric_analysis.html#tangentialcurvature"><strong>TangentialCurvature</strong></a>, <a href="./geomorphometric_analysis.html#totalcurvature"><strong>TotalCurvature</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2969,7 +3024,25 @@ Science, 33, 195-226.</p>
 <p><em>Created</em>: 17/06/2017</p>
 <p><a name="RelativeStreamPowerIndex"></a></p>
 <a class="header" href="#relativestreampowerindex" id="relativestreampowerindex"><h1>RelativeStreamPowerIndex</h1></a>
-<p>Calculates the relative stream power index.</p>
+<p>This tool can be used to calculate the relative stream power (<em>RSP</em>) index. This index is directly related
+to the stream power if the assumption can be made that discharge is directly proportional to upslope
+contributing area (<em>A<sub>s</sub></em>; <code>--sca</code>). The index is calculated as:</p>
+<blockquote>
+<p><em>RSP</em> = <em>A<sub>s</sub></em><sup><em>p</em></sup> × tan(β)</p>
+</blockquote>
+<p>where <em>A<sub>s</sub></em> is the specific catchment area (i.e. the upslope contributing area per unit
+contour length) estimated using one of the available flow accumulation algorithms; β is the local
+slope gradient in degrees (<code>--slope</code>); and, <em>p</em> (<code>--exponent</code>) is a user-defined exponent term that
+controls the location-specific relation between contributing area and discharge. Notice that
+<em>A<sub>s</sub></em> must not be log-transformed prior to being used; <em>A<sub>s</sub></em> is commonly
+log-transformed to enhance visualization of the data. The slope raster can be created from the base
+digital elevation model (DEM) using the <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a> tool. The input images must have the same grid dimensions.</p>
+<p><em>Reference</em>:</p>
+<p>Moore, I. D., Grayson, R. B., and Ladson, A. R. (1991). Digital terrain modelling:
+a review of hydrological, geomorphological, and biological applications. <em>Hydrological
+processes</em>, 5(1), 3-30.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#sedimenttransportindex"><strong>SedimentTransportIndex</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a> <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--sca              </td><td> Input raster specific contributing area (SCA) file</td></tr>
@@ -2993,7 +3066,7 @@ Science, 33, 195-226.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_stream_power_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
+<p><em>Created</em>: 02/07/2017</p>
 <p><a name="RelativeTopographicPosition"></a></p>
 <a class="header" href="#relativetopographicposition" id="relativetopographicposition"><h1>RelativeTopographicPosition</h1></a>
 <p>Relative topographic position (RTP) is an index of local topographic position (i.e. how
@@ -3046,7 +3119,22 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p><em>Created</em>: 06/06/2017</p>
 <p><a name="RemoveOffTerrainObjects"></a></p>
 <a class="header" href="#removeoffterrainobjects" id="removeoffterrainobjects"><h1>RemoveOffTerrainObjects</h1></a>
-<p>Removes off-terrain objects from a raster digital elevation model (DEM).</p>
+<p>This tool can be used to create a bare-earth DEM from a fine-resolution digital surface model. The
+tool is typically applied to LiDAR DEMs which frequently contain numerous off-terrain objects (OTOs) such
+as buildings, trees and other vegetation, cars, fences and other anthropogenic objects. The algorithm
+works by finding and removing steep-sided peaks within the DEM. All peaks within a sub-grid, with a
+dimension of the user-specified maximum OTO size (<code>--filter</code>), in pixels, are identified and removed.
+Each of the edge cells of the peaks are then examined to see if they have a slope that is less than the
+user-specified minimum OTO edge slope (<code>--slope</code>) and a back-filling procedure is used. This ensures that
+OTOs are distinguished from natural topographic features such as hills. The DEM is preprocessed using a
+white top-hat transform, such that elevations are normalized for the underlying ground surface.</p>
+<p>Note that this tool is appropriate to apply to rasterized LiDAR DEMs. Use the <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a>
+tool to remove or classify OTOs within a LiDAR point-cloud.</p>
+<p><em>Reference</em>:</p>
+<p>J.B. Lindsay (2018) A new method for the removal of off-terrain objects from LiDAR-derived raster surface
+models. Available online, DOI: <a href="https://www.researchgate.net/publication/323003064_A_new_method_for_the_removal_of_off-terrain_objects_from_LiDAR-derived_raster_surface_models">10.13140/RG.2.2.21226.62401</a></p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -3070,10 +3158,23 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/remove_off_terrain_objects.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 6, 2017</p>
+<p><em>Created</em>: 06/06/2017</p>
 <p><a name="RuggednessIndex"></a></p>
 <a class="header" href="#ruggednessindex" id="ruggednessindex"><h1>RuggednessIndex</h1></a>
-<p>Calculates the Riley et al.'s (1999) terrain ruggedness index from an input DEM.</p>
+<p>The terrain ruggedness index (TRI) is a measure of local topographic relief. The TRI calculates
+the root-mean-square-deviation (RMSD) for each grid cell in a digital elevation model (DEM),
+calculating the residuals (i.e. elevation differences) between a grid cell and its eight neighbours.
+Notice that, unlike the output of this tool, the original Riley et al. (1999) TRI did not normalize
+for the number of cells in the local window (i.e. it is a root-square-deviation only). However,
+using the mean has the advantage of allowing for the varying number of neighbouring cells along
+the grid edges and in areas bordering NoData cells. This modification does however imply that the
+ouput of this tool cannot be directly compared with the index ranges of level to extremely rugged
+terrain provided in Riley et al. (1999)</p>
+<p><em>Reference</em>:</p>
+<p>Riley, S. J., DeGloria, S. D., and Elliot, R. (1999). Index that quantifies topographic heterogeneity.
+<em>Intermountain Journal of Sciences</em>, 5(1-4), 23-27.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#relativetopographicposition"><strong>RelativeTopographicPosition</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -3094,10 +3195,38 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/ruggedness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22, 2017</p>
+<p><em>Created</em>: 22/06/2017</p>
 <p><a name="SedimentTransportIndex"></a></p>
 <a class="header" href="#sedimenttransportindex" id="sedimenttransportindex"><h1>SedimentTransportIndex</h1></a>
-<p>Calculates the sediment transport index.</p>
+<p>This tool calculates the sediment transport index, or sometimes, length-slope (<em>LS</em>)
+factor, based on input specific contributing area (<em>A<sub>s</sub></em>, i.e. the upslope
+contributing area per unit contour length; <code>--sca</code>) and slope gradient
+(β, measured in degrees; <code>--slope</code>) rasters. Moore et al. (1991) state that the physical potential for
+sheet and rill erosion in upland catchments can be evaluated by the product <em>R K LS</em>,
+a component of the Universal Soil Loss Equation (USLE), where <em>R</em> is a rainfall and
+runoff erosivity factor, <em>K</em> is a soil erodibility factor, and <em>LS</em> is the length-slope
+factor that accounts for the effects of topography on erosion. To predict erosion at a
+point in the landscape the LS factor can be written as:</p>
+<blockquote>
+<p><em>LS</em> = (<em>n</em> + 1)(<em>A<sub>s</sub></em> / 22.13)<sup><em>n</em></sup>(sin(β) / 0.0896)<sup><em>m</em></sup></p>
+</blockquote>
+<p>where <em>n</em> = 0.4 (<code>--sca_exponent</code>) and <em>m</em> = 1.3 (<code>--slope_exponent</code>) in its original formulation.</p>
+<p>This index is derived from unit stream-power theory and is sometimes used in place of the
+length-slope factor in the revised universal soil loss equation (RUSLE) for slope lengths
+less than 100 m and slope less than 14 degrees. Like many hydrological land-surface
+parameters <a href="./geomorphometric_analysis.html#sedimenttransportindex"><strong>SedimentTransportIndex</strong></a> assumes that contributing area is directly related to
+discharge. Notice that <em>A<sub>s</sub></em> must not be log-transformed prior to being used;
+<em>A<sub>s</sub></em> is commonly log-transformed to enhance visualization of the data. Also,
+<em>A<sub>s</sub></em> can be derived using any of the available flow accumulation tools, alghough
+better results usually result from application of multiple-flow direction algorithms such
+as <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a> and <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>. The slope raster can be created from the base
+digital elevation model (DEM) using the <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a> tool. The input images must have the same grid dimensions.</p>
+<p><em>Reference</em>:</p>
+<p>Moore, I. D., Grayson, R. B., and Ladson, A. R. (1991). Digital terrain modelling:
+a review of hydrological, geomorphological, and biological applications. <em>Hydrological
+processes</em>, 5(1), 3-30.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#relativestreampowerindex"><strong>RelativeStreamPowerIndex</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--sca              </td><td> Input raster specific contributing area (SCA) file</td></tr>
@@ -3124,7 +3253,7 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/sediment_transport_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
+<p><em>Created</em>: 02/07/2017</p>
 <p><a name="Slope"></a></p>
 <a class="header" href="#slope" id="slope"><h1>Slope</h1></a>
 <p>This tool calculates slope gradient (i.e. slope steepness in degrees) for each grid cell
@@ -3223,22 +3352,22 @@ watersheds, designated by unique identifiers.</p>
 for an input digital elevation model (DEM; <code>--dem</code>). This is a measure of the angular dispersion of the surface
 normal vectors within a local neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>
 is therefore a measure of surface shape complexity, texture, and roughness. The <a href="https://en.wikipedia.org/wiki/Directional_statistics#Measures_of_location_and_spread">
-spherical standard deviation</a> (<em>s<sub>h</sub></em>) is defined as:</p>
+spherical standard deviation</a> (<em>s</em>) is defined as:</p>
 <blockquote>
-<p><em>s<sub>h</sub></em> = √[-2ln(<em>R<sub>h</sub></em> / <em>N</em>)] × 180 / π</p>
+<p><em>s</em> = √[-2ln(<em>R</em> / <em>N</em>)] × 180 / π</p>
 </blockquote>
-<p>where <em>R<sub>h</sub></em> is the resultant vector length and <em>N</em> is the number of unit normal vectors
-within the local neighbourhood. <em>s<sub>h</sub></em> is measured in degrees and is zero for simple planes and increases
+<p>where <em>R</em> is the resultant vector length and <em>N</em> is the number of unit normal vectors
+within the local neighbourhood. <em>s</em> is measured in degrees and is zero for simple planes and increases
 infinitely with increasing surface complexity or roughness.</p>
 <p>The local neighbourhood size (<code>--filter</code>) must be any odd integer equal to or greater than three. Grohmann et al. (2010) found that
 vector dispersion, a related measure of angular dispersion, increases monotonically with scale. This is the result
 of the angular dispersion measure integrating (accumulating) all of the surface variance of smaller scales up to the
 test scale. A more interesting scale relation can therefore be estimated by isolating the amount of surface complexity
-associated with specific scale ranges. That is, at large spatial scales, <em>s<sub>h</sub></em> should reflect
+associated with specific scale ranges. That is, at large spatial scales, <em>s</em> should reflect
 the texture of large-scale landforms rather than the accumulated complexity at all smaller scales, including
 microtopographic roughness. As such, <strong><em>this tool normalizes the surface complexity of scales that are smaller than
 the filter size by applying Gaussian blur</em></strong> (with a standard deviation of one-third the filter size) to the DEM prior
-to calculating <em>R<sub>h</sub></em>. In this way, the resulting distribution is able to isolate and highlight
+to calculating <em>R</em>. In this way, the resulting distribution is able to isolate and highlight
 the surface shape complexity associated with landscape features of a similar scale to that of the filter size.</p>
 <p>This tool makes extensive use of <a href="https://en.wikipedia.org/wiki/Summed-area_table">integral images</a>
 (i.e. summed-area tables) and parallel processing to ensure computational efficiency. It may, however, require
@@ -3335,7 +3464,20 @@ Bulletin, 32(3), 829-839.</p>
 <p><em>Created</em>: 23/01/2019</p>
 <p><a name="TangentialCurvature"></a></p>
 <a class="header" href="#tangentialcurvature" id="tangentialcurvature"><h1>TangentialCurvature</h1></a>
-<p>Calculates a tangential curvature raster from an input DEM.</p>
+<p>This tool calculates the tangential curvature, which is the curvature of an inclined plan perpendicular
+to both the direction of flow and the surface (Gallant and Wilson, 2000). Curvature is a second
+derivative of the topographic surface defined by a digital elevation model (DEM). The user must specify
+the name of the input DEM (<code>--dem</code>) and the output raster image (<code>--output</code>). The output reports curvature
+in degrees multiplied by 100 for easier interpretation, as curvature values are often very small. The Z
+Conversion Factor (<code>--zfactor</code>) is only important when the vertical and horizontal units are not the
+same in the DEM. When this is the case, the algorithm will multiply each elevation in the DEM by the
+Z Conversion Factor. If the DEM is in the geographic coordinate system (latitude and longitude), with
+XY units measured in degrees, an appropriate Z Conversion Factor is calculated internally based on
+site latitude.</p>
+<p><em>Reference</em>:</p>
+<p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
+and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
+<p><a href="./geomorphometric_analysis.html#plancurvature"><strong>PlanCurvature</strong></a>, <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a>, <a href="./geomorphometric_analysis.html#totalcurvature"><strong>TotalCurvature</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -3359,7 +3501,22 @@ Bulletin, 32(3), 829-839.</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="TotalCurvature"></a></p>
 <a class="header" href="#totalcurvature" id="totalcurvature"><h1>TotalCurvature</h1></a>
-<p>Calculates a total curvature raster from an input DEM.</p>
+<p>This tool calculates the total curvature, which measures the curvature of the topographic surface rather
+than the curvature of a line across the surface in some direction (Gallant and Wilson, 2000). Total
+curvature can be positive or negative, with zero curvature indicating that the surface is either flat
+or the convexity in one direction is balanced by the concavity in another direction, as would occur at
+a saddle point. Curvature is a second derivative of the topographic surface defined by a digital elevation
+model (DEM). The user must specify the name of the input DEM (<code>--dem</code>) and the output raster image (<code>--output</code>). The output reports curvature
+in degrees multiplied by 100 for easier interpretation, as curvature values are often very small. The Z
+Conversion Factor (<code>--zfactor</code>) is only important when the vertical and horizontal units are not the
+same in the DEM. When this is the case, the algorithm will multiply each elevation in the DEM by the
+Z Conversion Factor. If the DEM is in the geographic coordinate system (latitude and longitude), with
+XY units measured in degrees, an appropriate Z Conversion Factor is calculated internally based on
+site latitude.</p>
+<p><em>Reference</em>:</p>
+<p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
+and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
+<p><a href="./geomorphometric_analysis.html#plancurvature"><strong>PlanCurvature</strong></a>, <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a>, <a href="./geomorphometric_analysis.html#tangentialcurvature"><strong>TangentialCurvature</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -3383,7 +3540,27 @@ Bulletin, 32(3), 829-839.</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><a name="Viewshed"></a></p>
 <a class="header" href="#viewshed" id="viewshed"><h1>Viewshed</h1></a>
-<p>Identifies the viewshed for a point or set of points.</p>
+<p>This tool can be used to calculate the viewshed (i.e. the visible area) from a
+location (i.e. viewing station) or group of locations based on the topography defined
+by an input digital elevation model (DEM). The user must specify the name of the input
+DEM (<code>--dem</code>), a viewing station input vector file (<code>--stations</code>), the output file name
+(<code>--output</code>), and the viewing height (<code>--height</code>).
+Viewing station locations are specified as points within an input shapefile. The output
+image indicates the number of stations visible from each grid cell. The viewing height
+is in the same units as the elevations of the DEM and represent a height above the ground
+elevation from which the viewshed is calculated.</p>
+<p><a href="./geomorphometric_analysis.html#viewshed"><strong>Viewshed</strong></a> should be used when there are a relatively small number of target sites
+for which visibility needs to be assessed. If you need to assess general landscape
+visibility as a land-surface parameter, the <a href="./geomorphometric_analysis.html#visibilityindex"><strong>VisibilityIndex</strong></a> tool should be used
+instead.</p>
+<p>Viewshed analysis is a very
+computationally intensive task. Depending on the size of the input DEM grid and the
+number of viewing stations, this operation may take considerable time to complete. Also,
+this implementation of the viewshed algorithm does not account for the curvature of the
+Earth. This should be accounted for if viewsheds are being calculated over very
+extensive areas.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#visibilityindex"><strong>VisibilityIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--dem              </td><td> Input raster DEM file</td></tr>
@@ -3407,10 +3584,30 @@ Bulletin, 32(3), 829-839.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/viewshed.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: January 10, 2018</p>
+<p><em>Created</em>: 10/01/2018</p>
 <p><a name="VisibilityIndex"></a></p>
 <a class="header" href="#visibilityindex" id="visibilityindex"><h1>VisibilityIndex</h1></a>
-<p>Estimates the relative visibility of sites in a DEM.</p>
+<p>This tool can be used to calculate a measure of landscape visibility based on the
+topography of an input digital elevation model (DEM). The user must specify the name of
+the input DEM (<code>--dem</code>), the output file name (<code>--output</code>), the viewing height (<code>--height</code>),
+and a resolution factor (<code>--res_factor</code>).
+Viewsheds are calcuated for a subset of grid cells in the DEM based on the resolution
+factor. The visibility index value (0.0-1.0) indicates the proportion of tested stations
+(determined by the resolution factor) that each cell is visible from. The viewing height
+is in the same units as the elevations of the DEM and represent a height above the ground
+elevation. Each tested grid cell's viewshed will be calculated in parallel. However, visibility
+index is one of the most computationally intensive geomorphometric indices to calculate.
+Depending on the size of the input DEM grid and the resolution factor, this operation may take
+considerable time to complete. If the task is too long-running, it is advisable to raise the
+resolution factor. A resolution factor of 2 will skip every second row and every second column
+(effectively evaluating the viewsheds of a quarter of the DEM's grid cells). Increasing this
+value decreases the number of calculated viewshed but will result in a lower accuracy estimate
+of overall visibility. In addition to the high computational costs of this index, the tool
+also requires substantial memory resources to operate. Each of these limitations should be
+considered before running this tool on a particular data set. This tool is best to apply
+on computer systems with high core-counts and plenty of memory.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#viewshed"><strong>Viewshed</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--dem              </td><td> Input raster DEM file</td></tr>
@@ -7722,7 +7919,12 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <p><em>Created</em>: June 25, 2017</p>
 <p><a name="RaiseWalls"></a></p>
 <a class="header" href="#raisewalls" id="raisewalls"><h1>RaiseWalls</h1></a>
-<p>Raises walls in a DEM along a line or around a polygon, e.g. a watershed.</p>
+<p>This tool is used to increment the elevations in a digital elevation model (DEM) along
+the boundaries of a vector lines or polygon layer. The user must specify the name of the
+raster DEM (<code>--dem</code>), the vector file (<code>--input</code>), the output file name (<code>--output</code>), the
+increment height (<code>--height</code>), and an optional breach lines vector layer (<code>--breach</code>).
+The breach lines layer can be used to breach a whole in the raised walls at intersections
+with the wall layer.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector lines or polygons file</td></tr>
@@ -11502,7 +11704,30 @@ another class value (<code>--outclassval</code>) to those points falling outside
 <p><em>Created</em>: 02/06/2017</p>
 <p><a name="LidarGroundPointFilter"></a></p>
 <a class="header" href="#lidargroundpointfilter" id="lidargroundpointfilter"><h1>LidarGroundPointFilter</h1></a>
-<p>Identifies ground points within LiDAR dataset using a slope-based method.</p>
+<p>This tool can be used to perform a slope-based classification, or filtering (i.e. removal), of
+non-ground points within a LiDAR point-cloud. The user must specify the name of the input and output
+LiDAR files (<code>--input</code> and <code>--output</code>). Inter-point slopes are compared between pair of points
+contained within local neighbourhoods of size <code>--radius</code>. Neighbourhoods with fewer than the
+user-specified minimum number of points (<code>--min_neighbours</code>) are extended until the minimum point
+number is equaled or exceeded. Points that are above neighbouring points by the minimum
+(<code>--height_threshold</code>) and have an inter-point slope greater than the user-specifed threshold
+(<code>--slope_threshold</code>) are considered non-ground points and are either optionally (<code>--classify</code>)
+excluded from the output point-cloud or assigned the <em>unclassified</em> (value 1) class value.</p>
+<p>Slope-based ground-point classification methods suffer from the challenge of uses a constant
+slope threshold under varying terrain slopes. Some researchers have developed schemes for varying
+the slope threshold based on underlying terrain slopes. <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a> instead allow the
+user to optionally (<code>--slope_norm</code>) normalize the underlying terrain (i.e. flatten the terrain)
+using a white top-hat transform. A constant slope threshold may then be used without contributing
+to poorer performance under steep topography. Note, that this option, while useful in rugged
+terrain, is computationally intensive. If the point-cloud is of a relatively flat terrain,
+this option may be excluded.</p>
+<p>While this tool is appropriately applied to LiDAR point-clouds, the <a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a>
+tool can be used to remove off-terrain objects from rasterized LiDAR digital elevation models (DEMs).</p>
+<p><em>Reference</em>:</p>
+<p>Vosselman, G. (2000). Slope based filtering of laser altimetry data. <em>International Archives of
+Photogrammetry and Remote Sensing</em>, 33(B3/2; PART 3), 935-942.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -14674,7 +14899,7 @@ processing of discrete terrain elevation data. Computer Graphics and image proce
 <pre><code class="language-python">wbt.extract_valleys(
     dem, 
     output, 
-    variant=&quot;Lower Quartile&quot;, 
+    variant=&quot;LQ&quot;, 
     line_thin=True, 
     filter=5, 
     callback=default_callback
@@ -16810,6 +17035,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/geomorphometric_analysis.html#MultiscaleRoughness">MultiscaleRoughness</a>: Calculates surface roughness over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleStdDevNormals">MultiscaleStdDevNormals</a>: Calculates surface roughness over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/geomorphometric_analysis.html#MultiscaleTopographicPositionImage">MultiscaleTopographicPositionImage</a>: Creates a multiscale topographic position image from three DEVmax rasters of differing spatial scale ranges. Found in <em>Geomorphometric Analysis</em>.</p>

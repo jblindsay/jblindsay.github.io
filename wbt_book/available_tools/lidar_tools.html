@@ -670,7 +670,30 @@ another class value (<code>--outclassval</code>) to those points falling outside
 <p><em>Created</em>: 02/06/2017</p>
 <p><a name="LidarGroundPointFilter"></a></p>
 <a class="header" href="#lidargroundpointfilter" id="lidargroundpointfilter"><h1>LidarGroundPointFilter</h1></a>
-<p>Identifies ground points within LiDAR dataset using a slope-based method.</p>
+<p>This tool can be used to perform a slope-based classification, or filtering (i.e. removal), of
+non-ground points within a LiDAR point-cloud. The user must specify the name of the input and output
+LiDAR files (<code>--input</code> and <code>--output</code>). Inter-point slopes are compared between pair of points
+contained within local neighbourhoods of size <code>--radius</code>. Neighbourhoods with fewer than the
+user-specified minimum number of points (<code>--min_neighbours</code>) are extended until the minimum point
+number is equaled or exceeded. Points that are above neighbouring points by the minimum
+(<code>--height_threshold</code>) and have an inter-point slope greater than the user-specifed threshold
+(<code>--slope_threshold</code>) are considered non-ground points and are either optionally (<code>--classify</code>)
+excluded from the output point-cloud or assigned the <em>unclassified</em> (value 1) class value.</p>
+<p>Slope-based ground-point classification methods suffer from the challenge of uses a constant
+slope threshold under varying terrain slopes. Some researchers have developed schemes for varying
+the slope threshold based on underlying terrain slopes. <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a> instead allow the
+user to optionally (<code>--slope_norm</code>) normalize the underlying terrain (i.e. flatten the terrain)
+using a white top-hat transform. A constant slope threshold may then be used without contributing
+to poorer performance under steep topography. Note, that this option, while useful in rugged
+terrain, is computationally intensive. If the point-cloud is of a relatively flat terrain,
+this option may be excluded.</p>
+<p>While this tool is appropriately applied to LiDAR point-clouds, the <a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a>
+tool can be used to remove off-terrain objects from rasterized LiDAR digital elevation models (DEMs).</p>
+<p><em>Reference</em>:</p>
+<p>Vosselman, G. (2000). Slope based filtering of laser altimetry data. <em>International Archives of
+Photogrammetry and Remote Sensing</em>, 33(B3/2; PART 3), 935-942.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
