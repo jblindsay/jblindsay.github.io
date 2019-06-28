@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Extract valleys (Johnston and Rosenfeld)</h1>
+
+<p>This tool can be used to extract channel networks from digital elevation models (DEMs) based on the 
+Johnston and Rosenfeld (1975) method. The algorithm is a type of 'valley recognition' method and operates 
+as follows: channel cells are flagged in a 3 x 3 window if the north and south neighbours are higher than 
+the centre grid cell or if the east and west neighbours meet this same criterion. The group of cells that 
+are flagged after one pass of the roving window constituted the drainage network. This method is best 
+applied to DEMs that are relatively smooth and do not exhibit high levels of short-range roughness. As 
+such, it may be desirable to use a <a href="FilterGaussian.html">smoothing filter</a> before applying 
+this tool.</p>
+<p>This method of extracting valley networks results in line networks that can be wider than a single grid 
+cell. As such, it is often desirable to thin the resulting network using a line-thinning algorithm. The 
+option to perform line-thinning is provided by the tool as a post-processing step.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="ExtractValleysPeuckerAndDouglas.html">Extract Valleys (Peucker and Douglas)</a></li>
+<li><a href="ExtractValleysLowerQuartile.html">Extract Valleys (Lower Quartile)</a></li>
+<li><a href="FilterGaussian.html">Gaussian Filter</a></li>
+<li><a href="FilterMean.html">Mean Filter</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+</ul>
+<br><h2 class="SeeAlso">References:</h2>
+<ul>
+<li>DOUGLAS, D.H., 1986, Experiments to locate ridges and channels to create a new type of digital 
+elevation model. Cartographica, 23, pp. 29?61.</li>
+<br><li>JOHNSTON, E.G. and ROSENFELD, A., 1975, Digital detection of pits, peaks, ridges and ravines. IEEE 
+Transactions on Systems, Man and Cybernetics, SMC-5, pp. 472?480.</li>
+<br><li>LINDSAY, J.B., 2006, Sensitivity of channel mapping techniques to uncertainly in digital elevation 
+data. International Journal of Geographical Information Science, 20:6, pp. 669-692.</li>
+</ul>
+</body>
+</html>

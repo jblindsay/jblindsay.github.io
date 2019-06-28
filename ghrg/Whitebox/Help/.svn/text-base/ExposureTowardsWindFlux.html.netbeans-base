@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Exposure towards a wind flux</h1>
+
+        <p>This tool creates a new raster in which each grid cell is assigned 
+            the exposure of the land-surface to a hypothetical wind flux. It can 
+            be conceptualized as the angle between a plane orthogonal to the wind 
+            and a plane that represents the local topography at a grid cell 
+            (Bohner and Antonic, 2007). The user must specify the name of an 
+            input slope raster file (created using the <b><i>Slope</i></b> tool), 
+            an input aspect raster file (created using the <b><i>Aspect</i></b> 
+            tool), an azimuth value (i.e. a wind direction), and optionally an 
+            input maximum upwind slope raster file (created using the 
+            <a href="HorizonAngle.html"><b><i>Horizon Angle</i></b></a> tool). 
+            Notice that the specified azimuth represents a regional wind direction. 
+            The algorithm works in two modes: 1) exposure is measured to the 
+            horizontal component of the wind, and 2) exposure is measured to the 
+            sloped wind (i.e. taking into account both the vertical and horizontal 
+            vector components). There is no need to specify a horizon angle image 
+            when exposure to the horizontal wind component is calculated. Exposure 
+            towards the sloped wind flux essentially combines the relative terrain 
+            aspect and the maximum upwind slope (i.e. horizon angle). This terrain 
+            attribute accounts for land-surface orientation, relative to the wind, 
+            and shadowing effects of distant topographic features but does not 
+            account for deflection of the wind by topography. This tool should not 
+            be used on very extensive areas over which Earth's curvature must be 
+            taken into account.</p>
+
+        <h2>Algorithm Description</h2>
+        
+        <p>Exposure is measured based on the equation presented in Antonic and 
+            Legovic (1999):<br></p>
+        
+        <p><code><i>cos(E) = cos(S) sin(H) + sin(S) cos(H) cos(Az - A)</i></code></p>
+        
+        <p><br>Where, <i>E</i> is angle between a plane defining the local terrain 
+            and a plane orthogonal to the wind flux, <i>S</i> is the terrain 
+            slope, <i>A</i> is the terrain aspect, <i>Az</i> is the azimuth of 
+            the wind flux, and <i>H</i> is the horizon angle of the wind flux, 
+            which is zero when only the horizontal component of the wind flux is 
+            accounted for.</p>
+        
+        <p><b><i>NoData</i></b> valued grid cells in the input image will be 
+            assigned <b><i>NoData</i></b> values in the output image. The output 
+            raster is of the <i>float</i> data type and <i>continuous</i> data 
+            scale. Exposure images are best displayed using the blue-white-red
+            bipolar palette to distinguish between the positive and negative 
+            values that are present in the output.</p>
+
+        <p><br></p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="WindRelatedTAs.html">Wind-related terrain attributes</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

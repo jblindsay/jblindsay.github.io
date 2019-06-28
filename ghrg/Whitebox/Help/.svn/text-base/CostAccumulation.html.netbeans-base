@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Cost accumulation</h1>
+
+<p>The <b><i>cost-accumulation</i></b> tool can be used to perform <a
+href="LeastCostAnalysis.html">cost-distance or least-cost pathway</a> analyses.
+Specifically, this tool can be used to calculate the accumulated cost of
+travelling from the 'source grid cell' to each other grid cell in a raster
+dataset. It is based on the costs associated with travelling through each cell
+along a pathway represented in a cost (or friction) surface. If there are
+multiple source grid cells, each cell in the resulting cost-accumulation
+surface will reflect the accumulated cost to the source cell that is connected
+by the minimum accumulated cost-path. The user must specify the names of the
+raster file containing the source cells (<b><i>Input Source Raster</i></b>),
+the raster file containing the cost surface information (<b><i>Input
+Cost-Friction Raster</i></b>), the output <b><i>Cost-accumulation Surface
+Raster</i></b>, and the output <b><i>Back-Link Raster</i></b>. Source cells are
+designated as all positive, non-zero valued grid cells in the <b><i>Source
+Raster</i></b>. The <b><i>Cost (Friction) Raster</i></b> can be created by
+combining the various cost factors associated with the specific problem (e.g.
+slope gradient, visibility, etc.) using the raster calculator or the <b><i><a
+href="WeightedOverlay.html">Weighted Overlay</a></i></b> tool. While the
+<b><i>Cost-accumulation Surface Raster</i></b> can be helpful for visualizing
+the three-dimensional characteristics of the 'cost landscape', it is actually
+the <b><i>Back-Link Raster </i></b>that is used as inputs to the other two
+cost-distance tools, <b><i>Cost Allocation</i></b> and <b><i>Cost
+Pathway</i></b>, to determine the least-cost linkages among neighbouring grid
+cells on the cost surface. If the accumulated cost surface is analagous to a
+digital elevation model (DEM) then the <b><i>Back-Link Raster</i></b> is
+equivalent to the <a href="FlowPointerD8.html">D8 flow-direction</a> pointer.
+In fact, it is created in exactly the same way and uses the same convention for
+designating 'flow directions' between neighbouring grid cells. </p>
+
+<p>The cost of moving through a cell will be considered to be directionally
+invariant (i.e. isotropic; it is the same cost to travel northward through a
+cell as it is to travel eastward) if the user does not specify values for
+either the anisotropic direction or strength. An anisotropic bias can be added
+to the process of calculating the outputs by specifying an anisotropic
+direction (a number between 0 and 360 degrees) and an anisotropic strength (a
+number between -100 and 100).</p>
+
+<p>The two input grids must have the same dimensions. The algorithm operates in
+an interative manner. Depending on the size of the input grids and the
+complexity of the cost surface, the tool may take considerable time to
+complete. <b><i>NoData</i></b> values in the input cost surface image are
+ignored during processing and assigned <i><b>NoData</b></i> values in the
+ouputs. The output cost accumulation raster is of the <i>float</i> data type
+and <i>continuous</i> data scale. The ouput back-link raster is of the
+<i>integer</i> data type and the <i>continous</i> data scale.</p>
+<br>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="LeastCostAnalysis.html">Cost-distance and least-cost
+  analysis</a></li>
+  <li><a href="CostAllocation.html">Cost allocation tool</a></li>
+  <li><a href="CostPathway.html">Cost pathway tool</a></li>
+  <li><a href="FlowPointerD8.html">D8 flow-direction tool</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+ <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

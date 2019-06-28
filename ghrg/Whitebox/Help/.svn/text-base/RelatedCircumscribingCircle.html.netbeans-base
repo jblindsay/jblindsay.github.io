@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Related circumscribing circle</h1>
+
+        <p>This tool can be used to calculate the related circumscribing circle 
+            (Mcgarigal et al. 2002) for polygon features. It works for either 
+            raster or vector input files. If a raster file is input, the grid 
+            should contain polygons with unique identifiers. Raster input files 
+            also require the name of the output raster file (where the related 
+            circumscribing circle will be assigned to each feature in the input 
+            file), the specified option of outputting text, and whether or not 
+            zero values should be treated as background values. If a vector 
+            shapefile is specified as the input file, the only required input 
+            is the name of the file. The related circumscribing circle values 
+            calculated for each vector polygon feature will be placed in the 
+            accompanying database file (.dbf) as a new field (RC_CIRCLE). The 
+            resulting database file will be automatically displayed after the 
+            tool has completed.</p>
+
+        <p>Related circumscribing circle (<i>RCC</i>) is defined as:
+            <br><br><i><code>RCC = 1 - A / A<sub>c</sub></code><br></i> 
+            <br>Where 
+            <i>A</i> is the polygon's area and <i>A<sub>c</sub></i> the area of 
+            the smallest circumscribing circle.</p>
+
+        <p>Theoretically, <i>RCC</i> ranges from 0 to 1, where a value of 0 
+            indicates a circular polygon and a value of 1 indicates a highly 
+            elongated shape. The circumscribing circle provides a measure of 
+            polygon elongation. Unlike the elongation ratio, however, it does 
+            not provide a measure of polygon direction in addition to overall 
+            elongation. Like the 
+            <a href="ElongationRatio.html"><b><i>Elongation Ratio</i></b></a> 
+            and <a href="LinearityIndex.html"><b><i>Linearity Index</i></b></a>, 
+            <i>RCC</i> is not an adequate measure of overall polygon 
+            narrowness, because a highly sinuous but narrow patch will have a 
+            low related circumscribing circle index owing to the compact nature 
+            of these polygon.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ElongationRatio.html">Elongation Ratio</a></li>
+            <li><a href="LinearityIndex.html">Linearity Index</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012)</li>
+        </ul>
+
+        <h2 class="SeeAlso">References:</h2>
+        <ul><li>Mcgarigal, K., Cushman, S. A., Neel, M. C., & Ene, E. (2002). 
+                FRAGSTATS: spatial pattern analysis program for categorical maps.</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Edge-preserving smoothing filter</h1>
+
+        <p>This tool can be used to perform an <b><i>edge-preserving smoothing 
+                    filter</i></b>, or bilateral filter, on a raster image. A 
+            bilateral filter can be used to emphasize the longer-range 
+            variability in an image, effectively acting to smooth the 
+            image, while reducing the edge blurring effect common with 
+            other types of smoothing filters. As such, this filter is very 
+            useful for reducing the noise in an image. Bilateral filtering is a 
+            non-linear filtering technique introduced by 
+            <a href="http://users.soe.ucsc.edu/~manduchi/Papers/ICCV98.pdf">Tomasi 
+                and Manduchi (1998)</a>. The algorithm operates by convolving a 
+            kernel of weights with each grid cell and its neighbours in an 
+            image. The bilateral filter is related to Gaussian smoothing, in 
+            that the weights of the convolution kernel are partly determined 
+            by the 2-dimensional Gaussian (i.e. normal) curve, which gives 
+            stronger weighting to cells nearer the kernel centre. Unlike the 
+            <b><i>Gaussian filter</i></b>, however, the bilateral kernel 
+            weightings are also affected by their similarity to the intensity 
+            value of the central pixel. Pixels that are very different in 
+            intensity from the central pixel are weighted less, also based on a 
+            Gaussian weight distribution. Therefore, this non-linear convolution 
+            filter is determined by the spatial and intensity domains of a 
+            localized pixel neighborhood.</p>
+
+        <p>The heavier weighting given to nearer and similar-valued pixels makes 
+            the bilateral filter an attractive alternative for image smoothing 
+            and noise reduction compared to the much-used 
+            <a href="FilterMean.html">Mean filter</a>. The size of the filter is 
+            determined by setting the standard deviation distance parameter; the 
+            larger the standard deviation the larger the resulting filter kernel. 
+            The standard deviation can be any number in the range 0.5-20 and is 
+            specified in the unit of pixels. The standard deviation intensity 
+            parameter, specified in the same units as the z-values, determines 
+            the intensity domain contribution to kernel weightings.</p>
+
+        <p><b><i>NoData</i></b> values in the input image are ignored during 
+            filtering. When the neighbourhood around a grid cell extends beyond 
+            the edge of the grid, <b><i>NoData</i></b> values are assigned to 
+            these sites. The output raster is of the <i>float</i> data type and 
+            <i>continuous</i> data scale.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="SpatialFilters.html">Spatial Filters</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+        
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Tomasi, C. and Manduchi, R. (1998) Bilateral filtering for gray and 
+                color images. Proceedings of the 1998 IEEE International 
+                Conference on Computer Vision, Bombay, India.</li>
+        </ul>
+    </body>
+</html>

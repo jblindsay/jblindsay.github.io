@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Rho8 flow pointer (direction)</h1>
+
+<p>This tool is used to generate a flow pointer grid (i.e. flow direction)
+using the stochastic Rho8 (J. Fairfield and P. Leymarie, 1991) algorithm. Like
+the <a href="FlowPointerD8.html">D8 flow algorithm</a>, Rho8 is a
+single-flow-direction (SFD) method because the flow entering each grid cell is
+routed to only one downslope neighbour, i.e. flow divergence is not permitted.
+The user must specify the name of a digital elevation model (DEM) that has been
+hydrologically corrected to remove all spurious depressions and flat areas. DEM
+pre-processing is usually achived using the <a href="FillDeps.html">Fill
+Depressions tool</a>.</p>
+
+<p>In Whitebox GAT, Rho8 flow pointers use the following clockwise, base-2
+numeric naming convention:</p>
+
+<p><img alt="Flow directions" src="img/FlowPointerNamingConvention2.png"></p>
+
+<p>Thus, a grid cell that flows to the northwest will be assigned a '64' in the
+Rho8 flow pointer raster. Notice that grid cells that have no lower neighbours
+are assigned a flow direction of zero. In a DEM that has been pre-precessed to
+remove all depressions and flat areas, this condition will only occur along the
+edges of the grid.</p>
+
+<p>The Rho8 flow algorithm was developed to compensate for a directional bias
+in the simpler D8 flow algorithm that leads to an abundance of
+unnatural-looking areas of parallel flow on certain hillslopes. The Rho8 method
+is however stochastic, meaning that each time the tool is run, a slightly
+different flow-pointer grid will be produced. This can be a highly undesirable
+characteristic, which has led to the unpopularity of this flow-routing method
+for widespread applications. </p>
+
+<p>Grid cells possessing the <i><b>NoData</b></i> value in the input DEM are
+assigned the <i><b>NoData</b></i> value in the output image. The output raster
+is of the <i>integer</i> data type and <i>categorical</i> data scale.</p>
+
+<p><br>
+</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="FlowTools.html">Other flow modelling tools</a></li>
+  <li><a href="FillDeps.html">Fill depressions</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

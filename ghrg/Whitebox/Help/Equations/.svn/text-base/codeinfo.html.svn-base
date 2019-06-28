@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0061)http://people.hofstra.edu/Stefan_Waner/equation/codeinfo.html -->
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.6001.18226" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffd>
+<P>The encoding is quite simple and flexible. All valid formulas have the form 
+{-} , $OP(...) or a sequence of several such expressions seperated by operators. 
+Here are some examples. 
+<P><B>Ordinary InFix Expressions:</B> <PRE> {a}, -{a}, {a}+{b}, {{a}+{b}-{d}}/{c}, {a}^{x}
+<BR> {a} = {b}/{c}, {f({x}+{h})} apprx {2x}+{h}^{2}/{2}</PRE>
+<P><B>Prefix Operators: </B><PRE> $I(a,b,f(x),dx), <BR> $S(This is text converted to a math object), <BR> $M([]C;1,2,3; 4,5,6; 7,8,9) </PRE>
+<P><B>Combinations or Infix and Prefix: </B><PRE> $I(a,b, {sin(x)}/{x} , dx), <BR> $M([]C;1,-{2},3; {a}+{5},5,6; 7,8,9) </PRE>
+<P><B>Embedded text; Primitive Mathematical Expressions:</B> 
+<P>You can convert any text to a valid formula by enclosing it inside either 
+$S(-) or {-}, as in <PRE>$S(The fat cat sat on the mat.), or $(This is text).</PRE>The "$S(-)" 
+option treats spacing in the same way as HTML, the {-} option ignores spacing. 
+If you wish to include single mathematical operators within text, you should 
+precede them by dollar signs and follow them by a space, as in $S(if x $&gt; 5). 
+You can also force spaces by inserting "$ " (dollar + space). 
+<P><B>Notes</B> 
+<UL type=disk>
+  <LI>You can actually encode all valid formulas using only prefix notation. 
+  (The utility actually converst all infix expressions to prefix before 
+  processing.) The format for prefiix operators is <PRE>    $operator(a,b), </PRE>where "operator" is an operation (such as +, -, 
+  F, ^,...see the table below) and a and b are recursively defined valid 
+  formulas or just text. For example, $+(a,b) will return "a+b," and $F(a,b) 
+  will return "a/b" in fraction form. These are equivalent to the infiix {a}+{b} 
+  and {a}/{b} respectively. 
+  <LI>You can use any text as an argument within braces {-}, but spaces will be 
+  ignored, For instance, {a}-{b &nbsp; c} will return "a - bc." To force a space 
+  anywhere in an expression, either use $S(-) instead of {-}, or insert "$ " 
+  (dollar + space), as in {a}-{b $ c}, which will return "a-b c." 
+  <LI><I>Never</I> use infix operators within text, as in {a+b}, or strange 
+  things may happen, including Netscape crashes! Instead, you should use 
+  {a}+{b}, or {a $+ b} , which will treat the "+" as text. (see the paragraph 
+  following). 
+  <LI>The usual order of operations is followed with infix. If you wish to use 
+  parentheses to change the order, as in a/(b+c), us {-} to parenthesize, as in 
+  {a} / { {b}+{c} }. </LI></UL>
+<P>The following table describes all the operations presently installed. 
+Lowercase letters a,b,... stand for any recursively constructed formula (or just 
+text when used as primitiv arguments in a prefix expression or within {-}). 
+<P>
+<TABLE cellPadding=3 border=1>
+  <TBODY>
+  <TR>
+    <TD align=middle></TD>
+    <TD align=middle><B>Format</B></TD>
+    <TD align=middle><B>Example</B></TD></TR>
+  <TR>
+    <TD>Bracket</TD>
+    <TD>$B(a)</TD>
+    <TD>$B( {sin(x)}/{x} ) </TD></TR>
+  <TR>
+    <TD>Fractions</TD>
+    <TD>$F(a,b) <BR>{a}/{b}</TD>
+    <TD>$F(1, {2x}+{5}), {1}/{ {2x}+{5} }<BR>$F ($B 
+      ($F(x,y)),c<SUP>x</SUP>)<BR>{a}/$B({b}/{d})</TD></TR>
+  <TR>
+    <TD>Exponents<BR><BR>Subscripts</TD>
+    <TD>{a}^{b} or $^(a,b)<BR>{a}^{{b};#} or $^(a,b;#)<BR>{a}_{b} or or 
+      $_(a,b)<BR>{a}_{ {b};#} or $_(a,b;#) <BR># = 0,1,2.. for additional 
+      offset<BR>(double-negative values (--#; do not use single negative) 
+      decrease offset)</TD>
+    <TD>{e}^{3x}<BR>{e}^{{x}_{2};1}<BR>$^( e,$^(x,2 ) ;1 
+      )<BR>{e}^{-$I(p(x),dx) }</TD></TR>
+  <TR>
+    <TD>Sum<BR>Difference<BR>Product<BR>Equals<BR>Notequal<BR>Approximately<BR>Less 
+      than, Greater Than<BR>Less or Equal,Greater or Equal</TD>
+    <TD>{a}+{b} or $+(a,b) <BR>{a}-{b} or $-(a,b)<BR>{a}{b} or $.(a,b)<BR>{a} 
+      = {b} or $=(a,b)<BR>{a} notequal {b} or $notequal(a,b) <BR>{a} apprx {b} 
+      or $apprx(a,b)<BR>{a} &lt; {b} or $&lt;(a,b)<BR>{a} &lt;= {b} or 
+      $&lt;=(a,b) <BR></TD>
+    <TD>{1} = {2}-{1}<BR>{a}/{b} + {c}<BR>$F(a,b) + {c}<BR>$=(1,2x+5)<BR>$F 
+      ($- ($F(x,y),z),w) $F(a,b) = $F(c,d) +{a}<BR>{a}/{b} &lt;= 
+    {e}^{x}<BR>-{a}</TD></TR>
+  <TR>
+    <TD>Negative of expression a</TD>
+    <TD>-{a} or $-(,a)</TD>
+    <TD>-{4}<BR>{e}^$-(,$I(p(x),dx))</TD></TR>
+  <TR>
+    <TD>Radical</TD>
+    <TD>$R(a)<BR>$R(a;#) for #-th root</TD>
+    <TD>$R({a}/{b} )<BR>$R( $F(a,b) ; 4 )</TD></TR>
+  <TR>
+    <TD>Indefinite Integral<BR>Definite Integral</TD>
+    <TD>$I(f,dx) <BR>$I(a,b,f,dx)</TD>
+    <TD>$I($B($F(sin(x),x)),dx)<BR>$I(0,1,x<SUP>2</SUP>,dx)</TD></TR>
+  <TR>
+    <TD>Matrix/Array of formulas</TD>
+    <TD>$M(LRA; a,b,c; d,e,f; g,h,i) <BR>L = [, {, |, or N (none) left border 
+      <BR>R = ], }, |, or N right border <BR>A = L (left), R (right) or C 
+      (center) alignment of entries <BR>rows seperated by semicolons <BR>entries 
+      in each row seperated by commas</TD>
+    <TD>$M([]R; 1,2,$-(,3); 4,5,6)</TD></TR>
+  <TR>
+    <TD>Commas, Spaces, Dollar Signs, Slashes</TD>
+    <TD>Since commas and dollar signs part of the syntax, and spaces are 
+      ignored, you must precede these by $ signs if you want them to 
+      work.<BR>For string expressions such as $S(the fat cat sat), the browser 
+      will handle the argument as it normally handles spaces. For extra space, 
+      include forced spaces.<BR>Do not use "$op" adjacent to infix operators, as 
+      this will conduse the interpreter. For example, use "{a$ }+{b}" for extra 
+      space after the "a", and not "{a} $ + {b}."</TD>
+    <TD>$F(1$,000$,000,a) <BR>{a$ } + {$ b} for extra space in the expression 
+      "a+b" <BR>{Cost} = {$$46.43} <BR>$S(very $ $ $ widely $ $ $ spaced $ $ $ 
+      text) <BR>$S(the fraction a $/ b is represented as ) $F(a,b) </TD>
+  <TR>
+    <TD>Arrows </TD>
+    <TD>{a} -&gt; {b} or $-&gt;(a,b) <BR>{a}&lt;-{b} or 
+      $&lt;-(a,b)<BR>{a}&lt;-&gt;{b} or $&lt;-&gt;(a,b) </TD>
+    <TD>{F: $ } {R}^{n}-&gt;{R} {F(x)} = {x}^{2}</TD></TR>
+  <TR>
+    <TD>Limits </TD>
+    <TD>$L(lim,{x} -&gt; {a}), <BR>$L(lim,$-&gt;(x,a)) </TD>
+    <TD>$L(lim,$-&gt;(x,a)){f(x)} = {L}</TD></TR>
+  <TR>
+    <TD>Symbols, Greek: <BR><IMG src="codeinfo_files/INF.gif"> <BR><IMG 
+      src="codeinfo_files/PI.gif"> </TD>
+    <TD><BR>$infinity <BR>$pi </TD>
+    <TD><BR>{x} -&gt; {$infinity} <BR>$I(-{$pi},{$pi},sin x,dx) = {0} 
+  </TD></TR></TBODY></TABLE></P></BODY></HTML>

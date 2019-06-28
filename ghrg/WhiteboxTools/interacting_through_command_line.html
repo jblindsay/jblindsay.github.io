@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-CA" lang="en-CA">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="John Lindsay" />
+  <meta name="keywords" content="geospatial, gis, remote-sensing, geoprocessing, hydrology, geomorphometry, geomorphology, LiDAR"/>
+  <meta name="description" content="WhiteboxTools tutorials"/>
+  <title>WhiteboxTools | Tutorials</title>
+  <link href="../style.css" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="../img/jl.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../theme/prism_coy.css">
+  <script src="../scripts/header.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+</head>
+<body>
+  <script src="../scripts/prism.js"></script>
+  <div><a href="#contentstart" id=”skiplink” class="skipText">Skip to content</a></div>
+  <div id="container">
+  <div id="titleContainer"></div>
+  <nav id="navBar"></nav>
+  <div id="content-container">
+  	  <div id="content">
+        <h1>Interacting with WhiteboxTools through the command line prompt</h1>
+
+        <p class="bodyText">At its base, WhiteboxTools is a stand-alone
+          executable command-line program. The Python scripting interface is
+        effectively just interacting with this executable file through a series
+        of process calls and reading the standard output. You can also interact
+        directly with the WhiteboxTools executable file.</p>
+
+        <p class="bodyText"><strong>The following material has been extracted from the
+          WhiteboxTools User Manual, which can be found in pdf form along with the
+         <a href="download.html">download</a></strong>.</p>
+
+        <p class="bodyText">WhiteboxTools is a command-line program and can be
+          run either by calling it from a terminal application with appropriate
+          commands and arguments, or, more conveniently, by calling it from a script.
+          The following commands are recognized by the WhiteboxTools library:</p>
+
+          <table>
+ <tr><th class="headerCell">Command</th><th class="headerCell">Description</th></tr>
+ <tr><td>--cd, --wd</td><td>Changes the working directory; used in conjunction with --run flag.</td></tr>
+ <tr><td>-h, --help</td><td>Prints help information.</td></tr>
+ <tr><td>-l, --license</td><td>Prints the whitebox-tools license.</td></tr>
+ <tr><td>--listtools</td><td>Lists all available tools, with tool descriptions. Keywords may also be used, --listtools slope.</td></tr>
+ <tr><td>-r, --run</td><td>Runs a tool; used in conjunction with --cd flag; -r="LidarInfo".</td></tr>
+ <tr><td>--toolbox</td><td>Prints the toolbox associated with a tool; --toolbox=Slope.</td></tr>
+ <tr><td>--toolhelp</td><td>Prints the help associated with a tool; </br>--toolhelp="LidarInfo".</td></tr>
+ <tr><td>--toolparameters</td><td>Prints the parameters (in json form) for a specific tool; e.g. </br>--toolparameters="FeaturePreservingDenoise".</td></tr>
+ <tr><td>-v</td><td>Verbose mode. Without this flag, tool outputs will not be printed.</td></tr>
+ <tr><td>--viewcode</td><td>Opens the source code of a tool in a web browser; </br>--viewcode=\"LidarInfo\".</td></tr>
+ <tr><td>--version</td><td>Prints the version information.</td></tr>
+</table>
+
+      <p class="bodyText">Generally, the Unix convention is that single-letter
+        arguments (options) use a single hyphen (e.g. -h) while word-arguments
+        (longer, more descriptive argument names) use double hyphens (e.g. --help).
+        The same rule is used for passing arguments to tools as well. Use the
+        --toolhelp argument to print information about a specific tool (e.g.
+        --toolhelp=Clump).</p>
+
+      <p class="bodyText">Tool names can be specified either using the snake_case
+        or CamelCase convention (e.g. <strong>lidar_info</strong> or
+        <strong>LidarInfo</strong>).</p>
+
+      <p class="bodyText">The following is an example of calling the WhiteboxTools
+         binary executable file directly from the command prompt:</p>
+
+<pre><code>
+>>./whitebox_tools --wd='/Users/johnlindsay/Documents/data/' ^
+--run=DevFromMeanElev --input='DEM clipped.tif' ^
+--output='DEV raster.tif' -v
+</code></pre>
+
+
+      <p class="bodyText">Notice the quotation marks (single or double) used around
+        directories and filenames, and string tool arguments in general. After the
+        <code>--run</code> flag, used to call a tool, a series of tool-specific
+        flags are provided to indicate the values of various input parameters. Note
+        that the order of these flags is unimportant. Use the
+        <code>-v</code> flag (run in verbose mode) to force any tool to print output to the command
+        prompt. Please note that the whitebox_tools executable file must have permission
+        to be executed; on some systems, this may require setting special permissions.
+        Also, the above example uses the forward slash character (/), the directory
+        path separator used on unix based systems. On Windows, users should use the
+        back slash character (\) instead. Also, it is sometimes necessary to break
+        (^) commands across multiple lines, as above, in order to better fit with the
+        documents format. Actual command prompts should be contained to a single line.</p>
+
+  	  </div>
+
+      <div id="aside">
+        <img src="../img/WhiteboxToolsLogo_vert.svg" class="center" width="175" height="auto" alt="WhiteboxTools logo" />
+        <div id="sidebarLinks">
+          <ul>
+            <a href="index.html"><li>WhiteboxTools HOME</li></a>
+            <a href="download.html"><li>DOWNLOAD</li></a>
+            <a href="https://jblindsay.github.io/wbt_book/intro.html"><li>USER MANUAL</li></a>
+            <a href="https://github.com/jblindsay/whitebox-tools"><li>SOURCE CODE REPO (GitHub)</li></a>
+            <a href="support.html"><li>SUPPORT</li></a>
+            <a href="tutorials.html"><li class="activated">TUTORIALS</li></a>
+            <a href="../Whitebox/index.html"><li>Whitebox GAT HOME</li></a>
+          </ul>
+        </div>
+        <div class="bodyText"><strong><br/>Contact Information</strong></div>
+        <p class="sidebarText">Dr. John Lindsay<br/>
+          Rm. 346 Hutt Building<br/>
+          Department Geography, Environment &amp; Geomatics<br/>
+          University of Guelph<br/>
+          50 Stone Rd. East<br/>
+          Guelph, ON, Canada, N1G 2W1<br/>
+          <br/>
+          Email: <a href="mailto:jlindsay@uoguelph.ca">jlindsay@uoguelph.ca</a> <br />
+          Phone: 519-824-4120  ext. 56074<br/>
+        </p>
+        <div class="bodyText"><strong><br/>Recent News</strong></div>
+        <p class="sidebarText" id="news">No recent updates.</p>
+  		</div>
+
+    <div id="footer"></div>
+  </div>
+</div>
+<script>insertHeader("whiteboxtools");</script>
+<script>getNavBar("whiteboxtools");</script>
+<script>insertFooter();</script>
+<script>insertNewsItems(5, false);</script>
+</body>
+</html>

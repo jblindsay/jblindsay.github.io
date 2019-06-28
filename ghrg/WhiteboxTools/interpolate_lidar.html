@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-CA" lang="en-CA">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="John Lindsay" />
+  <meta name="keywords" content="geospatial, gis, remote-sensing, geoprocessing, hydrology, geomorphometry, geomorphology, LiDAR"/>
+  <meta name="description" content="WhiteboxTools tutorials"/>
+  <title>WhiteboxTools | Tutorials</title>
+  <link href="../style.css" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="../img/jl.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../theme/prism_coy.css">
+  <script src="../scripts/header.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+</head>
+<body>
+  <script src="../scripts/prism.js"></script>
+  <div><a href="#contentstart" id=”skiplink” class="skipText">Skip to content</a></div>
+  <div id="container">
+  <div id="titleContainer"></div>
+  <nav id="navBar"></nav>
+  <div id="content-container">
+  	  <div id="content">
+        <h1>Interpolating LiDAR data</h1>
+
+        <ul class="bodyText">
+          <li><a href="#grid_lidar">How do I convert a LAS point cloud into a raster?</a></li>
+          <li><a href="#classification">How do I exclude points with certain classifications?</a></li>
+          <li><a href="#folder">I have many LAS files and want to interpolate all of them at once</a></li>
+          <li><a href="#low_points">What if my data contains anomalously high/low points?</a></li>
+          <li><a href="#laz">My data are in LAZ format. How do I interpolate them?</a></li>
+          <li><a href="#intensity">How do I interpolate an image from the intensity data?</a></li>
+          <li><a href="#resolution">How do I decide on an appropriate grid resolution?</a></li>
+          <li><a href="#nodata_gaps">My raster contains NoData gaps. How do I remove these?</a></li>
+          <li><a href="#mosaic">How do I combine many LiDAR tiles into a single raster?</a></li>
+          <li><a href="#workflow">Is there a complete example LiDAR processing workflow available?</a></li>
+        </ul>
+
+        <h2><a name="grid_lidar"></a>How do I convert a LAS point cloud into a raster?</h2>
+
+        <p class="bodyText">Converting your LiDAR data into a raster requires an
+          interpolation operation. There are many such interpolation methods.
+          The following is an example of how to interpolate the last-return points
+          of a LAS (LiDAR) file using an inverse distance weighted (IDW)
+          interpolation scheme, with a search window radius of 2.5 m, an
+          exponent of 2.0, and an output grid resolution of 1.5 m.
+        </p>
+
+        <pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/"
+
+wbt.lidar_idw_interpolation(
+i="myFile.las",
+output="myRaster.tif",
+parameter="elevation",
+returns="last",
+resolution=1.5,
+weight=2.0,
+radius=2.5
+)</code></pre>
+        <p class="bodyText">Other methods for gridding a LAS file include nearest
+          neighbour, Delaunay triangulation (TINing), block minimum, and block maximum
+          gridding schemes.</p>
+
+        <h2><a name="classification"></a>How do I exclude points with certain classifications?</h2>
+
+        <p class="bodyText">It is commonly the case that points with certain
+        class values should be excluded from the gridding of LiDAR data. For
+        example, you may wish to exclude points associated with vegetation,
+        buildings, bridges, utility lines, etc. The <em>LidarIdwInterpolation</em>
+        and <em>LidarNearestNeighbourGridding</em> tools allow for excluded
+        point classes using the <em>exclude_cls</em> parameter. The parameter
+        takes a numeric list as input, e.g. <code>exclude_cls='3,4,5,6,7,18'</code>.
+        Class values follow those of the LAS v.1.4 specifications:</p>
+
+        <caption class="bodyText">LAS point classification values.</caption>
+
+        <table>
+          <tr><th class="headerCell">Classification Value</th><th class="headerCell">Meaning</th></tr>
+          <tr><td class="numberCell">0</td><td>Created, never classified</td></tr>
+          <tr><td class="numberCell">1</td><td>Unclassified3</td></tr>
+          <tr><td class="numberCell">2</td><td>Ground</td></tr>
+          <tr><td class="numberCell">3</td><td>Low Vegetation</td></tr>
+          <tr><td class="numberCell">4</td><td>Medium Vegetation</td></tr>
+          <tr><td class="numberCell">5</td><td>High Vegetation</td></tr>
+          <tr><td class="numberCell">6</td><td>Building</td></tr>
+          <tr><td class="numberCell">7</td><td>Low Point (noise)</td></tr>
+          <tr><td class="numberCell">8</td><td>Reserved</td></tr>
+          <tr><td class="numberCell">9</td><td>Water</td></tr>
+          <tr><td class="numberCell">10</td><td>Rail</td></tr>
+          <tr><td class="numberCell">11</td><td>Road Surface</td></tr>
+          <tr><td class="numberCell">12</td><td>Reserved</td></tr>
+          <tr><td class="numberCell">13</td><td>Wire – Guard (Shield)</td></tr>
+          <tr><td class="numberCell">14</td><td>Wire – Conductor (Phase)</td></tr>
+          <tr><td class="numberCell">15</td><td>Transmission Tower</td></tr>
+          <tr><td class="numberCell">16</td><td>Wire-structure Connector (e.g. Insulator)</td></tr>
+          <tr><td class="numberCell">17</td><td>Bridge Deck</td></tr>
+          <tr><td class="numberCell">18</td><td>High Noise</td></tr>
+        </table>
+
+        <p class="bodyText">Of course, not all LAS files have had point classifications
+        applied and stored. To determine whether your data contains point class
+        data, you can run the <em>LidarInfo</em> tool before interpolation.</p>
+
+        <h2><a name="folder"></a>I have many LAS files and want to interpolate all of them at once</h2>
+
+        <p class="bodyText">When you have hundreds, or even thousands, of LAS files
+          you might be inclined to write a Python script that calls the above
+          function for each input file contained within a folder. But that isn't the
+          best way to handle this common situation. Instead, if the input (i) and
+          output parameters are left unspecified, each of WhiteboxTool's LiDAR
+          gridding methods will interpolate all of the LAS files in the working
+          directory, e.g.</p>
+
+        <pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/"
+wbt.lidar_idw_interpolation(
+parameter="elevation",
+returns="last",
+resolution=1.0,
+weight=1.0,
+radius=2.5
+)</code></pre>
+
+        <p class="bodyText">Using this approach to folder-based interpolation has
+        some advantages other than a greatly simplified script. WhiteboxTools will
+        be able to parallelize the operation better, greatly improving the overall
+        time required to interpolate the batch of files. Also, the gridding
+        operations will be carried out with a strip of buffered data surrounding
+        each LiDAR tile, i.e. there will be reduced edge-effects. This will
+        reduce the potential for artifacts in the final mosaiced DEM.</p>
+
+        <h2><a name="low_points"></a>What if my data contains anomalously high/low points?</h2>
+
+        <p class="bodyText">This is a fairly common problem with LiDAR data.
+        if you're fortunate, these points, which often fall hundreds of meters above
+        or below the terrain surface, will be classified appropriately. When
+        this is the case, you may simply exclude the points with class values of
+        7 (low point) and 18 (high point). Alternatively, you may use the optional
+        <code>minz</code> and <code>maxz</code> interpolation parameters to
+        exclude unclassified outlier points. Lastly, you may remove these points
+        from the original point cloud data set using the <em>LidarRemoveOutliers</em>
+        tool.</p>
+
+        <h2><a name="laz"></a>My data are in LAZ format. How do I interpolate them?</h2>
+
+        <p class="bodyText">WhiteboxTools does not currently support the compressed
+          LiDAR format LAZ. To use these data, you will first need to decompress
+          the files to a LAS format. You may wish to use LasTools for this purpose.</p>
+
+        <h2><a name="intensity"></a>How do I interpolate an image from the intensity data?</h2>
+        <p class="bodyText">The <code>parameter</code> argument of the IDW and nearest neighbour
+        interpolator tools allows you to interpolate intensity data (options include 'elevation',
+        'intensity', 'class', 'scan angle', and 'user data'). Here is an example:</p>
+
+        <pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/"
+
+wbt.lidar_nearest_neighbour_gridding(
+"in.las", "out.tif", parameter="intensity")</code></pre>
+
+        <h2><a name="resolution"></a>How do I decide on an appropriate grid resolution?</h2>
+        <p class="bodyText">You want to choose a grid resolution where the vast majority
+        of grid cells in the area covered by data have at least one return point. If you
+        are interpolating with last-return points only, then this will necessarily reduce
+        the potential resolution. Ultimately, there is not single appropriate value and
+        the range of suitable resolutions will depend on the distribution of point density
+        with the area of coverage. If the specified resolution is too high given the
+        point density of the LiDAR data set, many of the grid cells will either be
+        NoData holes, or represent interpolated values from relatively distant (up to the
+        search radius) points. A higher than necessary grid resolution will also make
+        working with the final mosaiced DEM raster more challenging, due to the computational
+        effort needed to work with massive rasters and increase the storage and memory
+        requirements. It is advisable to experiment with the <em>LidarPointDensity</em> and
+        <em>LidarPointStats</em> tools before deciding upon a grid resolution for interpolation.</p>
+
+        <h2><a name="nodata_gaps"></a>My raster contains NoData gaps. How do I remove these?</h2>
+        <p class="bodyText">First, we need to distinguish between two common areas of NoData values
+        in the interpolated rasters of LiDAR data sets. Because LiDAR data are often collected for
+        irregularly shaped sites, it is frequently the case that LiDAR DEMs have large NoData
+        areas beyond the area of LiDAR point coverage. These are generally acceptable void areas
+        and should not be altered. The more problemmatic void areas are interior data gaps (so
+        called doughnut holes). These generally arise because the point density in an area of
+        LiDAR coverage is lower than the grid resolution (and search radius) dictate in an area.
+        Sometimes these NoData areas are associated with specific non-reflective surfaces, such
+        as water, or areas of dense vegetation (and therefore the last return point density is
+        far lower than in other areas). If the NoData gaps are extensive and spread throughout
+        the area of coverage, that is a sign that you likely need to interpolate either with a
+        coarser grid resolution or a larger search radius, or quite probably both. If your
+        LiDAR DEM has a small number these void areas, and they are not extensive, then you may
+        interpolate to remove the gaps using the <em>FillMissingData</em> tool:</p>
+
+        <pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/"
+
+wbt.fill_missing_data("dem.tif", "new_dem.tif", filter=11)</code></pre>
+
+        <p class="bodyText">The choice of a filter size will depend on the extent of the largest
+        interior void area.</p>
+
+        <h2><a name="mosaic"></a>How do I combine many LiDAR tiles into a single raster?</h2>
+        <p class="bodyText">
+          Often you have many hundred LAS files, which you've intepolated into an equally
+          large number of raster files. To combine these rasters into a single large DEM,
+          use the <em>Mosaic</em> tool.
+        </p>
+
+<pre class="language-python line-numbers"><code>from os import listdir
+from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/"
+
+# find all GeoTIFFs in the path
+input_files = ""
+for f in listdir(wbt.work_dir):
+    if f.endswith(".tif"):
+        input_files += ";" + f
+
+input_files = input_files[1:]  # strips the first ';'
+
+wbt.mosaic(inputs=input_files, output="big_DEM.tif")</code></pre>
+
+        <h2><a name="workflow"></a>Is there a complete example LiDAR processing workflow available?</h2>
+        <p class="bodyText">Yes! The following code is an example of some of the
+        common tasks required in processing large LiDAR datasets of many hundreds of LAS
+        files.</p>
+
+        <pre class="language-python line-numbers"><code>import os
+from os import path
+from WBT.whitebox_tools import WhiteboxTools
+
+def main():
+
+    las_files_dir = "/Users/johnlindsay/Documents/data/test_lidar/"
+    filtered_las_dir = "/Users/johnlindsay/Documents/data/test_lidar/filtered_LAS/"
+    raster_data_dir = "/Users/johnlindsay/Documents/data/test_lidar/interpolated_grids/"
+
+    wbt = WhiteboxTools()
+    wbt.work_dir = las_files_dir #set working directory
+    wbt.verbose = False
+    if not os.path.exists(filtered_las_dir):
+        os.makedirs(filtered_las_dir)
+
+    # Sometimes, I like to extract all of the LAS tiles that overlap with a
+    # particular area. For example, I might want to interpolate all the files
+    # overlapping with a watershed. For this, you can use select_tiles_by_polygon.
+    # Uncomment the four lines below if you want to do this.
+    # outdir = "/Users/johnlindsay/Documents/data/LAS_files_in_watershed/"
+    # polygons = "/Users/johnlindsay/Documents/data/LAS_files_in_watershed/watershed.shp"
+    # wbt.select_tiles_by_polygon(las_files_dir, outdir, polygons)
+    # las_files_dir = outdir # this way the analysis below works only on the selected tiles.
+
+    ##################################################################################
+    # Filter the ground points in the LAS files using lidar_ground_point_filter tool #
+    ##################################################################################
+
+    # This one is the SLOWEST part of the workflow and can be avoided if you are
+    # confident that you have good point classification data, i.e. that the
+    # vegetation and building classes have been properly populated.
+    processed_files = []
+    num_filtered = 1
+    flag = True
+    while flag:
+        file_names = find_las_files(las_files_dir, processed_files)
+        if len(file_names) > 0: # and len(processed_files) < 3000:
+            for i in range(len(file_names)):
+                in_file = las_files_dir + file_names[i]
+                out_file = filtered_las_dir + file_names[i].replace(".las", "_filtered.las")
+                print("Processing LAS {} of {} (total filtered={}) {}".format(i+1, len(file_names), num_filtered, file_names[i]))
+                processed_files.append(file_names[i])
+                wbt.lidar_ground_point_filter(in_file, out_file, radius=2.0, slope_threshold=45, height_threshold=1.0)
+                num_filtered += 1
+        else:
+            flag = False
+
+
+    ##############################
+    # Interpolate the LAS files. #
+    ##############################
+
+    # If you don't use the above ground point filter the directory below must be
+    # updated to point to the original LAS files.
+    wbt.work_dir = filtered_las_dir
+
+    # You can use either IDW, nearest neighbour, or TINing (Delaunay triangulation)
+    # for the gridding step. TINing option is available as of WhiteboxTools v0.11.
+    wbt.lidar_idw_interpolation(parameter="elevation", returns="all", resolution=2.0, weight=1.0, radius=5.0, exclude_cls='3,4,5,6,7,18')
+    # wbt.lidar_nearest_neighbour_gridding(returns="last", resolution=1.5, radius=2.5, exclude_cls='3,4,5,6,7,18')
+    # wbt.lidar_tin_gridding(parameter="elevation", returns="all", resolution=2.0, exclude_cls='3,4,5,6,7,18')
+
+    ###############################################################
+    # Now mosaic the tiles; this is done using intermediate steps #
+    ###############################################################
+    if not os.path.exists(raster_data_dir):
+        os.makedirs(raster_data_dir)
+
+    wbt.work_dir = filtered_las_dir #set working directory
+    wbt.verbose = False
+    processed_files = []
+    num_mosaiced = 1
+    flag = True
+    round = 1
+    while flag:
+        # This will mosaic a maximum of 250 tiles together; these sub-files
+        # will subsequently be merged. Mosaicing many hundreds of tiles
+        # together at one time is otherwise too intensive.
+        file_names = find_tiff_files(filtered_las_dir, processed_files, 2)
+        if len(file_names) > 1:
+            in_files = ""
+            for i in range(len(file_names)):
+                if i < len(file_names)-1:
+                    in_files += f"{file_names[i]};"
+                else:
+                    in_files += f"{file_names[i]}"
+
+                processed_files.append(file_names[i])
+                num_mosaiced += 1
+
+            out_file = raster_data_dir + f"mosaic{round}.tif"
+            wbt.mosaic(inputs=in_files, output=out_file, method="nn")
+            print(f"Processing mosaic {round}; num. files = {num_mosaiced}")
+
+            # now clean up the individual tiles
+            for i in range(len(file_names)):
+                os.remove(filtered_las_dir + file_names[i])
+
+        else:
+            flag = False
+
+        round += 1
+
+    wbt.work_dir = raster_data_dir #set working directory
+    mosaic_file = raster_data_dir + f"final_mosaic.tif"
+    file_names = find_mosaic_files(raster_data_dir)
+    if len(file_names) > 1:
+        in_files = ""
+        for i in range(len(file_names)):
+            if i < len(file_names)-1:
+                in_files += f"{file_names[i]};"
+            else:
+                in_files += f"{file_names[i]}"
+
+            num_mosaiced += 1
+
+
+        wbt.mosaic(inputs=in_files, output=mosaic_file, method="nn")
+
+        # now clean up the intermediate mosaics
+        for i in range(len(file_names)):
+            os.remove(raster_data_dir + file_names[i])
+
+
+
+    ##############################################
+    # Would you like to fill in the NoData gaps? #
+    ##############################################
+    dem_nodata_filled = raster_data_dir + f"DEM_gaps_filled.tif"
+    wbt.fill_missing_data(mosaic_file, dem_nodata_filled, filter=11)
+
+
+    ######################################################################
+    # I usually remove off-terrain objects, like any remaining buildings #
+    ######################################################################
+    dem_no_otos = raster_data_dir + f"DEM_no_OTOs.tif"
+    wbt.remove_off_terrain_objects(dem_nodata_filled, dem_no_otos, filter=11, slope=15.0)
+
+
+    #####################################
+    # Would you like to smooth the DEM? #
+    #####################################
+    dem_smoothed = raster_data_dir + f"DEM_smoothed.tif"
+    wbt.feature_preserving_denoise(dem_no_otos, dem_smoothed, filter=11, norm_diff=8.0)
+
+
+    ################################
+    # Want to fix the depressions? #
+    ################################
+    dem_breached = raster_data_dir + f"DEM_breached.tif"
+    # Set the maximum breach depth appropriate for the terrain. You can
+    # also restrict breaching based on a maximum breach channel length.
+    wbt.breach_depressions(dem_smoothed, dem_breached, max_depth=5.0)
+
+    # because we restricted the use of very deep breach channels, there
+    # may still be depressions in the DEM. To get rid of these, we can
+    # perform a subsequent depression filling operation.
+    dem_filled = raster_data_dir + f"DEM_filled.tif"
+    wbt.fill_depressions(dem_breached, dem_filled)
+
+
+    ####################################################################
+    # Okay, now we have a good base DEM from which we can extract      #
+    # various land-surface parameters. There are really a large        #
+    # number of these parameters available, but I'll just showcase     #
+    # a few common ones here. See the User Manual for a complete list. #
+    ####################################################################
+
+    # slope
+    slope_file = raster_data_dir + f"slope.tif"
+    wbt.slope(dem_filled, slope_file)
+
+    # plan curvature
+    plan_curv_file = raster_data_dir + f"plan_curv.tif"
+    wbt.plan_curvature(dem_filled, plan_curv_file)
+
+    # profile curvature; other curvatures are available too.
+    profile_curv_file = raster_data_dir + f"profile_curv.tif"
+    wbt.profile_curvature(dem_filled, profile_curv_file)
+
+    # hillshade (shaded relief raster)
+    hillshade_file = raster_data_dir + f"hillshade.tif"
+    wbt.hillshade(dem_filled, hillshade_file)
+
+    # relative topographic position (RTP) index
+    rtp_file = raster_data_dir + f"relative_topographic_position.tif"
+    wbt.relative_topographic_position(dem_filled, rtp_file, filterx=11, filtery=11)
+
+    # or even better, multiscale topographic position
+    dev_max_mag = raster_data_dir + f"multiscale_topo_position_mag.tif"
+    dev_max_scale = raster_data_dir + f"multiscale_topo_position_scale.tif"
+    wbt.max_elevation_deviation(dem_filled, dev_max_mag, dev_max_scale, min_scale=1, max_scale=100, step=2)
+
+    # ruggedness index
+    ruggedness_index_file = raster_data_dir + f"ruggedness_index.tif"
+    wbt.ruggedness_index(dem_filled, ruggedness_index_file)
+
+    # or even better, multiscale roughness
+    roughness_mag = raster_data_dir + f"multiscale_roughness_mag.tif"
+    roughness_scale = raster_data_dir + f"multiscale_roughness_scale.tif"
+    wbt.multiscale_roughness(dem_filled, roughness_mag, roughness_scale, min_scale=1, max_scale=100, step=2)
+
+    # D-infinity flow accumulation
+    flow_accum_file = raster_data_dir + f"dinf_flow_accum.tif"
+    wbt.d_inf_flow_accumulation(dem_filled, flow_accum_file, log=True)
+
+    # There literally hundreds of other useful parameters that could be
+    # extracted from our DEM using WhiteboxTools. Take a look at the User Manual.
+
+
+    print("Done!")
+
+def find_las_files(input_dir, processed_files):
+    files = os.listdir(input_dir)
+    file_names = []
+    for f in files:
+        if f.endswith(".las") and f not in processed_files:
+            file_names.append(f)
+
+    return file_names
+
+
+def find_tiff_files(input_dir, processed_files, max_num=10):
+    files = os.listdir(input_dir)
+    file_names = []
+    for f in files:
+        if f.endswith(".tif") and f not in processed_files:
+            if len(file_names) < max_num:
+                file_names.append(f)
+            else:
+                break
+
+    return file_names
+
+def find_mosaic_files(input_dir):
+    files = os.listdir(input_dir)
+    file_names = []
+    for f in files:
+        if "mosaic" in f and (f.endswith(".tif") or f.endswith(".dep")):
+            file_names.append(f)
+
+    return file_names
+
+main()
+</code></pre>
+
+  	  </div>
+
+      <div id="aside">
+        <img src="../img/WhiteboxToolsLogo_vert.svg" class="center" width="175" height="auto" alt="WhiteboxTools logo" />
+        <div id="sidebarLinks">
+          <ul>
+            <a href="index.html"><li>WhiteboxTools HOME</li></a>
+            <a href="download.html"><li>DOWNLOAD</li></a>
+            <a href="https://jblindsay.github.io/wbt_book/intro.html"><li>USER MANUAL</li></a>
+            <a href="https://github.com/jblindsay/whitebox-tools"><li>SOURCE CODE REPO (GitHub)</li></a>
+            <a href="support.html"><li>SUPPORT</li></a>
+            <a href="tutorials.html"><li class="activated">TUTORIALS</li></a>
+            <a href="../Whitebox/index.html"><li>Whitebox GAT HOME</li></a>
+          </ul>
+        </div>
+        <div class="bodyText"><strong><br/>Contact Information</strong></div>
+        <p class="sidebarText">Dr. John Lindsay<br/>
+          Rm. 346 Hutt Building<br/>
+          Department Geography, Environment &amp; Geomatics<br/>
+          University of Guelph<br/>
+          50 Stone Rd. East<br/>
+          Guelph, ON, Canada, N1G 2W1<br/>
+          <br/>
+          Email: <a href="mailto:jlindsay@uoguelph.ca">jlindsay@uoguelph.ca</a> <br />
+          Phone: 519-824-4120  ext. 56074<br/>
+        </p>
+        <div class="bodyText"><strong><br/>Recent News</strong></div>
+        <p class="sidebarText" id="news">No recent updates.</p>
+  		</div>
+
+    <div id="footer"></div>
+  </div>
+</div>
+<script>insertHeader("whiteboxtools");</script>
+<script>getNavBar("whiteboxtools");</script>
+<script>insertFooter();</script>
+<script>insertNewsItems(5, false);</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-CA" lang="en-CA">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="geomorphometry, terrain analysis, DEM, digital elevation model, ephemeral stream, stream burning, topographic depression"/>
+<meta name="description" content="Geomorphometry and hydro-geomatics research lab including the Whitebox GAT open-source GIS"/>
+<meta name="author" content="John Lindsay" />
+<title>WhiteboxTools | Download</title>
+<link href="../style.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="../img/jl.ico" type="image/x-icon" />
+<script src="../scripts/header.js"></script>
+</head>
+<body>
+  <div><a href="#contentstart" id=”skiplink” class="skipText">Skip to content</a></div>
+<div id="container">
+<header><div id="titleContainer"></div></header>
+<nav id="navBar"></nav>
+<main>
+<div id="content-container">
+	  <div id="content">
+      <h1>WhiteboxTools Download</h1>
+
+      <p class="bodyText">Downloading or using any of the following files carries with
+        it the implicit agreement to abide by the terms of the
+        <a href="https://github.com/jblindsay/whitebox-tools/blob/master/LICENSE.txt">license</a>.
+        Be advised, WhiteboxTools is still under active development and testing. The
+        API may change in future versions and individual tools may contain bugs. If you encounter
+        issues, please report an issue on the <a href="https://github.com/jblindsay/whitebox-tools">GitHub repository</a>. </p>
+
+      <a name="WhiteboxToolsDownloads"></a><h2>Download WhiteboxTools (v. 0.16.0) binaries</h2>
+      <div class="backgroundSection">
+      <ul class="pubList">
+        <form onsubmit="return true" action="https://www.uoguelph.ca/cgi-bin/FormMail.pl"
+          method="post" name="form1" id="form1" align="left">
+          <input type="hidden" value="jlindsay@uoguelph.ca" name="recipient"/>
+          <input type="hidden" value="WhiteboxTools download" name="subject"/>
+          <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_darwin_amd64.zip" name="redirect"/>
+          <input type="hidden" value="0.16.0" name="version"/>
+          <input type="hidden" value="darwin 64-bit" name="OS"/>
+          <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+          <li><span class="bodyText">MacOS 64-bit (5.4 MB compressed)</span> <input class="submitButtonBold" type="submit" value="Download"/></li>
+        </form>
+        <form onsubmit="return true" action="https://www.uoguelph.ca/cgi-bin/FormMail.pl"
+          method="post" name="form2" id="form2" align="left">
+          <input type="hidden" value="jlindsay@uoguelph.ca" name="recipient"/>
+          <input type="hidden" value="WhiteboxTools download" name="subject"/>
+          <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_win_amd64.zip" name="redirect"/>
+          <input type="hidden" value="0.16.0" name="version"/>
+          <input type="hidden" value="windows 64-bit" name="OS"/>
+          <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+          <li><span class="bodyText">Windows 64-bit (5.7 MB compressed)</span> <input class="submitButtonBold" type="submit" value="Download"/></li>
+        </form>
+        <form onsubmit="return true" action="https://www.uoguelph.ca/cgi-bin/FormMail.pl"
+          method="post" name="form4" id="form4" align="left">
+          <input type="hidden" value="jlindsay@uoguelph.ca" name="recipient"/>
+          <input type="hidden" value="WhiteboxTools download" name="subject"/>
+          <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_linux_amd64.tar.xz" name="redirect"/>
+          <input type="hidden" value="0.16.0" name="version"/>
+          <input type="hidden" value="Linux 64-bit" name="OS"/>
+          <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+          <li><span class="bodyText">Linux 64-bit (4.0 MB compressed)</span> <input class="submitButtonBold" type="submit" value="Download"/></li>
+        </form>
+      </ul>
+    </div>
+
+    <h2>Compiling from source code</h2>
+
+      <p class="bodyText">For other platforms, WhiteboxTools can be compiled from the
+        <a href="https://github.com/jblindsay/whitebox-tools">
+        source code</a> with the following steps:</p>
+      <ol>
+        <li>Install the Rust compiler; <a href="https://www.rustup.rs/">Rustup</a>
+        is recommended for this purpose. Further instruction can be found at <a href="https://www.rust-lang.org/en-US/install.html">
+          this link.</a></li>
+        <li>Download the WhiteboxTools <a href="https://github.com/jblindsay/whitebox-tools">
+        source code</a>. To download the code, click the green <em>Clone or download</em> button on the <a href="https://github.com/jblindsay/whitebox-tools">
+        GitHub repository site</a>.</li>
+        <li>Decompress the zipped download file.</li>
+        <li>Open a terminal (command prompt) window and change the working directory to the
+          <em>whitebox_tools</em> sub-folder, which is contained within the decompressed downloaded
+          Whitebox GAT folder:</li>
+      <br>
+        <div class="backgroundSection">
+          <code>>> cd /path/to/folder/whitebox_tools/</code>
+        </div>
+        <br>
+        <li>Finally, use the rust package manager <em>Cargo</em>, which will be installed
+          along with Rust, to compile the executable:
+        </li>
+        <br>
+        <div class="backgroundSection">
+          <code>>> cargo build --release</code>
+        </div>
+        <br>
+      </ol>
+      <p class="bodyText">Depending on your system, the compilation may take several minutes. When
+        completed, the compiled binary executable file will be contained within the
+        <em>whitebox_tools/target/release/</em> folder. Type <code>./whitebox_tools --help</code>
+        at the command prompt (after cd'ing to the containing folder) for
+        information on how to run the executable from the terminal.</p>
+
+      <div><img src="../img/WhiteboxToolsHelpScreen.png" width="560" height="auto" alt="WhiteboxTools help screenshot"/></div>
+
+      <p class="bodyText">Later, you may wish to move
+        the executable file to its own folder along with the <em>whitebox_tools.py</em> and
+        <em>wb_runner.py</em> Python scripts, although you do not need these scripts to use
+        WhiteboxTools. Note, running these scripts requires Python 3 to be installed.
+      </p>
+	  </div>
+
+    <div id="aside">
+      <img src="../img/WhiteboxToolsLogo_vert.svg" class="center" width="175" height="auto" alt="WhiteboxTools logo" />
+      <div id="sidebarLinks">
+        <ul>
+          <a href="index.html"><li>WhiteboxTools HOME</li></a>
+          <a href="download.html"><li class="activated">DOWNLOAD</li></a>
+          <a href="https://jblindsay.github.io/wbt_book/intro.html"><li>USER MANUAL</li></a>
+          <a href="https://github.com/jblindsay/whitebox-tools"><li>SOURCE CODE REPO (GitHub)</li></a>
+          <a href="support.html"><li>SUPPORT</li></a>
+          <a href="tutorials.html"><li>TUTORIALS</li></a>
+          <a href="../Whitebox/index.html"><li>Whitebox GAT HOME</li></a>
+        </ul>
+      </div>
+      <div class="bodyText"><strong><br/>Contact Information</strong></div>
+      <p class="sidebarText">Dr. John Lindsay<br/>
+      Rm. 346 Hutt Building<br/>
+      Department Geography, Environment &amp; Geomatics<br/>
+      University of Guelph<br/>
+      50 Stone Rd. East<br/>
+      Guelph, ON, Canada, N1G 2W1<br/>
+      <br/>
+      Email: <a href="mailto:jlindsay@uoguelph.ca">jlindsay@uoguelph.ca</a> <br />
+      Phone: 519-824-4120  ext. 56074<br/></p>
+      <div class="bodyText"><strong><br/>Recent News</strong></div>
+      <p class="sidebarText" id="news">No recent updates.</p>
+    </div>
+  </main>
+  <footer><div id="footer">
+			<!-- <span id="copyrightText" class="footerText">Copyright &copy; John Lindsay, 2015-2016</span>
+      <span id="footerLinkBar" class="footerText"><a href="http://www.uoguelph.ca/geography/">Department of Geography</a> &#8729; <a href="http://www.uoguelph.ca/">The University of Guelph</a> &#8729; <a href="https://whiteboxgeospatial.wordpress.com">Whitebox Blog</a></span> -->
+	</div></footer>
+</div>
+</div>
+<script>insertHeader("whiteboxtools");</script>
+<script>getNavBar("whiteboxtools");</script>
+<script>insertFooter();</script>
+<script>insertNewsItems(5, true);</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Percentage contrast stretch</h1>
+
+        <p>This tool performs a percentage contrast stretch on a raster image. This operation maps each grid 
+            cell value in the input raster image (<i>z</i>) onto a new scale that ranges from a lower-tail clip value 
+            (<i>L</i>) to the upper-tail clip value (<i>U</i>), with the user-specified number of tonal values 
+            (<i>n</i>), such that:</p>
+
+        <p><code><i>zn</i> = (<i>z</i> - <i>L</i>) / (<i>U</i> - <i>L</i>) &#x00D7 n</code></p>
+
+        <p>where <i>zn</i> is the output value. The values of <i>L</i> and <i>U</i> are determined from the 
+            frequency distribution and the user-specified <i>Tail clip value</i>. For example, if a value of 1% is 
+            specified, the tool will determine the values in the input image for which 1% of the grid cells have a 
+            lower value <i>L</i> and 1% of the grid cells have a higher value <i>U</i>. The user must also specify 
+            which tails to clip (upper, lower, or both).</p>
+
+        <p>Notice that any values in the input image that are less than <i>L</i> are assigned a value of <i>L</i> 
+            in the output image. Similarly, any input values greater than <i>U</i> are assigned a value of <i>U</i> 
+            in the output image. This is a type of linear contrast stretch with saturation at the tails of the 
+            frequency distribution. This same stretch can be applied on the fly for displayed raster data by using 
+            the <i>Clip</i> buttons associated with the minimum and maximum display values in the <i>Layer 
+                Properties</i>.</p>
+
+    <h2 class="SeeAlso">See Also:</h2>
+    <ul>
+        <li><a href="GaussianStretch.html">Gaussian Contrast Stretch</a></li>
+        <li><a href="MinMaxContrastStretch.html">Min-Max Contrast Stretch</a></li>
+        <li><a href="HistogramEqualization.html">Histogram Equalization</a></li>
+    </ul>
+    <h2 class="SeeAlso">Credits:</h2>
+    <ul>
+        <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+    </ul>
+</body>
+</html>

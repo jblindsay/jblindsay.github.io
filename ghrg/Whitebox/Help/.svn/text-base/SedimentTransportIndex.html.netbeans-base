@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+        <title>GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Sediment transport index</h1>
+
+        <p>
+            This tool can be used to calculate the sediment transport index (STI) described by Moore and Burch (1986). This index is derived from unit stream-power theory and is sometimes used in place of the length-slope factor in the revised universal soil loss equation (RUSLE) for slope lengths less than 100 m and slope less than 14 degrees. The index combines upslope contributing area (<i>As</i>), under the assumption that contributing area is directly related to discharge, and slope (<i>B</i>). The index is calculated as:</p>
+
+        <p><code><i>STI</i> = (<i>m</i> + 1) &#x00D7 (<i>A<sub>s</sub></i> / 22.13)<sup><i>m</i></sup> &#x00D7 sin(<i>B</i> / 0.0896)<sup><i>n</i></sup></code></p>
+
+        <p>Where <i>A<sub>s</sub></i> is the specific catchment area (i.e. the upslope contributing area per unit contour length) estimated using one of the available flow accumulation algorithms in the Hydrology toolbox; <i>B</i> is the local slope gradient in degrees; the contributing area exponent, <i>m</i>, is usually set to 0.4 and the slope exponent, <i>n</i>, is usually set to 1.4. Notice that <i>As</i> must not be log-transformed prior to being used; <i>As</i> is commonly log-transformed to enhance visualization of the data. The slope image can be created from the base digital elevation model (DEM) using the <a href="Slope.html"><i><b>Slope</i></b></a> tool. The input images must have the same grid dimensions.</p>
+
+    <p>Grid cells possessing the <i><b>NoData</i></b> value in either of the input images are assigned <i><b>NoData</i></b> value in the output image. The output raster is of the<i> float</i> data type and <i>continuous</i> data scale.</p>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+
+    <li><a href="Slope.html">Slope</a></li>
+    <li><a href="WetnessIndex.html">Wetness index</a></li>
+    <li><a href="RelativeStreamPowerIndex.html">Relative stream power index</a></li>
+
+</ul>
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+    <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

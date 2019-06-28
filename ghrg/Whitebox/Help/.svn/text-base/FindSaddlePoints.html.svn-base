@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Find saddle points</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Find saddle points</h1>
+
+        <p>This tool locates saddle points along ridges within a digital elevation model (DEM). 
+        A saddle point, or mountain pass, or col, is a low point in a topographic ridge. The 
+        algorithm works by identifying the lowest ridge cell that drains to the channel head 
+        cell associated with each branch in a valley network. As such, one saddle point will 
+        be identified for each branch of the valley network. The best way to map the ridge 
+        network is to use the <a href="BranchLength.html"><b><i>Branch Length</i></b></a> tool. 
+        The branch length grid derived from the DEM, can then be thresholded to identify grid 
+        cells with a high value of branch length, assumed to be ridges. This technique 
+        generally works well in fluvial landscapes. The valley bottom network can similarly 
+        be mapped by thresholding the <a href="FlowAccumD8.html"><b><i>D8 contributing 
+        area</i></b></a> image, also derived from the DEM. Note that the DEM should be 
+        hydrologically corrected before either network are derived in order to remove 
+        topographic depressions and flat areas. In addition to the ridge and valley network 
+        rasters and the DEM raster, the user must also specify the name of the flow pointer 
+        raster. This flow pointer must be derived using the <a href="FlowPointerD8.html">
+        <b><i>D8 flow algorithm</i></b></a>. <b>The output file can optionally be a raster 
+        grid or a shapefile of points. Given the option output file type, be sure to 
+        type the file extension in the output parameter box.</b></p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="FlowAccumD8.html">D8 contributing area</a></li>
+            <li><a href="BranchLength.html">Branch Length</a></li>
+            <li><a href="FlowPointerD8.html">D8 flow algorithm</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                ridgesFile = wd + "ridges.shp"<br>
+			 valleysFile = wd + "valleys.shp"<br>
+			 pointerFile = wd + "D8 pointer.shp"<br>
+			 demFile = wd + "dem.shp"<br>
+			 outputFile = wd + "output.shp"<br>
+                args = [ridgesFile, valleysFile, pointerFile, demFile, outputFile]<br>
+                pluginHost.runPlugin("FindSaddlePoints", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def ridgesFile = wd + "ridges.shp"<br>
+			 def valleysFile = wd + "valleys.shp"<br>
+			 def pointerFile = wd + "D8 pointer.shp"<br>
+			 def demFile = wd + "dem.shp"<br>
+			 def outputFile = wd + "output.shp"<br>
+                String[] args = [ridgesFile, valleysFile, pointerFile, demFile, outputFile]<br>
+                pluginHost.runPlugin("FindSaddlePoints", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>
+

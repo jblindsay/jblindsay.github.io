@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Principal component analysis</h1>
+
+        <p>Principal component analysis (PCA) is a common data reduction 
+            technique that is used to reduce the dimensionality of multi-dimensional 
+            space. In the field of remote sensing, PCA is often used to reduce the 
+            number of bands of multi-spectral, or hyper-spectral, imagery. 
+            <a href="ImageCorrelation.html">Image correlation</a> analysis 
+            often reveals a substantial level of correlation among bands of 
+            multi-spectral imagery. This correlation represents data redundancy, i.e. 
+            fewer images than the number of bands are required to represent the same 
+            information, where the information is related to variation within the 
+            imagery. PCA transforms the original data set of <i>n</i> bands into 
+            <i>n</i> 'component' images, where each component image is uncorrelated 
+            with all other components. The technique works by transforming the axes 
+            of the multi-spectral space such that it coincides with the directions 
+            of greatest correlation. Each of these new axes are orthogonal to one 
+            another, i.e. they are at right angles. PCA is therefore a type of 
+            coordinate system transformation. The PCA component images are 
+            arranged such that the greatest amount of variance (or information) 
+            within the original data set, is contained within the first component 
+            and the amount of variance decreases with each component. It is 
+            often the case that the majority of the information contained in a 
+            multi-spectral data set can be represented by the first three or 
+            four PCA components. The higher-order components are often 
+            associated with noise in the original data set.</p>
+
+        <p>The user must specify the names of the multiple input images. 
+            Additionally, the user must specify whether to perform a 
+            standardized PCA and the number of output components to 
+            generate (all components will be output unless otherwise 
+            specified). A standardized PCA is performed using the correlation 
+            matrix rather than the variance-covariance matrix. This is 
+            appropriate when the variances in the input images differ 
+            substantially, such as would be the case if they contained values 
+            that were recorded in different units (e.g. feet and meters) or 
+            on different scales (e.g. 8-bit vs. 16 bit).</p>
+
+        <p>Several outputs will be generated when the tool has completed. A text 
+            report will output into the text area at the bottom of the Whitebox 
+            user-interface. This report contains useful data and it is advisable  
+            to save it for later reference by right-clicking over the text area 
+            and selecting 'Save'. The first table that is in the PCA report 
+            lists the amount of explained variance (in non-cumulative and 
+            cumulative form), the eigenvalue, and the eigenvector for each 
+            component. Each of the PCA components refer to the newly created, 
+            transformed images that are created by running the tool, the first 
+            three of which are automatically displayed when the tool completes. 
+            The amount of explained variance associated with each component 
+            can be thought of as a measure of how much information content 
+            within the original multi-spectral data set that a component has. 
+            The higher this value is, the more important the component is. 
+            This same information is presented in graphical form in the 'Scree 
+            Plot' that is also output by the tool. Note that you can save the 
+            scree plot by right-clicking over the plot and selecting 'Save'. The 
+            eigenvalue is another measure of the information content of a 
+            component and the eigenvector describes the mathematical 
+            transformation (rotation coordinates) that correspond to a 
+            particular component image.</p>
+
+        <p><i>Factor Loadings</i> are also output in a table within the PCA text 
+            report. These loading values describe the correlation (i.e. <i>r</i> 
+            values) between each of the PCA components (columns) and the 
+            original images (rows). These values show you how the information 
+            contained in an image is spread among the components. An analysis 
+            of factor loadings can be reveal useful information about the 
+            data set. For example, it can help to identify groups of similar 
+            images.</p>
+        
+        <p>PCA is used to reduce the number of band images necessary for 
+            classification (i.e. as a data reduction technique), for noise 
+            reduction, and for change detection applications. When used as a 
+            change detection technique, the major PCA components tend to be 
+            associated with stable elements of the data set while variance due to 
+            land-cover change tend to manifest in the high-order, 'change 
+            components'. When used as a noise reduction technique, an inverse PCA 
+            is generally performed, leaving out one or more of the high-order 
+            PCA components, which account for noise variance. An inverse PCA can 
+            be performed using the <a href="InversePrincipalComponentAnalysis.html">
+                <b><i>Inverse Principal Component Analysis</i></b></a> tool.</p>
+        
+        <p>While this tool is intended to be applied to imagery data, PCA can 
+        also be performed on the attributes of a vector file using the 
+        <a href="PCAForAttributes.html"><b><i>PCA For Attributes</i></b></a> 
+        tool.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ImageCorrelation.html">Image Correlation</a></li>
+            <li><a href="PCAForAttributes.html">PCA For Attributes</a></li>
+            <li><a href="InversePrincipalComponentAnalysis.html">Inverse 
+                    Principal Component Analysis</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Jensen, J.R. 2005. Introductory digital image processing: A remote 
+                sensing perspective, 3rd Ed. Prentice Hall series in Geographic 
+                Information Science, Upper Saddle River, N.J., pp. 526.</li>
+        </ul>
+    </body>
+</html>

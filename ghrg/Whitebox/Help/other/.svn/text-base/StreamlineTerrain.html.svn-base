@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Streamline terrain</h1>
+
+<p>This tool alters a digital elevation model (DEM) by streamlining it in a 
+    specified direction. That is, the tool will modify the elevations of grid 
+    cells in the DEM that are in a leeward orientation and have a horizon angle 
+    (or maximum upwind slope) that is greater than the specified maximum value. 
+    When an obstacle is in the path of the wind, there will be an area of 
+    turbulence and reduced wind speed behind the obstacle. Similarly, there will 
+    be an area of high pressure in front of the obstacle, such that the wind will 
+    start to ascend some distance before it actually reaches the obstacle. 
+    Streamline Topography can be used to mimic this pattern. The following images 
+    provide an example of a DEM that has been streamlined from approximately a 
+    north-eastern direction (Azimuth of 36-degrees) using a maximum leeward slope of 
+    2.8-degrees</p>
+
+<table border="1" style="width: auto">
+  <col>
+  <col>
+  <tbody>
+    <tr>
+      <td style="text-align:center;margin-left:auto;margin-right:auto;">
+        <img alt="Original DEM" src="img/StreamlineDEMraw.png"/>
+      </td>
+      <td style="text-align:center;margin-left:auto;margin-right:auto;">
+        <img alt="Streamlined DEM" src="img/StreamlineDEM.png"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The user must specify the name of an input DEM raster, a 
+    <a href="HorizonAngle.html"><i><b>horizon angle</b></i></a> raster image, 
+    the hypothetical wind azimuth, and a maximum leeward slope (in degrees). 
+    <b><i>Notice that the specified azimuth must be the same as the azimuth 
+            used to calculate the horizon angle raster.</i></b> As guidance, 
+    the distance that an obstacle to the wind effects wind patterns in the 
+    leeward direction ranges from about 15 to 20 times the obstacle height. 
+    This translates into a maximum leeward slope of between 2.86-degrees and 
+    3.81-degrees, although in reality this range is highly variable and likely 
+    dependent on the wind speed and characteristics of the obstacle. It is 
+    possible to further streamline the DEM to include the wedge of high pressure 
+    in the windward direction of topographic obstacles by calculating the horizon 
+    angle a second time, using the leeward streamlined DEM as the input and 
+    specifying an azimuth that is 180 degrees from the original. Then run 
+    <b><i>Streamline Terrain</i></b> a second time using the new horizon angle 
+    image and the streamlined DEM as inputs (accounting for the 180 degrees 
+    altered azimuth). The maximum leeward slope should be much higher in the 
+    windward direction. The high-pressure wedge in front of an obstacle will 
+    typically extend at least twice the height of the obstacle (again this varies 
+    significantly), translating into an angle of 26.6 degrees.</p>
+
+<p>The algorithm works by tracing a ray from grid cells that have a horizon 
+    angle greater than the maximum leeward slope in the specified direction. When 
+    a grid cell is encountered along the ray that has a horizon angle less than 
+    the specified maximum slope, the algorithm will use the elevation of this cell 
+    and the desired maximum leeward slope to estimate a new elevation for the 
+    origin grid cell. Linear interpolation is used to estimate the elevation of 
+    the surface where a ray does not intersect the DEM grid precisely at one of 
+    its nodes. In order to provide a satisfactorily smooth result, the process 
+    is repeated using rays that are +/-3 degrees and the estimated elevation is 
+    determined by an inverse-distance-to-a-power interpolation scheme.</p>
+
+<p>An example of the application of <i><b>Streamline Terrain</b></i> for 
+    modelling exposure/sheltering to wind is described in: Lindsay, JB and 
+    Rothwell, JJ (2008) Modelling channelling and deflection of wind by 
+    topography, in <i>Advances in Digital Terrain Analysis</i>, edited by 
+    Qiming Zhou, Brian Lees, Guo-an Tang, pp. 383-405.</p>
+
+<p>Ray-tracing is a highly computationally intensive task and therefore this 
+    tool may take considerable time to operate for larger sized DEMs. 
+    <b><i>NoData</i></b> valued grid cells in the input image will be 
+    assigned <b><i>NoData</i></b> values in the output image. The output 
+    raster is of the <i>float</i> data type and <i>continuous</i> data scale. 
+    Maximum upwind slope is best displayed using a Grey scale palette that is 
+    inverted.</p>
+
+<p><br>
+</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="WindRelatedTAs.html">Wind-related terrain attributes</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+ <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

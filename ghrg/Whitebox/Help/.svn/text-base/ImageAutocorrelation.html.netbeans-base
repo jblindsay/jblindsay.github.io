@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Image autocorrelation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Image autocorrelation</h1>
+
+        <p>
+            Spatial autocorrelation describes the extent to which a variable is either 
+            dispersed or clustered through space. In the case of a raster image, 
+            spatial autocorrelation refers to the similarity in the values of nearby 
+            grid cells. This tool measures the spatial autocorrelation of a raster image 
+            using the global <b><i>Moran's I</i></b> statistic. <b><i>Moran's I</i></b> 
+            varies from -1 to 1, 
+            where I = -1 indicates a dispersed, checkerboard type pattern and 
+            I = 1 indicates a clustered (smooth) surface. I = 0 indicates a random 
+            distribution of values. <b><i>Image Autocorrelation</i></b> computes 
+            Moran's I for the first lag only, meaning that it only takes into 
+            account the variability among the immediate neighbors of each grid 
+            cell.
+        </p>
+        <p>The user must specify the names of one or more input raster images. 
+            In addition, the user must specify the contiguity type (Rook's, King's, 
+            or Bishop's), which describes which neighboring grid cells are examined 
+            for the analysis. The following figure describes the available cases:</p>
+        <div id="wrapper" style="width:100%; text-align:center">
+            <img alt="Rooks_Kings_Bishops" src="img/Rooks_Kings_Bishops.png" /></div>
+        <p>The tool outputs a text report which, for each input image, reports 
+            the Moran's I value and the variance, z-score, and p-value (significance) 
+            under normal and randomization sampling assumptions.</p>
+        <p><b><i>NoData</i></b> values in the input image are ignored during the 
+            analysis.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Smooth.html">Smooth</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

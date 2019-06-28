@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+<title>GAT Help</title>
+<link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+<body>
+
+<h1>Change data type</h1>
+
+<p>
+This tool can be used to change the data type of a raster image. The data type affects the storage 
+requirements of the data file on disk.  Internally, Whitebox tools treat all data as doubles (double-precision 
+decimal values) when held in computer memory for data manipulation. </p>
+
+<p>The user must specify the input and output (optional) file names, and the desired data type. 
+<i><b>Data Type</i></b> can be either 'double', 'float', or 'integer. The <i><b>double</i></b> and 
+<i><b>float</i></b> data types are used to represent numerical data containing decimal values; the 
+<i><b>integer</i></b> data type is used to represent whole number values that range from -32,768 to 
+32,767. Each grid cell in a raster image requires 8 bytes to store data as double, 4 bytes to store as a 
+float data type, and 2 bytes for storage as an integer data type.</p>
+
+<p>Notice that the <i><b>NoData</i></b> value can only be stored using the <i>float</i> and <i>integer</i> 
+data types. If your raster contains these values, it should be stored using either of these two data types. 
+When converting a file from the <i>float</i> data type to one of the other two types, if a value is 
+encountered in the input image that falls outside the range of possible values, it will be assigned either 
+the <i><b>NoData</i></b> value (integer data type) or zero (byte data type) in the output image. </p>
+
+<p>If an output file name is not specified, the tool will overwrite the input image. A temporary image 
+will be created and deleted during this process.</p>
+
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+
+<li><a href="ChangeDataScale.html">Change Data Scale</a></li>
+
+
+</ul>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Compare images for differences</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Compare images for differences</h1>
+
+        <p>This tool can be used to compare two images for statistically significant 
+            differences. It performs a 
+            paired sample t-test on the two images.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile1 = wd + "input1.dep"<br>
+                inputFile2 = wd + "input2.dep"<br>
+                sampleSize = "not specified" # use all cells<br>
+                args = [inputFile1, inputFile2, sampleSize]<br>
+                pluginHost.runPlugin("CompareImagesForDifferences", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile1 = wd + "input1.dep"<br>
+                def inputFile2 = wd + "input2.dep"<br>
+                def sampleSize = "1000"<br>
+                String[] args = [inputFile1, inputFile2, sampleSize]<br>
+                pluginHost.runPlugin("CompareImagesForDifferences", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

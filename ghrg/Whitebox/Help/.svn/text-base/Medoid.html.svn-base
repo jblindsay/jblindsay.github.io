@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Medoid</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Medoid</h1>
+
+        <p>This tool calculates the medoid for a series of vector features contained in shapefile. 
+        The medoid of a two-dimensional feature is conceptually similar its centroid, or mean 
+        position, but the medoid is always a members of the feature data set. Thus, the medoid is 
+        a measure of central tendency that is robust in the presence of outliers. If the input vector 
+        is of a POLYLINE or POLYGON ShapeType, the nodes of each feature will be used to estimate 
+        the feature medoid. If the input vector is of a POINT base ShapeType, the medoid will be 
+        calculated for the collection of points. While there are more than one competing method of 
+        calculating the medoid, this tool uses an algorithm that works as follows:</p>
+
+        <ol>
+		<li>The <i>x</i>-coordinate and <i>y</i>-coordinate of each point/node are placed into two arrays.</li>
+		<li>The <i>x</i>- and <i>y</i>-coordinate arrays are then sorted and the median <i>x</i>-coordinate (<b><i>Med 
+		X</i></b>) and median <i>y</i>-coordinate (<b><i>Med Y</i></b>) are calculated.</li>
+		<li>The point/node in the dataset that is nearest the point (<b><i>Med X</i></b>, 
+		<b><i>Med Y</i></b>) is identified as the medoid.</li>
+        </ol>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="CentroidVector.html">Centroid (Vector)</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile = wd + "input.shp"<br>
+                outputFile = wd + "output.shp"<br>
+                args = [inputFile, outputFile]<br>
+                pluginHost.runPlugin("Medoid", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile = wd + "input.shp"<br>
+                def outputFile = wd + "output.shp"<br>
+                String[] args = [inputFile, outputFile]<br>
+                pluginHost.runPlugin("Medoid", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

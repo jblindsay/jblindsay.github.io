@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+      <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+       <title>GAT Help</title>
+       <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+<body>
+  
+<h1>Import image files</h1>
+
+<p>This tool can be used to import a number of common image formats to 
+<a href="FileFormatsDescriptions.html">Whitebox GAT raster file</a> format. Recognized image file 
+formats include Windows bitmaps (*.bmp), JPEG files (*.jpg), GIF files (*.gif), and PNG files (*.png). 
+TIFF files are not currently supported, although GeoTIFFs may be imported using the ImportGeoTIFF tool. 
+This tool supports import of 24-bit image file structures. 24-bit red-green-blue (RGB) are converted into 
+Whitebox colour-composite rasters with an 'rgb' data scale (Note: in actuality it is a aRGB data).</p>
+<p>This import tool will attempt to find a corresponding <b><i>World File</b></i> to extract location 
+data, i.e. to set the newly created image's North, South, East, and West coordinates. A World File is a 
+plain text computer data file used by GIS software to georeference raster map images. Small-scale 
+rectangular raster image maps can have an associated World File for GIS map software which describes the 
+location, scale and rotation of the map. These World Files are six-line files with decimal numbers on each 
+line. The name of the file is modeled after the associated image file. The three letters of the image 
+filename extension are altered thus: the second letter of the original filename extension is replaced with 
+the last letter, and, the third letter is replaced with the letter "w." For example, the conventional 
+World File extensions are .jgw, .gfw, and .pgw for .jpg, .gif, and .png image types 
+respectively.</p>
+<p>The structure of a six-line World File is as follows:</p>
+<p>Line 1: pixel size in the x-direction in map units<br>
+Line 2: rotation about y-axis<br>
+Line 3: rotation about x-axis<br>
+Line 4: pixel size in the y-direction in map units, almost always negative<br>
+Line 5: x-coordinate of the center of the upper left pixel<br>
+Line 6: y-coordinate of the center of the upper left pixel<br></p>
+<p>The following is an example:</p>
+<p>12.0<br>
+0.0<br>
+0.0<br>
+-12.0<br>
+672500.0<br>
+4414000.0<br></p>
+<p><b><i>World Files</i></b> must be located in the same directory as their accompanying image files. Whitebox GAT <i>does not currently support rotation</i> during import, and thus, lines 2 and 3 in the above structure must always be set to zero. Notice that images can be imported to Whitebox without World Files, however the coordinates of the top, bottom, and sides of the image will be set using the number of rows and columns. Also note that Whitebox GAT can import GeoTIFF files using this tool, however, it is not able to read the georeferencing metadata contained within the binary image file, and thus, <i>a World File is needed to retain the georeferencing information</i>.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+
+<li>None</li>
+
+</ul>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+
+</ul>
+</body>
+</html>

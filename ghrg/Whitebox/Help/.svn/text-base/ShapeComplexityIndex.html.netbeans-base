@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Shape complexity index</h1>
+
+        <p>This tool provides a measure of overall polygon shape complexity, or 
+            irregularity, for both raster and vector features. Several shape 
+            indices have been created to compare a polygon's shape to simple 
+            Euclidean shapes (e.g. circles, squares, etc.). One of the problems 
+            with this approach is that it inherently convolves the 
+            characteristics of polygon complexity and elongation. The Shape 
+            Complexity Index (<i>SCI</i>) was developed as a parameter for assessing 
+            the complexity of a polygon that is independent of its elongation. 
+            In fact, the <i>SCI</i> has a different definition for vector polygons and 
+            raster polygons. For vector features, <i>SCI</i> relates a polygon's shape 
+            to that of an encompassing convex hull. It is defined as:
+
+            <br><br><code>SCI = 1 - A / A<sub>h</sub></code><br> <br>Where 
+            where <i>A</i> is the polygon's area and <i>A<sub>h</sub></i> is 
+            the area of the convex hull containing the polygon. Convex 
+            polygons, i.e. those that do not contain concavities, have a value 
+            of 0. As the shape of the polygon becomes more complex, the <i>SCI</i> 
+            approaches 1. Note that polygon shape complexity also increases 
+            with the greater number of holes (i.e. islands), since holes have 
+            the effect of reducing the lake area. The <i>SCI</i> values 
+            calculated for each vector polygon feature will be placed in 
+            the accompanying database file (.dbf) as a complexity field 
+            (COMPLEXITY). The resulting database file will be displayed 
+            automatically after the tool has completed.</p>
+
+        <p>For raster polygons, the <i>SCI</i> is the average number of line 
+            intersections with polygon boundaries averaged for the N-S, E-W, 
+            NW-SE, and NE-SW directions. Convex polygons will have a value of 2 
+            and more irregular shaped polygons, including those containing holes, 
+            will have higher values. The input raster grid should contain 
+            polygons with unique identifiers greater than zero. The user must 
+            also specify the name of the output raster file (where the radius of 
+            gyration will be assigned to each feature in the input file) and 
+            the specified option of outputting text data.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FractalDimension.html">Fractal Dimension</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013)</li>
+        </ul>
+    </body>
+</html>

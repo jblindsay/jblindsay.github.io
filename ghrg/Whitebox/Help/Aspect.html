@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
+        <title>Aspect</title>
+        <link rel="stylesheet" type="text/css" href="Help.css" />
+    <link href="../../Scripts and style sheets/style_2.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <h1>Aspect</h1>
+
+        <p class="bodyText">This tool calculates slope aspect (i.e. slope orientation in degrees) for
+            each grid cell in an input digital elevation model (DEM). The user must specify
+            the name of the input DEM and the output aspect raster image. The Z Conversion
+            Factor is only important when the vertical and horizontal units are not the
+            same in the DEM. When this is the case, the algorithm will multiply each
+            elevation in the DEM by the Z Conversion Factor. Aspect grids are best
+            visualized using the <span class="bodyTextbold_italic">circular_bw</span> palette.</p>
+
+        <p><br />
+        </p>
+
+        <h2>Algorithm Description</h2>
+
+        <p class="bodyText">The tool uses Horn's (1981) 3rd-order finite difference method to estimate
+            slope. Given the following clock-type grid cell numbering scheme (Gallant and
+            Wilson, 2000),</p>
+
+    <div id="grid" style="text-align:center"><img alt="Neighbourhood Numbering" src="img/NeighbourhoodNumbering.png" /></div>
+
+    <p>the tool calculates aspect as:</p>
+
+        <p class="bodyText_code">aspect = 180 - arctan(f<sub>y</sub> / f<sub>x</sub>) + 90(f<sub>x</sub> / |f<sub>x</sub>|)</p>
+
+    <p>where</p>
+
+        <p class="bodyText_code">f<sub>x</sub> = (z3 - z5 + 2(z2 - z6) + z1 - z7)</p>
+
+    <p>and</p>
+
+        <p>f<sub>y</sub> = (z7 - z5 + 2(z8 - z4) + z1 - z3)</p>
+
+        <p>Aspect is represented as an azimuth clockwise from north, ranging from 0-360
+            degrees.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Slope.html">Slope</a></li>
+            <li><a href="TerrainAnalysis.html">Other terrain analysis tools</a></li>
+        </ul>
+
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                <span class="bodyText_code">wd = pluginHost.getWorkingDirectory()<br />
+                inputFile = wd + "DEM.dep"<br />
+                outputFile = wd + "aspect.dep"<br />
+                zFactor = "1.0"<br />
+                args = [inputFile, outputFile, zFactor]<br />
+                pluginHost.runPlugin("Aspect", args, False)</span><br />
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                <span class="bodyText_code">def wd = pluginHost.getWorkingDirectory()<br />
+                def inputFile = wd + "DEM.dep"<br />
+                def outputFile = wd + "aspect.dep"<br />
+                def zFactor = "1.0"<br />
+                String[] args = [inputFile, outputFile, zFactor]<br />
+                pluginHost.runPlugin("Aspect", args, false)</span><br />
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email:<a href="mailto:jlindsay@uoguelph.ca"> jlindsay@uoguelph.ca</a></li>
+        </ul>
+    </body>
+</html>

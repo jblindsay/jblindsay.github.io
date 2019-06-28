@@ -1,0 +1,92 @@
+<!--
+Copyright (C) 2013 Dr. John Lindsay <jlindsay@uoguelph.ca>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How to get data into Whitebox</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../Help.css">
+    </head>
+    <body>
+        <div>
+            <h1>How to get data into Whitebox</h1>
+            <h2><br>By John Lindsay, Ph.D. (Last modified, May 2013)</h2>
+            <p>Having a powerful GIS at your disposal is no good unless you have 
+            data to analyze. One of the most common problems when starting a 
+            new project is getting data into Whitebox. So how do you do that?</p>
+            
+            <p>Whitebox's native vector format is the Shapefile (.shp). The Shapefile 
+            is widely used within the ESRI software platform and is also seen 
+            quite commonly in other GIS communities as well. In fact, because it 
+            is an open format, often government agencies will distribute their 
+            vector GIS data in Shapefile format. As such, there is generally no 
+            need to import vector data into Whitebox, although there are some 
+            vector import tools available in the 'Data Import/Export' toolbox, 
+            e.g. for importing well-known 
+            text (WKT), and the TAS vector format. If you are using a software 
+            package that does not use the Shapefile format as its native vector 
+            format, it is quite likely that it has an export tool that will allow 
+            you to convert it into a Shapefile.</p>
+            
+            <p>Whitebox's native raster 
+            file format is is called a <a href="../FileFormatsDescriptions.html">Whitebox 
+                Raster</a> and it is different than other formats that you have 
+            encountered for raster data in other GIS and remote sensing products. 
+            This means that you have to import raster data from other software 
+            into Whitebox. Importantly, you only need to do this the first time 
+            that you are working with new data. Converting a file to Whitebox Raster 
+            format is accomplished in one of two ways. Many of the supported 
+            raster data formats that can be ingested by Whitebox can be imported 
+            simply by selecting the 'Add Layer' button. If your data is in a 
+            format that is supported by this quick style import, it will appear 
+            in the list of files within the working directory, and you simply need 
+            to select it. Whitebox will then automatically call the appropriate 
+            import tool, convert the raster to a Whitebox Raster, and display the 
+            newly created Whitebox Raster file. Notice that you can select multiple files to 
+            import using this method. Alternatively, spatial data files can be 
+            converted to native Whitebox formats using the tools within the 
+            'Data Import/Export' toolbox. This toolbox contains 
+            tools for converting some of the most common GIS data formats. At present 
+            the number of data formats that can be imported using these import 
+            tools is greater than the number that can be converted the the 
+            'Add Layer' functionality, with the limitation being the uniquness 
+            of the file extension. That is, if a data format has a non-unique 
+            file extension (e.g. *.txt or *.asc) then it likely will not be 
+            included in the list of supported formats for quick import via the 
+            'Add Layer' operation.</p>
+            
+            <p>The question that I get asked more than any other is, 'how do I 
+            get my raster data from ESRI's ArcGIS into Whitebox?', probably 
+            because of the ubiquity of this software in GIS workshops. So it's 
+            worth describing how you can do this in detail here. You can exchange 
+            raster data between ArcGIS and Whitebox either in ASCII (i.e. text) or 
+            binary format. The preferred method is binary because these data 
+            are smaller (therefore the import/export operations are quicker) and 
+            because it does not significantly alter the original data. The tool 
+            for importing ArcGIS rasters is called <a href="../ImportArcGrid.html">
+                Import ArcGIS Binary Grid</a> This is the best and easiest way 
+            to import raster files from ArcGIS. Floating-point grid files 
+            consist of a header file (.hdr) and data files (.flt). The tool can 
+            run in batch mode, importing multiple files at one time. Output file 
+            names are the same of the input files and are contained within the 
+            same directory. Use the <b><i>Raster to Float</i></b> tool in the 
+            'Conversion Tools' toolbox of ArcGIS to create floating-point 
+            grid files from your ArcGIS raster files.</p>
+            
+        </div>
+    </body>
+</html>

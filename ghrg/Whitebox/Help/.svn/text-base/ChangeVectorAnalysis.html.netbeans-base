@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Change vector analysis</h1>
+
+        <p>Change Vector Analysis (CVA) is a change detection 
+            method that characterizes the magnitude and change direction in 
+            spectral space between two times. A change vector is the difference 
+            vector between two vectors in <i>n</i>-dimensional 
+            <a href="FeatureVectorAndFeatureSpace.html">feature space</a> 
+            defined for two observations of the same geographical location 
+            (i.e. corresponding pixels) during two dates. The CVA inputs include 
+            the set of raster images corresponding to the multispectral data for 
+            each date. Note that there must be the same number of image files 
+            (bands) for the two dates and they must be entered in the same order, 
+            i.e. if three bands, red, green, and blue are entered for date one, 
+            these same bands must be entered in the same order for date two. </p>
+            
+        <p>CVA outputs two image files. The first image contains the change 
+            vector length, i.e. magnitude, for each pixel in the multi-spectral 
+            dataset. The second image contains information about the direction 
+            of the change event in spectral feature space, which is related to 
+            the type of change event, e.g. deforestation will likely have a 
+            different change direction than say crop growth. The vector magnitude 
+            is a continuous numerical variable. The change vector direction is 
+            presented in the form of a code, referring to the multi-dimensional 
+            sector in which the change vector occurs. A text output will be 
+            produced to provide a key describing sector codes, relating the 
+            change vector to positive or negative shifts in <i>n</i>-dimensional 
+            <a href="FeatureVectorAndFeatureSpace.html">feature space</a>.</p> 
+            
+        <p>It is common to apply a simple thresholding operation on the magnitude 
+            data to determine 'actual' change (i.e. change above some assumed 
+            level of error). The type of change (qualitatively) is then defined 
+            according to the corresponding sector code. Jensen (2005) provides 
+            a useful description of this approach to change detection.
+        </p>
+
+    <h2 class="SeeAlso">See Also:</h2>
+    <ul>
+        <li><a href="FeatureVectorAndFeatureSpace.html">Feature Vector and Feature Space</a></li>
+    </ul>
+    <p><h2 class="SeeAlso">Credits:</h2>
+    <ul>
+        <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+    </ul>
+    <h2 class="SeeAlso">References:</h2>
+    <ul>
+        <li>K. Nackaerts , K. Vaesen , B. Muys and P. Coppin (2005) Comparative 
+            performance of a modified change vector analysis in forest change 
+            detection, <i>International Journal of Remote Sensing</i>, 26:5, 
+            839-852.</li>
+        <li><br>Jensen, J.R. 2005. Introductory digital image processing: A remote 
+            sensing perspective, 3rd Ed. Prentice Hall series in Geographic 
+            Information Science, Upper Saddle River, N.J., pp. 526.</li>
+    </ul>
+</body>
+</html>

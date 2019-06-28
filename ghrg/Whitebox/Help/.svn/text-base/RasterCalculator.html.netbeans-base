@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Raster calculator</h1>
+
+<p>The raster calculator is a powerful Whitebox GAT application for performing
+complex mathematic operations and functions involving raster and numerical
+data. Thus, the <i><b>Raster Calculator</b></i> enables the user to perform
+<i>Map Algebra</i>. Common mathematical, logical, and comparison operators and
+functions are available for inclusion in expressions. The following is an
+example of the syntax for a simple mathematical expression:</p>
+
+<p><i>[output image]=([input1]+[input2])/2</i></p>
+
+<p>In this example, <i>input1</i> and <i>input2</i> are existing images within
+the current working directory and <i>output image</i> is the name of the images
+that will be created by the evaluation of the expression. Notice that square
+brackets are used in the expression to denote image names and that there is no
+need to specify the directory component of the file name if the image is within
+the working directory. The current working directory can be changed in the
+<i><b>Options</b></i> section of the <i><b>Raster Calculator</b></i> or through
+the <i><b>Options and Settings</b></i> dialog under the <i><b>Tools</b></i>
+menu. If an output name is not assigned, one will be automatically assigned and
+the output image will be created accordingly. </p>
+
+<p>It is possible to enter multiple lines into the <i><b>Expression</b></i> box
+before pressing the <i><b>Evaluate</b></i> button. </p>
+
+<p>The <i><b>Raster Calculator</b></i> replicates all of the tools within the
+<a href="MathTools.html">Mathematical Analysis</a> toolbox, but allows for more
+complex combinations of operators and functions than would be possible using
+the standard tools. Also notice that Raster Calculator-type expressions can
+also be evaluated from a Python script, by calling the
+<i><b>EvaluateExpression</b></i> function in the Whitebox application
+programming interface (API). The following is an example:</p>
+
+<p></p>
+
+<p><i>#Set-up the environment with the necessary import statements.<br>
+import clr<br>
+clr.AddReference('System')<br>
+clr.AddReference('WhiteboxAPI')<br>
+from WhiteboxAPI import API<br>
+import WhiteboxInstance<br>
+from WhiteboxInstance import IHost, OwnerForm, RecentDirectory<br>
+API.InitializeAPI(IHost)<br>
+API.OwnerForm = OwnerForm<br>
+API.WorkingDirectory = RecentDirectory<br>
+<br>
+Expression = "[NewImage1]=[InputImage]&lt;150"<br>
+ret = API.EvaluateExpression(Expression)<br>
+Expression = "[NewImage2]=SetNoData([NewImage1],0)" ret =
+API.EvaluateExpression(Expression)<br>
+API.EvaluateExpression("Del([NewImage1])")<br>
+OwnerForm.HandleScriptReturn(ret)<br>
+#The final image will be automatically displyed.</i></p>
+
+<p><br>
+</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="MathTools.html">Mathematical Analysis Tools</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+ <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

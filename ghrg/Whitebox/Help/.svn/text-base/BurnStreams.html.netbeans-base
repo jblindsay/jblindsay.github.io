@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Burn streams into DEM</h1>
+
+<p>This tool can be used to decrement the elevation values in a digital elevation 
+    model (DEM) along a defined stream network. This is a so-called 
+    <i>stream burning</i> operation. The stream network can be either a vector 
+    shapefile or a raster image. If a raster streams file is chosen, it must 
+    have the same grid dimensions as the input DEM file. The user 
+    must also specify the decrement value. This parameter is in the same units 
+    as the elevation units of the DEM.</p>
+<p>In addition to a simple elevation decrement, the user may optionally specify 
+    a decay coefficient (<i>k</i>) which will impose a gradient toward the stream, 
+    such that:</p>
+
+<p><code><i>Z = E - (G / (G + D))<sup>k</sup> &#x00D7 H</i></code></p>
+
+<p>Where <i>Z</i> is the newly calculated elevation, <i>E</i> is the old 
+    elevation from the DEM, <i>G</i> is the grid resolution, <i>D</i> is the 
+    distance from a stream cell, <i>k</i> is the decay coefficient, and <i>H</i> 
+    is the elevation decrement. The distance to stream will be calculated 
+    automatically, using the same algorithm used by the 
+    <a href="EuclideanDistance.html"><b><i>Euclidean Distance</i></b></a> tool. 
+    Notice that <i>E</i>, <i>H</i>, and <i>G</i> should all be measured in the 
+    same units. Values of the decay coefficient must be larger than 0, with 
+    increasing values resulting in a steeper decrement gradient toward streams, 
+    i.e. less modification of the riparian topography. This type of sophisticated 
+    stream burning can help to reduce the undesirable results on drainage patterns 
+    when the 'blue-line' burned in streams run parallel to the 'digital stream' 
+    that is apparent in the raw DEM. When this is the case, the digital stream 
+    will capture flow from one hillslope before it is allowed to enter the burned 
+    in 'correct' stream cells. A forced stream-direction gradient can be an 
+    effective method for reducing this problem.</p>
+<p>It is still recommended that stream-burned DEMs undergo depression removal 
+    (filling or breaching methods) after the burning and prior to calculation of 
+    flow parameters (e.g. flow direction and accumulation).</p>
+<br>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="EuclideanDistance.html">Euclidean distance</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Fractal dimension</h1>
+
+        <p>This tool can be used to calculate the fractal dimension (Mcgarigal 
+            et al. 2002) for polygons. It will work for either raster or vector 
+            input files. If a raster file is input, the grid should contain 
+            polygons with unique identifiers. Raster input files also require 
+            the name of the output raster file (where the fractal dimension 
+            will be assigned to each feature in the input file), the specified 
+            option of outputting text, and whether or not zero values should be 
+            treated as background values. If a vector shapefile is specified as 
+            the input file, the only required input is the name of the file. The 
+            fractal dimension values calculated for each vector polygon feature 
+            will be placed in the accompanying database file (.dbf) as a fractal 
+            dimension field (FRACTAL_D). The resulting database file will be 
+            automatically displayed after the tool has completed.</p>
+
+        <p>The fractal dimension (<i>F</i>) is:
+            <br><br><code>F = 2lnP / lnA</code><br> <br>Where <i>P</i> is the 
+            polygon's perimeter, <i>A</i> is its area, and <i>ln</i> is the 
+            natural logarithm. For raster-based perimeter estimation, the tool 
+            uses the accurate, anti-aliasing algorithm of Prashker (2009).</p>
+
+        <p>Theoretically, <i>F</i> approaches 1 for shapes with very simple 
+            boundaries, such as circles, and approaches 2 for shapes with highly 
+            convoluted, plane-filling boundaries. In practice, however, <i>F</i> 
+            tends to display a very restricted range of values for a wide 
+            variety of shapes. For many applications, the 
+            <a href="ShapeComplexityIndex.html"><b><i>Shape Complexity Index</i></b></a> 
+            is better suited to expressing polygon irregularity and overall 
+            shape complexity.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ShapeComplexityIndex.html">Shape Complexity Index</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012)</li>
+        </ul>
+        
+        <h2 class="SeeAlso">References:</h2>
+        <ul><li>Mcgarigal, K., Cushman, S. A., Neel, M. C., & Ene, E. (2002). 
+                FRAGSTATS: spatial pattern analysis program for categorical maps.</li>
+
+            <li>Prashker, S. (2009) An anti-aliasing algorithm for calculating the 
+                perimeter of raster polygons. Geotec, Ottawa & Geomtics Atlantic, 
+                Wolfville, NS.</li>
+        </ul>
+    </body>
+</html>

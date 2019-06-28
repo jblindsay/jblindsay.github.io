@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>User-defined weights filter</h1>
+
+<p>This tool can be used to perform a convolution-type filter where the weights
+of the moving window, or kernel, are specified by the user. As such, this tool
+provides a convenient means of creating a custom filter or performing a filter
+type that is not currently available as a standard tool in Whitebox. The user
+must specify the names of the input and output images and the location of the
+centre of the moving kernel (defaults to centre of window but you can also
+specify one of the corners). The custom weights are then entered into the grid.
+The grid has room to accomodate up to an 11x11 filter, though there is not need
+to fill in values for all of these window cells for smaller sized filters. For
+example, if a 3x3 sized filter is required, enter numerical values into the
+first three rows and columns of the grid, leaving the remaining grid cells
+blank. The user may also specify a <b><i>Divisor</i></b>. This value can serve
+to normalize the weight values, thereby ensuring that the output image will
+possess values within the range of the input image. Use of a non-unity valued
+<b><i>Divisor</i></b> allows the user to specify integer value weights if
+desired. 
+
+<p><b><i>NoData</i></b> values in the input image are replaced with the average
+value of all valid cells within the kernel. This is also the procedure when the
+neighbourhood around a grid cell extends beyond the edge of the grid. The
+output raster is of the <i>float</i> data type and <i>continuous</i> data
+scale.</p>
+<br>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="SpatialFilters.html">Spatial filters</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

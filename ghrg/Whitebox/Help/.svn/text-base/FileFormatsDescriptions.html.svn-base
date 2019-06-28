@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+  <h1>Whitebox GAT raster file formats (.dep and .tas)</h1>
+
+<p>
+Whitebox GAT's native raster file format is a legacy of its predecessor, the Terrain Analysis System (TAS). Raster data are stored using two files, a text (ASCII) header file with a .dep extension, and a similarly named binary data file with a .tas extension. An example of the header file is as follows:</p>
+
+<p>Min:	191.425<br>
+Max:	223.6308<br>
+North:	4684000<br>
+South:	4683000.02<br>
+East:	417000<br>
+West:	416000.01<br>
+Cols:	1000<br>
+Rows:	1000<br>
+Data Type:	float<br>
+Z Units:	meters<br>
+XY Units:	meters<br>
+Projection:	Not Specified<br>
+Data Scale:	continuous<br>
+Display Min:	191.425<br>
+Display Max:	210.000<br>
+Preferred Palette:	high_relief.plt<br>
+Metadata entry:	Created by the Whitebox Raster Calculator Multiply function<br>
+Metadata entry:	Created on January-11-10 3;43;01 PM</p>
+
+<p>The Display Min and Display Max entries in the .dep header file are used for display purposes only. These values determine the default display minimum and maximum values and can be edited for more effectual visualization of raster data sets. There are two allowable Data Type entries including 'float', indicating 32-bit floating-point data, and 'integer', indicating a file containing 16-bit integer data. The Data Scale entry has four allowable entries including 'continuous', 'categorical', 'Boolean', and 'rgb'. This entry affects how the raster image will be displayed, in particular whether it is displayed using the default continuous palette and an applied linear stretch between the display minimum and maximum values, or whether it will be displayed using the default qualitative palette with no linear stretch. Entity-type data (e.g. soil categories) should always be displayed using a qualitative palette. Notice that the data scale in the header file will be automatically updated when the user checks or unchecks the Apply Linear Stretch option on the Layer Properties tab. The data scale for an image is originally set programmatically by the tool used to create the image. Raster images with a data scale of 'rgb' are not displayed with a palette but rather are displayed using the 32-bit red-green-blue colour model (aRGB). RGB colour images are usually created from multispectral imagery using the <a href="CreateColourComposite.html"><i><b>Create Colour Composite</i></b></a> tool or by importing an image.</p>
+
+<p>The header file may contain any number of metadata entries. Common entries include the function/tool that created the raster file as well as the date and time that the file was created. These entries are usually added by the program but can also be created by users. Notice that each metadata entry must be contained on a single line and that the character ':' will be changed to ';' when the file is written and read such that the colon can be preserved for delimiting the line header (e.g. Metadata entry:) from the line data. Thus in the above example, colons in the time entry have been converted to semi-colons.</p>
+
+<p>In the .tas binary file, the values are written as binary 32-bit signed floating-point numbers or 16-bit signed integer numbers, depending on the Data Type. The first record of the file corresponds to the first row of the grid. Data are stored from left to right and top to bottom. The float data type version of a .tas file has the same structure as the ESRI (ArcGIS) floating-point binary raster file (Note: the equivalent header files are however different). This is why the <a href="ImportArcGrid.html"><b><i>Import ArcGIS floating-point grid</b></i></a> tool is one of the most efficient ways of importing data into Whitebox GAT.</p>
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

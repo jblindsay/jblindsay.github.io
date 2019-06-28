@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Histogram matching</h1>
+
+<p>This tool alters the cumulative distribution function (CDF) of a raster image to match, as closely as 
+possible, the CDF of a reference histogram. Histogram matching works by first calculating the histogram of 
+the input image. This input histogram and reference histograms are each then converted into CDFs. Each 
+grid cell value in the input image is then mapped to the corresponding value in the reference CDF that 
+has an equivalent (or as close as possible) cumulative probability value. Histogram matching provides the 
+most flexible means of performing image contrast adjustment.</p>
+
+<p>The reference histogram must be specified to the tool in the form of a text file (.txt). This file 
+must contain two columns (delimited by a tab, space, comma, colon, or semicolon) where the first column 
+contains the <i>x</i> value (i.e. the values that will be assigned to the grid cells in the output 
+image) and the second column contains the frequency or probability. Note that 1) the file must not contain 
+a header, 2) each <i>x</i> value/frequency pair must be on a seperate row, and 3) the frequency/probability 
+must not be cumulative (i.e. the file must contain the histogram and not the CDF). The CDF will be 
+computed for the reference histogram automatically by the tool. It is possible to create this type of 
+histogram using the wide range of distribution tools available in most spreadsheet programs (e.g. 
+LibreOffice's Calc program). You simply must remember to save the file as a text-only (ASCII) file.</p>
+
+<p>Histogram matching is related to the <a href="TwoImageHistogramMatching.html"><b><i>Histogram Matching 
+(Two Images</i></b></a> tool, which can be used when a reference CDF can be derived from a reference image. 
+<a href="HistogramEqualization.html"><b><i>Histogram Equalization</i></b></a> and <a href="GaussianStretch.html">
+<b><i>Gaussian Contrast Stretch</i></b></a> are similarly related tools frequently used for image contrast 
+adjustment, where the reference CDFs are uniform and Gaussian (normal) respectively.</p>
+
+<p>Notes: 
+<ul>
+<br><li>The algorithm can introduces gaps in the histograms (steps in the CDF). This is to be expected 
+because the histogram is being distorted. This is more prevalent for integer-level images.</li>
+
+<br><li>Histogram matching is not appropriate for images containing categorical (class) data. It is also not 
+intended for images containing RGB data, in which case, the colour channels should be split using the 
+<a href="SplitColourComposite.html"><b><i>Split Colour Composite</i></b></a> tool.</li>
+</ul>
+</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="TwoImageHistogramMatching.html">Histogram Matching (Two Images)</a></li>
+<li><a href="HistogramEqualization.html">Histogram Equalization</a></li>
+<li><a href="GaussianStretch.html">Gaussian Contrast Stretch</a></li>
+<li><a href="SplitColourComposite.html">Split Colour Composite</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+</ul>
+</body>
+</html>

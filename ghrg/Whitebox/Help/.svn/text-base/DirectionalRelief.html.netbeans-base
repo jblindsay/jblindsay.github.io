@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Directional relief</h1>
+
+<p>This tool calculates the relief for each grid cell in a digital elevation model 
+    (DEM) in a specified direction. <b><i>Directional relief</i></b> is an index 
+    of the degree to which a DEM grid cell is higher or lower than its 
+    surroundings. It is calculated by subtracting the elevation of a DEM grid 
+    cell from the average elevation of those cells which lie between it and the 
+    edge of the DEM in a specified compass direction. Thus, positive values 
+    indicate that a grid cell is lower than the average elevation of the grid 
+    cells in a specific direction (i.e. relatively sheltered), whereas a 
+    negative <b><i>directional relief</i></b> indicates that the grid cell is 
+    higher (i.e. relatively exposed). The algorithm is based on a modification 
+    of the procedure described by Lapen and Martz (1993). The modifications 
+    include: (1) the ability to specify any direction between 0-degrees and 
+    360-degrees, and (2) the ability to use a distance-limited search, such that 
+    the ray-tracing procedure terminates before the DEM edge is reached for 
+    longer search paths. The algorithm works by tracing a ray from each grid 
+    cell in the direction of interest and evaluating the average elevation 
+    along the ray. Linear interpolation is used to estimate the elevation of the 
+    surface where a ray does not intersect the DEM grid precisely at one of its 
+    nodes. The user must specify the name of an input DEM raster file, the output 
+    raster name, and a hypothetical wind direction. Furthermore, the user is able 
+    to constrain the maximum search distance for the ray tracing. If no maximum 
+    search distance is specified, each ray will be traced to the edge of the DEM. 
+    The units of the output image are the same as the input DEM.</p>
+
+<p>Ray-tracing is a highly computationally intensive task and therefore this tool 
+    may take considerable time to operate for larger sized DEMs. 
+    <b><i>NoData</i></b> valued grid cells in the input image will be 
+    assigned <b><i>NoData</i></b> values in the output image. The output raster 
+    is of the <i>float</i> data type and <i>continuous</i> data scale. 
+    <b><i>Directional relief</i></b> is best displayed using the blue-white-red 
+    bipolar palette to distinguish between the positive and negative values that 
+    are present in the output.</p>
+
+<p><br>
+</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="WindRelatedTAs.html">Wind-related terrain attributes</a></li>
+</ul>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+ <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

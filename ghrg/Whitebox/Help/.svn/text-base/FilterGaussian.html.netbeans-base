@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Gaussian filter</h1>
+
+<p>This tool can be used to perform a <b><i>Gaussian filter</i></b> on a raster image. A <b><i>Gaussian filter</i></b> can be used to emphasize the longer-range variability in an image, effectively acting to smooth the image. This can be useful for reducing the noise in an image. The algorithm operates by convolving a kernel of weights with each grid cell and its neighbours in an image. The weights of the
+convolution kernel are determined by the 2-dimensional Gaussian (i.e. normal) curve, which gives stronger weighting to cells nearer the kernel centre. It is this characteristic that makes the <b><i>Gaussian filter</i></b> an attractive alternative for image smoothing and noise reduction than the <a href="FilterMean.html">Mean filter</a>. The size of the filter is determined by setting the standard deviation parameter; the larger the standard deviation the larger the resulting filter kernel. The standard deviation can be any number in the range 0.5-20.</p>
+
+<p><b><i>NoData</i></b> values in the input image are replaced with the average value of all valid cells within the kernel. This is also the procedure when the neighbourhood around a grid cell extends beyond the edge of the grid. The output raster is of the <i>float</i> data type and
+<i>continuous</i> data scale.</p>
+<br>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="SpatialFilters.html">Spatial filters</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

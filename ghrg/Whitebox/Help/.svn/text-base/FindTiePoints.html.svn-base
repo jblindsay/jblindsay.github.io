@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Find tie points</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+        
+    </head>
+    <body>
+
+        <h1>Find tie points</h1>
+
+        <p>This tool locates matching points between two overlapping images using the Speeded Up Robust 
+        Features (SURF) algorithm (Bay et al., 2008). The SURF algorithm identifies key pixels in an image 
+        that are likely to remain identifiable after various radiometric and geometric distortions. The 
+        matched points that are identified using this tool can later be used as inputs to an 
+        <a href="ImageRectification.html"><b><i>image-to-image registration</i></b></a> operation.</p>
+        
+        <p>The SURF parameters include a threshold value, the number of octaves, and a matching threshold. 
+        A lower SURF threshold value will result in a greater number of SURF points located in each 
+        of the two images and vice versa. The number of identified points is relatively insensitive 
+        to the number of octaves and the default value of 4 is a reasonable value for most image pairs. 
+        The matching threshold is used during the SURF point matching process (i.e. the process of 
+        finding potential pairs of corresponding points between the left and right images). It is used 
+        to determine whether two SURF points are similar enough in character to be considered 
+        corresponding points. The matching process operates as follows. Each SURF point in the left 
+        image is selected. The Euclidean distance in attribute-space is calculated between the 
+        left-image point and each right-image SURF point. When the Euclidean distance of the best 
+        fitting pair (i.e. smallest attribute distance between left-image/right-image points) divided 
+        by the distance the second best fitting pair is less than the matching threshold, the pair are 
+        considered to be a left/right-correspondence. Thus, a lower matching threshold 
+        applies a more rigorous matching criteria, resulting in fewer corresponding points located, and 
+        vice versa.</p>
+
+        <p>While the above process locates potential corresponding points between the left and right 
+        images based on their SURF attributes, there is still potential that this matched point set 
+        will contain outliers that are not true corresponding points. To help remove these outlier 
+        points, the algorithm calculates a two-dimensional polynomial rectification transformation 
+        model, which provides the spatial mapping of the one image's SURF points onto the second image's 
+        points. Point matches that are not true correspondences will be apparent in this transformation 
+        model as outliers. The user can select the polynomial order of the transformation model and the 
+        maximum allowable error value (in pixels), which determines which point matches are removed. 
+        Notice that, 1) a polynomial order of more than 2 is not generally advisable, and 2) this 
+        method for removing outlier matching points does not work well where there is extensive 
+        topographic relief or off-terrain objects (e.g. buildings) in the scene.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ImageRectification.html">Image Rectification</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                leftInputFile = wd + "leftImage.dep"<br>
+                rightinputFile = wd + "rightImage.dep"<br>
+                leftOutputFile = wd + "leftPoints.shp"<br>
+                rightOutputFile = wd + "rightPoints.shp"<br>
+                threshold = "0.004"<br>
+                octaves = "4"<br>
+                matchingValue = "0.6"<br>
+                removalThreshold = "2.0"<br>
+                polyOrder = "1"<br>
+                args = [leftInputFile, rightinputFile, leftOutputFile, rightOutputFile, threshold, octaves, matchingValue, removalThreshold, polyOrder]<br>
+                pluginHost.runPlugin("FindTiePoints", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def leftInputFile = wd + "leftImage.dep"<br>
+                def rightinputFile = wd + "rightImage.dep"<br>
+                def leftOutputFile = wd + "leftPoints.shp"<br>
+                def rightOutputFile = wd + "rightPoints.shp"<br>
+                def threshold = "0.004"<br>
+                def octaves = "4"<br>
+                def matchingValue = "0.6"<br>
+                def removalThreshold = "2.0"<br>
+                def polyOrder = "1"<br>
+                args = [leftInputFile, rightinputFile, leftOutputFile, rightOutputFile, threshold, octaves, matchingValue, removalThreshold, polyOrder]<br>
+                pluginHost.runPlugin("FindTiePoints", args, false)<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Mosaic with feathering</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Mosaic with feathering</h1>
+
+        <p>This tool will create a mosaic from two input images. It is similar in 
+            operation to the <a href="Mosaic.html"><b><i>Mosaic</i></b></a> tool, 
+            however, this tool is the preferred method of mosaicing images when there is 
+            significant overlap between the images. For areas of overlap, the feathering 
+            method will calculate the output value as a weighted combination of the two 
+            input values, where the weights are derived from the squared distance of the 
+            pixel to the edge of the data in each of the input raster files. Therefore, 
+            less weight is assigned to an image's pixel value where the pixel is very near 
+            the edge of the image. Note that the distance is actually calculated to the 
+            edge of the data and not the edge of the grid, taking into account the fact that 
+            rectified images often contain areas of <b><i>NoData</i></b> values near grid 
+            edges if the data are rotated. The result of this feathering method is that 
+            the output mosaic image should have very little evidence of the original image 
+            edges within the overlapping area. Histogram matching can also be performed 
+            on one of the input images (i.e. the 'Append' image) to force its radiometric 
+            properties (contrast) to match that of the 'Base' image. If this option is 
+            selected, the user should specify the name of the image with the superior 
+            contrast characteristics as the 'Base' image. If histogram matching is not used, 
+            there is no difference between either of the two input images. Note that this 
+            tool will create several temporary images, which should be automatically 
+            deleted upon completion.</p>
+
+        <p>Unlike the <a href="Mosaic.html"><b><i>Mosaic</i></b></a> tool, which can take 
+            multiple input images, this tool only accepts two input images. 
+            <b><i>Mosaic</i></b> is therefore useful when there are many, adjacent or 
+            only slightly overlapping images, e.g. for data sets of interpolated LiDAR 
+            DEM tiles.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Mosaic.html">Mosaic</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+            <li><a href="Resample.html">Resample</a></li>
+        </ul>
+    </body>
+</html>

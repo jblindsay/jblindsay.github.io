@@ -1,0 +1,128 @@
+<!--
+Copyright (C) 2013 Dr. John Lindsay <jlindsay@uoguelph.ca>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Getting the Whitebox source code</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../Help.css">
+    </head>
+    <body>
+        <div>
+            <h1>Getting the Whitebox source code</h1>
+            <h2><br>By John Lindsay, Ph.D. (Last modified, May 2013)</h2>
+            
+            <p>You can view the source code for any plugin tool in Whitebox 
+            simply by pressing the 'View Code' button on the tool's dialog. 
+            This code is however not live, in the sense that you cannot modify 
+            it and see changes in the program. To do this, you would need to 
+            go to the project's source code. If you are serious about developing 
+            for Whitebox you are going to want to access the source code.</p>
+            
+            <p>Whitebox is currently hosted through a subversion repository on 
+            GoogleCode (http://code.google.com/p/whitebox-geospatial-analysis-tools/source/checkout). 
+            You can view the complete development version (i.e. the most current 
+            version of Whitebox) on this site. You can also download the code 
+            locally onto your computer. This can be done quite easily using an 
+            integrated development environment (IDE) such as Netbeans. You'll need 
+            to ensure that you have the Java Development Kit (JDK) 7.0 or higher 
+            installed on your machine (visit the Oracle Java site for instructions) 
+            and the latest version of the excellent Netbeans IDE. (It is likely 
+            the case that you could use an alternative IDE such as Eclipse, but 
+            the following instructions assume you are using Netbeans.)</p>
+            
+            <p>In Netbeans, choose the Team->Subversion->Checkout. In the Repository 
+            URL textbox, add the following:<br>
+            http://whitebox-geospatial-analysis-tools.googlecode.com/svn/trunk/ whitebox-geospatial-analysis-tools-read-only
+            <br>Then choose a local directory on your computer to download the 
+            repository into. Notice that you will need to be connected to the 
+            internet for this operaton. If you wish, you can request to be added 
+            to the list of Whitebox developers, which would allow you to commit 
+            changes to the source code.</p>
+            
+            <p>Once the data has been downloaded, open all of the projects that 
+            are included. You'll see that there are at least 16 Whitebox projects, 
+            most of which are associated with specific toolboxes, e.g. GISTools, 
+            ImageProcessingTools, and StatsTools. The WhiteboxAPI and WhiteboxGIS 
+            projects are the most important. The WhiteboxAPI project contains all 
+            of the common classes and files that each of the other projects rely 
+            on. For example, this is where you will find the WhiteboxRaster  and 
+            ShapeFile classes that allow the various plugin tools to access and 
+            manipulate raster and vector data. The WhiteboxGIS project is the 
+            site of the main Whitebox graphical user interface (GUI). Most of 
+            what you see when you run Whitebox is contained in this project. 
+            You will need to set the WhiteboxGIS as the main project by 
+            right-clicking over the project name in the Projects tab and selecting 
+            'Set as Main Project'. This important step will tell Netbeans which 
+            project it should go to first when the user selects the run or debug 
+            buttons from the toolbar.</p>
+            
+            <p>Before you can run Whitebox, however, there are a few things that 
+            you are going to have to set. First, if you go to the 'Files' tab on 
+            the upper left-hand corner, you will see that there is a folder 
+            within the WhiteboxGIS project called 'resources'. This is an 
+            important folder that contains many necessary files for Whitebox to 
+            run correctly. When you first launch Whitebox, it will look for this 
+            folder. Now, here is the confusing part. When you run Whitebox from 
+            Netbeans by either pressing the 'run' or 'debug' buttons, it is 
+            actually running a copy of the WhiteboxGIS.jar file that lives in: 
+            'build'->'classes'->'whiteboxgis'. If you don't see that folder in 
+            your files tab yet, it's because Netbeans hasn't created it until 
+            you first try to run it. If the folder doesn't exist, then neither 
+            does the WhiteboxGIS.jar (which it will build when you try to run) 
+            and also, neither does the 'resources' folder. So, you'll need to 
+            select either run or debug. In doing so, expect it to fail this first 
+            time, simply because there is no 'resources' folder. However, this 
+            first run will create the necessary, 'build'->'classes'->'whiteboxgis' 
+            folder into which you can copy the 'resources' folder. This is 
+            perhaps a bit confusing...the files contained in that resources 
+            folder that you have within your WhiteboxGIS project are actually 
+            'under Subversion', meaning that every time you modify any of these 
+            files, it wants to let the online repository know and vice versa. It 
+            actually contains a lot of hidden files to do this. You don't really 
+            want to copy these hidden files into the 'build'->'classes'->'whiteboxgis' 
+            folder, so instead you have to 'export' this directory into this location.</p>
+            
+            <p>To export the 'resources' folder, first create a new empty folder 
+                within 'build'->'classes'->'whiteboxgis' called 'resources' (you 
+            can do this within Netbeans from the 'Files' tab). Now right-click 
+            over the resources folder that is within the WhiteboxGIS project (i.e. 
+            the one that is actually full of files) and select 'Subversion'->
+            'Export...'. Now export the folder into your newly created 'resources' 
+            folder within 'build'->'classes'->'whiteboxgis'. I've probably 
+            made this sound more confusing that it really is.</p>
+            
+            <p>That's it, you should now be able to run Whitebox. If you select 
+            debug and nothing happens, it may be the result of a property 
+            setting that is not suited to computers with limited RAM. Right-click 
+            over the WhiteboxGIS project in the Projects tab and select 'Properties'. 
+            Under the 'run' tab you will find the VM (virtual machine) option, 
+            -Xmx2g. This is essentially telling Netbeans to try to set the Java 
+            virtual machine (JVM) up to use 2GB of memory. If your computer only 
+            has 2GB of memory or less, this is going to be a problem. Simply lower 
+            the value (e.g. -Xmx500m) or delete the parameter all together and 
+            try to debug again. You should find that it works this time.</p>
+            
+            <p>So there you go! You now have the Whitebox source code up and 
+            running on your computer. Now it's time to have some fun playing with 
+            the code. You can start by writing your own plugin tool (see tutorial 
+            on this topic). If you do write a tool, be sure to send it to me 
+            and I'll be happy to include it in the next version of Whitebox. 
+            Happy coding.</p>
+        </div>
+    </body>
+</html>

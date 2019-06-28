@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+        <title>GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body><h1>Weighted sum</h1>
+
+        <p>
+            This tool performs a weighted summation on multiple input images. This tool can be used to combine multiple factors with varying levels of weight or relative importance. For example, let's say that you wish to make a new variable that combines the influences of local slope gradient, elevation, and the wetness index, and that the relative importance, or weighting, of these three factors is 0.5, 0.2, and 0.3 respectively. If a particular grid cell has <i>slope</i> = 6.4, <i>elevation</i> = 200, and <i>wetness index</i> = 5.2 then the <b><i>Weighted Sum</b></i> tool will estimate the output value as: </p>
+
+    <p><code><i>S</i> = 6.4 &#x00D7 0.5 + 200 &#x00D7 0.2 + 5.2 &#x00D7 0.3 = 44.76</code></p>
+
+    <p>Note that the weights in the above example sum to one. In fact, the algorithm will convert the user-defined weights internally such that this is always the case. As such, the user can specify the relative weights as decimals, percentages, or relative weightings (e.g. slope is 2 times more important than elevation, in which case the weights may not sum to 1 or 100).</p>
+
+    <p>In the example above, the final sum is heavily influenced by the relatively large value of <i>elevation</i>, despite the fact that this factor has the lowest weighting. This occurs because each of the factors are not on a common scale (e.g. 0-1). In many GIS applications, e.g. multi-criteria evaluation (MCE), each of the factors contributing to the overlay must lie on the same data scale. To achieve this, you could first perform a <a href="ContrastStretch.html"><b><i>Contrast Stretch</b></i></a>, or more simply, you could use the <a href="WeightedOverlay.html"><b><i>Weighted Overlay</b></i></a> tool. The <a href="WeightedOverlay.html"><b><i>Weighted Overlay</b></i></a> tool is similar to <b><i>Weighted Sum</b></i>, however, it is more powerful because it automatically converts the input factors to a common, user-defined scale, and also allows the user to specify cost factors (i.e. those factors for which higher values are <i>less</i> suitable).</p>
+
+<p><b><i>NoData</b></i> valued grid cells in any of the input images will be assigned <b><i>NoData</b></i> values in the output image. The output raster is of the <i>float</i> data type and <i>continuous</i> data scale.</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+
+    <li><a href="WeightedOverlay.html">Weighted overlay</a></li>
+    <li><a href="ContrastStretch.html">Contrast stretch</a></li>
+
+</ul>
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+    <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

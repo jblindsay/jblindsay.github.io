@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+<title>GAT Help</title>
+<link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+<body><h1>Buffer (raster)</h1>
+
+<p>
+This tool can be used to identify an area of interest within a specified distance of features of interest 
+in a <b>raster</b> data set. For the equivalent operation performed on a vector data set, see the 
+<a href="BufferVector.html">Buffer (Vector)</a> tool. The two tools differ significantly in their implementations.</p> 
+
+<p>The <a href="EuclideanDistance.html">Euclidean distance</a> (i.e. straight-line distance) is calculated 
+between each grid cell and the nearest 'target cell' in the input image. Target cells are all non-zero, 
+non-NoData grid cells. Because <b><i>NoData</b></i> values in the input image are assigned the 
+<b><i>NoData</b></i> value in the output image, the only valid background value in the input image is zero.</p>
+
+<p>The user must specify the input target image, the output image name, the desired buffer size, and the 
+units that the buffer size are measured in. Buffer size units are either  map units (e.g. meters) or grid 
+cells.</p>
+<p>Buffer grid cells in the output image are assigned the value of the nearest target grid cell in the input 
+image. All non-buffer grid cells are assigned the <b><i>NoData</b></i> in the output. Therefore, the output 
+of <b><i>Buffer</b></i> is essentially the intesection between the 
+<a href="EuclideanAllocation.html">Euclidean allocation</a> image and a <b><i>Less Than Or Equal 
+To</i></b> comparison operation on the <a href="EuclideanDistance.html">Euclidean distance</a> image, 
+specifying some maximum distance.</p>
+<p>Three temporary images are created during the calculation and should be automatically deleted upon 
+completion. There must be enough room on the computer hard drive to store these temporary images.</p>
+
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="BufferVector.html">Buffer (Vector)</a></li>
+<li><a href="EuclideanDistance.html">Euclidean distance</a></li>
+<li><a href="EuclideanAllocation.html">Euclidean allocation</a></li>
+</ul>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Image correlation</h1>
+
+<p>This tool can be used to estimate the Pearson product-moment correlation
+coefficient (<i>r</i>) between two images. The <i>r</i>-value is a measure of
+the linear association in the variation of the input variables (images, in this
+case). The coefficient ranges from -1, indicated a perfect negative linear
+association, to 1, indicated a perfect positive linear association. An
+<i>r</i>-value of 0 indicates no correlation between the test variables. </p>
+
+<p>Note that this index is a measure of the <i>linear</i> association; two
+variables may be strongly related by a non-linear association (e.g. a power
+function curve) which will lead to an apparent weak association based on the
+Pearson coefficient. In fact, non-linear associations are very common among
+spatial variables, e.g. terrain indices such as slope and contributing area. In
+such cases, it is advisable that the input images are transformed prior to the
+estimation of the Pearson coefficint, or that an alternative, non-parametric
+statistic be used, e.g. the Spearman rank correlation coefficient. </p>
+
+<p>The user must specify the names of two or more input images. All input
+images must share the same grid, as the coefficient requires a comparison of a
+pair of images on a grid-cell-by-grid-cell basis. If more than two image names
+are selected, the correlation coefficent will be calculated for each pair of
+images and reported in the text output as a correlation matrix. Caution must be
+exercised when attempted to estimate the significance of a correlation
+coefficent derived from image data. The remarkably high <i>N</i>-value
+(essentially the number of pixels in the image pair) means that even small
+correlation coefficients can be found to be statistically significant, despite
+being practically insignificant.</p>
+
+<p><b><i>NoData</i></b> values in either of the two input images are ignored
+during the calculation of the correlation between images.</p>
+<br>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="CorrelationForAttributes.html">Correlation For Attributes</a></li>
+  <li><a href="ImageRegression.html">Image Regression</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+ <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

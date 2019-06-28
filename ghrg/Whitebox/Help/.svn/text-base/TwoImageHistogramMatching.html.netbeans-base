@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Histogram matching (two images)</h1>
+
+<p>This tool alters the cumulative distribution function (CDF) of a raster image to match, as closely as 
+possible, the CDF of a reference image. Histogram matching works by first calculating the histograms of the 
+input image (i.e. the image to be adjusted) and the reference image. These histograms are then converted into 
+CDFs. Each grid cell value in the input image is then mapped to the corresponding value in the reference CDF 
+that has the an equivalent (or as close as possible) cumulative probability value. A common application of 
+this is to match the images from two sensors with slightly different responses, or images from the same 
+sensor, but the sensor's response is known to change over time.</p>
+
+<p>Histogram matching (two images) is related to the <a href="HistogramMatching.html">
+<b><i>Histogram Matching</i></b></a> tool, which can be used when a reference CDF is used directly rather 
+than deriving it from a reference image. <a href="HistogramEqualization.html"><b><i>Histogram 
+Equalization</i></b></a> and <a href="GaussianStretch.html">
+<b><i>Gaussian Contrast Stretch</i></b></a> are similarly related tools, where the reference CDFs are 
+uniform and Gaussian (normal) respectively.</p>
+
+<p>Notes: 
+<ul>
+<br><li>The size of the two images (rows and columns) do not need to be the same, nor do they need to be 
+geographically overlapping.</li>
+
+<br><li>The algorithm can introduces gaps in the histograms (steps in the CDF). This is to be expected because 
+the histograms are being distorted. This is more prevalent for integer-level images.</li>
+
+<br><li>Histogram matching is not appropriate for images containing categorical (class) data. It is also not 
+intended for images containing RGB data, in which case, the colour channels should be split using the 
+<a href="SplitColourComposite.html"><b><i>Split Colour Composite</i></b></a> tool.</li>
+</ul>
+</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="HistogramMatching.html">Histogram Matching</a></li>
+<li><a href="HistogramEqualization.html">Histogram Equalization</a></li>
+<li><a href="GaussianStretch.html">Gaussian Contrast Stretch</a></li>
+<li><a href="SplitColourComposite.html">Split Colour Composite</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+</ul>
+</body>
+</html>

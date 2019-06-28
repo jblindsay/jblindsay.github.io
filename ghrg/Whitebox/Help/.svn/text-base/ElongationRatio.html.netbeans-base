@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Elongation ratio</h1>
+
+        <p>This tool can be used to calculate the elongation ratio for polygons. 
+            It will work for either raster or vector input files. If a raster 
+            file is input, the grid should contain polygons with unique 
+            identifiers. Raster input files also require the name of the output 
+            raster file (where the elongation ratio will be assigned to each 
+            feature in the input file), the specified option of outputting text, 
+            and whether or not zero values should be treated as background 
+            values. If a vector shapefile is specified as the input file, the
+            only required input is the name of the file. The elongation ratio 
+            values calculated for each vector polygon feature will be placed in 
+            the accompanying database file (.dbf) as an elongation field 
+            (ELONGATION) and an elongation direction field (ELONG_DIR). The 
+            resulting database file will be automatically displayed after the 
+            tool has completed.</p>
+
+        <p>The elongation ratio (<i>E</i>) is:
+            <br><br><code>E = 1 - S / L</code><br> <br>Where <i>S</i> is the 
+            short-axis length, and <i>L</i> is the long-axis length. Axes 
+            lengths are determined by estimating the 
+            <a href="MinimumBoundingBox.html"><i><b>minimum bounding 
+                        box</b></i></a>.</p>
+
+        <p>The elongation ratio provides similar information as the 
+            <a href="LinearityIndex.html"><i><b>Linearity Index</b></i></a>. 
+            The ratio is not an adequate measure of overall polygon 
+            narrowness, because a highly sinuous but narrow polygon will have a 
+            low linearity (elongation) owing to the compact nature of these 
+            polygon.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LinearityIndex.html">Linearity Index</a></li>
+            <li><a href="MinimumBoundingBox.html">Minimum Bounding Box</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012)</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!--
+Copyright (C) 2013 Dr. John Lindsay <jlindsay@uoguelph.ca>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Aggregate</title>
+        <link rel="stylesheet" type="text/css" href="Help.css" />
+    <link href="../../Scripts and style sheets/style_2.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>Aggregate</h1>
+        <div class="bodyText">This tool can be used to reduce the grid resolution of a raster 
+            by a user specified amount. For example, using an aggregation 
+            factor of 2 would result in a raster with half the number of rows 
+            and columns. The grid cell values in the output image will consist of 
+            the mean, sum, maximum, minimum, or range of the overlapping grid 
+            cells in the input raster (four cells in the case of an aggregation 
+            factor of 2).</div>
+
+    <h2 >See Also:</h2>
+        <ul>
+            <li class="bodyText">None</li>
+        </ul>
+        
+        <h2 >Scripting:</h2>
+        <p class="bodyText">The following is an example of a Python script that uses this tool:</p>
+
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                <span class="bodyText_code">wd = pluginHost.getWorkingDirectory()<br />
+                inputFile = wd + "DEM filled.dep"<br />
+                outputFile = wd + "output.dep"<br />
+                aggFactor = "2"<br />
+                aggType = "mean"<br />
+                args = [inputFile, outputFile, aggFactor, aggType]<br />
+                pluginHost.runPlugin("Aggregate", args, False)</span><br />
+            </code>
+        </p>
+
+        <p>This is a Groovy script also using this tool:</p>
+
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                <span class="bodyText_code">def wd = pluginHost.getWorkingDirectory()<br />
+                def inputFile = wd + "DEM filled.dep"<br />
+                def outputFile = wd + "output.dep"<br />
+                def aggFactor = "2"<br />
+                def aggType = "mean"<br />
+                String[] args = [inputFile, outputFile, aggFactor, aggType]<br />
+                pluginHost.runPlugin("Aggregate", args, false)</span><br />
+            </code>
+        </p>
+
+        <h2 >Credits:</h2>
+        <ul>
+            <li class="bodyText">John Lindsay (2013) email: <a href="mailto:jlindsay@uoguelph.ca">jlindsay@uoguelph.ca</a></li>
+        </ul>
+    </body>
+</html>

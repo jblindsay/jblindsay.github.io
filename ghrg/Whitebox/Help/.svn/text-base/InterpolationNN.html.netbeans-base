@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+  <h1>Nearest-neighbour (NN) Interpolation</h1>
+
+<p>
+This tool can be used to interpolate a regular grid raster from an XYZ points dataset using a nearest-neighbour (NN) interpolation method. Notice that this interpolation method is particularly suited to situations where the surface contains numerous discontinuities, such as off-terrain objects, and when the point density is high, such as is frequently the case with LiDAR data sets. The user specifies the name of the input points file and the name of the output raster grid to be created. The input points file can either be a binary file containing X-coordinate, Y-coordinate, and Z-value triplets (in 64-bit double-precision floating-point format with an .xyz file extension) or an ASCII text file. If an ASCII text file is input, the user may specify which columns correspond to the X- and Y-coordinates and Z-values, i.e. it may be a table containing numerous columns. There is no need to specify the corresponding columns if a binary .xyz file is used because the format is assumed to contain XYZ triplets in regular sequence. Notice that if an ASCII text file is input, the program will automatically create and store a new binary .xyz points file, which can be used at a later date. Reading binary data from storage is many times faster for binary data than ASCII data, which is why the binary file is created and stored. The user must ensure that there is sufficient storage on the disc for the new binary file.</p>
+<p>The user must also specify the search radius and the grid resolution of the output raster. Grid cells that have no points within the search radius assigned the <i><b>NoData</i></b> value in the output image. The output raster is of the <i>float</i> data type and <i>continuous</i> data scale.</p>
+<p>Notice that LiDAR datasets contained within LAS files (.las file extension) can be interpolated using the complementary <a href="LiDAR_NN_interpolation.html"><b><i>LiDAR NN interpolator</b></i></a>, which provides a richer set of interpolation options including the ability to intperolate first or last returns only.</p>
+
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="InterpolationIDW.html">IDW Interpolation</a></li>
+<li><a href="LiDAR_NN_interpolation.html">LiDAR NN Interpolation</a></li>
+</ul>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

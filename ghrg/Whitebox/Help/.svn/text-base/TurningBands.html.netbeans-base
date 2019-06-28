@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Turning bands simulation</h1>
+
+        <p>This tool can be used to create a random field using the turning 
+            bands algorithm. The user must specify the name of a base raster image 
+            from which the output raster will derive its geographical information, 
+            dimensions (rows and columns), and other information. In addition, the 
+            range, in x-y units, must be specified. The range determines the 
+            correlation length of the resulting field. For a good description of 
+            how the algorithm works, see Carr (2001). The turning bands method 
+            creates a number of 1-D simulations (called bands) and fuses these 
+            together to create a 2-D error field. There is no natural stopping 
+            condition in this process, so the user must specify the number of 
+            bands to create. The default value of 1000 is reasonable. The fewer 
+            iterations used, the more prevalent the 1-D simulations will be in 
+            the output error image, effectively creating artifacts. Run time 
+            increases with the number of iterations.</p>
+
+        <p>Turning bands simulation is a commonly applied technique in Monte Carlo 
+            style simulations of uncertainty. As such, it is frequently run many 
+            times during a simulation (often 1000s of times). When this is the case, 
+            algorithm performance and efficiency are key considerations. The tool 
+            can optionally be run in 'fast mode' which places the output grid 
+            entirely in memory. This may not be possible for larger rasters or 
+            on computers with limited memory resources. The 
+            <a href="StochasticDepressionAnalysis.html"><b><i>Stochastic 
+                        Depression Analysis</i></b></a> tool is an example of 
+            a tool that uses the turning bands method for a Monte Carlo based 
+            uncertainty analysis to create each of the realizations.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="StochasticDepressionAnalysis.html">Stochastic Depression Analysis</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Carr, JR. 2002. Data visualization in the geosciences. Prentice 
+                Hall, 267 pp.</li>
+        </ul>
+    </body>
+</html>

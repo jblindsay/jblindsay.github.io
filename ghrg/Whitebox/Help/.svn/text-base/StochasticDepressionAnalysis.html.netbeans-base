@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Stochastic depression analysis</h1>
+
+        <p>This tool can be used to map topographic depressions in a digital 
+            elevation model (DEM), taking into account the uncertainty in 
+            depression shape resulting from DEM error. The tool uses a stochastic 
+            simulation approach (i.e. Monte Carlo method) to map depressions. It 
+            is a re-implementation of the algorithm described by Lindsay and 
+            Creed (2006), originally appearing in the Terrain Analysis System 
+            (TAS) software. Whitebox's stochastic depression analysis tool 
+            contains several improvements compared to the earlier TAS algorithm. 
+        </p>
+
+        <p>The Whitebox algorithm differs in the way that each realization, and 
+            in particular the error fields, are created. It uses a 
+            <a href="TurningBands.html">turning bands</a> technique to create 
+            error fields. The turning bands method is used to ensure that the 
+            error fields have the desired spatial characteristics (e.g. 
+            autocorrelation and range) and <a href="HistogramMatching.html">
+                Histogram Matching</a> is used to ensure they have the 
+            appropriate statistical distribution.</p> 
+
+        <p>By using histogram matching, the modelled DEM error can follow any 
+            desirable statistical distribution. For example, it is commonly the 
+            case that error within a DEM is more peaked than would be described 
+            by a Guassian (normal) distribution. The user specifies the shape of 
+            the error distribution by inputing a histogram. This is simply a 
+            text file with two columns, the first is error value (in the same 
+            units as the z-units of the DEM) and the second is the frequency of 
+            occurrence (for additional information see 
+            <a href="HistogramMatching.html"><b><i>Histogram Matching</i></b></a>). 
+            This can be generated in a spreadsheet for theoretical 
+            distributions (e.g. if the only error information that is available 
+            is an RMSE value derived from the DEM's metadata, then it is 
+            reasonable to assume a Gaussian distribution and to create the 
+            appropriate histogram using the Gaussian probability function in a 
+            spreadsheet). The preferred method for generating the input error 
+            histogram, however, is to use ground control points (GCPs). If  
+            several GCPs are available, it is possible to derive an empirical 
+            error distribution form the data, again using a spreadsheet to plot 
+            the frequency distribution.</p>
+
+        <p>The added benefit of having GCPs is that it these same data can also 
+            be used calculate the range, which is a measure of the correlation 
+            length within the error fields. This value must be specified, in 
+            the same units as the DEM x-y units. If GCPs are available, the range 
+            can be derived from the variogram. In this way, it is possible to 
+            ensure that each DEM realization in the simulation has the appropriate 
+            spatial and statistical error properties.</p>
+
+        <p>The tool effectively creates a user specified number of DEM 
+            realizations, i.e. multiple equiprobable models of the topography 
+            given the known error characteristics. Each realization is created 
+            by adding a unique error field to the original DEM. The topographic 
+            depressions within the DEM realization are then mapped by differencing 
+            a depression-filled version of the realization from the non-depression 
+            filled realization. Depressions are filled using the highly efficient 
+            <a href="FillDepressions.html">Wang and Liu (2006) depression filling</a> 
+            algorithm. The use of this algorithm does limit the application of 
+            this tool to DEMs that fit in memory. With each iteration, grid cells 
+            that are affected by the depression filling process are flagged and 
+            entered into a cumulative grid. In this way, the probability of a 
+            grid cell belonging to a depression feature (<i>p<sub>dep</sub></i>), 
+            given the uncertainty in the DEM, can be mapped. The simulation will 
+            continue until the user-specified number of iterations has been 
+            reached. This stochastic analysis has been found to provide 
+            accurate maps of depressions (or wetlands, in some landscapes) even 
+            with moderate resolution DEM data. The accuracy of the results will 
+            depend, however, on the specific DEM data and the landscape 
+            characteristics.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FillDepressions.html">Fill Depressions</a></li>
+            <li><a href="TurningBands.html">Turning Bands Simulation</a></li>
+            <li><a href="HistogramMatching.html">Histogram Matching</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay and Beau Ahrens</a> (2012)</li>
+        </ul>
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Carr, JR. 2002. Data visualization in the geosciences. Prentice 
+                Hall, 267 pp.</li>
+            <li>Lindsay JB, Creed IF. 2006. Distinguishing between 
+                artefact and real depressions in digital elevation data. 
+                Computers and Geosciences, 32(8): 1192-1204. 
+                doi: 10.1016/j.cageo.2005.11.002.</li>
+        </ul>
+    </body>
+</html>

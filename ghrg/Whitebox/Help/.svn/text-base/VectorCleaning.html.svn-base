@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Vector cleaning</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Vector cleaning</h1>
+
+        <p>This tool can be used to correct the topology of a shapefile such that shared boundaries 
+        between neighbouring polygon features are correctly represented. This is achieved through 
+        making very small adjustments in node positions such that nodes that are nearer than the 
+        user-specified distance tolerance are snapped together. Sliver polygons are thereby removed. 
+        This can be an important procedure before carrying out a number of vector analysis operations 
+        including <a href="Dissolve.html"><b><i>Dissolve</i></b></a>.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Dissolve.html">Dissolve</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile = wd + "input.shp"<br>
+                outputFile = wd + "output.shp"<br>
+                tolerance = "0.01"<br>
+                args = [inputFile, outputFile, tolerance]<br>
+                pluginHost.runPlugin("VectorCleaning", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile = wd + "input.shp"<br>
+                def outputFile = wd + "output.shp"<br>
+                def tolerance = "0.01"<br>
+                String[] args = [inputFile, outputFile, tolerance]<br>
+                pluginHost.runPlugin("VectorCleaning", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

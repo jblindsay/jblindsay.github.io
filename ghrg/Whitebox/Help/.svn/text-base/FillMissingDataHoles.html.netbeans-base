@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+<title>GAT Help</title>
+<link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+<body>
+
+<h1>Fill missing data holes</h1>
+
+<p>
+This tool can be used to fill in small gaps in an image or digital elevation model (DEM). The gaps, or holes, must have <i><b>NoData</i></b> values (-32,768). If gaps do not currently have this characteristic, use the <b><i><a href="SetNoData.html">Set NoData Value</a></i></b> tool. All valid, <i><b>non-NoData</i></b> values in the input image will be assigned the same value in the output image.</p>
+<p>The user must specify the names of the input and output raster images as well as the <i><b>maximum cross-section length</i></b>. This distance, in grid cells, is used to determine how far the algorithm will search for valid, <i><b>non-NoData</i></b> values. The algorithm will search to a maximum of half this distance in each of the north, south, east, and west directions along N-S and E-W cross-sections. The valid end-point values and lengths of these two cross-sections are then used to linearly interpolate the new value. If only one of the two cross-sections were identified to have valid end-point values, then the estimation will be based on a single cross-section. If neither cross-section is created, the grid cell will be assigned the <i><b>NoData</i></b> value in the output image. Therefore, setting a larger <i><b>maximum cross-section length</i></b> allows for the filling of larger gaps in the input image. There is generally no issue with setting this parameter to a high value, since the algorithm will stop looking for a valid-valued end-point once one has been found in a particular direction, though this may make the tool operate slowly for some images.</p>
+
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+
+<li><a href="SetNoData.html">Set NoData Value</a></li>
+
+
+</ul>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

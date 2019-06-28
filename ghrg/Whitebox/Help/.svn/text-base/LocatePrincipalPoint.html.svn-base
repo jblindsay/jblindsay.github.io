@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Locate principal point</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Locate principal point</h1>
+
+        <p>This tool can be used to locate the principal point in an aerial photograph based on four 
+            or eight digitized fiducial marks. A fiducial mark is a visible marker placed at the corners 
+            and/or the side mid-points of an aerial photograph and are used for photogrammetric analyses. 
+            The user must specify the name of the fiducial mark vector file, which must be a shapefile of 
+            a <i>POINT ShapeType</i>. The output file will contain the single vector point situated at the 
+            intersection of the two or four lines connecting opposing fiducial marks. Note that if all 
+            eight fiducial marks are provided (i.e. the four corners and four side mid-points) then the 
+            principal point is estimated as the average location of the intersections of the two sets of 
+            two lines connecting opposing principal points (one set connecting corners and another connecting 
+            side mid-points).</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile = wd + "input.shp"<br>
+                outputFile = wd + "output.shp"<br>
+                args = [inputFile, outputFile]<br>
+                pluginHost.runPlugin("LocatePrincipalPoint", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile = wd + "input.shp"<br>
+                def outputFile = wd + "output.shp"<br>
+                String[] args = [inputFile, outputFile]<br>
+                pluginHost.runPlugin("LocatePrincipalPoint", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

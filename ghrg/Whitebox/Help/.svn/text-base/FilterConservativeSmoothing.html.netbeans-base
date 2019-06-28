@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Conservative smoothing filter</h1>
+
+<p>This tool performs a <b><i>conservative smoothing filter</i></b> on a raster image. 
+A <b><i>conservative smoothing filter</i></b> can be
+used to remove short-range variability in an image, effectively acting
+to smooth the image. It is particularly useful for eliminating local spikes and reducing the noise in 
+an image. The algorithm operates by calculating the minimum and maximum neighbouring values surrounding 
+a grid cell. If the cell at the centre of the kernel is greater than the calculated maximum value, it is 
+replaced with the maximum value in the output image. Similarly, if the cell value at the kernel centre is 
+less than the neighbouring minimum value, the corresponding grid cell in the output image is replaced 
+with the minimum value. This filter tends to alter an image ver little compared with other smoothing 
+filters such as the <a href="FilterMean.html">mean filter</a>, 
+the <a href="FilterEdgePreservingSmoothing.html">edge-preserving smoothing filter</a> (bilateral), 
+<a href="FilterMedian.html">median</a>,
+<a href="FilterGaussian.html">Gaussian</a>, or <a href="FilterOlympic.html">Olympic filters</a>.</p>
+
+<p>Neighbourhood size, or filter size, is determined by the user-defined <i>x</i> and
+<i>y</i> dimensions. These dimensions should be odd, positive integer values, e.g. 3,
+5, 7, 9... The user may also define the neighbourhood shape as either
+<b><i>squared</i></b> or <b><i>rounded</i></b>. A rounded neighbourhood
+approximates an ellipse; a rounded neighbourhood with equal <i>x</i> and <i>y</i> dimensions
+approximates a circle.</p>
+
+<p><b><i>NoData</i></b> values in the input image are ignored during filtering.
+When the neighbourhood around a grid cell extends beyond the edge of the grid,
+<b><i>NoData</i></b> values are assigned to these sites. The output raster is of
+the <i>float</i> data type and <i>continuous</i> data scale.</p>
+<br>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="SpatialFilters.html">Spatial Filters</a></li>
+</ul>
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+
+</body>
+</html>

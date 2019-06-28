@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Image de-striping</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+        
+    </head>
+    <body>
+
+        <h1>Image de-striping</h1>
+
+        <p>This tool is used to reduce the prevalence of artifact horizontal or vertical 
+        stripes in an image. These stripes are apparent as either unusually bright or 
+        dark single-cell wide lines and often occur as a result of scanning. In the 
+        horizontal mode, the algorithm works as follows:</p>
+        <ol>
+		<li>Each grid cell is scanned in order and their values are retreived.</li>
+		<li>For each visited cell, if the absolute difference in cell values in the 
+		rows above and below the cell exceeds the user-specified threshold value, 
+		the same analysis is carried out for the two cells on either side of the 
+		cell of interest.</li>
+		<li>If each of the absolute differences calculated exceeds the threshold, 
+		the value of the cell of interest is replaced with the average of the 
+		cells in the rows above and below in the output image. Otherwise, the 
+		raw cell value is output.</li>
+        </ol>
+		<p>The algorithm is carried in parallel to increase performance. One 
+		consequence is that the progress will not be updated while the 
+		analysis is carried out.</p>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile = wd + "input.dep"<br>
+                outputFile = wd + "output.dep"<br>
+                threshold = "3.0"<br>
+                direction = "horizontal"<br>
+                args = [inputFile, outputFile, threshold, direction]<br>
+                pluginHost.runPlugin("ImageDestriping", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile = wd + "input.dep"<br>
+                def outputFile = wd + "output.dep"<br>
+                def threshold = "5.0"<br>
+                def direction = "vertical"<br>
+                String[] args = [inputFile, outputFile, threshold, direction]<br>
+                pluginHost.runPlugin("ImageDestriping", args, false)<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Extend vector lines</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Extend vector lines</h1>
+
+        <p>This tool can be used to extend vector lines by a specified distance. The user 
+        must input the names of the input and output shapefiles, the distance to extend 
+        features by, and whether to extend both ends, line starts, or line ends. The input 
+        shapefile must be of a POLYLINE base shape type.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile = wd + "input.shp"<br>
+                outputFile = wd + "output.shp"<br>
+                extendDist = "1000.0"<br>
+                method = "both ends"<br>
+                args = [inputFile, outputFile, extendDist, method]<br>
+                pluginHost.runPlugin("ExtendVectorLines", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile = wd + "input.shp"<br>
+                def outputFile = wd + "output.shp"<br>
+                def extendDist = "1000.0"<br>
+                def method = "line start"<br>
+                String[] args = [inputFile, outputFile, extendDist, method]<br>
+                pluginHost.runPlugin("ExtendVectorLines", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

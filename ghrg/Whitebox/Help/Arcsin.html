@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
+        <title>Arcsine</title>
+        <link rel="stylesheet" type="text/css" href="Help.css" />
+    <link href="../../Scripts and style sheets/style_2.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+
+        <h1>Arcsine</h1>
+
+        <p class="bodyText">
+            This tool creates a new raster in which each grid cell is equal to 
+            the inverse sine of the corresponding grid cell in an input raster.  
+            Grid cells with <span class="bodyTextbold_italic">No Data</span> values in the input raster will 
+            be assigned <span class="bodyTextbold_italic">No Data</span> values in the output raster. The 
+            output raster will contain angular data measured in degrees. If 
+            desired, you can convert degrees to radians by multiplying the raster 
+            by PI / 180.</p>
+
+    <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="MathTools.html">Mathematical analysis tools</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                <span class="bodyText_code">wd = pluginHost.getWorkingDirectory()<br />
+                inputFile = wd + "input.dep"<br />
+                outputFile = wd + "output.dep"<br />
+                args = [inputFile, outputFile]<br />
+                pluginHost.runPlugin("ArcSin", args, False)</span><br />
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                <span class="bodyText_code">def wd = pluginHost.getWorkingDirectory()<br />
+                def inputFile = wd + "input.dep"<br />
+                def outputFile = wd + "output.dep"<br />
+                String[] args = [inputFile, outputFile]<br />
+                pluginHost.runPlugin("ArcSin", args, false)</span><br />
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: <a href="mailto:jlindsay@uoguelph.ca">jlindsay@uoguelph.ca</a></li>
+
+        </ul>
+    </body>
+</html>

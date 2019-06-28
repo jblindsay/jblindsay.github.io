@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Laplacian-of-Gaussian filter</h1>
+
+<p>The Laplacian-of-Gaussian (LoG) is a spatial filter used for edge enhancement and is closely related to the 
+<a href="FilterDoG.html">difference-of-Gaussians filter</a>. The formulation of the LoG filter algorithm is 
+based on the equation provided in the <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/log.htm">Hypermedia 
+Image Processing Reference (HIPR) 2</a>. The LoG operator calculates the second spatial derivative of an 
+image. In areas where image intensity is constant, the LoG response will be zero. Near areas of change in 
+intensity the LoG will be positive on the darker side, and negative on the lighter side. This means that 
+at a sharp edge, or boundary, between two regions of uniform but different intensities, the LoG response 
+will be:
+
+<ul><li>zero at a long distance from the edge,</li>
+<li>positive just to one side of the edge,</li>
+<li>negative just to the other side of the edge,</li>
+<li>zero at some point in between, on the edge itself.</li></ul></p>
+
+<p>The user may optionally choose to reflecting the data along image edges. <b><i>NoData</i></b> values in 
+the input image are similarly valued in the output. The output raster is of the <i>float</i> data type 
+and <i>continuous</i> data scale.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="FilterDoG.html">Difference-of-Gaussians Filter</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+</ul>
+<br><h2 class="SeeAlso">References:</h2>
+<ul><li><a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/log.htm">Hypermedia Image Processing Reference (HIPR2)</a></li></ul>
+</body>
+</html>

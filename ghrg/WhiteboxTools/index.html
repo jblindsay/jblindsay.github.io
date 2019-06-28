@@ -1,0 +1,910 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-CA" lang="en-CA">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="geomorphometry, terrain analysis, DEM, digital elevation model, ephemeral stream, stream burning, topographic depression"/>
+<meta name="description" content="Geomorphometry and hydro-geomatics research lab including the Whitebox GAT open-source GIS"/>
+<meta name="author" content="John Lindsay" />
+<title>WhiteboxTools | Home</title>
+<link href="../style.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="../img/jl.ico" type="image/x-icon" />
+<link rel="stylesheet" href="../theme/prism_coy.css">
+<script src="../scripts/header.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+</head>
+<body>
+  <script src="../scripts/prism.js"></script>
+  <div><a href="#contentstart" id=”skiplink” class="skipText">Skip to content</a></div>
+<div id="container">
+<header><div id="titleContainer"></div></header>
+<nav id="navBar"></nav>
+<main>
+<div id="content-container">
+	  <div id="content">
+      <h1>WhiteboxTools</h1>
+      <!-- <div><img class="centeredImage" src="../img/WhiteboxToolsLogo.svg" width="auto" height="auto" alt="WhiteboxTools logo" /></div> -->
+      <p class="bodyText">
+        WhiteboxTools is an advanced geospatial data analysis platform developed at the University of
+        Guelph's <a href="../research_group.html">Geomorphometry and Hydrogeomatics Research Group</a>
+        (GHRG). The project began in January 2017 and quickly evolved in terms of its analytical
+        capabilities.</p>
+      <div class="backgroundSection">
+        <ul class="bodyText">
+          <li>
+            Contains <strong>more than 400 tools</strong> for processing various types
+            of geospatial data.
+          </li>
+          <li>
+            Many <strong>tools operate in parallel</strong>, taking full advantage of your multi-core
+            processor.
+          </li>
+          <li>
+            Written in the safe and <strong>cross-platform</strong> systems
+            programming language Rust and <strong>compiled to highly efficient
+            native code</strong>.
+          </li>
+          <li>
+            Small stand-alone application with <strong>no external dependencies</strong>,
+            making installation as easy as <a href="download.html">downloading</a>
+            the 8Mb zip file and decompressing it.
+          </li>
+          <li>
+            <strong>Simple yet powerful <a href="interacting_through_python.html">Python scripting interface</a></strong> that
+            allows users to develop custom scripted workflows.
+          </li>
+          <li>
+            <strong>Embed WhiteboxTools functions</strong> into hetergenous scripting environments
+            along with ArcPy, GDAL, and other geoprocessing libraries.
+          </li>
+          <li>
+            Serves as an analytical back-end for other GIS and remote sensing
+            software (e.g. the QGIS <a href="https://plugins.bruy.me/processing-whitebox.html">
+            Whitebox for Processing plugin</a>).
+          </li>
+          <li>
+            Permissive MIT <strong>open-source license</strong> allows for ready integration
+            with other software.
+          </li>
+          <li>
+            <a href="https://www.researchgate.net/publication/271205138_The_Whitebox_Geospatial_Analysis_Tools_project_and_open-access_GIS">
+            Transparent software philosopy</a> allows for <strong>easy source code inspection</strong>
+            and rapid innovation and development.
+          </li>
+        </ul>
+      </div>
+
+      <p class="bodyText">See <a href="download.html">Download</a> to obtain a copy of the WhiteboxTools
+        software for your system.</p>
+
+      <h2>What can WhiteboxTools do?</h2>
+      <p class="bodyText">
+        WhiteboxTools can be used to perform common geographical information systems (GIS) analysis
+        operations, such as cost-distance analysis, distance buffering, and raster reclassification.
+        Remote sensing and image processing tasks include image enhancement (e.g. panchromatic
+        sharpening, contrast adjustments), image mosaicing, numerous filtering operations, simple
+        classification (k-means), and common image transformations. WhiteboxTools also contains
+        advanced tooling for spatial hydrological analysis (e.g. flow-accumulation, watershed
+        delineation, stream network analysis, sink removal), terrain analysis (e.g. common terrain
+        indices such as slope, curvatures, wetness index, hillshading; hypsometric analysis; multi-scale
+        topographic position analysis), and LiDAR data processing. LiDAR point clouds can be interrogated
+        (LidarInfo, LidarHistogram), segmented, tiled and joined, analyized for outliers, interpolated
+        to rasters (DEMs, intensity images), and ground-points can be classified or filtered.
+        WhiteboxTools is not a cartographic or spatial data visualization package; instead it is meant
+        to serve as an analytical backend for other data visualization software (GIS).</p>
+
+      <div class="backgroundSection">
+        <p class="bodyText">For a complete listing of the available tools, see the
+          <a href="https://jblindsay.github.io/wbt_book/intro.html"><strong>WhiteboxTools User Manual</strong></a>.</p>
+      </div>
+
+      <h2>What does WhiteboxTools look like?</h2>
+      <p class="bodyText">The Python interface for WhiteboxTools makes geoprocessing
+        straightforward even with a beginner's level knowledge of scripting.</p>
+
+      <pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+# Set up the environment
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/"
+
+# Call some tools, do some work
+wbt.feature_preserving_denoise("DEM.tif", "smoothed.tif", filter=9)
+wbt.breach_depressions("smoothed.tif", "breached.tif")
+wbt.d_inf_flow_accumulation("breached.tif", "flow_accum.tif")</code></pre>
+
+      <p class="bodyText">Most tools output geospatial data in various raster, vector, and LiDAR
+      data formats. Tools that output data in tabular and chart form, produce
+      attractive, interactive html-based outputs, such as this interactive hypsometric integral:</p>
+
+      <div id='graph' align="center">
+    <script>
+      var plot = {
+        dataX: [[99.98085684021076, 99.91505503042004, 99.80565433797113, 99.66185648077216, 99.45453202539674, 99.27614646848491, 99.1066375992505, 98.90339283366623, 98.69517174317187, 98.44300432391077, 98.15619316524189, 97.81340955927358, 97.43344921968648, 97.02405683232038, 96.61518001014767, 96.20966556967096, 95.78179129091583, 95.33590585420914, 94.84275653879567, 94.29686266251092, 93.7264682316013, 93.04642653358509, 92.33552937953858, 91.61974556409389, 90.90999161982401, 90.1373947616559, 89.18578470199267, 88.00136333369834, 86.76050999260612, 85.47132801860339, 84.17528678594081, 82.84306632622925, 81.49078365573158, 80.09078878896763, 78.81206382203945, 77.57616438997934, 76.29472710181639, 75.00267589543307, 73.7972620574167, 72.57606744130712, 71.30498628876785, 70.03279555026889, 68.74093487884834, 67.40898340967247, 65.99399232054436, 64.56956414678949, 63.18594407888506, 61.76454204865658, 60.29042908137379, 58.76366121673162, 57.277107437173626, 55.8002373169001, 54.27056659606039, 52.6620031926935, 51.053607908411415, 49.48293854675846, 47.975224178393624, 46.61334751212335, 45.26302623094832, 43.902998874610844, 42.541648981472946, 41.198758563846084, 39.933494331640894, 38.60153165452604, 37.23820916412648, 35.934456869441064, 34.62028119149806, 33.28477680566342, 31.908778136269934, 30.512549137005507, 29.068708812925713, 27.578994394573474, 26.131489074445035, 24.80878415493317, 23.40947297244741, 22.141496419007456, 20.875671789852934, 19.652325249457903, 18.409342399958216, 17.334187228844932, 16.331412927707557, 15.374624800232494, 14.417668553672636, 13.465195482707436, 12.48165400487119, 11.503021604311115, 10.55982870682688, 9.658699204359621, 8.73857224530995, 7.895354163586821, 7.115348857748504, 6.377944927998513, 5.702700227868607, 5.086543782076425, 4.4652092684723925, 3.90187583912438, 3.4563378485262697, 3.1194047867090013, 2.8808438053777308, 2.6816226898896622, 2.481336820197877, 2.2816337633333794, 2.0766741830841484, 1.8989498945725214, 1.7300574619823927, 1.574412813274506, 1.4295838256887516, 1.302822035749518, 1.1764413157358211, 1.0521452723736502, 0.9294631722255642, 0.8033290268695814, 0.6728125773698079, 0.5453558952133952, 0.396503257531422, 0.3023789859213699, 0.25763689348659025, 0.22253362858033476, 0.19515263363589774, 0.15881649544111642, 0.12242431755139505, 0.08036092253442817, 0.05053659689089329, 0.029734662131630785, 0.0080585081314144, 0.0001]],
+        dataY: [[444.2900085449219, 449.315405304362, 454.3408020638021, 459.3661988232422, 464.39159558268227, 469.4169923421224, 474.4423891015625, 479.4677858610026, 484.4931826204427, 489.5185793798828, 494.5439761393229, 499.56937289876305, 504.5947696582031, 509.62016641764325, 514.6455631770833, 519.6709599365234, 524.6963566959636, 529.7217534554036, 534.7471502148437, 539.7725469742838, 544.797943733724, 549.8233404931641, 554.8487372526042, 559.8741340120442, 564.8995307714844, 569.9249275309245, 574.9503242903646, 579.9757210498046, 585.0011178092448, 590.0265145686849, 595.051911328125, 600.0773080875651, 605.1027048470053, 610.1281016064453, 615.1534983658854, 620.1788951253255, 625.2042918847657, 630.2296886442057, 635.2550854036458, 640.2804821630859, 645.3058789225261, 650.3312756819662, 655.3566724414063, 660.3820692008463, 665.4074659602865, 670.4328627197266, 675.4582594791667, 680.4836562386067, 685.5090529980469, 690.534449757487, 695.5598465169271, 700.5852432763672, 705.6106400358074, 710.6360367952474, 715.6614335546875, 720.6868303141276, 725.7122270735676, 730.7376238330078, 735.7630205924479, 740.788417351888, 745.8138141113282, 750.8392108707683, 755.8646076302084, 760.8900043896484, 765.9154011490886, 770.9407979085287, 775.9661946679687, 780.9915914274088, 786.016988186849, 791.0423849462891, 796.0677817057292, 801.0931784651693, 806.1185752246095, 811.1439719840495, 816.1693687434896, 821.1947655029297, 826.2201622623697, 831.2455590218099, 836.27095578125, 841.2963525406901, 846.3217493001303, 851.3471460595704, 856.3725428190105, 861.3979395784505, 866.4233363378906, 871.4487330973307, 876.4741298567708, 881.4995266162109, 886.524923375651, 891.5503201350912, 896.5757168945313, 901.6011136539714, 906.6265104134116, 911.6519071728516, 916.6773039322917, 921.7027006917317, 926.7280974511718, 931.753494210612, 936.7788909700521, 941.8042877294922, 946.8296844889323, 951.8550812483725, 956.8804780078125, 961.9058747672526, 966.9312715266927, 971.9566682861329, 976.9820650455729, 982.007461805013, 987.0328585644531, 992.0582553238933, 997.0836520833334, 1002.1090488427734, 1007.1344456022135, 1012.1598423616537, 1017.1852391210938, 1022.2106358805339, 1027.236032639974, 1032.261429399414, 1037.2868261588542, 1042.3122229182943, 1047.3376196777344, 1052.3630164371743, 1057.3884131966147, 1062.4138099560546, 1067.439206715495, 1072.4646034749348]],
+        seriesLabels: ["JayStateForest_filtered_NN"],
+        xAxisLabel: "% Area Above",
+        yAxisLabel: "Elevation",
+        width: 600,
+        height: 500,
+        drawPoints: false,
+        drawGridlines: true,
+        drawLegend: false,
+        drawGreyBackground: false,
+        parentId: "graph"
+      };
+      function update(svg) {
+        // which of the series labels is longest?
+        var maxSeriesLabelLength = 0;
+        var a;
+        for (a = 0; a < plot.seriesLabels.length; a++) {
+          var sl = plot.seriesLabels[a];
+          if (sl.length > maxSeriesLabelLength) { maxSeriesLabelLength = sl.length; }
+        }
+        var plotLeftMargin = 70.0;
+        var plotRightMargin = plot.drawLegend ? 65.0 + maxSeriesLabelLength * 7 : 50.0;
+        var plotBottomMargin = 70.0;
+        var plotTopMargin = 40.0;
+        var plotWidth = plot.width - plotLeftMargin - plotRightMargin;
+        var plotHeight = plot.height - plotBottomMargin - plotTopMargin;
+        var originX = plotLeftMargin;
+        var originY = plotTopMargin + plotHeight;
+        var tickLen = 8.0;
+        var minorTickLen = tickLen * 0.65;
+
+        // If there are no series labels, treat it as one series.
+        if (plot.seriesLabels.length === 0) {
+					plot.drawLegend = false;
+				}
+
+        // colors
+        var lineColor = '#47a3ff'; //'#377eb8'; // '#729ece'; // '#1f77b4'; //'#47a3ff'; //'rgb(2,145,205)';
+        var highlightColor = '#ff7f00';
+        var btnColor = 'rgb(170,170,170)';
+        var btnHoverColor = 'rgb(150,150,150)';
+        var plotBackgroundColor = 'rgb(255,255,255)';
+        if (plot.drawGreyBackground) {
+          plotBackgroundColor = '#CCC';
+        }
+        var chartBackgroundColor = 'white';
+        // var gridLineColor = 'rgb(120,120,120)';
+        // if (plot.drawGreyBackground) {
+          var gridLineColor = '#EEE';
+        // }
+        var trendlineColor = 'DimGray';
+        if (plot.drawGreyBackground) {
+          trendlineColor = 'DimGray';
+        }
+        var showValueClr = "black";
+        // if (plot.drawGreyBackground) {
+        //   showValueClr = '#FFF';
+        // }
+
+        // Gridlines
+        // var gridlineDash = '1, 5';
+        // if (plot.drawGreyBackground) {
+          var gridlineDash = 'none';
+        // }
+
+        var tableau20 = [[31, 119, 180], [255, 127, 14],
+             [44, 160, 44], [214, 39, 40],
+             [148, 103, 189], [140, 86, 75],
+             [227, 119, 194], [127, 127, 127],
+             [188, 189, 34], [23, 190, 207]];
+
+        var regularOpacity = 1.0;
+        var deselectedOpacity = 0.10;
+
+
+        // create the svg element
+        var svgns = "http://www.w3.org/2000/svg";
+        if (svg == null) {
+          svg = document.createElementNS(svgns, "svg");
+        } else {
+          while (svg.lastChild) {
+              svg.removeChild(svg.lastChild);
+          }
+        }
+        svg.setAttribute('width', `${plot.width}`);
+        svg.setAttribute('height', `${plot.height}`);
+        var div = document.getElementById(plot.parentId);
+        if (div != null) {
+          div.appendChild(svg);
+        } else {
+          // add it to the body of the document
+          document.querySelector("body").appendChild(svg);
+        }
+
+        // how many series are there?
+        var numSeries = plot.dataY.length;
+
+        // if dataX is empty, fill it with the series 1, 2, 3, 4, ...
+        if (plot.dataX.length == 0) {
+          for (s = 0; s < numSeries; s++) {
+            var seriesXData = [];
+            for (a = 0; a < plot.dataY[s].length; a++) {
+              seriesXData.push(a + 1);
+            }
+            plot.dataX.push(seriesXData);
+          }
+        }
+
+        // style
+        var style = document.createElement("style");
+        let styleString = `
+        text {
+          font-family:Sans,Arial;
+        }
+        .axisLabel {
+          font-weight: normal;
+        }
+        .xTickLabel {
+          fill: black;
+          font-size: 85%;
+          font-weight: lighter;
+        }
+        .yTickLabel {
+          fill: black;
+          font-size: 85%;
+          font-weight: lighter;
+        }
+        .gridLine {
+          stroke: ${gridLineColor};
+          stroke-dasharray: ${gridlineDash};
+          stroke-width: 0.8;
+        }
+        .tick {
+          stroke: black;
+          stroke-width: 0.5;
+        }
+        #plotBorder {
+          fill: none;
+          stroke: black;
+          stroke-width: 0.5;
+        }
+        #showValue {
+          font-size: 85%;
+          fill: ${showValueClr};
+        }
+        #context-menu {
+          position:absolute;
+          display:none;
+        }
+        #context-menu ul {
+          list-style:none;
+          margin:0;
+          padding:0;
+          background: #EFEFEF;
+          opacity: 0.90;
+        }
+        #context-menu {
+          border:solid 1px #CCC;
+        }
+        #context-menu li {
+          font-family:Sans,Arial;
+          font-size: 75%;
+          text-align: left;
+          color:#000;
+          display:block;
+          padding:5px 15px;
+          border-bottom:solid 1px #CCC;
+        }
+        #context-menu li:last-child {
+          border:none;
+        }
+        #context-menu li:hover {
+          background:#007AFF;
+          color:#FFF;
+        }
+        `;
+
+        var dataPointHoverWidth = 4.0;
+        if (!plot.drawPoints) {
+          dataPointHoverWidth = 6.0;
+        }
+        var s;
+        for (s = 0; s < numSeries; s++) {
+          var clrNum = s % tableau20.length;
+          if (plot.seriesLabels.length === 0) {
+            // If there are no series labels, treat it as one series.
+						clrNum = 0;
+					}
+          let clr = `rgb(${tableau20[clrNum][0]},${tableau20[clrNum][1]},${tableau20[clrNum][2]})`;
+
+          styleString += `
+          .seriesLine${s} {
+            fill: none;
+            stroke-width:1;
+            stroke: ${clr};
+            opacity: ${regularOpacity};
+          }
+          .seriesLine${s}:hover {
+            fill: none;
+            stroke-width:2;
+            stroke: ${clr};
+            opacity: ${regularOpacity};
+          }
+          .seriesLineThick${s} {
+            fill: none;
+            stroke-width:2;
+            stroke: ${clr};
+            opacity: ${regularOpacity};
+          }
+          .seriesLineThick${s}:hover {
+            fill: none;
+            stroke-width:3;
+            stroke: ${clr};
+            opacity: ${regularOpacity};
+          }
+          .dataPoint${s} {
+            fill: ${clr};
+            stroke-width:0;
+            stroke: ${clr};
+            opacity: ${regularOpacity};
+          }
+          .dataPoint${s}:hover {
+            fill: red;
+            stroke-width:${dataPointHoverWidth};
+            stroke: red;
+            opacity:1.0;
+          }
+          `;
+        }
+        style.innerHTML = styleString;
+        svg.appendChild(style);
+        svg.id = "plotSvg";
+
+        // background
+        var background = document.createElementNS(svgns, "rect");
+        background.setAttribute('width', plot.width);
+        background.setAttribute('height', plot.height);
+        background.style.fill = chartBackgroundColor;
+        svg.appendChild(background);
+
+        // translate the origin point
+        var g = document.createElementNS(svgns, "g");
+        g.setAttribute('id', 'transform');
+        g.setAttribute('transform', `translate(${originX},${originY})`);
+        svg.appendChild(g);
+
+        // plot background
+        var plotBackground = document.createElementNS(svgns, "rect");
+        plotBackground.setAttribute('id', 'plotBackground');
+        plotBackground.setAttribute('x', 0.0);
+        plotBackground.setAttribute('y', -plotHeight);
+        plotBackground.setAttribute('width', plotWidth);
+        plotBackground.setAttribute('height', plotHeight);
+        plotBackground.style.fill = plotBackgroundColor;
+        plotBackground.style.stroke = "none";
+        g.appendChild(plotBackground);
+
+        // what are the min/max values?
+        var xMin = Infinity;
+        var xMax = -Infinity;
+        var yMin = Infinity;
+        var yMax = -Infinity;
+        var val = 0;
+        var maxNumPoints = 0;
+        var totalNumPoints = 0;
+        for (s = 0; s < numSeries; s++) {
+          var numPoints = Math.min(plot.dataX[s].length, plot.dataY[s].length);
+          if (numPoints > maxNumPoints) { maxNumPoints = maxNumPoints; }
+          totalNumPoints += numPoints;
+          if (numPoints < 2) {
+            alert("Too few points for line graph");
+            return;
+          }
+          if (plot.dataX[s].length != plot.dataY[s].length) {
+            alert("The x and y data arrays are unequal in length.");
+          }
+          for (a = 0; a < numPoints; a++) {
+              val = plot.dataX[s][a];
+              if (val < xMin) { xMin = val; }
+              if (val > xMax) { xMax = val; }
+              val = plot.dataY[s][a];
+              if (val < yMin) { yMin = val; }
+              if (val > yMax) { yMax = val; }
+          }
+        }
+
+        // We don't want a data point to fall on the plot border
+        xMin -= 0.0000001;
+        yMin -= 0.0000001;
+        xMax += 0.0000001;
+        yMax += 0.0000001;
+
+        // X axis
+        var xAxisTickSpacing = 0.0000001;
+        var xAxisNumTicks = 1000;
+        var xRange = xMax - xMin;
+        a = 0;
+        while (xAxisNumTicks > 20) {
+          if (a % 2 == 0) {
+            xAxisTickSpacing *= 5.0;
+          } else {
+            xAxisTickSpacing *= 2.0;
+          }
+          a++;
+          xAxisNumTicks = Math.ceil(xRange / xAxisTickSpacing);
+        }
+        xMin = Math.floor(xMin / xAxisTickSpacing) * xAxisTickSpacing;
+        xAxisNumTicks = Math.ceil((xMax - xMin) / xAxisTickSpacing);
+        xRange = xAxisTickSpacing * xAxisNumTicks;
+        var xSigDigits = Math.min(decimalPlaces(xMin+xAxisTickSpacing), decimalPlaces(xMin+2*xAxisTickSpacing)); //Math.round(0.1 / xAxisTickSpacing);
+        var dominantTick = 0;
+        if (decimalPlaces(xMin) > decimalPlaces(xMin+xAxisTickSpacing)) {
+          dominantTick = 1;
+        }
+        for (a = 0; a <= xAxisNumTicks; a++) {
+            // grid line
+            if (plot.drawGridlines) {
+              if (xAxisNumTicks <= 10 || a % 2 == dominantTick) {
+                if (a > 0 && a < xAxisNumTicks) {
+                  var line = document.createElementNS(svgns, "line");
+                  line.setAttribute('x1', (a * xAxisTickSpacing) / xRange * plotWidth);
+                  line.setAttribute('y1', 0);
+                  line.setAttribute('x2', (a * xAxisTickSpacing) / xRange * plotWidth);
+                  line.setAttribute('y2', -plotHeight);
+                  line.setAttribute('class', 'gridLine');
+                  g.appendChild(line);
+                }
+              }
+            }
+            // tick mark
+            var line = document.createElementNS(svgns, "line");
+            line.setAttribute('x1', (a * xAxisTickSpacing) / xRange * plotWidth);
+            line.setAttribute('y1', 0);
+            line.setAttribute('x2', (a * xAxisTickSpacing) / xRange * plotWidth);
+            if (xAxisNumTicks <= 10 || a % 2 == dominantTick) {
+              line.setAttribute('y2', tickLen);
+            } else {
+              line.setAttribute('y2', minorTickLen);
+            }
+            line.setAttribute('class', 'tick');
+            g.appendChild(line);
+
+            // labels
+            if (xAxisNumTicks <= 10 || a % 2 == dominantTick) {
+                // tick label
+                var label = document.createElementNS(svgns, "text");
+                label.setAttribute('x', (a * xAxisTickSpacing) / xRange * plotWidth);
+                label.setAttribute('y', tickLen + 5);
+                label.setAttribute('text-anchor', 'middle');
+                label.setAttribute('dominant-baseline', 'hanging');
+                label.setAttribute('class', 'xTickLabel');
+                label.innerHTML = `${(xMin + a * xAxisTickSpacing).toFixed(xSigDigits)}`;
+                g.appendChild(label);
+            }
+        }
+
+        // Y axis
+        var yAxisTickSpacing = 0.0000001;
+        var yAxisNumTicks = 1000;
+        var yRange = yMax - yMin;
+        a = 0;
+        while (yAxisNumTicks > 20) {
+          if (a % 2 == 0) {
+            yAxisTickSpacing *= 5.0;
+          } else {
+            yAxisTickSpacing *= 2.0;
+          }
+          a++;
+          yAxisNumTicks = Math.ceil(yRange / yAxisTickSpacing);
+        }
+        yMin = Math.floor(yMin / yAxisTickSpacing) * yAxisTickSpacing;
+        yAxisNumTicks = Math.ceil((yMax - yMin) / yAxisTickSpacing);
+        yRange = yAxisTickSpacing * yAxisNumTicks;
+        var ySigDigits = Math.min(decimalPlaces(yMin+yAxisTickSpacing), decimalPlaces(yMin+2*yAxisTickSpacing));
+        dominantTick = 0;
+        if (decimalPlaces(yMin) > decimalPlaces(yMin+yAxisTickSpacing)) {
+          dominantTick = 1;
+        }
+        for (a = 0; a <= yAxisNumTicks; a++) {
+            // grid line
+            if (plot.drawGridlines) {
+              if (yAxisNumTicks <= 10 || a % 2 == dominantTick) {
+                if (a > 0 && a < yAxisNumTicks) {
+                  var line = document.createElementNS(svgns, "line");
+                  line.setAttribute('x1', 0); //(a * xAxisTickSpacing) / xRange * plotWidth);
+                  line.setAttribute('y1', -(a * yAxisTickSpacing) / yRange * plotHeight);
+                  line.setAttribute('x2', plotWidth); //(a * xAxisTickSpacing) / xRange * plotWidth);
+                  line.setAttribute('y2', -(a * yAxisTickSpacing) / yRange * plotHeight); //-plotHeight);
+                  line.setAttribute('class', 'gridLine');
+                  g.appendChild(line);
+                }
+              }
+            }
+            // tick mark
+            var line = document.createElementNS(svgns, "line");
+            line.setAttribute('x1', 0);
+            line.setAttribute('y1', -(a * yAxisTickSpacing) / yRange * plotHeight);
+            if (yAxisNumTicks <= 6 || a % 2 == dominantTick) {
+              line.setAttribute('x2', -tickLen);
+            } else {
+              line.setAttribute('x2', -minorTickLen);
+            }
+            line.setAttribute('y2', -(a * yAxisTickSpacing) / yRange * plotHeight);
+            line.setAttribute('class', 'tick');
+            g.appendChild(line);
+
+            // labels
+            if (yAxisNumTicks <= 6 || a % 2 == dominantTick) {
+                // s += `<text transform="translate(${-tickLen - 5}, ${-(a * yAxisTickSpacing) / maxVal * plotHeight}), rotate(270)" x="0" y="0" text-anchor="middle" dominant-baseline="no-change" class="yTickLabel">${(a * yAxisTickSpacing).toFixed(ySigDigits)}</text>`;
+                var label = document.createElementNS(svgns, "text");
+                label.setAttribute('transform', `translate(${-tickLen - 5},${-(a * yAxisTickSpacing) / yRange * plotHeight}), rotate(270)`);
+                label.setAttribute('x', 0);
+                label.setAttribute('y', 0);
+                label.setAttribute('text-anchor', 'middle');
+                label.setAttribute('dominant-baseline', 'no-change');
+                label.setAttribute('class', 'yTickLabel');
+                label.innerHTML = `${(yMin + a * yAxisTickSpacing).toFixed(ySigDigits)}`;
+                g.appendChild(label);
+            }
+        }
+
+        // axis labels
+        var xLabel = document.createElementNS(svgns, "text");
+        xLabel.setAttribute('x', plotWidth / 2.0);
+        xLabel.setAttribute('y', tickLen + 25.0);
+        xLabel.setAttribute('text-anchor', 'middle');
+        xLabel.setAttribute('dominant-baseline', 'hanging');
+        xLabel.setAttribute('class', 'axisLabel');
+        xLabel.innerHTML = plot.xAxisLabel;
+        g.appendChild(xLabel);
+
+        var yLabel = document.createElementNS(svgns, "text");
+        yLabel.setAttribute('transform', `translate(${-tickLen - 28.0},${-plotHeight / 2.0}), rotate(270)`);
+        yLabel.setAttribute('x', 0);
+        yLabel.setAttribute('y', 0);
+        yLabel.setAttribute('text-anchor', 'middle');
+        yLabel.setAttribute('class', 'axisLabel');
+        yLabel.innerHTML = plot.yAxisLabel;
+        g.appendChild(yLabel);
+
+        // text to show values when hover over
+        var showValue = document.createElementNS(svgns, "text");
+        showValue.setAttribute('x', 10);
+        showValue.setAttribute('text-anchor', 'start');
+
+        // draw the line(s)
+        var g2 = document.createElementNS(svgns, "g");
+        g2.setAttribute('id', 'lines');
+        g.appendChild(g2);
+
+        var radius = 3.0;
+        if (totalNumPoints > 15) { radius = 2.5; }
+        if (!plot.drawPoints) {
+          radius = 1.0;
+        }
+        for (let s = 0; s < numSeries; s++) {
+          var numPoints = Math.min(plot.dataX[s].length, plot.dataY[s].length);
+          let seriesLine = document.createElementNS(svgns, "polyline");
+          var pointsString = `${(plot.dataX[s][0] - xMin) / xRange * plotWidth},${-(plot.dataY[s][0] - yMin) / yRange * plotHeight}`;
+          for (let a = 1; a < numPoints; a++) {
+            pointsString += ` ${(plot.dataX[s][a] - xMin) / xRange * plotWidth},${-(plot.dataY[s][a] - yMin) / yRange * plotHeight}`
+          }
+          seriesLine.setAttribute('points', pointsString);
+          var seriesLabel = "seriesLine";
+          if (!plot.drawPoints) { seriesLabel = "seriesLineThick"; }
+          seriesLine.setAttribute('class', `${seriesLabel}${s}`);
+          seriesLine.addEventListener('mouseover', function() {
+            var s2;
+            for (s2 = 0; s2 < numSeries; s2++) {
+              if (s2 != s) {
+                var x = document.getElementsByClassName(`${seriesLabel}${s2}`);
+                var i;
+                for (i = 0; i < x.length; i++) {
+                  x[i].style.opacity = deselectedOpacity;
+                }
+                x = document.getElementsByClassName(`dataPoint${s2}`);
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.opacity = deselectedOpacity;
+                }
+              }
+            }
+          }, false);
+          seriesLine.addEventListener('mouseout', function() {
+            var s2;
+            for (s2 = 0; s2 < numSeries; s2++) {
+              if (s2 != s) {
+                var x = document.getElementsByClassName(`${seriesLabel}${s2}`);
+                var i;
+                for (i = 0; i < x.length; i++) {
+                  x[i].style.opacity = regularOpacity;
+                }
+                x = document.getElementsByClassName(`dataPoint${s2}`);
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.opacity = regularOpacity;
+                }
+              }
+            }
+          }, false);
+          g2.appendChild(seriesLine);
+
+          // draw the data points
+          for (let a = 0; a < numPoints; a++) {
+            let c = document.createElementNS(svgns, "circle");
+            c.setAttribute('cx', `${(plot.dataX[s][a] - xMin) / xRange * plotWidth}`);
+            c.setAttribute('cy', `${-(plot.dataY[s][a] - yMin) / yRange * plotHeight}`);
+            c.setAttribute('r', radius);
+            c.setAttribute('class', `dataPoint${s}`);
+            c.addEventListener('mouseover', function() {
+              var s2;
+              for (s2 = 0; s2 < numSeries; s2++) {
+                if (s2 != s) {
+                  var x = document.getElementsByClassName(`${seriesLabel}${s2}`);
+                  var i;
+                  for (i = 0; i < x.length; i++) {
+                    x[i].style.opacity = deselectedOpacity;
+                  }
+                  x = document.getElementsByClassName(`dataPoint${s2}`);
+                  for (i = 0; i < x.length; i++) {
+                      x[i].style.opacity = deselectedOpacity;
+                  }
+                }
+              }
+              showValue.innerHTML = `x: ${(plot.dataX[s][a]).toFixed(xSigDigits+2)}, y: ${(plot.dataY[s][a]).toFixed(ySigDigits+2)}`;
+            }, false);
+            c.addEventListener('mouseout', function() {
+              var s2;
+              for (s2 = 0; s2 < numSeries; s2++) {
+                if (s2 != s) {
+                  var x = document.getElementsByClassName(`${seriesLabel}${s2}`);
+                  var i;
+                  for (i = 0; i < x.length; i++) {
+                    x[i].style.opacity = regularOpacity;
+                  }
+                  x = document.getElementsByClassName(`dataPoint${s2}`);
+                  for (i = 0; i < x.length; i++) {
+                      x[i].style.opacity = regularOpacity;
+                  }
+                }
+              }
+              showValue.innerHTML = "";
+            }, false);
+            g2.appendChild(c);
+          }
+        }
+
+        // Show value label
+        showValue.setAttribute('id', 'showValue');
+        showValue.setAttribute('y', -plotHeight + 20);
+        g.appendChild(showValue);
+
+        // plot border
+        var plotBorder = document.createElementNS(svgns, "rect");
+        plotBorder.setAttribute('x', 0);
+        plotBorder.setAttribute('y', -plotHeight);
+        plotBorder.setAttribute('width', plotWidth);
+        plotBorder.setAttribute('height', plotHeight);
+        plotBorder.id = "plotBorder";
+        g.appendChild(plotBorder);
+
+        // add a legend
+        if (plot.seriesLabels.length > 0 && plot.drawLegend) {
+          var legend = document.createElementNS(svgns, "g");
+          legend.setAttribute('id', 'legend');
+          g.appendChild(legend);
+          for (let s = 0; s < numSeries; s++) {
+            var y = -(plotHeight - 35 - 23 * (s+1));
+            var line = document.createElementNS(svgns, "line");
+            line.setAttribute('x1', plotWidth + 10);
+            line.setAttribute('y1', y);
+            line.setAttribute('x2', plotWidth + 40);
+            line.setAttribute('y2', y);
+            if (plot.drawPoints) {
+              line.setAttribute('class', `seriesLine${s}`);
+            } else {
+              line.setAttribute('class', `seriesLineThick${s}`);
+            }
+            legend.appendChild(line);
+
+            if (plot.drawPoints) {
+              var c = document.createElementNS(svgns, "circle");
+              c.setAttribute('cx', plotWidth+25);
+              c.setAttribute('cy', y);
+              c.setAttribute('r', radius);
+              c.setAttribute('class', `dataPoint${s}`);
+              legend.appendChild(c);
+            }
+
+            var legendLabel = document.createElementNS(svgns, "text");
+            legendLabel.setAttribute('x', plotWidth + 48);
+            legendLabel.setAttribute('y', y);
+            legendLabel.setAttribute('text-anchor', 'left');
+            // legendLabel.setAttribute('text-anchor', 'middle');
+            legendLabel.setAttribute('dominant-baseline', 'middle');
+            legendLabel.setAttribute('class', 'xTickLabel');
+            legendLabel.innerHTML = plot.seriesLabels[s];
+            legend.appendChild(legendLabel);
+          }
+        }
+
+        // Add an invisible context menu to the parentId.
+        var cm = document.createElement('div');
+        cm.id = 'context-menu';
+        cm.className = 'context-menu';
+        var list = document.createElement('ul');
+
+        var copyBtn = document.createElement("li");
+        copyBtn.innerHTML = "Copy";
+        copyBtn.addEventListener('click', function() {
+          var content = `<svg xmlns='${svgns}' width='${plot.width}' height='${plot.height}'>\n${svg.innerHTML}\n</svg>`;
+          // Create an auxiliary hidden input
+          var aux = document.createElement("input");
+          // Get the text from the element passed into the input
+          aux.setAttribute("value", content);
+          // Append the aux input to the body
+          document.body.appendChild(aux);
+          // Highlight the content
+          aux.select();
+          // Execute the copy command
+          document.execCommand("copy");
+          // Remove the input from the body
+          document.body.removeChild(aux);
+          // Give a notification
+          alert("The plot's SVG content has been copied to the clipboard.");
+        }, false);
+        list.appendChild(copyBtn);
+
+        var gridlineBtn = document.createElement("li");
+        var verb = plot.drawGridlines ? "Hide " : "Show ";
+        gridlineBtn.innerHTML = verb + "Gridlines";
+        gridlineBtn.addEventListener('click', function() {
+          plot.drawGridlines = !plot.drawGridlines;
+          // update the context menu label
+          var verb = plot.drawGridlines ? "Hide " : "Show ";
+          gridlineBtn.innerHTML = verb + "Gridlines";
+          update(svg);
+        }, false);
+        list.appendChild(gridlineBtn);
+
+        if (plot.seriesLabels.length > 0) {
+          var legendBtn = document.createElement("li");
+          var verb = plot.drawLegend ? "Hide " : "Show ";
+          legendBtn.innerHTML = verb + "Legend";
+          legendBtn.addEventListener('click', function() {
+            plot.drawLegend = !plot.drawLegend;
+            // update the context menu label
+            var verb = plot.drawLegend ? "Hide " : "Show ";
+            legendBtn.innerHTML = verb + "Legend";
+            update(svg);
+          }, false);
+          list.appendChild(legendBtn);
+        }
+
+        var pointsBtn = document.createElement("li");
+        var verb = plot.drawPoints ? "Hide " : "Show ";
+        pointsBtn.innerHTML = verb + "Points";
+        pointsBtn.addEventListener('click', function() {
+          plot.drawPoints = !plot.drawPoints;
+          // update the context menu label
+          var verb = plot.drawPoints ? "Hide " : "Show ";
+          pointsBtn.innerHTML = verb + "Points";
+          update(svg);
+        }, false);
+        list.appendChild(pointsBtn);
+
+        var backgroundColorBtn = document.createElement("li");
+        var verb = plot.drawGreyBackground ? "Light " : "Dark ";
+        backgroundColorBtn.innerHTML = verb + "Background";
+        backgroundColorBtn.addEventListener('click', function() {
+          plot.drawGreyBackground = !plot.drawGreyBackground;
+          // update the context menu label
+          var verb = plot.drawGreyBackground ? "Light " : "Dark ";
+          backgroundColorBtn.innerHTML = verb + "Background";
+          update(svg);
+        }, false);
+        list.appendChild(backgroundColorBtn);
+
+        cm.appendChild(list);
+        document.getElementById(plot.parentId).appendChild(cm);
+
+        var menu = document.getElementById('context-menu');
+        document.onclick = function () {
+            menu.style.display = 'none';
+        };
+
+        document.getElementById('plotSvg').oncontextmenu = function (evt) {
+            evt = (evt) ? evt : ((event) ? event : null);
+            var posnX = (evt.pageX) ? evt.pageX : ((evt.offsetX) ? evt.offsetX + 10 : null);
+            var posnY = (evt.pageY) ? evt.pageY : ((evt.offsetY) ? evt.offsetY + 10 : null);
+            menu.style.left = posnX + 'px';
+            menu.style.top = posnY + 'px';
+            menu.style.display = 'block';
+            if (typeof evt.preventDefault != "undefined") {
+                evt.preventDefault();
+            } else {
+                evt.returnValue = false;
+            }
+        };
+      }
+
+      function decimalPlaces(num) {
+        var match = (''+num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+        if (!match) { return 0; }
+        return Math.max(
+             0,
+             // Number of digits right of decimal point.
+             (match[1] ? match[1].length : 0)
+             // Adjust for scientific notation.
+             - (match[2] ? +match[2] : 0));
+      }
+
+      update(null);
+    </script></div>
+
+      <p class="bodyText">The output above can be created with the following script:</p>
+      <pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/"
+wbt.hypsometric_analysis("DEM.tif","hypso.html")</code></pre>
+
+      <h2>Integrating WhiteboxTools into your project</h2>
+        <p class="bodyText">
+        Although WhiteboxTools was originally intended to serve as a source of plugin tools for the
+        <a href="../Whitebox/index.html">Whitebox GAT</a>
+        open-source GIS project, the tools contained in the command-line library are stand-alone and can
+        run outside of the larger Whitebox GAT project. See
+        <a href="https://github.com/jblindsay/whitebox-tools#usage">Usage</a>
+        for further details. There have been a large number of requests to call Whitebox GAT
+        tools and functionality from outside of the Whitebox user-interface, for example, from Python automation
+        scripts. WhiteboxTools is intended to meet these usage requirements. A simple example Python
+        script that calls various functions of the WhiteboxTools command-line program can be found
+        <a href="https://github.com/jblindsay/whitebox-tools/whitebox_example.py">
+          here</a>. The <a href="https://github.com/jblindsay/whitebox-tools/wb_runner.py">
+            WhiteboxTools Runner</a> is an example of a more elaborate Python-based user-interface for
+            interacting with the WhiteboxTools library.
+      </p>
+      <br/><br/>
+      <div><img class="centeredImage" src="../img/WBRunner.png" width="560" height="auto" alt="The WhiteboxTools Runner user-interface" /></div>
+      <br/><br/>
+      <p class="bodyText">
+        The WhiteboxTools project has been developed using a permissive
+        <a href="https://github.com/jblindsay/whitebox-tools/LICENSE.txt">MIT license</a>,
+        which allows for the tools to be readily incorporated into other GIS software. It is our intent
+        to make these high-quality geospatial tools available to other open-source GIS projects.
+        To this end, WhiteboxTools is capable of reading and writing several common raster data formats
+        (including GeoTiff) and reading/writing LiDAR data in LAS file format, including zip-compressed LAS.
+      </p>
+	  </div>
+
+    <div id="aside">
+      <img src="../img/WhiteboxToolsLogo_vert.svg" class="center" width="175" height="auto" alt="WhiteboxTools logo" />
+      <div id="sidebarLinks">
+        <ul>
+          <a href="index.html"><li class="activated">WhiteboxTools HOME</li></a>
+          <a href="download.html"><li>DOWNLOAD</li></a>
+          <a href="https://jblindsay.github.io/wbt_book/intro.html"><li>USER MANUAL</li></a>
+          <a href="https://github.com/jblindsay/whitebox-tools"><li>SOURCE CODE REPO (GitHub)</li></a>
+          <a href="support.html"><li>SUPPORT</li></a>
+          <a href="tutorials.html"><li>TUTORIALS</li></a>
+          <a href="../Whitebox/index.html"><li>Whitebox GAT HOME</li></a>
+        </ul>
+      </div>
+      <div class="bodyText"><strong><br/>Contact Information</strong></div>
+      <p class="sidebarText">Dr. John Lindsay<br/>
+      Rm. 346 Hutt Building<br/>
+      Department Geography, Environment &amp; Geomatics<br/>
+      University of Guelph<br/>
+      50 Stone Rd. East<br/>
+      Guelph, ON, Canada, N1G 2W1<br/>
+      <br/>
+      Email: <a href="mailto:jlindsay@uoguelph.ca">jlindsay@uoguelph.ca</a> <br />
+      Phone: 519-824-4120  ext. 56074<br/></p>
+      <div class="bodyText"><strong><br/>Recent News</strong></div>
+      <p class="sidebarText" id="news">No recent updates.</p>
+    </div>
+  </main>
+  <footer><div id="footer">
+			<!-- <span id="copyrightText" class="footerText">Copyright &copy; John Lindsay, 2015-2016</span>
+      <span id="footerLinkBar" class="footerText"><a href="http://www.uoguelph.ca/geography/">Department of Geography</a> &#8729; <a href="http://www.uoguelph.ca/">The University of Guelph</a> &#8729; <a href="https://whiteboxgeospatial.wordpress.com">Whitebox Blog</a></span> -->
+	</div></footer>
+</div>
+</div>
+<script>insertHeader("whiteboxtools");</script>
+<script>getNavBar("whiteboxtools");</script>
+<script>insertFooter();</script>
+<script>insertNewsItems(5, true);</script>
+</body>
+</html>

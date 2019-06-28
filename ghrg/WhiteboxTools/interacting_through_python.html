@@ -1,0 +1,538 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-CA" lang="en-CA">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="John Lindsay" />
+  <meta name="keywords" content="geospatial, gis, remote-sensing, geoprocessing, hydrology, geomorphometry, geomorphology, LiDAR"/>
+  <meta name="description" content="WhiteboxTools tutorials"/>
+  <title>WhiteboxTools | Tutorials</title>
+  <link href="../style.css" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="../img/jl.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../theme/prism_coy.css">
+  <script src="../scripts/header.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+</head>
+<body>
+  <script src="../scripts/prism.js"></script>
+  <div><a href="#contentstart" id=”skiplink” class="skipText">Skip to content</a></div>
+  <div id="container">
+  <div id="titleContainer"></div>
+  <nav id="navBar"></nav>
+  <div id="content-container">
+  	  <div id="content">
+        <h1>Interfacing with WhiteboxTools using Python scripting</h1>
+
+
+
+        <ul class="bodyText">
+          <li><a href="#using_the_script">Using the <em>whitebox_tools.py</em> script</a></li>
+          <li><a href="#handling_output">Handling tool output</a></li>
+          <li><a href="#additional_functions">Additional functions in <em>whitebox_tools.py</em></a></li>
+          <li><a href="#example_project">An example WhiteboxTools Python project</a></li>
+        </ul>
+
+
+
+        <p class="bodyText">WhiteboxTools provides an elegant and powerful
+          Python-based interface that allows for easy workflow automation of
+          common geoprocessing tasks. This interface with the WhiteboxTools
+          stand-alone executable is contained within the <em>whitebox_tools.py</em>
+          script. Let's look at this Python programmer interface in this tutorial.
+        </p>
+
+        <div class="backgroundSection">
+          <p class="bodyText">
+            <strong>The following material has been extracted from the
+            WhiteboxTools User Manual, which can be found in pdf form along with the
+           <a href="download.html">download</a></strong>.
+         </p>
+        </div>
+
+        <p class="bodyText">By combining the WhiteboxTools library with a
+          high-level scripting language, such as Python, users are capable of
+          creating powerful stand-alone geospatial applications and workflow
+          automation scripts. In fact, WhiteboxTools functionality can be called
+          from many different programming languages. However, given the prevalent
+          use of the Python language in the geospatial fields, the library is
+          distributed with several resources specifically aimed at Python
+          scripting. This section focuses on how Python programming can be used
+          to interact with the WhiteboxTools library.<p>
+
+        <div class="backgroundSection">
+          <p class="bodyText">
+            Note that all of the following material assumes the user system is
+            configured with Python 3. The code snippets below are not guaranteed
+            to work with older versions of the language.
+          </p>
+        </div>
+
+
+
+
+        <h2><a name="using_the_script"></a>Using the <em>whitebox_tools.py</em> script</h2>
+
+        <p class="bodyText">Interacting with WhiteboxTools from Python scripts is
+          easy. To begin, each script must start by importing the WhiteboxTools
+          class, contained with the <em>whitebox_tools.py</em> script; a new
+          <code>WhiteboxTools</code> object can then be created:</p>
+
+<pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()</code></pre>
+
+        <p class="bodyText">
+          Depending on the relative location of the <em>WhiteboxTools</em> directory
+          and the script file that you are importing to, the import statement may
+          need to be altered slightly. In the above script, it is assumed that the
+          folder containing the <em>WhiteboxTools</em> files (including the <em>whitebox_tools</em>
+          Python script) is named <code>WBT</code> (Line 1) and that
+          the calling script is located in the parent directory of <code>WBT</code>.
+          See <a href="#example_project">
+          An Example WhiteboxTools Python Project</a> for more details on project
+          set-up</a>. The use of <code>wbt</code> to designate the WhiteboxTools
+          object variable in the above script (Line 3) is just the convention
+          used in this manual and other project resources. In fact, any variable
+          name can be used for this purpose.
+        </p>
+
+        <p class="bodyText">The <code>WhiteboxTools</code> class expects to find
+        the WhiteboxTools executable file (<em>whitebox_tools.exe</em> on Windows
+        and <em>whitebox_tools</em> on other platforms) within the same directory
+        (<code>WBT</code>) as the <em>whitebox_tools.py</em> script. If the binary
+        file is located in a separate directory, you will need to set the
+        executable directory as follows:</p>
+
+<pre class="language-python line-numbers"><code>wbt.set_whitebox_dir('/local/path/to/whitebox/binary/')
+# Or alternatively...
+wbt.exe_path = '/local/path/to/whitebox/binary/'</code></pre>
+
+        <p class="bodyText">Individual tools can be called using the convenience
+          methods provided in the <code>WhiteboxTools</code> class:</p>
+
+<pre class="language-python line-numbers"><code># This line performs a 5 x 5 mean filter on 'inFile.tif':
+wbt.mean_filter('/file/path/inFile.tif', '/file/path/outFile.tif', 5, 5)</code></pre>
+
+        <p class="bodyText">Each tool has a cooresponding convenience method.
+          The listing of tools in this manual includes information about each
+          tool's Python convienience method, including default parameter values.
+          Parameters with default values may be optionally left off of function
+          calls. In addition to the convenience methods, tools can be called using
+          the <code>run_tool()</code> method, specifying the tool name and a
+          list of tool arguments. Each of the tool-specific convenience methods
+          collect their parameters into a properly formated list and then
+          ultimately call the <code>run_tools()</code> method. Notice that
+          while internally <em>whitebox_tools.exe</em> uses CamelCase
+          (e.g. MeanFilter) to denote tool names, the Python interface of
+          <em>whitebox_tools.py</em> uses snake_case (e.g. mean_filter),
+          according to Python style conventions. The only exceptions are tools
+          with names that clash with Python keywords (e.g. <code>And()</code>,
+          <code>Not()</code>, and <code>Or()</code>).</p>
+
+        <p class="bodyText">The return value can be used to check for errors
+          during operation:</p>
+
+<pre class="language-python line-numbers"><code>if wbt.ruggedness_index('/path/DEM.tif', '/path/ruggedness.tif') != 0:
+   # Non-zero returns indicate an error.
+   print('ERROR running ruggedness_index')
+</code></pre>
+
+        <p class="bodyText">If, like me, your data files tend to be burried
+          deeply in layers of sub-directories, specifying complete file names
+          as input parameters can be tedius. In this case, the best option is
+          setting the working directory before calling tools:</p>
+
+<pre class="language-python line-numbers"><code>from whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+wbt.work_dir = "/path/to/data/" # Sets the Whitebox working directory
+
+# Because the working directory has been set, file arguments can be
+# specified simply using file names, without paths.
+wbt.d_inf_flow_accumulation("DEM.tif", "output.tif", log=True)</code></pre>
+
+      <p class="bodyText">An advanced text editor, such as VS Code or Atom, can
+        provide hints and autocompletion for available tool convenience methods
+        and their parameters, including default values (see below).</p>
+
+      <img src="./img/wbt_auotcomplete.png" width="600" height="auto" alt="Autocompletion in Atom text editor makes calling WhiteboxTools functions easier." />
+
+
+      <p class="bodyText">
+        Sometimes it can be useful to print a complete list of available tools:
+      <p>
+
+<pre class="language-python line-numbers"><code>print(wbt.list_tools()) # List all tools in WhiteboxTools</code></pre>
+
+      <p class="bodyText">The <code>list_tools()</code> method also takes an
+        optional keywords list to search for tools:</p>
+
+<pre class="language-python line-numbers"><code># Lists tools with 'lidar' or 'LAS' in tool name or description.
+print(wbt.list_tools(['lidar', 'LAS']))</code></pre>
+
+      <p class="bodyText">To retrieve more detailed information for a specific tool,
+        use the <code>tool_help()</code> method:</p>
+
+<pre class="language-python line-numbers"><code>print(wbt.tool_help("elev_percentile"))</code></pre>
+
+      <p class="bodyText"><code>tool_help()</code> prints tool details including
+        a description, tool parameters (and their flags), and example usage at
+        the command line prompt. The above statement prints this report:</p>
+
+ <pre><code>
+ ElevPercentile
+ Description:
+ Calculates the elevation percentile raster from a DEM.
+ Toolbox: Geomorphometric Analysis
+ Parameters:
+
+ Flag               Description
+ -----------------  -----------
+ -i, --input, --dem Input raster DEM file.
+ -o, --output       Output raster file.
+ --filterx          Size of the filter kernel in the x-direction.
+ --filtery          Size of the filter kernel in the y-direction.
+ --sig_digits       Number of significant digits.
+
+ Example usage:
+ >>./whitebox_tools -r=ElevPercentile -v --wd="/path/to/data/" --dem=DEM.tif
+ >>-o=output.tif --filterx=25
+</code></pre>
+
+
+      <div class="backgroundSection">
+        <h3>A note on default parameter values</h3>
+        <p class="bodyText">
+          Each tool contains one or more parameters with default values. These will
+          always be listed after any input parameters that do not have default
+          values. You do not need to specify a parameter with a default value if
+          you accept the default. That is, unless you intend to specify an
+          input value different from the default, you may leave these parameters
+          off of the function call. However, be mindful of the fact that Python
+          assigns values to parameters based on order, unless parameter names
+          are specified.
+        </p>
+        <p class="bodyText">
+          Consider the Hillshade tool as an example. The User Manual gives the
+          following function definition for the tool:
+        </p>
+        <pre class="language-python"><code>hillshade(
+dem,
+output,
+azimuth=315.0,
+altitude=30.0,
+zfactor=1.0,
+callback=default_callback)</code></pre>
+        <p class="bodyText">
+          The <code>dem</code> and <code>output</code> parameters do not have
+          default values and must be specified every time you call this function.
+          Each of the remaining parameters have default values and can, optionally,
+          be left off of calls to the <code>hillshade</code> function. As an
+          example, say I want to accept the default values for all the parameters
+          except <code>altitude</code>. I would then need to use the named-parameter
+          form of the function call:
+        </p>
+        <pre class="language-python line-numbers"><code>wbt.hillshade(
+"DEM.tif",
+"hillshade.tif",
+altitude=20.0)</code></pre>
+        <p class="bodyText">
+          If I hadn't specified the parameter name for <code>altitude</code>,
+          Python would have assumed that the value 20.0 should be assigned to
+          the third parameter, <code>azimuth</code>.
+        </p>
+      </div>
+
+
+
+
+
+        <h2><a name="handling_output"></a>Handling tool output</h2>
+        <p class="bodyText">Tools will frequently print text to the standard
+          output during their execution, including warnings, progress updates and
+          other notifications. Sometimes, when users run many tools in complex
+          workflows and in batch mode, these output messages can be undesirable.
+          Most tools will have their outputs suppressed by setting the <em>verbose mode</em>
+          to <code>False</code> as follows:</p>
+
+<pre class="language-python line-numbers"><code>wbt.set_verbose_mode(False)
+# Or, alternatively...
+wbt.verbose = False</code></pre>
+
+        <p class="bodyText">Alternatively, it may be helpful to capture the text
+          output of a tool for custom processing. This is achieved by specifying
+          a custom <em>callback</em> function to the tool's convenience function:</p>
+
+<pre class="language-python line-numbers"><code># This callback function suppresses printing progress updates,
+# which always use the '%' character. The callback function
+# approach is flexible and allows for any level of complex
+# interaction with tool outputs.
+def my_callback(value):
+   if not "%" in value:
+       print(value)
+
+wbt.slope('DEM.tif', 'slope_raster.tif', callback=my_callback)</code></pre>
+
+      <p class="bodyText">
+        Every convienience function takes an optional callback as the last parameter.
+        The default callback simply prints tool outputs to the standard output
+        without any additional processing. Callback functions can serve as a
+        means of cancelling operations:
+      </p>
+
+<pre class="language-python line-numbers"><code>def my_callback(value):
+   if user_selected_cancel_btn: # Assumes a 'Cancel' button on a GUI
+       print('Cancelling operation...')
+       wbt.cancel_op = True
+   else:
+       print(value)
+
+wbt.breach_depressions('DEM.tif', 'DEM_breached.tif', callback=my_callback)</code></pre>
+
+
+
+      <h2><a name="additional_functions"></a>Additional functions in <em>whitebox_tools.py</em></h2>
+      <p class="bodyText">The <em>whitebox_tools.py</em> script provides several
+        other functions for interacting with the WhiteboxTools library, including:</p>
+
+<pre class="language-python line-numbers"><code># Print the WhiteboxTools help...a listing of available commands
+print(wbt.help())
+
+# Print the WhiteboxTools license
+print(wbt.license())
+
+# Print the WhiteboxTools version
+print("Version information: {}".format(wbt.version()))
+
+# Get the toolbox associated with a tool
+tb = wbt.toolbox('lidar_info')
+
+# Retrieve a JSON object of a tool's parameters.
+tp = tool_parameters('raster_histogram')
+
+# Opens a browser and navigates to a tool's source code in the
+# WhiteboxTools GitHub repository
+wbt.view_code('watershed')</code></pre>
+
+        <p class="bodyText">For a working example of how to call functions and
+          run tools from Python, see the <em>whitebox_example.py</em> Python
+          script, which is distributed with the WhiteboxTools library.</p>
+
+
+
+
+
+        <h2><a name="example_project"></a>An example WhiteboxTools Python project</h2>
+
+        <p class="bodyText">In this section, we will create a Python project
+          that utilizes the WhiteboxTools library to interpolate a LiDAR
+          point-cloud, to process the resulting digital elevation model (DEM)
+          to make it suitable for hydrological applications, and to perform a
+          simple flow-accumulation operation. I suggest using an advanced coding
+          text editor, such as Visual Studio Code or Atom, for this tutorial,
+          but Python code can be written using any basic text editor.</p>
+
+        <p class="bodyText">Begin by creating a dedicated project directory called <em>FlowAccumExample</em>
+          and copy WhiteboxTools binary file (i.e. the compressed file downloaded from
+          <a href="download.html">here</a>) into this folder. Using the
+          decompression software on your computer, decompress (i.e. an operation
+          sometimes called <em>unzipping</em>) the file into the newly created
+          <em>FlowAccumExample</em> directory. You will find the compressed file
+          contains a folder with contents similar to the following:</p>
+
+        <img src="./img/wbt_directory.png" width="600" height="auto" alt="Folder contents of WhiteboxTools compressed download file." />
+
+
+        <p class="bodyText">The folder contains a number of files, including the
+          WhiteboxTools executable file, the <em>whitebox_tools.py</em> python
+          script, the WhiteboxTools Runner (<em>wb_runner.py</em>), and the user
+          manual. It is likely that the folder has a name that reflects the
+          operating system and architecture that the binary file was compiled for
+          (e.g. WhiteboxTools_darwin_amd64). Rename this directory to <code>WBT</code>.
+          Also note, depending on your decompression software, it may be the case
+          that the contents of the <code>WBT</code> folder itself contains a sub-directory
+          that actually holds these files. If this is the case, be sure to move
+          the contents of the sub-directory into the <code>WBT</code> parent directory.</p>
+
+        <p class="bodyText">Using your text editor, create a new Python script
+          file, called <em>FlowAccumulation.py</em> within the <em>FlowAccumExample</em>
+          directory. We will begin by importing the <code>WhiteboxTools</code>
+          class from the <em>whitebox_tools.py</em> script contained within the
+          <code>WBT</code> sub-directory. Unfortunately, Python's module system is
+          only able to import classes and function definitions declared in external
+          Python scripts <strong>if these external files are contained somewhere
+          on the Python path or in the directory containing the script file into
+          which you are importing</strong>. This is important because based on
+          the project structure that we have established, the <em>whitebox_tools.py</em>
+          script is actually contained within a sub-directory of the
+          <em>FlowAccumExample</em> directory and is therefore not directly
+          accessible, unless you have previously installed the script on the Python
+          path. Another, perhaps easier solution to this problem is to create a
+          file named <em>__init__.py</em> (those are two leading and trailing
+          underscore characters) within the <em>FlowAccumExample</em> directory.
+          The presence of this empty file will make Python treat the <em>WBT</em>
+          directory as containing packages, in this case, the <em>whitebox_tools</em>
+          package. For more information, see the Python documentation on
+          <a href="https://docs.python.org/3/tutorial/modules.html#packages">modules and packages</a>.</p>
+
+          <p class="bodyText">At this stage, you should have a project directory
+            structure like that of the following:</p>
+
+          <img src="./img/example_project_dir.png" width="600" height="auto" alt="Example project set-up." />
+
+          <p class="bodyText">Many operating systems will disallow the execution
+            of files that are downloaded directly from the Internet. As such, it
+            is possible that you will need to explicitly give the <em>whitebox_tools.exe</em>
+            permission to execute on your computer (Note: here we are referring to
+            the compiled <em>WhiteboxTools</em> binary file and not the similarly
+            named Python script <em>whitebox_tools.py</em> also contained in the
+            folder). The procedure for doing this depends on your specific
+            operating system. On MacOS, for example, this is usually achieved
+            using the 'Security &amp; Privacy' tab under 'System Preferences'.
+            To test whether <em>whitebox_tools.exe</em> has permission to run on your
+            system, double-click the file. If the file is configured to execute,
+            a command terminal will automatically open and the WhiteboxTools help
+            documentation and a listing of the available tools will be printed.
+            If this does not occur, you likely need to give the file permission
+            to execute.</p>
+
+            <p class="bodyText">Using your text editor, you may now add the
+              following lines to the <em>FlowAccumulation.py</em> file:</p>
+
+<pre class="language-python line-numbers"><code>from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()</code></pre>
+
+            <p class="bodyText">In the import statement, <code>WBT</code> is a
+              reference to the package folder containing the WhiteboxTools files;
+              <code>whitebox_tools</code> is a reference to the <em>whitebox_tools.py</em>
+              script contained with this package folder; and <code>WhiteboxTools</code>
+              is a reference to the WhiteboxTools class contained within this
+              script file. Please note that if you named your directory containing
+              the WhiteboxTools files something other than <code>WBT</code>, you would
+              need to alter the import statement accordingly.</p>
+
+            <p class="bodyText">Visit the Geomorphometry and Hydrogeomatics Research Group
+            WhiteboxTools <a href="download.html">Downloads</a> website and download the St. Elis
+            Mountains and Gulf of Alaska sample data set (<em>StElisAk.las</em>). This
+            file contains a LiDAR point cloud that has been previously filtered to
+            remove points associated with non-ground returns, mainly trees. Create a
+            sub-directory within the project folder called 'data' and copy
+            <em>StElisAk.las</em> into the folder.
+
+            <img src="./img/StElis_point_cloud.png" width="600" height="auto" alt="St. Elis Mountains LiDAR point cloud, visualized using the plas.io software." />
+
+            <p class="bodyText">Now we can complete our flow accumulation analysis
+              with the following code:</p>
+
+<pre class="language-python line-numbers"><code>import os
+from WBT.whitebox_tools import WhiteboxTools
+
+wbt = WhiteboxTools()
+
+# Set the working directory, i.e. the folder containing the data,
+# to the 'data' sub-directory.
+wbt.work_dir = os.path.dirname(os.path.abspath(__file__)) + "/data/"
+
+# When you're running mulitple tools, the outputs can be a tad
+# chatty. In this case, you may want to suppress the output by
+# setting the verbose mode to False.
+# wbt.verbose = False
+
+# Interpolate the LiDAR data using an inverse-distance weighting
+# (IDW) scheme.
+print("Interpolating DEM...")
+wbt.lidar_idw_interpolation(
+i="StElisAk.las",
+output="raw_dem.tif",
+parameter="elevation",
+returns="last",
+resolution=1.0,
+weight=1.0,
+radius=2.5
+)
+
+# The resulting DEM will contain NoData gaps. We need to fill
+# these in by interpolating across the gap.
+print("Filling missing data...")
+wbt.fill_missing_data(
+i="raw_dem.tif",
+output="dem_nodata_filled.tif",
+filter=11
+)
+
+# This DEM will contain grid cells that have no lower neighbours.
+# This condition is unsuited for flow-path modelling applications
+# because these operations assume that each interior cell in the
+# DEM has at least one downslope neighour. We'll use an operation
+# called depression breaching to 'fix' the elevations within the
+# DEM to enforce continuous flow.
+print("Performing flow enforcement...")
+wbt.breach_depressions(
+dem="dem_nodata_filled.tif",
+output="dem_hydro_enforced.tif"
+)
+
+# Lastly, perform the flow accumulation operation using the
+# D-infinity flow algorithm.
+print("Performing flow accumulation...")
+wbt.d_inf_flow_accumulation(
+dem="dem_hydro_enforced.tif",
+output="flow_accum.tif",
+log=True
+)
+
+print("Complete!")</code></pre>
+
+          <p class="bodyText">To run the above script, open a terminal (command
+            prompt), <code>cd</code> to the script containing folder, and run the following
+            command:</p>
+
+ <pre><code>>>python FlowAccumulation.py</code></pre>
+
+          <p class="bodyText">If Python 3 is not your default Python version,
+            substitute <code>python3</code> for <code>python</code> in the above
+            command line. The final D-infinity flow accumulation raster can be
+            displayed in any GIS software of choice and should look similar to
+            the following:</p>
+
+          <img src="./img/flow_accum.png" width="600" height="auto" alt="Output of the flow accumulation script for the St. Elis Mountains data set." />
+
+  	  </div>
+
+      <div id="aside">
+        <img src="../img/WhiteboxToolsLogo_vert.svg" class="center" width="175" height="auto" alt="WhiteboxTools logo" />
+        <div id="sidebarLinks">
+          <ul>
+            <a href="index.html"><li>WhiteboxTools HOME</li></a>
+            <a href="download.html"><li>DOWNLOAD</li></a>
+            <a href="https://jblindsay.github.io/wbt_book/intro.html"><li>USER MANUAL</li></a>
+            <a href="https://github.com/jblindsay/whitebox-tools"><li>SOURCE CODE REPO (GitHub)</li></a>
+            <a href="support.html"><li>SUPPORT</li></a>
+            <a href="tutorials.html"><li class="activated">TUTORIALS</li></a>
+            <a href="../Whitebox/index.html"><li>Whitebox GAT HOME</li></a>
+          </ul>
+        </div>
+        <div class="bodyText"><strong><br/>Contact Information</strong></div>
+        <p class="sidebarText">Dr. John Lindsay<br/>
+          Rm. 346 Hutt Building<br/>
+          Department Geography, Environment &amp; Geomatics<br/>
+          University of Guelph<br/>
+          50 Stone Rd. East<br/>
+          Guelph, ON, Canada, N1G 2W1<br/>
+          <br/>
+          Email: <a href="mailto:jlindsay@uoguelph.ca">jlindsay@uoguelph.ca</a> <br />
+          Phone: 519-824-4120  ext. 56074<br/>
+        </p>
+        <div class="bodyText"><strong><br/>Recent News</strong></div>
+        <p class="sidebarText" id="news">No recent updates.</p>
+  		</div>
+
+    <div id="footer"></div>
+  </div>
+</div>
+<script>insertHeader("whiteboxtools");</script>
+<script>getNavBar("whiteboxtools");</script>
+<script>insertFooter();</script>
+<script>insertNewsItems(5, false);</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Min-max contrast stretch</h1>
+
+<p>This tool performs a minimum-maximum contrast stretch on a raster image. This operation maps each grid 
+cell value in the input raster image (<i>z</i>) onto a new scale that ranges from the user-specified 
+lower-tail clip value (<i>L</i>) to the upper-tail clip value (<i>U</i>), with the specified number of 
+tonal values (<i>n</i>), such that:</p>
+
+<p><code><i>zn</i> = (<i>z</i> - <i>L</i>) / (<i>U</i> - <i>L</i>) &#x00D7 n</code></p>
+
+<p>where <i>zn</i> is the output value. Notice that any values in the input image that are less than 
+<i>L</i> are assigned a value of <i>L</i> in the output image. Similarly, any input values greater than 
+<i>U</i> are assigned a value of <i>U</i> in the output image. This is a type of linear contrast stretch 
+with saturation at the tails of the frequency distribution. This is the same kind of stretch that is used 
+to display raster type data on the fly in Whitebox, such that the lower and upper tail values are set using 
+the minimum and maximum display values in the <i>Layer Properties</i> and the number of tonal values is 
+determined by the number of palette entries.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="GaussianStretch.html">Gaussian Contrast Stretch</a></li>
+<li><a href="PercentageContrastStretch.html">Percentage Contrast Stretch</a></li>
+<li><a href="HistogramEqualization.html">Histogram Equalization</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+</ul>
+</body>
+</html>

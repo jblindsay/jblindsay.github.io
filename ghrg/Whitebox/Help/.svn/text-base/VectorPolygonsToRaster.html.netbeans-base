@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Vector polygons to raster</h1>
+
+<p>This tool can be used to convert a vector polygons file (shapefile) into a raster grid. The user must 
+specify the name of the input shapefile and the output raster file. The 'Field Name' is the field from 
+the attributes table, i.e. DBF file, from which the tool will retrieve the information to assign to 
+grid cells in the output raster. Note that if this field contains numerical data with no decimals, the 
+output raster data type will be INTEGER; if it contains decimals it will be of a FLOAT data type. The 
+field must contain numerical data. If the user does not supply a Field Name parameter, each feature in 
+the raster will be assigned the record number of the feature. The assignment operation determines how 
+the situation of multiple points contained within the same grid cell is handled. The background value is 
+the value that is assigned to grid cells in the output raster that do not correspond to the location of 
+any points in the input vector. This value can be any numerical value (e.g. 0) or the string 'NoData', 
+which is the default. 
+</p>
+<p>If the user optionally specifies the Cell Size parameter then the coordinates will be determined by the 
+input vector (i.e. the bounding box) and the specified Cell Size. This will also determine the number of 
+rows and columns in the output raster. If the user instead specifies the optional Base Raster File parameter, 
+the output raster's coordiantes (i.e. north, south, east, west) and row and column count will be the same as 
+the base file. If the user does not specify either of these two optional parameters, the tool will determine 
+the cell size automatically as the maximum of the north-south extent (determined from the shapefile's 
+bounding box) or the east-west extent divided by 500.</p>
+<p>If you would like to rasterize the outlines of polygon features without filling them, then use the 
+<a href="VectorLinesToRaster.html">VectorLinesToRaster</a> tool.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="RasterToVectorPolygons.html">Raster To Vector Polygons</a></li>
+<li><a href="VectorLinesToRaster.html">Vector Lines To Raster</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+</ul>
+</body>
+</html>

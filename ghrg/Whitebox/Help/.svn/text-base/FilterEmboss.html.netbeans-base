@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Emboss filter</h1>
+
+<p>This tool can be used to perform one of eight 3x3 emboss filters on a raster
+image. Like the <a href="FilterSobel.html">Sobel</a> and <a
+href="FilterPrewitt.html">Prewitt</a> filters, the <b><i>emboss filter</i></b> is often
+applied in edge-detection applications. While these other two common
+edge-detection filters approximate the slope magnitude of the local
+neighbourhood surrounding each grid cell, the <b><i>emboss filter</i></b> can be used to
+estimate the directional slope. The kernel weights for each of the eight
+availble filters are as follows:</p>
+
+<table border="0" style="width: 100%">
+  <col>
+  <col>
+  <col>
+  <tbody>
+    <tr>
+      <td><p><b>N</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td><p><b>NE</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td><p><b>E</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><p><b>SE</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td><p><b>S</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td><p><b>SW</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><p><b>W</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td><p><b>NW</b> </p>
+
+        <table border="0">
+          <col>
+          <col>
+          <col>
+          <tbody>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">-1</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+            </tr>
+            <tr>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">0</td>
+              <td
+              style="text-align:right;margin-left:auto;margin-right:0;">1</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><b><i>NoData</i></b> values in the input image are replaced
+with the average value of all valid cells within the kernel. This is also the
+procedure when the neighbourhood around a grid cell extends beyond the edge of
+the grid. The output raster is of the <i>float</i> data type and
+<i>continuous</i> data scale.</p>
+<br>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="SpatialFilters.html">Spatial filters</a></li>
+  <li><a href="FilterPrewitt.html">Prewitt edge-detection filter</a></li>
+  <li><a href="FilterSobel.html">Sobel edge-detection filter</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

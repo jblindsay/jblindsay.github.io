@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+      <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+       <title>GAT Help</title>
+       <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+<body>
+  
+<h1>Export Surfer ASCII grid</h1>
+
+<p>
+This tool can be used to export a <a href="FileFormatsDescriptions.html">Whitebox GAT raster file</a> to a Surfer (Golden Software) ASCII grid file. ASCII files are text and as such are capable of being opened and viewed using any text editor. The user must specify the name of one or more Whitebox GAT raster files to be exported. The tool will create Surfer ASCII files, with .grd extensions, for each input file. Output file names are the same of the input files.</p>
+<p>The format of the Surfer ASCII grid format is as follows:</p>
+<p>DSAA<br>NumberOfColumns NumberOfRows<br>MinXCoordinate MaxXCoordinate<br>MinYCoordinate MaxYCoordinate<br>MinZValue MaxZValue<br>####.### ####.### ####.###...<br>####.### ####.### ####.###...</p>
+<p>An Example is given below:</p>
+<p>DSAA<br>201 380<br>416798.95 417000<br>4679619.71 4680000<br>174.66 174.54 174.39 ...<br>175.44 174.32 173.99 ...</p>
+<p>ASCII files can be very large when there are a large number of rows and columns in the grid and are also much slower to read/write compared to binary files. Notice as well that all Whitebox GAT <b><i>NoData</i></b> values (-32,768) will be converted to the Surfer <b><i>NoData</i></b> value of 1.70141E+38 in the output grid.</p>
+
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+
+<li><a href="ImportSurferAsciiGrid.html">Import Surfer ASCII grid</a></li>
+
+</ul>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

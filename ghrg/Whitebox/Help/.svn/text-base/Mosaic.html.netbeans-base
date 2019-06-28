@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Mosaic</h1>
+
+<p>This tool will create an image mosaic from one or more <i>input image
+files</i> using one of three resampling methods including, nearest neighbour,
+bilinear interpolation, and cubic convolution.The order of the input source
+image files is important. Grid cells in the output image will be assigned the
+corresponding value determined from the <i>first</i> image found in the list to
+possess an overlapping co-ordinate.</p>
+
+<p>The <i>Nearest neighbour</i> resampling approach assigns each grid cell in
+the destination image the value of the nearest grid cell corresponding the the
+same x- y- coordinates in the source images. The <i>Bilinear</i> resampling
+method interpolates a new value based on the nearest four grid cells in one of
+the source images. The <i>Cubic convolution</i> resampling method interpolates
+a new value based on the nearest 16 grid cells in one of the source images.
+Notice that only the <i>Nearest neighbour</i> method is appropriate with
+categorical data, while the other two approaches often give better results for
+data on a continuous scale. The <i>Nearest neighbour</i> method is the fastest
+of the three, followed by <i>Bilinear</i>, followed by <i>Cubic
+convolution</i>, which is comparably slow in operation.</p>
+
+<p><b><i>NoData</i></b> values are ignored during resampling. Notice that if
+the <b><i>Bilinear</i></b> or <b><i>Cubic convolution</i></b> resampling
+methods are selected, the destination image should be of the <i>float</i> data
+type and <i>continuous</i> data scale as the output will contain floating-point
+values (i.e. decimal numbers).</p>
+<p>The <a href="MosaicWithFeathering.html"><b><i>Mosaic With Feathering</i></b></a> 
+    tool provides superior radiometric interpolation within the area of overlap 
+in image pairs and is therefore the preferred method of mosaicing images with 
+extended overlapping regions.</p>
+
+
+<p><br></p>
+
+<h2 class="SeeAlso"><i>Resample</i> Versus <i>Mosaic</i></h2>
+
+<p><b><i><a href="Resample.html">Resample</a></i></b> is very similar in
+operation to the <b><i>Mosaic</i></b> tool. The <b><i>Resample</i></b> tool
+should be used when there is an existing image into which you would like to
+dump information from one or more source images. If the source images are more
+extensive than the destination image, i.e. there are areas that extend beyond
+the destination image boundaries, these areas will not be represented in the
+updated image. Grid cells in the destination image that are not overlapping
+with any of the input source images will not be updated, i.e. they will possess
+the same value as before the resampling operation. The <b><i>Mosaic</i></b>
+tool is used when there is no existing destination image. In this case, a new
+image is created that represents the bounding rectangle of each of the two or
+more input images. Grid cells in the output image that do not overlap with any
+of the input images will be assigned the <b><i>NoData</i></b> value.</p>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="MosaicWithFeathering.html">Mosaic With Feathering</a></li>
+  <li><a href="Resample.html">Resample</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+ <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

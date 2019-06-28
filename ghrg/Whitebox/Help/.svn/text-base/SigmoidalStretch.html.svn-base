@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Sigmoidal contrast stretch</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Sigmoidal contrast stretch</h1>
+
+        <p>This tool performs a sigmoidal stretch on a raster image. This is a 
+            transformation where the input image value for a grid cell (<i>z<sub>in</sub></i>) 
+            is transformed to an output value <i>z<sub>out</sub></i> such that:</p>
+
+        <div><code><i>z<sub>out</sub></i> = (1 / (1 + <i>exp</i>(<i>gain</i>(<i>cutoff</i> - <i>z</i>))) - <i>a</i> ) / <i>b</i></code></div>
+        <div>where,</div>
+        <div><code>z = (<i>z<sub>in</sub></i> - <i>minimumValue</i>) / <i>range</i>,</code></div>
+        <div><code>a = 1 / (1 + <i>exp</i>(<i>gain</i> x <i>cutoff</i>)),</code></div>
+        <div><code>b = 1 / (1 + <i>exp</i>(<i>gain</i> x (<i>cutoff</i> - 1))) - 1 / (1 + <i>exp</i>(<i>gain</i> x <i>cutoff</i>)),</code></div>
+        <div><i>minimumValue</i>) and <i>range</i> are the minimum value and data 
+            range in the input image respectively and <i>gain</i> and <i>cutoff</i> 
+            are user specified parameters.</div>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="HistogramMatching.html">Histogram Matching</a></li>
+            <li><a href="GaussianStretch.html">Gaussian Contrast Stretch</a></li>
+            <li><a href="PercentageContrastStretch.html">Percentage Contrast Stretch</a></li>
+            <li><a href="MinMaxContrastStretch.html">Min-Max Contrast Stretch</a></li>
+            <li><a href="HistogramEqualization.html">Histogram Equalization</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile = wd + "input.dep"<br>
+                outputFile = wd + "output.dep"<br>
+                cutoff = "0.0"<br>
+                gain = "1.0"<br>
+                args = [inputFile, outputFile, cutoff, gain]<br>
+                pluginHost.runPlugin("SigmoidalStretch", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile = wd + "input.dep"<br>
+                def outputFile = wd + "output.dep"<br>
+                def cutoff = "0.0"<br>
+                def gain = "1.0"<br>
+                String[] args = [inputFile, outputFile, cutoff, gain]<br>
+                pluginHost.runPlugin("SigmoidalStretch", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

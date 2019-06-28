@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Extract valleys (lower quartile)</h1>
+
+<p>This tool can be used to extract channel networks from digital elevation models (DEMs) based on the 
+Lindsay (2006) 'lower-quartile' method. The algorithm is a type of 'valley recognition' method. Other 
+channel mapping methods, such as the <a href="ExtractValleysJohnstonAndRosenfeld.html">Johnston and 
+Rosenfeld (1975) algorithm</a>, experience problems because channel profiles are not always ?v?-shaped, 
+nor are they always apparent in small 3 x 3 windows. The lower-quartile method was developed as an 
+alternative and more flexible valley recognition channel mapping technique. The lower-quartile method 
+operates by running a filter over the DEM that calculates the percentile value of the centre cell with 
+respect to the distribution of elevations within the filter window. The roving window is circular, the 
+diameter of which should reflect the topographic variation of the area (e.g. the channel width or average 
+hillslope length). The user specifies the filter size, in pixels, and this value should be an odd number 
+(e.g. 3, 5, 7, etc.). The appropriateness of the selected window diameter will depend on the grid 
+resolution relative to the scale of topographic features. Cells that are within the lower quartile of the 
+distribution of elevations of their neighbourhood are flagged. Thus, the algorithm identifies grid cells 
+that are in relatively low topographic positions at a local scale. This approach to channel mapping is 
+only appropriate in fluvial landscapes. In regions containing numerous lakes and wetlands, the algorithm 
+will pick out the edges of features.</p>
+<p>This method is best applied to DEMs that are relatively smooth and do not exhibit high levels of 
+short-range roughness. As such, it may be desirable to use a 
+<a href="FilterGaussian.html">smoothing filter</a> before applying this tool.</p>
+<p>This method of extracting valley networks results in line networks that can be wider than a single grid 
+cell. It is often desirable to thin the resulting network using a line-thinning algorithm. The 
+option to perform line-thinning is provided by the tool as a post-processing step.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="ExtractValleysPeuckerAndDouglas.html">Extract Valleys (Peucker and Douglas)</a></li>
+<li><a href="ExtractValleysJohnstonAndRosenfeld.html">Extract Valleys (Johnston and Rosenfeld)</a></li>
+<li><a href="FilterGaussian.html">Gaussian Filter</a></li>
+<li><a href="FilterMean.html">Mean Filter</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+</ul>
+<br><h2 class="SeeAlso">References:</h2>
+<ul>
+<li>LINDSAY, J.B., 2006, Sensitivity of channel mapping techniques to uncertainly in digital elevation 
+data. International Journal of Geographical Information Science, 20:6, pp. 669-692.</li>
+<br><li>DOUGLAS, D.H., 1986, Experiments to locate ridges and channels to create a new type of digital 
+elevation model. Cartographica, 23, pp. 29?61.</li>
+<br><li>JOHNSTON, E.G. and ROSENFELD, A., 1975, Digital detection of pits, peaks, ridges and ravines. IEEE 
+Transactions on Systems, Man and Cybernetics, SMC-5, pp. 472?480.</li>
+
+</ul>
+</body>
+</html>

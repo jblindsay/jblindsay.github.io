@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Linearity index</h1>
+
+        <p>This tool calculates the linearity index of polygon features based on a 
+            regression analysis. The index is simply co-efficient of determination 
+            (<i>r</i><sup>2</sup>) calculated from a regression analysis of the 
+            <i>x</i> and <i>y</i> coordinates of either all of the grid cells 
+            within a polygon (in the case of a raster input) or the exterior 
+            hull nodes of a vector polygon. Linearity index is a measure of how 
+            well a polygon can be described by a straight line. It is a related 
+            index to the 
+            <a href="ElongationRatio.html"><b><i>Elongation Ratio</i></b></a>, 
+            but is much more efficient to calculate as it does not require 
+            finding the 
+            <a href="MinimumBoundingBox.html"><b><i>Minimum Bounding Box</i></b></a>. 
+            Also, linearity can be calculated for raster data, whereas the 
+            elongation ratio tool only accepts vector inputs. The Pearson 
+            correlation coefficient between linearity index and the 
+            elongation ratio for a large data set of lake polygons in northern 
+            Canada was found to be 0.656, suggesting a moderate level of 
+            association between the two measures of polygon linearity. Note that 
+            this index is not useful for identifying narrow yet sinuous polygons, 
+            such as meandering rivers. 
+        </p>
+
+        <p>The tool works for either raster or vector input files. If a raster 
+            file is input, the grid should contain polygons with unique 
+            identifiers. Raster input files also require the name of the output 
+            raster file (where the linearity will be assigned to each 
+            feature in the input file) and the specified option of outputting 
+            text. If a vector shapefile is specified as the input file, the only 
+            required input is the name of the file. The linearity values 
+            calculated for each vector polygon feature will be placed in the 
+            accompanying database file (.dbf) as a new field (LINEARITY). The 
+            resulting database file will be automatically displayed after the 
+            tool has completed.</p>
+
+        <p>For most polygons, the results will be based on reduced major axis (RMA) 
+            regression line, although ordinary least-squares (OLS) regression is used 
+            when a polygon is nearly vertically or horizontally aligned.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LinearityIndex.html">Linearity Index</a></li>
+            <li><a href="PatchOrientationVectorField.html">Patch Orientation Vector Field</a></li>
+            <li><a href="ElongationRatio.html">Elongation Ratio</a></li>
+            <li><a href="MinimumBoundingBox.html">Minimum Bounding Box</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

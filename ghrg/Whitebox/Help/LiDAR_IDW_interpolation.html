@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>IDW interpolation for LiDAR</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>IDW interpolation for LiDAR</h1>
+
+        <p>
+            This tool can be used to interpolate a regular grid raster from a point cloud 
+            LiDAR dataset using an inverse-distance-weighted (IDW) interpolation method. 
+            The user inputs a LiDAR dataset in LAS file format (.las) and the name of the 
+            output raster grid to be created. Although most often this tool will be used 
+            to create a digital elevation model (DEM) from the elevation data associated 
+            with the LiDAR dataset, the user can also specify a number of other parameters 
+            to interpolate including the LiDAR point intensity, classification, and 
+            associated red, green, and blue values. Note that not all LiDAR datasets will 
+            include each of these parameters. Interpolation can be based on all of the 
+            points in the dataset, first return points, or last return points. The user 
+            must also specify the IDW exponent, the search radius, and rotation value 
+            (if any).</p>
+        <p>The maximum scan angle deviation parameter can be used to filter points from 
+           the neighbourhood around each interpolated grid cell that have scan angles 
+           that are larger than the neighbourhood minimum scan angle by this user-defined 
+           threshold value. Large variation in the scan angle of nearby LiDAR points can 
+           be common near the edges of scan lines. Although the effects of this are rarely 
+           apparent in the DEM, the impact of using a collection of points with greatly 
+           varying scan angles for interpolation can be observed in the derived products 
+           of the DEM, particularly the hillshade image. This can significantly impact 
+           modelled surface flowpaths in flight-line edge areas. Lowering the maximum 
+           scan angle deviation parameter will have the impact of reducing this artifact. 
+           If the parameter is set too low, however, the resulting interpolated surface 
+           may contain extensive areas of NoData values. It is not recommended that this 
+           parameter be set lower than 3.0 degrees. Similarly, if you do not want to 
+           exclude any points as a result of the variation of scan angles within interpolation 
+           neighbourhoods, simply set this parameter to a high value, e.g. 90.0 degrees.</p>
+
+        <p>Grid cells that have no points within the search radius assigned the 
+            <i><b>NoData</b></i> value in the output image. The output raster is of 
+            the <i>float</i> data type and <i>continuous</i> data scale.</p>
+
+        <p>If the LiDAR data you wish to interpolate is not contained in the LAS file 
+            format, but rather an ASCII text file, you may use one of the interpolation 
+            tools contained in the <b><i>Raster Creation</i></b> toolbox to interpolate 
+            the dataset.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LiDARTools.html">LiDAR Tools</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                # You may have multiple input files but they must<br>
+                # be separated by semicolons in the string.<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"<br>
+                suffix = "IDW"<br>
+                interpParameter = "z (elevation"<br>
+                ptReturn = "all points"<br>
+                exponent = "2.0"<br>
+                maxSearchDist = "5.0"<br>
+                pointsToUse = "8"<br>
+                gridRes = "1.0"<br>
+                maxScanAngleDeviation = "3.0"<br>
+                # excluded points...
+                neverClassified = "false"<br>
+                unclassified = "false"<br>
+                bareGround = "false"<br>
+                lowVeg = "false"<br>
+                mediumVeg = "false"<br>
+                highVeg = "false"<br>
+                buildings = "false"<br>
+                lowPoints = "false"<br>
+                keyPoints = "false"<br>
+                water = "false"<br>
+                args = [inputs, suffix, interpParameter, ptReturn, exponent, maxSearchDist, pointsToUse, gridRes, maxScanAngleDeviation,
+                neverClassified, unclassified, bareGround, lowVeg, mediumVeg, <br>
+                highVeg, buildings, lowPoints, keyPoints, water]<br>
+                pluginHost.runPlugin("LiDAR_IDW_interpolation", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                // You may have multiple input files but they must<br>
+                // be separated by semicolons in the string.<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"<br>
+                def suffix = "IDW"<br>
+                def interpParameter = "intensity"<br>
+                def ptReturn = "last return"<br>
+                def exponent = "2.0"<br>
+                def maxSearchDist = "5.0"<br>
+                def pointsToUse = "8"<br>
+                def gridRes = "1.0"<br>
+                def maxScanAngleDeviation = "5.0"<br>
+                // excluded points...
+                def neverClassified = "false"<br>
+                def unclassified = "false"<br>
+                def bareGround = "false"<br>
+                def lowVeg = "false"<br>
+                def mediumVeg = "false"<br>
+                def highVeg = "false"<br>
+                def buildings = "false"<br>
+                def lowPoints = "false"<br>
+                def keyPoints = "false"<br>
+                def water = "false"<br>
+                String[] args = [inputs, suffix, interpParameter, ptReturn, exponent, maxSearchDist, pointsToUse, gridRes, maxScanAngleDeviation,
+                neverClassified, unclassified, bareGround, lowVeg, mediumVeg, <br>
+                highVeg, buildings, lowPoints, keyPoints, water]<br>
+                pluginHost.runPlugin("LiDAR_IDW_interpolation", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

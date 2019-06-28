@@ -1,0 +1,69 @@
+<!--
+Copyright (C) 2013 Dr. John Lindsay <jlindsay@uoguelph.ca>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>IHS to RGB</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>IHS to RGB</h1>
+        <p>This tool transforms three intensity, hue, and saturation (IHS; 
+            sometimes HSI or HIS) images raster images into three equivalent 
+            multispectral images corresponding with the red, green, and blue channels
+            of an RGB composite. <i>Intensity</i> refers 
+            to the brightness of a color, <i>hue</i> is related to the dominant 
+            wavelength of light and is perceived as color, and <i>saturation</i> is 
+            the purity of the color (Koutsias et al. 2000 Photogrammetric 
+            Engineering & Remote Sensing 66:7, 829-839). There are numerous 
+            algorithms for performing a red-green-blue (RGB) to IHS transformation. 
+            This tool uses the transformation described by Haydn (1982). Note that, 
+            based on this transformation, the input IHS values <i>must follow the 
+            ranges</i>:</p>
+
+        <p><code>0 &#60; I &#60; 3<br>0 &#60; H &#60; 3<br>0 &#60; S &#60; 1</code></p>
+
+        <p>The output red, green, and blue images will have values ranging from 
+            0 to 255. The user must specify the names of the intensity, hue, 
+            and saturation images. These images will generally be created using 
+            the <a href="RGBtoIHS.html"><b><i>RGB to IHS</i></b></a> tool.
+            The user must also specify the names of the output red, green, and 
+            blue images. Image enhancements, such as contrast stretching, are 
+            often performed on the individual IHS components, which are then 
+            inverse transformed back in RGB components using this tool. The output 
+            RGB components can then be used to create an improved color composite 
+            image.</p>
+
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Haydn, R., Dalke, G.W. and Henkel, J. (1982) Application of the IHS 
+                color transform to the processing of multisensor data and image 
+                enhancement. Proc. of the Inter- national Symposium on Remote 
+                Sensing of Arid and Semiarid Lands, Cairo, 599-616.</li>
+        </ul>
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="RGBtoIHS.html">RGB to IHS</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

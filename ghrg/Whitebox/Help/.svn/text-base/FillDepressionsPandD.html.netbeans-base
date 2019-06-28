@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Fill depressions (Planchon and Darboux)</h1>
+
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the 
+flat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure 
+continuous flow from each grid cell to an outlet located along the grid edge. The Fill Depressions algorithm 
+is based on the computationally efficient approach of inundating a landscape and then iteratively removing 
+excess water that was first proposed by Planchon and Darboux (2001). This algorithm is not as efficient as 
+the algorithm proposed by Wang and Liu (2006), which is implemented in the <a href="FillDepressions.html">
+<b><i>Fill Depressions</i></b></a> tool but it is capable of working on very large DEMs, whereas the Wang 
+and Liu algorithm implemented in Whitebox is likely to experience a memory overflow error.</p>
+
+<p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the Fill 
+Missing Data Holes tool to repair these gaps. This tool will interpolate values across the gaps and produce 
+a more natural-looking surface than the flat areas that are produced by depression filling.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="FillDepressions.html">Fill Depressions</a></li>
+</ul>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li><a href="mailto:jlindsay@uougelph.ca">John Lindsay</a> (2012)</li>
+</ul>
+</body>
+</html>

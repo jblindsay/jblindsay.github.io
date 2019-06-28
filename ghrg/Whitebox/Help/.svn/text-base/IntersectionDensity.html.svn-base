@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Intersection density</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Intersection density</h1>
+
+        <p>This tool can be used to map the density of intersections between the 
+        features of a user-specified vector file of a POLYLINE or POLYGON base 
+        <i>ShapeType</i> and the search annulus (ring) of a buffer operation. It 
+        can be used to answer the question, 'how many intersections are at a 
+        distance of <i>d</i>?' In addition to the input shapefile, the user must 
+        also specify the name of the output raster, the desired search distance, 
+        and the grid resolution of the output file.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                inputFile = wd + "input.shp"<br>
+                outputFile = wd + "output.dep"<br>
+                bufferDist = "1000.0"<br>
+                gridRes = "20.0"<br>
+                args = [inputFile, outputFile, bufferDist, gridRes]<br>
+                pluginHost.runPlugin("IntersectionDensity", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                def inputFile = wd + "input.shp"<br>
+                def outputFile = wd + "output.dep"<br>
+                def bufferDist = "1000.0"<br>
+                def gridRes = "20.0"<br>
+                String[] args = [inputFile, outputFile, bufferDist, gridRes]<br>
+                pluginHost.runPlugin("IntersectionDensity", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

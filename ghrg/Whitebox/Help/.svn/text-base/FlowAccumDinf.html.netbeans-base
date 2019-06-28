@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Dinf flow accumulation</h1>
+
+<p>This tool is used to generate a flow accumulation grid (i.e. contributing
+area) using the D-infinity algorithm (Tarboton, 1997). This algorithm is an
+examples of a multiple-flow-direction (MFD) method because the flow entering
+each grid cell is routed to one or two downslope neighbour, i.e. flow
+divergence is permitted. The user must specify the name of the input
+pointer-grid, which has been created either from the <i><b><a
+href="FlowPointerDinf.html">Dinf</a></b></i> flow-pointer tool. The
+flow-pointer grid should be created from a digital elevation model (DEM) that
+has been hydrologically corrected to remove all spurious depressions and flat
+areas. DEM pre-processing is usually achived using the <i><b><a
+href="FillDeps.html">Fill Depressions</a></b></i> tool. </p>
+
+<p>In addition to the input flow-pointer grid name, the user must specify the
+output type. The output flow-accumulation can be 1) specific catchment area
+(SCA), which is the upslope contributing area divided by the contour length
+(taken as the grid resolution), 2) total catchment area in square-metres, or 3)
+the number of upslope grid cells. The user must also specify whether the output
+flow-accumulation grid should be log-tranformed, i.e. the output, if this
+option is selected, will be the natural-logarithm of the accumulated area. This
+is a transformation that is often performed to better visualize the
+contributing area distribution. Because contributing areas tend to be very high
+along valley bottoms and relatively low on hillslopes, when a flow-accumulation
+image is displayed, the distribution of values on hillslopes tends to be
+'washed out' because the palette is stretched out to represent the highest
+values. Log-transformation provides a means of compensating for this
+phenomenon. Importantly, however, log-transformed flow-accumulation grids must
+not be used to estimate other secondary terrain indices, such as the <a
+href="WetnessIndex.html">wetness index</a>, or <a
+href="RelativeStreamPower.html">relative stream power index</a>. Perhaps a
+better alternative to log-transformation of flow-accumulation values is to
+increase the <i><b>'Palette non-linearity'</b></i> value under the <i><b>Layer
+Properties</b></i> tab.</p>
+
+<p>Grid cells possessing the <i><b>NoData</b></i> value in the input
+flow-pointer grid are assigned the <i><b>NoData</b></i> value in the output
+flow-accumlation image. The output raster is of the <i>float</i> data type and
+<i>continuous</i> data scale.</p>
+
+<p><br>
+</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="FlowTools.html">Other flow modelling tools</a></li>
+  <li><a href="FlowPointerDinf.html">Dinf flow pointer (direction)</a></li>
+  <li><a href="FillDeps.html">Fill depressions</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

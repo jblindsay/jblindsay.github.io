@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Flow modelling tools</h1>
+
+<p>There are a number of tools available in Whitebox GAT that can be used to
+extract information about the distribution of water and other flow-related
+phenomena (e.g. sediment and nutrients) across a landscape. These tools utilize
+digital elevation model (DEM) based flow routing algorithms in order to trace
+the flowpath from each grid cell in a raster DEM to an outlet point, usually at
+the edge of the DEM. Common applications include mapping the spatial
+distribution of upslope contributing areas, watershed boundaries, subbasins,
+and stream networks from DEM data. These data are also useful for calculating a
+number of secondary terrain attributes such as the topographic <a
+href="WetnessIndex.html">wetness index</a> (used in the TOPMODEL hydrological
+framework) and the <a href="RelativeStreamPower.html">relative stream power
+index</a> (sometimes used for modelling erosion and deposition patterns). Most
+of these applications require a DEM that has been hydrologically 'corrected' to
+remove topographic depressions and flat areas, which can artificially truncate
+flowpaths. Available tools for hydrological pre-processing DEM data include:</p>
+<ul>
+  <li><a href="BreachDeps.html">Depressions breaching</a></li>
+  <li><a href="FillDeps.html">Depression filling</a></li>
+  <li><a href="FillDepsBySize.html">Depression filling by size</a></li>
+  <li><a href="BurnStreams.html">Stream burning</a></li>
+  <li><a href="RemoveSingleCellPits.html">Removal of single-cell pits (by
+    filling)</a></li>
+</ul>
+
+<p>Many tools involving tracing flowpaths through a DEM grid require an input
+of a flow-pointer grid. A flow-pointer grid contains information about where
+the flow entering each grid cell should be directed, i.e. flow-direction data.
+In fact, there are several different ways of estimating the flow-pointer grid
+depending on the flow algorithm that is chosen. Although there are many
+different flow algorithms that have been developed, each can be classified as
+either being a single-flow-direction (SFD) algorithm or a
+multiple-flow-direction (MFD) algorithm depending on whether or not flow
+dispersion is permitted. MFD algorithms will route the flow enter a grid cell
+to one or more downslope neighbours. Available tools for creating a
+flow-pointer grid include:</p>
+<ul>
+  <li><a href="FlowPointerD8.html">D8, O'Callaghan and Mark's (1984) commonly
+    used SFD algorithm</a></li>
+  <li><a href="FlowPointerRho8.html">Rho8, J. Fairfield and P. Leymarie's
+    (1991) stochastic SFD algorithm</a></li>
+  <li><a href="FlowPointerFD8.html">FD8, Freeman's (1991) and Quinn et al.'s
+    (1991; 1995) MFD algorithm, commonly used with TOPMODEL</a></li>
+  <li><a href="FlowPointerDinf.html">Dinf (D-infinity), Tarboton's (1997) MFD
+    algorithm</a></li>
+</ul>
+
+<p>The decision to use one algorithm over another depends largely on the
+application. For example, many applications that involve stream network
+analysis require the D8 SFD method because divergence of flow is relatively
+rare once water is channelized, greatly simplifying the analysis. When
+modelling the pattern of upslope contributing area or soil wetness on
+hillslopes, however, flow dispersion may well occur, in which case an MFD flow
+algorithm such as Dinf will likely provide more suitable results.</p>
+
+<p>Many applications of flow modelling require the estimation of upslope
+contributing area. This is a flow accumulation operation. Most flow algorithm
+actually measure the flow accumulation to an area, i.e. a grid cell, rather
+than a point (interestingly points have no contributing areas because the are
+infinitely small). Because the pattern of contributing area is dependent on the
+grid resolution, it is common to normalize this pattern by the resoluton,
+effectively yielding the upslope contriubting area per unit contour length,
+called the Specific Catchment Area (SCA). Each of the above flow-pointer
+algorithms have corresponding flow-accumulation tools, including <a
+href="D8FlowAccum.html">D8/Rho8</a>, <a href="FD8FlowAccum.html">FD8</a>, and
+<a href="DinfFlowAccum.html">Dinf</a>. </p>
+
+<p>In addition to flow accumulation, common operations that include flow
+modelling include <a href="Watershed.html">watershed</a> delineation and many
+<a href="StreamTools.html">stream network analysis</a> operations.</p>
+
+<p><br>
+</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li>None</li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

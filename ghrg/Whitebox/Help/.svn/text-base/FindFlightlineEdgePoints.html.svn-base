@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Find flightline edge points</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Find flightline edge points</h1>
+
+        <p>The LAS file format is an industry standard format for storing data acquired by laser 
+        scanners. The LAS data record structure contains a flag to highlight points that 
+        coorespond with flightline edges. This tool can be used to seperate all points in a 
+        group of LAS files that have this flag set to true and to output them into a shapefile 
+        of a POINT shape type. The user must specify the names of one or more input LAS files as 
+        well as the name of the output shapefile. Importantly, although the LAS structure has 
+        a flightline edge flag does not mean that all data providers of LAS data will necessarily 
+        use this flag, in which case no points will be detected and the output file will not be 
+        created. A warning will be issued in this case.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()<br>
+                # You may have multiple input files but they must<br>
+                # be separated by semicolons in the string.<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"<br>
+                output = wd + "output.shp"<br>
+                args = [inputs, output]<br>
+                pluginHost.runPlugin("FindFlightlineEdgePoints", args, False)<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()<br>
+                // You may have multiple input files but they must<br>
+                // be separated by semicolons in the string.<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"<br>
+                def output = wd + "output.shp"<br>
+                def args = [inputs, output]<br>
+                pluginHost.runPlugin("FindFlightlineEdgePoints", args, false)<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

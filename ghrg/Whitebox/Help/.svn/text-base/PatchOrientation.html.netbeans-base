@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Whitebox GAT Help</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Patch orientation</h1>
+
+        <p>This tool calculates the orientation of polygon features based on a 
+            regression analysis. It is the direction component of the 
+            <a href="LinearityIndex.html"><b><i>Linearity Index</i></b></a> 
+            (i.e. r-squared value). Note that polygons are oriented-type data 
+            (e.g. N-S, E-W, NE-SW, NW-SE) and that this orientation is 
+            expressed as an angle between 0 and 180 degrees clockwise from 
+            north. This algorithm works very well at finding the orientation of 
+            streamlined features.</p>
+        
+        <p>The tool works for either raster or vector input files. If a raster 
+            file is input, the grid should contain polygons with unique 
+            identifiers. Raster input files also require the name of the output 
+            raster file (where the patch orientation will be assigned to each 
+            feature in the input file) and the specified option of outputting 
+            text. If a vector shapefile is specified as the input file, the only 
+            required input is the name of the file. The patch orientation values 
+            calculated for each vector polygon feature will be placed in the 
+            accompanying database file (.dbf) as a new field (ORIENT). The 
+            resulting database file will be automatically displayed after the 
+            tool has completed.</p>
+
+        <p>For most polygons, the results will be based on reduced major axis (RMA) 
+            regression line, although ordinary least-squares (OLS) regression is used 
+            when a polygon is nearly vertically or horizontally aligned. Note 
+            that this provides a similar measure of polygon direction to that of 
+            the elongation direction (ELONG_DIR) output from the 
+            <a href="ElongationRatio.html"><b><i>Elongation Ratio</i></b></a> 
+            tool. Elongation, is however, based on the calculation of the 
+            <a href="MinimumBoundingBox.html"><b><i>Minimum Bounding Box</i></b></a>  
+            long-axis rather than linear regression analysis.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LinearityIndex.html">Linearity Index</a></li>
+            <li><a href="PatchOrientationVectorField.html">Patch Orientation Vector Field</a></li>
+            <li><a href="ElongationRatio.html">Elongation Ratio</a></li>
+            <li><a href="MinimumBoundingBox.html">Minimum Bounding Box</a></li>
+        </ul>
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

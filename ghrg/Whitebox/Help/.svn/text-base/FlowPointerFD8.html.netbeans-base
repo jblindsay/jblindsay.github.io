@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>GAT Help</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>FD8 flow pointer (direction)</h1>
+
+<p>This tool is used to generate a flow pointer grid (i.e. flow direction)
+using the FD8 (Freeman, 1991) algorithm. FD8 is a multiple-flow-direction (MFD)
+method because the flow entering each grid cell is routed one or more downslope
+neighbours, i.e. flow divergence is permitted. The user must specify the name
+of a digital elevation model (DEM) that has been hydrologically corrected to
+remove all spurious depressions and flat areas. DEM pre-processing is usually
+achived using the <a href="FillDeps.html">Fill Depressions tool</a>.</p>
+
+<p>In Whitebox GAT, the designation of flow pointers to each of the eight
+neighbouring cells of each grid cell use the following clockwise, base-2
+numeric naming convention:</p>
+
+<p><img alt="Flow directions" src="img/FlowPointerNamingConvention2.png"></p>
+
+<p>In the case of the FD8 algorithm, some portion of the flow entering a grid
+cell will be sent to each downslope neighbour. Thus, the FD8 flow-pointer value
+is the sum of each of the individual pointers for all downslope neighbours. For
+example, if a grid cell has downslope neighbours to the northeast, east, and
+south the corresponding FD8 flow-pointer value will be 1 + 2 + 8 = 11. Using
+the naming convention above, this is the only combination of flow-pointers that
+will result in the combined value of 11. Using the base-2 naming convention
+allows for the storage of complex combinations of flow-points using a single
+numeric value, which is the reason for using this somewhat odd convention.</p>
+
+<p>Notice that unlike most of the other flow algorithms available in Whitebox
+GAT, the <i><b><a href="FD8FlowAccum.html">FD8 flow-accumulation</a></b></i>
+tool does not require the input of the FD8 flow-pointer. This is because the
+flow directions are determined automatically from the DEM by the accumulation
+algorithm.</p>
+
+<p>Grid cells possessing the <i><b>NoData</b></i> value in the input DEM are
+assigned the <i><b>NoData</b></i> value in the output image. The output raster
+is of the <i>float</i> data type and <i>continuous</i> data scale.</p>
+
+<p><br>
+</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="FlowTools.html">Other flow modelling tools</a></li>
+  <li><a href="FillDeps.html">Fill depressions</a></li>
+</ul>
+<br>
+
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+ <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>
