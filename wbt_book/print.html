@@ -405,7 +405,7 @@ print(&quot;Version information: {}&quot;.format(wbt.version()))
 tb = wbt.toolbox('lidar_info')
 
 # Retrieve a JSON object of a tool's parameters.
-tp = tool_parameters('raster_histogram')
+tp = wbt.tool_parameters('raster_histogram')
 
 # Opens a browser and navigates to a tool's source code in the
 # WhiteboxTools GitHub repository
@@ -596,6 +596,7 @@ python3 wb_runner.py
 <li><a href="#CleanVector">CleanVector</a></li>
 <li><a href="#ConvertNodataToZero">ConvertNodataToZero</a></li>
 <li><a href="#ConvertRasterFormat">ConvertRasterFormat</a></li>
+<li><a href="#CsvPointsToVector">CsvPointsToVector</a></li>
 <li><a href="#ExportTableToCsv">ExportTableToCsv</a></li>
 <li><a href="#JoinTables">JoinTables</a></li>
 <li><a href="#LinesToPolygons">LinesToPolygons</a></li>
@@ -714,6 +715,43 @@ support user hints however.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/convert_raster_format.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: July 6, 2017</p>
+<p><a name="CsvPointsToVector"></a></p>
+<a class="header" href="#csvpointstovector" id="csvpointstovector"><h1>CsvPointsToVector</h1></a>
+<p>This tool can be used to import a series of points contained within a comma-separated values
+(*.csv) file (<code>--input</code>) into a vector shapefile of a POINT ShapeType. The input file must be an ASCII text
+file with a .csv extensions. The tool will automatically detect the field data type; for numeric
+fields, it will also determine the appropriate length and precision. The user must specify the
+x-coordinate (<code>--xfield</code>) and y-coordiante (<code>--yfield</code>) fields. All fields are imported as
+attributes in the output (<code>--output</code>) vector file. The tool assumes that the first line of the file is a header line from which field
+names are retreived.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./data_tools.html#mergetablewithcsv"><strong>MergeTableWithCsv</strong></a>, <a href="./data_tools.html#exporttabletocsv"><strong>ExportTableToCsv</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input CSV file (i.e. source of data to be imported)</td></tr>
+<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<tr><td>--xfield           </td><td> X field number (e.g. 0 for first field)</td></tr>
+<tr><td>--yfield           </td><td> Y field number (e.g. 1 for second field)</td></tr>
+<tr><td>--epsg             </td><td> EPSG projection (e.g. 2958)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.csv_points_to_vector(
+    i, 
+    output, 
+    xfield=0, 
+    yfield=1, 
+    epsg=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=CsvPointsToVector -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.csv -o=points.shp --xfield=0 ^
+--yfield=1 --epsg=4326 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/csv_points_to_vector.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Prof. John Lindsay</p>
+<p><em>Created</em>: 07/08/2019</p>
 <p><a name="ExportTableToCsv"></a></p>
 <a class="header" href="#exporttabletocsv" id="exporttabletocsv"><h1>ExportTableToCsv</h1></a>
 <p>This tool can be used to export a vector's attribute table to a comma separated values (CSV)
@@ -11860,6 +11898,7 @@ Photogrammetry and Remote Sensing</em>, 33(B3/2; PART 3), 935-942.</p>
 <tr><td>--height_threshold </td><td> Inter-point height difference to be considered an off-terrain point</td></tr>
 <tr><td>--classify         </td><td> Classify points as ground (2) or off-ground (1)</td></tr>
 <tr><td>--slope_norm       </td><td> Perform initial ground slope normalization?</td></tr>
+<tr><td>--height_above_ground</td><td> Transform output to height above average ground elevation?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.lidar_ground_point_filter(
@@ -11871,6 +11910,7 @@ Photogrammetry and Remote Sensing</em>, 33(B3/2; PART 3), 935-942.</p>
     height_threshold=1.0, 
     classify=True, 
     slope_norm=True, 
+    height_above_ground=False, 
     callback=default_callback
 )
 </code></pre>
@@ -16750,6 +16790,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#CrossTabulation">CrossTabulation</a>: Performs a cross-tabulation on two categorical images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#CsvPointsToVector">CsvPointsToVector</a>: Converts a CSV text file to vector points. Found in <em>Data Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#CumulativeDistribution">CumulativeDistribution</a>: Converts a raster image to its cumulative distribution function. Found in <em>Math and Stats Tools</em>.</p>
