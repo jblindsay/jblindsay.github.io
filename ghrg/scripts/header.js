@@ -113,6 +113,13 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2019-08-12",
+      headline: "New lab publication in Remote Sensing",
+      fullStory: "Kevin Roberts has had his GHRG-based Masters research published as a new article in \
+      Remote Sensing. His article, titled \"An Analysis of Ground-Point Classifiers for Terrestrial LiDAR\" \
+      has been accepted for publication in the 10th Anniversary Issue of Remote Sensing. Well done Kevin!"
+    },
+    {
       date: "2019-06-23",
       headline: "Successful Defences in the GHRG",
       fullStory: "Congratulations to Simon Gudim, Kevin Roberts, and Anthony Francioni for each \
