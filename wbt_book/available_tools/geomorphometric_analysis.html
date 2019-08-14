@@ -149,13 +149,12 @@
 <li><a href="#DiffFromMeanElev">DiffFromMeanElev</a></li>
 <li><a href="#DirectionalRelief">DirectionalRelief</a></li>
 <li><a href="#DownslopeIndex">DownslopeIndex</a></li>
-<li><a href="#DrainagePreservingSmoothing">DrainagePreservingSmoothing</a></li>
 <li><a href="#EdgeDensity">EdgeDensity</a></li>
 <li><a href="#ElevAbovePit">ElevAbovePit</a></li>
 <li><a href="#ElevPercentile">ElevPercentile</a></li>
 <li><a href="#ElevRelativeToMinMax">ElevRelativeToMinMax</a></li>
 <li><a href="#ElevRelativeToWatershedMinMax">ElevRelativeToWatershedMinMax</a></li>
-<li><a href="#FeaturePreservingDenoise">FeaturePreservingDenoise</a></li>
+<li><a href="#FeaturePreservingSmoothing">FeaturePreservingSmoothing</a></li>
 <li><a href="#FetchAnalysis">FetchAnalysis</a></li>
 <li><a href="#FillMissingData">FillMissingData</a></li>
 <li><a href="#FindRidges">FindRidges</a></li>
@@ -526,51 +525,6 @@ doi:10.1029/2004WR003130.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/downslope_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: July 17, 2017</p>
-<p><a name="DrainagePreservingSmoothing"></a></p>
-<a class="header" href="#drainagepreservingsmoothing" id="drainagepreservingsmoothing"><h1>DrainagePreservingSmoothing</h1></a>
-<p>This tool implements a modified form of the algorithm described by
-Sun, Rosin, Martin, and Langbein (2007) '<em>Fast and effective feature-preserving
-mesh denoising</em>'. This implimentation varies the threshold angle between
-neighbouring grid cell normal vectors, used during the smoothing operation. The
-threshold is varied as a function of how low-lying a site is. This varying
-smoothing level better preserves small drainage features, such as ditches,
-rills, gullies, etc., which would otherwise be smoothed over.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a></p>
-<p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
-<tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
-<tr><td>--num_iter         </td><td> Number of iterations</td></tr>
-<tr><td>--max_diff         </td><td> Maximum allowable absolute elevation change (optional)</td></tr>
-<tr><td>--reduction        </td><td> Maximum Amount to reduce the threshold angle by (0 = full smoothing; 100 = no smoothing)</td></tr>
-<tr><td>--dfm              </td><td> Difference from median threshold (in z-units), determines when a location is low-lying</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
-</tbody></table>
-<p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.drainage_preserving_smoothing(
-    dem, 
-    output, 
-    filter=11, 
-    norm_diff=15.0, 
-    num_iter=3, 
-    max_diff=0.5, 
-    reduction=80.0, 
-    dfm=0.15, 
-    zfactor=1.0, 
-    callback=default_callback
-)
-</code></pre>
-<p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=DrainagePreservingSmoothing -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif --filter=15 ^
---norm_diff=20.0 --num_iter=4 --reduction=90.0 --dfm=0.15 
-</code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/drainage_preserving_smoothing.rs">Source code on GitHub</a></p>
-<p><em>Author</em>: Dr. John Lindsay and Anthony Francioni</p>
-<p><em>Created</em>: 06/09/2018</p>
 <p><a name="EdgeDensity"></a></p>
 <a class="header" href="#edgedensity" id="edgedensity"><h1>EdgeDensity</h1></a>
 <p>This tool calculates the density of edges, or breaks-in-slope within an input digital elevation model (DEM).
@@ -756,8 +710,8 @@ raster files.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_relative_to_watershed_min_max.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
-<p><a name="FeaturePreservingDenoise"></a></p>
-<a class="header" href="#featurepreservingdenoise" id="featurepreservingdenoise"><h1>FeaturePreservingDenoise</h1></a>
+<p><a name="FeaturePreservingSmoothing"></a></p>
+<a class="header" href="#featurepreservingsmoothing" id="featurepreservingsmoothing"><h1>FeaturePreservingSmoothing</h1></a>
 <p>This tool implements a highly modified form of the DEM de-noising algorithm described
 by Sun et al. (2007). It is very effective at removing surface roughness from digital
 elevation models (DEMs), without significantly altering breaks-in-slope. As such,
@@ -778,10 +732,10 @@ modifications make this tool more efficient than Sun's original method, but will
 also result in a slightly different output than what would be achieved with Sun's
 method.</p>
 <p><em>Reference</em>:</p>
+<p>Lindsay, J.B., Francioni, A., &amp; Cockburn, J.M.H. (In press) LiDAR DEM smoothing and the preservation
+of drainage features. Remote Sensing.</p>
 <p>Sun, X., Rosin, P., Martin, R., &amp; Langbein, F. (2007). Fast and effective feature-preserving
 mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5), 925-938.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#drainagepreservingsmoothing"><strong>DrainagePreservingSmoothing</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -793,7 +747,7 @@ mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5),
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.feature_preserving_denoise(
+<pre><code class="language-python">wbt.feature_preserving_smoothing(
     dem, 
     output, 
     filter=11, 
@@ -805,11 +759,11 @@ mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5),
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=FeaturePreservingDenoise -v ^
+<pre><code>&gt;&gt;./whitebox_tools -r=FeaturePreservingSmoothing -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif --filter=15 ^
 --norm_diff=20.0 --num_iter=4 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_denoise.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_smoothing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/11/2017</p>
 <p><a name="FetchAnalysis"></a></p>
@@ -1618,7 +1572,7 @@ Note that these values are likely landscape and data specific and can be adjuste
 Landscape classification schemes that are based on terrain attributes are highly sensitive to
 short-range topographic variability (i.e. roughness) and can benefit from pre-processing the DEM
 with a smoothing filter to reduce the effect of surface roughness and emphasize the longer-range
-topographic signal. The <a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a> and <a href="./geomorphometric_analysis.html#drainagepreservingsmoothing"><strong>DrainagePreservingSmoothing</strong></a> tools
+topographic signal. The <code>FeaturePreservingDenoise</code> and <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_drainagepreservingsmoothing.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#drainagepreservingsmoothing"><strong>DrainagePreservingSmoothing</strong></a> tools
 offer excellent performance in smoothing DEMs without removing the sharpness of breaks-in-slope.</p>
 <p><em>Reference</em>:</p>
 <p>Pennock, D.J., Zebarth, B.J., and DeJong, E. (1987) Landform classification and soil distribution

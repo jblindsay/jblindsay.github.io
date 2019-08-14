@@ -276,14 +276,14 @@ and operates as follows: channel cells are flagged in a 3 x 3 window if the nort
 higher than the centre grid cell or if the east and west neighbours meet this same criterion. The group of
 cells that are flagged after one pass of the roving window constituted the drainage network. This method is
 best applied to DEMs that are relatively smooth and do not exhibit high levels of short-range roughness. As
-such, it may be desirable to use a smoothing filter before applying this tool. The <a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a>
+such, it may be desirable to use a smoothing filter before applying this tool. The <code>FeaturePreservingDenoise</code>
 is a good option for removing DEM roughness while preserving the topographic information contain in
 breaks-in-slope (i.e. edges).</p>
 <p>The Peucker and Douglas (1975) algorithm (<code>--variant='PandD'</code>) is one of the simplest and earliest algorithms
 for topography-based network extraction. Their 'valley recognition' method operates by passing a 2 x 2 roving
 window over a DEM and flagging the highest grid cell in each group of four. Once the window has passed over
 the entire DEM, channel grid cells are left unflagged. This method is also best applied to DEMs that are relatively
-smooth and do not exhibit high levels of short-range roughness. Pre-processing the DEM with the <a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a>
+smooth and do not exhibit high levels of short-range roughness. Pre-processing the DEM with the <code>FeaturePreservingDenoise</code>
 tool may also be useful when applying this method.</p>
 <p>Each of these methods of extracting valley networks result in line networks that can be wider than a single
 grid cell. As such, it is often desirable to thin the resulting network using a line-thinning algorithm.
@@ -296,7 +296,7 @@ International Journal of Geographical Information Science, 20(6), 669-692.</p>
 <p>Peucker, T. K., &amp; Douglas, D. H. (1975). Detection of surface-specific points by local parallel
 processing of discrete terrain elevation data. Computer Graphics and image processing, 4(4), 375-387.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#featurepreservingdenoise"><strong>FeaturePreservingDenoise</strong></a></p>
+<p><code>FeaturePreservingDenoise</code></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
