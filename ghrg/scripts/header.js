@@ -113,6 +113,13 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2019-08-19",
+      headline: "Anthony Francioni Publishes in Remote Sensing",
+      fullStory: "Congratulations to now graduated GHRG member Anthony Francioni for his co-authorship on a new \
+      article in the journal <em>Remote Sensing</em>. The article, titled \"LiDAR DEM smoothing and the preservation \
+      of drainage features\" is now out in the latest issue of the journal. "
+    },
+    {
       date: "2019-08-12",
       headline: "New lab publication in Remote Sensing",
       fullStory: "Kevin Roberts has had his GHRG-based Masters research published as a new article in \
