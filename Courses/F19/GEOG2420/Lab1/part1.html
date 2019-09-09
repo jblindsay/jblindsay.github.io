@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 1: Acquiring Satellite Imagery - GEOG2420 F19 Lab 1</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html" class="active"><strong aria-hidden="true">2.</strong> Part 1: Acquiring Satellite Imagery</a></li><li><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Multispectral Imagery Data</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">GEOG2420 F19 Lab 1</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#part-1-acquiring-satellite-imagery" id="part-1-acquiring-satellite-imagery"><h1>Part 1: Acquiring Satellite Imagery</h1></a>
+<p>Satellite data can be acquired from a large number of locations, depending on application needs. Before you begin a project involving satellite imagery, you should consider several factors, including: the type of sensor you require (e.g. multispectral imagery, radar data, LiDAR data, etc.), the necessary spatial resolution, temporal factors (e.g. do you need an image for a specific date or time of year?), and your budget for acquiring imagery. There are many commercial providers of satellite imagery and the cost per km<sup>2</sup> of data can vary significantly. There also several sources of free satellite imagery, which, depending on your project constraints, may well be suitable.</p>
+<p>The United States Geological Survey (USGS) are an excellent source of freely available satellite imagery data. The USGS are responsible for storing and disseminating many of the archived datasets from NASA satellites. There are two online data portals that the USGS currently operate to disseminate publicly available imagery, including the Global Visualization Viewer (GloVis) and EarthExplorer. Visit the USGS Global Visualization Viewer web site at
+<a href="http://glovis.usgs.gov/">http://glovis.usgs.gov/</a></p>
+<p><img src="img/glovis.png" alt="The GloVis Viewer" /></p>
+<p>This is an excellent example of an online data warehouse for satellite imagery. Like many of these sites, you need to register before you are able to download the available data. We will not need to do this at the moment because even without registering, the site will allow users to examine historical and recently acquired images and assess their quality.</p>
+<p>Examine each of the data sets that are available under the ‘Choose Your Datasets' tab. Not all of these data are available free-of-charge, and not every data set is available to users outside of the U.S., but many are. If you click on the ‘View Data Set Information’ link from within the sub-menu of any of the data sets, you'll be able to see what data are available at no charge. The more interesting data sets include the ASTER, EO-1 ALI, EO-1 Hyperion (hyperspectral data), and the various available Landsat 5 TM, Landsat 7 ETM+, and Landsat 8 Operational Land Imager (OLI) collections. Select the Landsat 8 OLI/TIRS C1 Level-1 data set. Now navigate to the Guelph area. Select the image tile that contains Guelph and most of the Greater Toronto Area. You will be able to view all of the images available in this collection corresponding with this location, scrolling through the timeline of acquisition dates at the bottom of the map. Notice that the image ID, scene cloud cover (CC) percentage, and date are given for each image under 'View Metadata'.</p>
+<p>To download a Landsat scene for a particular date, you would need to sign-up for a user account with GloVis, select a particular scene and date, select 'Download' and choose a download option (See below). There are several options to download various colour composite images, as well as the complete multispectral data set (containing one image for each band of data), at nearly 900 MB and in GeoTIFF data format.</p>
+<p><img src="img/download.png" alt="The download pop-up" /></p>
+<p>The US-operated satellites are not the only source of remotely sensed imagery. Notably, the European Union also operate a number of earth observation satellites, including the Sentinel 1 and Sentinel 2 satellites, which provide fine-resolution data (up to 10 m) freely. Like the Landsat program, the Sentinel program provides valuable data for many types of remote sensing applications.</p>
+<a class="header" href="#questions-for-part-1" id="questions-for-part-1"><h2>Questions for Part 1</h2></a>
+<blockquote>
+<p>1.1. How many bands of data are contained in one scene of Landsat 8 imagery? (1 mark)</p>
+<p>1.2. What is the world reference system (WRS) path (i.e. column) and row number of the Landsat scene containing Guelph? (1 mark)</p>
+<p>1.3. How many Landsat 8 images for the Guelph-containing scene have had between 0% and 10% cloud cover in 2019? Using the metadata, what is the difference between Land Cloud Cover and Scene Cloud Cover? Describe the impact that cloud cover has on the images. (4 marks; marks will be allocated by the quality of answers).</p>
+<p>1.4. Examine the images taken on 2015/02/27 and 2017/06/08 (i.e. scroll to each date using the 'Previous' and 'Next' buttons). Describe how each image appears and how they differ from one another. (4 marks)</p>
+<p>1.5. Do you think that the preview images displayed in the GloVis web portal are natural colour composite images? Why or why not? (2 marks)</p>
+<p>1.6. What do you think are the major advantages and disadvantages of the GloVis web portal for retrieval of satellite data sets? (6 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="part2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="part2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

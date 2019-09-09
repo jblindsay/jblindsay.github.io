@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 2: Multispectral Imagery Data - GEOG2420 F19 Lab 1</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: Acquiring Satellite Imagery</a></li><li><a href="part2.html" class="active"><strong aria-hidden="true">3.</strong> Part 2: Multispectral Imagery Data</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">GEOG2420 F19 Lab 1</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#part-2-multispectral-imagery-data" id="part-2-multispectral-imagery-data"><h1>Part 2: Multispectral Imagery Data</h1></a>
+<p>In this course, we will be manipulating and analyzing remotely sensed data using <a href="https://www.qgis.org/en/site/">QGIS</a>. See the <strong>Before you begin</strong> section of the introduction for more details.</p>
+<p>After you have downloaded the data associated with this lab assignment from the CourseLink page, decompress (unzip) the data into a working directory that you have created to dedicate to this assignment. Open the contents of this folder and examine the files contained within. These data are the multiple bands, in GeoTIFF image format, of a Landsat 8 scene.</p>
+<blockquote>
+<p>In the field of remote sensing, the word <em>band</em> refers to a single image contained within a multispectral or hyperspectral data set. A band corresponds to a single, usually narrow, region of the electromagetic spectrum. Band images are usually greyscale and display information about the relative brightness of the earth's surface at the pixel site across the range of wavelengths associated with the band. For example, in a Landsat 8 band 3 image,a bright white pixel corresponds to a surface material that is reflecting a significant amount of radiation in the 0.525 to 0.600 µm band of wavelengths, which the human eye interprets as green light. A dark coloured pixel, by comparison, would indicate that not much green light is being reflected by that surface material. Some bands within multispectral data sets are associated with regions of the spectrum that fall outside of the visible region (e.g. near-infrared, shortwave infrared, and thermal infrared). Interpreting the relatively brightnesses of pixels within multiple band images can tell you a great deal about the nature of the surface at those sites. This is the basis of multispectral remote sensing data analysis.</p>
+</blockquote>
+<p>Now open the metadata file <code>LC08_L1TP_203023_20180627_20180704_01_T1_MTL.txt</code> using a text editor such as Notepad or TextEdit. This file contains a wealth of information describing the acquisition details and processing that has been carried out on these data. You will likely want to drag the OpenStreetMap layer to the bottom of the map stack so that the imagery is on top.</p>
+<blockquote>
+<p>2.1. What proportion of the land contained within the scene was covered with clouds at the time of acquisition? (1 mark)</p>
+<p>2.2. What date was the image acquired on? What are the path and row numbers of the scene? (3 marks)</p>
+</blockquote>
+<p>Open QGIS and add each of the four raster layers (TIFF files) to the map. Now add an OpenStreetMap basemap layer to provide a geographic context for the Landsat images (select <em>OpenStreetMap</em> under <em>XYZ Tiles</em>). While the file names of these four images are quite long, the last number indicates which band of Landsat data the image corresponds with (e.g. LC08_L1TP_203023_20180627_20180704_01_T1_B2.tif is 'band 2'). These four images are bands 2 to 5 of a Landsat scene, that originally contained the complete imagery data set.</p>
+<!-- ![OpenStreetMap](img/OpenStreetMap.png) -->
+<img src="img/OpenStreetMap.png" alt="OpenStreetMap" width="280"/>
+<blockquote>
+<p>2.3. Describe the geographic location of the scene. (1 mark)</p>
+<p>2.4. What parts of the spectrum do each of bands 2, 3, 4, and 5 of Landsat 8 data record? (4 marks)</p>
+<p>2.5. Which of the bands appears to be overall brightest over the land and which appears to be darkest? Why do you think that that is the case? (4 marks)</p>
+<p>2.6. Which of the bands shows the least detail in the turbid water near Liverpool and which exhibits the greatest detail? Why might this be? (4 marks)</p>
+<p>2.7. Overlay the vector file 'Location1.shp'. Describe what you think is happening in the image at this location and provide evidence of your conclusions. Why is the phenomenon less apparent in band 5 than the other three bands? (5 marks)</p>
+</blockquote>
+<p>Now, open the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> from the <strong>WhiteboxTools</strong> toolbox and the <em>Image Analysis</em> folder. Create a natural colour composite image by inputting the red, green, and blue bands into the appropriate inputs on the tool dialog. You may leave the Image Opacity Band blank. Call the output image 'NaturalColour.tif' and be sure to save it into the same working directory containing the rest of the lab data. Run the tool; if the image is not automatically displayed after it has completed, display the image. Also create a near-infrared false-colour composite image by inputting the near-infrared band into the red input, the red band into the green input, and the green band into the blue input. Call the output image 'FalseColour.tif'.</p>
+<p><img src="img/CreateColourComposite.png" alt="The CreateColourComposite tool" title="The CreateColourComposite tool" /></p>
+<blockquote>
+<p>Include both colour-composite images with your assignment write-up. (2 marks)</p>
+<p>2.8. Do you think that these imagery would be useful for mapping streets in urban areas? Why or why not? (As always, you must provide justification for your answer) How useful would these data be for mapping land cover/land use, e.g. distinguishing urban areas from surrounding agricultural lands, and forests from water, etc. (6 marks; marks will be assigned based on the quality of answers and demonstrated insight.)</p>
+<p>2.9. Which of the two colour composites would be more useful for vegetation mapping applications? That is, in which of the two images is vegetation more apparent (i.e. brightly coloured)? Provide evidence to justify your answer. (2 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="part1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="part1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

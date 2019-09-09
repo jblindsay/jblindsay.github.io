@@ -85,8 +85,8 @@ function getNavBar(page) {
         "  <li><a href=\"" + pageFolder + "publications.html\"" + publicationsClass + ">PUBLICATIONS</a></li>" + eol  +
         "  <li><a href=\"" + pageFolder + "software.shtml\"" + softwareClass + ">SOFTWARE</a>" + eol  +
         "  <ul>" + eol +
-        "    <li " + whiteboxClass + "><a href=\"" + whiteboxFolder + "index.html\">Whitebox GAT</a></li>" + eol  +
         "    <li " + whiteboxtoolsClass + "><a href=\"" + whiteboxtoolsFolder + "index.html\">WhiteboxTools</a></li>" + eol  +
+        "    <li " + whiteboxClass + "><a href=\"" + whiteboxFolder + "index.html\">Whitebox GAT</a></li>" + eol  +
         "    <li><a href=\"" + pageFolder + "software.shtml#GoSpatial\">GoSpatial</a></li>" + eol  +
         "  </ul>" + eol  +
         "  </li>" + eol  +
