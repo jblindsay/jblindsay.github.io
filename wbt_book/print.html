@@ -228,7 +228,7 @@ Sponsored by:</p>
 <a class="header" href="#using-whiteboxtools" id="using-whiteboxtools"><h1>Using <em>WhiteboxTools</em></h1></a>
 <p>Users interact with the <em>WhiteboxTools</em> platform either from a <a href="./command_prompt.html">command prompt</a> (i.e. terminal), through the <a href="python_scripting/scripting.html">Python</a> or <a href="./r_interface.html"><em>R</em> language</a> interfaces, or from one of the available <a href="./qgis_plugin.html">graphical user interfaces (GUI)</a> applications.</p>
 <a class="header" href="#command-line-interface" id="command-line-interface"><h1>Command-Line Interface</h1></a>
-<p><em>WhiteboxTools</em> is a command-line program and can be run either by calling it from a terminal application with appropriate commands and arguments, or, more conveniently, by calling it from a script. The following commands are recognized by the <em>WhiteboxTools</em> library:</p>
+<p><em>WhiteboxTools</em> is a command-line program and can be run either by calling it from a terminal application with appropriate commands and arguments, or, more conveniently, by calling it from a <a href="./python_scripting/scripting.html">script</a>. The following commands are recognized by the <em>WhiteboxTools</em> library:</p>
 <table><thead><tr><th><strong>Command</strong>        </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--cd, --wd       </td><td>  Changes the working directory; used in conjunction with --run flag.</td></tr>
 <tr><td>-h, --help        </td><td>  Prints help information.</td></tr>
@@ -568,11 +568,32 @@ python3 wb_runner.py
 <li>For Manjaro, Arch Linux, try sudo pacman -S tk</li>
 </ul>
 <a class="header" href="#qgis-plugin" id="qgis-plugin"><h1>QGIS Plugin</h1></a>
-<p><em>WhiteboxTools</em> functionality can also be accessed conveniently through the popular open-source geospatial software QGIS. QGIS developer <a href="https://wiki.osgeo.org/wiki/User:Alexbruy">Alexander Bruy</a> maintains a plugin for the toolbox called <a href="https://plugins.bruy.me/processing-whitebox.html">Whitebox For Processing</a>. The plugin works for QGIS v3 but cannot be installed on the earlier v2 series. Detailed instructions for installing and setting-up the QGIS toolbox can be found on the site.</p>
+<p><em>WhiteboxTools</em> functionality can also be accessed conveniently through the popular open-source geospatial software QGIS. QGIS developer <a href="https://wiki.osgeo.org/wiki/User:Alexbruy">Alexander Bruy</a> maintains a plugin for the toolbox called <a href="https://plugins.bruy.me/processing-whitebox.html">Whitebox For Processing</a>. The plugin works for QGIS v3 but cannot be installed on the earlier v2 series.</p>
 <p><img src="img/QGIS_plugin.png" alt="The WhiteboxTools QGIS plugin toolbox" /></p>
+<a class="header" href="#installation-of-the-plugin" id="installation-of-the-plugin"><h2>Installation of the Plugin</h2></a>
+<ol>
+<li>From the <strong>Plugins</strong> menu, select <strong>Manage and Install Plugins...</strong>.</li>
+<li>Select the <strong>Settings</strong> tab and press the <strong>Add</strong> button.</li>
+<li>In the <strong>Repository details</strong> dialog box, enter <code>https://plugins.bruy.me/plugins/plugins.xml</code> in the <strong>Name</strong> textbox and press <strong>OK</strong>.</li>
+</ol>
+<p><img src="img/QGIS_add_repo.png" alt="The WhiteboxTools QGIS plugin toolbox installation" /></p>
+<ol start="4">
+<li>Select the <strong>All</strong> tab and enter the word 'whitebox' in the search box. <code>Whitebox for Processing</code> should appear the search listing. Select and check this toolbox and press the <strong>Install</strong> buttton.</li>
+</ol>
+<p><img src="img/QGIS_whitebox.png" alt="The WhiteboxTools QGIS plugin toolbox installation" /></p>
 <blockquote>
-<p>Note that the QGIS plugin does not come with a copy of the <em>WhiteboxTools</em> executable and so you will still need to download <em>WhiteboxTools</em> from the <a href="https://jblindsay.github.io/ghrg/WhiteboxTools/index.html">Geomorphometry and Hydrogeomatics Research Group website</a> prior to running the plugin.</p>
+<p>Note that the QGIS plugin does not come with a copy of the <em>WhiteboxTools</em> executable and so you will still need to download <em>WhiteboxTools</em> from either the <a href="https://jblindsay.github.io/ghrg/WhiteboxTools/download.html">Geomorphometry and Hydrogeomatics Research Group website</a> or the <a href="https://github.com/jblindsay/whitebox-tools/releases">WhiteboxTools Github repository</a> prior to running the plugin.</p>
 </blockquote>
+<ol start="5">
+<li>
+<p>Once you've downloaded WhiteboxTools and decompressed (unzipped) the folder, select <strong>Options</strong> from under the <strong>Settings</strong> menu in QGIS.</p>
+</li>
+<li>
+<p>Select the <strong>Processing</strong> tab and the <strong>Providers</strong> list item. You should find the WhiteboxTools entry there. Select the down arrow, and check the <strong>Activate</strong> and <strong>Log commands output</strong> checkboxes. Lastly, enter the name of the directory path for the decompressed WhiteboxTools folder that you downloaded previously (see note above). If you are using a Mac, note that this may require you to 1) select a file contained in the folder that is not the executable (QGIS seems to exclude files without extensions, which the WhiteboxTools executable is on a Mac and Linux computer) then delete everything past the final directory in the path (see below). You will also need to leave the textbox by selecting any other feature on the dialog box before pressing the <strong>OK</strong> button.</p>
+</li>
+</ol>
+<p><img src="img/QGIS_settings.png" alt="The WhiteboxTools QGIS plugin toolbox installation" /></p>
+<p>You should now see the Whitebox toolbox within the <strong>Processing Toolbox</strong> at the right-hand side of the QGIS interface, as in the screenshots above.</p>
 <a class="header" href="#arcgis-plugin" id="arcgis-plugin"><h1>ArcGIS Plugin</h1></a>
 <p><em>WhiteboxTools</em> functionality can also be accessed conveniently through the ArcGIS. This <em>WhiteboxTools</em> front-end has been developed and is maintained by Prof. <a href="https://lidarblog.com/index.html">Qiusheng Wu</a>, of Binghamton University (SUNY). This front-end is available from the <a href="https://github.com/giswqs/WhiteboxTools-ArcGIS">Gihub repository</a>. The plugin works for ArcGIS 10.6 and ArcGIS Pro; other version of ArcGIS have not been tested for support. Detailed instructions on installing and setting-up the ArcGIS toolbox can be found on the GitHub site.</p>
 <p><img src="img/ArcGIS_toolbox.png" alt="The WhiteboxTools ArcGIS plugin toolbox" /></p>
@@ -1998,10 +2019,10 @@ modifications make this tool more efficient than Sun's original method, but will
 also result in a slightly different output than what would be achieved with Sun's
 method.</p>
 <p><em>Reference</em>:</p>
-<p>Lindsay, J.B., Francioni, A., &amp; Cockburn, J.M.H. (In press) LiDAR DEM smoothing and the preservation
-of drainage features. Remote Sensing.</p>
+<p>Lindsay JB, Francioni* A, Cockburn JMH. 2019. LiDAR DEM smoothing and the preservation of
+drainage features. <em>Remote Sensing</em>, 11(16), 1926; DOI: 10.3390/rs11161926.</p>
 <p>Sun, X., Rosin, P., Martin, R., &amp; Langbein, F. (2007). Fast and effective feature-preserving
-mesh denoising. IEEE Transactions on Visualization &amp; Computer Graphics, (5), 925-938.</p>
+mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</em>, (5), 925-938.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2838,11 +2859,13 @@ Note that these values are likely landscape and data specific and can be adjuste
 Landscape classification schemes that are based on terrain attributes are highly sensitive to
 short-range topographic variability (i.e. roughness) and can benefit from pre-processing the DEM
 with a smoothing filter to reduce the effect of surface roughness and emphasize the longer-range
-topographic signal. The <code>FeaturePreservingDenoise</code> and <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_drainagepreservingsmoothing.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#drainagepreservingsmoothing"><strong>DrainagePreservingSmoothing</strong></a> tools
-offer excellent performance in smoothing DEMs without removing the sharpness of breaks-in-slope.</p>
+topographic signal. The <a href="./geomorphometric_analysis.html#featurepreservingsmoothing"><strong>FeaturePreservingSmoothing</strong></a> tool
+offers excellent performance in smoothing DEMs without removing the sharpness of breaks-in-slope.</p>
 <p><em>Reference</em>:</p>
 <p>Pennock, D.J., Zebarth, B.J., and DeJong, E. (1987) Landform classification and soil distribution
 in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#featurepreservingsmoothing"><strong>FeaturePreservingSmoothing</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -11505,10 +11528,10 @@ commas in the ASCII formated file. The output point data, each on a seperate lin
 <pre><code>X,Y,Z,INTENSITY,CLASS,RETURN,NUM_RETURN,SCAN_ANGLE
 </code></pre>
 <p>If the LAS file has a point format that contains RGB data, the final three columns will contain the RED,
-GREEN, and BLUE values respectively. Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
+GREEN, and BLUE values respectively. Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
 point data into a LAS file.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
+<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -12210,7 +12233,35 @@ percentage.</p>
 <p><em>Created</em>: 10/07/2017</p>
 <p><a name="LidarPointStats"></a></p>
 <a class="header" href="#lidarpointstats" id="lidarpointstats"><h1>LidarPointStats</h1></a>
-<p>Creates several rasters summarizing the distribution of LAS point data. When the input/output parameters are not specified, the tool works on all LAS files contained within the working directory.</p>
+<p>This tool creates several rasters summarizing the distribution of LiDAR points in a LAS data file.
+The user must specify the name of an input LAS file (<code>--input</code>) and the output raster grid
+resolution (<code>--resolution</code>). Additionally, the user must specify one or more of the possible
+output rasters to create using the various available flags, which include:</p>
+<table><thead><tr><th> Flag                     </th><th> Meaning                                               </th></tr></thead><tbody>
+<tr><td align="left"> <code>--num_points</code>           </td><td align="left"> Number of points (returns) in each grid cell          </td></tr>
+<tr><td align="left"> <code>--num_pulses</code>           </td><td align="left"> Number of pulses in each grid cell                    </td></tr>
+<tr><td align="left"> <code>--avg_points_per_pulse</code> </td><td align="left"> Average number of points per pulse in each grid cells </td></tr>
+<tr><td align="left"> <code>--z_range</code>              </td><td align="left"> Elevation range within each grid cell                 </td></tr>
+<tr><td align="left"> <code>--intensity_range</code>      </td><td align="left"> Intensity range within each grid cell                 </td></tr>
+<tr><td align="left"> <code>--predom_class</code>         </td><td align="left"> Predominant class value within each grid cell         </td></tr>
+</tbody></table>
+<p>If no output raster flags are specified, all of the output rasters will be created. All output
+rasters will have the same base name as the input LAS file but will have a suffix that
+reflects the statistic type (e.g. _num_pnts, _num_pulses, _avg_points_per_pulse, etc.). Output
+files will be in the GeoTIFF (*.tif) file format.</p>
+<p>When the input/output parameters are not specified, the tool works on all LAS files contained within
+the working directory.</p>
+<p><strong>Notes</strong>:</p>
+<ol>
+<li>The num_pulses output is actually the number of pulses with at lease one return; specifically it is
+the sum of the early returns (first and only) in a grid cell. In areas of low reflectance, such as
+over water surfaces, the system may have emited a significantly higher pulse rate but far fewer
+returns are observed.</li>
+<li>The memory requirement of this tool is high, particulalry if the grid resolution is fine and
+the spatial extent is large.</li>
+</ol>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarblockminimum"><strong>LidarBlockMinimum</strong></a>, <a href="./lidar_tools.html#lidarblockmaximum"><strong>LidarBlockMaximum</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>

@@ -417,10 +417,10 @@ commas in the ASCII formated file. The output point data, each on a seperate lin
 <pre><code>X,Y,Z,INTENSITY,CLASS,RETURN,NUM_RETURN,SCAN_ANGLE
 </code></pre>
 <p>If the LAS file has a point format that contains RGB data, the final three columns will contain the RED,
-GREEN, and BLUE values respectively. Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
+GREEN, and BLUE values respectively. Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
 point data into a LAS file.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:_runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
+<p><a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -1122,7 +1122,35 @@ percentage.</p>
 <p><em>Created</em>: 10/07/2017</p>
 <p><a name="LidarPointStats"></a></p>
 <a class="header" href="#lidarpointstats" id="lidarpointstats"><h1>LidarPointStats</h1></a>
-<p>Creates several rasters summarizing the distribution of LAS point data. When the input/output parameters are not specified, the tool works on all LAS files contained within the working directory.</p>
+<p>This tool creates several rasters summarizing the distribution of LiDAR points in a LAS data file.
+The user must specify the name of an input LAS file (<code>--input</code>) and the output raster grid
+resolution (<code>--resolution</code>). Additionally, the user must specify one or more of the possible
+output rasters to create using the various available flags, which include:</p>
+<table><thead><tr><th> Flag                     </th><th> Meaning                                               </th></tr></thead><tbody>
+<tr><td align="left"> <code>--num_points</code>           </td><td align="left"> Number of points (returns) in each grid cell          </td></tr>
+<tr><td align="left"> <code>--num_pulses</code>           </td><td align="left"> Number of pulses in each grid cell                    </td></tr>
+<tr><td align="left"> <code>--avg_points_per_pulse</code> </td><td align="left"> Average number of points per pulse in each grid cells </td></tr>
+<tr><td align="left"> <code>--z_range</code>              </td><td align="left"> Elevation range within each grid cell                 </td></tr>
+<tr><td align="left"> <code>--intensity_range</code>      </td><td align="left"> Intensity range within each grid cell                 </td></tr>
+<tr><td align="left"> <code>--predom_class</code>         </td><td align="left"> Predominant class value within each grid cell         </td></tr>
+</tbody></table>
+<p>If no output raster flags are specified, all of the output rasters will be created. All output
+rasters will have the same base name as the input LAS file but will have a suffix that
+reflects the statistic type (e.g. _num_pnts, _num_pulses, _avg_points_per_pulse, etc.). Output
+files will be in the GeoTIFF (*.tif) file format.</p>
+<p>When the input/output parameters are not specified, the tool works on all LAS files contained within
+the working directory.</p>
+<p><strong>Notes</strong>:</p>
+<ol>
+<li>The num_pulses output is actually the number of pulses with at lease one return; specifically it is
+the sum of the early returns (first and only) in a grid cell. In areas of low reflectance, such as
+over water surfaces, the system may have emited a significantly higher pulse rate but far fewer
+returns are observed.</li>
+<li>The memory requirement of this tool is high, particulalry if the grid resolution is fine and
+the spatial extent is large.</li>
+</ol>
+<p><em>See Also</em>:</p>
+<p><a href="./lidar_tools.html#lidarblockminimum"><strong>LidarBlockMinimum</strong></a>, <a href="./lidar_tools.html#lidarblockmaximum"><strong>LidarBlockMaximum</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
