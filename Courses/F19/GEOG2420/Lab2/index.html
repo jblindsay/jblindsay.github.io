@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Introduction - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> Photo Scale and Image Resolution</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#geog2420-the-earth-from-space-f19" id="geog2420-the-earth-from-space-f19"><h1>GEOG*2420 The Earth From Space (F19)</h1></a>
+<a class="header" href="#lab-assignment-2-air-photo-iinterpretation-and-photogrammetry" id="lab-assignment-2-air-photo-iinterpretation-and-photogrammetry"><h2><strong>Lab Assignment 2: Air Photo iInterpretation and Photogrammetry</strong></h2></a>
+<a class="header" href="#introduction" id="introduction"><h2>Introduction</h2></a>
+<p>The intention of this lab exercise is to familiarize students with the concepts of photo scale and image resolution and to introduce them to the various methods of calculating scale and resolution. Students will also practice the skills of air photo interpretation.</p>
+<a class="header" href="#readings-and-resources" id="readings-and-resources"><h2>Readings and Resources</h2></a>
+<p>The following materials, combined with your textbook, can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li>
+<p>Weng Q. 2012. An Introduction to contemporary remote sensing, Chapters 4 and 5.</p>
+</li>
+<li>
+<p>Airphoto Geometry. Available online: <a href="http://www.engr.usask.ca/classes/GEOE/218/notes/airphoto_reading/apg.htm">http://www.engr.usask.ca/classes/GEOE/218/notes/airphoto_reading/apg.htm</a>.</p>
+</li>
+</ul>
+<a class="header" href="#before-you-begin" id="before-you-begin"><h2>Before you begin</h2></a>
+<p><strong>IMPORTANT INFORMATION</strong>: The computers in the Geography Undergraduate Computing Lab (Hutt 236), have QGIS and WhiteboxTools installed. If you are planning to carry out these assignments on your own computer, then it is important that you have QGIS, with the <a href="https://plugins.bruy.me/processing-whitebox.html">WhiteboxTools For QGIS</a> toolbox. This software is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from the Internet and instructions can be found on the QGIS homepage (link provided above). <strong>For instructions on the installation of the WhiteboxTools plugin for QGIS, please see the <a href="https://jblindsay.github.io/wbt_book/qgis_plugin.html">WhiteboxTools User Manual</a>.</strong></p>
+<p>In addition to the software, you will need to <strong>download the data associated with this lab exercise from the CourseLink page</strong> under the Lab 2 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you <strong><em>purchase a USB flash drive</em></strong> to dedicate to this course and to serve as the data backup. <strong><em>It is important that you backup all of the data for the lab assignment.</em></strong></p>
+<a class="header" href="#what-you-need-to-hand-in" id="what-you-need-to-hand-in"><h2>What you need to hand in</h2></a>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. For each of the calculations in this lab, be sure to show your intermediate steps, explicitly stating units and any unit conversions.</p>
+<a class="header" href="#common-units-and-transformations" id="common-units-and-transformations"><h3>Common units and transformations</h3></a>
+<ul>
+<li>1 metre = 100 centimetre = 1,000 millimetres</li>
+<li>1 foot = 12 inches, 1 yard = 3 feet</li>
+<li>1 metre = 3.28 feet, 1 inch = 25.4 millimetres</li>
+</ul>
+<a class="header" href="#background-material" id="background-material"><h2>Background Material</h2></a>
+<p>The scale of an image can be used to relate distances measured on the photo to equivalent ground distances. The <strong><em>photo scale</em></strong> is the ratio of the distance between two points on a photo to the actual distance between the same two points on the ground (i.e. 1 unit on the photo equals &quot;x&quot; units on the ground). It is usually expressed as a Representative Fraction (RF), e.g. 1 / 24,000, or equivalently 1 : 24,000. Notice that to calculate the scale, both the photo distance and the ground distance must be in the same units. Since a representative fraction always has one as the numerator, it is sometimes useful to talk about the <strong><em>Photo Scale Reciprocal</em></strong> (PSR), which is 1 / RF. This a photo with a scale of 1 : 24,000 has a PSR of 24,000.
+Given the following geometry:</p>
+<p><img src="img/camera_geometry.png" alt="Camera geometry" /></p>
+<p>(source: Natural Resources Canada)</p>
+<p>It can be determined that the ratio of the footprint of the photo on the ground to the size of the photograph (marked as focal plane in diagram), is equivalent to the ratio of the altitude of the aircraft above the ground level (AGL) to the focal length (<em>f</em>). The focal length of a camera is the distance from the middle of the camera lens to the focal plane (i.e. the film) and it is a very important parameter of a camera. As focal length increases, image distortion decreases, which is one reason why the cameras used in aerial photography tend to have very large focal lengths (e.g. 6 inches to 12 inches). The focal length of a camera used in aerial surveys is measured when the camera is calibrated to a very high level of precision. Now we can state that RF = <em>f</em> / AGL and PSR = AGL / <em>f</em>. When we know the focal length of the camera used to capture an image as well as the flying height (usually we have the ASL and need to subtract the ground elevation, E, to get the AGL) we can easily calculate the photo scale.</p>
+<p>Unfortunately, often we don't have both the focal length and flying height. In such cases we can calculate the photo scale by measuring the distance between two points in the photo and the corresponding distance on a map (i.e. the ratio of photo distances and ground distances). In applying this method of calculating scale, the two points used for distance calculations should be positioned such that that a line connecting them passes near the principal point (PP), or image centre. They should be approximately equidistant from the PP. Longer distances are preferred, as are lines with relatively flat terrain. The points that you use to measure the distance between should be located on the ground surface and not on any kind of building or other structure. In this way, it is possible to calculate the scale with minimal impact from error due to relief displacement and the effects of image tilt.</p>
+<p>The concept of photo scale makes sense for hard-copy aerial photographs, but it is less meaningful for digital, or softcopy, imagery. For example, if you display the same image on a 27 inch monitor and an 18 inch monitor, the image will be at a different scale. Similarly, if you zoom into or out of the image, again the photo scale will change. In this case, the concept of <strong><em>image resolution</em></strong> is more intuitive. Image resolution is the size of a pixel in terms of its ground dimensions. It is usually presented as a single value that represents the length of one side of a square pixel (although rectangular pixels, where the resolution in the horizontal and vertical directions are different, are possible too).</p>
+<p>The resolution, like the photo scale, is a measure of the amount of detail contained in an image. It is related to the information content of the image. The finer the resolution (e.g. a 5 m grid compared to a 50 m grid) the greater the detailed captured. Similarly, the larger the photo scale (e.g. RF 1 : 5000 compared to 1 : 100,000) the greater the image detail. (<strong>IMPORTANT NOTE</strong>: A scale of 1 : 100,000 is smaller than a scale of 1 : 5000 because the number 1/100,000 is smaller than 1/5000).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
