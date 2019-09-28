@@ -143,12 +143,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 0.16.0  <br />
+<p>WhiteboxTools Version 1.0.0  <br />
 Dr. John B. Lindsay © 2017-2019  <br />
 <a href="https://jblindsay.github.io/ghrg/index.html">Geomorphometry and Hydrogeomatics Research Group</a>  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-May 24, 2019
+September 29, 2019
 <br />
 <br />
 <br />
@@ -626,6 +626,7 @@ python3 wb_runner.py
 <li><a href="#LinesToPolygons">LinesToPolygons</a></li>
 <li><a href="#MergeTableWithCsv">MergeTableWithCsv</a></li>
 <li><a href="#MergeVectors">MergeVectors</a></li>
+<li><a href="#ModifyNoDataValue">ModifyNoDataValue</a></li>
 <li><a href="#MultiPartToSinglePart">MultiPartToSinglePart</a></li>
 <li><a href="#NewRasterFromBase">NewRasterFromBase</a></li>
 <li><a href="#PolygonsToLines">PolygonsToLines</a></li>
@@ -692,7 +693,7 @@ image such that it can be included in analysis since NoData values are usually i
 This change, however, will result in the background no longer displaying transparently in most GIS. This
 change can be reversed using the <code>SetNoDataValue</code> tool.</p>
 <p><em>See Also</em>:</p>
-<p><code>SetNoDataValue</code>, <code>IsNodata</code></p>
+<p><code>SetNoDataValue</code>, <a href="./mathand_stats_tools.html#isnodata"><strong>IsNoData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -991,6 +992,33 @@ or more files and creates one new file containing the features of all inputs, an
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/merge_vectors.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/10/2018</p>
+<p><a name="ModifyNoDataValue"></a></p>
+<a class="header" href="#modifynodatavalue" id="modifynodatavalue"><h1>ModifyNoDataValue</h1></a>
+<p>This tool can be used to modify the value of pixels containing the NoData value for an input raster image.
+This operation differs from the <code>SetNoDataValue</code> tool, which sets the NoData value for an image in the
+image header without actually modifying pixel values. Also, <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> does not
+overwrite the input file, while the <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool does.</p>
+<p><em>See Also</em>:</p>
+<p><code>SetNoDataValue</code>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--new_value        </td><td> New NoData value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.modify_no_data_value(
+    i, 
+    new_value=&quot;-32768.0&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ModifyNoDataValue -v ^
+--wd=&quot;/path/to/data/&quot; --input=in.tif --new_value= -999.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/modify_nodata_value.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/09/2019</p>
 <p><a name="MultiPartToSinglePart"></a></p>
 <a class="header" href="#multiparttosinglepart" id="multiparttosinglepart"><h1>MultiPartToSinglePart</h1></a>
 <p>This tool can be used to convert a vector file containing multi-part features into a vector
@@ -1224,8 +1252,12 @@ value. Most WhiteboxTools tools recognize NoData grid cells and treat them speci
 are also often displayed transparently by GIS software. The user must specify the names of the input and
 output rasters and the background value. The default background value is zero, although any numeric
 value is possible.</p>
+<p>This tool differs from the <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool in that it simply updates the NoData value in the raster
+header, without modifying pixel values. The <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool will update the value in the header,
+and then modify each existing NoData pixel to contain this new value. Also, <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> does not
+overwrite the input file, while the <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool does.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a>, <code>IsNodata</code></p>
+<p><a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a>, <a href="./mathand_stats_tools.html#isnodata"><strong>IsNoData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -8287,7 +8319,15 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>Created</em>: 01/07/2017</p>
 <p><a name="TraceDownslopeFlowpaths"></a></p>
 <a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h1>TraceDownslopeFlowpaths</h1></a>
-<p>Traces downslope flowpaths from one or more target sites (i.e. seed points).</p>
+<p>This tool can be used to mark the flowpath initiated from user-specified locations downslope and
+terminating at either the grid's edge or a grid cell with undefined flow direction. The user must
+input the name of a D8 flow pointer grid (<code>--d8_pntr</code>) and an input vector file indicating the location
+of one or more initiation points, i.e. 'seed points' (<code>--seed_pts</code>). The seed point file must be a
+vector of the POINT ShapeType. Note that the flow pointer should be generated from a DEM that has
+been processed to remove all topographic depression (see <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> and <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>) and
+created using the D8 flow algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#downslopeflowpathlength"><strong>DownslopeFlowpathLength</strong></a>, <a href="./hydrological_analysis.html#downslopedistancetostream"><strong>DownslopeDistanceToStream</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--seed_pts         </td><td> Input vector seed points file</td></tr>
@@ -12021,7 +12061,7 @@ include the point elevations, intensity values, scan angles, and class values.</
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
 <tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 <tr><td>--weight           </td><td> IDW weight value</td></tr>
@@ -12161,7 +12201,7 @@ percentage.</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
 <tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 <tr><td>--radius           </td><td> Search Radius</td></tr>
@@ -12269,8 +12309,9 @@ the spatial extent is large.</li>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
-<tr><td>--num_points       </td><td> Flag indicating whether or not to output the number of points raster</td></tr>
+<tr><td>--num_points       </td><td> Flag indicating whether or not to output the number of points (returns) raster</td></tr>
 <tr><td>--num_pulses       </td><td> Flag indicating whether or not to output the number of pulses raster</td></tr>
+<tr><td>--avg_points_per_pulse</td><td> Flag indicating whether or not to output the average number of points (returns) per pulse raster</td></tr>
 <tr><td>--z_range          </td><td> Flag indicating whether or not to output the elevation range raster</td></tr>
 <tr><td>--intensity_range  </td><td> Flag indicating whether or not to output the intensity range raster</td></tr>
 <tr><td>--predom_class     </td><td> Flag indicating whether or not to output the predominant classification raster</td></tr>
@@ -12281,6 +12322,7 @@ the spatial extent is large.</li>
     resolution=1.0, 
     num_points=True, 
     num_pulses=False, 
+    avg_points_per_pulse=True, 
     z_range=False, 
     intensity_range=False, 
     predom_class=False, 
@@ -12414,6 +12456,7 @@ are stored as unique, random red-green-blue (RGB) colour values stored in the ou
 <tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
 <tr><td>--maxzdiff         </td><td> Maximum difference in elevation (z units) between neighbouring points of the same segment</td></tr>
 <tr><td>--classes          </td><td> Segments don't cross class boundaries</td></tr>
+<tr><td>--min_size         </td><td> Minimum segment size (number of points)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.lidar_segmentation(
@@ -12423,13 +12466,15 @@ are stored as unique, random red-green-blue (RGB) colour values stored in the ou
     norm_diff=10.0, 
     maxzdiff=1.0, 
     classes=False, 
+    min_size=1, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarSegmentation -v ^
 --wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
---radius=10.0 --norm_diff=2.5 --maxzdiff=0.75 --classes 
+--radius=10.0 --norm_diff=2.5 --maxzdiff=0.75 --classes ^
+--min_size=100 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_segmentation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -12608,7 +12653,7 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
 <tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 <tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
@@ -17383,6 +17428,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools.html#ModifiedKMeansClustering">ModifiedKMeansClustering</a>: Performs a modified k-means clustering operation on a multi-spectral dataset. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#ModifyNoDataValue">ModifyNoDataValue</a>: Converts nodata values in a raster to zero. Found in <em>Data Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#Modulo">Modulo</a>: Performs a modulo operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>

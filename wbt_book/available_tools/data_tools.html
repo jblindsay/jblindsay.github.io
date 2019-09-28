@@ -152,6 +152,7 @@
 <li><a href="#LinesToPolygons">LinesToPolygons</a></li>
 <li><a href="#MergeTableWithCsv">MergeTableWithCsv</a></li>
 <li><a href="#MergeVectors">MergeVectors</a></li>
+<li><a href="#ModifyNoDataValue">ModifyNoDataValue</a></li>
 <li><a href="#MultiPartToSinglePart">MultiPartToSinglePart</a></li>
 <li><a href="#NewRasterFromBase">NewRasterFromBase</a></li>
 <li><a href="#PolygonsToLines">PolygonsToLines</a></li>
@@ -218,7 +219,7 @@ image such that it can be included in analysis since NoData values are usually i
 This change, however, will result in the background no longer displaying transparently in most GIS. This
 change can be reversed using the <code>SetNoDataValue</code> tool.</p>
 <p><em>See Also</em>:</p>
-<p><code>SetNoDataValue</code>, <code>IsNodata</code></p>
+<p><code>SetNoDataValue</code>, <a href="./mathand_stats_tools.html#isnodata"><strong>IsNoData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -517,6 +518,33 @@ or more files and creates one new file containing the features of all inputs, an
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/merge_vectors.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/10/2018</p>
+<p><a name="ModifyNoDataValue"></a></p>
+<a class="header" href="#modifynodatavalue" id="modifynodatavalue"><h1>ModifyNoDataValue</h1></a>
+<p>This tool can be used to modify the value of pixels containing the NoData value for an input raster image.
+This operation differs from the <code>SetNoDataValue</code> tool, which sets the NoData value for an image in the
+image header without actually modifying pixel values. Also, <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> does not
+overwrite the input file, while the <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool does.</p>
+<p><em>See Also</em>:</p>
+<p><code>SetNoDataValue</code>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>--new_value        </td><td> New NoData value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.modify_no_data_value(
+    i, 
+    new_value=&quot;-32768.0&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ModifyNoDataValue -v ^
+--wd=&quot;/path/to/data/&quot; --input=in.tif --new_value= -999.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/modify_nodata_value.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/09/2019</p>
 <p><a name="MultiPartToSinglePart"></a></p>
 <a class="header" href="#multiparttosinglepart" id="multiparttosinglepart"><h1>MultiPartToSinglePart</h1></a>
 <p>This tool can be used to convert a vector file containing multi-part features into a vector
@@ -750,8 +778,12 @@ value. Most WhiteboxTools tools recognize NoData grid cells and treat them speci
 are also often displayed transparently by GIS software. The user must specify the names of the input and
 output rasters and the background value. The default background value is zero, although any numeric
 value is possible.</p>
+<p>This tool differs from the <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool in that it simply updates the NoData value in the raster
+header, without modifying pixel values. The <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool will update the value in the header,
+and then modify each existing NoData pixel to contain this new value. Also, <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> does not
+overwrite the input file, while the <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool does.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a>, <code>IsNodata</code></p>
+<p><a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a>, <a href="./mathand_stats_tools.html#isnodata"><strong>IsNoData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>

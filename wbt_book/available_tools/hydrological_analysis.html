@@ -1748,7 +1748,15 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>Created</em>: 01/07/2017</p>
 <p><a name="TraceDownslopeFlowpaths"></a></p>
 <a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h1>TraceDownslopeFlowpaths</h1></a>
-<p>Traces downslope flowpaths from one or more target sites (i.e. seed points).</p>
+<p>This tool can be used to mark the flowpath initiated from user-specified locations downslope and
+terminating at either the grid's edge or a grid cell with undefined flow direction. The user must
+input the name of a D8 flow pointer grid (<code>--d8_pntr</code>) and an input vector file indicating the location
+of one or more initiation points, i.e. 'seed points' (<code>--seed_pts</code>). The seed point file must be a
+vector of the POINT ShapeType. Note that the flow pointer should be generated from a DEM that has
+been processed to remove all topographic depression (see <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> and <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>) and
+created using the D8 flow algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#downslopeflowpathlength"><strong>DownslopeFlowpathLength</strong></a>, <a href="./hydrological_analysis.html#downslopedistancetostream"><strong>DownslopeDistanceToStream</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--seed_pts         </td><td> Input vector seed points file</td></tr>

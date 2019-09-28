@@ -907,7 +907,7 @@ include the point elevations, intensity values, scan angles, and class values.</
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
 <tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 <tr><td>--weight           </td><td> IDW weight value</td></tr>
@@ -1047,7 +1047,7 @@ percentage.</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
 <tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 <tr><td>--radius           </td><td> Search Radius</td></tr>
@@ -1155,8 +1155,9 @@ the spatial extent is large.</li>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
-<tr><td>--num_points       </td><td> Flag indicating whether or not to output the number of points raster</td></tr>
+<tr><td>--num_points       </td><td> Flag indicating whether or not to output the number of points (returns) raster</td></tr>
 <tr><td>--num_pulses       </td><td> Flag indicating whether or not to output the number of pulses raster</td></tr>
+<tr><td>--avg_points_per_pulse</td><td> Flag indicating whether or not to output the average number of points (returns) per pulse raster</td></tr>
 <tr><td>--z_range          </td><td> Flag indicating whether or not to output the elevation range raster</td></tr>
 <tr><td>--intensity_range  </td><td> Flag indicating whether or not to output the intensity range raster</td></tr>
 <tr><td>--predom_class     </td><td> Flag indicating whether or not to output the predominant classification raster</td></tr>
@@ -1167,6 +1168,7 @@ the spatial extent is large.</li>
     resolution=1.0, 
     num_points=True, 
     num_pulses=False, 
+    avg_points_per_pulse=True, 
     z_range=False, 
     intensity_range=False, 
     predom_class=False, 
@@ -1300,6 +1302,7 @@ are stored as unique, random red-green-blue (RGB) colour values stored in the ou
 <tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
 <tr><td>--maxzdiff         </td><td> Maximum difference in elevation (z units) between neighbouring points of the same segment</td></tr>
 <tr><td>--classes          </td><td> Segments don't cross class boundaries</td></tr>
+<tr><td>--min_size         </td><td> Minimum segment size (number of points)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.lidar_segmentation(
@@ -1309,13 +1312,15 @@ are stored as unique, random red-green-blue (RGB) colour values stored in the ou
     norm_diff=10.0, 
     maxzdiff=1.0, 
     classes=False, 
+    min_size=1, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarSegmentation -v ^
 --wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
---radius=10.0 --norm_diff=2.5 --maxzdiff=0.75 --classes 
+--radius=10.0 --norm_diff=2.5 --maxzdiff=0.75 --classes ^
+--min_size=100 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_segmentation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -1494,7 +1499,7 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'scan angle', 'user data'</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
 <tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
 <tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
