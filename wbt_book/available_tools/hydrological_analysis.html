@@ -528,7 +528,7 @@ flow-accumulation image. The output raster is of the float data type and continu
 <p>Tarboton, D. G. (1997). A new method for the determination of flow directions and upslope areas in grid digital
 elevation models. Water resources research, 33(2), 309-319.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<p><a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -591,7 +591,24 @@ elevation models. Water resources research, 33(2), 309-319.</p>
 <p><em>Created</em>: Dec. 29, 2017</p>
 <p><a name="DInfPointer"></a></p>
 <a class="header" href="#dinfpointer" id="dinfpointer"><h1>DInfPointer</h1></a>
-<p>Calculates a D-infinity flow pointer (flow direction) raster from an input DEM.</p>
+<p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the D-infinity
+(Tarboton, 1997) algorithm. Dinf is a multiple-flow-direction (MFD) method because the flow
+entering each grid cell is routed one or two downslope neighbours, i.e. flow divergence is permitted.
+The user must specify the name of a digital elevation model (DEM; <code>--dem</code>) that has been hydrologically
+corrected to remove all spurious depressions and flat areas (<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>).
+DEM pre-processing is usually achieved using the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool1. Flow
+directions are specified in the output flow-pointer grid (<code>--output</code>) as azimuth degrees measured from
+north, i.e. any value between 0 and 360 degrees is possible. A pointer value of -1 is used to designate
+a grid cell with no flow-pointer. This occurs when a grid cell has no downslope neighbour, i.e. a pit
+cell or topographic depression. Like aspect grids, Dinf flow-pointer grids are best visualized using
+a circular greyscale palette.</p>
+<p>Grid cells possessing the NoData value in the input DEM are assigned the NoData value in the output
+image. The output raster is of the float data type and continuous data scale.</p>
+<p><em>Reference</em>:</p>
+<p>Tarboton, D. G. (1997). A new method for the determination of flow directions and upslope areas in
+grid digital elevation models. Water resources research, 33(2), 309-319.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -610,7 +627,7 @@ elevation models. Water resources research, 33(2), 309-319.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_pointer.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
+<p><em>Created</em>: 26/06/2017</p>
 <p><a name="DepthInSink"></a></p>
 <a class="header" href="#depthinsink" id="depthinsink"><h1>DepthInSink</h1></a>
 <p>This tool measures the depth that each grid cell in an input (<code>--dem</code>) raster digital elevation model (DEM)
@@ -732,7 +749,7 @@ The output raster is of the float data type and continuous data scale.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/downslope_flowpath_length.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 8, 2017</p>
+<p><em>Created</em>: 08/07/2017</p>
 <p><a name="ElevationAboveStream"></a></p>
 <a class="header" href="#elevationabovestream" id="elevationabovestream"><h1>ElevationAboveStream</h1></a>
 <p>This tool can be used to calculate the elevation of each grid cell in a raster above the nearest stream cell,
@@ -1459,7 +1476,14 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 <p><em>Created</em>: June 25, 2017</p>
 <p><a name="NumInflowingNeighbours"></a></p>
 <a class="header" href="#numinflowingneighbours" id="numinflowingneighbours"><h1>NumInflowingNeighbours</h1></a>
-<p>Computes the number of inflowing neighbours to each cell in an input DEM based on the D8 algorithm.</p>
+<p>This tool calculates the number of inflowing neighbours for each grid cell in a raster file. The user
+must specify the names of an input digital elevation model (DEM) file (<code>--dem</code>) and the output raster
+file (<code>--output</code>). The tool calculates the D8 pointer file internally in order to identify inflowing
+neighbouring cells.</p>
+<p>Grid cells in the input DEM that contain the NoData value will be assigned the NoData value in the
+output image. The output image is of the integer data type and continuous data scale.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a>, <a href="./geomorphometric_analysis.html#numupslopeneighbours"><strong>NumUpslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1478,7 +1502,7 @@ and finally, the average slope (<em>AVG_SLOPE</em>) along the flowpath, measured
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/num_inflowing_neighbours.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 25, 2017</p>
+<p><em>Created</em>: 25/06/2017</p>
 <p><a name="RaiseWalls"></a></p>
 <a class="header" href="#raisewalls" id="raisewalls"><h1>RaiseWalls</h1></a>
 <p>This tool is used to increment the elevations in a digital elevation model (DEM) along
@@ -1518,7 +1542,27 @@ with the wall layer.</p>
 <p><em>Created</em>: 22/04/2018</p>
 <p><a name="Rho8Pointer"></a></p>
 <a class="header" href="#rho8pointer" id="rho8pointer"><h1>Rho8Pointer</h1></a>
-<p>Calculates a stochastic Rho8 flow pointer raster from an input DEM.</p>
+<p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the stochastic
+Rho8 (J. Fairfield and P. Leymarie, 1991) algorithm. Like the D8 flow algorithm (<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>),
+Rho8 is a single-flow-direction (SFD) method because the flow entering each grid cell is routed
+to only one downslope neighbour, i.e. flow divergence is not permitted. The user must specify the
+name of a digital elevation model (DEM) file (<code>--dem</code>) that has been hydrologically corrected to
+remove all spurious depressions and flat areas (<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>).</p>
+<p>By default, the Rho8 flow pointers use the following clockwise, base-2 numeric index convention:</p>
+<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
+<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
+<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+</tbody></table>
+<p>Notice that grid cells that have no lower neighbours are assigned a flow direction of zero. In a DEM that has been
+pre-processed to remove all depressions and flat areas, this condition will only occur along the edges of the grid.
+If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
+<p>Grid cells possessing the NoData value in the input DEM are assigned the NoData value in the output image.</p>
+<p><em>References</em>:</p>
+<p>Fairfield, J., &amp; Leymarie, P. (1991). Drainage networks from grid digital elevation models. Water
+Resources Research, 27(5), 709-717.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#fd8pointer"><strong>FD8Pointer</strong></a>, <a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1539,7 +1583,7 @@ with the wall layer.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/rho8_pointer.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 16, 2017</p>
+<p><em>Created</em>: 16/07/2017</p>
 <p><a name="Sink"></a></p>
 <a class="header" href="#sink" id="sink"><h1>Sink</h1></a>
 <p>This tool identifies each sink (i.e. topographic depression) in a raster digital elevation model (DEM). A
