@@ -113,6 +113,54 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2019-09-29",
+      headline: "WhiteboxTools v1.0.0 is Released",
+      fullStory: "We are very pleased to announce the release of WhiteboxTools v1.0.0. This milestone \
+      release contains numerous feature additions and bug fixes and marks a period of stabilization in the \
+      platform. Modifications include the following: <ul>\
+      <li>Added support for reading and writing the BigTIFF format. This has resulted in numerous changes \
+  throughout the codebase as a result of significant modification of ByteOrderReader and addition \
+  of ByteOrderWriter. This change has touched almost every one of the raster format \
+  encoders/decoders.</li> \
+  <li>Performance improvements have been made to the FlattenLakes (hydro-flattening) tool.</li> \
+  <li>Fixed a bug preventing the SplitColourComposite tool from reading the '--input' flag correctly.</li> \
+  <li>The ClipLidarToPolygon now issues a warning if the output LAS file does not contain any points \
+  within the clipped region and does not output a file. Also, the LAS reader no longer panics \
+  when it encounters a file with no points. Now it reads the header file, issues a warning, and \
+  carries on, allowing the tools to handle the case of no points.</li> \
+  <li>ImageRegression can now optionally output a scatterplot. The scatterplot is based on a random \
+  sample of a user-defined size.</li> \
+  <li>Added the CleanVector tool.</li> \
+  <li>ExtractRasterStatistics has been renamed ZonalStatistics to be more inline with other GIS, \
+  including ArcGIS and QGIS.</li> \
+  <li>Added the median as a statistic that ZonalStatistics provides.</li> \
+  <li>Fixed a bug in the VectorPolygonsToRaster tool that sometimes mishandled polygon holes.</li> \
+  <li>Added the FilterLidarClasses tool to filter out points of user-specified classes.</li> \
+  <li>Added the LidarRansacPlanes tool to identify points belonging to planar surfaces. This tool \
+  uses the RANSAC method, which is a robust modelling method that handles the presence of \
+  numerous outlier points.</li> \
+  <li>The ClipLidarToPolygon tool has been parallelized for improved performance.</li> \
+  <li>The LasToAscii and AsciiToLas tools have been updated to handle RGB colour data for points.</li> \
+  <li>Added the CsvPointsToVector tool to convert a CSV text table into a shapefile of vector points. \
+  The table must contain x and y coordinate fields.</li> \
+  <li>The FeaturePreservingDenoise was renamed to FeaturePreservingSmoothing. The DrainagePreservingSmoothing \
+  tool was removed. Use FeaturePreservingSmoothing instead.</li> \
+  <li>Added the ability to output the average number of point returns per pulse in the LidarPointStats tool.</li> \
+  <li>LidarTinGridding, LidarIdwIntarpolation, and LidarNearestNeighbourGridding now can interpolate the \
+  return number, number of returns, and RGB colour data associated with points in a LAS file.</li> \
+  <li>Added the ModifyNoDataValue tool to change the NoData value in a raster. It updates the value in \
+  the raster header and then modifies each grid cell in the raster containing the old NoData value \
+  to the new value. This operation overwrites the existing raster.</li> \
+  <li>Fixed an issue with GeoTIFF NoData values that impacted many tools. NoData values were not interpreted \
+  correctly when they were very large positive or negative values (near the min/max of an f32).</li></ul>"
+    },
+    {
+      date: "2019-09-29",
+      headline: "Anthony Francioni Returns to the GHRG",
+      fullStory: "The GHRG is pleased to welcome back Anthony Francioni who begins a year-long position as \
+      a Research Associate working on the CFREF-funded Digital Agriculture research project."
+    },
+    {
       date: "2019-08-19",
       headline: "Anthony Francioni Publishes in Remote Sensing",
       fullStory: "Congratulations to now graduated GHRG member Anthony Francioni for his co-authorship on a new \
