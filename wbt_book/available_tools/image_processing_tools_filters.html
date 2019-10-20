@@ -578,7 +578,7 @@ smoothing and noise reduction than the <a href="./image_processing_tools_filters
 by setting the standard deviation parameter (<code>--sigma</code>), which is in units of grid cells;
 the larger the standard deviation the larger the resulting filter kernel. The standard
 deviation can be any number in the range 0.5-20.</p>
-<p><a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a> works with both greyscale and red-green-blue (RGB) images. RGB images are
+<p><a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a> works with both greyscale and red-green-blue (RGB) colour images. RGB images are
 decomposed into intensity-hue-saturation (IHS) and the filter is applied to the intensity
 channel. NoData values in the input image are ignored during processing.</p>
 <p>Like many low-pass filters, Gaussian filtering can signficantly blur well-defined edges in
@@ -1410,7 +1410,24 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><em>Created</em>: 25/06/2017</p>
 <p><a name="UnsharpMasking"></a></p>
 <a class="header" href="#unsharpmasking" id="unsharpmasking"><h1>UnsharpMasking</h1></a>
-<p>An image sharpening technique that enhances edges.</p>
+<p>Unsharp masking is an image edge-sharpening technique commonly applied in digital image processing.
+Admittedly, the name 'unsharp' seems somewhat counter-intuitive given the purpose of the filter, which
+is to enchance the definition of edge features within the input image (<code>--input</code>). This name comes
+from the use of a blurred, or unsharpened, in the process. The blurred image is then combined with the
+positive (original) image, creating an image that exhibits enhanced feature definition. The resulting
+image, although clearer, may be a less accurate representation of the image's subject.</p>
+<p>In addition to the input (<code>--input</code>) and output (<code>--output</code>) image files, the user must specify the
+values of three parameters: the standard deviation distance (<code>--sigma</code>), which is a measure of the
+filter size in pixels, the amount (<code>--amount</code>), a percentage value that controls the magnitude of
+each overshoot at edges, and lastly, the threshold (<code>--threshold</code>), which controls the minimal
+brightness change that will be sharpened. Pixels with values differ after the calculation of the filter
+by less than the threshold are unmodified in the output image.</p>
+<p><a href="./image_processing_tools_filters.html#unsharpmasking"><strong>UnsharpMasking</strong></a> works with both greyscale and red-green-blue (RGB) colour images. RGB images are
+decomposed into intensity-hue-saturation (IHS) and the filter is applied to the intensity
+channel. Importantly, the intensity values range from 0-1, which is important when setting the
+threshold value for colour images. NoData values in the input image are ignored during processing.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#highpassfilter"><strong>HighPassFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
