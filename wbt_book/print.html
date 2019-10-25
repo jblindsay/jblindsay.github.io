@@ -1394,7 +1394,7 @@ maximum of the north-south extent (determined from the shapefile's bounding box)
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/vector_lines_to_raster.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 18/04/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="VectorPointsToRaster"></a></p>
 <a class="header" href="#vectorpointstoraster" id="vectorpointstoraster"><h1>VectorPointsToRaster</h1></a>
 <p>This tool can be used to convert a vector points file into a raster grid. The user must
@@ -1919,7 +1919,7 @@ texture of any of the available roughness tools.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/edge_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/01/2019</p>
-<p><em>Last Modified</em>: 27/01/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="ElevAbovePit"></a></p>
 <a class="header" href="#elevabovepit" id="elevabovepit"><h1>ElevAbovePit</h1></a>
 <p>This tool will calculate the elevation of each grid cell in a digital elevation model (DEM) above the nearest
@@ -2124,7 +2124,7 @@ mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_smoothing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/11/2017</p>
-<p><em>Last Modified</em>: 31/01/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="FetchAnalysis"></a></p>
 <a class="header" href="#fetchanalysis" id="fetchanalysis"><h1>FetchAnalysis</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the distance, in meters, to the nearest
@@ -2704,7 +2704,7 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/02/2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="MultiscaleRoughnessSignature"></a></p>
 <a class="header" href="#multiscaleroughnesssignature" id="multiscaleroughnesssignature"><h1>MultiscaleRoughnessSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -2737,7 +2737,7 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/02/2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="MultiscaleStdDevNormals"></a></p>
 <a class="header" href="#multiscalestddevnormals" id="multiscalestddevnormals"><h1>MultiscaleStdDevNormals</h1></a>
 <p>This tool can be used to map the spatial pattern of maximum spherical standard deviation
@@ -2745,24 +2745,31 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 (<em>r<sub>max</sub></em>; <code>--out_scale</code>), for each grid cell in an input DEM (<code>--dem</code>). This serves as a multi-scale measure
 of surface roughness, or topographic complexity. The spherical standard deviation (σ<sub>s</sub>) is
 a measure of the angular spread among <em>n</em> unit vectors and is defined as:</p>
-<p>σs = √(−2ln(<em>R</em>/<em>n</em>))⋅180/π,</p>
+<blockquote>
+<p>σ<sub>s</sub> = √[-2ln(<em>R</em> / <em>N</em>)] × 180 / π</p>
+</blockquote>
 <p>Where <em>R</em> is the resultant vector length and is derived from the sum of the <em>x</em>, <em>y</em>, and <em>z</em> components
 of each of the <em>n</em> normals contained within a filter kernel, which designates a tested spatial scale. Each
 unit vector is a 3-dimensional measure of the surface orientation and slope at each grid cell center. The
 maximum spherical standard deviation is:</p>
+<blockquote>
 <p>σ<sub><em>s max</em></sub>=<em>max</em>{σs(<em>r</em>):<em>r</em>=<em>r<sub>L</sub></em>...<em>r<sub>U</sub></em>},</p>
+</blockquote>
 <p>Experience with roughness scale signatures has shown that σ<sub><em>s max</em></sub> is highly variable at
 shorter scales and changes more gradually at broader scales. Therefore, a nonlinear scale sampling
 interval is used by this tool to ensure that the scale sampling density is higher for short scale
 ranges and coarser at longer tested scales, such that:</p>
-<p><em>r<sub>i</sub></em> = <em>r<sub>L</sub></em>+(<em>i</em>−<em>r<sub>L</sub></em>)<em>p</em>,</p>
-<p><em>r<sub>i</sub></em> = min_scale + (((step * (s - min_scale)) as f32).powf(step_nonlinearity)).floor() as isize;</p>
-<p>Where <em>ri</em> is the filter radius for step <em>i</em> and <em>p</em> is the nonlinear scaling factor (<code>--step_nonlinearity</code>).</p>
+<blockquote>
+<p><em>r<sub>i</sub></em> = <em>r<sub>L</sub></em> + [step × (i - <em>r<sub>L</sub></em>)]<sup><em>p</em></sup></p>
+</blockquote>
+<p>Where <em>ri</em> is the filter radius for step <em>i</em> and <em>p</em> is the nonlinear scaling factor (<code>--step_nonlinearity</code>)
+and a step size (<code>--step</code>) of <em>step</em>.</p>
+<p>Use the <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a> tool if you need to calculate σ<sub>s</sub> for a single scale.</p>
 <p><em>Reference</em>:</p>
 <p>JB Lindsay, DR Newman, and A  Francioni. 2019 Scale-Optimized Surface Roughness for Topographic Analysis.
 <em>Geosciences</em>, 9(322) doi: 10.3390/geosciences9070322.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#multiscalestddevnormalssignature"><strong>MultiscaleStdDevNormalsSignature</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#multiscalestddevnormalssignature"><strong>MultiscaleStdDevNormalsSignature</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -3561,7 +3568,7 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/05/2019</p>
-<p><em>Last Modified</em>: 13/06/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="StandardDeviationOfSlope"></a></p>
 <a class="header" href="#standarddeviationofslope" id="standarddeviationofslope"><h1>StandardDeviationOfSlope</h1></a>
 <p>Calculates the standard deviation of slope from an input DEM, a metric of
@@ -7749,7 +7756,7 @@ Conference. pp. 24-30.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_burn.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/04/2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="FillDepressions"></a></p>
 <a class="header" href="#filldepressions" id="filldepressions"><h1>FillDepressions</h1></a>
 <p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
@@ -7923,7 +7930,7 @@ lakes.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flatten_lakes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 29/03/2018</p>
-<p><em>Last Modified</em>: 12/06/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="FloodOrder"></a></p>
 <a class="header" href="#floodorder" id="floodorder"><h1>FloodOrder</h1></a>
 <p>This tool takes an input digital elevation model (DEM) and creates an output raster where every grid cell
@@ -8090,7 +8097,7 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output file</td></tr>
 <tr><td>--out_type         </td><td> Output type; one of 'depth' (default), 'volume', and 'area'</td></tr>
-<tr><td>--damlength        </td><td> Maximum length of thr dam</td></tr>
+<tr><td>--damlength        </td><td> Maximum length of the dam</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.impoundment_size_index(
@@ -8330,7 +8337,7 @@ with the wall layer.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/raise_walls.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/04/2018</p>
-<p><em>Last Modified</em>: 09/06/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="Rho8Pointer"></a></p>
 <a class="header" href="#rho8pointer" id="rho8pointer"><h1>Rho8Pointer</h1></a>
 <p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the stochastic
@@ -9004,7 +9011,7 @@ Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sens
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/ihs_to_rgb.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/07/2017</p>
-<p><em>Last Modified</em>: 05/02/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="ImageStackProfile"></a></p>
 <a class="header" href="#imagestackprofile" id="imagestackprofile"><h1>ImageStackProfile</h1></a>
 <p>This tool can be used to plot an image stack profile (i.e. a signature) for a set of points (<code>--points</code>) and
@@ -9532,7 +9539,7 @@ Mapper data for burned land mapping. Photogrammetric Engineering and Remote Sens
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/rgb_to_ihs.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="SplitColourComposite"></a></p>
 <a class="header" href="#splitcolourcomposite" id="splitcolourcomposite"><h1>SplitColourComposite</h1></a>
 <p>This tool can be used to split a red-green-blue (RGB) colour-composite image into three separate bands of
@@ -9759,7 +9766,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/adaptive_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="BilateralFilter"></a></p>
 <a class="header" href="#bilateralfilter" id="bilateralfilter"><h1>BilateralFilter</h1></a>
 <p>This tool can be used to perform an edge-preserving smoothing filter, or bilateral filter, on an image. A bilateral
@@ -9807,7 +9814,7 @@ determines the intensity domain contribution to kernel weightings.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/bilateral_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="ConservativeSmoothingFilter"></a></p>
 <a class="header" href="#conservativesmoothingfilter" id="conservativesmoothingfilter"><h1>ConservativeSmoothingFilter</h1></a>
 <p>This tool performs a conservative smoothing filter on a raster image. A conservative smoothing filter can be used
@@ -9846,7 +9853,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/conservative_smoothing_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="CornerDetection"></a></p>
 <a class="header" href="#cornerdetection" id="cornerdetection"><h1>CornerDetection</h1></a>
 <p>This tool identifies corner patterns in boolean images using hit-and-miss pattern matching. Foreground pixels
@@ -9926,7 +9933,7 @@ however, reduce overall image contrast.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/dog_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="DiversityFilter"></a></p>
 <a class="header" href="#diversityfilter" id="diversityfilter"><h1>DiversityFilter</h1></a>
 <p>This tool assigns each cell in the output grid the number of different values in a moving window centred on
@@ -10001,7 +10008,7 @@ threshold value must be in the range 0.0-1.0 (more likely less than 0.15), where
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/edge_preserving_mean_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 24/03/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="EmbossFilter"></a></p>
 <a class="header" href="#embossfilter" id="embossfilter"><h1>EmbossFilter</h1></a>
 <p>This tool can be used to perform one of eight 3x3 emboss filters on a raster image. Like the <a href="./image_processing_tools_filters.html#sobelfilter"><strong>SobelFilter</strong></a> and
@@ -10084,7 +10091,7 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/emboss_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="FastAlmostGaussianFilter"></a></p>
 <a class="header" href="#fastalmostgaussianfilter" id="fastalmostgaussianfilter"><h1>FastAlmostGaussianFilter</h1></a>
 <p>The tool is somewhat modified from Dr. Kovesi's original Matlab code in that it
@@ -10118,7 +10125,7 @@ Techniques and Applications (DICTA), 2010 International Conference on.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/fast_almost_gaussian_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/05/2018</p>
-<p><em>Last Modified</em>: 19/05/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="GaussianFilter"></a></p>
 <a class="header" href="#gaussianfilter" id="gaussianfilter"><h1>GaussianFilter</h1></a>
 <p>This tool can be used to perform a Gaussian filter on a raster image. A Gaussian filter
@@ -10162,8 +10169,8 @@ Gaussian filter for larger kernel sizes.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gaussian_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 26/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="HighPassFilter"></a></p>
 <a class="header" href="#highpassfilter" id="highpassfilter"><h1>HighPassFilter</h1></a>
 <p>This tool performs a high-pass filter on a raster image. High-pass filters can be used to emphasize
@@ -10196,7 +10203,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/highpass_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="HighPassMedianFilter"></a></p>
 <a class="header" href="#highpassmedianfilter" id="highpassmedianfilter"><h1>HighPassMedianFilter</h1></a>
 <p>This tool performs a high-pass median filter on a raster image. High-pass filters can be used to emphasize
@@ -10231,7 +10238,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/highpass_median_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 10/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="KNearestMeanFilter"></a></p>
 <a class="header" href="#knearestmeanfilter" id="knearestmeanfilter"><h1>KNearestMeanFilter</h1></a>
 <p>This tool performs a k-nearest mean filter on a raster image. A mean filter can be used to emphasize the
@@ -10275,7 +10282,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/k_nearest_mean_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 24/02/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LaplacianFilter"></a></p>
 <a class="header" href="#laplacianfilter" id="laplacianfilter"><h1>LaplacianFilter</h1></a>
 <p>This tool can be used to perform a Laplacian filter on a raster image. A Laplacian filter can be used
@@ -10351,7 +10358,7 @@ The user may also optionally clip the output image distribution tails by a speci
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/laplacian_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LaplacianOfGaussianFilter"></a></p>
 <a class="header" href="#laplacianofgaussianfilter" id="laplacianofgaussianfilter"><h1>LaplacianOfGaussianFilter</h1></a>
 <p>Performs a Laplacian-of-Gaussian (LoG) filter on an image.</p>
@@ -10375,8 +10382,8 @@ The user may also optionally clip the output image distribution tails by a speci
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/log_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 26/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LeeFilter"></a></p>
 <a class="header" href="#leefilter" id="leefilter"><h1>LeeFilter</h1></a>
 <p>Performs a Lee (Sigma) smoothing filter on an image.</p>
@@ -10410,8 +10417,8 @@ The user may also optionally clip the output image distribution tails by a speci
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/lee_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 27/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LineDetectionFilter"></a></p>
 <a class="header" href="#linedetectionfilter" id="linedetectionfilter"><h1>LineDetectionFilter</h1></a>
 <p>This tool can be used to perform one of four 3x3 line-detection filters on a raster image. These
@@ -10550,7 +10557,7 @@ efficiency. Like most of WhiteboxTools' filters, it is also parallelized for fur
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/max_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="MeanFilter"></a></p>
 <a class="header" href="#meanfilter" id="meanfilter"><h1>MeanFilter</h1></a>
 <p>This tool performs a mean filter operation on a raster image. A mean filter, a type of low-pass filter, can be
@@ -10597,7 +10604,7 @@ the raster.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mean_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
-<p><em>Last Modified</em>: 06/02/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="MedianFilter"></a></p>
 <a class="header" href="#medianfilter" id="medianfilter"><h1>MedianFilter</h1></a>
 <p>This tool performs a median filter on a raster image. Median filters, a type of low-pass filter, can be used to emphasize
@@ -10638,7 +10645,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/median_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="MinimumFilter"></a></p>
 <a class="header" href="#minimumfilter" id="minimumfilter"><h1>MinimumFilter</h1></a>
 <p>This tool assigns each cell in the output grid (<code>--output</code>) the minimum value in a moving window centred on each grid
@@ -10674,7 +10681,7 @@ efficiency. Like most of WhiteboxTools' filters, it is also parallelized for fur
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="OlympicFilter"></a></p>
 <a class="header" href="#olympicfilter" id="olympicfilter"><h1>OlympicFilter</h1></a>
 <p>This filter is a modification of the <a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, whereby the highest and lowest values in the kernel are
@@ -10708,7 +10715,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/olympic_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 05/05/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="PercentileFilter"></a></p>
 <a class="header" href="#percentilefilter" id="percentilefilter"><h1>PercentileFilter</h1></a>
 <p>This tool calculates the percentile of the center cell in a moving filter window applied to an input image (`--input).
@@ -10799,7 +10806,7 @@ the following schemes to calculate x and y slopes:</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/prewitt_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="RangeFilter"></a></p>
 <a class="header" href="#rangefilter" id="rangefilter"><h1>RangeFilter</h1></a>
 <p>Assigns each cell in the output grid the range of values in a moving window centred on each grid cell in the input raster.</p>
@@ -10825,8 +10832,8 @@ the following schemes to calculate x and y slopes:</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/range_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 26/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="RobertsCrossFilter"></a></p>
 <a class="header" href="#robertscrossfilter" id="robertscrossfilter"><h1>RobertsCrossFilter</h1></a>
 <p>Performs a Robert's cross edge-detection filter on an image.</p>
@@ -10850,8 +10857,8 @@ the following schemes to calculate x and y slopes:</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/roberts_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 27/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="ScharrFilter"></a></p>
 <a class="header" href="#scharrfilter" id="scharrfilter"><h1>ScharrFilter</h1></a>
 <p>Performs a Scharr edge-detection filter on an image.</p>
@@ -10875,8 +10882,8 @@ the following schemes to calculate x and y slopes:</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/scharr_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 27, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 27/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="SobelFilter"></a></p>
 <a class="header" href="#sobelfilter" id="sobelfilter"><h1>SobelFilter</h1></a>
 <p>This tool performs a 3 × 3 or 5 × 5 Sobel edge-detection filter on a raster image. The Sobel filter
@@ -10924,7 +10931,7 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sobel_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="StandardDeviationFilter"></a></p>
 <a class="header" href="#standarddeviationfilter" id="standarddeviationfilter"><h1>StandardDeviationFilter</h1></a>
 <p>Assigns each cell in the output grid the standard deviation of values in a moving window centred on each grid cell in the input raster.</p>
@@ -10951,7 +10958,7 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="TotalFilter"></a></p>
 <a class="header" href="#totalfilter" id="totalfilter"><h1>TotalFilter</h1></a>
 <p>This tool performs a total filter on an input image. A total filter assigns to each cell in the output grid
@@ -11031,7 +11038,7 @@ threshold value for colour images. NoData values in the input image are ignored 
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/unsharp_masking.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/05/2018</p>
-<p><em>Last Modified</em>: 17/10/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="UserDefinedWeightsFilter"></a></p>
 <a class="header" href="#userdefinedweightsfilter" id="userdefinedweightsfilter"><h1>UserDefinedWeightsFilter</h1></a>
 <p>NoData values in the input image are ignored during the convolution operation.
@@ -11074,7 +11081,7 @@ in these cases.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/user_defined_weights_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/04/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <a class="header" href="#image-processing-tools--image-enhancement" id="image-processing-tools--image-enhancement"><h1>Image Processing Tools → Image Enhancement</h1></a>
 <ul>
 <li><a href="#BalanceContrastEnhancement">BalanceContrastEnhancement</a></li>
@@ -11176,7 +11183,7 @@ of the HSI transform.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/correct_vignetting.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 24/04/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="DirectDecorrelationStretch"></a></p>
 <a class="header" href="#directdecorrelationstretch" id="directdecorrelationstretch"><h1>DirectDecorrelationStretch</h1></a>
 <p>The Direct Decorrelation Stretch (DDS) is a simple type of saturation stretch. The stretch is
@@ -11250,7 +11257,7 @@ composite data type.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gamma_correction.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="GaussianContrastStretch"></a></p>
 <a class="header" href="#gaussiancontraststretch" id="gaussiancontraststretch"><h1>GaussianContrastStretch</h1></a>
 <p>This tool performs a Gaussian stretch on a raster image. The observed histogram of the input image is fitted
@@ -11285,7 +11292,7 @@ to an input image, and other contrast enhancement tools such as <a href="./image
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gaussian_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/05/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="HistogramEqualization"></a></p>
 <a class="header" href="#histogramequalization" id="histogramequalization"><h1>HistogramEqualization</h1></a>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
@@ -11333,7 +11340,7 @@ the histogram is being distorted. This is more prevalent for integer-level image
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_equalization.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/08/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="HistogramMatching"></a></p>
 <a class="header" href="#histogrammatching" id="histogrammatching"><h1>HistogramMatching</h1></a>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
@@ -11481,7 +11488,7 @@ of tonal values is determined by the number of palette entries.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_max_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="PanchromaticSharpening"></a></p>
 <a class="header" href="#panchromaticsharpening" id="panchromaticsharpening"><h1>PanchromaticSharpening</h1></a>
 <p>Panchromatic sharpening, or simply pan-sharpening, refers to a range of techniques that can be used to merge
@@ -11580,7 +11587,7 @@ of tonal values is determined by the number of palette entries.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentage_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="SigmoidalContrastStretch"></a></p>
 <a class="header" href="#sigmoidalcontraststretch" id="sigmoidalcontraststretch"><h1>SigmoidalContrastStretch</h1></a>
 <p>This tool performs a sigmoidal stretch on a raster image. This is a transformation where the input image value for a
@@ -11631,7 +11638,7 @@ images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sigmoidal_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="StandardDeviationContrastStretch"></a></p>
 <a class="header" href="#standarddeviationcontraststretch" id="standarddeviationcontraststretch"><h1>StandardDeviationContrastStretch</h1></a>
 <p>This tool performs a standard deviation contrast stretch on a raster image. This operation maps each grid cell value
@@ -11672,7 +11679,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
 <ul>
 <li><a href="#ClassifyOverlapPoints">ClassifyOverlapPoints</a></li>
@@ -12416,8 +12423,8 @@ vertical (flat side up).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 14, 2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Created</em>: 14/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LidarHistogram"></a></p>
 <a class="header" href="#lidarhistogram" id="lidarhistogram"><h1>LidarHistogram</h1></a>
 <p>This tool can be used to plot a histogram of data derived from a LiDAR file. The user must specify the
@@ -12787,7 +12794,7 @@ planar points (0).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_ransac_planes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/07/2019</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LidarRemoveDuplicates"></a></p>
 <a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h1>LidarRemoveDuplicates</h1></a>
 <p>This tool removes duplicate points from a LiDAR data set. Duplicates are determined
@@ -12888,7 +12895,7 @@ are stored as unique, random red-green-blue (RGB) colour values stored in the ou
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_segmentation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/12/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LidarSegmentationBasedFilter"></a></p>
 <a class="header" href="#lidarsegmentationbasedfilter" id="lidarsegmentationbasedfilter"><h1>LidarSegmentationBasedFilter</h1></a>
 <p>Identifies ground points within LiDAR point clouds using a segmentation based approach.</p>
@@ -12920,7 +12927,7 @@ are stored as unique, random red-green-blue (RGB) colour values stored in the ou
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_segmentation_based_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/12/2017, 2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LidarThin"></a></p>
 <a class="header" href="#lidarthin" id="lidarthin"><h1>LidarThin</h1></a>
 <p>Thins a LiDAR point cloud, reducing point density.</p>
@@ -13158,8 +13165,8 @@ neighbourhood maximum of a previous local minimum surface. The user must specify
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/normal_vectors.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 26, 2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Created</em>: 26/06/2017</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="SelectTilesByPolygon"></a></p>
 <a class="header" href="#selecttilesbypolygon" id="selecttilesbypolygon"><h1>SelectTilesByPolygon</h1></a>
 <p>This tool copies LiDAR tiles overlapping with a polygon into an output directory.</p>
@@ -13242,6 +13249,7 @@ in the input file's header (i.e. the bounding box of the data), it is able to ta
 <li><a href="#Not">Not</a></li>
 <li><a href="#NotEqualTo">NotEqualTo</a></li>
 <li><a href="#Or">Or</a></li>
+<li><a href="#PairedSampleTTest">PairedSampleTTest</a></li>
 <li><a href="#Power">Power</a></li>
 <li><a href="#PrincipalComponentAnalysis">PrincipalComponentAnalysis</a></li>
 <li><a href="#Quantiles">Quantiles</a></li>
@@ -13266,6 +13274,8 @@ in the input file's header (i.e. the bounding box of the data), it is able to ta
 <li><a href="#TrendSurfaceVectorPoints">TrendSurfaceVectorPoints</a></li>
 <li><a href="#Truncate">Truncate</a></li>
 <li><a href="#TurningBandsSimulation">TurningBandsSimulation</a></li>
+<li><a href="#TwoSampleKsTest">TwoSampleKsTest</a></li>
+<li><a href="#WilcoxonSignedRankTest">WilcoxonSignedRankTest</a></li>
 <li><a href="#Xor">Xor</a></li>
 <li><a href="#ZScores">ZScores</a></li>
 <li><a href="#ZonalStatistics">ZonalStatistics</a></li>
@@ -13952,7 +13962,7 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_autocorrelation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: Dec. 16, 2017</p>
+<p><em>Created</em>: 16/12/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ImageCorrelation"></a></p>
 <a class="header" href="#imagecorrelation" id="imagecorrelation"><h1>ImageCorrelation</h1></a>
@@ -14309,6 +14319,8 @@ values of a user-specified size. In evaluating the significance of the test, it 
 important to keep in mind that given a sufficiently large sample, extremely small and
 non-notable differences can be found to be statistically significant. Furthermore
 statistical significance says nothing about the practical significance of a difference.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -14324,15 +14336,15 @@ statistical significance says nothing about the practical significance of a diff
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=KSTestForNormality -v ^
+<pre><code>&gt;&gt;./whitebox_tools -r=KsTestForNormality -v ^
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.html ^
 --num_samples=1000
-&gt;&gt;./whitebox_tools -r=KSTestForNormality -v ^
+&gt;&gt;./whitebox_tools -r=KsTestForNormality -v ^
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.html 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/ks_normality_test.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: January 2, 2018</p>
+<p><em>Created</em>: 02/01/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="LessThan"></a></p>
 <a class="header" href="#lessthan" id="lessthan"><h1>LessThan</h1></a>
@@ -14670,6 +14682,49 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: July 2, 2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
+<p><a name="PairedSampleTTest"></a></p>
+<a class="header" href="#pairedsamplettest" id="pairedsamplettest"><h1>PairedSampleTTest</h1></a>
+<p>This tool will perform a paired-sample <em>t</em>-test to evaluate whether a significant
+statistical difference exists between the two rasters. The null hypothesis is that
+the difference between the paired population means is equal to zero. The paired-samples <em>t</em>-test
+makes an assumption that the differences between related samples follows a Gaussian distribution.
+The tool will output a cumulative probability distribution, with a fitted Gaussian, to help
+users evaluate whether this assumption is violated by the data. If this is the case, the <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a>
+should be used instead.</p>
+<p>The user must
+specify the name of the two input raster images (<code>--input1</code> and <code>--input2</code>) and the output report
+HTML file (<code>--output</code>). The test can be performed optionally on the entire image or on a random
+sub-sample of pixel values of a user-specified size (<code>--num_samples</code>). In evaluating the significance
+of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
+non-notable differences can be found to be statistically significant. Furthermore
+statistical significance says nothing about the practical significance of a difference.</p>
+<p><em>See Also</em>:</p>
+<p><code>TwoSampleKSTest</code>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> First input raster file</td></tr>
+<tr><td>--input2           </td><td> Second input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.paired_sample_t_test(
+    input1, 
+    input2, 
+    output, 
+    num_samples=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PairedSampleTTest -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif -input2=input2.tif ^
+-o=output.html --num_samples=1000 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/paired_sample_t_test.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 24/10/2019</p>
+<p><em>Last Modified</em>: 25/10/2019</p>
 <p><a name="Power"></a></p>
 <a class="header" href="#power" id="power"><h1>Power</h1></a>
 <p>Raises the values in grid cells of one rasters, or a constant value, by values in another raster or constant value.</p>
@@ -15387,6 +15442,90 @@ characteristics and frequency distribution. This is the alternative approach use
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/07/2017</p>
 <p><em>Last Modified</em>: 07/12/2018</p>
+<p><a name="TwoSampleKsTest"></a></p>
+<a class="header" href="#twosamplekstest" id="twosamplekstest"><h1>TwoSampleKsTest</h1></a>
+<p>This tool will perform a two-sample Kolmogorov-Smirnov (K-S) test to evaluate whether a significant
+statistical difference exists between the frequency distributions of two rasters. Tthe null hypothesis
+is that both samples come from a population with the same distribution. Note that this test evaluates
+the two input rasters for differences in their overall distribution shape, with no assumption of normality.
+If there is need to compare the per-pixel differences between two input rasters, a paired-samples test
+such as the <a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a> or the non-parametric <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a> should be used instead.</p>
+<p>The user must
+specify the name of the two input raster images (<code>--input1</code> and <code>--input2</code>) and the output report
+HTML file (<code>--output</code>). The test can be performed optionally on the entire image or on a random
+sub-sample of pixel values of a user-specified size (<code>--num_samples</code>). In evaluating the significance
+of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
+non-notable differences can be found to be statistically significant. Furthermore
+statistical significance says nothing about the practical significance of a difference.</p>
+<p><em>See Also</em>:</p>
+<p><code>KSTestForNormality</code>, <a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> First input raster file</td></tr>
+<tr><td>--input2           </td><td> Second input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.two_sample_ks_test(
+    input1, 
+    input2, 
+    output, 
+    num_samples=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TwoSampleKsTest -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif -input2=input2.tif ^
+-o=output.html --num_samples=1000 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/two_sample_ks_test.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 21/10/2019</p>
+<p><em>Last Modified</em>: 24/10/2019</p>
+<p><a name="WilcoxonSignedRankTest"></a></p>
+<a class="header" href="#wilcoxonsignedranktest" id="wilcoxonsignedranktest"><h1>WilcoxonSignedRankTest</h1></a>
+<p>This tool will perform a Wilcoxon signed-rank test to evaluate whether a significant
+statistical difference exists between the two rasters. The Wilcoxon signed-rank test is often used as a
+non-parametric equivalent to the paired-samples Student's t-test, and is used when the distribution of
+sample difference values between the paired inputs is non-Gaussian. The null hypothesis is that
+difference between the sample pairs follow a symmetric distribution around zero.</p>
+<p>The user must specify the name of the two input raster images (<code>--input1</code> and <code>--input2</code>) and the output report
+HTML file (<code>--output</code>). The test can be performed optionally on the entire image or on a random
+sub-sample of pixel values of a user-specified size (<code>--num_samples</code>). In evaluating the significance
+of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
+non-notable differences can be found to be statistically significant. Furthermore
+statistical significance says nothing about the practical significance of a difference. Note that cells
+with a difference of zero are excluded from the ranking and tied difference values are assigned their average
+rank values.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <code>TwoSampleKSTest</code></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> First input raster file</td></tr>
+<tr><td>--input2           </td><td> Second input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.wilcoxon_signed_rank_test(
+    input1, 
+    input2, 
+    output, 
+    num_samples=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=WilcoxonSignedRankTest -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif -input2=input2.tif ^
+-o=output.html --num_samples=1000 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/wilcoxon_signed_rank_test.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 25/10/2019</p>
+<p><em>Last Modified</em>: 25/10/2019</p>
 <p><a name="Xor"></a></p>
 <a class="header" href="#xor" id="xor"><h1>Xor</h1></a>
 <p>This tool is a Boolean operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
@@ -16100,7 +16239,7 @@ is determined.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/rasterize_streams.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/03/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="RemoveShortStreams"></a></p>
 <a class="header" href="#removeshortstreams" id="removeshortstreams"><h1>RemoveShortStreams</h1></a>
 <p>This tool can be used to remove stream links in a stream network that are shorter than a user-specified length (<code>--min_length</code>).
@@ -18022,6 +18161,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/mathand_stats_tools.html#Or">Or</a>: Performs a logical OR operator on two Boolean raster images. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/mathand_stats_tools.html#PairedSampleTTest">PairedSampleTTest</a>: Performs a 2-sample K-S test for significant differences on two input rasters. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/image_processing_tools_image_enhancement.html#PanchromaticSharpening">PanchromaticSharpening</a>: Increases the spatial resolution of image data by combining multispectral bands with panchromatic data. Found in <em>Image Processing Tools → Image Enhancement</em>.</p>
 </li>
 <li>
@@ -18364,6 +18506,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/mathand_stats_tools.html#TurningBandsSimulation">TurningBandsSimulation</a>: Creates an image containing random values based on a turning-bands simulation. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/mathand_stats_tools.html#TwoSampleKsTest">TwoSampleKsTest</a>: Performs a 2-sample K-S test for significant differences on two input rasters. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/gis_analysis_overlay_tools.html#Union">Union</a>: Splits vector layers at their overlaps, creating a layer containing all the portions from both input and overlay layers. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
 </li>
 <li>
@@ -18407,6 +18552,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/geomorphometric_analysis.html#WetnessIndex">WetnessIndex</a>: Calculates the topographic wetness index, Ln(A / tan(slope)). Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#WilcoxonSignedRankTest">WilcoxonSignedRankTest</a>: Performs a 2-sample K-S test for significant differences on two input rasters. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools.html#WriteFunctionMemoryInsertion">WriteFunctionMemoryInsertion</a>: Performs a write function memory insertion for single-band multi-date change detection. Found in <em>Image Processing Tools</em>.</p>

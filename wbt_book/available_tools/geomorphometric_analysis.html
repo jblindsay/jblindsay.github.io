@@ -573,7 +573,7 @@ texture of any of the available roughness tools.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/edge_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/01/2019</p>
-<p><em>Last Modified</em>: 27/01/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="ElevAbovePit"></a></p>
 <a class="header" href="#elevabovepit" id="elevabovepit"><h1>ElevAbovePit</h1></a>
 <p>This tool will calculate the elevation of each grid cell in a digital elevation model (DEM) above the nearest
@@ -778,7 +778,7 @@ mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_smoothing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/11/2017</p>
-<p><em>Last Modified</em>: 31/01/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="FetchAnalysis"></a></p>
 <a class="header" href="#fetchanalysis" id="fetchanalysis"><h1>FetchAnalysis</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the distance, in meters, to the nearest
@@ -1358,7 +1358,7 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/02/2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="MultiscaleRoughnessSignature"></a></p>
 <a class="header" href="#multiscaleroughnesssignature" id="multiscaleroughnesssignature"><h1>MultiscaleRoughnessSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -1391,7 +1391,7 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/02/2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="MultiscaleStdDevNormals"></a></p>
 <a class="header" href="#multiscalestddevnormals" id="multiscalestddevnormals"><h1>MultiscaleStdDevNormals</h1></a>
 <p>This tool can be used to map the spatial pattern of maximum spherical standard deviation
@@ -1399,24 +1399,31 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 (<em>r<sub>max</sub></em>; <code>--out_scale</code>), for each grid cell in an input DEM (<code>--dem</code>). This serves as a multi-scale measure
 of surface roughness, or topographic complexity. The spherical standard deviation (σ<sub>s</sub>) is
 a measure of the angular spread among <em>n</em> unit vectors and is defined as:</p>
-<p>σs = √(−2ln(<em>R</em>/<em>n</em>))⋅180/π,</p>
+<blockquote>
+<p>σ<sub>s</sub> = √[-2ln(<em>R</em> / <em>N</em>)] × 180 / π</p>
+</blockquote>
 <p>Where <em>R</em> is the resultant vector length and is derived from the sum of the <em>x</em>, <em>y</em>, and <em>z</em> components
 of each of the <em>n</em> normals contained within a filter kernel, which designates a tested spatial scale. Each
 unit vector is a 3-dimensional measure of the surface orientation and slope at each grid cell center. The
 maximum spherical standard deviation is:</p>
+<blockquote>
 <p>σ<sub><em>s max</em></sub>=<em>max</em>{σs(<em>r</em>):<em>r</em>=<em>r<sub>L</sub></em>...<em>r<sub>U</sub></em>},</p>
+</blockquote>
 <p>Experience with roughness scale signatures has shown that σ<sub><em>s max</em></sub> is highly variable at
 shorter scales and changes more gradually at broader scales. Therefore, a nonlinear scale sampling
 interval is used by this tool to ensure that the scale sampling density is higher for short scale
 ranges and coarser at longer tested scales, such that:</p>
-<p><em>r<sub>i</sub></em> = <em>r<sub>L</sub></em>+(<em>i</em>−<em>r<sub>L</sub></em>)<em>p</em>,</p>
-<p><em>r<sub>i</sub></em> = min_scale + (((step * (s - min_scale)) as f32).powf(step_nonlinearity)).floor() as isize;</p>
-<p>Where <em>ri</em> is the filter radius for step <em>i</em> and <em>p</em> is the nonlinear scaling factor (<code>--step_nonlinearity</code>).</p>
+<blockquote>
+<p><em>r<sub>i</sub></em> = <em>r<sub>L</sub></em> + [step × (i - <em>r<sub>L</sub></em>)]<sup><em>p</em></sup></p>
+</blockquote>
+<p>Where <em>ri</em> is the filter radius for step <em>i</em> and <em>p</em> is the nonlinear scaling factor (<code>--step_nonlinearity</code>)
+and a step size (<code>--step</code>) of <em>step</em>.</p>
+<p>Use the <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a> tool if you need to calculate σ<sub>s</sub> for a single scale.</p>
 <p><em>Reference</em>:</p>
 <p>JB Lindsay, DR Newman, and A  Francioni. 2019 Scale-Optimized Surface Roughness for Topographic Analysis.
 <em>Geosciences</em>, 9(322) doi: 10.3390/geosciences9070322.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./geomorphometric_analysis.html#multiscalestddevnormalssignature"><strong>MultiscaleStdDevNormalsSignature</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a></p>
+<p><a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#multiscalestddevnormalssignature"><strong>MultiscaleStdDevNormalsSignature</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2215,7 +2222,7 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/05/2019</p>
-<p><em>Last Modified</em>: 13/06/2019</p>
+<p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="StandardDeviationOfSlope"></a></p>
 <a class="header" href="#standarddeviationofslope" id="standarddeviationofslope"><h1>StandardDeviationOfSlope</h1></a>
 <p>Calculates the standard deviation of slope from an input DEM, a metric of

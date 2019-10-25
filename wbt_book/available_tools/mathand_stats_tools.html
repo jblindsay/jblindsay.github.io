@@ -191,6 +191,7 @@
 <li><a href="#Not">Not</a></li>
 <li><a href="#NotEqualTo">NotEqualTo</a></li>
 <li><a href="#Or">Or</a></li>
+<li><a href="#PairedSampleTTest">PairedSampleTTest</a></li>
 <li><a href="#Power">Power</a></li>
 <li><a href="#PrincipalComponentAnalysis">PrincipalComponentAnalysis</a></li>
 <li><a href="#Quantiles">Quantiles</a></li>
@@ -215,6 +216,8 @@
 <li><a href="#TrendSurfaceVectorPoints">TrendSurfaceVectorPoints</a></li>
 <li><a href="#Truncate">Truncate</a></li>
 <li><a href="#TurningBandsSimulation">TurningBandsSimulation</a></li>
+<li><a href="#TwoSampleKsTest">TwoSampleKsTest</a></li>
+<li><a href="#WilcoxonSignedRankTest">WilcoxonSignedRankTest</a></li>
 <li><a href="#Xor">Xor</a></li>
 <li><a href="#ZScores">ZScores</a></li>
 <li><a href="#ZonalStatistics">ZonalStatistics</a></li>
@@ -901,7 +904,7 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_autocorrelation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: Dec. 16, 2017</p>
+<p><em>Created</em>: 16/12/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ImageCorrelation"></a></p>
 <a class="header" href="#imagecorrelation" id="imagecorrelation"><h1>ImageCorrelation</h1></a>
@@ -1258,6 +1261,8 @@ values of a user-specified size. In evaluating the significance of the test, it 
 important to keep in mind that given a sufficiently large sample, extremely small and
 non-notable differences can be found to be statistically significant. Furthermore
 statistical significance says nothing about the practical significance of a difference.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1273,15 +1278,15 @@ statistical significance says nothing about the practical significance of a diff
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=KSTestForNormality -v ^
+<pre><code>&gt;&gt;./whitebox_tools -r=KsTestForNormality -v ^
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.html ^
 --num_samples=1000
-&gt;&gt;./whitebox_tools -r=KSTestForNormality -v ^
+&gt;&gt;./whitebox_tools -r=KsTestForNormality -v ^
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.html 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/ks_normality_test.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: January 2, 2018</p>
+<p><em>Created</em>: 02/01/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="LessThan"></a></p>
 <a class="header" href="#lessthan" id="lessthan"><h1>LessThan</h1></a>
@@ -1619,6 +1624,49 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: July 2, 2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
+<p><a name="PairedSampleTTest"></a></p>
+<a class="header" href="#pairedsamplettest" id="pairedsamplettest"><h1>PairedSampleTTest</h1></a>
+<p>This tool will perform a paired-sample <em>t</em>-test to evaluate whether a significant
+statistical difference exists between the two rasters. The null hypothesis is that
+the difference between the paired population means is equal to zero. The paired-samples <em>t</em>-test
+makes an assumption that the differences between related samples follows a Gaussian distribution.
+The tool will output a cumulative probability distribution, with a fitted Gaussian, to help
+users evaluate whether this assumption is violated by the data. If this is the case, the <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a>
+should be used instead.</p>
+<p>The user must
+specify the name of the two input raster images (<code>--input1</code> and <code>--input2</code>) and the output report
+HTML file (<code>--output</code>). The test can be performed optionally on the entire image or on a random
+sub-sample of pixel values of a user-specified size (<code>--num_samples</code>). In evaluating the significance
+of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
+non-notable differences can be found to be statistically significant. Furthermore
+statistical significance says nothing about the practical significance of a difference.</p>
+<p><em>See Also</em>:</p>
+<p><code>TwoSampleKSTest</code>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> First input raster file</td></tr>
+<tr><td>--input2           </td><td> Second input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.paired_sample_t_test(
+    input1, 
+    input2, 
+    output, 
+    num_samples=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=PairedSampleTTest -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif -input2=input2.tif ^
+-o=output.html --num_samples=1000 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/paired_sample_t_test.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 24/10/2019</p>
+<p><em>Last Modified</em>: 25/10/2019</p>
 <p><a name="Power"></a></p>
 <a class="header" href="#power" id="power"><h1>Power</h1></a>
 <p>Raises the values in grid cells of one rasters, or a constant value, by values in another raster or constant value.</p>
@@ -2336,6 +2384,90 @@ characteristics and frequency distribution. This is the alternative approach use
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/07/2017</p>
 <p><em>Last Modified</em>: 07/12/2018</p>
+<p><a name="TwoSampleKsTest"></a></p>
+<a class="header" href="#twosamplekstest" id="twosamplekstest"><h1>TwoSampleKsTest</h1></a>
+<p>This tool will perform a two-sample Kolmogorov-Smirnov (K-S) test to evaluate whether a significant
+statistical difference exists between the frequency distributions of two rasters. Tthe null hypothesis
+is that both samples come from a population with the same distribution. Note that this test evaluates
+the two input rasters for differences in their overall distribution shape, with no assumption of normality.
+If there is need to compare the per-pixel differences between two input rasters, a paired-samples test
+such as the <a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a> or the non-parametric <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a> should be used instead.</p>
+<p>The user must
+specify the name of the two input raster images (<code>--input1</code> and <code>--input2</code>) and the output report
+HTML file (<code>--output</code>). The test can be performed optionally on the entire image or on a random
+sub-sample of pixel values of a user-specified size (<code>--num_samples</code>). In evaluating the significance
+of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
+non-notable differences can be found to be statistically significant. Furthermore
+statistical significance says nothing about the practical significance of a difference.</p>
+<p><em>See Also</em>:</p>
+<p><code>KSTestForNormality</code>, <a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> First input raster file</td></tr>
+<tr><td>--input2           </td><td> Second input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.two_sample_ks_test(
+    input1, 
+    input2, 
+    output, 
+    num_samples=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TwoSampleKsTest -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif -input2=input2.tif ^
+-o=output.html --num_samples=1000 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/two_sample_ks_test.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 21/10/2019</p>
+<p><em>Last Modified</em>: 24/10/2019</p>
+<p><a name="WilcoxonSignedRankTest"></a></p>
+<a class="header" href="#wilcoxonsignedranktest" id="wilcoxonsignedranktest"><h1>WilcoxonSignedRankTest</h1></a>
+<p>This tool will perform a Wilcoxon signed-rank test to evaluate whether a significant
+statistical difference exists between the two rasters. The Wilcoxon signed-rank test is often used as a
+non-parametric equivalent to the paired-samples Student's t-test, and is used when the distribution of
+sample difference values between the paired inputs is non-Gaussian. The null hypothesis is that
+difference between the sample pairs follow a symmetric distribution around zero.</p>
+<p>The user must specify the name of the two input raster images (<code>--input1</code> and <code>--input2</code>) and the output report
+HTML file (<code>--output</code>). The test can be performed optionally on the entire image or on a random
+sub-sample of pixel values of a user-specified size (<code>--num_samples</code>). In evaluating the significance
+of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
+non-notable differences can be found to be statistically significant. Furthermore
+statistical significance says nothing about the practical significance of a difference. Note that cells
+with a difference of zero are excluded from the ranking and tied difference values are assigned their average
+rank values.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <code>TwoSampleKSTest</code></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> First input raster file</td></tr>
+<tr><td>--input2           </td><td> Second input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<tr><td>--num_samples      </td><td> Number of samples. Leave blank to use whole image</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.wilcoxon_signed_rank_test(
+    input1, 
+    input2, 
+    output, 
+    num_samples=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=WilcoxonSignedRankTest -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif -input2=input2.tif ^
+-o=output.html --num_samples=1000 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/wilcoxon_signed_rank_test.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 25/10/2019</p>
+<p><em>Last Modified</em>: 25/10/2019</p>
 <p><a name="Xor"></a></p>
 <a class="header" href="#xor" id="xor"><h1>Xor</h1></a>
 <p>This tool is a Boolean operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
