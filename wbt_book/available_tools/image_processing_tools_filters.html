@@ -1257,7 +1257,12 @@ the following schemes to calculate x and y slopes:</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="RangeFilter"></a></p>
 <a class="header" href="#rangefilter" id="rangefilter"><h1>RangeFilter</h1></a>
-<p>Assigns each cell in the output grid the range of values in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool performs a range filter on an input image (<code>--input</code>). A range filter assigns to each cell in the output grid
+(<code>--output</code>) the range (maximum - minimum) of the values contained within a moving window centred on each grid cell.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>
+flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#totalfilter"><strong>TotalFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1382,7 +1387,12 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="StandardDeviationFilter"></a></p>
 <a class="header" href="#standarddeviationfilter" id="standarddeviationfilter"><h1>StandardDeviationFilter</h1></a>
-<p>Assigns each cell in the output grid the standard deviation of values in a moving window centred on each grid cell in the input raster.</p>
+<p>This tool performs a standard deviation filter on an input image (<code>--input</code>). A standard deviation filter assigns to each cell in the output grid
+(<code>--output</code>) the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, a measure of dispersion, of the values contained within a moving window centred on each grid cell.</p>
+<p>Neighbourhood size, or filter size, is specified in the x and y dimensions using the <code>--filterx</code> and <code>--filtery</code>
+flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_filters.html#rangefilter"><strong>RangeFilter</strong></a>, <a href="./image_processing_tools_filters.html#totalfilter"><strong>TotalFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>

@@ -224,7 +224,11 @@
 </ul>
 <p><a name="AbsoluteValue"></a></p>
 <a class="header" href="#absolutevalue" id="absolutevalue"><h1>AbsoluteValue</h1></a>
-<p>Calculates the absolute value of every cell in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Absolute_value">absolute value</a> of the corresponding grid cell in an input
+raster (<code>--input</code>). The absolute value is a number that is equal in magnitude but is always positive.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#negate"><strong>Negate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -278,7 +282,14 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Last Modified</em>: 24/01/2019</p>
 <p><a name="And"></a></p>
 <a class="header" href="#and" id="and"><h1>And</h1></a>
-<p>Performs a logical AND operator on two Boolean raster images.</p>
+<p>This tool is a Boolean <strong>AND</strong> operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
+the first and second input rasters (<code>--input1</code>; <code>--input2</code>) have <em>True</em> values are assigned
+1 in the output raster, otherwise grid cells are assigned a value of 0. All non-zero values in the input
+rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
+cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
+the output raster (<code>--output</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#not"><strong>Not</strong></a>, <a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -299,7 +310,7 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/and.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="Anova"></a></p>
 <a class="header" href="#anova" id="anova"><h1>Anova</h1></a>
@@ -515,7 +526,11 @@ HTML formated report containing a graphical scattergram plot.</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="Ceil"></a></p>
 <a class="header" href="#ceil" id="ceil"><h1>Ceil</h1></a>
-<p>Returns the smallest (closest to negative infinity) value that is greater than or equal to the values in a raster.</p>
+<p>This tool performs a ceiling (ceil) operation on the values in an input raster (<code>--input</code>) to the nearest integer value.
+The <code>ceil</code> function calculates the smallest integer greater than or equal to the input value (e.g. ceil(0.5) = 1, ceil(-4.5) = -5).
+The output raster (<code>--output</code>) will be of an I32 data type.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -534,8 +549,8 @@ HTML formated report containing a graphical scattergram plot.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/ceil.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
-<p><em>Last Modified</em>: 12/102018</p>
+<p><em>Created</em>: 05/07/2017</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="Cos"></a></p>
 <a class="header" href="#cos" id="cos"><h1>Cos</h1></a>
 <p>Returns the cosine (cos) of each values in a raster.</p>
@@ -831,7 +846,11 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="Floor"></a></p>
 <a class="header" href="#floor" id="floor"><h1>Floor</h1></a>
-<p>Returns the largest (closest to positive infinity) value that is less than or equal to the values in a raster.</p>
+<p>This tool performs a floor operation on the values in an input raster (<code>--input</code>) to the nearest integer value.
+The <code>floor</code> function calculates the largest integer less than or equal to the input value (e.g. floor(0.5) = 0, floor(-4.5) = -4).
+The output raster (<code>--output</code>) will be of an I32 data type.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -850,8 +869,8 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/floor.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Created</em>: 05/07/2017</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="GreaterThan"></a></p>
 <a class="header" href="#greaterthan" id="greaterthan"><h1>GreaterThan</h1></a>
 <p>Performs a greater-than comparison operation on two rasters or a raster and a constant value.</p>
@@ -1528,7 +1547,11 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Last Modified</em>: 24/01/2019</p>
 <p><a name="Negate"></a></p>
 <a class="header" href="#negate" id="negate"><h1>Negate</h1></a>
-<p>Changes the sign of values in a raster or the 0-1 values of a Boolean raster.</p>
+<p>This tool creates a new raster in which each grid cell is equal to negative one times the corresponding
+grid cell in the input raster. This effectively changes the sign of values. This tool also handles Boolean
+data (0, 1) by reversing values (i.e. 0-&gt;1 and 1-&gt;0).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#absolutevalue"><strong>AbsoluteValue</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1547,11 +1570,18 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/negate.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Not"></a></p>
 <a class="header" href="#not" id="not"><h1>Not</h1></a>
-<p>Performs a logical NOT operator on two Boolean raster images.</p>
+<p>This tool is a Boolean <strong>NOT</strong> operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
+the first input raster (<code>--input1</code>) has a <em>True</em> value and the second raster (<code>--input2</code>) has a <em>False</em> value are assigned
+0 in the output raster, otherwise grid cells are assigned a value of 0. All non-zero values in the input
+rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
+cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
+the output raster (<code>--output</code>). Notice that the <strong>Not</strong> operator is asymmetrical, and the order of inputs matters.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1572,7 +1602,7 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/not.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
+<p><em>Created</em>: 02/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="NotEqualTo"></a></p>
 <a class="header" href="#notequalto" id="notequalto"><h1>NotEqualTo</h1></a>
@@ -1601,7 +1631,14 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Or"></a></p>
 <a class="header" href="#or" id="or"><h1>Or</h1></a>
-<p>Performs a logical OR operator on two Boolean raster images.</p>
+<p>This tool is a Boolean <strong>OR</strong> operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
+the either the first or second input rasters (<code>--input1</code>; <code>--input2</code>) have a <em>True</em> value are assigned
+1 in the output raster, otherwise grid cells are assigned a value of 0. All non-zero values in the input
+rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
+cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
+the output raster (<code>--output</code>).</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#not"><strong>Not</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1622,7 +1659,7 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/or.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
+<p><em>Created</em>: 02/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="PairedSampleTTest"></a></p>
 <a class="header" href="#pairedsamplettest" id="pairedsamplettest"><h1>PairedSampleTTest</h1></a>
@@ -1641,7 +1678,7 @@ of the test, it is important to keep in mind that given a sufficiently large sam
 non-notable differences can be found to be statistically significant. Furthermore
 statistical significance says nothing about the practical significance of a difference.</p>
 <p><em>See Also</em>:</p>
-<p><code>TwoSampleKSTest</code>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> First input raster file</td></tr>
@@ -1764,7 +1801,17 @@ written.</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="Quantiles"></a></p>
 <a class="header" href="#quantiles" id="quantiles"><h1>Quantiles</h1></a>
-<p>Transforms raster values into quantiles.</p>
+<p>This tool transforms values in an input raster (<code>--input</code>) into quantiles. In statistics, quantiles are cut
+points dividing the range of a probability distribution into continuous intervals with equal probabilities, or
+dividing the observations in a sample in a same way. There is one fewer quantile than the number of groups
+created. Thus quartiles are the three cut points that will divide a dataset into four equal-sized groups. Common
+quantiles have special names: for instance quartile (4-quantile), quintiles (5-quantiles), decile (10-quantile),
+percentile (100-quantile).</p>
+<p>The user must specify the desired number of quantiles, q (<code>--num_quantiles</code>), in the output raster (<code>--output</code>).
+The output raster will contain q equal-sized groups with values 1 to q, indicating which quantile group each grid cell
+belongs to.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1881,6 +1928,24 @@ HTML file, which should be automatically displayed after the tool has completed.
 <p>This tool outputs distribution summary statistics for input raster images (<code>--input</code>).
 The distribution statistics include the raster minimum, maximum, range, total, mean,
 variance, and standard deviation. These summary statistics are output to the system <code>stdout</code>.</p>
+<p>The following is an example of the summary report:</p>
+<blockquote>
+<p>********************************* <br/>
+* Welcome to RasterSummaryStats * <br/>
+********************************* <br/>
+Reading data...</p>
+<p>Number of non-nodata grid cells: 32083559 <br/>
+Number of nodata grid cells: 3916441 <br/>
+Image minimum: 390.266357421875 <br/>
+Image maximum: 426.0322570800781 <br/>
+Image range: 35.765899658203125 <br/>
+Image total: 13030334843.332886 <br/>
+Image average: 406.13745012929786 <br/>
+Image variance: 31.370027239143383 <br/>
+Image standard deviation: 5.600895217654351 <br/></p>
+</blockquote>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a>, <a href="./mathand_stats_tools.html#zonalstatistics"><strong>ZonalStatistics</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1968,6 +2033,8 @@ the tool also reports other common accuracy statistics including the mean verica
 the residuals between two raster surfaces. The LE90 is the most robust of the reported accuracy
 statistics when the residuals are non-Gaussian. The LE90 requires sorting the residual values, which
 can be a relatively slow operation for larger rasters.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1990,7 +2057,10 @@ can be a relatively slow operation for larger rasters.</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Round"></a></p>
 <a class="header" href="#round" id="round"><h1>Round</h1></a>
-<p>Rounds the values in an input raster to the nearest integer value.</p>
+<p>This tool rounds the values in an input raster (<code>--input</code>) to the nearest integer value. Half-way cases
+are rounded away from zero (e.g. round(0.5) = 1, round(-4.5) = -5). The output raster (<code>--output</code>) will be of an I32 data type.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2009,8 +2079,8 @@ can be a relatively slow operation for larger rasters.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/round.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 06/07/2017</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="Sin"></a></p>
 <a class="header" href="#sin" id="sin"><h1>Sin</h1></a>
 <p>Returns the sine (sin) of each values in a raster.</p>
@@ -2059,7 +2129,11 @@ can be a relatively slow operation for larger rasters.</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Square"></a></p>
 <a class="header" href="#square" id="square"><h1>Square</h1></a>
-<p>Squares the values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the square of the
+value of the corresponding grid cell in the input raster (<code>--input</code>), i.e. the input raster is raised to
+the power of two. <strong>NoData</strong> values in the input image will be assigned <strong>NoData</strong> values in the output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#squareroot"><strong>SquareRoot</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2078,11 +2152,16 @@ can be a relatively slow operation for larger rasters.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/square.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="SquareRoot"></a></p>
 <a class="header" href="#squareroot" id="squareroot"><h1>SquareRoot</h1></a>
-<p>Returns the square root of the values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Square_root">square root</a> of the value of the corresponding grid cell in the
+input raster (<code>--input</code>). <strong>NoData</strong> values in the input image will be assigned <strong>NoData</strong> values in the
+output image.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#square"><strong>Square</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2101,8 +2180,8 @@ can be a relatively slow operation for larger rasters.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/sqrt.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 06/07/2017</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="Subtract"></a></p>
 <a class="header" href="#subtract" id="subtract"><h1>Subtract</h1></a>
 <p>This tool creates a new raster in which each grid cell is equal to the subtraction (difference) of the corresponding grid
@@ -2182,7 +2261,12 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="ToDegrees"></a></p>
 <a class="header" href="#todegrees" id="todegrees"><h1>ToDegrees</h1></a>
-<p>Converts a raster from radians to degrees.</p>
+<p>This tool converts the <a href="https://en.wikipedia.org/wiki/Radian">radians</a> values contained within an
+input raster (<code>--input</code>) to degrees in the output raster (<code>--output</code>).
+One degree is approximately 0.017453293 (π / 180) radians. Conversion between degrees and radians
+is common when working with trigonometric functions.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2201,11 +2285,16 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/to_degrees.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="ToRadians"></a></p>
 <a class="header" href="#toradians" id="toradians"><h1>ToRadians</h1></a>
-<p>Converts a raster from degrees to radians.</p>
+<p>This tool converts the degree values contained within an input raster (<code>--input</code>) to
+<a href="https://en.wikipedia.org/wiki/Radian">radians</a> in the output raster (<code>--output</code>).
+One radian is just under 57.3 (180 / π) degrees. Conversion between degrees and radians
+is common when working with trigonometric functions.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2224,7 +2313,7 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/to_radians.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="TrendSurface"></a></p>
 <a class="header" href="#trendsurface" id="trendsurface"><h1>TrendSurface</h1></a>
@@ -2313,7 +2402,10 @@ are also reported in the output report.</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Truncate"></a></p>
 <a class="header" href="#truncate" id="truncate"><h1>Truncate</h1></a>
-<p>Truncates the values in a raster to the desired number of decimal places.</p>
+<p>This tool truncates the values in an input raster (<code>--input</code>); truncation limits the number of digits right of the decimal point. For
+example, trunc(3.2) = 3 and trunc(5.8) = 5 The output raster (<code>--output</code>) will be of an I32 data type.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2334,8 +2426,8 @@ are also reported in the output report.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/truncate.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 06/07/2017</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="TurningBandsSimulation"></a></p>
 <a class="header" href="#turningbandssimulation" id="turningbandssimulation"><h1>TurningBandsSimulation</h1></a>
 <p>This tool can be used to create a random field using the turning bands algorithm. The user must specify
@@ -2387,7 +2479,7 @@ characteristics and frequency distribution. This is the alternative approach use
 <p><a name="TwoSampleKsTest"></a></p>
 <a class="header" href="#twosamplekstest" id="twosamplekstest"><h1>TwoSampleKsTest</h1></a>
 <p>This tool will perform a two-sample Kolmogorov-Smirnov (K-S) test to evaluate whether a significant
-statistical difference exists between the frequency distributions of two rasters. Tthe null hypothesis
+statistical difference exists between the frequency distributions of two rasters. The null hypothesis
 is that both samples come from a population with the same distribution. Note that this test evaluates
 the two input rasters for differences in their overall distribution shape, with no assumption of normality.
 If there is need to compare the per-pixel differences between two input rasters, a paired-samples test
@@ -2431,8 +2523,9 @@ statistical significance says nothing about the practical significance of a diff
 <p>This tool will perform a Wilcoxon signed-rank test to evaluate whether a significant
 statistical difference exists between the two rasters. The Wilcoxon signed-rank test is often used as a
 non-parametric equivalent to the paired-samples Student's t-test, and is used when the distribution of
-sample difference values between the paired inputs is non-Gaussian. The null hypothesis is that
-difference between the sample pairs follow a symmetric distribution around zero.</p>
+sample difference values between the paired inputs is non-Gaussian. The null hypothesis of this test is that
+difference between the sample pairs follow a symmetric distribution around zero. i.e. that the median difference
+between pairs of observations is zero.</p>
 <p>The user must specify the name of the two input raster images (<code>--input1</code> and <code>--input2</code>) and the output report
 HTML file (<code>--output</code>). The test can be performed optionally on the entire image or on a random
 sub-sample of pixel values of a user-specified size (<code>--num_samples</code>). In evaluating the significance
@@ -2442,7 +2535,7 @@ statistical significance says nothing about the practical significance of a diff
 with a difference of zero are excluded from the ranking and tied difference values are assigned their average
 rank values.</p>
 <p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <code>TwoSampleKSTest</code></p>
+<p><a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> First input raster file</td></tr>
@@ -2470,12 +2563,12 @@ rank values.</p>
 <p><em>Last Modified</em>: 25/10/2019</p>
 <p><a name="Xor"></a></p>
 <a class="header" href="#xor" id="xor"><h1>Xor</h1></a>
-<p>This tool is a Boolean operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
-THE FIRST input raster (<code>--input1</code>) has a <em>True</em> value BUT NOT THE SECOND raster (<code>--input2</code>) are assigned
+<p>This tool is a Boolean <strong>XOR</strong> operator, i.e. it works on <em>True</em> or <em>False</em> (1 and 0) values. Grid cells for which
+either the first or second input rasters (<code>--input1</code>; <code>--input2</code>) have a <em>True</em> value but not both are assigned
 1 in the output raster, otherwise grid cells are assigned a value of 0. All non-zero values in the input
 rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
 cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
-the output raster (<code>--output</code>).</p>
+the output raster (<code>--output</code>). Notice that the <strong>Not</strong> operator is asymmetrical, and the order of inputs matters.</p>
 <p><em>See Also</em>:</p>
 <p><a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#not"><strong>Not</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -2550,6 +2643,8 @@ spatial data which can then be interrogated using statistical analyses. At least
 (image or text) must be specified for the tool to operate.</p>
 <p>NoData values in either of the two input images are ignored during the calculation of the
 descriptive statistic.</p>
+<p><em>See Also</em>:</p>
+<p><a href="./mathand_stats_tools.html#rastersummarystats"><strong>RasterSummaryStats</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input data raster file</td></tr>
