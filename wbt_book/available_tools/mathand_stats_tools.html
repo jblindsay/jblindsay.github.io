@@ -149,6 +149,9 @@
 <li><a href="#ArcCos">ArcCos</a></li>
 <li><a href="#ArcSin">ArcSin</a></li>
 <li><a href="#ArcTan">ArcTan</a></li>
+<li><a href="#Arcosh">Arcosh</a></li>
+<li><a href="#Arsinh">Arsinh</a></li>
+<li><a href="#Artanh">Artanh</a></li>
 <li><a href="#Atan2">Atan2</a></li>
 <li><a href="#AttributeCorrelation">AttributeCorrelation</a></li>
 <li><a href="#AttributeHistogram">AttributeHistogram</a></li>
@@ -227,8 +230,8 @@
 <p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
 <a href="https://en.wikipedia.org/wiki/Absolute_value">absolute value</a> of the corresponding grid cell in an input
 raster (<code>--input</code>). The absolute value is a number that is equal in magnitude but is always positive.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#negate"><strong>Negate</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#negate"><strong>Negate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -256,8 +259,8 @@ cells in two input rasters or one input raster and a constant value. If two imag
 images must possess the same number of rows and columns and spatial extent, as the analysis will be
 carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
 images, the cell will be excluded from the analysis.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -288,8 +291,8 @@ the first and second input rasters (<code>--input1</code>; <code>--input2</code>
 rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
 cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
 the output raster (<code>--output</code>).</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#not"><strong>Not</strong></a>, <a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#not"><strong>Not</strong></a>, <a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -339,7 +342,13 @@ the output raster (<code>--output</code>).</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ArcCos"></a></p>
 <a class="header" href="#arccos" id="arccos"><h1>ArcCos</h1></a>
-<p>Returns the inverse cosine (arccos) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the inverse cosine of the
+corresponding grid cell in an input raster (<code>--input</code>). The output raster will contain angular data measured in
+radian, in the range [0, π] or <strong>NoData</strong> if the number is outside the range [-1, 1]. If desired, you can convert
+radians to degrees using the <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a> tool. Grid cells with <strong>NoData</strong> values in the input raster
+will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#arcsin"><strong>ArcSin</strong></a>, <a href="./mathand_stats_tools.html#arctan"><strong>ArcTan</strong></a>, <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -358,11 +367,17 @@ the output raster (<code>--output</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arccos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ArcSin"></a></p>
 <a class="header" href="#arcsin" id="arcsin"><h1>ArcSin</h1></a>
-<p>Returns the inverse sine (arcsin) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the inverse sine of the
+corresponding grid cell in an input raster (<code>--input</code>). The output raster will contain angular data measured in
+radian, in the range [-π/2, π/2]  or <strong>NoData</strong> if the number is outside the range [-1, 1]. If desired,
+you can convert radians to degrees using the <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a> tool. Grid cells with <strong>NoData</strong> values in the input
+raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#arccos"><strong>ArcCos</strong></a>, <a href="./mathand_stats_tools.html#arctan"><strong>ArcTan</strong></a>, <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -381,11 +396,17 @@ the output raster (<code>--output</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arcsin.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ArcTan"></a></p>
 <a class="header" href="#arctan" id="arctan"><h1>ArcTan</h1></a>
-<p>Returns the inverse tangent (arctan) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the inverse tangent of the
+corresponding grid cell in an input raster (<code>--input</code>). The output raster will contain angular data measured in
+radian, in the range [-π/2, π/2]  or <strong>NoData</strong> if the number is outside the range [-1, 1]. If desired,
+you can convert radians to degrees using the <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a> tool. Grid cells with <strong>NoData</strong> values in the input
+raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#arccos"><strong>ArcCos</strong></a>, <a href="./mathand_stats_tools.html#arctan"><strong>ArcTan</strong></a>, <a href="./mathand_stats_tools.html#atan2"><strong>Atan2</strong></a>, <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -404,11 +425,113 @@ the output raster (<code>--output</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arctan.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="Arcosh"></a></p>
+<a class="header" href="#arcosh" id="arcosh"><h1>Arcosh</h1></a>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">inverse hyperbolic cosine</a> (arcosh) of the
+corresponding grid cell in an input raster (<code>--input</code>). The output raster will contain angular data measured in
+radian, in the range [0, π] or <strong>NoData</strong> if the number is outside the range [-1, 1]. If desired, you can convert
+radians to degrees using the <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a> tool. Grid cells with <strong>NoData</strong> values in the input raster
+will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#arsinh"><strong>Arsinh</strong></a>, <a href="./mathand_stats_tools.html#artanh"><strong>Artanh</strong></a>, <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.arcosh(
+    i, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Arcosh -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arcosh.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/10/2019</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
+<p><a name="Arsinh"></a></p>
+<a class="header" href="#arsinh" id="arsinh"><h1>Arsinh</h1></a>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">inverse hyperbolic sine</a> (arsinh) of the
+corresponding grid cell in an input raster (<code>--input</code>). The output raster will contain angular data measured in
+radian, in the range [-π/2, π/2]  or <strong>NoData</strong> if the number is outside the range [-1, 1]. If desired,
+you can convert radians to degrees using the <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a> tool. Grid cells with <strong>NoData</strong> values in the input
+raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#arcosh"><strong>Arcosh</strong></a>, <a href="./mathand_stats_tools.html#artanh"><strong>Artanh</strong></a>, <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.arsinh(
+    i, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Arsinh -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/arsinh.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/10/2019</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
+<p><a name="Artanh"></a></p>
+<a class="header" href="#artanh" id="artanh"><h1>Artanh</h1></a>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">inverse hyperbolic tangent</a> (artanh) of the
+corresponding grid cell in an input raster (<code>--input</code>). The output raster will contain angular data measured in
+radian, in the range [-π/2, π/2]  or <strong>NoData</strong> if the number is outside the range [-1, 1]. If desired,
+you can convert radians to degrees using the <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a> tool. Grid cells with <strong>NoData</strong> values in the input
+raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#arcosh"><strong>Arcosh</strong></a>, <a href="./mathand_stats_tools.html#arsinh"><strong>Arsinh</strong></a>, <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.artanh(
+    i, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=Artanh -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/artanh.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/10/2019</p>
+<p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="Atan2"></a></p>
 <a class="header" href="#atan2" id="atan2"><h1>Atan2</h1></a>
-<p>Returns the 2-argument inverse tangent (atan2).</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the four quadrant arctangent of
+an <em>y</em> (<code>--input_y</code>) and <em>x</em> (<code>--input_x</code>) inputs, measured in radians. Inputs may be either rasters or constant values.
+The output raster will contain angular data measured in radian, in the range:</p>
+<blockquote>
+<p><em>x</em> = 0, <em>y</em> = 0: 0 </br>
+<em>x</em> &gt;= 0: arctan(<em>y</em>/<em>x</em>) -&gt; [-π/2, π/2] </br>
+<em>y</em> &gt;= 0: arctan(<em>y</em>/<em>x</em>) + π -&gt; (π/2, π] </br>
+<em>y</em> &lt; 0: arctan(<em>y</em>/<em>x</em>) - π -&gt; (-π, -π/2)</p>
+</blockquote>
+<p>If desired, you can convert radians to degrees using the <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a> tool. Grid cells with <strong>NoData</strong> values in
+the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#arccos"><strong>ArcCos</strong></a>, <a href="./mathand_stats_tools.html#arctan"><strong>ArcTan</strong></a>, <a href="./mathand_stats_tools.html#atan2"><strong>Atan2</strong></a>, <a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input_y          </td><td> Input y raster file or constant value (rise)</td></tr>
@@ -429,11 +552,26 @@ the output raster (<code>--output</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/atan2.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="AttributeCorrelation"></a></p>
 <a class="header" href="#attributecorrelation" id="attributecorrelation"><h1>AttributeCorrelation</h1></a>
-<p>Performs a correlation analysis on attribute fields from a vector database.</p>
+<p>This tool can be used to estimate the Pearson product-moment correlation coefficient (<em>r</em>) for each pair among a
+group of attributes associated with the database file of a shapefile. The <em>r</em>-value is a measure of the linear
+association in the variation of the attributes. The coefficient ranges from -1, indicated a perfect negative
+linear association, to 1, indicated a perfect positive linear association. An <em>r</em>-value of 0 indicates no correlation
+between the test variables.</p>
+<p>Notice that this index is a measure of the linear association; two variables may be strongly related by a non-linear
+association (e.g. a power function curve) which will lead to an apparent weak association based on the Pearson
+coefficient. In fact, non-linear associations are very common among spatial variables, e.g. terrain indices such as
+slope and contributing area. In such cases, it is advisable that the input images are transformed prior to the
+estimation of the Pearson coefficient, or that an alternative, non-parametric statistic be used, e.g. the Spearman
+rank correlation coefficient.</p>
+<p>The user must specify the name of the input vector Shapefile (<code>--input</code>). Correlations will be calculated for each
+pair of numerical attributes contained within the input file's attribute table and presented in a correlation matrix
+HMTL output (<code>--output</code>).</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#attributescattergram"><strong>AttributeScattergram</strong></a>, <a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -463,8 +601,8 @@ of the fields (<code>--field</code>) contained in the associated attribute table
 (<code>--output</code>) is an HTML formated histogram analysis report. If the specified field
 is non-numerical, the tool will produce a bar-chart of class frequency, similar to the
 tabular output of the <a href="./mathand_stats_tools.html#listuniquevalues"><strong>ListUniqueValues</strong></a> tool.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#listuniquevalues"><strong>ListUniqueValues</strong></a>, <a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#listuniquevalues"><strong>ListUniqueValues</strong></a>, <a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -495,8 +633,8 @@ two numerical fields (<code>--fieldx</code> and <code>--fieldy</code>) contained
 table (<code>--input</code>). The user must specify the name of an input shapefile and the name of two of
 the fields contained it the associated attribute table. The tool output (<code>--output</code>) is an
 HTML formated report containing a graphical scattergram plot.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a>, <a href="./mathand_stats_tools.html#attributecorrelation"><strong>AttributeCorrelation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -529,8 +667,8 @@ HTML formated report containing a graphical scattergram plot.</p>
 <p>This tool performs a ceiling (ceil) operation on the values in an input raster (<code>--input</code>) to the nearest integer value.
 The <code>ceil</code> function calculates the smallest integer greater than or equal to the input value (e.g. ceil(0.5) = 1, ceil(-4.5) = -5).
 The output raster (<code>--output</code>) will be of an I32 data type.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -553,7 +691,12 @@ The output raster (<code>--output</code>) will be of an I32 data type.</p>
 <p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="Cos"></a></p>
 <a class="header" href="#cos" id="cos"><h1>Cos</h1></a>
-<p>Returns the cosine (cos) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the cosine (cos) of the corresponding
+grid cell in an input raster (<code>--input</code>). The input raster image should contain angular data measured in radians.
+You may convert a raster containing degrees to radians using the <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a> tool. Grid cells with <strong>NoData</strong> values
+in the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#sin"><strong>Sin</strong></a>, <a href="./mathand_stats_tools.html#tan"><strong>Tan</strong></a>, <a href="./mathand_stats_tools.html#arccos"><strong>ArcCos</strong></a>, <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -572,11 +715,17 @@ The output raster (<code>--output</code>) will be of an I32 data type.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="Cosh"></a></p>
 <a class="header" href="#cosh" id="cosh"><h1>Cosh</h1></a>
-<p>Returns the hyperbolic cosine (cosh) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Hyperbolic_function">hyperbolic cosine</a> (cosh) of the corresponding
+grid cell in an input raster (<code>--input</code>). The input raster image should contain angular data measured in radians.
+You may convert a raster containing degrees to radians using the <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a> tool. Grid cells with <strong>NoData</strong> values
+in the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#sinh"><strong>Sinh</strong></a>, <a href="./mathand_stats_tools.html#tanh"><strong>Tanh</strong></a>, <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -595,7 +744,7 @@ The output raster (<code>--output</code>) will be of an I32 data type.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/cosh.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="CrispnessIndex"></a></p>
 <a class="header" href="#crispnessindex" id="crispnessindex"><h1>CrispnessIndex</h1></a>
@@ -688,13 +837,13 @@ analysis.</p>
 <p><a name="CumulativeDistribution"></a></p>
 <a class="header" href="#cumulativedistribution" id="cumulativedistribution"><h1>CumulativeDistribution</h1></a>
 <p>This tool converts the values in an input image (<code>--input</code>) into
-[cumulative probabilities]<a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative distribution function</a>.
+a <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative distribution function</a>.
 Therefore, the output raster (<code>--output</code>) will contain the cumulative probability value (0-1) of
 of values equal to or less than the value in the corresponding grid cell in the input image. NoData
 values in the input image are not considered during the transformation and remain NoData values in
 the output image.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#zscores"><strong>ZScores</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#zscores"><strong>ZScores</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -720,8 +869,8 @@ the output image.</p>
 <p>This tool can be used to decrease the values of each grid cell in an input raster (<code>--input</code>)
 by 1.0. Note that this tool will modify the input raster. If you would rather create a new
 raster file, leaving the input unmodified, use the <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a> tool instead.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#increment"><strong>Increment</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -749,8 +898,8 @@ cells in two input rasters or one input raster and a constant value. If two imag
 images must possess the same number of rows and columns and spatial extent, as the analysis will be
 carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
 images, the cell will be excluded from the analysis.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -775,7 +924,12 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Last Modified</em>: 24/01/2019</p>
 <p><a name="EqualTo"></a></p>
 <a class="header" href="#equalto" id="equalto"><h1>EqualTo</h1></a>
-<p>Performs a equal-to comparison operation on two rasters or a raster and a constant value.</p>
+<p>This tool assigns grid cells for which both (<code>--input1</code> and <code>--input2</code>) input rasters (or one raster and
+a constant value) have equal values a new value of 1 (<em>True</em>) in the output raster (<code>--output</code>). All
+non-equivalent grid cells are assigned a value of zero (<em>False</em>). Grid cells containing <strong>NoData</strong> values
+in either of the inputs will be assigned a <strong>NoData</strong> value in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#notequalto"><strong>NotEqualTo</strong></a>, <a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a>, <a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -796,11 +950,18 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/equal_to.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="Exp"></a></p>
 <a class="header" href="#exp" id="exp"><h1>Exp</h1></a>
-<p>Returns the exponential (base e) of values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is calculated as
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)"><em>e</em></a> to the power of the value of the
+corresponding grid cell in the input raster (<code>--input</code>). Moderate to large values in the input
+raster will result in very large values in the output raster and this may cause errors when you
+try to display the data. Grid cells with <strong>NoData</strong> values in the input raster will be assigned
+<strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#exp2"><strong>Exp2</strong></a>, <a href="./mathand_stats_tools.html#power"><strong>Power</strong></a>, <a href="./mathand_stats_tools.html#ln"><strong>Ln</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -819,11 +980,17 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/exp.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="Exp2"></a></p>
 <a class="header" href="#exp2" id="exp2"><h1>Exp2</h1></a>
-<p>Returns the exponential (base 2) of values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is calculated as
+2 to the power of the value of the corresponding grid cell in the input raster (<code>--input</code>).
+Moderate to large values in the input raster will result in very large values in the output
+raster and this may cause errors when you try to display the data. Grid cells with <strong>NoData</strong>
+values in the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#exp"><strong>Exp</strong></a>, <a href="./mathand_stats_tools.html#power"><strong>Power</strong></a>, <a href="./mathand_stats_tools.html#log2"><strong>Log2</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -842,15 +1009,15 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/exp2.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="Floor"></a></p>
 <a class="header" href="#floor" id="floor"><h1>Floor</h1></a>
 <p>This tool performs a floor operation on the values in an input raster (<code>--input</code>) to the nearest integer value.
 The <code>floor</code> function calculates the largest integer less than or equal to the input value (e.g. floor(0.5) = 0, floor(-4.5) = -4).
 The output raster (<code>--output</code>) will be of an I32 data type.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -873,7 +1040,14 @@ The output raster (<code>--output</code>) will be of an I32 data type.</p>
 <p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="GreaterThan"></a></p>
 <a class="header" href="#greaterthan" id="greaterthan"><h1>GreaterThan</h1></a>
-<p>Performs a greater-than comparison operation on two rasters or a raster and a constant value.</p>
+<p>This tool assigns grid cells for which the first input raster or constant value (<code>--input1</code>) is greater than
+the second input raster or constant value (<code>--input2</code>) a new value of 1 (<em>True</em>) in the output raster (<code>--output</code>).
+All grid cells with lesser values are assigned a value of zero (<em>False</em>) in the output. Grid cells containing
+<strong>NoData</strong> values in either of the inputs will be assigned a <strong>NoData</strong> value in the output raster.</p>
+<p>Use the <code>--incl_equals</code> flag to perform a greater-than-equal-to (&gt;=) operation instead of the default greater-than (&gt;)
+operator.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a>, <a href="./mathand_stats_tools.html#equalto"><strong>EqualTo</strong></a>, <a href="./mathand_stats_tools.html#notequalto"><strong>NotEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -901,7 +1075,41 @@ The output raster (<code>--output</code>) will be of an I32 data type.</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="ImageAutocorrelation"></a></p>
 <a class="header" href="#imageautocorrelation" id="imageautocorrelation"><h1>ImageAutocorrelation</h1></a>
-<p>Performs Moran's I analysis on two or more input images.</p>
+<p>Spatial autocorrelation describes the extent to which a variable is either dispersed or clustered through space.
+In the case of a raster image, spatial autocorrelation refers to the similarity in the values of nearby grid
+cells. This tool measures the spatial autocorrelation of a raster image using the global Moran's <em>I</em> statistic.
+Moran's <em>I</em> varies from -1 to 1, where <em>I</em> = -1 indicates a dispersed, checkerboard type pattern and <em>I</em> = 1 indicates
+a clustered (smooth) surface. <em>I</em> = 0 occurs for a random distribution of values. <a href="./mathand_stats_tools.html#imageautocorrelation"><strong>ImageAutocorrelation</strong></a> computes
+Moran's <em>I</em> for the first lag only, meaning that it only takes into account the variability among the immediate
+neighbors of each grid cell.</p>
+<p>The user must specify the names of one or more input raster images. In addition, the user must specify the
+contiguity type (<code>--contiguity</code>; Rook's, King's, or Bishop's), which describes which neighboring grid cells are examined for
+the analysis. The following figure describes the available cases:</p>
+<p>Rook's contiguity</p>
+<table><thead><tr><th align="center"> . </th><th>  .  </th><th> . </th></tr></thead><tbody>
+<tr><td align="center"> 0 </td><td align="center">  1  </td><td align="center"> 0 </td></tr>
+<tr><td align="center"> 1 </td><td align="center">  X  </td><td align="center"> 1 </td></tr>
+<tr><td align="center"> 0 </td><td align="center">  1  </td><td align="center"> 0 </td></tr>
+</tbody></table>
+<p>Kings's contiguity</p>
+<table><thead><tr><th> . </th><th>  .  </th><th> . </th></tr></thead><tbody>
+<tr><td align="center"> 1 </td><td align="center">  1  </td><td align="center"> 1 </td></tr>
+<tr><td align="center"> 1 </td><td align="center">  X  </td><td align="center"> 1 </td></tr>
+<tr><td align="center"> 1 </td><td align="center">  1  </td><td align="center"> 1 </td></tr>
+</tbody></table>
+<p>Bishops's contiguity</p>
+<table><thead><tr><th> . </th><th>  .  </th><th> . </th></tr></thead><tbody>
+<tr><td align="center"> 1 </td><td align="center">  0  </td><td align="center"> 1 </td></tr>
+<tr><td align="center"> 0 </td><td align="center">  X  </td><td align="center"> 0 </td></tr>
+<tr><td align="center"> 1 </td><td align="center">  0  </td><td align="center"> 1 </td></tr>
+</tbody></table>
+<p>The tool outputs an HTML report (<code>--ouptut</code>) which, for each input image (<code>--input</code>), reports the Moran's <em>I</em>
+value and the variance, z-score, and p-value (significance) under normal and randomization sampling assumptions.</p>
+<p>Use the <a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a> tool instead when there is need to determine the correlation among multiple raster
+inputs.</p>
+<p>**NoData **values in the input image are ignored during the analysis.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -947,8 +1155,8 @@ The very high <em>N</em>-value (essentially the number of pixels in the image pa
 coefficients can be found to be statistically significant, despite being practically insignificant.</p>
 <p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
 between images.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a>, <a href="./mathand_stats_tools.html#imageautocorrelation"><strong>ImageAutocorrelation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -987,8 +1195,8 @@ and contributing area. In such cases, it is advisable that the input images are 
 analysis.</p>
 <p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
 between images.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file (independent variable, X)</td></tr>
@@ -1032,8 +1240,8 @@ columns) as <code>input1</code>.</p>
 <p>The difference between this tool and the <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a> tool is that <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a> does not modify either of its
 two operands, and instead creates a new output raster to save the resultant value into.</p>
 <p>If <code>input2 = 1</code>, use the <a href="./mathand_stats_tools.html#increment"><strong>Increment</strong></a> tool instead.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#increment"><strong>Increment</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#increment"><strong>Increment</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1068,8 +1276,8 @@ columns) as <code>input1</code>. Zero-valued pixels in <code>input2</code> will 
 <code>input1</code> after this operation.</p>
 <p>The difference between this tool and the <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> tool is that <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a> does not modify either of its
 two operands, and instead creates a new output raster to save the resultant value into.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1103,8 +1311,8 @@ file or a constant value. If <code>input2</code> is a raster, it must have the s
 columns) as <code>input1</code>.</p>
 <p>The difference between this tool and the <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a> tool is that <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a> does not modify either of its
 two operands, and instead creates a new output raster to save the resultant value into.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1139,8 +1347,8 @@ columns) as <code>input1</code>.</p>
 <p>The difference between this tool and the <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a> tool is that <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a> does not modify either of its
 two operands, and instead creates a new output raster to save the resultant value into.</p>
 <p>If <code>input2 = 1</code>, use the <a href="./mathand_stats_tools.html#decrement"><strong>Decrement</strong></a> tool instead.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#decrement"><strong>Decrement</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#inplacedivide"><strong>InPlaceDivide</strong></a>, <a href="./mathand_stats_tools.html#inplacemultiply"><strong>InPlaceMultiply</strong></a>, <a href="./mathand_stats_tools.html#decrement"><strong>Decrement</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1169,8 +1377,8 @@ two operands, and instead creates a new output raster to save the resultant valu
 <p>This tool can be used to increase the values of each grid cell in an input raster (<code>--input</code>)
 by 1.0. Note that this tool will modify the input raster. If you would rather create a new
 raster file, leaving the input unmodified, use the <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a> tool instead.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#inplaceadd"><strong>InPlaceAdd</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#decrement"><strong>Decrement</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1193,7 +1401,15 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="IntegerDivision"></a></p>
 <a class="header" href="#integerdivision" id="integerdivision"><h1>IntegerDivision</h1></a>
-<p>Performs an integer division operation on two rasters or a raster and a constant value.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers">integer division</a> of the corresponding
+grid cells in two input rasters or constant values (<code>--input1</code> and <code>--input2</code>). The calculation differs
+from regular division in that the result is always an integer value (rounded by truncation). If the
+second raster / constant is zero the corresponding grid cell in the output raster will be assigned
+the <strong>NoData</strong> value. Grid cells containing <strong>NoData</strong> values in either of the inputs will be assigned
+a <strong>NoData</strong> value in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1215,7 +1431,7 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/integer_division.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="IsNoData"></a></p>
 <a class="header" href="#isnodata" id="isnodata"><h1>IsNoData</h1></a>
@@ -1223,8 +1439,8 @@ raster file, leaving the input unmodified, use the <a href="./mathand_stats_tool
 of the input and output (<code>--input</code> and <code>--output</code>) raster images. Grid cells containing the NoData value in
 the input image will be assigned a value of 1.0 in the output image. All non-NoData valued grid cells will
 be assigned 0.0 in the output image.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a></p>
+<p><em>See Also</em>:
+<a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1247,7 +1463,19 @@ be assigned 0.0 in the output image.</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="KappaIndex"></a></p>
 <a class="header" href="#kappaindex" id="kappaindex"><h1>KappaIndex</h1></a>
-<p>Performs a kappa index of agreement (KIA) analysis on two categorical raster files.</p>
+<p>This tool calculates the <a href="https://en.wikipedia.org/wiki/Cohen%27s_kappa">Kappa index of agreement</a> (KIA), or
+Cohen's Kappa, for two categorical input raster images (<code>--input1</code> and <code>--input2</code>). The KIA is a measure of inter-rater
+reliability (i.e. classification accuracy) and is widely applied in many fields, notably remote sensing. For example,
+The KIA is often used as a means of assessing the accuracy of an image classification analysis. The KIA
+can be interpreted as the percentage improvement that the underlying classification has over and above a random
+classifier (i.e. random assignment to categories). The user must specify the output HTML file (<code>--output</code>). The input
+images must be of a categorical data type, i.e. contain classes. As a measure of classification accuracy, the
+KIA is more robust than the <em>overall percent agreement</em> because it takes into account the agreement occurring by
+chance. A KIA of 0 would indicate that the classifier is no better than random class assignment. In addition to the
+KIA, this tool will also output the <a href="http://gis.humboldt.edu/OLM/Courses/GSP_216_Online/lesson6-2/metrics.html">producer's and user's accuracy</a>,
+the overall accuracy, and the error matrix.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#crosstabulation"><strong>CrossTabulation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input classification raster file</td></tr>
@@ -1268,7 +1496,7 @@ be assigned 0.0 in the output image.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/kappa_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 24, 2017</p>
+<p><em>Created</em>: 24/09/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="KsTestForNormality"></a></p>
 <a class="header" href="#kstestfornormality" id="kstestfornormality"><h1>KsTestForNormality</h1></a>
@@ -1280,8 +1508,8 @@ values of a user-specified size. In evaluating the significance of the test, it 
 important to keep in mind that given a sufficiently large sample, extremely small and
 non-notable differences can be found to be statistically significant. Furthermore
 statistical significance says nothing about the practical significance of a difference.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1309,7 +1537,14 @@ statistical significance says nothing about the practical significance of a diff
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="LessThan"></a></p>
 <a class="header" href="#lessthan" id="lessthan"><h1>LessThan</h1></a>
-<p>Performs a less-than comparison operation on two rasters or a raster and a constant value.</p>
+<p>This tool assigns grid cells for which the first input raster or constant value (<code>--input1</code>) is less than
+the second input raster or constant value (<code>--input2</code>) a new value of 1 (<em>True</em>) in the output raster (<code>--output</code>).
+All grid cells with greater values are assigned a value of zero (<em>False</em>) in the output. Grid cells containing
+<strong>NoData</strong> values in either of the inputs will be assigned a <strong>NoData</strong> value in the output raster.</p>
+<p>Use the <code>--incl_equals</code> flag to perform a less-than-equal-to (&lt;=) operation instead of the default less-than (&lt;)
+operator.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a>, <a href="./mathand_stats_tools.html#equalto"><strong>EqualTo</strong></a>, <a href="./mathand_stats_tools.html#notequalto"><strong>NotEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1345,8 +1580,8 @@ contained in the associated attribute table. The specified field <em>should not 
 numerical data</em>, since the number of categories will likely equal the number of records, which may be
 quite large. The tool effectively provides tabular output that is similar to the graphical output
 provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a> tool, which, however, can be applied to continuous data.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1372,7 +1607,14 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Ln"></a></p>
 <a class="header" href="#ln" id="ln"><h1>Ln</h1></a>
-<p>Returns the natural logarithm of values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is calculated as the base-<em>e</em> logarithm
+of the value of the corresponding grid cell in the input raster (<code>--input</code>), i.e. the
+<a href="https://en.wikipedia.org/wiki/Natural_logarithm">natural logarithm</a>. Eurler's number
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)"><em>e</em></a> is a constant approximately equal to 2.718282.
+Negative values in the input raster will be assigned the <strong>NoData</strong> value in the output raster. <strong>NoData</strong> values
+in the input image will be assigned the <strong>NoData</strong> value in the output image.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#log2"><strong>Log2</strong></a>, <a href="./mathand_stats_tools.html#log10"><strong>Log10</strong></a>, <a href="./mathand_stats_tools.html#exp"><strong>Exp</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1391,11 +1633,16 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/ln.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Log10"></a></p>
 <a class="header" href="#log10" id="log10"><h1>Log10</h1></a>
-<p>Returns the base-10 logarithm of values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is calculated as the base-10
+<a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a> of the value of the corresponding grid cell in the input
+raster (<code>--input</code>). Negative values in the input raster will be assigned the <strong>NoData</strong> value in the output
+raster. <strong>NoData</strong> values in the input image will be assigned the <strong>NoData</strong> value in the output image.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#ln"><strong>Ln</strong></a>, <a href="./mathand_stats_tools.html#log2"><strong>Log2</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1414,11 +1661,16 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/log10.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Log2"></a></p>
 <a class="header" href="#log2" id="log2"><h1>Log2</h1></a>
-<p>Returns the base-2 logarithm of values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is calculated as the base-2
+<a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a> of the value of the corresponding grid cell in the input
+raster (<code>--input</code>). Negative values in the input raster will be assigned the <strong>NoData</strong> value in the output
+raster. <strong>NoData</strong> values in the input image will be assigned the <strong>NoData</strong> value in the output image.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#ln"><strong>Ln</strong></a>, <a href="./mathand_stats_tools.html#log10"><strong>Log10</strong></a>, <a href="./mathand_stats_tools.html#exp2"><strong>Exp2</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1437,11 +1689,16 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/log2.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Max"></a></p>
 <a class="header" href="#max" id="max"><h1>Max</h1></a>
-<p>Performs a MAX operation on two rasters or a raster and a constant value.</p>
+<p>This tool performs a <em>Max</em> operation on either two input rasters or a raster and a constant value
+(<code>--input1</code> and <code>--input2</code>). The operation is performed on a cell-by-cell basis, where by the output
+raster (<code>--output</code>) will be assigned the maximum value of each of the input values. <strong>NoData</strong> values
+in the input image will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#min"><strong>Min</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1462,11 +1719,16 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/max.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Min"></a></p>
 <a class="header" href="#min" id="min"><h1>Min</h1></a>
-<p>Performs a MIN operation on two rasters or a raster and a constant value.</p>
+<p>This tool performs a <em>Min</em> operation on either two input rasters or a raster and a constant value
+(<code>--input1</code> and <code>--input2</code>). The operation is performed on a cell-by-cell basis, where by the output
+raster (<code>--output</code>) will be assigned the minimum value of each of the input values. <strong>NoData</strong> values
+in the input image will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#max"><strong>Max</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1487,11 +1749,22 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/min.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Modulo"></a></p>
 <a class="header" href="#modulo" id="modulo"><h1>Modulo</h1></a>
-<p>Performs a modulo operation on two rasters or a raster and a constant value.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the remainder of the division
+of the corresponding grid cells in two input rasters or one input raster and a constant value (<code>--input1</code> and
+<code>--input2</code>), i.e. it performs a <a href="https://en.wikipedia.org/wiki/Modulo_operation">modulo operation</a> on two numbers.
+For example, the expression 14 <strong>Mod</strong> 4 equals 2. If either of the two input numbers is a floating-point value,
+the floating-point remainder of the division is returned. Because of the imprecision of floating-point storage,
+the Modulo tool can return an unexpected result when at least one of the operands is floating-point. If the
+second raster / constant is zero the corresponding grid cell in the output raster will be assigned the <strong>NoData</strong>
+value. <strong>NoData</strong> values in either of the input images will be assigned a <strong>NoData</strong> value in the output image.
+Notice that the <a href="./mathand_stats_tools.html#integerdivision"><strong>IntegerDivision</strong></a> tool returns the integer quotient of a division. For example, the expression
+14 <strong>intdiv</strong> 4 evaluates to 3.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#integerdivision"><strong>IntegerDivision</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1512,7 +1785,7 @@ provided by the <a href="./mathand_stats_tools.html#attributehistogram"><strong>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/modulo.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Multiply"></a></p>
 <a class="header" href="#multiply" id="multiply"><h1>Multiply</h1></a>
@@ -1521,8 +1794,8 @@ cells in two input rasters or one input raster and a constant value. If two imag
 images must possess the same number of rows and columns and spatial extent, as the analysis will be
 carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
 images, the cell will be excluded from the analysis.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <code>InPlaceMulitply</code></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>, <a href="./mathand_stats_tools.html#subtract"><strong>Subtract</strong></a>, <code>InPlaceMulitply</code></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1550,8 +1823,8 @@ images, the cell will be excluded from the analysis.</p>
 <p>This tool creates a new raster in which each grid cell is equal to negative one times the corresponding
 grid cell in the input raster. This effectively changes the sign of values. This tool also handles Boolean
 data (0, 1) by reversing values (i.e. 0-&gt;1 and 1-&gt;0).</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#absolutevalue"><strong>AbsoluteValue</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#absolutevalue"><strong>AbsoluteValue</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1580,8 +1853,8 @@ the first input raster (<code>--input1</code>) has a <em>True</em> value and the
 rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
 cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
 the output raster (<code>--output</code>). Notice that the <strong>Not</strong> operator is asymmetrical, and the order of inputs matters.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1606,7 +1879,12 @@ the output raster (<code>--output</code>). Notice that the <strong>Not</strong> 
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="NotEqualTo"></a></p>
 <a class="header" href="#notequalto" id="notequalto"><h1>NotEqualTo</h1></a>
-<p>Performs a not-equal-to comparison operation on two rasters or a raster and a constant value.</p>
+<p>This tool assigns grid cells for which both (<code>--input1</code> and <code>--input2</code>) input rasters (or one raster and
+a constant value) have unequal values a new value of 1 (<em>True</em>) in the output raster (<code>--output</code>). All
+equivalent grid cells are assigned a value of zero (<em>False</em>). Grid cells containing <strong>NoData</strong> values
+in either of the inputs will be assigned a <strong>NoData</strong> value in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#equalto"><strong>EqualTo</strong></a>, <a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a>, <a href="./mathand_stats_tools.html#lessthan"><strong>LessThan</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1627,7 +1905,7 @@ the output raster (<code>--output</code>). Notice that the <strong>Not</strong> 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/not_equal_to.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 1, 2017</p>
+<p><em>Created</em>: 01/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Or"></a></p>
 <a class="header" href="#or" id="or"><h1>Or</h1></a>
@@ -1637,8 +1915,8 @@ the either the first or second input rasters (<code>--input1</code>; <code>--inp
 rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
 cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
 the output raster (<code>--output</code>).</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#not"><strong>Not</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#not"><strong>Not</strong></a>, <a href="./mathand_stats_tools.html#xor"><strong>Xor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -1677,8 +1955,8 @@ sub-sample of pixel values of a user-specified size (<code>--num_samples</code>)
 of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
 non-notable differences can be found to be statistically significant. Furthermore
 statistical significance says nothing about the practical significance of a difference.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> First input raster file</td></tr>
@@ -1706,7 +1984,13 @@ statistical significance says nothing about the practical significance of a diff
 <p><em>Last Modified</em>: 25/10/2019</p>
 <p><a name="Power"></a></p>
 <a class="header" href="#power" id="power"><h1>Power</h1></a>
-<p>Raises the values in grid cells of one rasters, or a constant value, by values in another raster or constant value.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is calculated as
+a value (<code>--input1</code>) raised to the power of another value (<code>--input2</code>). Both inputs can either be
+rasters or constant values. Moderate to exponent large values will result in very large output values
+and this may cause errors when you display the data. Grid cells with <strong>NoData</strong> values in either of the input
+rasters will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#exp"><strong>Exp</strong></a>, <a href="./mathand_stats_tools.html#exp2"><strong>Exp2</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -1727,7 +2011,7 @@ statistical significance says nothing about the practical significance of a diff
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/power.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="PrincipalComponentAnalysis"></a></p>
 <a class="header" href="#principalcomponentanalysis" id="principalcomponentanalysis"><h1>PrincipalComponentAnalysis</h1></a>
@@ -1810,8 +2094,8 @@ percentile (100-quantile).</p>
 <p>The user must specify the desired number of quantiles, q (<code>--num_quantiles</code>), in the output raster (<code>--output</code>).
 The output raster will contain q equal-sized groups with values 1 to q, indicating which quantile group each grid cell
 belongs to.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a></p>
+<p><em>See Also</em>:
+<a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1843,8 +2127,8 @@ raster grid (<code>--base</code>). Note that the output field will not possess a
 autocorrelated random fields are desired, the <a href="./mathand_stats_tools.html#turningbandssimulation"><strong>TurningBandsSimulation</strong></a> tool is more appropriate, or alternatively,
 the <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a> tool may be used to force spatial autocorrelation onto the distribution of the
 <a href="./mathand_stats_tools.html#randomfield"><strong>RandomField</strong></a> tool.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#turningbandssimulation"><strong>TurningBandsSimulation</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#turningbandssimulation"><strong>TurningBandsSimulation</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --base         </td><td> Input raster file</td></tr>
@@ -1901,8 +2185,8 @@ statistical analyses on raster images when you wish to obtain a random sample of
 <p>This tool produces a histogram (i.e. a frequency distribution graph) for the values contained within
 an input raster file (<code>--input</code>). The histogram will be embeded within an output (<code>--output</code>)
 HTML file, which should be automatically displayed after the tool has completed.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1944,8 +2228,8 @@ Image average: 406.13745012929786 <br/>
 Image variance: 31.370027239143383 <br/>
 Image standard deviation: 5.600895217654351 <br/></p>
 </blockquote>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a>, <a href="./mathand_stats_tools.html#zonalstatistics"><strong>ZonalStatistics</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#rasterhistogram"><strong>RasterHistogram</strong></a>, <a href="./mathand_stats_tools.html#zonalstatistics"><strong>ZonalStatistics</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1966,7 +2250,9 @@ Image standard deviation: 5.600895217654351 <br/></p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Reciprocal"></a></p>
 <a class="header" href="#reciprocal" id="reciprocal"><h1>Reciprocal</h1></a>
-<p>Returns the reciprocal (i.e. 1 / z) of values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to one divided by the grid cell
+values in the input raster image (<code>--input</code>). <strong>NoData</strong> values in the input image will be assigned <strong>NoData</strong>
+values in the output image.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1985,7 +2271,7 @@ Image standard deviation: 5.600895217654351 <br/></p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/reciprocal.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="RescaleValueRange"></a></p>
 <a class="header" href="#rescalevaluerange" id="rescalevaluerange"><h1>RescaleValueRange</h1></a>
@@ -2033,8 +2319,8 @@ the tool also reports other common accuracy statistics including the mean verica
 the residuals between two raster surfaces. The LE90 is the most robust of the reported accuracy
 statistics when the residuals are non-Gaussian. The LE90 requires sorting the residual values, which
 can be a relatively slow operation for larger rasters.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2059,8 +2345,8 @@ can be a relatively slow operation for larger rasters.</p>
 <a class="header" href="#round" id="round"><h1>Round</h1></a>
 <p>This tool rounds the values in an input raster (<code>--input</code>) to the nearest integer value. Half-way cases
 are rounded away from zero (e.g. round(0.5) = 1, round(-4.5) = -5). The output raster (<code>--output</code>) will be of an I32 data type.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a>, <a href="./mathand_stats_tools.html#truncate"><strong>Truncate</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2083,7 +2369,12 @@ are rounded away from zero (e.g. round(0.5) = 1, round(-4.5) = -5). The output r
 <p><em>Last Modified</em>: 26/10/2019</p>
 <p><a name="Sin"></a></p>
 <a class="header" href="#sin" id="sin"><h1>Sin</h1></a>
-<p>Returns the sine (sin) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the sine (sin) of the corresponding
+grid cell in an input raster (<code>--input</code>). The input raster image should contain angular data measured in radians.
+You may convert a raster containing degrees to radians using the <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a> tool. Grid cells with <strong>NoData</strong> values
+in the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#cos"><strong>Cos</strong></a>, <a href="./mathand_stats_tools.html#tan"><strong>Tan</strong></a>, <a href="./mathand_stats_tools.html#arcsin"><strong>ArcSin</strong></a>, <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2102,11 +2393,17 @@ are rounded away from zero (e.g. round(0.5) = 1, round(-4.5) = -5). The output r
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/sin.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Sinh"></a></p>
 <a class="header" href="#sinh" id="sinh"><h1>Sinh</h1></a>
-<p>Returns the hyperbolic sine (sinh) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Hyperbolic_function">hyperbolic sine</a> (sinh) of the corresponding
+grid cell in an input raster (<code>--input</code>). The input raster image should contain angular data measured in radians.
+You may convert a raster containing degrees to radians using the <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a> tool. Grid cells with <strong>NoData</strong> values
+in the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#cosh"><strong>Cosh</strong></a>, <a href="./mathand_stats_tools.html#tanh"><strong>Tanh</strong></a>, <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2125,15 +2422,15 @@ are rounded away from zero (e.g. round(0.5) = 1, round(-4.5) = -5). The output r
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/sinh.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Square"></a></p>
 <a class="header" href="#square" id="square"><h1>Square</h1></a>
 <p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the square of the
 value of the corresponding grid cell in the input raster (<code>--input</code>), i.e. the input raster is raised to
 the power of two. <strong>NoData</strong> values in the input image will be assigned <strong>NoData</strong> values in the output image.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#squareroot"><strong>SquareRoot</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#squareroot"><strong>SquareRoot</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2160,8 +2457,8 @@ the power of two. <strong>NoData</strong> values in the input image will be assi
 <a href="https://en.wikipedia.org/wiki/Square_root">square root</a> of the value of the corresponding grid cell in the
 input raster (<code>--input</code>). <strong>NoData</strong> values in the input image will be assigned <strong>NoData</strong> values in the
 output image.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#square"><strong>Square</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#square"><strong>Square</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2189,8 +2486,8 @@ cells in two input rasters or one input raster and a constant value. If two imag
 images must possess the same number of rows and columns and spatial extent, as the analysis will be
 carried out on a cell-by-cell basis. If a grid cell contains a <strong>NoData</strong> value in either of the input
 images, the cell will be excluded from the analysis.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>,  <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#add"><strong>Add</strong></a>,  <a href="./mathand_stats_tools.html#divide"><strong>Divide</strong></a>, <a href="./mathand_stats_tools.html#multiply"><strong>Multiply</strong></a>, <a href="./mathand_stats_tools.html#inplacesubtract"><strong>InPlaceSubtract</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file or constant value</td></tr>
@@ -2215,7 +2512,12 @@ images, the cell will be excluded from the analysis.</p>
 <p><em>Last Modified</em>: 24/01/2019</p>
 <p><a name="Tan"></a></p>
 <a class="header" href="#tan" id="tan"><h1>Tan</h1></a>
-<p>Returns the tangent (tan) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the tangent (tan) of the corresponding
+grid cell in an input raster (<code>--input</code>). The input raster image should contain angular data measured in radians.
+You may convert a raster containing degrees to radians using the <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a> tool. Grid cells with <strong>NoData</strong> values
+in the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#cos"><strong>Cos</strong></a>, <a href="./mathand_stats_tools.html#sin"><strong>Sin</strong></a>, <a href="./mathand_stats_tools.html#arctan"><strong>ArcTan</strong></a>, <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2234,11 +2536,17 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/tan.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 5, 2017</p>
+<p><em>Created</em>: 05/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Tanh"></a></p>
 <a class="header" href="#tanh" id="tanh"><h1>Tanh</h1></a>
-<p>Returns the hyperbolic tangent (tanh) of each values in a raster.</p>
+<p>This tool creates a new raster (<code>--output</code>) in which each grid cell is equal to the
+<a href="https://en.wikipedia.org/wiki/Hyperbolic_function">hyperbolic tangent</a> (tanh) of the corresponding
+grid cell in an input raster (<code>--input</code>). The input raster image should contain angular data measured in radians.
+You may convert a raster containing degrees to radians using the <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a> tool. Grid cells with <strong>NoData</strong> values
+in the input raster will be assigned <strong>NoData</strong> values in the output raster.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#cosh"><strong>Cosh</strong></a>, <a href="./mathand_stats_tools.html#sinh"><strong>Sinh</strong></a>, <a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2257,7 +2565,7 @@ images, the cell will be excluded from the analysis.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/tanh.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
+<p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="ToDegrees"></a></p>
 <a class="header" href="#todegrees" id="todegrees"><h1>ToDegrees</h1></a>
@@ -2265,8 +2573,8 @@ images, the cell will be excluded from the analysis.</p>
 input raster (<code>--input</code>) to degrees in the output raster (<code>--output</code>).
 One degree is approximately 0.017453293 (π / 180) radians. Conversion between degrees and radians
 is common when working with trigonometric functions.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#toradians"><strong>ToRadians</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2293,8 +2601,8 @@ is common when working with trigonometric functions.</p>
 <a href="https://en.wikipedia.org/wiki/Radian">radians</a> in the output raster (<code>--output</code>).
 One radian is just under 57.3 (180 / π) degrees. Conversion between degrees and radians
 is common when working with trigonometric functions.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#todegrees"><strong>ToDegrees</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2404,8 +2712,8 @@ are also reported in the output report.</p>
 <a class="header" href="#truncate" id="truncate"><h1>Truncate</h1></a>
 <p>This tool truncates the values in an input raster (<code>--input</code>); truncation limits the number of digits right of the decimal point. For
 example, trunc(3.2) = 3 and trunc(5.8) = 5 The output raster (<code>--output</code>) will be of an I32 data type.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#round"><strong>Round</strong></a>, <a href="./mathand_stats_tools.html#ceil"><strong>Ceil</strong></a>, <a href="./mathand_stats_tools.html#floor"><strong>Floor</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2449,8 +2757,8 @@ characteristics and frequency distribution. This is the alternative approach use
 <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a> tool.</p>
 <p><em>Reference</em>:</p>
 <p>Carr, J. R. (2002). Data visualization in the geosciences. Upper Saddle River, NJ: Prentice Hall. pp. 267.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#randomfield"><strong>RandomField</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a>, <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#randomfield"><strong>RandomField</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a>, <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --base         </td><td> Input base raster file</td></tr>
@@ -2491,8 +2799,8 @@ sub-sample of pixel values of a user-specified size (<code>--num_samples</code>)
 of the test, it is important to keep in mind that given a sufficiently large sample, extremely small and
 non-notable differences can be found to be statistically significant. Furthermore
 statistical significance says nothing about the practical significance of a difference.</p>
-<p><em>See Also</em>:</p>
-<p><code>KSTestForNormality</code>, <a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
+<p><em>See Also</em>:
+<code>KSTestForNormality</code>, <a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#wilcoxonsignedranktest"><strong>WilcoxonSignedRankTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> First input raster file</td></tr>
@@ -2534,8 +2842,8 @@ non-notable differences can be found to be statistically significant. Furthermor
 statistical significance says nothing about the practical significance of a difference. Note that cells
 with a difference of zero are excluded from the ranking and tied difference values are assigned their average
 rank values.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#pairedsamplettest"><strong>PairedSampleTTest</strong></a>, <a href="./mathand_stats_tools.html#twosamplekstest"><strong>TwoSampleKsTest</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> First input raster file</td></tr>
@@ -2569,8 +2877,8 @@ either the first or second input rasters (<code>--input1</code>; <code>--input2<
 rasters are considered to be <em>True</em>, while all zero-valued grid cells are considered to be <em>False</em>. Grid
 cells containing <strong>NoData</strong> values in either of the input rasters will be assigned a <strong>NoData</strong> value in
 the output raster (<code>--output</code>). Notice that the <strong>Not</strong> operator is asymmetrical, and the order of inputs matters.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#not"><strong>Not</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#or"><strong>Or</strong></a>, <a href="./mathand_stats_tools.html#and"><strong>And</strong></a>, <a href="./mathand_stats_tools.html#not"><strong>Not</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--input1           </td><td> Input raster file</td></tr>
@@ -2603,8 +2911,8 @@ This conversion process is called <em>standardizing</em> or <em>normalizing</em>
 to as a standardized variable. The mean and standard deviation are estimated using all values in the
 input image except for NoData values. The input image should not have a Boolean or categorical data
 scale, i.e. it should be on a continuous scale.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#cumulativedistribution"><strong>CumulativeDistribution</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#cumulativedistribution"><strong>CumulativeDistribution</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -2643,8 +2951,8 @@ spatial data which can then be interrogated using statistical analyses. At least
 (image or text) must be specified for the tool to operate.</p>
 <p>NoData values in either of the two input images are ignored during the calculation of the
 descriptive statistic.</p>
-<p><em>See Also</em>:</p>
-<p><a href="./mathand_stats_tools.html#rastersummarystats"><strong>RasterSummaryStats</strong></a></p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#rastersummarystats"><strong>RasterSummaryStats</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input data raster file</td></tr>
