@@ -9709,7 +9709,7 @@ image.</p>
 <li><a href="#KNearestMeanFilter">KNearestMeanFilter</a></li>
 <li><a href="#LaplacianFilter">LaplacianFilter</a></li>
 <li><a href="#LaplacianOfGaussianFilter">LaplacianOfGaussianFilter</a></li>
-<li><a href="#LeeFilter">LeeFilter</a></li>
+<li><a href="#LeeSigmaFilter">LeeSigmaFilter</a></li>
 <li><a href="#LineDetectionFilter">LineDetectionFilter</a></li>
 <li><a href="#MajorityFilter">MajorityFilter</a></li>
 <li><a href="#MaximumFilter">MaximumFilter</a></li>
@@ -9908,7 +9908,7 @@ frequency, many of these sharpening filters tend to enhance noise, which can be 
 The difference-of-Gaussians filter can remove high-frequency noise while emphasizing edges. This filter can,
 however, reduce overall image contrast.</p>
 <p><em>See Also</em>:
-<a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#laplacianfilter"><strong>LaplacianFilter</strong></a></p>
+<a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#fastalmostgaussianfilter"><strong>FastAlmostGaussianFilter</strong></a>, <a href="./image_processing_tools_filters.html#laplacianfilter"><strong>LaplacianFilter</strong></a>, LaplacianOfGaussianFilter`</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -10361,7 +10361,26 @@ The user may also optionally clip the output image distribution tails by a speci
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="LaplacianOfGaussianFilter"></a></p>
 <a class="header" href="#laplacianofgaussianfilter" id="laplacianofgaussianfilter"><h1>LaplacianOfGaussianFilter</h1></a>
-<p>Performs a Laplacian-of-Gaussian (LoG) filter on an image.</p>
+<p>The Laplacian-of-Gaussian (LoG) is a spatial filter used for edge enhancement and is closely related to the
+difference-of-Gaussians filter (<a href="./image_processing_tools_filters.html#diffofgaussianfilter"><strong>DiffOfGaussianFilter</strong></a>). The formulation of the LoG filter algorithm is based
+on the equation provided in the Hypermedia Image Processing Reference (HIPR) 2. The LoG operator calculates
+the second spatial derivative of an image. In areas where image intensity is constant, the LoG response will
+be zero. Near areas of change in intensity the LoG will be positive on the darker side, and negative on the
+lighter side. This means that at a sharp edge, or boundary, between two regions of uniform but different
+intensities, the LoG response will be:</p>
+<ul>
+<li>zero at a long distance from the edge,</li>
+<li>positive just to one side of the edge,</li>
+<li>negative just to the other side of the edge,</li>
+<li>zero at some point in between, on the edge itself.</li>
+</ul>
+<p>The user may optionally choose to reflecting the data along image edges. <strong>NoData</strong> values in the input image are
+similarly valued in the output. The output raster is of the float data type and continuous data scale.</p>
+<p><em>Reference</em>:</p>
+<p>Fisher, R. 2004. <em>Hypertext Image Processing Resources 2 (HIPR2)</em>. Available online:
+http://homepages.inf.ed.ac.uk/rbf/HIPR2/roberts.htm</p>
+<p><em>See Also</em>:
+<a href="./image_processing_tools_filters.html#diffofgaussianfilter"><strong>DiffOfGaussianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -10384,9 +10403,16 @@ The user may also optionally clip the output image distribution tails by a speci
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
-<p><a name="LeeFilter"></a></p>
-<a class="header" href="#leefilter" id="leefilter"><h1>LeeFilter</h1></a>
-<p>Performs a Lee (Sigma) smoothing filter on an image.</p>
+<p><a name="LeeSigmaFilter"></a></p>
+<a class="header" href="#leesigmafilter" id="leesigmafilter"><h1>LeeSigmaFilter</h1></a>
+<p>The Lee Sigma filter is a low-pass filter used to smooth the input image (<code>--input</code>). The user must
+specify the dimensions of the filter (<code>--filterx</code> and <code>--filtery</code>) as well as the <em>sigma</em> (<code>--sigma</code>) and
+<em>M</em> (<code>-m</code>) parameter.</p>
+<p><em>Reference</em>:</p>
+<p>Lee, J. S. (1983). Digital image smoothing and the sigma filter. Computer vision, graphics, and image
+processing, 24(2), 255-269.</p>
+<p><em>See Also</em>:
+<a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, <a href="./image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -10397,7 +10423,7 @@ The user may also optionally clip the output image distribution tails by a speci
 <tr><td>-m                  </td><td> M-threshold value the minimum allowable number of pixels within the intensity range</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.lee_filter(
+<pre><code class="language-python">wbt.lee_sigma_filter(
     i, 
     output, 
     filterx=11, 
@@ -10408,12 +10434,12 @@ The user may also optionally clip the output image distribution tails by a speci
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=LeeFilter -v --wd=&quot;/path/to/data/&quot; ^
+<pre><code>&gt;&gt;./whitebox_tools -r=LeeSigmaFilter -v --wd=&quot;/path/to/data/&quot; ^
 -i=image.tif -o=output.tif --filter=9 --sigma=10.0 ^
 -m=5
-&gt;&gt;./whitebox_tools -r=LeeFilter -v --wd=&quot;/path/to/data/&quot; ^
--i=image.tif -o=output.tif --filtery=7 --filtery=9 ^
---sigma=10.0 -m=5 
+&gt;&gt;./whitebox_tools -r=LeeSigmaFilter -v ^
+--wd=&quot;/path/to/data/&quot; -i=image.tif -o=output.tif --filtery=7 ^
+--filtery=9 --sigma=10.0 -m=5 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/lee_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -10841,7 +10867,25 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="RobertsCrossFilter"></a></p>
 <a class="header" href="#robertscrossfilter" id="robertscrossfilter"><h1>RobertsCrossFilter</h1></a>
-<p>Performs a Robert's cross edge-detection filter on an image.</p>
+<p>This tool performs Robert's Cross edge-detection filter on a raster image. The <a href="./image_processing_tools_filters.html#robertscrossfilter"><strong>RobertsCrossFilter</strong></a>
+is similar to the <a href="./image_processing_tools_filters.html#sobelfilter"><strong>SobelFilter</strong></a> and <a href="./image_processing_tools_filters.html#prewittfilter"><strong>PrewittFilter</strong></a>, in that it identifies areas of high slope in the input
+image through the calculation of slopes in the x and y directions. A Robert's Cross filter uses
+the following 2 × 2 schemes to calculate slope magnitude, |<em>G</em>|:</p>
+<table><thead><tr><th> .  </th><th> .  </th></tr></thead><tbody>
+<tr><td align="center"> P1 </td><td align="center"> P2 </td></tr>
+<tr><td align="center"> P3 </td><td align="center"> P4 </td></tr>
+</tbody></table>
+<p>|<em>G</em>| = |P1 - P4| + |P2- P3|</p>
+<p>Note, the filter is centered on pixel P1 and P2, P3, and P4 are the neighbouring pixels towards the east, south,
+and south-east respectively.</p>
+<p>The output image may be overwhelmed by a relatively small number of high-valued pixels, stretching the
+palette. The user may therefore optionally clip the output image distribution tails by a specified amount
+(<code>--clip</code>) for improved visualization.</p>
+<p><em>Reference</em>:</p>
+<p>Fisher, R. 2004. <em>Hypertext Image Processing Resources 2 (HIPR2)</em>. Available online:
+http://homepages.inf.ed.ac.uk/rbf/HIPR2/roberts.htm</p>
+<p><em>See Also</em>:
+<a href="./image_processing_tools_filters.html#sobelfilter"><strong>SobelFilter</strong></a>, <a href="./image_processing_tools_filters.html#prewittfilter"><strong>PrewittFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -10866,7 +10910,28 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="ScharrFilter"></a></p>
 <a class="header" href="#scharrfilter" id="scharrfilter"><h1>ScharrFilter</h1></a>
-<p>Performs a Scharr edge-detection filter on an image.</p>
+<p>This tool performs a Scharr edge-detection filter on a raster image. The Scharr filter is similar to the
+<a href="./image_processing_tools_filters.html#sobelfilter"><strong>SobelFilter</strong></a> and <a href="./image_processing_tools_filters.html#prewittfilter"><strong>PrewittFilter</strong></a>, in that it identifies areas of high slope in the input image through
+the calculation of slopes in the x and y directions. A 3 × 3 Scharr filter uses
+the following schemes to calculate x and y slopes:</p>
+<p>X-direction slope</p>
+<table><thead><tr><th align="center">  . </th><th> .  </th><th>   . </th></tr></thead><tbody>
+<tr><td align="center">  3 </td><td align="center">  0 </td><td align="center">  -3 </td></tr>
+<tr><td align="center"> 10 </td><td align="center">  0 </td><td align="center"> -10 </td></tr>
+<tr><td align="center">  3 </td><td align="center">  0 </td><td align="center">  -3 </td></tr>
+</tbody></table>
+<p>Y-direction slope</p>
+<table><thead><tr><th> .  </th><th>   .  </th><th>  . </th></tr></thead><tbody>
+<tr><td align="center">  3 </td><td align="center">  10  </td><td align="center">  3 </td></tr>
+<tr><td align="center">  0 </td><td align="center">   0  </td><td align="center">  0 </td></tr>
+<tr><td align="center"> -3 </td><td align="center"> -10  </td><td align="center"> -3 </td></tr>
+</tbody></table>
+<p>Each grid cell in the output image is assigned the square-root of the squared sum of the x and y slopes.</p>
+<p>The output image may be overwhelmed by a relatively small number of high-valued pixels, stretching the
+palette. The user may therefore optionally clip the output image distribution tails by a specified amount
+(<code>--clip</code>) for improved visualization.</p>
+<p><em>See Also</em>:
+<a href="./image_processing_tools_filters.html#sobelfilter"><strong>SobelFilter</strong></a>, <a href="./image_processing_tools_filters.html#prewittfilter"><strong>PrewittFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -13385,7 +13450,9 @@ the output raster (<code>--output</code>).</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="Anova"></a></p>
 <a class="header" href="#anova" id="anova"><h1>Anova</h1></a>
-<p>Performs an analysis of variance (ANOVA) test on a raster dataset.</p>
+<p>This tool performs an <a href="https://en.wikipedia.org/wiki/Analysis_of_variance">Analysis of variance</a> (ANOVA)
+test on the distribution of values in a raster (<code>--input</code>) among a group of features (<code>--features</code>). The
+ANOVA report is written to an output HTML report (<code>--output</code>).</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -13406,7 +13473,7 @@ the output raster (<code>--output</code>).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/anova.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: September 23, 2017</p>
+<p><em>Created</em>: 23/09/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ArcCos"></a></p>
 <a class="header" href="#arccos" id="arccos"><h1>ArcCos</h1></a>
@@ -18286,7 +18353,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/gis_analysis.html#LayerFootprint">LayerFootprint</a>: Creates a vector polygon footprint of the area covered by a raster grid or vector layer. Found in <em>GIS Analysis</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/image_processing_tools_filters.html#LeeFilter">LeeFilter</a>: Performs a Lee (Sigma) smoothing filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
+<p><a href="available_tools/image_processing_tools_filters.html#LeeSigmaFilter">LeeSigmaFilter</a>: Performs a Lee (Sigma) smoothing filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/stream_network_analysis.html#LengthOfUpstreamChannels">LengthOfUpstreamChannels</a>: Calculates the total length of channels upstream. Found in <em>Stream Network Analysis</em>.</p>
