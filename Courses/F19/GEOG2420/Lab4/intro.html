@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Introduction - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> LiDAR Data Pre-Processing</a></li><li><a href="part2.html"><strong aria-hidden="true">3.</strong> Using LiDAR to Map Sidewalk Encroachment</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#geog2420-the-earth-from-space-f19" id="geog2420-the-earth-from-space-f19"><h1>GEOG*2420 The Earth From Space (F19)</h1></a>
+<a class="header" href="#lab-assignment-3-lidar-data-analysis" id="lab-assignment-3-lidar-data-analysis"><h2><strong>Lab Assignment 3: LiDAR Data Analysis</strong></h2></a>
+<a class="header" href="#introduction" id="introduction"><h2>Introduction</h2></a>
+<p>This lab introduces students to the processing of airborne laser scanning (ALS) data. ALS data are  collected from airborne light detection and ranging (LiDAR) platforms and are in contrast to terrestrial laser scanning (TLS) LiDAR systems, that are mounted on tripods or ground-based vehicles. Although there are similarities in the LiDAR systems themselves, ALS and TLS systems are distinct because of their widely differing vantage points and both differ significantly from the imagery type data commonly produced by other types of remote sensing systems (e.g. optical and thermal remote sensing). LiDAR systems collect 3D point-clouds that are frequently applied in the creation of digital surface models (DSMs). As the cost of these systems and the data they produce continues to decrease, we have seen increasing adoption of LiDAR data sets in many fields. An understanding of how to process LiDAR data is essential for the modern remote sensing specialist.</p>
+<a class="header" href="#readings-and-resources" id="readings-and-resources"><h2>Readings and Resources</h2></a>
+<p>The following materials can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li>
+<p>NEON Science YouTube channel. <a href="https://www.youtube.com/watch?v=EYbhNSUnIdU">How Does LiDAR Remote Sensing Work? Light Detection and Ranging</a></p>
+</li>
+<li>
+<p>Weng Q. 2012. An Introduction to contemporary remote sensing, Chapters 6 Section 6.7 Lidar.</p>
+</li>
+</ul>
+<a class="header" href="#before-you-begin" id="before-you-begin"><h2>Before you begin</h2></a>
+<p><strong>IMPORTANT INFORMATION</strong>: The computers in the Geography Undergraduate Computing Lab (Hutt 236), have QGIS and WhiteboxTools installed. If you are planning to carry out these assignments on your own computer, then it is important that you have QGIS, with the <a href="https://plugins.bruy.me/processing-whitebox.html">WhiteboxTools For QGIS</a> toolbox. This software is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from the Internet and instructions can be found on the QGIS homepage (link provided above). <strong>For instructions on the installation of the WhiteboxTools plugin for QGIS, please see the <a href="https://jblindsay.github.io/wbt_book/qgis_plugin.html">WhiteboxTools User Manual</a>.</strong></p>
+<p>In addition to the software, you will need to <strong>download the data associated with this lab exercise from the CourseLink page</strong> under the Lab 3 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you <strong><em>purchase a USB flash drive</em></strong> to dedicate to this course and to serve as the data backup. <strong><em>It is important that you backup all of the data for the lab assignment.</em></strong></p>
+<a class="header" href="#what-you-need-to-hand-in" id="what-you-need-to-hand-in"><h2>What you need to hand in</h2></a>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. For each of the calculations in this lab, be sure to show your intermediate steps, explicitly stating units and any unit conversions.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+                            <a rel="next" href="part1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+                    <a href="part1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

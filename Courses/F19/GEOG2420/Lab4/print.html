@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> LiDAR Data Pre-Processing</a></li><li><a href="part2.html"><strong aria-hidden="true">3.</strong> Using LiDAR to Map Sidewalk Encroachment</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#geog2420-the-earth-from-space-f19" id="geog2420-the-earth-from-space-f19"><h1>GEOG*2420 The Earth From Space (F19)</h1></a>
+<a class="header" href="#lab-assignment-3-lidar-data-analysis" id="lab-assignment-3-lidar-data-analysis"><h2><strong>Lab Assignment 3: LiDAR Data Analysis</strong></h2></a>
+<a class="header" href="#introduction" id="introduction"><h2>Introduction</h2></a>
+<p>This lab introduces students to the processing of airborne laser scanning (ALS) data. ALS data are  collected from airborne light detection and ranging (LiDAR) platforms and are in contrast to terrestrial laser scanning (TLS) LiDAR systems, that are mounted on tripods or ground-based vehicles. Although there are similarities in the LiDAR systems themselves, ALS and TLS systems are distinct because of their widely differing vantage points and both differ significantly from the imagery type data commonly produced by other types of remote sensing systems (e.g. optical and thermal remote sensing). LiDAR systems collect 3D point-clouds that are frequently applied in the creation of digital surface models (DSMs). As the cost of these systems and the data they produce continues to decrease, we have seen increasing adoption of LiDAR data sets in many fields. An understanding of how to process LiDAR data is essential for the modern remote sensing specialist.</p>
+<a class="header" href="#readings-and-resources" id="readings-and-resources"><h2>Readings and Resources</h2></a>
+<p>The following materials can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li>
+<p>NEON Science YouTube channel. <a href="https://www.youtube.com/watch?v=EYbhNSUnIdU">How Does LiDAR Remote Sensing Work? Light Detection and Ranging</a></p>
+</li>
+<li>
+<p>Weng Q. 2012. An Introduction to contemporary remote sensing, Chapters 6 Section 6.7 Lidar.</p>
+</li>
+</ul>
+<a class="header" href="#before-you-begin" id="before-you-begin"><h2>Before you begin</h2></a>
+<p><strong>IMPORTANT INFORMATION</strong>: The computers in the Geography Undergraduate Computing Lab (Hutt 236), have QGIS and WhiteboxTools installed. If you are planning to carry out these assignments on your own computer, then it is important that you have QGIS, with the <a href="https://plugins.bruy.me/processing-whitebox.html">WhiteboxTools For QGIS</a> toolbox. This software is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from the Internet and instructions can be found on the QGIS homepage (link provided above). <strong>For instructions on the installation of the WhiteboxTools plugin for QGIS, please see the <a href="https://jblindsay.github.io/wbt_book/qgis_plugin.html">WhiteboxTools User Manual</a>.</strong></p>
+<p>In addition to the software, you will need to <strong>download the data associated with this lab exercise from the CourseLink page</strong> under the Lab 3 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you <strong><em>purchase a USB flash drive</em></strong> to dedicate to this course and to serve as the data backup. <strong><em>It is important that you backup all of the data for the lab assignment.</em></strong></p>
+<a class="header" href="#what-you-need-to-hand-in" id="what-you-need-to-hand-in"><h2>What you need to hand in</h2></a>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. For each of the calculations in this lab, be sure to show your intermediate steps, explicitly stating units and any unit conversions.</p>
+<a class="header" href="#lidar-data-pre-processing" id="lidar-data-pre-processing"><h1>LiDAR Data Pre-Processing</h1></a>
+<blockquote>
+<p><em>Warning, the data that are used in this lab are quite large. Do not try to run this lab on your personal
+laptop if it does not have sufficient memory, available hard drive space, and processing power. For example,
+it is unlikely that a MacBook Air would be sufficiently capable to perform the analyses carried out in this
+lab exercise. If you find yourself in this situation, use the workstations in the undergraduate computing
+lab instead.</em></p>
+<p><em>Also, you must decompress (i.e. unzip) the lab data files before you can carry out the lab.</em></p>
+</blockquote>
+<p>QGIS is a wonderful software package for visualizing other types of remotely sensed data, such as satellite images, but it isn't particularly useful for visualizing 3D point clouds like LiDAR data. For that, we need a different kind of software. Open a web browser and visit the website <a href="http://plas.io/">http://plas.io</a>. This is a browser-based application for viewing LiDAR data that are stored in <a href="http://www.asprs.org/wp-content/uploads/2019/03/LAS_1_4_r14.pdf">LAS files</a> (*.las). Press the <strong>Browse</strong> button at the top of the side panel and select the <strong>1km174790476002017.las</strong> from your lab data directory (see note above about ensuring this directory is unzipped). This data set is a 1 km<sup>2</sup> tile taken from the 2017-2018 Lake Erie LiDAR data set. It is situated within the heart of the City of London, Ontario and was collected during the spring of 2017, before the leaves were on the trees.</p>
+<blockquote>
+<p><em>Now would be a good time for you to watch the NEON Science video on LiDAR listed in the <a href="./intro.html"><strong>Readings and Resources</strong></a> section of the Introduction, if you haven't already done so.</em></p>
+</blockquote>
+<p>If you scroll further down the side panel, you will see that <em>plas.io</em> has defaulted to the RGB values for the <strong>Colorization</strong> and sets the <strong>Intensity Blending</strong> to 100% (&quot;ALL INTENSITY&quot;). For each return (backscattered point) of a LiDAR laser pulse, in addition to to recording the x,y,z coordinates of the backscattered point the system also records the intensity of the return. These intensity values are what are being rendered for the 3D point cloud at present. Adjust the Intensity Blending scrollbar to 0% (i.e. &quot;ALL COLOR&quot;). You'll notice that the point cloud disappears. This is because the colour data used to render the point cloud is currently being drawn from the RGB colours associated with each point. While LiDAR systems do not capture any colour information for the point measurements they make, it is common for LiDAR surveys to collect a set of air photos at the same time and these data are often used to associate RGB colours with each point. In the case of this particular data set, this was not done at the time of collection and so there are no RGB values stored with the points (thus they are being rendered black, like the background).</p>
+<p>Select &quot;Heightmap Color&quot; under the <strong>Colorization</strong> drop-down menu. Each point will now be coloured based on elevation rather than RGB. You may experiment with different colour palettes (I prefer the one second from the right), and with the colourization scroll bar to adjust the minimum and maximum palette scaling, until you are satisfied with your rendering. Now minimize the side panel and experiment with zooming into and moving around the point cloud. <em>Caution, this is a very large data file and rendering in 3D can be a computationally expensive operation. See the warning at the top of the page about using an appropriate computer to complete this lab. If your laptop does not have an adequate graphics card, your ability to navigate the point cloud will be severely compromised and you may even crash your system.</em></p>
+<blockquote>
+<p>1.1. Provide a screenshot of your rendered 3D point cloud. Also, describe the site characteristics in detail. Notice that in order to get a better context of where exactly this tile of LiDAR data is in the world, you may use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarTileFootprint"><strong>LidarTileFootprint</strong></a> tool in the WhiteboxTools QGIS plugin and overlay the output over top the OpenStreetMap layer (which you learned how to display in an earlier lab). (4 marks)</p>
+</blockquote>
+<p>Using the WhiteboxTools plugin for QGIS, use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarInfo"><strong>LidarInfo</strong></a> to display the metadata for this LiDAR tile. The output of this analysis is an HTML report, which should be displayed in an opened browser tab automatically after completion. If this report does not automatically open, simply double-click the file that has been saved into your lab data directory.</p>
+<blockquote>
+<p>1.2. What is the total number of points contained in the LAS file? What are the minimum and maximum elevations (z-values) of the points? (3 marks)</p>
+</blockquote>
+<p>Of particular interest to us are the three <strong>Point Returns Analysis</strong> tables (i.e. the <em>Point Return Table</em>, <em>Point Position Table</em>, and <em>Point Classification Table</em>). A LiDAR system emits many thousands of laser pulses every second. Most of those pulses never make it back to the sensor, but some of them will reflect off of objects below the aircraft and be backscattered towards the sensor and are recorded as a point. By the time the laser makes it to the ground, it has an appreciable size (i.e. it's not the tiny dot that you would recognize as a laser pointer). That laser &quot;footprint&quot; has the potential to intersect and bounce off of multiple surfaces. Thus, each <em>pulse</em> of the laser may be associated with one or more <em>return points</em>. The LiDAR system used to collect these data was capable of recording up to five separate returns for each pulse.</p>
+<blockquote>
+<p>1.3. What proportion of the points have a return number of either 1 or 2? (1 mark)</p>
+</blockquote>
+<p>The return number information is interesting, however, really it is the information on the return position that is most useful. This tells us about the position of a point relative to other points that were backscattered from the same pulse. Because ALS data are collected with an overhead perspective, returns that are backscattered after others must be closer to the ground. Also, vegetation is very often the land cover that is most associated with multiple returns per pulse. The options for return position include:</p>
+<ul>
+<li>'Only' (i.e. there was only one return for the pulse),</li>
+<li>'First' (i.e. the first of a multi-return group of points),</li>
+<li>'Intermediate' (i.e. neither the first nor last in a return group for a pulse), and;</li>
+<li>'Last' (i.e. the last return of a multi-return set).</li>
+</ul>
+<p>We can confidently know that all first and intermediate return points have been reflected off of objects sitting above the ground. The points that are on the ground surface are a subset of the only and last return points. Some of the only-returns may be the roofs of buildings (where the laser footprint is not split between multiple surfaces) and some of the last-returns may be nearer the ground than their earlier-return cousins, but they also have been reflected off of low vegetation or tree trunks.</p>
+<blockquote>
+<p>1.4. What proportion of the LiDAR points were last and only returns? (1 mark)</p>
+</blockquote>
+<p>LAS files may store up to 22 different class types, corresponding to land-cover categories, for each point. You will notice that this file only contains five class values, the largest of which is <em>Unclassified</em>, meaning that no class value was ever assigned. Two of the point class values, <em>Low point</em> and <em>High noise</em>, represent points that are situated anomalously below or above the bulk of the data. These are often data errors and result either from measurement error, birds (high noise), or the mis-calculation of the point's x-y position (perhaps due to a double-bounce). Use <em>plas.io</em> to see if you can find these points sitting below the surface or high above the rest of the point cloud. These data are problematic for other types of analysis. Use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#FilterLidarClasses"><strong>FilterLidarClasses</strong></a> tool, located within WhiteboxTools' <em>LiDAR Tools</em> toolbox, to remove low points (class 7) and high noise (class 18) from the point cloud. Call the output LAS file <strong>1km174790476002017_filtered.las</strong>.</p>
+<blockquote>
+<p>1.5. Demonstrate the effectiveness of filtering the outlier points in the original data set by providing before-and-after screenshots (this is particularly obvious easy to do for the low-lying points since they sit well below the ground surface/ Also, as always, you probably want to turn the intensity blending down to 0%.). (2 marks)</p>
+</blockquote>
+<p>As we say above, there was no colour imagery acquired during the time of the LiDAR survey and therefore there is no RGB data available to render. If we have access to a colour air photo of the same site, then we can use this data to provide RGB colour information for our point cloud. Fortunately, the <a href="https://geohub.lio.gov.on.ca/datasets/91e846f08cda4f71825490931b54037a">Southwestern Ontario Orthophotography Project (SWOOP)</a> digital orthophoto data set, which we have described in lecture, provides fine-resolution imagery for this same area of Ontario. In your Lab data folder, you will find a GeoTIFF air photo <strong>1km174790476002010MAPCON.tif</strong> that was collected during the 2010 SWOOP campaign. Conveniently, this photo overlaps completely with the 1 km<sup>2</sup> area covered by our LiDAR data set. Using QGIS, open this GeoTIFF file to get a sense of the data. Now use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarColourize"><strong>LidarColourize</strong></a> tool to provide RGB information for each LiDAR point in the filtered LAS file (i.e. <strong>1km174790476002017_filtered.las</strong>). Call the output LAS file <strong>1km174790476002017_colourized.las</strong>. When the tool is complete, open <strong>1km174790476002017_colourized.las</strong> using <em>plas.io</em> and be sure to reduce the intensity blending to 0% (it always defaults to a higher value) and colourize based on the RGB values.</p>
+<blockquote>
+<p>1.6. Provide a screenshot of your rendered colourized point cloud. What are some of the issues with using this air photo to colourize the LiDAR data? (4 marks)</p>
+</blockquote>
+<a class="header" href="#using-lidar-to-map-sidewalk-encroachment" id="using-lidar-to-map-sidewalk-encroachment"><h1>Using LiDAR to Map Sidewalk Encroachment</h1></a>
+<p>Sidewalk encroachments (e.g. overgrown bushes, overhanging trees, leaning fences built etc.) can have a profound impact on health, social integration, independence and equal opportunities for persons with accessibility issues and vision impairment (see images). Many municipalities perform annual audits of sidewalk accessibility using manual inspection. In this part of the lab, we're going to use the LiDAR data set to identify places of likely accessibility violations, which could be used to inform targeted auditing.</p>
+<table style="border:0px solid black>"><tr>
+<td><img src="img/encroachment1.png" alt="encroachment1" width="182" style="float:left"/></td>
+<td><img src="img/encroachment3.png" alt="encroachment3" width="200" style="float:right"/></td>
+<td><img src="img/encroachment2.png" alt="encroachment2" width="240" style="float:right"/></td>
+</tr>
+</table>
+<p>A LiDAR point corresponds to an encroachment if it lies within the sidewalk corridor and is less than 1.88 m off the ground. In order to map this sub-set of points, we must first consider the fact that the z-values associated with points are elevations above sea level (ASL), rather than height above ground (HAG). We can convert the z-values to HAG using the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarTophatTransform"><strong>LidarTophatTransform</strong></a> tool. Input the <strong>1km174790476002017_colourized.las</strong> point cloud from Part 1 and call the output <strong>1km174790476002017_HAG.las</strong>. Set the search radius to 2.0 m. In reality, this tool will measure the vertical difference in elevation between each point and the lowest point within a 2 m search window. Since for most locations in our study area, a 2 m radius search window is likely to include at least one point on the ground, the resulting measure can be considered HAG. The one exception to this are rooftop points that are more than 2 m away from the edge of the building. These points will be given a HAG of 0.0, despite being quite high off the ground. Fortunately for our purposes these points are also situated nowhere near a sidewalk.</p>
+<blockquote>
+<p>2.1. What is a <em>top-hat transform</em>? What is the difference between a white and black top-hat transform. Which of the two do you think is being used by the <strong>LidarTophatTransform</strong> tool to convert LiDAR data to HAG? (4 marks)</p>
+</blockquote>
+<blockquote>
+<p>This process of creating a digital height model is sometimes called <em>normalizing the point cloud</em> and is a very common procedure in forestry applications of LiDAR where tree heights are more important than elevation.</p>
+</blockquote>
+<p>Now, we are only interested in the subset of points that are above the ground (&gt; 0.0 m) and less than 1.88 m of the ground. Given that we can expect that there will be some error associated with the measurement values, we should probably exclude points if they are within some error tolerance of the ground (e.g. 0.2 m). Use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarElevationSlice"><strong>LidarElevationSlice</strong></a> to remove all points that lie outside of the elevation range of 0.2 - 1.88 m. Call the output LAS file <strong>1km174790476002017_near_grd.las</strong>.</p>
+<p>We would like to remove all of the LiDAR points that fall outside of the sidewalk corridor. You will notice that the data for this lab assignment includes a Shapefile named <strong>sidewalk_polygons.shp</strong>. Feel free to overlay this vector onto the SWOOP air photo and OpenStreetMap data in QGIS to gain context of the data layer. Now use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#ClipLidarToPolygon"><strong>ClipLidarToPolygon</strong></a> tool to clip, or remove, all of the points that lie outside of these sidewalk polygons. This should leave the subset of points that we are considering to belong to sidewalk encroachments. Call the output file whatever you like.</p>
+<blockquote>
+<p>2.2. How many points are associated with sidewalk encroachments in the area (hint, use the <strong>LidarInfo</strong> tool). (1 mark)</p>
+</blockquote>
+<p>Lastly, use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LasToShapefile"><strong>LasToShapefile</strong></a> tool to convert the LAS file of sidewalk encroachment points (from previous steps) to a vector Shapefile, which you can then overlay onto your air photo in QGIS. (You should probably remove the sidewalk polygons at this point.)</p>
+<blockquote>
+<p>2.3. Include your map of encroachment points overlaid on top of the SWOOP photo with your lab report. (2 marks)</p>
+<p>2.4. After inspecting the points, what do you think is the most common cause of sidewalk encroachments in the study site? Be sure to justify your answer with evidence (e.g. exemplar screenshots) (3 marks)</p>
+<p>2.5. What are some of the limitations of this approach to mapping sidewalk encroachments? (3 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>

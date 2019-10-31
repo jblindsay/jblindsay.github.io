@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Using LiDAR to Map Sidewalk Encroachment - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> LiDAR Data Pre-Processing</a></li><li><a href="part2.html" class="active"><strong aria-hidden="true">3.</strong> Using LiDAR to Map Sidewalk Encroachment</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#using-lidar-to-map-sidewalk-encroachment" id="using-lidar-to-map-sidewalk-encroachment"><h1>Using LiDAR to Map Sidewalk Encroachment</h1></a>
+<p>Sidewalk encroachments (e.g. overgrown bushes, overhanging trees, leaning fences built etc.) can have a profound impact on health, social integration, independence and equal opportunities for persons with accessibility issues and vision impairment (see images). Many municipalities perform annual audits of sidewalk accessibility using manual inspection. In this part of the lab, we're going to use the LiDAR data set to identify places of likely accessibility violations, which could be used to inform targeted auditing.</p>
+<table style="border:0px solid black>"><tr>
+<td><img src="img/encroachment1.png" alt="encroachment1" width="182" style="float:left"/></td>
+<td><img src="img/encroachment3.png" alt="encroachment3" width="200" style="float:right"/></td>
+<td><img src="img/encroachment2.png" alt="encroachment2" width="240" style="float:right"/></td>
+</tr>
+</table>
+<p>A LiDAR point corresponds to an encroachment if it lies within the sidewalk corridor and is less than 1.88 m off the ground. In order to map this sub-set of points, we must first consider the fact that the z-values associated with points are elevations above sea level (ASL), rather than height above ground (HAG). We can convert the z-values to HAG using the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarTophatTransform"><strong>LidarTophatTransform</strong></a> tool. Input the <strong>1km174790476002017_colourized.las</strong> point cloud from Part 1 and call the output <strong>1km174790476002017_HAG.las</strong>. Set the search radius to 2.0 m. In reality, this tool will measure the vertical difference in elevation between each point and the lowest point within a 2 m search window. Since for most locations in our study area, a 2 m radius search window is likely to include at least one point on the ground, the resulting measure can be considered HAG. The one exception to this are rooftop points that are more than 2 m away from the edge of the building. These points will be given a HAG of 0.0, despite being quite high off the ground. Fortunately for our purposes these points are also situated nowhere near a sidewalk.</p>
+<blockquote>
+<p>2.1. What is a <em>top-hat transform</em>? What is the difference between a white and black top-hat transform. Which of the two do you think is being used by the <strong>LidarTophatTransform</strong> tool to convert LiDAR data to HAG? (4 marks)</p>
+</blockquote>
+<blockquote>
+<p>This process of creating a digital height model is sometimes called <em>normalizing the point cloud</em> and is a very common procedure in forestry applications of LiDAR where tree heights are more important than elevation.</p>
+</blockquote>
+<p>Now, we are only interested in the subset of points that are above the ground (&gt; 0.0 m) and less than 1.88 m of the ground. Given that we can expect that there will be some error associated with the measurement values, we should probably exclude points if they are within some error tolerance of the ground (e.g. 0.2 m). Use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarElevationSlice"><strong>LidarElevationSlice</strong></a> to remove all points that lie outside of the elevation range of 0.2 - 1.88 m. Call the output LAS file <strong>1km174790476002017_near_grd.las</strong>.</p>
+<p>We would like to remove all of the LiDAR points that fall outside of the sidewalk corridor. You will notice that the data for this lab assignment includes a Shapefile named <strong>sidewalk_polygons.shp</strong>. Feel free to overlay this vector onto the SWOOP air photo and OpenStreetMap data in QGIS to gain context of the data layer. Now use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#ClipLidarToPolygon"><strong>ClipLidarToPolygon</strong></a> tool to clip, or remove, all of the points that lie outside of these sidewalk polygons. This should leave the subset of points that we are considering to belong to sidewalk encroachments. Call the output file whatever you like.</p>
+<blockquote>
+<p>2.2. How many points are associated with sidewalk encroachments in the area (hint, use the <strong>LidarInfo</strong> tool). (1 mark)</p>
+</blockquote>
+<p>Lastly, use the <a href="https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LasToShapefile"><strong>LasToShapefile</strong></a> tool to convert the LAS file of sidewalk encroachment points (from previous steps) to a vector Shapefile, which you can then overlay onto your air photo in QGIS. (You should probably remove the sidewalk polygons at this point.)</p>
+<blockquote>
+<p>2.3. Include your map of encroachment points overlaid on top of the SWOOP photo with your lab report. (2 marks)</p>
+<p>2.4. After inspecting the points, what do you think is the most common cause of sidewalk encroachments in the study site? Be sure to justify your answer with evidence (e.g. exemplar screenshots) (3 marks)</p>
+<p>2.5. What are some of the limitations of this approach to mapping sidewalk encroachments? (3 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="part1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="part1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
