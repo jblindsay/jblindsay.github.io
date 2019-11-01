@@ -143,12 +143,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 1.0.1  <br />
+<p>WhiteboxTools Version 1.0.2  <br />
 Dr. John B. Lindsay © 2017-2019  <br />
 <a href="https://jblindsay.github.io/ghrg/index.html">Geomorphometry and Hydrogeomatics Research Group</a>  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-October 20, 2019
+November 1, 2019
 <br />
 <br />
 <br />
@@ -6910,6 +6910,7 @@ designated by their unique identifers. Identifer values should be positive, non-
 <li><a href="#Basins">Basins</a></li>
 <li><a href="#BreachDepressions">BreachDepressions</a></li>
 <li><a href="#BreachSingleCellPits">BreachSingleCellPits</a></li>
+<li><a href="#BurnStreamsAtRoads">BurnStreamsAtRoads</a></li>
 <li><a href="#D8FlowAccumulation">D8FlowAccumulation</a></li>
 <li><a href="#D8MassFlux">D8MassFlux</a></li>
 <li><a href="#D8Pointer">D8Pointer</a></li>
@@ -7142,6 +7143,49 @@ one of the more robust depression filling or breaching techniques (e.g. <a href=
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="BurnStreamsAtRoads"></a></p>
+<a class="header" href="#burnstreamsatroads" id="burnstreamsatroads"><h1>BurnStreamsAtRoads</h1></a>
+<p>This tool decrements (lowers) the elevations of pixels within an input digital elevation model (DEM) (<code>--dem</code>)
+along an input vector stream network (<code>--streams</code>) at the sites of road (<code>--roads</code>) intersections. In addition
+to the input data layers, the user must specify the output raster DEM (<code>--output</code>), and the maximum road embankment width
+(<code>--width</code>), in map units. The road width parameter is used to determine the length of channel along stream
+lines, at the junctions between streams and roads, that the burning (i.e. decrementing) operation occurs. The
+algorithm works by identifying stream-road intersection cells, then traversing along the rasterized stream path
+in the upstream and downstream directions by half the maximum road embankment width. The minimum elevation in each
+stream traversal is identified and then elevations that are higher than this value are lowered to the minimum
+elevation during a second stream traversal.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay JB. 2016. The practice of DEM stream burning revisited. Earth Surface Processes and Landforms,
+41(5): 658–668. DOI: 10.1002/esp.3888</p>
+<p><em>See Also</em>:
+<a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a>, <a href="./stream_network_analysis.html#rasterizestreams"><strong>RasterizeStreams</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--dem              </td><td> Input raster digital elevation model (DEM) file</td></tr>
+<tr><td>--streams          </td><td> Input vector streams file</td></tr>
+<tr><td>--roads            </td><td> Input vector roads file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--width            </td><td> Maximum road embankment width, in map units</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.burn_streams_at_roads(
+    dem, 
+    streams, 
+    roads, 
+    output, 
+    width=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=BurnStreamsAtRoads -v ^
+--wd=&quot;/path/to/data/&quot; --streams=streams.shp --base=raster.tif ^
+-o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/burn_streams_at_roads.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 30/10/2019</p>
+<p><em>Last Modified</em>: 01/11/2019</p>
 <p><a name="D8FlowAccumulation"></a></p>
 <a class="header" href="#d8flowaccumulation" id="d8flowaccumulation"><h1>D8FlowAccumulation</h1></a>
 <p>This tool is used to generate a flow accumulation grid (i.e. catchment area) using the
@@ -8184,7 +8228,7 @@ and stored in memory of this tool.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/12/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 29/10/2019</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
 <p>The <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
@@ -11960,7 +12004,7 @@ Class values are specified by their numerical values, such that:</p>
 <tr><td align="left"> 15                    </td><td align="left"> Transmission Tower</td></tr>
 <tr><td align="left"> 16                    </td><td align="left"> Wire-structure Connector (e.g. Insulator)</td></tr>
 <tr><td align="left"> 17                    </td><td align="left"> Bridge Deck</td></tr>
-<tr><td align="left"> 18                    </td><td align="left"> High Noise</td></tr>
+<tr><td align="left"> 18                    </td><td align="left"> High noise</td></tr>
 </tbody></table>
 <p>Thus, to filter out low and high noise points from a point cloud, specify
 <code>--exclude_cls='7,18'</code>. Notice that usage of this tool assumes that the
@@ -12253,7 +12297,7 @@ should be numerical (integer valued) and shoud follow the LAS specifications bel
 <tr><td align="left"> 15                    </td><td align="left"> Transmission Tower</td></tr>
 <tr><td align="left"> 16                    </td><td align="left"> Wire-structure Connector (e.g. Insulator)</td></tr>
 <tr><td align="left"> 17                    </td><td align="left"> Bridge Deck</td></tr>
-<tr><td align="left"> 18                    </td><td align="left"> High Noise</td></tr>
+<tr><td align="left"> 18                    </td><td align="left"> High noise</td></tr>
 </tbody></table>
 <p>The user may optionally specify a class value to be assigned to non-subset (i.e. non-matching)
 points (<code>--nonsubset_class</code>) in the base file. If this parameter is not specified, output
@@ -12865,7 +12909,7 @@ the spatial extent is large.</li>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_stats.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 18/02/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 31/10/2019</p>
 <p><a name="LidarRansacPlanes"></a></p>
 <a class="header" href="#lidarransacplanes" id="lidarransacplanes"><h1>LidarRansacPlanes</h1></a>
 <p>This tool uses the <a href="https://en.wikipedia.org/wiki/Random_sample_consensus">random sample concensus (RANSAC)</a>
@@ -17936,6 +17980,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis_distance_tools.html#BufferRaster">BufferRaster</a>: Maps a distance-based buffer around each non-background (non-zero/non-nodata) grid cell in an input image. Found in <em>GIS Analysis → Distance Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#BurnStreamsAtRoads">BurnStreamsAtRoads</a>: Rasterizes vector streams based on Lindsay (2016) method. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#Ceil">Ceil</a>: Returns the smallest (closest to negative infinity) value that is greater than or equal to the values in a raster. Found in <em>Math and Stats Tools</em>.</p>
