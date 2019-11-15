@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Introduction - </title>
+        <title></title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> LiDAR Data Pre-Processing</a></li><li><a href="part2.html"><strong aria-hidden="true">3.</strong> Using LiDAR to Map Sidewalk Encroachment</a></li></ol>
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="part1.html"><strong aria-hidden="true">2.</strong> Landsat 8 Thermal Infrared (TIR) Imagery</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -141,24 +141,66 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#geog2420-the-earth-from-space-f19" id="geog2420-the-earth-from-space-f19"><h1>GEOG*2420 The Earth From Space (F19)</h1></a>
-<a class="header" href="#lab-assignment-4-lidar-data-analysis" id="lab-assignment-4-lidar-data-analysis"><h2><strong>Lab Assignment 4: LiDAR Data Analysis</strong></h2></a>
+<a class="header" href="#lab-assignment-5-thermal-remote-sensing" id="lab-assignment-5-thermal-remote-sensing"><h2><strong>Lab Assignment 5: Thermal Remote Sensing</strong></h2></a>
 <a class="header" href="#introduction" id="introduction"><h2>Introduction</h2></a>
-<p>This lab introduces students to the processing of airborne laser scanning (ALS) data. ALS data are  collected from airborne light detection and ranging (LiDAR) platforms and are in contrast to terrestrial laser scanning (TLS) LiDAR systems, that are mounted on tripods or ground-based vehicles. Although there are similarities in the LiDAR systems themselves, ALS and TLS systems are distinct because of their widely differing vantage points and both differ significantly from the imagery type data commonly produced by other types of remote sensing systems (e.g. optical and thermal remote sensing). LiDAR systems collect 3D point-clouds that are frequently applied in the creation of digital surface models (DSMs). As the cost of these systems and the data they produce continues to decrease, we have seen increasing adoption of LiDAR data sets in many fields. An understanding of how to process LiDAR data is essential for the modern remote sensing specialist.</p>
+<p>This lab introduces students to the processing and interpretation of thermal infrared imagery.</p>
 <a class="header" href="#readings-and-resources" id="readings-and-resources"><h2>Readings and Resources</h2></a>
 <p>The following materials can be used as background materials and to help in answering the assignment questions.</p>
 <ul>
-<li>
-<p>NEON Science YouTube channel. <a href="https://www.youtube.com/watch?v=EYbhNSUnIdU">How Does LiDAR Remote Sensing Work? Light Detection and Ranging</a></p>
-</li>
-<li>
-<p>Weng Q. 2012. An Introduction to contemporary remote sensing, Chapters 6 Section 6.7 Lidar.</p>
-</li>
+<li>Weng Q. 2012. An Introduction to Contemporary Remote Sensing, Chapters 9 Thermal Remote Sensing.</li>
 </ul>
 <a class="header" href="#before-you-begin" id="before-you-begin"><h2>Before you begin</h2></a>
 <p><strong>IMPORTANT INFORMATION</strong>: The computers in the Geography Undergraduate Computing Lab (Hutt 236), have QGIS and WhiteboxTools installed. If you are planning to carry out these assignments on your own computer, then it is important that you have QGIS, with the <a href="https://plugins.bruy.me/processing-whitebox.html">WhiteboxTools For QGIS</a> toolbox. This software is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from the Internet and instructions can be found on the QGIS homepage (link provided above). <strong>For instructions on the installation of the WhiteboxTools plugin for QGIS, please see the <a href="https://jblindsay.github.io/wbt_book/qgis_plugin.html">WhiteboxTools User Manual</a>.</strong></p>
-<p>In addition to the software, you will need to <strong>download the data associated with this lab exercise from the CourseLink page</strong> under the Lab 4 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you <strong><em>purchase a USB flash drive</em></strong> to dedicate to this course and to serve as the data backup. <strong><em>It is important that you backup all of the data for the lab assignment.</em></strong></p>
+<p>In addition to the software, you will need to <strong>download the data associated with this lab exercise from the CourseLink page</strong> under the Lab 5 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you <strong><em>purchase a USB flash drive</em></strong> to dedicate to this course and to serve as the data backup. <strong><em>It is important that you backup all of the data for the lab assignment.</em></strong></p>
 <a class="header" href="#what-you-need-to-hand-in" id="what-you-need-to-hand-in"><h2>What you need to hand in</h2></a>
 <p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. For each of the calculations in this lab, be sure to show your intermediate steps, explicitly stating units and any unit conversions.</p>
+<a class="header" href="#landsat-8-thermal-infrared-tir-imagery" id="landsat-8-thermal-infrared-tir-imagery"><h1>Landsat 8 Thermal Infrared (TIR) Imagery</h1></a>
+<p>The Landsat 8 satellite has two sensors onboard, including the Operational Land Imager (OLI), which collects bands 1-9, and the Thermal Infrared Sensor (TIRS), which is responsible for imaging bands 10 and 11. In this lab, we will explore the data provided by the TIRS. If you haven't already, please download the data accompanying this lab, place it in an accessible directory on your workstation's C-drive (being sure to back-up frequently to either your USB drive or the H-drive). Now unzip the data file, being sure to delete the zip file afterwards--it's always good to clean up your files in order to keep storage needs to a minimum, especially when you are working with such large data sets.</p>
+<p>Open the file named <strong>LC08_L1TP_018030_20190630_20190706_01_T1_B10.tif</strong> in QGIS. This Landsat 8 band 10 scene, acquired June 30, 2019, covers large portions of Lake Ontario, Lake Erie, the Greater Toronto Area, and Kitchener, Waterloo, Cambridge, and Guelph. among other municipalities in Southwestern Ontario.</p>
+<blockquote>
+<p>1.1. What is the spectral range of Landsat 8 band 10? Which of the two thermal infrared atmospheric windows is this band imaging within? (3 marks)</p>
+<p>1.2. Given your answer to the above question, would band 10 be more suited to imaging very hot phenomena (e.g. wild fires, volcanoes, etc.) or better for the more normal temperature ranges of earth's surface materials? Why? (3 marks)</p>
+<p>1.3. What spatial resolution (in meters) are the band 10 data collected at (you may need to do some Internet research to find this value)? What is the spatial resolution of the band 10 image, determined using the layer properties in QGIS? Why might these two values be different? (3 marks)</p>
+</blockquote>
+<p>Before we start to process this image, we must set the background (NoData) value because at the moment, there are large black areas of zero-valued pixels surrounding the data. This will impact the way that the image is rendered and possibly make it more challenging to interpret. Use the <a href="https://jblindsay.github.io/wbt_book/available_tools/data_tools.html#SetNodataValue"><strong>SetNodataValue</strong></a> tool to set the NoData value of the TIR band image to 0.0. Name the output image <strong>b10.tif</strong>. After the tool has finished, display the resulting image, <strong>being sure to close the original image</strong>. You should find that the large black areas surrounding the valid data have disappeared.</p>
+<p>The values stored within the pixels of this Landsat image are in digital numbers (DNs) converted using a quantification system for the convenience of data storage. DN values have no unit nor any physical meaning other than relative value, i.e. one pixel is relatively 'brighter' than another. Therefore, these DNs need to be converted to radiance, then to <em>Top of Atmosphere</em> (i.e. &quot;at sensor&quot;) <em>temperature</em> (TOA<sub>bt</sub>). These data could then be further converted to <em>land surface temperature</em> (LST), in order to perform more quantitative analysis from the thermal remote sensing data. However, doing so would require a model of the atmosphere at the time the image was taken. For our purposes, TOA<sub>bt</sub> will suffice. TOA<sub>bt</sub> and LST are the radiative temperatures that depend on the albedo (colour), chemical composition, roughness, vegetation cover, and soil moisture. For example, a polished, shiny metal surface can have a relatively low radiative temperature while that same metal surface painted black will have a much higher radiative temperature.</p>
+<p>The metadata file associated with this image (<strong>LC08_L1TP_018030_20190630_20190706_01_T1_MTL.txt</strong>) contains all of the information that we need to convert DNs to TOA<sub>bt</sub>:</p>
+<table><thead><tr><th>Term </th><th> Value</th></tr></thead><tbody>
+<tr><td>RADIANCE_ADD_BAND </td><td> 0.1</td></tr>
+<tr><td>RADIANCE_MULT_BAND </td><td> 0.0003342</td></tr>
+<tr><td>K1_CONSTANT_BAND_10 (K1) </td><td> 774.8853</td></tr>
+<tr><td>K2_CONSTANT_BAND_10 (K2) </td><td> 1321.0789</td></tr>
+</tbody></table>
+<p>To perform this conversion, you will first need to convert the DN values to <em>Top of Atmosphere Radiance</em> (TOA<sub>r</sub>), using the following equation:</p>
+<blockquote>
+<p>TOA<sub>r</sub> = RADIANCE_MULT_BAND * b10 + RADIANCE_ADD_BAND`</p>
+</blockquote>
+<p>Use the <a href="https://docs.qgis.org/2.8/en/docs/user_manual/working_with_raster/raster_calculator.html"><strong>Raster Calculator</strong> in QGIS</a> (found under the <em>Raster menu</em>) to perform the following raster formulation:</p>
+<p><code>0.0003342 * &quot;b10@1&quot; + 0.1</code></p>
+<p>Be sure to call the output file <strong>TOAr.tif</strong>. Notice that the name of the file &quot;b10@1&quot; should be inserted into the equation by selecting it from the <em>Raster Bands</em> textbox in the Raster Calculator. It must be displayed to be available for selection.</p>
+<p>Next, we will convert the TOA<sub>r</sub> values to top-of-atmosphere brightness temperatures (TOA<sub>bt</sub>), in Celsius, using the following equation:</p>
+<blockquote>
+<p>TOA<sub>bt</sub> = K2 / ln(K1 / TOA<sub>r</sub> + 1) - 273.15</p>
+</blockquote>
+<p>This calculation can be performed in the Raster Calculator as:</p>
+<p><code>1321.0789/ln(774.8853/&quot;TOAr@1&quot;+1)-273.15</code></p>
+<p>Name the output <strong>TOAbt.tif</strong>. Note that this image is the at-sensor temperature and not the true land surface temperature. Land surface temperature can be calculate using radiative transfer simulations, e.g. LOWTRAN or MODTRAN codes, but this is further than we will go in this lab.</p>
+<blockquote>
+<p>1.4. What is the range of TOA temperature values contained within <strong>TOAbt.tif</strong>? (2 marks)</p>
+</blockquote>
+<p>Now, modify the Symbology (Layer Properties) of <strong>TOAbt.tif</strong> to use a blue-white-red palette (called RdBu), which you will need to invert (Invert Color Ramp) so that blue is associated with the coldest temperatures and red with the hottest. Also update the min and max values to 15 and 35 respectively. This will help to emphasize areas of relatively high and low temperatures.</p>
+<blockquote>
+<p>Include a copy of your TOA<sub>bt</sub> image with your lab report. (2 marks)</p>
+</blockquote>
+<p>Overlay the OpenStreetMap layer (Browser =&gt; XY Tiles =&gt; OpenStreetMap), placing it below your image. You may use these map data to determine where you are as you zoom in and navigate throughout the Landsat scene by toggling the visibility of the top layer on and off. Using this approach, zoom into the University of Guelph Campus.</p>
+<blockquote>
+<p>1.5. What part of the campus is associated with the highest radiative temperature? (1 mark)</p>
+<p>1.6. How does this radiative temperature compare with that of the Stone Road Mall? (1 mark)</p>
+<p>1.7. How does the average radiative temperature of Guelph's downtown core compare with the neighbourhoods immediately surrounding the downtown? (1 mark)</p>
+<p>1.8. Identify the specific buildings (and the businesses operating in those buildings) that are associated with the four large positive temperature anomalies in Guelph's north end (see <strong>positive_anomalies.shp</strong>). These businesses are likely among Guelph largest energy consumers. You may find that Google Maps is useful for researching the businesses. (4 marks)</p>
+<p>1.9. Is the Costco associated with a negative or positive radiative temperature? Why might this be? (1 mark)</p>
+<p>1.10. Based on your work in this lab exercise, describe an application that you could use the thermal infrared imagery provided by Landsat for. (2 marks)</p>
+</blockquote>
 
                     </main>
 
@@ -200,6 +242,14 @@
         <!-- Custom JS scripts -->
         
 
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
         
 
     </body>
