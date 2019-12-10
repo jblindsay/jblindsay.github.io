@@ -142,6 +142,7 @@
                     <main>
                         <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
 <ul>
+<li><a href="#ClassifyBuildingsInLidar">ClassifyBuildingsInLidar</a></li>
 <li><a href="#ClassifyOverlapPoints">ClassifyOverlapPoints</a></li>
 <li><a href="#ClipLidarToPolygon">ClipLidarToPolygon</a></li>
 <li><a href="#ErasePolygonFromLidar">ErasePolygonFromLidar</a></li>
@@ -172,6 +173,7 @@
 <li><a href="#LidarRansacPlanes">LidarRansacPlanes</a></li>
 <li><a href="#LidarRemoveDuplicates">LidarRemoveDuplicates</a></li>
 <li><a href="#LidarRemoveOutliers">LidarRemoveOutliers</a></li>
+<li><a href="#LidarRfbInterpolation">LidarRfbInterpolation</a></li>
 <li><a href="#LidarSegmentation">LidarSegmentation</a></li>
 <li><a href="#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a></li>
 <li><a href="#LidarThin">LidarThin</a></li>
@@ -183,6 +185,43 @@
 <li><a href="#NormalVectors">NormalVectors</a></li>
 <li><a href="#SelectTilesByPolygon">SelectTilesByPolygon</a></li>
 </ul>
+<p><a name="ClassifyBuildingsInLidar"></a></p>
+<a class="header" href="#classifybuildingsinlidar" id="classifybuildingsinlidar"><h1>ClassifyBuildingsInLidar</h1></a>
+<p>This tool can be used to assign the building class (classification value 6) to all points within an
+input LiDAR point cloud (<code>--input</code>) that are contained within the polygons of an input buildings
+footprint vector (<code>--buildings</code>). The tool performs a simple point-in-polygon operation to determine
+membership. The two inputs (i.e. the LAS file and vector) must share the same map projection. Furthermore,
+any error in the definition of the building footprints will result in misclassified points in the output
+LAS file (<code>--output</code>). In particular, if the footprints extend slightly beyond the actual building,
+ground points situated adjacent to the building will be incorrectly classified. Thus, care must be
+taken in digitizing building footprint polygons. Furthermore, where there are tall trees that overlap
+significantly with the building footprint, these vegetation points will also be incorrectly assigned the
+building class value.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#filterlidarclasses"><strong>FilterLidarClasses</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a>, <a href="./lidar_tools.html#cliplidartopolygon"><strong>ClipLidarToPolygon</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>--buildings        </td><td> Input vector polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.classify_buildings_in_lidar(
+    i, 
+    buildings, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ClassifyBuildingsInLidar -v ^
+--wd=&quot;/path/to/data/&quot; -i='data.las' --polygons='lakes.shp' ^
+-o='output.las' 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/classify_buildings.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 17/11/2019</p>
+<p><em>Last Modified</em>: 17/11/2019</p>
 <p><a name="ClassifyOverlapPoints"></a></p>
 <a class="header" href="#classifyoverlappoints" id="classifyoverlappoints"><h1>ClassifyOverlapPoints</h1></a>
 <p>Classifies or filters LAS points in regions of overlapping flight lines.</p>
@@ -987,8 +1026,8 @@ data and information about the variable length records (VLRs) and geokeys.</p>
 <pre><code class="language-python">wbt.lidar_info(
     i, 
     output=None, 
-    vlr=False, 
-    geokeys=False, 
+    vlr=True, 
+    geokeys=True, 
     callback=default_callback
 )
 </code></pre>
@@ -1324,6 +1363,54 @@ without the point, exceeds a threshold (elev_diff).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/02/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="LidarRfbInterpolation"></a></p>
+<a class="header" href="#lidarrfbinterpolation" id="lidarrfbinterpolation"><h1>LidarRfbInterpolation</h1></a>
+<p>Interpolates LAS files using a radial basis function (RFB) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
+<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
+<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.lidar_rfb_interpolation(
+    i=None, 
+    output=None, 
+    parameter=&quot;elevation&quot;, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    radius=2.5, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    func_type=&quot;ThinPlateSpline&quot;, 
+    poly_order=&quot;none&quot;, 
+    weight=0.1, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarRfbInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0 --radius=5.0&quot;
+./whitebox_tools ^
+-r=LidarRfbInterpolation --wd=&quot;/path/to/data/&quot; -i=file.las ^
+-o=outfile.tif --resolution=5.0 --weight=2.0 --radius=2.0 ^
+--exclude_cls='3,4,5,6,7,18' --palette=light_quant.plt 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/11/2019</p>
+<p><em>Last Modified</em>: 08/11/2019</p>
 <p><a name="LidarSegmentation"></a></p>
 <a class="header" href="#lidarsegmentation" id="lidarsegmentation"><h1>LidarSegmentation</h1></a>
 <p>This tool segments a LiDAR point cloud based on normal vectors. The segment values

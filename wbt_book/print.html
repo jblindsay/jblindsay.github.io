@@ -143,12 +143,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 1.0.2  <br />
+<p>WhiteboxTools Version 1.1.0  <br />
 Dr. John B. Lindsay © 2017-2019  <br />
 <a href="https://jblindsay.github.io/ghrg/index.html">Geomorphometry and Hydrogeomatics Research Group</a>  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-November 1, 2019
+December 9, 2019
 <br />
 <br />
 <br />
@@ -3901,6 +3901,7 @@ on computer systems with high core-counts and plenty of memory.</p>
 <li><a href="#MinimumBoundingCircle">MinimumBoundingCircle</a></li>
 <li><a href="#MinimumBoundingEnvelope">MinimumBoundingEnvelope</a></li>
 <li><a href="#MinimumConvexHull">MinimumConvexHull</a></li>
+<li><a href="#NaturalNeighbourInterpolation">NaturalNeighbourInterpolation</a></li>
 <li><a href="#NearestNeighbourGridding">NearestNeighbourGridding</a></li>
 <li><a href="#PolygonArea">PolygonArea</a></li>
 <li><a href="#PolygonLongAxis">PolygonLongAxis</a></li>
@@ -3983,7 +3984,7 @@ of the overlapping grid cells in the input raster (four cells in the case of an 
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/block_maximum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/10/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 09/12/2019</p>
 <p><a name="BlockMinimumGridding"></a></p>
 <a class="header" href="#blockminimumgridding" id="blockminimumgridding"><h1>BlockMinimumGridding</h1></a>
 <p>Creates a raster grid based on a set of vector points and assigns grid values using a block minimum scheme.</p>
@@ -4018,7 +4019,7 @@ of the overlapping grid cells in the input raster (four cells in the case of an 
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/block_minimum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/10/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 09/12/2019</p>
 <p><a name="Centroid"></a></p>
 <a class="header" href="#centroid" id="centroid"><h1>Centroid</h1></a>
 <p>This tool calculates the centroid, or average location, of raster polygon objects.
@@ -4125,6 +4126,9 @@ using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaun
 TIN vertex heights can be assigned based on either a field in the vector's attribute table (<code>--field</code>),
 or alternatively, if the vector is of a z-dimension <em>ShapeTypeDimension</em>, the point z-values may be
 used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a> tool instead.</p>
+<p>Triangulation often creates very long, narrow triangles near the edges of the data coverage, particularly
+in convex regions along the data boundary. To avoid these spurious triangles, the user may optionally
+specify the maximum allowable edge length of a triangular facet (<code>--max_triangle_edge_length</code>).</p>
 <p><em>See Also</em>:
 <a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -4133,6 +4137,7 @@ used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a hre
 <tr><td>--field            </td><td> Input field name in attribute table</td></tr>
 <tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
 <tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--max_triangle_edge_length</td><td> Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.construct_vector_tin(
@@ -4140,6 +4145,7 @@ used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a hre
     output, 
     field=None, 
     use_z=False, 
+    max_triangle_edge_length=None, 
     callback=default_callback
 )
 </code></pre>
@@ -4153,7 +4159,7 @@ used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a hre
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/construct_vector_tin.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/09/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 07/12/2019</p>
 <p><a name="CreateHexagonalVectorGrid"></a></p>
 <a class="header" href="#createhexagonalvectorgrid" id="createhexagonalvectorgrid"><h1>CreateHexagonalVectorGrid</h1></a>
 <p>This tool can be used to create a hexagonal vector grid. The extent of the hexagonal
@@ -4503,7 +4509,7 @@ This tool interpolates vector points into a raster surface using an inverse-dist
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/idw_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 10/05/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 9/12/2019</p>
 <p><a name="LayerFootprint"></a></p>
 <a class="header" href="#layerfootprint" id="layerfootprint"><h1>LayerFootprint</h1></a>
 <p>This tool creates a vector polygon footprint of the area covered by a raster grid or vector
@@ -4699,6 +4705,68 @@ Voronoi diagram, are mathematically related to convex hulls.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/09/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="NaturalNeighbourInterpolation"></a></p>
+<a class="header" href="#naturalneighbourinterpolation" id="naturalneighbourinterpolation"><h1>NaturalNeighbourInterpolation</h1></a>
+<p>This tool can be used to interpolate a set of input vector points (<code>--input</code>) onto a raster grid using
+Sibson's (1981) natural neighbour method. Similar to inverse-distance-weight interpolation (<a href="./gis_analysis.html#idwinterpolation"><strong>IdwInterpolation</strong></a>),
+the natural neighbour method performs a weighted averaging of nearby point values to estimate the attribute
+(<code>--field</code>) value at grid cell intersections in the output raster (<code>--output</code>). However, the two methods differ
+quite significantly in the way that neighbours are identified and in the weighting scheme. First, natural neigbhour
+identifies neighbours to be used in the interpolation of a point by finding the points connected to the
+estimated value location in a <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a>, that
+is, the so-called <em>natural neighbours</em>. This approach has the main advantage of not having to specify an arbitrary
+search distance or minimum number of nearest neighbours like many other interpolators do. Weights in the natural
+neighbour scheme are determined using an area-stealing approach, whereby the weight assigned to a neighbour's value
+is determined by the proportion of its <a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi polygon</a> that would
+be lost by inserting the interpolation point into the Voronoi diagram. That is, inserting the interpolation point into
+the Voronoi diagram results in the creation of a new polygon and shrinking the sizes of the Voronoi polygons associated
+with each of the natural neighbours. The larger the area by which a neighbours polygon is reduced through the
+insertion, relative to the polygon of the interpolation point, the greater the weight given to the neighbour point's
+value in the interpolation. Interpolation weights sum to one because the sum of the reduced polygon areas must
+account for the entire area of the interpolation points polygon.</p>
+<p>The user must specify the attribute field containing point values (<code>--field</code>). Alternatively, if the input Shapefile
+contains z-values, the interpolation may be based on these values (<code>--use_z</code>). Either an output grid resolution
+(<code>--cell_size</code>) must be specified or alternatively an existing base file (<code>--base</code>) can be used to determine the
+output raster's (<code>--output</code>) resolution and spatial extent. Natural neighbour interpolation generally produces a
+satisfactorily smooth surface within the region of data points but can produce spurious breaks in the surface
+outside of this region. Thus, it is recommended that the output surface be clipped to the convex hull of the input
+points (<code>--clip</code>).</p>
+<p><em>Reference</em>:</p>
+<p>Sibson, R. (1981). &quot;A brief description of natural neighbor interpolation (Chapter 2)&quot;. In V. Barnett (ed.).
+Interpolating Multivariate Data. Chichester: John Wiley. pp. 21–36.</p>
+<p><em>See Also</em>:
+<a href="./gis_analysis.html#idwinterpolation"><strong>IdwInterpolation</strong></a>, <a href="./gis_analysis.html#nearestneighbourgridding"><strong>NearestNeighbourGridding</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+<tr><td>--clip             </td><td> Clip the data to the convex hull of the points?</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.natural_neighbour_interpolation(
+    i, 
+    output, 
+    field=None, 
+    use_z=False, 
+    cell_size=None, 
+    base=None, 
+    clip=True, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=NaturalNeighbourInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=HEIGHT ^
+-o=surface.tif --resolution=10.0 --clip 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/natural_neighbour_interpolation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/12/2019</p>
+<p><em>Last Modified</em>: 08/12/2019</p>
 <p><a name="NearestNeighbourGridding"></a></p>
 <a class="header" href="#nearestneighbourgridding" id="nearestneighbourgridding"><h1>NearestNeighbourGridding</h1></a>
 <p>Creates a raster grid based on a set of vector points and assigns grid values using the nearest neighbour.</p>
@@ -4735,7 +4803,7 @@ Voronoi diagram, are mathematically related to convex hulls.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/nearest_neighbour_gridding.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/10/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 09/12/2019</p>
 <p><a name="PolygonArea"></a></p>
 <a class="header" href="#polygonarea" id="polygonarea"><h1>PolygonArea</h1></a>
 <p>This tool calculates the area of vector polygons, adding the result to the
@@ -4881,7 +4949,7 @@ the tool will automatically output a raster named <code>area.tif</code>.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/raster_area.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 10/02/2019</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 04/12/2019</p>
 <p><a name="RasterCellAssignment"></a></p>
 <a class="header" href="#rastercellassignment" id="rastercellassignment"><h1>RasterCellAssignment</h1></a>
 <p>This tool can be used to create a new raster with the same coordinates and dimensions
@@ -5068,9 +5136,17 @@ larger the averaging window, the greater the degree of line smoothing.</p>
 <p><a name="TinGridding"></a></p>
 <a class="header" href="#tingridding" id="tingridding"><h1>TinGridding</h1></a>
 <p>Creates a raster grid based on a triangular irregular network (TIN) fitted to vector points
-and linear interpolation within each triangular-shaped plane.</p>
+and linear interpolation within each triangular-shaped plane. The TIN creation algorithm is based on
+<a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a>.</p>
+<p>The user must specify the attribute field containing point values (<code>--field</code>). Alternatively, if the input Shapefile
+contains z-values, the interpolation may be based on these values (<code>--use_z</code>). Either an output grid resolution
+(<code>--cell_size</code>) must be specified or alternatively an existing base file (<code>--base</code>) can be used to determine the
+output raster's (<code>--output</code>) resolution and spatial extent. Natural neighbour interpolation generally produces a
+satisfactorily smooth surface within the region of data points but can produce spurious breaks in the surface
+outside of this region. Thus, it is recommended that the output surface be clipped to the convex hull of the input
+points (<code>--clip</code>).</p>
 <p><em>See Also</em>:
-<a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>, <a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a></p>
+<a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>, <a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a>, <a href="./gis_analysis.html#naturalneighbourinterpolation"><strong>NaturalNeighbourInterpolation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector points file</td></tr>
@@ -5078,14 +5154,18 @@ and linear interpolation within each triangular-shaped plane.</p>
 <tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+<tr><td>--max_triangle_edge_length</td><td> Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.tin_gridding(
     i, 
     output, 
-    resolution, 
     field=None, 
     use_z=False, 
+    resolution=None, 
+    base=None, 
+    max_triangle_edge_length=None, 
     callback=default_callback
 )
 </code></pre>
@@ -5273,7 +5353,7 @@ image.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_allocation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 4, 2017</p>
+<p><em>Created</em>: 04/072017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="CostDistance"></a></p>
 <a class="header" href="#costdistance" id="costdistance"><h1>CostDistance</h1></a>
@@ -5326,7 +5406,7 @@ in the outputs. The output cost accumulation raster is of the float data type an
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/cost_distance.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 4, 2017</p>
+<p><em>Created</em>: 04/07/2017</p>
 <p><em>Last Modified</em>: 15/11/2018</p>
 <p><a name="CostPathway"></a></p>
 <a class="header" href="#costpathway" id="costpathway"><h1>CostPathway</h1></a>
@@ -5437,8 +5517,8 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/euclidean_distance.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: June 22 2017</p>
-<p><em>Last Modified</em>: 25/11/2018</p>
+<p><em>Created</em>: 22/06/2017</p>
+<p><em>Last Modified</em>: 05/12/2019</p>
 <a class="header" href="#gis-analysis--overlay-tools" id="gis-analysis--overlay-tools"><h1>GIS Analysis → Overlay Tools</h1></a>
 <ul>
 <li><a href="#AverageOverlay">AverageOverlay</a></li>
@@ -6909,6 +6989,7 @@ designated by their unique identifers. Identifer values should be positive, non-
 <li><a href="#AverageUpslopeFlowpathLength">AverageUpslopeFlowpathLength</a></li>
 <li><a href="#Basins">Basins</a></li>
 <li><a href="#BreachDepressions">BreachDepressions</a></li>
+<li><a href="#BreachDepressionsLeastCost">BreachDepressionsLeastCost</a></li>
 <li><a href="#BreachSingleCellPits">BreachSingleCellPits</a></li>
 <li><a href="#BurnStreamsAtRoads">BurnStreamsAtRoads</a></li>
 <li><a href="#D8FlowAccumulation">D8FlowAccumulation</a></li>
@@ -6926,6 +7007,7 @@ designated by their unique identifers. Identifer values should be positive, non-
 <li><a href="#Fd8Pointer">Fd8Pointer</a></li>
 <li><a href="#FillBurn">FillBurn</a></li>
 <li><a href="#FillDepressions">FillDepressions</a></li>
+<li><a href="#FillDepressionsWangAndLui">FillDepressionsWangAndLui</a></li>
 <li><a href="#FillSingleCellPits">FillSingleCellPits</a></li>
 <li><a href="#FindNoFlowCells">FindNoFlowCells</a></li>
 <li><a href="#FindParallelFlow">FindParallelFlow</a></li>
@@ -6949,6 +7031,7 @@ designated by their unique identifers. Identifer values should be positive, non-
 <li><a href="#Subbasins">Subbasins</a></li>
 <li><a href="#TraceDownslopeFlowpaths">TraceDownslopeFlowpaths</a></li>
 <li><a href="#UnnestBasins">UnnestBasins</a></li>
+<li><a href="#UpslopeDepressionStorage">UpslopeDepressionStorage</a></li>
 <li><a href="#Watershed">Watershed</a></li>
 </ul>
 <p><a name="AverageFlowpathSlope"></a></p>
@@ -7078,12 +7161,18 @@ output DEM. The output DEM will always use 64-bit floating point values for stor
 the need to precisely represent small elevation differences along flats. Therefore, if the input DEM is stored
 at a lower level of precision (e.g. 32-bit floating point elevations), this may result in a doubling of
 the size of the DEM.</p>
+<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, this breaching method often provides a less
+satisfactory, higher impact, breaching solution and is often less efficient. <strong>It has been provided to users for
+legacy reasons and it is advisable that users try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from
+their DEMs first</strong>. The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool is particularly
+well suited to breaching through road embankments. Nonetheless, there are applications for which full depression filling
+using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
 <p><em>Reference</em>:</p>
 <p>Lindsay JB. 2016. <em>Efficient hybrid breaching-filling sink removal methods for
 flow path enforcement in digital elevation models.</em> <strong>Hydrological Processes</strong>,
 30(6): 846–857. DOI: 10.1002/hyp.10648</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -7111,7 +7200,104 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 24/11/2019</p>
+<p><a name="BreachDepressionsLeastCost"></a></p>
+<a class="header" href="#breachdepressionsleastcost" id="breachdepressionsleastcost"><h1>BreachDepressionsLeastCost</h1></a>
+<p>This tool can be used to perform a type of optimal depression breaching to prepare a
+digital elevation model (DEM) for hydrological analysis. Depression breaching is a common
+alternative to depression filling (<code>FillDepression</code>) and often offers a lower-impact
+solution to the removal of topographic depressions. This tool implements a method that is
+loosely based on the algorithm described by Lindsay and Dhun (2015), furthering the earlier
+algorithm with efficiency optimizations and other significant enhancements. The approach uses a least-cost
+path analysis to identify the breach channel that connects pit cells (i.e. grid cells for
+which there is no lower neighbour) to some distant lower cell. Here, the cost of a breach
+path is determined by the amount of elevation lowering needed to cut the breach channel
+through the surrounding topography.</p>
+<p>The user must specify the name of the input DEM file (<code>--dem</code>), the output breached DEM
+file (<code>--output</code>), the maximum search window radius (<code>--radius</code>), the optional maximum breach
+cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that if the
+<code>--flat_increment</code> parameter is not specified, the small number used to ensure flow across flats will be
+calculated automatically, which should be preferred in most applications of the tool.
+The tool operates by performing a least-cost path analysis within a neighbourhood surround
+each pit cell, where the neighbourhood size begins small (9 × 9; radius = 4) and iteratively increases (by doubling)
+until it reaches the maximum breach length parameter. If a value is specified for the optional
+<code>--max_cost</code> parameter, then least-cost breach paths that would require digging a channel that is more costly
+than this value will be left to see if the pit cell can be resolved with a longer but shallower (less costly) breach
+channel in an additional iteration (i.e. a larger search window). The flat increment value is used
+to ensure that there is a monotonically descending path along breach channels to satisfy the necessary
+condition of a downslope gradient for flowpath modelling. It is best for this value to be a small
+value. If left unspecified, the tool with determine an appropriate value based on the range of
+elevation values in the input DEM. Notice that the need to specify these very small elevation
+increment values is one of the reasons why the output DEM will always be of a 64-bit floating-point
+data type, which will often double the storage requirements of a DEM (DEMs are often store with 32-bit
+precision). Lastly, the user may optionally choose to apply depression filling (<code>--fill</code>) on any depressions
+that remain unresolved by the earlier depression breaching operation. This filling step uses an efficient
+filling method based on flooding depressions from their pit cells until outlets are identified and then
+raising the elevations of flooded cells back and away from the outlets.</p>
+<p>The tool can be run in two modes, based on whether the <code>--min_dist</code> is specified. If the <code>--min_dist</code> flag
+is specified, the accumulated cost (accum<sub>2</sub>) of breaching from <em>cell1</em> to <em>cell2</em> along a channel
+issuing from <em>pit</em> is calculated using the traditional cost-distance function:</p>
+<blockquote>
+<p>cost<sub>1</sub> = z<sub>1</sub> - (z<sub>pit</sub> + <em>l</em> × <em>s</em>)</p>
+<p>cost<sub>2</sub> = z<sub>2</sub> - [z<sub>pit</sub> + (<em>l</em> + 1)<em>s</em>]</p>
+<p>accum<sub>2</sub> = accum<sub>1</sub> + <em>g</em>(cost<sub>1</sub> + cost<sub>2</sub>) / 2.0</p>
+</blockquote>
+<p>where cost<sub>1</sub> and cost<sub>2</sub> are the costs associated with moving through <em>cell1</em> and <em>cell2</em>
+respectively, z<sub>1</sub> and z<sub>2</sub> are the elevations of the two cells, z<sub>pit</sub> is the elevation
+of the pit cell, <em>l</em> is the length of the breach channel to <em>cell1</em>, <em>g</em> is the grid cell distance between
+cells (accounting for diagonal distances), and <em>s</em> is the small number used to ensure flow
+across flats. If the <code>--min_dist</code> flag is not present, the accumulated cost is calculated as:</p>
+<blockquote>
+<p>accum<sub>2</sub> = accum<sub>1</sub> + cost<sub>2</sub></p>
+</blockquote>
+<p>That is, without the <code>--min_dist</code> flag, the tool works to minimize elevation changes to the DEM caused by
+breaching, without considering the distance of breach channels. Notice that the value <code>--max_cost</code>, if
+specified, should account for this difference in the way cost/cost-distances are calculated. The first cell
+in the least-cost accumulation operation that is identified for which cost<sub>2</sub> &lt;= 0.0 is the target
+cell to which the breach channel will connect the pit along the least-cost path.</p>
+<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, this breaching method often provides a more
+satisfactory, lower impact, breaching solution and is often more efficient. It is therefore advisable that users
+try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs first. This tool is particularly
+well suited to breaching through road embankments. There are instances when a breaching solution is inappropriate, e.g.
+when a very deep depression such as an open-pit mine occurs in the DEM and long, deep breach paths are created. Often
+restricting breaching with the <code>--max_cost</code> parameter, combined with subsequent depression filling (<code>--fill</code>) can
+provide an adequate solution in these cases. Nonetheless, there are applications for which full depression filling
+using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay J, Dhun K. 2015. Modelling surface drainage patterns in altered landscapes using LiDAR.
+<em>International Journal of Geographical Information Science</em>, 29: 1-15. DOI: 10.1080/13658816.2014.975715</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./gis_analysis_distance_tools.html#costpathway"><strong>CostPathway</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--radius           </td></tr>
+<tr><td>--max_cost         </td><td> Optional maximum breach cost (default is Inf)</td></tr>
+<tr><td>--min_dist         </td><td> Optional flag indicating whether to minimize breach distances</td></tr>
+<tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
+<tr><td>--fill             </td><td> Optional flag indicating whether to fill any remaining unbreached depressions</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.breach_depressions_least_cost(
+    dem, 
+    output, 
+    radius, 
+    max_cost=None, 
+    min_dist=True, 
+    flat_increment=None, 
+    fill=True, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=BreachDepressionsLeastCost -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions_least_cost.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 01/11/2019</p>
+<p><em>Last Modified</em>: 24/11/2019</p>
 <p><a name="BreachSingleCellPits"></a></p>
 <a class="header" href="#breachsinglecellpits" id="breachsinglecellpits"><h1>BreachSingleCellPits</h1></a>
 <p>This tool can be used to remove pits from a digital elevation model (DEM). Pits are single grid cells
@@ -7519,7 +7705,7 @@ Modelling, 138(1-3), 247-254.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/depth_in_sink.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 05/12/2019</p>
 <p><a name="DownslopeDistanceToStream"></a></p>
 <a class="header" href="#downslopedistancetostream" id="downslopedistancetostream"><h1>DownslopeDistanceToStream</h1></a>
 <p>This tool can be used to calculate the distance from each grid cell in a raster to the nearest stream cell,
@@ -7760,7 +7946,7 @@ Geosciences, 17(3), 413-422.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 21/11/2019</p>
 <p><a name="Fd8Pointer"></a></p>
 <a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
 <p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the FD8 (Freeman, 1991) algorithm.
@@ -7846,6 +8032,61 @@ the computationally efficient approach of examining each cell based on its spill
 edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
 first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
 in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
+known to provide a solution to depression removal with less impact of the DEM. Furthermore, the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>,
+while less efficient than either other hydrological preprocessing methods, often provides a lower impact solution
+to topographic depression.</p>
+<p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
+<a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
+a more natural-looking surface than the flat areas that are produced by depression filling. Importantly, the
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool algorithm implementation assumes that there are no 'donut hole' NoData gaps within the area
+of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
+the output image.</p>
+<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, the depression filling method often provides a less
+satisfactory, higher impact, depression removal solution and is often less efficient. <strong>It is advisable that users
+try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs first</strong>. The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>
+tool is particularly well suited to breaching through road embankments in fine-resolution DEMs. Nonetheless, there are
+applications for which full depression filling using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
+<p><em>Reference</em>:</p>
+<p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
+models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--fix_flats        </td><td> Optional flag indicating whether flat areas should have a small gradient applied</td></tr>
+<tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
+<tr><td>--max_depth        </td><td> Optional maximum depression depth to fill</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.fill_depressions(
+    dem, 
+    output, 
+    fix_flats=True, 
+    flat_increment=None, 
+    max_depth=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressions -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--fix_flats 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 28/06/2017</p>
+<p><em>Last Modified</em>: 24/11/2019</p>
+<p><a name="FillDepressionsWangAndLui"></a></p>
+<a class="header" href="#filldepressionswangandlui" id="filldepressionswangandlui"><h1>FillDepressionsWangAndLui</h1></a>
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
+lat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm is based on
+the computationally efficient approach of examining each cell based on its spill elevation, starting from the
+edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
+first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
+in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
 known to provide a solution to depression removal with less impact of the DEM.</p>
 <p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
 <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
@@ -7866,7 +8107,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.fill_depressions(
+<pre><code class="language-python">wbt.fill_depressions_wang_and_lui(
     dem, 
     output, 
     fix_flats=True, 
@@ -7875,14 +8116,14 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressions -v ^
+<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressionsWangAndLui -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --fix_flats 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_wang_and_lui.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 05/12/2019</p>
 <p><a name="FillSingleCellPits"></a></p>
 <a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h1>FillSingleCellPits</h1></a>
 <p>This tool can be used to remove pits from a digital elevation model (DEM). Pits are single grid cells with no
@@ -8050,7 +8291,8 @@ elevation models for hydrologic analysis and modelling. International Journal of
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="FlowAccumulationFullWorkflow"></a></p>
 <a class="header" href="#flowaccumulationfullworkflow" id="flowaccumulationfullworkflow"><h1>FlowAccumulationFullWorkflow</h1></a>
-<p>Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow pointer, and a flow accumulation raster.</p>
+<p>Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow
+pointer, and a flow accumulation raster.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -8479,13 +8721,13 @@ cells.</p>
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./gis_analysis.html#clump"><strong>Clump</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-i, --dem, --input</td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.sink(
-    dem, 
+    i, 
     output, 
     zero_background=False, 
     callback=default_callback
@@ -8493,12 +8735,12 @@ cells.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Sink -v --wd=&quot;/path/to/data/&quot; ^
---dem=DEM.tif -o=output.tif --zero_background 
+--dem=DEM.tif -o=filled_dem.tif --zero_background 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/sink.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 05/12/2019</p>
 <p><a name="SnapPourPoints"></a></p>
 <a class="header" href="#snappourpoints" id="snappourpoints"><h1>SnapPourPoints</h1></a>
 <p>The <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
@@ -8781,6 +9023,37 @@ algorithm.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/04/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="UpslopeDepressionStorage"></a></p>
+<a class="header" href="#upslopedepressionstorage" id="upslopedepressionstorage"><h1>UpslopeDepressionStorage</h1></a>
+<p>This tool estimates the average upslope depression storage depth using the FD8 flow algorithm.
+The input DEM (<code>--dem</code>) need not be hydrologically corrected; the tool will internally map depression
+storage and resolve flowpaths using depression filling. This input elevation model should be of a
+fine resolution (&lt; 2 m), and is ideally derived using LiDAR. The tool calculates the total upslope
+depth of depression storage, which is divided by the number of upslope cells in the final step
+of the process, yielding the average upslope depression depth. Roughened surfaces tend to have higher
+values compared with smoothed surfaces. Values, particularly on hillslopes, may be very small (&lt; 0.01 m).</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#depthinsink"><strong>DepthInSink</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.upslope_depression_storage(
+    dem, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=UpslopeDepressionStorage -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/upslope_depression_storage.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 21/11/2019</p>
+<p><em>Last Modified</em>: 21/11/2019</p>
 <p><a name="Watershed"></a></p>
 <a class="header" href="#watershed" id="watershed"><h1>Watershed</h1></a>
 <p>This tool will perform a watershedding operation based on a group of input vector pour points (<code>--pour_pts</code>),
@@ -11842,6 +12115,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
 <ul>
+<li><a href="#ClassifyBuildingsInLidar">ClassifyBuildingsInLidar</a></li>
 <li><a href="#ClassifyOverlapPoints">ClassifyOverlapPoints</a></li>
 <li><a href="#ClipLidarToPolygon">ClipLidarToPolygon</a></li>
 <li><a href="#ErasePolygonFromLidar">ErasePolygonFromLidar</a></li>
@@ -11872,6 +12146,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <li><a href="#LidarRansacPlanes">LidarRansacPlanes</a></li>
 <li><a href="#LidarRemoveDuplicates">LidarRemoveDuplicates</a></li>
 <li><a href="#LidarRemoveOutliers">LidarRemoveOutliers</a></li>
+<li><a href="#LidarRfbInterpolation">LidarRfbInterpolation</a></li>
 <li><a href="#LidarSegmentation">LidarSegmentation</a></li>
 <li><a href="#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a></li>
 <li><a href="#LidarThin">LidarThin</a></li>
@@ -11883,6 +12158,43 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <li><a href="#NormalVectors">NormalVectors</a></li>
 <li><a href="#SelectTilesByPolygon">SelectTilesByPolygon</a></li>
 </ul>
+<p><a name="ClassifyBuildingsInLidar"></a></p>
+<a class="header" href="#classifybuildingsinlidar" id="classifybuildingsinlidar"><h1>ClassifyBuildingsInLidar</h1></a>
+<p>This tool can be used to assign the building class (classification value 6) to all points within an
+input LiDAR point cloud (<code>--input</code>) that are contained within the polygons of an input buildings
+footprint vector (<code>--buildings</code>). The tool performs a simple point-in-polygon operation to determine
+membership. The two inputs (i.e. the LAS file and vector) must share the same map projection. Furthermore,
+any error in the definition of the building footprints will result in misclassified points in the output
+LAS file (<code>--output</code>). In particular, if the footprints extend slightly beyond the actual building,
+ground points situated adjacent to the building will be incorrectly classified. Thus, care must be
+taken in digitizing building footprint polygons. Furthermore, where there are tall trees that overlap
+significantly with the building footprint, these vegetation points will also be incorrectly assigned the
+building class value.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#filterlidarclasses"><strong>FilterLidarClasses</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a>, <a href="./lidar_tools.html#cliplidartopolygon"><strong>ClipLidarToPolygon</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>--buildings        </td><td> Input vector polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.classify_buildings_in_lidar(
+    i, 
+    buildings, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ClassifyBuildingsInLidar -v ^
+--wd=&quot;/path/to/data/&quot; -i='data.las' --polygons='lakes.shp' ^
+-o='output.las' 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/classify_buildings.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 17/11/2019</p>
+<p><em>Last Modified</em>: 17/11/2019</p>
 <p><a name="ClassifyOverlapPoints"></a></p>
 <a class="header" href="#classifyoverlappoints" id="classifyoverlappoints"><h1>ClassifyOverlapPoints</h1></a>
 <p>Classifies or filters LAS points in regions of overlapping flight lines.</p>
@@ -12687,8 +12999,8 @@ data and information about the variable length records (VLRs) and geokeys.</p>
 <pre><code class="language-python">wbt.lidar_info(
     i, 
     output=None, 
-    vlr=False, 
-    geokeys=False, 
+    vlr=True, 
+    geokeys=True, 
     callback=default_callback
 )
 </code></pre>
@@ -13024,6 +13336,54 @@ without the point, exceeds a threshold (elev_diff).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/02/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="LidarRfbInterpolation"></a></p>
+<a class="header" href="#lidarrfbinterpolation" id="lidarrfbinterpolation"><h1>LidarRfbInterpolation</h1></a>
+<p>Interpolates LAS files using a radial basis function (RFB) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
+<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
+<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.lidar_rfb_interpolation(
+    i=None, 
+    output=None, 
+    parameter=&quot;elevation&quot;, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    radius=2.5, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    func_type=&quot;ThinPlateSpline&quot;, 
+    poly_order=&quot;none&quot;, 
+    weight=0.1, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarRfbInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0 --radius=5.0&quot;
+./whitebox_tools ^
+-r=LidarRfbInterpolation --wd=&quot;/path/to/data/&quot; -i=file.las ^
+-o=outfile.tif --resolution=5.0 --weight=2.0 --radius=2.0 ^
+--exclude_cls='3,4,5,6,7,18' --palette=light_quant.plt 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/11/2019</p>
+<p><em>Last Modified</em>: 08/11/2019</p>
 <p><a name="LidarSegmentation"></a></p>
 <a class="header" href="#lidarsegmentation" id="lidarsegmentation"><h1>LidarSegmentation</h1></a>
 <p>This tool segments a LiDAR point cloud based on normal vectors. The segment values
@@ -13396,6 +13756,7 @@ in the input file's header (i.e. the bounding box of the data), it is able to ta
 <li><a href="#GreaterThan">GreaterThan</a></li>
 <li><a href="#ImageAutocorrelation">ImageAutocorrelation</a></li>
 <li><a href="#ImageCorrelation">ImageCorrelation</a></li>
+<li><a href="#ImageCorrelationNeighbourhoodAnalysis">ImageCorrelationNeighbourhoodAnalysis</a></li>
 <li><a href="#ImageRegression">ImageRegression</a></li>
 <li><a href="#InPlaceAdd">InPlaceAdd</a></li>
 <li><a href="#InPlaceDivide">InPlaceDivide</a></li>
@@ -14405,6 +14766,38 @@ between images.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/09/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="ImageCorrelationNeighbourhoodAnalysis"></a></p>
+<a class="header" href="#imagecorrelationneighbourhoodanalysis" id="imagecorrelationneighbourhoodanalysis"><h1>ImageCorrelationNeighbourhoodAnalysis</h1></a>
+<p>Performs image correlation on two input images neighbourhood search windows.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input raster file</td></tr>
+<tr><td>--i2, --input2    </td><td> Input raster file</td></tr>
+<tr><td>--o1, --output1   </td><td> Output correlation (r-value or rho) raster file</td></tr>
+<tr><td>--o2, --output2   </td><td> Output significance (p-value) raster file</td></tr>
+<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+<tr><td>--stat             </td><td> Correlation type; one of 'pearson' (default) and 'spearman'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.image_correlation_neighbourhood_analysis(
+    input1, 
+    input2, 
+    output1, 
+    output2, 
+    filter=11, 
+    stat=&quot;pearson&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ImageCorrelationNeighbourhoodAnalysis -v ^
+--wd=&quot;/path/to/data/&quot; --i1=file1.tif --i2=file2.tif ^
+--o1=corr.tif --o2=sig.tif --stat=&quot;spearman&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_correlation_neighbourhood_analysis.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Simon Gudim and Dr. John Lindsay</p>
+<p><em>Created</em>: 06/12/2019</p>
+<p><em>Last Modified</em>: 06/12/2019</p>
 <p><a name="ImageRegression"></a></p>
 <a class="header" href="#imageregression" id="imageregression"><h1>ImageRegression</h1></a>
 <p>This tool performs a bivariate linear regression analysis on two input raster images. The first image
@@ -17875,7 +18268,7 @@ SOFTWARE.</p>
 <a class="header" href="#do-i-need-whitebox-gat-to-use-whiteboxtools" id="do-i-need-whitebox-gat-to-use-whiteboxtools"><h2>Do I need Whitebox GAT to use WhiteboxTools?</h2></a>
 <p>No you do not. You can call the tools contained within <em>WhiteboxTools</em> completely independent from the <em>Whitebox GAT</em> user interface using a Remote Procedure Call (RPC) approach. In fact, you can interact with the tools using Python scripting or directly, using a terminal application (command prompt). See <a href="#interacting-with-whiteboxtools-from-the-command-prompt"><em>Interacting With <em>WhiteboxTools</em> From the Command Prompt</em></a> for further details.</p>
 <a class="header" href="#how-do-i-request-a-tool-be-added" id="how-do-i-request-a-tool-be-added"><h2>How do I request a tool be added?</h2></a>
-<p>Eventually most of the tools in <em>Whitebox GAT</em> will be ported over to <em>WhiteboxTools</em> and all new tools will be added to this library as well. Naturally, this will take time. The order by which tools are ported is partly a function of ease of porting, existing infrastructure (i.e. raster and LiDAR tools will be ported first since their is currently no support in the library for vector I/O), and interest. If you are interested in making a tool a higher priority for porting, email <a href="https://jblindsay.github.io/ghrg/index.html">John Lindsay</a>.</p>
+<p>Eventually most of the tools in <em>Whitebox GAT</em> will be ported over to <em>WhiteboxTools</em> and all new tools will be added to this library as well. Naturally, this will take time. The order by which tools are ported is partly a function of ease of porting, existing infrastructure (i.e. raster and LiDAR tools will be ported first since their is currently no support in the library for vector I/O), and interest. If you are interested in making a tool a higher priority for porting or if you have an request for a tool to be added that is not part of <em>Whitebox GAT</em>, i.e. a new feature, then please submit an <strong>issue</strong> to the <a href="https://github.com/jblindsay/whitebox-tools/issues">GitHub repository</a>. The request will be marked with the <em>enhancement</em> label.</p>
 <a class="header" href="#can-whiteboxtools-be-incorporated-into-other-software-and-open-source-gis-projects" id="can-whiteboxtools-be-incorporated-into-other-software-and-open-source-gis-projects"><h2>Can WhiteboxTools be incorporated into other software and open-source GIS projects?</h2></a>
 <p><em>WhiteboxTools</em> was developed with the open-source GIS <a href="https://jblindsay.github.io/ghrg/Whitebox/index.html">Whitebox GAT</a> in mind. That said, the tools can be accessed independently and so long as you abide by the terms of the <a href="#license">MIT license</a>, there is no reason why other software and GIS projects cannot use <em>WhiteboxTools</em> as well. In fact, this was one of the motivating factors for creating the library in the first place. Feel free to use <em>WhiteboxTools</em> as the geospatial analysis engine in your open-source software project.</p>
 <a class="header" href="#what-platforms-does-whiteboxtools-support" id="what-platforms-does-whiteboxtools-support"><h2>What platforms does WhiteboxTools support?</h2></a>
@@ -17980,6 +18373,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/gis_analysis_patch_shape_tools.html#BoundaryShapeComplexity">BoundaryShapeComplexity</a>: Calculates the complexity of the boundaries of raster polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/hydrological_analysis.html#BreachDepressionsLeastCost">BreachDepressionsLeastCost</a>: Breaches the depressions in a DEM using a least-cost pathway method. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/hydrological_analysis.html#BreachDepressions">BreachDepressions</a>: Breaches all of the depressions in a DEM using Lindsay's (2016) algorithm. This should be preferred over depression filling in most cases. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
@@ -17989,7 +18385,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/gis_analysis_distance_tools.html#BufferRaster">BufferRaster</a>: Maps a distance-based buffer around each non-background (non-zero/non-nodata) grid cell in an input image. Found in <em>GIS Analysis → Distance Tools</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/hydrological_analysis.html#BurnStreamsAtRoads">BurnStreamsAtRoads</a>: Rasterizes vector streams based on Lindsay (2016) method. Found in <em>Hydrological Analysis</em>.</p>
+<p><a href="available_tools/hydrological_analysis.html#BurnStreamsAtRoads">BurnStreamsAtRoads</a>: Burns-in streams at the sites of road embankments. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#Ceil">Ceil</a>: Returns the smallest (closest to negative infinity) value that is greater than or equal to the values in a raster. Found in <em>Math and Stats Tools</em>.</p>
@@ -18005,6 +18401,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/geomorphometric_analysis.html#CircularVarianceOfAspect">CircularVarianceOfAspect</a>: Calculates the circular variance of aspect at a scale for a DEM. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#ClassifyBuildingsInLidar">ClassifyBuildingsInLidar</a>: Reclassifies a LiDAR points that lie within vector building footprints. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#ClassifyOverlapPoints">ClassifyOverlapPoints</a>: Classifies or filters LAS points in regions of overlapping flight lines. Found in <em>LiDAR Tools</em>.</p>
@@ -18253,6 +18652,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/hydrological_analysis.html#FillBurn">FillBurn</a>: Burns streams into a DEM using the FillBurn (Saunders, 1999) method. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/hydrological_analysis.html#FillDepressionsWangAndLui">FillDepressionsWangAndLui</a>: Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/hydrological_analysis.html#FillDepressions">FillDepressions</a>: Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
@@ -18368,6 +18770,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#ImageAutocorrelation">ImageAutocorrelation</a>: Performs Moran's I analysis on two or more input images. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/mathand_stats_tools.html#ImageCorrelationNeighbourhoodAnalysis">ImageCorrelationNeighbourhoodAnalysis</a>: Performs image correlation on two input images neighbourhood search windows. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#ImageCorrelation">ImageCorrelation</a>: Performs image correlation on two or more input images. Found in <em>Math and Stats Tools</em>.</p>
@@ -18515,6 +18920,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarRemoveOutliers">LidarRemoveOutliers</a>: Removes outliers (high and low points) in a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#LidarRfbInterpolation">LidarRfbInterpolation</a>: Interpolates LAS files using a radial basis function (RFB) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a>: Identifies ground points within LiDAR point clouds using a segmentation based approach. Found in <em>LiDAR Tools</em>.</p>
@@ -18704,6 +19112,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis_patch_shape_tools.html#NarrownessIndex">NarrownessIndex</a>: Calculates the narrowness of raster polygons. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#NaturalNeighbourInterpolation">NaturalNeighbourInterpolation</a>: Creates a raster grid based on Sibson's natural neighbour method. Found in <em>GIS Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis.html#NearestNeighbourGridding">NearestNeighbourGridding</a>: Creates a raster grid based on a set of vector points and assigns grid values using the nearest neighbour. Found in <em>GIS Analysis</em>.</p>
@@ -19100,6 +19511,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools_filters.html#UnsharpMasking">UnsharpMasking</a>: An image sharpening technique that enhances edges. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#UpslopeDepressionStorage">UpslopeDepressionStorage</a>: Estimates the average upslope depression storage depth. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools_filters.html#UserDefinedWeightsFilter">UserDefinedWeightsFilter</a>: Performs a user-defined weights filter on an image. Found in <em>Image Processing Tools → Filters</em>.</p>

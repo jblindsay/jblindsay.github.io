@@ -171,6 +171,7 @@
 <li><a href="#GreaterThan">GreaterThan</a></li>
 <li><a href="#ImageAutocorrelation">ImageAutocorrelation</a></li>
 <li><a href="#ImageCorrelation">ImageCorrelation</a></li>
+<li><a href="#ImageCorrelationNeighbourhoodAnalysis">ImageCorrelationNeighbourhoodAnalysis</a></li>
 <li><a href="#ImageRegression">ImageRegression</a></li>
 <li><a href="#InPlaceAdd">InPlaceAdd</a></li>
 <li><a href="#InPlaceDivide">InPlaceDivide</a></li>
@@ -1180,6 +1181,38 @@ between images.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/09/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="ImageCorrelationNeighbourhoodAnalysis"></a></p>
+<a class="header" href="#imagecorrelationneighbourhoodanalysis" id="imagecorrelationneighbourhoodanalysis"><h1>ImageCorrelationNeighbourhoodAnalysis</h1></a>
+<p>Performs image correlation on two input images neighbourhood search windows.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1    </td><td> Input raster file</td></tr>
+<tr><td>--i2, --input2    </td><td> Input raster file</td></tr>
+<tr><td>--o1, --output1   </td><td> Output correlation (r-value or rho) raster file</td></tr>
+<tr><td>--o2, --output2   </td><td> Output significance (p-value) raster file</td></tr>
+<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+<tr><td>--stat             </td><td> Correlation type; one of 'pearson' (default) and 'spearman'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.image_correlation_neighbourhood_analysis(
+    input1, 
+    input2, 
+    output1, 
+    output2, 
+    filter=11, 
+    stat=&quot;pearson&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ImageCorrelationNeighbourhoodAnalysis -v ^
+--wd=&quot;/path/to/data/&quot; --i1=file1.tif --i2=file2.tif ^
+--o1=corr.tif --o2=sig.tif --stat=&quot;spearman&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/image_correlation_neighbourhood_analysis.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Simon Gudim and Dr. John Lindsay</p>
+<p><em>Created</em>: 06/12/2019</p>
+<p><em>Last Modified</em>: 06/12/2019</p>
 <p><a name="ImageRegression"></a></p>
 <a class="header" href="#imageregression" id="imageregression"><h1>ImageRegression</h1></a>
 <p>This tool performs a bivariate linear regression analysis on two input raster images. The first image

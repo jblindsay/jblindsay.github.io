@@ -146,6 +146,7 @@
 <li><a href="#AverageUpslopeFlowpathLength">AverageUpslopeFlowpathLength</a></li>
 <li><a href="#Basins">Basins</a></li>
 <li><a href="#BreachDepressions">BreachDepressions</a></li>
+<li><a href="#BreachDepressionsLeastCost">BreachDepressionsLeastCost</a></li>
 <li><a href="#BreachSingleCellPits">BreachSingleCellPits</a></li>
 <li><a href="#BurnStreamsAtRoads">BurnStreamsAtRoads</a></li>
 <li><a href="#D8FlowAccumulation">D8FlowAccumulation</a></li>
@@ -163,6 +164,7 @@
 <li><a href="#Fd8Pointer">Fd8Pointer</a></li>
 <li><a href="#FillBurn">FillBurn</a></li>
 <li><a href="#FillDepressions">FillDepressions</a></li>
+<li><a href="#FillDepressionsWangAndLui">FillDepressionsWangAndLui</a></li>
 <li><a href="#FillSingleCellPits">FillSingleCellPits</a></li>
 <li><a href="#FindNoFlowCells">FindNoFlowCells</a></li>
 <li><a href="#FindParallelFlow">FindParallelFlow</a></li>
@@ -186,6 +188,7 @@
 <li><a href="#Subbasins">Subbasins</a></li>
 <li><a href="#TraceDownslopeFlowpaths">TraceDownslopeFlowpaths</a></li>
 <li><a href="#UnnestBasins">UnnestBasins</a></li>
+<li><a href="#UpslopeDepressionStorage">UpslopeDepressionStorage</a></li>
 <li><a href="#Watershed">Watershed</a></li>
 </ul>
 <p><a name="AverageFlowpathSlope"></a></p>
@@ -315,12 +318,18 @@ output DEM. The output DEM will always use 64-bit floating point values for stor
 the need to precisely represent small elevation differences along flats. Therefore, if the input DEM is stored
 at a lower level of precision (e.g. 32-bit floating point elevations), this may result in a doubling of
 the size of the DEM.</p>
+<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, this breaching method often provides a less
+satisfactory, higher impact, breaching solution and is often less efficient. <strong>It has been provided to users for
+legacy reasons and it is advisable that users try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from
+their DEMs first</strong>. The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool is particularly
+well suited to breaching through road embankments. Nonetheless, there are applications for which full depression filling
+using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
 <p><em>Reference</em>:</p>
 <p>Lindsay JB. 2016. <em>Efficient hybrid breaching-filling sink removal methods for
 flow path enforcement in digital elevation models.</em> <strong>Hydrological Processes</strong>,
 30(6): 846–857. DOI: 10.1002/hyp.10648</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#fillsinglecellpits"><strong>FillSingleCellPits</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -348,7 +357,104 @@ flow path enforcement in digital elevation models.</em> <strong>Hydrological Pro
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 24/11/2019</p>
+<p><a name="BreachDepressionsLeastCost"></a></p>
+<a class="header" href="#breachdepressionsleastcost" id="breachdepressionsleastcost"><h1>BreachDepressionsLeastCost</h1></a>
+<p>This tool can be used to perform a type of optimal depression breaching to prepare a
+digital elevation model (DEM) for hydrological analysis. Depression breaching is a common
+alternative to depression filling (<code>FillDepression</code>) and often offers a lower-impact
+solution to the removal of topographic depressions. This tool implements a method that is
+loosely based on the algorithm described by Lindsay and Dhun (2015), furthering the earlier
+algorithm with efficiency optimizations and other significant enhancements. The approach uses a least-cost
+path analysis to identify the breach channel that connects pit cells (i.e. grid cells for
+which there is no lower neighbour) to some distant lower cell. Here, the cost of a breach
+path is determined by the amount of elevation lowering needed to cut the breach channel
+through the surrounding topography.</p>
+<p>The user must specify the name of the input DEM file (<code>--dem</code>), the output breached DEM
+file (<code>--output</code>), the maximum search window radius (<code>--radius</code>), the optional maximum breach
+cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that if the
+<code>--flat_increment</code> parameter is not specified, the small number used to ensure flow across flats will be
+calculated automatically, which should be preferred in most applications of the tool.
+The tool operates by performing a least-cost path analysis within a neighbourhood surround
+each pit cell, where the neighbourhood size begins small (9 × 9; radius = 4) and iteratively increases (by doubling)
+until it reaches the maximum breach length parameter. If a value is specified for the optional
+<code>--max_cost</code> parameter, then least-cost breach paths that would require digging a channel that is more costly
+than this value will be left to see if the pit cell can be resolved with a longer but shallower (less costly) breach
+channel in an additional iteration (i.e. a larger search window). The flat increment value is used
+to ensure that there is a monotonically descending path along breach channels to satisfy the necessary
+condition of a downslope gradient for flowpath modelling. It is best for this value to be a small
+value. If left unspecified, the tool with determine an appropriate value based on the range of
+elevation values in the input DEM. Notice that the need to specify these very small elevation
+increment values is one of the reasons why the output DEM will always be of a 64-bit floating-point
+data type, which will often double the storage requirements of a DEM (DEMs are often store with 32-bit
+precision). Lastly, the user may optionally choose to apply depression filling (<code>--fill</code>) on any depressions
+that remain unresolved by the earlier depression breaching operation. This filling step uses an efficient
+filling method based on flooding depressions from their pit cells until outlets are identified and then
+raising the elevations of flooded cells back and away from the outlets.</p>
+<p>The tool can be run in two modes, based on whether the <code>--min_dist</code> is specified. If the <code>--min_dist</code> flag
+is specified, the accumulated cost (accum<sub>2</sub>) of breaching from <em>cell1</em> to <em>cell2</em> along a channel
+issuing from <em>pit</em> is calculated using the traditional cost-distance function:</p>
+<blockquote>
+<p>cost<sub>1</sub> = z<sub>1</sub> - (z<sub>pit</sub> + <em>l</em> × <em>s</em>)</p>
+<p>cost<sub>2</sub> = z<sub>2</sub> - [z<sub>pit</sub> + (<em>l</em> + 1)<em>s</em>]</p>
+<p>accum<sub>2</sub> = accum<sub>1</sub> + <em>g</em>(cost<sub>1</sub> + cost<sub>2</sub>) / 2.0</p>
+</blockquote>
+<p>where cost<sub>1</sub> and cost<sub>2</sub> are the costs associated with moving through <em>cell1</em> and <em>cell2</em>
+respectively, z<sub>1</sub> and z<sub>2</sub> are the elevations of the two cells, z<sub>pit</sub> is the elevation
+of the pit cell, <em>l</em> is the length of the breach channel to <em>cell1</em>, <em>g</em> is the grid cell distance between
+cells (accounting for diagonal distances), and <em>s</em> is the small number used to ensure flow
+across flats. If the <code>--min_dist</code> flag is not present, the accumulated cost is calculated as:</p>
+<blockquote>
+<p>accum<sub>2</sub> = accum<sub>1</sub> + cost<sub>2</sub></p>
+</blockquote>
+<p>That is, without the <code>--min_dist</code> flag, the tool works to minimize elevation changes to the DEM caused by
+breaching, without considering the distance of breach channels. Notice that the value <code>--max_cost</code>, if
+specified, should account for this difference in the way cost/cost-distances are calculated. The first cell
+in the least-cost accumulation operation that is identified for which cost<sub>2</sub> &lt;= 0.0 is the target
+cell to which the breach channel will connect the pit along the least-cost path.</p>
+<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, this breaching method often provides a more
+satisfactory, lower impact, breaching solution and is often more efficient. It is therefore advisable that users
+try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs first. This tool is particularly
+well suited to breaching through road embankments. There are instances when a breaching solution is inappropriate, e.g.
+when a very deep depression such as an open-pit mine occurs in the DEM and long, deep breach paths are created. Often
+restricting breaching with the <code>--max_cost</code> parameter, combined with subsequent depression filling (<code>--fill</code>) can
+provide an adequate solution in these cases. Nonetheless, there are applications for which full depression filling
+using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay J, Dhun K. 2015. Modelling surface drainage patterns in altered landscapes using LiDAR.
+<em>International Journal of Geographical Information Science</em>, 29: 1-15. DOI: 10.1080/13658816.2014.975715</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./gis_analysis_distance_tools.html#costpathway"><strong>CostPathway</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--radius           </td></tr>
+<tr><td>--max_cost         </td><td> Optional maximum breach cost (default is Inf)</td></tr>
+<tr><td>--min_dist         </td><td> Optional flag indicating whether to minimize breach distances</td></tr>
+<tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
+<tr><td>--fill             </td><td> Optional flag indicating whether to fill any remaining unbreached depressions</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.breach_depressions_least_cost(
+    dem, 
+    output, 
+    radius, 
+    max_cost=None, 
+    min_dist=True, 
+    flat_increment=None, 
+    fill=True, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=BreachDepressionsLeastCost -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions_least_cost.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 01/11/2019</p>
+<p><em>Last Modified</em>: 24/11/2019</p>
 <p><a name="BreachSingleCellPits"></a></p>
 <a class="header" href="#breachsinglecellpits" id="breachsinglecellpits"><h1>BreachSingleCellPits</h1></a>
 <p>This tool can be used to remove pits from a digital elevation model (DEM). Pits are single grid cells
@@ -756,7 +862,7 @@ Modelling, 138(1-3), 247-254.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/depth_in_sink.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 05/12/2019</p>
 <p><a name="DownslopeDistanceToStream"></a></p>
 <a class="header" href="#downslopedistancetostream" id="downslopedistancetostream"><h1>DownslopeDistanceToStream</h1></a>
 <p>This tool can be used to calculate the distance from each grid cell in a raster to the nearest stream cell,
@@ -997,7 +1103,7 @@ Geosciences, 17(3), 413-422.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 21/11/2019</p>
 <p><a name="Fd8Pointer"></a></p>
 <a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
 <p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the FD8 (Freeman, 1991) algorithm.
@@ -1083,6 +1189,61 @@ the computationally efficient approach of examining each cell based on its spill
 edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
 first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
 in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
+known to provide a solution to depression removal with less impact of the DEM. Furthermore, the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>,
+while less efficient than either other hydrological preprocessing methods, often provides a lower impact solution
+to topographic depression.</p>
+<p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
+<a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
+a more natural-looking surface than the flat areas that are produced by depression filling. Importantly, the
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool algorithm implementation assumes that there are no 'donut hole' NoData gaps within the area
+of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
+the output image.</p>
+<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, the depression filling method often provides a less
+satisfactory, higher impact, depression removal solution and is often less efficient. <strong>It is advisable that users
+try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs first</strong>. The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>
+tool is particularly well suited to breaching through road embankments in fine-resolution DEMs. Nonetheless, there are
+applications for which full depression filling using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
+<p><em>Reference</em>:</p>
+<p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
+models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--fix_flats        </td><td> Optional flag indicating whether flat areas should have a small gradient applied</td></tr>
+<tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
+<tr><td>--max_depth        </td><td> Optional maximum depression depth to fill</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.fill_depressions(
+    dem, 
+    output, 
+    fix_flats=True, 
+    flat_increment=None, 
+    max_depth=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressions -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--fix_flats 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 28/06/2017</p>
+<p><em>Last Modified</em>: 24/11/2019</p>
+<p><a name="FillDepressionsWangAndLui"></a></p>
+<a class="header" href="#filldepressionswangandlui" id="filldepressionswangandlui"><h1>FillDepressionsWangAndLui</h1></a>
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
+lat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm is based on
+the computationally efficient approach of examining each cell based on its spill elevation, starting from the
+edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
+first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
+in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
 known to provide a solution to depression removal with less impact of the DEM.</p>
 <p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
 <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
@@ -1103,7 +1264,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.fill_depressions(
+<pre><code class="language-python">wbt.fill_depressions_wang_and_lui(
     dem, 
     output, 
     fix_flats=True, 
@@ -1112,14 +1273,14 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressions -v ^
+<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressionsWangAndLui -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --fix_flats 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_wang_and_lui.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 05/12/2019</p>
 <p><a name="FillSingleCellPits"></a></p>
 <a class="header" href="#fillsinglecellpits" id="fillsinglecellpits"><h1>FillSingleCellPits</h1></a>
 <p>This tool can be used to remove pits from a digital elevation model (DEM). Pits are single grid cells with no
@@ -1287,7 +1448,8 @@ elevation models for hydrologic analysis and modelling. International Journal of
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="FlowAccumulationFullWorkflow"></a></p>
 <a class="header" href="#flowaccumulationfullworkflow" id="flowaccumulationfullworkflow"><h1>FlowAccumulationFullWorkflow</h1></a>
-<p>Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow pointer, and a flow accumulation raster.</p>
+<p>Resolves all of the depressions in a DEM, outputting a breached DEM, an aspect-aligned non-divergent flow
+pointer, and a flow accumulation raster.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1716,13 +1878,13 @@ cells.</p>
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./gis_analysis.html#clump"><strong>Clump</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-i, --dem, --input</td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.sink(
-    dem, 
+    i, 
     output, 
     zero_background=False, 
     callback=default_callback
@@ -1730,12 +1892,12 @@ cells.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Sink -v --wd=&quot;/path/to/data/&quot; ^
---dem=DEM.tif -o=output.tif --zero_background 
+--dem=DEM.tif -o=filled_dem.tif --zero_background 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/sink.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 05/12/2019</p>
 <p><a name="SnapPourPoints"></a></p>
 <a class="header" href="#snappourpoints" id="snappourpoints"><h1>SnapPourPoints</h1></a>
 <p>The <a href="./hydrological_analysis.html#snappourpoints"><strong>SnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
@@ -2018,6 +2180,37 @@ algorithm.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/04/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="UpslopeDepressionStorage"></a></p>
+<a class="header" href="#upslopedepressionstorage" id="upslopedepressionstorage"><h1>UpslopeDepressionStorage</h1></a>
+<p>This tool estimates the average upslope depression storage depth using the FD8 flow algorithm.
+The input DEM (<code>--dem</code>) need not be hydrologically corrected; the tool will internally map depression
+storage and resolve flowpaths using depression filling. This input elevation model should be of a
+fine resolution (&lt; 2 m), and is ideally derived using LiDAR. The tool calculates the total upslope
+depth of depression storage, which is divided by the number of upslope cells in the final step
+of the process, yielding the average upslope depression depth. Roughened surfaces tend to have higher
+values compared with smoothed surfaces. Values, particularly on hillslopes, may be very small (&lt; 0.01 m).</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#depthinsink"><strong>DepthInSink</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.upslope_depression_storage(
+    dem, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=UpslopeDepressionStorage -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/upslope_depression_storage.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 21/11/2019</p>
+<p><em>Last Modified</em>: 21/11/2019</p>
 <p><a name="Watershed"></a></p>
 <a class="header" href="#watershed" id="watershed"><h1>Watershed</h1></a>
 <p>This tool will perform a watershedding operation based on a group of input vector pour points (<code>--pour_pts</code>),
