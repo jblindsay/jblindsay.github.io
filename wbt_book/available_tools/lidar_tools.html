@@ -171,9 +171,9 @@
 <li><a href="#LidarPointDensity">LidarPointDensity</a></li>
 <li><a href="#LidarPointStats">LidarPointStats</a></li>
 <li><a href="#LidarRansacPlanes">LidarRansacPlanes</a></li>
+<li><a href="#LidarRbfInterpolation">LidarRbfInterpolation</a></li>
 <li><a href="#LidarRemoveDuplicates">LidarRemoveDuplicates</a></li>
 <li><a href="#LidarRemoveOutliers">LidarRemoveOutliers</a></li>
-<li><a href="#LidarRfbInterpolation">LidarRfbInterpolation</a></li>
 <li><a href="#LidarSegmentation">LidarSegmentation</a></li>
 <li><a href="#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a></li>
 <li><a href="#LidarThin">LidarThin</a></li>
@@ -1301,6 +1301,50 @@ planar points (0).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/07/2019</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
+<p><a name="LidarRbfInterpolation"></a></p>
+<a class="header" href="#lidarrbfinterpolation" id="lidarrbfinterpolation"><h1>LidarRbfInterpolation</h1></a>
+<p>Interpolates LAS files using a radial basis function (RBF) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
+<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
+<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.lidar_rbf_interpolation(
+    i=None, 
+    output=None, 
+    parameter=&quot;elevation&quot;, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    radius=2.5, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    func_type=&quot;ThinPlateSpline&quot;, 
+    poly_order=&quot;none&quot;, 
+    weight=0.1, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarRbfInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0 --radius=5.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/11/2019</p>
+<p><em>Last Modified</em>: 08/11/2019</p>
 <p><a name="LidarRemoveDuplicates"></a></p>
 <a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h1>LidarRemoveDuplicates</h1></a>
 <p>This tool removes duplicate points from a LiDAR data set. Duplicates are determined
@@ -1363,54 +1407,6 @@ without the point, exceeds a threshold (elev_diff).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/02/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
-<p><a name="LidarRfbInterpolation"></a></p>
-<a class="header" href="#lidarrfbinterpolation" id="lidarrfbinterpolation"><h1>LidarRfbInterpolation</h1></a>
-<p>Interpolates LAS files using a radial basis function (RFB) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
-<p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
-<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
-<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
-<tr><td>--radius           </td><td> Search Radius</td></tr>
-<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
-<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
-<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
-<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
-<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
-<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
-</tbody></table>
-<p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.lidar_rfb_interpolation(
-    i=None, 
-    output=None, 
-    parameter=&quot;elevation&quot;, 
-    returns=&quot;all&quot;, 
-    resolution=1.0, 
-    radius=2.5, 
-    exclude_cls=None, 
-    minz=None, 
-    maxz=None, 
-    func_type=&quot;ThinPlateSpline&quot;, 
-    poly_order=&quot;none&quot;, 
-    weight=0.1, 
-    callback=default_callback
-)
-</code></pre>
-<p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=LidarRfbInterpolation -v ^
---wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
---resolution=2.0 --radius=5.0&quot;
-./whitebox_tools ^
--r=LidarRfbInterpolation --wd=&quot;/path/to/data/&quot; -i=file.las ^
--o=outfile.tif --resolution=5.0 --weight=2.0 --radius=2.0 ^
---exclude_cls='3,4,5,6,7,18' --palette=light_quant.plt 
-</code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
-<p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 08/11/2019</p>
-<p><em>Last Modified</em>: 08/11/2019</p>
 <p><a name="LidarSegmentation"></a></p>
 <a class="header" href="#lidarsegmentation" id="lidarsegmentation"><h1>LidarSegmentation</h1></a>
 <p>This tool segments a LiDAR point cloud based on normal vectors. The segment values

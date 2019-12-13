@@ -372,9 +372,9 @@ path is determined by the amount of elevation lowering needed to cut the breach 
 through the surrounding topography.</p>
 <p>The user must specify the name of the input DEM file (<code>--dem</code>), the output breached DEM
 file (<code>--output</code>), the maximum search window radius (<code>--radius</code>), the optional maximum breach
-cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that if the
+cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that <strong>if the
 <code>--flat_increment</code> parameter is not specified, the small number used to ensure flow across flats will be
-calculated automatically, which should be preferred in most applications of the tool.
+calculated automatically, which should be preferred in most applications</strong> of the tool.
 The tool operates by performing a least-cost path analysis within a neighbourhood surround
 each pit cell, where the neighbourhood size begins small (9 × 9; radius = 4) and iteratively increases (by doubling)
 until it reaches the maximum breach length parameter. If a value is specified for the optional
@@ -1182,32 +1182,38 @@ Conference. pp. 24-30.</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="FillDepressions"></a></p>
 <a class="header" href="#filldepressions" id="filldepressions"><h1>FillDepressions</h1></a>
-<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
-lat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
-flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm is based on
-the computationally efficient approach of examining each cell based on its spill elevation, starting from the
-edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
-first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
-in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
-known to provide a solution to depression removal with less impact of the DEM. Furthermore, the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>,
-while less efficient than either other hydrological preprocessing methods, often provides a lower impact solution
-to topographic depression.</p>
-<p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
-<a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
-a more natural-looking surface than the flat areas that are produced by depression filling. Importantly, the
-<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool algorithm implementation assumes that there are no 'donut hole' NoData gaps within the area
-of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
-the output image.</p>
-<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, the depression filling method often provides a less
-satisfactory, higher impact, depression removal solution and is often less efficient. <strong>It is advisable that users
-try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs first</strong>. The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>
-tool is particularly well suited to breaching through road embankments in fine-resolution DEMs. Nonetheless, there are
-applications for which full depression filling using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
-<p><em>Reference</em>:</p>
-<p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
-models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
+flat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm operates
+by first identifying single-cell pits, that is, interior grid cells with no lower neighbouring cells. Each pit
+cell is then visited from highest to lowest and a priority region-growing operation is initiated. The area of
+monotonically increasing elevation, starting from the pit cell and growing based on flood order, is identified.
+Once a cell, that has not been previously visited and possessing a lower elevation than its discovering neighbour
+cell, is identified the discovering neighbour is labelled as an outlet (spill point) and the outlet elevation is
+noted. The algorithm then back-fills the labelled region, raising the elevation in the output DEM (<code>--output</code>) to
+that of the outlet. Once this process is completed for each pit cell (noting that nested pit cells are often
+solved by prior pits) the flat regions of filled pits are optionally treated (<code>--fix_flats</code>) with an applied
+small slope gradient away from outlets (note, more than one outlet cell may exist for each depression). The user
+may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
+<strong>it is best to not specify this optional value and to let the algorithm determine the most suitable value itself</strong>.
+The flat-fixing method applies a small gradient away from outlets using another priority region-growing operation (i.e.
+based on a priority queue operation), where priorities are set by the elevations in the input DEM (<code>--input</code>). This
+in effect ensures a gradient away from outlet cells but also following the natural pre-conditioned topography internal
+to depression areas. For example, if a large filled area occurs upstream of a damming road-embankment, the filled
+DEM will possess flow directions that are similar to the un-flooded valley, with flow following the valley bottom.
+In fact, the above case is better handled using the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, which would simply cut through
+the road embankment at the likely site of a culvert. However, the flat-fixing method of <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> does mean
+that this common occurrence in LiDAR DEMs is less problematic.</p>
+<p>The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, while slightly less efficient than either other hydrological preprocessing methods,
+often provides a lower impact solution to topographic depressions and should be preferred in most applications. In comparison
+with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, the depression filling method often provides a less satisfactory, higher impact
+solution. <strong>It is advisable that users try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs
+before using <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></strong>. Nonetheless, there are applications for which full depression filling using the
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
+<p>Note that this tool will not fill in NoData regions within the DEM. It is advisable to remove such regions using the
+<a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool prior to application.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#sink"><strong>Sink</strong></a>, <a href="./hydrological_analysis.html#depthinsink"><strong>DepthInSink</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1234,28 +1240,30 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 24/11/2019</p>
+<p><em>Last Modified</em>: 12/12/2019</p>
 <p><a name="FillDepressionsWangAndLui"></a></p>
 <a class="header" href="#filldepressionswangandlui" id="filldepressionswangandlui"><h1>FillDepressionsWangAndLui</h1></a>
-<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
-lat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
-flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm is based on
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
+flat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressionswangandlui"><strong>FillDepressionsWangAndLui</strong></a> algorithm is based on
 the computationally efficient approach of examining each cell based on its spill elevation, starting from the
 edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
-first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
-in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
-known to provide a solution to depression removal with less impact of the DEM.</p>
+first proposed by Wang and Liu (2006). However, itt is currently not the most efficient depression-removal algorithm
+available in WhiteboxTools; <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> are both more efficient and often
+produce better, lower-impact results.</p>
 <p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
 <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
 a more natural-looking surface than the flat areas that are produced by depression filling. Importantly, the
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool algorithm implementation assumes that there are no 'donut hole' NoData gaps within the area
 of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
 the output image.</p>
+<p>The user may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
+<strong>it is best to not specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
 <p><em>Reference</em>:</p>
 <p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
 models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>

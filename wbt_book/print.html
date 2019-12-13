@@ -3907,6 +3907,7 @@ on computer systems with high core-counts and plenty of memory.</p>
 <li><a href="#PolygonLongAxis">PolygonLongAxis</a></li>
 <li><a href="#PolygonPerimeter">PolygonPerimeter</a></li>
 <li><a href="#PolygonShortAxis">PolygonShortAxis</a></li>
+<li><a href="#RadialBasisFunctionInterpolation">RadialBasisFunctionInterpolation</a></li>
 <li><a href="#RasterArea">RasterArea</a></li>
 <li><a href="#RasterCellAssignment">RasterCellAssignment</a></li>
 <li><a href="#Reclass">Reclass</a></li>
@@ -4766,7 +4767,7 @@ Interpolating Multivariate Data. Chichester: John Wiley. pp. 21–36.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/natural_neighbour_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 08/12/2019</p>
-<p><em>Last Modified</em>: 08/12/2019</p>
+<p><em>Last Modified</em>: 10/12/2019</p>
 <p><a name="NearestNeighbourGridding"></a></p>
 <a class="header" href="#nearestneighbourgridding" id="nearestneighbourgridding"><h1>NearestNeighbourGridding</h1></a>
 <p>Creates a raster grid based on a set of vector points and assigns grid values using the nearest neighbour.</p>
@@ -4909,6 +4910,48 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
+<p><a name="RadialBasisFunctionInterpolation"></a></p>
+<a class="header" href="#radialbasisfunctioninterpolation" id="radialbasisfunctioninterpolation"><h1>RadialBasisFunctionInterpolation</h1></a>
+<p>This tool interpolates vector points into a raster surface using a radial basis function (RBF) scheme.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--min_points       </td><td> Minimum number of points</td></tr>
+<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
+<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
+<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.radial_basis_function_interpolation(
+    i, 
+    field, 
+    output, 
+    use_z=False, 
+    radius=None, 
+    min_points=None, 
+    func_type=&quot;ThinPlateSpline&quot;, 
+    poly_order=&quot;none&quot;, 
+    weight=0.1, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RadialBasisFunctionInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=ELEV -o=output.tif ^
+--weight=2.0 --radius=4.0 --min_points=3 --cell_size=1.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 10/12/2019</p>
+<p><em>Last Modified</em>: 10/12/2019</p>
 <p><a name="RasterArea"></a></p>
 <a class="header" href="#rasterarea" id="rasterarea"><h1>RasterArea</h1></a>
 <p>This tools estimates the area of each category, polygon, or patch in an input raster. The input raster must be categorical
@@ -7215,9 +7258,9 @@ path is determined by the amount of elevation lowering needed to cut the breach 
 through the surrounding topography.</p>
 <p>The user must specify the name of the input DEM file (<code>--dem</code>), the output breached DEM
 file (<code>--output</code>), the maximum search window radius (<code>--radius</code>), the optional maximum breach
-cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that if the
+cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that <strong>if the
 <code>--flat_increment</code> parameter is not specified, the small number used to ensure flow across flats will be
-calculated automatically, which should be preferred in most applications of the tool.
+calculated automatically, which should be preferred in most applications</strong> of the tool.
 The tool operates by performing a least-cost path analysis within a neighbourhood surround
 each pit cell, where the neighbourhood size begins small (9 × 9; radius = 4) and iteratively increases (by doubling)
 until it reaches the maximum breach length parameter. If a value is specified for the optional
@@ -8025,32 +8068,38 @@ Conference. pp. 24-30.</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="FillDepressions"></a></p>
 <a class="header" href="#filldepressions" id="filldepressions"><h1>FillDepressions</h1></a>
-<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
-lat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
-flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm is based on
-the computationally efficient approach of examining each cell based on its spill elevation, starting from the
-edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
-first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
-in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
-known to provide a solution to depression removal with less impact of the DEM. Furthermore, the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>,
-while less efficient than either other hydrological preprocessing methods, often provides a lower impact solution
-to topographic depression.</p>
-<p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
-<a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
-a more natural-looking surface than the flat areas that are produced by depression filling. Importantly, the
-<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool algorithm implementation assumes that there are no 'donut hole' NoData gaps within the area
-of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
-the output image.</p>
-<p>In comparison with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, the depression filling method often provides a less
-satisfactory, higher impact, depression removal solution and is often less efficient. <strong>It is advisable that users
-try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs first</strong>. The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>
-tool is particularly well suited to breaching through road embankments in fine-resolution DEMs. Nonetheless, there are
-applications for which full depression filling using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
-<p><em>Reference</em>:</p>
-<p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
-models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
+flat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm operates
+by first identifying single-cell pits, that is, interior grid cells with no lower neighbouring cells. Each pit
+cell is then visited from highest to lowest and a priority region-growing operation is initiated. The area of
+monotonically increasing elevation, starting from the pit cell and growing based on flood order, is identified.
+Once a cell, that has not been previously visited and possessing a lower elevation than its discovering neighbour
+cell, is identified the discovering neighbour is labelled as an outlet (spill point) and the outlet elevation is
+noted. The algorithm then back-fills the labelled region, raising the elevation in the output DEM (<code>--output</code>) to
+that of the outlet. Once this process is completed for each pit cell (noting that nested pit cells are often
+solved by prior pits) the flat regions of filled pits are optionally treated (<code>--fix_flats</code>) with an applied
+small slope gradient away from outlets (note, more than one outlet cell may exist for each depression). The user
+may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
+<strong>it is best to not specify this optional value and to let the algorithm determine the most suitable value itself</strong>.
+The flat-fixing method applies a small gradient away from outlets using another priority region-growing operation (i.e.
+based on a priority queue operation), where priorities are set by the elevations in the input DEM (<code>--input</code>). This
+in effect ensures a gradient away from outlet cells but also following the natural pre-conditioned topography internal
+to depression areas. For example, if a large filled area occurs upstream of a damming road-embankment, the filled
+DEM will possess flow directions that are similar to the un-flooded valley, with flow following the valley bottom.
+In fact, the above case is better handled using the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, which would simply cut through
+the road embankment at the likely site of a culvert. However, the flat-fixing method of <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> does mean
+that this common occurrence in LiDAR DEMs is less problematic.</p>
+<p>The <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, while slightly less efficient than either other hydrological preprocessing methods,
+often provides a lower impact solution to topographic depressions and should be preferred in most applications. In comparison
+with the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool, the depression filling method often provides a less satisfactory, higher impact
+solution. <strong>It is advisable that users try the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> tool to remove depressions from their DEMs
+before using <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></strong>. Nonetheless, there are applications for which full depression filling using the
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool may be preferred.</p>
+<p>Note that this tool will not fill in NoData regions within the DEM. It is advisable to remove such regions using the
+<a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool prior to application.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#sink"><strong>Sink</strong></a>, <a href="./hydrological_analysis.html#depthinsink"><strong>DepthInSink</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -8077,28 +8126,30 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 24/11/2019</p>
+<p><em>Last Modified</em>: 12/12/2019</p>
 <p><a name="FillDepressionsWangAndLui"></a></p>
 <a class="header" href="#filldepressionswangandlui" id="filldepressionswangandlui"><h1>FillDepressionsWangAndLui</h1></a>
-<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the f
-lat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
-flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> algorithm is based on
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
+flat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressionswangandlui"><strong>FillDepressionsWangAndLui</strong></a> algorithm is based on
 the computationally efficient approach of examining each cell based on its spill elevation, starting from the
 edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
-first proposed by Wang and Liu (2006). It is currently the most efficient depression-removal algorithm available
-in WhiteboxTools, although it is not significantly more efficient than the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> tool, which is
-known to provide a solution to depression removal with less impact of the DEM.</p>
+first proposed by Wang and Liu (2006). However, itt is currently not the most efficient depression-removal algorithm
+available in WhiteboxTools; <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> are both more efficient and often
+produce better, lower-impact results.</p>
 <p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
 <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool to repair these gaps. This tool will interpolate values across the gaps and produce
 a more natural-looking surface than the flat areas that are produced by depression filling. Importantly, the
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool algorithm implementation assumes that there are no 'donut hole' NoData gaps within the area
 of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
 the output image.</p>
+<p>The user may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
+<strong>it is best to not specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
 <p><em>Reference</em>:</p>
 <p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
 models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -12144,9 +12195,9 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <li><a href="#LidarPointDensity">LidarPointDensity</a></li>
 <li><a href="#LidarPointStats">LidarPointStats</a></li>
 <li><a href="#LidarRansacPlanes">LidarRansacPlanes</a></li>
+<li><a href="#LidarRbfInterpolation">LidarRbfInterpolation</a></li>
 <li><a href="#LidarRemoveDuplicates">LidarRemoveDuplicates</a></li>
 <li><a href="#LidarRemoveOutliers">LidarRemoveOutliers</a></li>
-<li><a href="#LidarRfbInterpolation">LidarRfbInterpolation</a></li>
 <li><a href="#LidarSegmentation">LidarSegmentation</a></li>
 <li><a href="#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a></li>
 <li><a href="#LidarThin">LidarThin</a></li>
@@ -13274,6 +13325,50 @@ planar points (0).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/07/2019</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
+<p><a name="LidarRbfInterpolation"></a></p>
+<a class="header" href="#lidarrbfinterpolation" id="lidarrbfinterpolation"><h1>LidarRbfInterpolation</h1></a>
+<p>Interpolates LAS files using a radial basis function (RBF) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
+<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
+<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
+<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.lidar_rbf_interpolation(
+    i=None, 
+    output=None, 
+    parameter=&quot;elevation&quot;, 
+    returns=&quot;all&quot;, 
+    resolution=1.0, 
+    radius=2.5, 
+    exclude_cls=None, 
+    minz=None, 
+    maxz=None, 
+    func_type=&quot;ThinPlateSpline&quot;, 
+    poly_order=&quot;none&quot;, 
+    weight=0.1, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarRbfInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--resolution=2.0 --radius=5.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/11/2019</p>
+<p><em>Last Modified</em>: 08/11/2019</p>
 <p><a name="LidarRemoveDuplicates"></a></p>
 <a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h1>LidarRemoveDuplicates</h1></a>
 <p>This tool removes duplicate points from a LiDAR data set. Duplicates are determined
@@ -13336,54 +13431,6 @@ without the point, exceeds a threshold (elev_diff).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/02/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
-<p><a name="LidarRfbInterpolation"></a></p>
-<a class="header" href="#lidarrfbinterpolation" id="lidarrfbinterpolation"><h1>LidarRfbInterpolation</h1></a>
-<p>Interpolates LAS files using a radial basis function (RFB) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
-<p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
-<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
-<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
-<tr><td>--radius           </td><td> Search Radius</td></tr>
-<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
-<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
-<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
-<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
-<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
-<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
-</tbody></table>
-<p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.lidar_rfb_interpolation(
-    i=None, 
-    output=None, 
-    parameter=&quot;elevation&quot;, 
-    returns=&quot;all&quot;, 
-    resolution=1.0, 
-    radius=2.5, 
-    exclude_cls=None, 
-    minz=None, 
-    maxz=None, 
-    func_type=&quot;ThinPlateSpline&quot;, 
-    poly_order=&quot;none&quot;, 
-    weight=0.1, 
-    callback=default_callback
-)
-</code></pre>
-<p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=LidarRfbInterpolation -v ^
---wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
---resolution=2.0 --radius=5.0&quot;
-./whitebox_tools ^
--r=LidarRfbInterpolation --wd=&quot;/path/to/data/&quot; -i=file.las ^
--o=outfile.tif --resolution=5.0 --weight=2.0 --radius=2.0 ^
---exclude_cls='3,4,5,6,7,18' --palette=light_quant.plt 
-</code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
-<p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 08/11/2019</p>
-<p><em>Last Modified</em>: 08/11/2019</p>
 <p><a name="LidarSegmentation"></a></p>
 <a class="header" href="#lidarsegmentation" id="lidarsegmentation"><h1>LidarSegmentation</h1></a>
 <p>This tool segments a LiDAR point cloud based on normal vectors. The segment values
@@ -14697,7 +14744,7 @@ value and the variance, z-score, and p-value (significance) under normal and ran
 inputs.</p>
 <p>**NoData **values in the input image are ignored during the analysis.</p>
 <p><em>See Also</em>:
-<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -14744,7 +14791,7 @@ coefficients can be found to be statistically significant, despite being practic
 <p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
 between images.</p>
 <p><em>See Also</em>:
-<a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a>, <a href="./mathand_stats_tools.html#imageautocorrelation"><strong>ImageAutocorrelation</strong></a></p>
+<a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a>, <a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a>, <a href="./mathand_stats_tools.html#imageautocorrelation"><strong>ImageAutocorrelation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -14768,7 +14815,20 @@ between images.</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ImageCorrelationNeighbourhoodAnalysis"></a></p>
 <a class="header" href="#imagecorrelationneighbourhoodanalysis" id="imagecorrelationneighbourhoodanalysis"><h1>ImageCorrelationNeighbourhoodAnalysis</h1></a>
-<p>Performs image correlation on two input images neighbourhood search windows.</p>
+<p>This tool can be used to perform nieghbourhood-based (i.e. using roving search windows applied to each
+grid cell) correlation analysis on two input rasters (<code>--input1</code> and <code>--input2</code>). The tool outputs a
+correlation value raster (<code>--output1</code>) and a significance (p-value) raster (<code>--output2</code>). Additionally,
+the user must specify the size of the search window (<code>--filter</code>) and the correlation statistic (<code>--stat</code>).
+Options for the correlation statistic include <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"><code>pearson</code></a>,
+<a href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient"><code>kendall</code></a>, and
+<a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient"><code>spearman</code></a>. Notice that Pearson's <em>r</em> is the
+most computationally efficient of the three correlation metrics but is unsuitable when the input distributions are
+non-linearly associated, in which case, either Spearman's Rho or Kendall's tau-b correlations are more suited.
+Both Spearman and Kendall correlations evaluate monotonic associations without assuming linearity in the relation.
+Kendall's tau-b is by far the most computationally expensive of the three statistics and may not be suitable to
+larger sized search windows.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file</td></tr>
@@ -14816,7 +14876,7 @@ analysis.</p>
 <p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
 between images.</p>
 <p><em>See Also</em>:
-<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file (independent variable, X)</td></tr>
@@ -18916,13 +18976,13 @@ SOFTWARE.</p>
 <p><a href="available_tools/lidar_tools.html#LidarRansacPlanes">LidarRansacPlanes</a>: Removes outliers (high and low points) in a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/lidar_tools.html#LidarRbfInterpolation">LidarRbfInterpolation</a>: Interpolates LAS files using a radial basis function (RBF) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/lidar_tools.html#LidarRemoveDuplicates">LidarRemoveDuplicates</a>: Removes duplicate points from a LiDAR data set. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarRemoveOutliers">LidarRemoveOutliers</a>: Removes outliers (high and low points) in a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
-</li>
-<li>
-<p><a href="available_tools/lidar_tools.html#LidarRfbInterpolation">LidarRfbInterpolation</a>: Interpolates LAS files using a radial basis function (RFB) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a>: Identifies ground points within LiDAR point clouds using a segmentation based approach. Found in <em>LiDAR Tools</em>.</p>
@@ -19232,6 +19292,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#Quantiles">Quantiles</a>: Transforms raster values into quantiles. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/gis_analysis.html#RadialBasisFunctionInterpolation">RadialBasisFunctionInterpolation</a>: Interpolates vector points into a raster surface using a radial basis function scheme. Found in <em>GIS Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis_patch_shape_tools.html#RadiusOfGyration">RadiusOfGyration</a>: Calculates the distance of cells from their polygon's centroid. Found in <em>GIS Analysis → Patch Shape Tools</em>.</p>

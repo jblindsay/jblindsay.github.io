@@ -171,6 +171,7 @@
 <li><a href="#PolygonLongAxis">PolygonLongAxis</a></li>
 <li><a href="#PolygonPerimeter">PolygonPerimeter</a></li>
 <li><a href="#PolygonShortAxis">PolygonShortAxis</a></li>
+<li><a href="#RadialBasisFunctionInterpolation">RadialBasisFunctionInterpolation</a></li>
 <li><a href="#RasterArea">RasterArea</a></li>
 <li><a href="#RasterCellAssignment">RasterCellAssignment</a></li>
 <li><a href="#Reclass">Reclass</a></li>
@@ -1030,7 +1031,7 @@ Interpolating Multivariate Data. Chichester: John Wiley. pp. 21–36.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/natural_neighbour_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 08/12/2019</p>
-<p><em>Last Modified</em>: 08/12/2019</p>
+<p><em>Last Modified</em>: 10/12/2019</p>
 <p><a name="NearestNeighbourGridding"></a></p>
 <a class="header" href="#nearestneighbourgridding" id="nearestneighbourgridding"><h1>NearestNeighbourGridding</h1></a>
 <p>Creates a raster grid based on a set of vector points and assigns grid values using the nearest neighbour.</p>
@@ -1173,6 +1174,48 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
+<p><a name="RadialBasisFunctionInterpolation"></a></p>
+<a class="header" href="#radialbasisfunctioninterpolation" id="radialbasisfunctioninterpolation"><h1>RadialBasisFunctionInterpolation</h1></a>
+<p>This tool interpolates vector points into a raster surface using a radial basis function (RBF) scheme.</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--min_points       </td><td> Minimum number of points</td></tr>
+<tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
+<tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
+<tr><td>--weight           </td><td> Weight parameter used in basis function</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.radial_basis_function_interpolation(
+    i, 
+    field, 
+    output, 
+    use_z=False, 
+    radius=None, 
+    min_points=None, 
+    func_type=&quot;ThinPlateSpline&quot;, 
+    poly_order=&quot;none&quot;, 
+    weight=0.1, 
+    cell_size=None, 
+    base=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RadialBasisFunctionInterpolation -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=ELEV -o=output.tif ^
+--weight=2.0 --radius=4.0 --min_points=3 --cell_size=1.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 10/12/2019</p>
+<p><em>Last Modified</em>: 10/12/2019</p>
 <p><a name="RasterArea"></a></p>
 <a class="header" href="#rasterarea" id="rasterarea"><h1>RasterArea</h1></a>
 <p>This tools estimates the area of each category, polygon, or patch in an input raster. The input raster must be categorical

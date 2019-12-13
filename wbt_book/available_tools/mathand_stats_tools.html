@@ -1112,7 +1112,7 @@ value and the variance, z-score, and p-value (significance) under normal and ran
 inputs.</p>
 <p>**NoData **values in the input image are ignored during the analysis.</p>
 <p><em>See Also</em>:
-<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -1159,7 +1159,7 @@ coefficients can be found to be statistically significant, despite being practic
 <p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
 between images.</p>
 <p><em>See Also</em>:
-<a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a>, <a href="./mathand_stats_tools.html#imageautocorrelation"><strong>ImageAutocorrelation</strong></a></p>
+<a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a>, <a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a>, <a href="./mathand_stats_tools.html#imageautocorrelation"><strong>ImageAutocorrelation</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
@@ -1183,7 +1183,20 @@ between images.</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ImageCorrelationNeighbourhoodAnalysis"></a></p>
 <a class="header" href="#imagecorrelationneighbourhoodanalysis" id="imagecorrelationneighbourhoodanalysis"><h1>ImageCorrelationNeighbourhoodAnalysis</h1></a>
-<p>Performs image correlation on two input images neighbourhood search windows.</p>
+<p>This tool can be used to perform nieghbourhood-based (i.e. using roving search windows applied to each
+grid cell) correlation analysis on two input rasters (<code>--input1</code> and <code>--input2</code>). The tool outputs a
+correlation value raster (<code>--output1</code>) and a significance (p-value) raster (<code>--output2</code>). Additionally,
+the user must specify the size of the search window (<code>--filter</code>) and the correlation statistic (<code>--stat</code>).
+Options for the correlation statistic include <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"><code>pearson</code></a>,
+<a href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient"><code>kendall</code></a>, and
+<a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient"><code>spearman</code></a>. Notice that Pearson's <em>r</em> is the
+most computationally efficient of the three correlation metrics but is unsuitable when the input distributions are
+non-linearly associated, in which case, either Spearman's Rho or Kendall's tau-b correlations are more suited.
+Both Spearman and Kendall correlations evaluate monotonic associations without assuming linearity in the relation.
+Kendall's tau-b is by far the most computationally expensive of the three statistics and may not be suitable to
+larger sized search windows.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imageregression"><strong>ImageRegression</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file</td></tr>
@@ -1231,7 +1244,7 @@ analysis.</p>
 <p><strong>NoData</strong> values in either of the two input images are ignored during the calculation of the correlation
 between images.</p>
 <p><em>See Also</em>:
-<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a></p>
+<a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--i1, --input1    </td><td> Input raster file (independent variable, X)</td></tr>
