@@ -23,7 +23,7 @@ function insertFooter() {
   var el = document.getElementById("footer");
   if (el != null) {
     el.innerHTML = "";
-    s = "<span id=\"copyrightText\" class=\"footerText\">Copyright &copy; John Lindsay 2015-2019</span>" + eol +
+    s = "<span id=\"copyrightText\" class=\"footerText\">Copyright &copy; John Lindsay 2015-2020</span>" + eol +
         "<span id=\"footerLinkBar\" class=\"footerText\"><a href=\"http://www.uoguelph.ca/geography/\">Department of Geography, Environment &amp; Geomatics</a> &#8729; <a href=\"http://www.uoguelph.ca/\">The University of Guelph</a> &#8729; <a href=\"https://whiteboxgeospatial.wordpress.com\">Whitebox Blog</a></span>";
     el.innerHTML += s;
   }
