@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -138,11 +142,11 @@
                     <main>
                         <a class="header" href="#part-1-acquiring-satellite-imagery" id="part-1-acquiring-satellite-imagery"><h1>Part 1: Acquiring Satellite Imagery</h1></a>
 <p>Satellite data can be acquired from a large number of locations, depending on application needs. Before you begin a project involving satellite imagery, you should consider several factors, including: the type of sensor you require (e.g. multispectral imagery, radar data, LiDAR data, etc.), the necessary spatial resolution, temporal factors (e.g. do you need an image for a specific date or time of year?), and your budget for acquiring imagery. There are many commercial providers of satellite imagery and the cost per km<sup>2</sup> of data can vary significantly. There also several sources of free satellite imagery, which, depending on your project constraints, may well be suitable.</p>
-<p>The United States Geological Survey (USGS) are an excellent source of freely available satellite imagery data (<strong>2019 update:</strong> notice that the availability of these data may be affected by the current US government shutdown). The USGS are responsible for storing and disseminating many of the archived datasets from NASA satellites. There are two online data portals that the USGS currently operate to disseminate publically available imagery, including the Global Visualization Viewer (Glovis) and EarthExplorer. Visit the USGS Global Visualization Viewer web site at
+<p>The United States Geological Survey (USGS) are an excellent source of freely available satellite imagery data. The USGS are responsible for storing and disseminating many of the archived datasets from NASA satellites. There are two online data portals that the USGS currently operate to disseminate publically available imagery, including the Global Visualization Viewer (Glovis) and EarthExplorer. Visit the USGS Global Visualization Viewer web site at
 <a href="http://glovis.usgs.gov/">http://glovis.usgs.gov/</a></p>
 <p><img src="img/glovis.png" alt="The GloVis Viewer" /></p>
 <p>This is an excellent example of an online data warehouse for satellite imagery. Like many of these sites, you need to register before you are able to download the available data. We will not need to do this at the moment because even without registering, the site will allow users to examine historical and recently acquired images and assess their quality.</p>
-<p>Examine each of the data sets that are available under the ‘Datasets menu. Not all of these data are available free-of-charge, and not every data set is available to users outside of the U.S., but many are. If you click on the ‘Data Descriptions’ link from within the sub-menu of any of the data sets, you will be able to see what data is available at no charge. The more interesting data sets include the ASTER, EO-1 ALI, EO-1 Hyperion (hyperspectral data), and the various available Landsat 5 TM, Landsat 7 ETM+, and Landsat 8 Operational Land Imager (OLI) collections. Select the Landsat 8 OLI option under the Landsat Archive menu. Now navigate to the Guelph area. Select the image tile that contains Guelph and most of the Greater Toronto Area. You will be able to view all of the images available in this collection corresponding with this location, scrolling through the timeline of acquisition dates at the bottom of the map. Notice that the image ID, scence cloud cover (CC) percentage, and date are given for each image.</p>
+<p>Examine each of the data sets that are available under the ‘Datasets menu. Not all of these data are available free-of-charge, and not every data set is available to users outside of the U.S., but many are. If you click on the ‘Data Descriptions’ link from within the sub-menu of any of the data sets, you will be able to see what data is available at no charge. The more interesting data sets include the ASTER, EO-1 ALI, EO-1 Hyperion (hyperspectral data), and the various available Landsat 5 TM, Landsat 7 ETM+, and Landsat 8 Operational Land Imager (OLI) collections. Select the Landsat 8 OLI option under the Landsat Archive menu. Now navigate to the Guelph area. Select the image tile that contains Guelph and most of the Greater Toronto Area. You will be able to view all of the images available in this collection corresponding with this location, scrolling through the timeline of acquisition dates at the bottom of the map. Notice that the image ID, scene cloud cover (CC) percentage, and date are given for each image.</p>
 <p>The US-operated satellites are not the only source of remotely sensed imagery. Notably, the European Union also operate a number of earth observation satellites, including the Sentinel 1 and Sentinel 2 satellites which provide fine-resolution data (up to 10 m) freely. Like the Landsat program, the Sentinel program provides valuable data for many types of remote sensing applications.</p>
 <a class="header" href="#questions-for-part-1" id="questions-for-part-1"><h2>Questions for Part 1</h2></a>
 <blockquote>

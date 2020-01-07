@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#geog3420-remote-sensing-of-the-environment-w19" id="geog3420-remote-sensing-of-the-environment-w19"><h1>GEOG*3420 Remote Sensing of the Environment (W19)</h1></a>
+                        <a class="header" href="#geog3420-remote-sensing-of-the-environment-w20" id="geog3420-remote-sensing-of-the-environment-w20"><h1>GEOG*3420 Remote Sensing of the Environment (W20)</h1></a>
 <a class="header" href="#lab-assignment-1" id="lab-assignment-1"><h2><strong>Lab Assignment 1</strong></h2></a>
 <a class="header" href="#introduction" id="introduction"><h2>Introduction</h2></a>
 <p>The purpose of this lab exercise is to familiarize students with multispectral imagery data sources used in Earth Observation applications, with the creation of colour composite images, and the use of the WhiteboxTools software package for analyzing these data.</p>
@@ -161,7 +165,7 @@
 <blockquote>
 <p><sup>1</sup> In this series of lab assignments, <strong><em>WhiteboxTools</em></strong> refers to the standalone geospatial analysis library, a collection of tools contained within a compiled binary executable command-line program and the associated Python scripts that are distributed alongside the binary file (e.g. <em>whitebox_tools.py</em> and <em>wb_runner.py</em>). <strong><em>Whitebox Geospatial Analysis Tools</em></strong> and <strong><em>Whitebox GAT</em></strong> refer to the GIS/RS software, which includes a user-interface (front-end), point-and-click tool interfaces, and cartographic data visualization capabilities. Importantly, <strong><em>WhiteboxTools</em></strong> and <strong><em>Whitebox GAT</em></strong> are related but separate projects.</p>
 </blockquote>
-<p>The computers in the Geography Undergraduate Computing Lab (Hutt 236), have ArcGIS and Whitebox GAT installed (IDRISI may possibly be installed as well). If you are planning to carry out these assignments on your own computer, then it is important that you have WhiteboxTools installed along with one of the data visualization packages described above. WhiteboxTools is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from <a href="https://www.uoguelph.ca/%7Ehydrogeo/WhiteboxTools/download.html">here</a>. Instructions on setting up and using WhiteboxTools can be found in the <a href="https://jblindsay.github.io/wbt_book/intro.html">WhiteboxTools User Manual</a> and you are advised to look over these materials before starting this lab.</p>
+<p>The computers in the Geography Undergraduate Computing Lab (Hutt 231), have ArcGIS and Whitebox GAT installed (IDRISI may possibly be installed as well). If you are planning to carry out these assignments on your own computer, then it is important that you have WhiteboxTools installed along with one of the data visualization packages described above. WhiteboxTools is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from <a href="https://www.uoguelph.ca/%7Ehydrogeo/WhiteboxTools/download.html">here</a>. Instructions on setting up and using WhiteboxTools can be found in the <a href="https://jblindsay.github.io/wbt_book/intro.html">WhiteboxTools User Manual</a> and you are advised to look over these materials before starting this lab.</p>
 <p>In addition to the software, you will need to <strong>download the data associated with this lab exercise from the CourseLink page</strong> under the Lab 1 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you purchase a USB flash drive to dedicate to this course and to serve as the data backup. <strong><em>It is important that you backup all of the data for the lab assignment.</em></strong></p>
 <a class="header" href="#what-you-need-to-hand-in" id="what-you-need-to-hand-in"><h2>What you need to hand in</h2></a>
 <p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. Notice that you will need to have paid your lab fee to have printing privileges in the Hutt building computer labs.</p>
