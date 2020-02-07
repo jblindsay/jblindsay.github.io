@@ -113,6 +113,13 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2020-02-05",
+      headline: "Dan Newman Completes His QE",
+      fullStory: "Congratulations to Dan Newman for successfully passing his qualifying examinations (QE). \
+      Dan is the GHRG's latest PhD ABD! Well done Dan, we're all thrilled for you"
+    },
+    
+    {
       date: "2019-09-29",
       headline: "WhiteboxTools v1.0.0 is Released",
       fullStory: "We are very pleased to announce the release of WhiteboxTools v1.0.0. This milestone \
