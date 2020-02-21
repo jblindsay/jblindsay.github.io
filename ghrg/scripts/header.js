@@ -113,6 +113,35 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2020-02-21",
+      headline: "WhiteboxTools v1.2.0 is Released",
+      fullStory: "We are pleased to announce the release of WhiteboxTools v1.2.0. This milestone release includes \
+      numerous tool additions and feature enhancements, including: <ul>\
+      <li>Added the RasterToVectorPolygons tool, which now completes the raster-vector conversion tool set.</li>\
+<li>Added the MultiscaleElevationPercentile tool.</li>\
+<li>Added the AttributeCorrelationNeighbourhoodAnalysis tool.</li>\
+<li>Added the RadialBasisFunctionInterpolation tool, which includes a thin-plate spline mode.</li>\
+<li>Added the RasterPerimeter tool to measure the perimeter of raster polygons.</li>\
+<li>Added the MDInfFlowAccumulation tool to perform the MD-infinity flow accumulation of Seibert \
+  and McGlynn (2007).</li>\
+  <li>Added the InsertDams tool, which can be used to insert impoundment features at a set of points \
+  of interest into a DEM. This tool can be used in combination with the ImpoundmentSizeIndex tool \
+  to create artificial reservoirs/depressions.</li>\
+  <li>Added the HeightAboveGround tool, to normalize a LiDAR point cloud. Each point's z-value is \
+  converted to the height above the nearest ground-classified point.</li> \
+  <li>Modified the LidarRbfInterpolation tool to improve efficiency.</li> \
+  <li>Fixed an issue with how floating point attributes were written in Shapefile attribute tables.</li>\
+  <li>Updated the LidarSegmentation tool, which now used RANSAC to fit planar models to points.</li>\
+  <li>Fixed an issue with the Reclass and ReclassFromFile tool that caused striping.</li>\
+  <li>The Relcass and ReclassFromFile tools now take 'min' and 'max' in the reclass string.</li>\
+  <li>The watershed tool now accepts either a set of vector points or a raster for the pour points  \
+  file. If a raster is specified, all non-zero, non-NoData valued cells will be considered \
+  outlet cells and the watershed labels will be assigned based on these values.</li>\
+  <li>The D8 and D-infinity flow accumulation tools now take either an input DEM or a flow pointer raster \
+  as inputs.</li></ul>"
+    },
+
+    {
       date: "2020-02-05",
       headline: "Dan Newman Completes His QE",
       fullStory: "Congratulations to Dan Newman for successfully passing his qualifying examinations (QE). \
