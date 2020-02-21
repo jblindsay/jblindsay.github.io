@@ -164,6 +164,7 @@
 <li><a href="#Fd8Pointer">Fd8Pointer</a></li>
 <li><a href="#FillBurn">FillBurn</a></li>
 <li><a href="#FillDepressions">FillDepressions</a></li>
+<li><a href="#FillDepressionsPlanchonAndDarboux">FillDepressionsPlanchonAndDarboux</a></li>
 <li><a href="#FillDepressionsWangAndLiu">FillDepressionsWangAndLiu</a></li>
 <li><a href="#FillSingleCellPits">FillSingleCellPits</a></li>
 <li><a href="#FindNoFlowCells">FindNoFlowCells</a></li>
@@ -174,10 +175,12 @@
 <li><a href="#FlowLengthDiff">FlowLengthDiff</a></li>
 <li><a href="#Hillslopes">Hillslopes</a></li>
 <li><a href="#ImpoundmentSizeIndex">ImpoundmentSizeIndex</a></li>
+<li><a href="#InsertDams">InsertDams</a></li>
 <li><a href="#Isobasins">Isobasins</a></li>
 <li><a href="#JensonSnapPourPoints">JensonSnapPourPoints</a></li>
 <li><a href="#LongestFlowpath">LongestFlowpath</a></li>
 <li><a href="#MaxUpslopeFlowpathLength">MaxUpslopeFlowpathLength</a></li>
+<li><a href="#MdInfFlowAccumulation">MdInfFlowAccumulation</a></li>
 <li><a href="#NumInflowingNeighbours">NumInflowingNeighbours</a></li>
 <li><a href="#RaiseWalls">RaiseWalls</a></li>
 <li><a href="#Rho8Pointer">Rho8Pointer</a></li>
@@ -375,16 +378,14 @@ file (<code>--output</code>), the maximum search window radius (<code>--radius</
 cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that <strong>if the
 <code>--flat_increment</code> parameter is not specified, the small number used to ensure flow across flats will be
 calculated automatically, which should be preferred in most applications</strong> of the tool.
-The tool operates by performing a least-cost path analysis within a neighbourhood surround
-each pit cell, where the neighbourhood size begins small (9 × 9; radius = 4) and iteratively increases (by doubling)
-until it reaches the maximum breach length parameter. If a value is specified for the optional
-<code>--max_cost</code> parameter, then least-cost breach paths that would require digging a channel that is more costly
-than this value will be left to see if the pit cell can be resolved with a longer but shallower (less costly) breach
-channel in an additional iteration (i.e. a larger search window). The flat increment value is used
+The tool operates by performing a least-cost path analysis for each pit cell, radiating outward
+until the operation identifies a potential breach destination cell or reaches the maximum breach length parameter.
+If a value is specified for the optional <code>--max_cost</code> parameter, then least-cost breach paths that would require
+digging a channel that is more costly than this value will be left unbreached. The flat increment value is used
 to ensure that there is a monotonically descending path along breach channels to satisfy the necessary
 condition of a downslope gradient for flowpath modelling. It is best for this value to be a small
 value. If left unspecified, the tool with determine an appropriate value based on the range of
-elevation values in the input DEM. Notice that the need to specify these very small elevation
+elevation values in the input DEM, <strong>which should be the case in most applications</strong>. Notice that the need to specify these very small elevation
 increment values is one of the reasons why the output DEM will always be of a 64-bit floating-point
 data type, which will often double the storage requirements of a DEM (DEMs are often store with 32-bit
 precision). Lastly, the user may optionally choose to apply depression filling (<code>--fill</code>) on any depressions
@@ -429,7 +430,7 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--radius           </td></tr>
+<tr><td>--dist             </td></tr>
 <tr><td>--max_cost         </td><td> Optional maximum breach cost (default is Inf)</td></tr>
 <tr><td>--min_dist         </td><td> Optional flag indicating whether to minimize breach distances</td></tr>
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
@@ -439,7 +440,7 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 <pre><code class="language-python">wbt.breach_depressions_least_cost(
     dem, 
     output, 
-    radius, 
+    dist, 
     max_cost=None, 
     min_dist=True, 
     flat_increment=None, 
@@ -449,7 +450,8 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BreachDepressionsLeastCost -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif --dist=1000 ^
+--max_cost=100.0 --min_dist 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions_least_cost.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -522,23 +524,26 @@ elevation during a second stream traversal.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BurnStreamsAtRoads -v ^
---wd=&quot;/path/to/data/&quot; --streams=streams.shp --base=raster.tif ^
--o=output.tif 
+--wd=&quot;/path/to/data/&quot; --dem=raster.tif --streams=streams.shp ^
+--roads=roads.shp -o=output.tif --width=50.0 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/burn_streams_at_roads.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 30/10/2019</p>
-<p><em>Last Modified</em>: 01/11/2019</p>
+<p><em>Last Modified</em>: 29/12/2019</p>
 <p><a name="D8FlowAccumulation"></a></p>
 <a class="header" href="#d8flowaccumulation" id="d8flowaccumulation"><h1>D8FlowAccumulation</h1></a>
 <p>This tool is used to generate a flow accumulation grid (i.e. catchment area) using the
 D8 (O'Callaghan and Mark, 1984) algorithm. This algorithm is an example of single-flow-direction
 (SFD) method because the flow entering each grid cell is routed to only one downslope neighbour,
 i.e. flow divergence is not permitted. The user must specify the name of the input digital
-elevation model (DEM). The DEM must have been hydrologically corrected to remove all spurious
-depressions and flat areas. DEM pre-processing is usually achieved using the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or
-<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools.</p>
-<p>In addition to the input DEM, the user must specify the output type. The output flow-accumulation
+elevation model (DEM) or D8 flow pointer (<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>) raster (<code>--input</code>). If an input DEM is used, it must have
+been hydrologically corrected to remove all spurious depressions and flat areas. DEM pre-processing
+is usually achieved using the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools. If a D8 pointer
+raster is input, the user must also specify the optional <code>--pntr</code> flag. If the D8 pointer follows
+the Esri pointer scheme, rather than the default WhiteboxTools scheme, the user must also specify the
+optional <code>--esri_pntr</code> flag.</p>
+<p>In addition to the input DEM/pointer, the user must specify the output type. The output flow-accumulation
 can be 1) <code>cells</code> (i.e. the number of inflowing grid cells), <code>catchment area</code> (i.e. the upslope area),
 or <code>specific contributing area</code> (i.e. the catchment area divided by the flow width. The default value
 is <code>cells</code>. The user must also specify whether the output flow-accumulation grid should be
@@ -550,40 +555,44 @@ values on hillslopes tends to be 'washed out' because the palette is stretched o
 highest values. Log-transformation provides a means of compensating for this phenomenon. Importantly,
 however, log-transformed flow-accumulation grids must not be used to estimate other secondary terrain
 indices, such as the wetness index, or relative stream power index.</p>
-<p>Grid cells possessing the <strong>NoData</strong> value in the input flow-pointer grid are assigned the <strong>NoData</strong>
+<p>Grid cells possessing the <strong>NoData</strong> value in the input DEM/pointer raster are assigned the <strong>NoData</strong>
 value in the output flow-accumulation image.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-i, --input        </td><td> Input raster DEM or D8 pointer file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--out_type         </td><td> Output type; one of 'cells' (default), 'catchment area', and 'specific contributing area'</td></tr>
 <tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
 <tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+<tr><td>--pntr             </td><td> Is the input raster a D8 flow pointer rather than a DEM?</td></tr>
+<tr><td>--esri_pntr        </td><td> Input  D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.d8_flow_accumulation(
-    dem, 
+    i, 
     output, 
     out_type=&quot;cells&quot;, 
     log=False, 
     clip=False, 
+    pntr=False, 
+    esri_pntr=False, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=D8FlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type='cells'
 &gt;&gt;./whitebox_tools -r=D8FlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type='specific catchment area' --log --clip 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/016/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="D8MassFlux"></a></p>
 <a class="header" href="#d8massflux" id="d8massflux"><h1>D8MassFlux</h1></a>
 <p>This tool can be used to perform a mass flux calculation using DEM-based surface flow-routing techniques.
@@ -682,11 +691,11 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <p>This tool is used to generate a flow accumulation grid (i.e. contributing area) using the D-infinity algorithm
 (Tarboton, 1997). This algorithm is an examples of a multiple-flow-direction (MFD) method because the flow entering
 each grid cell is routed to one or two downslope neighbour, i.e. flow divergence is permitted. The user must
-specify the name of the input pointer-grid, which has been created either from the Dinf flow-pointer tool. The
-flow-pointer grid should be created from a digital elevation model (DEM) that has been hydrologically corrected
+specify the name of the input digital elevation model or D-infinity pointer raster (<code>--input</code>). If an input DEM is
+specified, the DEM should have been hydrologically corrected
 to remove all spurious depressions and flat areas. DEM pre-processing is usually achieved using the
-<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
-<p>In addition to the input flow-pointer grid name, the user must specify the output type (<code>--out_type</code>). The output
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>In addition to the input DEM/pointer raster name, the user must specify the output type (<code>--out_type</code>). The output
 flow-accumulation
 can be 1) specific catchment area (SCA), which is the upslope contributing area divided by the contour length (taken
 as the grid resolution), 2) total catchment area in square-metres, or 3) the number of upslope grid cells. The user
@@ -698,45 +707,47 @@ hillslopes tends to be 'washed out' because the palette is stretched out to repr
 Log-transformation (<code>--log</code>) provides a means of compensating for this phenomenon. Importantly, however, log-transformed
 flow-accumulation grids must not be used to estimate other secondary terrain indices, such as the wetness index, or
 relative stream power index.</p>
-<p>Grid cells possessing the NoData value in the input flow-pointer grid are assigned the NoData value in the output
+<p>Grid cells possessing the NoData value in the input DEM/pointer raster are assigned the NoData value in the output
 flow-accumulation image. The output raster is of the float data type and continuous data scale.</p>
 <p><em>Reference</em>:</p>
 <p>Tarboton, D. G. (1997). A new method for the determination of flow directions and upslope areas in grid digital
 elevation models. Water resources research, 33(2), 309-319.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#mdinfflowaccumulation"><strong>MDInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>,`</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-i, --input        </td><td> Input raster DEM or D-infinity pointer file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--out_type         </td><td> Output type; one of 'cells', 'sca' (default), and 'ca'</td></tr>
 <tr><td>--threshold        </td><td> Optional convergence threshold parameter, in grid cells; default is inifinity</td></tr>
 <tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
 <tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+<tr><td>--pntr             </td><td> Is the input raster a D-infinity flow pointer rather than a DEM?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.d_inf_flow_accumulation(
-    dem, 
+    i, 
     output, 
     out_type=&quot;Specific Contributing Area&quot;, 
     threshold=None, 
     log=False, 
     clip=False, 
+    pntr=False, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DInfFlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type=sca
 &gt;&gt;./whitebox_tools -r=DInfFlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type=sca --threshold=10000 --log --clip 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 24/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="DInfMassFlux"></a></p>
 <a class="header" href="#dinfmassflux" id="dinfmassflux"><h1>DInfMassFlux</h1></a>
 <p>This tool can be used to perform a mass flux calculation using DEM-based surface flow-routing techniques. For
@@ -824,7 +835,7 @@ grid digital elevation models. Water resources research, 33(2), 309-319.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_pointer.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="DepthInSink"></a></p>
 <a class="header" href="#depthinsink" id="depthinsink"><h1>DepthInSink</h1></a>
 <p>This tool measures the depth that each grid cell in an input (<code>--dem</code>) raster digital elevation model (DEM)
@@ -1103,7 +1114,7 @@ Geosciences, 17(3), 413-422.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 21/11/2019</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="Fd8Pointer"></a></p>
 <a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
 <p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the FD8 (Freeman, 1991) algorithm.
@@ -1241,14 +1252,54 @@ before using <a href="./hydrological_analysis.html#filldepressions"><strong>Fill
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 12/12/2019</p>
+<p><a name="FillDepressionsPlanchonAndDarboux"></a></p>
+<a class="header" href="#filldepressionsplanchonanddarboux" id="filldepressionsplanchonanddarboux"><h1>FillDepressionsPlanchonAndDarboux</h1></a>
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
+flat areas using the Planchon and Darboux (2002) method. This is a common pre-processing step required by
+many flow-path analysis tools to ensure continuous flow from each grid cell to an outlet located along
+the grid edge. <strong>This tool is currently not the most efficient depression-removal algorithm available in
+WhiteboxTools</strong>; <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> are both more efficient and often
+produce better, lower-impact results.</p>
+<p>The user may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
+<strong>it is best not to specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
+<p><em>Reference</em>:</p>
+<p>Planchon, O. and Darboux, F., 2002. A fast, simple and versatile algorithm to fill the depressions of digital
+elevation models. Catena, 46(2-3), pp.159-176.</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--fix_flats        </td><td> Optional flag indicating whether flat areas should have a small gradient applied</td></tr>
+<tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.fill_depressions_planchon_and_darboux(
+    dem, 
+    output, 
+    fix_flats=True, 
+    flat_increment=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressionsPlanchonAndDarboux -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--fix_flats 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_planchon_and_darboux.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 02/02/2020</p>
+<p><em>Last Modified</em>: 02/02/2020</p>
 <p><a name="FillDepressionsWangAndLiu"></a></p>
-<a class="header" href="#FillDepressionsWangAndLiu" id="FillDepressionsWangAndLiu"><h1>FillDepressionsWangAndLiu</h1></a>
+<a class="header" href="#filldepressionswangandliu" id="filldepressionswangandliu"><h1>FillDepressionsWangAndLiu</h1></a>
 <p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
 flat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
-flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#FillDepressionsWangAndLiu"><strong>FillDepressionsWangAndLiu</strong></a> algorithm is based on
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressionswangandliu"><strong>FillDepressionsWangAndLiu</strong></a> algorithm is based on
 the computationally efficient approach of examining each cell based on its spill elevation, starting from the
 edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
-first proposed by Wang and Liu (2006). However, itt is currently not the most efficient depression-removal algorithm
+first proposed by Wang and Liu (2006). However, it is currently not the most efficient depression-removal algorithm
 available in WhiteboxTools; <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> are both more efficient and often
 produce better, lower-impact results.</p>
 <p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
@@ -1258,9 +1309,9 @@ a more natural-looking surface than the flat areas that are produced by depressi
 of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
 the output image.</p>
 <p>The user may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
-<strong>it is best to not specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
+<strong>it is best not to specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
 <p><em>Reference</em>:</p>
-<p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
+<p>Wang, L. and Liu, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
 models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
@@ -1272,7 +1323,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.fill_depressions_wang_and_lui(
+<pre><code class="language-python">wbt.fill_depressions_wang_and_liu(
     dem, 
     output, 
     fix_flats=True, 
@@ -1285,7 +1336,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --fix_flats 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_wang_and_lui.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_wang_and_liu.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 05/12/2019</p>
@@ -1578,7 +1629,7 @@ and flat areas. The internal flow-accumulation operation will not be confounded 
 <p>Lindsay, JB (2015) Modelling the spatial pattern of potential impoundment size from DEMs.
 Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/modelling-the-spatial-pattern-of-potential-impoundment-size-from-dems/">Whitebox Blog</a></p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
+<a href="./hydrological_analysis.html#insertdams"><strong>InsertDams</strong></a>, <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1604,6 +1655,41 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/05/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="InsertDams"></a></p>
+<a class="header" href="#insertdams" id="insertdams"><h1>InsertDams</h1></a>
+<p>This tool can be used to insert dams at one or more user-specified points (<code>--dam_pts</code>), and of a maximum length
+(<code>--damlength</code>), within an input digital elevation model (DEM) (<code>--dem</code>). This tool can be thought of as providing
+the impoundment feature that is calculated internally during a run of the the impoundment size index (ISI) tool for
+a set of points of interest. from a  (DEM).</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay, JB (2015) Modelling the spatial pattern of potential impoundment size from DEMs.
+Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/modelling-the-spatial-pattern-of-potential-impoundment-size-from-dems/">Whitebox Blog</a></p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#impoundmentsizeindex"><strong>ImpoundmentSizeIndex</strong></a>, <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--dam_pts          </td><td> Input vector dam points file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--damlength        </td><td> Maximum length of the dam</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.insert_dams(
+    dem, 
+    dam_pts, 
+    output, 
+    damlength, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=InsertDams -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif --dam_pts=dams.shp -o=out.tif --damlength=11 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/insert_dams.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 19/02/2020</p>
+<p><em>Last Modified</em>: 20/02/2020</p>
 <p><a name="Isobasins"></a></p>
 <a class="header" href="#isobasins" id="isobasins"><h1>Isobasins</h1></a>
 <p>This tool can be used to divide a landscape into a group of nearly equal-sized watersheds, known as <em>isobasins</em>.
@@ -1635,7 +1721,7 @@ and stored in memory of this tool.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/12/2017</p>
-<p><em>Last Modified</em>: 29/10/2019</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
 <p>The <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
@@ -1762,6 +1848,68 @@ the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepre
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 28/10/2019</p>
+<p><a name="MdInfFlowAccumulation"></a></p>
+<a class="header" href="#mdinfflowaccumulation" id="mdinfflowaccumulation"><h1>MdInfFlowAccumulation</h1></a>
+<p>This tool is used to generate a flow accumulation grid (i.e. contributing area) using the MD-infinity algorithm
+(Seibert and McGlynn, 2007). This algorithm is an examples of a multiple-flow-direction (MFD) method because the flow entering
+each grid cell is routed to one or two downslope neighbour, i.e. flow divergence is permitted. The user must
+specify the name of the input digital elevation model (<code>--dem</code>). The DEM should have been hydrologically corrected
+to remove all spurious depressions and flat areas. DEM pre-processing is usually achieved using the
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>In addition to the input flow-pointer grid name, the user must specify the output type (<code>--out_type</code>). The output
+flow-accumulation
+can be 1) specific catchment area (SCA), which is the upslope contributing area divided by the contour length (taken
+as the grid resolution), 2) total catchment area in square-metres, or 3) the number of upslope grid cells. The user
+must also specify whether the output flow-accumulation grid should be log-tranformed, i.e. the output, if this option
+is selected, will be the natural-logarithm of the accumulated area. This is a transformation that is often performed
+to better visualize the contributing area distribution. Because contributing areas tend to be very high along valley
+bottoms and relatively low on hillslopes, when a flow-accumulation image is displayed, the distribution of values on
+hillslopes tends to be 'washed out' because the palette is stretched out to represent the highest values.
+Log-transformation (<code>--log</code>) provides a means of compensating for this phenomenon. Importantly, however, log-transformed
+flow-accumulation grids must not be used to estimate other secondary terrain indices, such as the wetness index, or
+relative stream power index.</p>
+<p>Grid cells possessing the NoData value in the input DEM raster are assigned the NoData value in the output
+flow-accumulation image. The output raster is of the float data type and continuous data scale.</p>
+<p><em>Reference</em>:</p>
+<p>Seibert, J. and McGlynn, B.L., 2007. A new triangular multiple flow direction algorithm for computing upslope areas from
+gridded digital elevation models. Water resources research, 43(4).</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'cells', 'specific contributing area' (default), and 'catchment area'</td></tr>
+<tr><td>--exponent         </td><td> Optional exponent parameter; default is 1.1</td></tr>
+<tr><td>--threshold        </td><td> Optional convergence threshold parameter, in grid cells; default is inifinity</td></tr>
+<tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
+<tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.md_inf_flow_accumulation(
+    dem, 
+    output, 
+    out_type=&quot;specific contributing area&quot;, 
+    exponent=1.1, 
+    threshold=None, 
+    log=False, 
+    clip=False, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MDInfFlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='cells'
+&gt;&gt;./whitebox_tools -r=MDInfFlowAccumulation ^
+-v --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='catchment area' --exponent=1.5 --threshold=10000 ^
+--log --clip 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/mdinf_flow_accum.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 12/02/2020</p>
+<p><em>Last Modified</em>: 12/02/2020</p>
 <p><a name="NumInflowingNeighbours"></a></p>
 <a class="header" href="#numinflowingneighbours" id="numinflowingneighbours"><h1>NumInflowingNeighbours</h1></a>
 <p>This tool calculates the number of inflowing neighbours for each grid cell in a raster file. The user
@@ -2106,7 +2254,7 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/subbasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="TraceDownslopeFlowpaths"></a></p>
 <a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h1>TraceDownslopeFlowpaths</h1></a>
 <p>This tool can be used to mark the flowpath initiated from user-specified locations downslope and
@@ -2222,10 +2370,10 @@ values compared with smoothed surfaces. Values, particularly on hillslopes, may 
 <p><a name="Watershed"></a></p>
 <a class="header" href="#watershed" id="watershed"><h1>Watershed</h1></a>
 <p>This tool will perform a watershedding operation based on a group of input vector pour points (<code>--pour_pts</code>),
-i.e. outlets or points-of-interest. Watershedding is a procedure that identifies all of the cells upslope of
-a cell of interest (pour point) that are connected to the pour point by a flow-path. The user must specify the
-name of a D8-derived flow pointer (flow direction) raster (<code>--d8_pntr</code>), a vector pour point file (<code>--pour_pts</code>),
-and the output raster (<code>--output</code>). The pour points must be of a Point ShapeType (i.e. Point, PointZ, PointM,
+i.e. outlets or points-of-interest, or a raster containing point points. Watershedding is a procedure that identifies
+all of the cells upslope of a cell of interest (pour point) that are connected to the pour point by a flow-path. The
+user must specify the name of a D8-derived flow pointer (flow direction) raster (<code>--d8_pntr</code>), a vector pour point file
+(<code>--pour_pts</code>), and the output raster (<code>--output</code>). The pour points must be of a Point ShapeType (i.e. Point, PointZ, PointM,
 MultiPoint, MultiPointZ, MultiPointM). Watersheds will be assigned the input pour point FID value. The flow
 pointer raster must be generated using the D8 algorithm, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>.</p>
 <p>Pour point vectors can be attained by on-screen digitizing to designate these points-of-interest locations.
@@ -2235,6 +2383,11 @@ the digitized outlets are coincident with the digital stream contained within th
 done prior to inputting a pour-point set to the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, anomalously small watersheds may be ouput, as
 pour points that fall off of the main flow path (even by one cell) in the D8 pointer will yield very different
 catchment areas.</p>
+<p>If a raster pour point is specified instead of vector points, the watershed labels will derive their IDs from the
+grid cell values of all non-zero, non-NoData valued grid cells in the pour points file. Notice that this file can
+contain any integer data. For example, if a lakes raster, with each lake possessing a unique ID, is used as the
+pour points raster, the tool will map the watersheds draining to each of the input lake features. Similarly,
+a pour points raster may actually be a streams file, such as what is generated by the <a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a> tool.</p>
 <p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
 If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
 <p>There are several tools that perform similar watershedding operations in WhiteboxTools. <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> is appropriate
@@ -2255,7 +2408,7 @@ stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
-<tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
+<tr><td>--pour_pts         </td><td> Input pour points (outlet) file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
@@ -2276,7 +2429,7 @@ stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/watershed.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 14/02/2020</p>
 
                     </main>
 

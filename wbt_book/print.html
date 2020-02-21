@@ -143,12 +143,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 1.1.0  <br />
-Dr. John B. Lindsay © 2017-2019  <br />
+<p>WhiteboxTools Version 1.2.0  <br />
+Dr. John B. Lindsay © 2017-2020  <br />
 <a href="https://jblindsay.github.io/ghrg/index.html">Geomorphometry and Hydrogeomatics Research Group</a>  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-December 9, 2019
+Feb. 21, 2020
 <br />
 <br />
 <br />
@@ -633,6 +633,7 @@ that the order of these flags is unimportant. Use the '-v' flag (run in verbose 
 <li><a href="#PrintGeoTiffTags">PrintGeoTiffTags</a></li>
 <li><a href="#RasterToVectorLines">RasterToVectorLines</a></li>
 <li><a href="#RasterToVectorPoints">RasterToVectorPoints</a></li>
+<li><a href="#RasterToVectorPolygons">RasterToVectorPolygons</a></li>
 <li><a href="#ReinitializeAttributeTable">ReinitializeAttributeTable</a></li>
 <li><a href="#RemovePolygonHoles">RemovePolygonHoles</a></li>
 <li><a href="#SetNodataValue">SetNodataValue</a></li>
@@ -781,7 +782,7 @@ names are retreived.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/csv_points_to_vector.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Prof. John Lindsay</p>
 <p><em>Created</em>: 07/08/2019</p>
-<p><em>Last Modified</em>: 07/08/2019</p>
+<p><em>Last Modified</em>: 28/01/2020</p>
 <p><a name="ExportTableToCsv"></a></p>
 <a class="header" href="#exporttabletocsv" id="exporttabletocsv"><h1>ExportTableToCsv</h1></a>
 <p>This tool can be used to export a vector's attribute table to a comma separated values (CSV)
@@ -1166,7 +1167,7 @@ forming closed loops (and therefore do not have line ends).</p>
 instead. This tool will use knowledge of flow directions to ensure connections
 between stream segments at confluence sites, whereas <a href="./data_tools.html#rastertovectorlines"><strong>RasterToVectorLines</strong></a> will not.</p>
 <p><em>See Also</em>:
-<a href="./data_tools.html#rastertovectorpoints"><strong>RasterToVectorPoints</strong></a>, <a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a></p>
+<a href="./data_tools.html#rastertovectorpolygons"><strong>RasterToVectorPolygons</strong></a>, <a href="./data_tools.html#rastertovectorpoints"><strong>RasterToVectorPoints</strong></a>, <a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster lines file</td></tr>
@@ -1189,11 +1190,13 @@ between stream segments at confluence sites, whereas <a href="./data_tools.html#
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="RasterToVectorPoints"></a></p>
 <a class="header" href="#rastertovectorpoints" id="rastertovectorpoints"><h1>RasterToVectorPoints</h1></a>
-<p>Converts a raster dataset to a vector of the POINT shapetype. The user must specify
-the name of a raster file and the name of the output vector. Points will correspond
+<p>Converts a raster data set to a vector of the POINT shapetype. The user must specify
+the name of a raster file (<code>--input</code>) and the name of the output vector (<code>--output</code>). Points will correspond
 with grid cell centre points. All grid cells containing non-zero, non-NoData values
 will be considered a point. The vector's attribute table will contain a field called
 'VALUE' that will contain the cell value for each point feature.</p>
+<p><em>See Also</em>:
+<a href="./data_tools.html#rastertovectorpolygons"><strong>RasterToVectorPolygons</strong></a>, <a href="./data_tools.html#rastertovectorlines"><strong>RasterToVectorLines</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1214,6 +1217,35 @@ will be considered a point. The vector's attribute table will contain a field ca
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/09/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="RasterToVectorPolygons"></a></p>
+<a class="header" href="#rastertovectorpolygons" id="rastertovectorpolygons"><h1>RasterToVectorPolygons</h1></a>
+<p>Converts a raster data set to a vector of the POLYGON geometry type. The user must specify
+the name of a raster file (<code>--input</code>) and the name of the output (<code>--output</code>) vector. All grid cells containing
+non-zero, non-NoData values will be considered part of a polygon feature. The vector's attribute table
+will contain a field called 'VALUE' that will contain the cell value for each polygon
+feature, in addition to the standard feature ID (FID) attribute.</p>
+<p><em>See Also</em>:
+<a href="./data_tools.html#rastertovectorpoints"><strong>RasterToVectorPoints</strong></a>, <a href="./data_tools.html#rastertovectorlines"><strong>RasterToVectorLines</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygons file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.raster_to_vector_polygons(
+    i, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterToVectorPolygons -v ^
+--wd=&quot;/path/to/data/&quot; --input=points.tif -o=out.shp 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/raster_to_vector_polygons.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 25/12/2019</p>
+<p><em>Last Modified</em>: 25/12/2019</p>
 <p><a name="ReinitializeAttributeTable"></a></p>
 <a class="header" href="#reinitializeattributetable" id="reinitializeattributetable"><h1>ReinitializeAttributeTable</h1></a>
 <p>Reinitializes a vector's attribute table deleting all fields but the feature ID (FID).
@@ -1515,6 +1547,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#MaxElevDevSignature">MaxElevDevSignature</a></li>
 <li><a href="#MaxElevationDeviation">MaxElevationDeviation</a></li>
 <li><a href="#MinDownslopeElevChange">MinDownslopeElevChange</a></li>
+<li><a href="#MultiscaleElevationPercentile">MultiscaleElevationPercentile</a></li>
 <li><a href="#MultiscaleRoughness">MultiscaleRoughness</a></li>
 <li><a href="#MultiscaleRoughnessSignature">MultiscaleRoughnessSignature</a></li>
 <li><a href="#MultiscaleStdDevNormals">MultiscaleStdDevNormals</a></li>
@@ -1600,7 +1633,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="AverageNormalVectorAngularDeviation"></a></p>
 <a class="header" href="#averagenormalvectorangulardeviation" id="averagenormalvectorangulardeviation"><h1>AverageNormalVectorAngularDeviation</h1></a>
 <p>This tool characterizes the spatial distribution of the average normal vector angular deviation, a measure of
@@ -1733,7 +1766,7 @@ value across a range of input scales.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/dev_from_mean_elev.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="DiffFromMeanElev"></a></p>
 <a class="header" href="#difffrommeanelev" id="difffrommeanelev"><h1>DiffFromMeanElev</h1></a>
 <p>This tool can be used to calculate the difference between the elevation of each grid
@@ -1774,7 +1807,7 @@ value across a range of input scales.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/diff_from_mean_elev.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="DirectionalRelief"></a></p>
 <a class="header" href="#directionalrelief" id="directionalrelief"><h1>DirectionalRelief</h1></a>
 <p>This tool calculates the relief for each grid cell in a digital elevation model (DEM) in a specified direction.
@@ -1826,7 +1859,7 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/directional_relief.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="DownslopeIndex"></a></p>
 <a class="header" href="#downslopeindex" id="downslopeindex"><h1>DownslopeIndex</h1></a>
 <p>This tool can be used to calculate the downslope index described by Hjerdt et al. (2004).
@@ -2178,7 +2211,7 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fetch_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="FillMissingData"></a></p>
 <a class="header" href="#fillmissingdata" id="fillmissingdata"><h1>FillMissingData</h1></a>
 <p>This tool can be used to fill in small gaps in a raster or digital elevation model (DEM). The gaps,
@@ -2297,7 +2330,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 31/03/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="HorizonAngle"></a></p>
 <a class="header" href="#horizonangle" id="horizonangle"><h1>HorizonAngle</h1></a>
 <p>This tool calculates the horizon angle (<em>Sx</em>), i.e. the maximum slope along a specified azimuth (0-360 degrees) for
@@ -2343,7 +2376,7 @@ larger sized DEMs. Maximum upwind slope is best displayed using a Grey scale pal
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/horizon_angle.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="HypsometricAnalysis"></a></p>
 <a class="header" href="#hypsometricanalysis" id="hypsometricanalysis"><h1>HypsometricAnalysis</h1></a>
 <p>This tool can be used to derive the hypsometric curve, or area-altitude curve, of one or more
@@ -2614,7 +2647,7 @@ second raster the assigns each pixel the scale at which <em>DEVmax</em> is encou
 <p>Lindsay J, Cockburn J, Russell H. 2015. An integral image approach to performing multi-scale
 topographic position analysis. Geomorphology, 245: 51-61.</p>
 <p><em>See Also</em>:
-<a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a></p>
+<a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleelevationpercentile"><strong>MultiscaleElevationPercentile</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -2672,6 +2705,87 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="MultiscaleElevationPercentile"></a></p>
+<a class="header" href="#multiscaleelevationpercentile" id="multiscaleelevationpercentile"><h1>MultiscaleElevationPercentile</h1></a>
+<p>This tool calculates the most elevation percentile (EP) across a range of spatial scales.
+EP is a measure of local topographic position (LTP) and expresses the vertical
+position for a digital elevation model (DEM) grid cell (z<sub>0</sub>) as the percentile of the
+elevation distribution within the filter window, such that:</p>
+<blockquote>
+<p>EP = count<sub>i∈C</sub>(z<sub>i</sub> &gt; z<sub>0</sub>) x (100 / n<sub>C</sub>)</p>
+</blockquote>
+<p>where z<sub>0</sub> is the elevation of the window's center grid cell, z<sub>i</sub> is the elevation
+of cell <em>i</em> contained within the neighboring set C, and n<sub>C</sub> is the number
+of grid cells contained within the window.</p>
+<p>EP is unsigned and expressed as a percentage, bound between 0%
+and 100%. This tool outputs two rasters, the multiscale EP magnitude (<code>--out_mag</code>) and
+the scale at which the most extreme EP value occurs (<code>--out_scale</code>). <strong>The magnitude raster is
+the most extreme EP value (i.e. the furthest from 50%) for each grid cell encountered within
+the tested scales of EP.</strong></p>
+<p>Quantile-based estimates (e.g., the median and interquartile
+range) are often used in nonparametric statistics to provide data
+variability estimates without assuming the distribution is normal.
+Thus, EP is largely unaffected by irregularly shaped elevation frequency
+distributions or by outliers in the DEM, resulting in a highly robust metric
+of LTP. In fact, elevation distributions within small to medium sized
+neighborhoods often exhibit skewed, multimodal, and non-Gaussian
+distributions, where the occurrence of elevation errors can often result
+in distribution outliers. Thus, based on these statistical characteristics,
+EP is considered one of the most robust representation of LTP.</p>
+<p>The algorithm implemented by this tool uses the relatively efficient running-histogram filtering algorithm of Huang
+et al. (1979). Because most DEMs contain floating point data, elevation values must be rounded to be binned. The
+<code>--sig_digits</code> parameter is used to determine the level of precision preserved during this binning process. The
+algorithm is parallelized to further aid with computational efficiency.</p>
+<p>Experience with multiscale EP has shown that it is highly variable at
+shorter scales and changes more gradually at broader scales. Therefore, a nonlinear scale sampling
+interval is used by this tool to ensure that the scale sampling density is higher for short scale
+ranges and coarser at longer tested scales, such that:</p>
+<blockquote>
+<p><em>r<sub>i</sub></em> = <em>r<sub>L</sub></em> + [step × (i - <em>r<sub>L</sub></em>)]<sup><em>p</em></sup></p>
+</blockquote>
+<p>Where <em>ri</em> is the filter radius for step <em>i</em> and <em>p</em> is the nonlinear scaling factor (<code>--step_nonlinearity</code>)
+and a step size (<code>--step</code>) of <em>step</em>.</p>
+<p><em>References</em>:</p>
+<p>Newman, D. R., Lindsay, J. B., and Cockburn, J. M. H. (2018). Evaluating metrics of local topographic position
+for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
+<p>Huang, T., Yang, G.J.T.G.Y. and Tang, G., 1979. A fast two-dimensional median filtering algorithm. IEEE
+Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
+<p><em>See Also</em>:
+<code>ElevationPercentile</code>, <a href="./geomorphometric_analysis.html#maxelevationdeviation"><strong>MaxElevationDeviation</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--out_mag          </td><td> Output raster roughness magnitude file</td></tr>
+<tr><td>--out_scale        </td><td> Output raster roughness scale file</td></tr>
+<tr><td>--sig_digits       </td><td> Number of significant digits</td></tr>
+<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<tr><td>--num_steps        </td><td> Number of steps</td></tr>
+<tr><td>--step_nonlinearity</td><td> Step nonlinearity factor (1.0-2.0 is typical)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.multiscale_elevation_percentile(
+    dem, 
+    out_mag, 
+    out_scale, 
+    sig_digits=3, 
+    min_scale=4, 
+    step=1, 
+    num_steps=10, 
+    step_nonlinearity=1.0, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MultiscaleElevationPercentile -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif --out_mag=roughness_mag.tif ^
+--out_scale=roughness_scale.tif --min_scale=1 --step=5 ^
+--num_steps=100 --step_nonlinearity=1.5 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_elev_percentile.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/12/2019</p>
+<p><em>Last Modified</em>: 22/12/2019</p>
 <p><a name="MultiscaleRoughness"></a></p>
 <a class="header" href="#multiscaleroughness" id="multiscaleroughness"><h1>MultiscaleRoughness</h1></a>
 <p>Calculates surface roughness over a range of spatial scales.</p>
@@ -2885,7 +2999,7 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_topographic_position_image.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/07/2017</p>
-<p><em>Last Modified</em>: 29/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="NumDownslopeNeighbours"></a></p>
 <a class="header" href="#numdownslopeneighbours" id="numdownslopeneighbours"><h1>NumDownslopeNeighbours</h1></a>
 <p>This tool calculates the number of downslope neighbours of each grid cell in a raster digital elevation model (DEM).
@@ -3015,8 +3129,8 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/pennock_landform_class.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 12, 2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Created</em>: 12/07/2017</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="PercentElevRange"></a></p>
 <a class="header" href="#percentelevrange" id="percentelevrange"><h1>PercentElevRange</h1></a>
 <p>Percent elevation range (PER) is a measure of local topographic position (LTP). It expresses the vertical
@@ -3059,7 +3173,7 @@ for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/percent_elev_range.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="PlanCurvature"></a></p>
 <a class="header" href="#plancurvature" id="plancurvature"><h1>PlanCurvature</h1></a>
 <p>This tool calculates the plan curvature (i.e. contour curvature), or the rate of change in
@@ -3185,7 +3299,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/prof_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/062017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RelativeAspect"></a></p>
 <a class="header" href="#relativeaspect" id="relativeaspect"><h1>RelativeAspect</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the terrain aspect relative to a user-specified
@@ -3225,7 +3339,7 @@ Science, 33, 195-226.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 17/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RelativeTopographicPosition"></a></p>
 <a class="header" href="#relativetopographicposition" id="relativetopographicposition"><h1>RelativeTopographicPosition</h1></a>
 <p>Relative topographic position (RTP) is an index of local topographic position (i.e. how
@@ -3276,7 +3390,7 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_topographic_position.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/06/2017</p>
-<p><em>Last Modified</em>: 12/06/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RemoveOffTerrainObjects"></a></p>
 <a class="header" href="#removeoffterrainobjects" id="removeoffterrainobjects"><h1>RemoveOffTerrainObjects</h1></a>
 <p>This tool can be used to create a bare-earth DEM from a fine-resolution digital surface model. The
@@ -3319,7 +3433,7 @@ models. Available online, DOI: <a href="https://www.researchgate.net/publication
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/remove_off_terrain_objects.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/06/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RuggednessIndex"></a></p>
 <a class="header" href="#ruggednessindex" id="ruggednessindex"><h1>RuggednessIndex</h1></a>
 <p>The terrain ruggedness index (TRI) is a measure of local topographic relief. The TRI calculates
@@ -3357,7 +3471,7 @@ terrain provided in Riley et al. (1999)</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/ruggedness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="SedimentTransportIndex"></a></p>
 <a class="header" href="#sedimenttransportindex" id="sedimenttransportindex"><h1>SedimentTransportIndex</h1></a>
 <p>This tool calculates the sediment transport index, or sometimes, length-slope (<em>LS</em>)
@@ -3416,7 +3530,7 @@ processes</em>, 5(1), 3-30.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/sediment_transport_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
-<p><em>Last Modified</em>: 06/08/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="Slope"></a></p>
 <a class="header" href="#slope" id="slope"><h1>Slope</h1></a>
 <p>This tool calculates slope gradient (i.e. slope steepness in degrees) for each grid cell
@@ -3473,7 +3587,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
 <p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
@@ -3597,8 +3711,8 @@ roughness described by Grohmann et al., (2011).</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/standard_deviation_of_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Anthony Francioni</p>
-<p><em>Created</em>: May 26, 2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Created</em>: 26/05/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="StreamPowerIndex"></a></p>
 <a class="header" href="#streampowerindex" id="streampowerindex"><h1>StreamPowerIndex</h1></a>
 <p>This tool can be used to calculate the relative stream power (<em>RSP</em>) index. This index is directly related
@@ -3644,7 +3758,7 @@ processes</em>, 5(1), 3-30.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_stream_power_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="SurfaceAreaRatio"></a></p>
 <a class="header" href="#surfacearearatio" id="surfacearearatio"><h1>SurfaceAreaRatio</h1></a>
 <p>This tool calculates the ratio between the surface area and planar area of grid cells within digital elevation models (DEMs).
@@ -3714,7 +3828,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/tan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="TotalCurvature"></a></p>
 <a class="header" href="#totalcurvature" id="totalcurvature"><h1>TotalCurvature</h1></a>
 <p>This tool calculates the total curvature, which measures the curvature of the topographic surface rather
@@ -3754,7 +3868,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/total_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="Viewshed"></a></p>
 <a class="header" href="#viewshed" id="viewshed"><h1>Viewshed</h1></a>
 <p>This tool can be used to calculate the viewshed (i.e. the visible area) from a
@@ -3910,6 +4024,7 @@ on computer systems with high core-counts and plenty of memory.</p>
 <li><a href="#RadialBasisFunctionInterpolation">RadialBasisFunctionInterpolation</a></li>
 <li><a href="#RasterArea">RasterArea</a></li>
 <li><a href="#RasterCellAssignment">RasterCellAssignment</a></li>
+<li><a href="#RasterPerimeter">RasterPerimeter</a></li>
 <li><a href="#Reclass">Reclass</a></li>
 <li><a href="#ReclassEqualInterval">ReclassEqualInterval</a></li>
 <li><a href="#ReclassFromFile">ReclassFromFile</a></li>
@@ -4232,7 +4347,7 @@ or azimuth, that the plane is facing</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_plane.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="CreateRectangularVectorGrid"></a></p>
 <a class="header" href="#createrectangularvectorgrid" id="createrectangularvectorgrid"><h1>CreateRectangularVectorGrid</h1></a>
 <p>This tool can be used to create a rectangular vector grid. The extent of the rectangular
@@ -4478,7 +4593,7 @@ This tool interpolates vector points into a raster surface using an inverse-dist
 <tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--weight           </td><td> IDW weight value</td></tr>
-<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--radius           </td><td> Search Radius in map units</td></tr>
 <tr><td>--min_points       </td><td> Minimum number of points</td></tr>
 <tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
 <tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
@@ -4521,10 +4636,10 @@ the name of the output file.</p>
 values at the edges, the resulting vector will still correspond to the full grid extent,
 ignoring the irregular boundary. If this is not the desired effect, you should reclass the
 grid such that all cells containing valid values are assigned some positive, non-zero value,
-and then use the <code>RasterToVectorPolygons</code> tool to vectorize the irregular-shaped extent
+and then use the <a href="./data_tools.html#rastertovectorpolygons"><strong>RasterToVectorPolygons</strong></a> tool to vectorize the irregular-shaped extent
 boundary.</p>
 <p><em>See Also</em>:
-<a href="./gis_analysis.html#minimumboundingenvelope"><strong>MinimumBoundingEnvelope</strong></a>, <code>RasterToVectorPolygons</code></p>
+<a href="./gis_analysis.html#minimumboundingenvelope"><strong>MinimumBoundingEnvelope</strong></a>, <a href="./data_tools.html#rastertovectorpolygons"><strong>RasterToVectorPolygons</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster or vector file</td></tr>
@@ -4915,11 +5030,11 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p>This tool interpolates vector points into a raster surface using a radial basis function (RBF) scheme.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector Points file</td></tr>
+<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
 <tr><td>--field            </td><td> Input field name in attribute table</td></tr>
 <tr><td>--use_z            </td><td> Use z-coordinate instead of field?</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--radius           </td><td> Search Radius (in map units)</td></tr>
 <tr><td>--min_points       </td><td> Minimum number of points</td></tr>
 <tr><td>--func_type        </td><td> Radial basis function type; options are 'ThinPlateSpline' (default), 'PolyHarmonic', 'Gaussian', 'MultiQuadric', 'InverseMultiQuadric'</td></tr>
 <tr><td>--poly_order       </td><td> Polynomial order; options are 'none' (default), 'constant', 'affine'</td></tr>
@@ -5025,6 +5140,47 @@ image (<code>--input</code>).</p>
 <p><em>Author</em>: Daniel Newman</p>
 <p><em>Created</em>: August 10, 2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
+<p><a name="RasterPerimeter"></a></p>
+<a class="header" href="#rasterperimeter" id="rasterperimeter"><h1>RasterPerimeter</h1></a>
+<p>This tool can be used to measure the length of the perimeter of polygon features in a raster layer. The user must
+specify the name of the input raster file (<code>--input</code>) and optionally an output raster (<code>--output</code>), which is the
+raster layer containing the input features assigned the perimeter length. The user may also optionally choose to output text
+data (<code>--out_text</code>). Raster-based perimeter estimation uses the accurate, anti-aliasing algorithm of
+Prashker (2009).</p>
+<p>The input file must be of a categorical data type, containing discrete polygon features that have been assigned unique identifiers.
+Such rasters are often created by region-grouping (<a href="./gis_analysis.html#clump"><strong>Clump</strong></a>) a classified raster.</p>
+<p><em>Reference</em>:</p>
+<p>Prashker, S. (2009) An anti-aliasing algorithm for calculating the perimeter of raster polygons. Geotec, Ottawa and
+Geomtics Atlantic, Wolfville, NS.</p>
+<p><em>See Also</em>:
+<a href="./gis_analysis.html#rasterarea"><strong>RasterArea</strong></a>, <a href="./gis_analysis.html#clump"><strong>Clump</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_text         </td><td> Would you like to output polygon areas to text?</td></tr>
+<tr><td>--units            </td><td> Area units; options include 'grid cells' and 'map units'</td></tr>
+<tr><td>--zero_back        </td><td> Flag indicating whether zero values should be treated as a background</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.raster_perimeter(
+    i, 
+    output=None, 
+    out_text=False, 
+    units=&quot;grid cells&quot;, 
+    zero_back=False, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=RasterPerimeter -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif --out_text ^
+--units='grid cells' --zero_back 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/raster_perimeter.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 04/12/2019</p>
+<p><em>Last Modified</em>: 18/12/2019</p>
 <p><a name="Reclass"></a></p>
 <a class="header" href="#reclass" id="reclass"><h1>Reclass</h1></a>
 <p>This tool creates a new raster in which the value of each grid cell is determined by an input raster (<code>--input</code>) and a
@@ -5039,7 +5195,12 @@ operate in assign mode, using a reclass string composed of paired values:</p>
 <blockquote>
 <p>--reclass_vals='0.0;1.0;1.0;2.0'</p>
 </blockquote>
-<p>Here, 0.0 is assigned to input grid cell values of 1.0 and 1.0 is output for all input cells with a value of 2.0.</p>
+<p>Here, 0.0 is assigned to input grid cell values of 1.0 and 1.0 is output for all input cells with a value of 2.0. Users
+may add the text strings <em>min</em> and <em>max</em> in the class definitions to stand in for the raster's minimum and maximum values.
+For example:</p>
+<blockquote>
+<p>--reclass_vals='0.0;min;1.0;1.0;1.0;max'</p>
+</blockquote>
 <p>Any values in the input raster that do not fall within one of the classes will be assigned its original value in the
 output raster. NoData values in the input raster will be assigned NoData values in the output raster, unless NoData is
 used in one of the user-defined reclass ranges (notice that it is valid to enter 'NoData' in these ranges).</p>
@@ -5073,7 +5234,7 @@ used in one of the user-defined reclass ranges (notice that it is valid to enter
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/09/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="ReclassEqualInterval"></a></p>
 <a class="header" href="#reclassequalinterval" id="reclassequalinterval"><h1>ReclassEqualInterval</h1></a>
 <p>This tool reclassifies the values in an input raster (<code>--input</code>) file based on an equal-interval scheme, where the
@@ -5109,19 +5270,20 @@ value, the tool will assign a very large positive value.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass_equal_interval.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="ReclassFromFile"></a></p>
 <a class="header" href="#reclassfromfile" id="reclassfromfile"><h1>ReclassFromFile</h1></a>
 <p>This tool creates a new raster image in which the value of each grid cell is determined by the values in an
 input raster image (<code>--input</code>) and a reclass file (<code>--reclass_file</code>). The reclass file is a text file
 containing two or three columns, delimited (i.e. separated) by either a space, tab, or comma. The columns
 describe respectively the <em>New</em> value, the <em>From</em> value, and the <em>To Just Less Than</em> value. Classes must be
-mutually exclusive, i.e. non-overlapping.</p>
+mutually exclusive, i.e. non-overlapping. Users may add the text strings <em>min</em> and <em>max</em> in the class definitions
+to stand in for the raster's minimum and maximum values.</p>
 <p>If only two columns are present in the reclass file, i.e. the <em>From</em> column is left blank, the tool will
 operate in assign mode. That is, any cell in the input image that is equal to the <em>From</em> value (contained
 in the second column) will be assigned the <em>New</em> value (contained in the first column) in the output image.</p>
 <p>Any values in the input raster that do not fall within one of the classes will be assigned its original
-value in the output raster. TNoData values in the input raster will be assigned NoData values in the output
+value in the output raster. NoData values in the input raster will be assigned NoData values in the output
 raster.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis.html#reclass"><strong>Reclass</strong></a>, <a href="./gis_analysis.html#reclassequalinterval"><strong>ReclassEqualInterval</strong></a></p>
@@ -5147,7 +5309,7 @@ raster.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/reclass_from_file.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 10/09/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="SmoothVectors"></a></p>
 <a class="header" href="#smoothvectors" id="smoothvectors"><h1>SmoothVectors</h1></a>
 <p>This tool smooths a vector coverage of either a POLYLINE or POLYGON base ShapeType. The algorithm
@@ -5325,7 +5487,7 @@ data (i.e. raster interpolation), use the <a href="./gis_analysis.html#nearestne
 <p>This tool can be used to identify an area of interest within a specified distance of
 features of interest in a raster data set.</p>
 <p>The Euclidean distance (i.e. straight-line distance) is calculated between each grid
-cell and the nearest 'target cell' in the input image. Distance is calcualted using the
+cell and the nearest 'target cell' in the input image. Distance is calculated using the
 efficient method of Shih and Wu (2004). Target cells are all non-zero,
 non-NoData grid cells. Because NoData values in the input image are assigned the NoData
 value in the output image, the only valid background value in the input image is zero.</p>
@@ -5361,7 +5523,7 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/buffer_raster.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="CostAllocation"></a></p>
 <a class="header" href="#costallocation" id="costallocation"><h1>CostAllocation</h1></a>
 <p>This tool can be used to identify the 'catchment area' of each source grid cell in a
@@ -7050,6 +7212,7 @@ designated by their unique identifers. Identifer values should be positive, non-
 <li><a href="#Fd8Pointer">Fd8Pointer</a></li>
 <li><a href="#FillBurn">FillBurn</a></li>
 <li><a href="#FillDepressions">FillDepressions</a></li>
+<li><a href="#FillDepressionsPlanchonAndDarboux">FillDepressionsPlanchonAndDarboux</a></li>
 <li><a href="#FillDepressionsWangAndLiu">FillDepressionsWangAndLiu</a></li>
 <li><a href="#FillSingleCellPits">FillSingleCellPits</a></li>
 <li><a href="#FindNoFlowCells">FindNoFlowCells</a></li>
@@ -7060,10 +7223,12 @@ designated by their unique identifers. Identifer values should be positive, non-
 <li><a href="#FlowLengthDiff">FlowLengthDiff</a></li>
 <li><a href="#Hillslopes">Hillslopes</a></li>
 <li><a href="#ImpoundmentSizeIndex">ImpoundmentSizeIndex</a></li>
+<li><a href="#InsertDams">InsertDams</a></li>
 <li><a href="#Isobasins">Isobasins</a></li>
 <li><a href="#JensonSnapPourPoints">JensonSnapPourPoints</a></li>
 <li><a href="#LongestFlowpath">LongestFlowpath</a></li>
 <li><a href="#MaxUpslopeFlowpathLength">MaxUpslopeFlowpathLength</a></li>
+<li><a href="#MdInfFlowAccumulation">MdInfFlowAccumulation</a></li>
 <li><a href="#NumInflowingNeighbours">NumInflowingNeighbours</a></li>
 <li><a href="#RaiseWalls">RaiseWalls</a></li>
 <li><a href="#Rho8Pointer">Rho8Pointer</a></li>
@@ -7261,16 +7426,14 @@ file (<code>--output</code>), the maximum search window radius (<code>--radius</
 cost (<code>--max_cost</code>), and an optional flat height increment value (<code>--flat_increment</code>). Notice that <strong>if the
 <code>--flat_increment</code> parameter is not specified, the small number used to ensure flow across flats will be
 calculated automatically, which should be preferred in most applications</strong> of the tool.
-The tool operates by performing a least-cost path analysis within a neighbourhood surround
-each pit cell, where the neighbourhood size begins small (9 × 9; radius = 4) and iteratively increases (by doubling)
-until it reaches the maximum breach length parameter. If a value is specified for the optional
-<code>--max_cost</code> parameter, then least-cost breach paths that would require digging a channel that is more costly
-than this value will be left to see if the pit cell can be resolved with a longer but shallower (less costly) breach
-channel in an additional iteration (i.e. a larger search window). The flat increment value is used
+The tool operates by performing a least-cost path analysis for each pit cell, radiating outward
+until the operation identifies a potential breach destination cell or reaches the maximum breach length parameter.
+If a value is specified for the optional <code>--max_cost</code> parameter, then least-cost breach paths that would require
+digging a channel that is more costly than this value will be left unbreached. The flat increment value is used
 to ensure that there is a monotonically descending path along breach channels to satisfy the necessary
 condition of a downslope gradient for flowpath modelling. It is best for this value to be a small
 value. If left unspecified, the tool with determine an appropriate value based on the range of
-elevation values in the input DEM. Notice that the need to specify these very small elevation
+elevation values in the input DEM, <strong>which should be the case in most applications</strong>. Notice that the need to specify these very small elevation
 increment values is one of the reasons why the output DEM will always be of a 64-bit floating-point
 data type, which will often double the storage requirements of a DEM (DEMs are often store with 32-bit
 precision). Lastly, the user may optionally choose to apply depression filling (<code>--fill</code>) on any depressions
@@ -7315,7 +7478,7 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--radius           </td></tr>
+<tr><td>--dist             </td></tr>
 <tr><td>--max_cost         </td><td> Optional maximum breach cost (default is Inf)</td></tr>
 <tr><td>--min_dist         </td><td> Optional flag indicating whether to minimize breach distances</td></tr>
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
@@ -7325,7 +7488,7 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 <pre><code class="language-python">wbt.breach_depressions_least_cost(
     dem, 
     output, 
-    radius, 
+    dist, 
     max_cost=None, 
     min_dist=True, 
     flat_increment=None, 
@@ -7335,7 +7498,8 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BreachDepressionsLeastCost -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif --dist=1000 ^
+--max_cost=100.0 --min_dist 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/breach_depressions_least_cost.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -7408,23 +7572,26 @@ elevation during a second stream traversal.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=BurnStreamsAtRoads -v ^
---wd=&quot;/path/to/data/&quot; --streams=streams.shp --base=raster.tif ^
--o=output.tif 
+--wd=&quot;/path/to/data/&quot; --dem=raster.tif --streams=streams.shp ^
+--roads=roads.shp -o=output.tif --width=50.0 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/burn_streams_at_roads.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 30/10/2019</p>
-<p><em>Last Modified</em>: 01/11/2019</p>
+<p><em>Last Modified</em>: 29/12/2019</p>
 <p><a name="D8FlowAccumulation"></a></p>
 <a class="header" href="#d8flowaccumulation" id="d8flowaccumulation"><h1>D8FlowAccumulation</h1></a>
 <p>This tool is used to generate a flow accumulation grid (i.e. catchment area) using the
 D8 (O'Callaghan and Mark, 1984) algorithm. This algorithm is an example of single-flow-direction
 (SFD) method because the flow entering each grid cell is routed to only one downslope neighbour,
 i.e. flow divergence is not permitted. The user must specify the name of the input digital
-elevation model (DEM). The DEM must have been hydrologically corrected to remove all spurious
-depressions and flat areas. DEM pre-processing is usually achieved using the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or
-<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools.</p>
-<p>In addition to the input DEM, the user must specify the output type. The output flow-accumulation
+elevation model (DEM) or D8 flow pointer (<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>) raster (<code>--input</code>). If an input DEM is used, it must have
+been hydrologically corrected to remove all spurious depressions and flat areas. DEM pre-processing
+is usually achieved using the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools. If a D8 pointer
+raster is input, the user must also specify the optional <code>--pntr</code> flag. If the D8 pointer follows
+the Esri pointer scheme, rather than the default WhiteboxTools scheme, the user must also specify the
+optional <code>--esri_pntr</code> flag.</p>
+<p>In addition to the input DEM/pointer, the user must specify the output type. The output flow-accumulation
 can be 1) <code>cells</code> (i.e. the number of inflowing grid cells), <code>catchment area</code> (i.e. the upslope area),
 or <code>specific contributing area</code> (i.e. the catchment area divided by the flow width. The default value
 is <code>cells</code>. The user must also specify whether the output flow-accumulation grid should be
@@ -7436,40 +7603,44 @@ values on hillslopes tends to be 'washed out' because the palette is stretched o
 highest values. Log-transformation provides a means of compensating for this phenomenon. Importantly,
 however, log-transformed flow-accumulation grids must not be used to estimate other secondary terrain
 indices, such as the wetness index, or relative stream power index.</p>
-<p>Grid cells possessing the <strong>NoData</strong> value in the input flow-pointer grid are assigned the <strong>NoData</strong>
+<p>Grid cells possessing the <strong>NoData</strong> value in the input DEM/pointer raster are assigned the <strong>NoData</strong>
 value in the output flow-accumulation image.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-i, --input        </td><td> Input raster DEM or D8 pointer file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--out_type         </td><td> Output type; one of 'cells' (default), 'catchment area', and 'specific contributing area'</td></tr>
 <tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
 <tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+<tr><td>--pntr             </td><td> Is the input raster a D8 flow pointer rather than a DEM?</td></tr>
+<tr><td>--esri_pntr        </td><td> Input  D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.d8_flow_accumulation(
-    dem, 
+    i, 
     output, 
     out_type=&quot;cells&quot;, 
     log=False, 
     clip=False, 
+    pntr=False, 
+    esri_pntr=False, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=D8FlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type='cells'
 &gt;&gt;./whitebox_tools -r=D8FlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type='specific catchment area' --log --clip 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/d8_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/016/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="D8MassFlux"></a></p>
 <a class="header" href="#d8massflux" id="d8massflux"><h1>D8MassFlux</h1></a>
 <p>This tool can be used to perform a mass flux calculation using DEM-based surface flow-routing techniques.
@@ -7568,11 +7739,11 @@ Computer vision, graphics, and image processing, 28(3), 323-344.</p>
 <p>This tool is used to generate a flow accumulation grid (i.e. contributing area) using the D-infinity algorithm
 (Tarboton, 1997). This algorithm is an examples of a multiple-flow-direction (MFD) method because the flow entering
 each grid cell is routed to one or two downslope neighbour, i.e. flow divergence is permitted. The user must
-specify the name of the input pointer-grid, which has been created either from the Dinf flow-pointer tool. The
-flow-pointer grid should be created from a digital elevation model (DEM) that has been hydrologically corrected
+specify the name of the input digital elevation model or D-infinity pointer raster (<code>--input</code>). If an input DEM is
+specified, the DEM should have been hydrologically corrected
 to remove all spurious depressions and flat areas. DEM pre-processing is usually achieved using the
-<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
-<p>In addition to the input flow-pointer grid name, the user must specify the output type (<code>--out_type</code>). The output
+<a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>In addition to the input DEM/pointer raster name, the user must specify the output type (<code>--out_type</code>). The output
 flow-accumulation
 can be 1) specific catchment area (SCA), which is the upslope contributing area divided by the contour length (taken
 as the grid resolution), 2) total catchment area in square-metres, or 3) the number of upslope grid cells. The user
@@ -7584,45 +7755,47 @@ hillslopes tends to be 'washed out' because the palette is stretched out to repr
 Log-transformation (<code>--log</code>) provides a means of compensating for this phenomenon. Importantly, however, log-transformed
 flow-accumulation grids must not be used to estimate other secondary terrain indices, such as the wetness index, or
 relative stream power index.</p>
-<p>Grid cells possessing the NoData value in the input flow-pointer grid are assigned the NoData value in the output
+<p>Grid cells possessing the NoData value in the input DEM/pointer raster are assigned the NoData value in the output
 flow-accumulation image. The output raster is of the float data type and continuous data scale.</p>
 <p><em>Reference</em>:</p>
 <p>Tarboton, D. G. (1997). A new method for the determination of flow directions and upslope areas in grid digital
 elevation models. Water resources research, 33(2), 309-319.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#mdinfflowaccumulation"><strong>MDInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>,`</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-i, --input        </td><td> Input raster DEM or D-infinity pointer file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--out_type         </td><td> Output type; one of 'cells', 'sca' (default), and 'ca'</td></tr>
 <tr><td>--threshold        </td><td> Optional convergence threshold parameter, in grid cells; default is inifinity</td></tr>
 <tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
 <tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+<tr><td>--pntr             </td><td> Is the input raster a D-infinity flow pointer rather than a DEM?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.d_inf_flow_accumulation(
-    dem, 
+    i, 
     output, 
     out_type=&quot;Specific Contributing Area&quot;, 
     threshold=None, 
     log=False, 
     clip=False, 
+    pntr=False, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DInfFlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type=sca
 &gt;&gt;./whitebox_tools -r=DInfFlowAccumulation -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=output.tif ^
 --out_type=sca --threshold=10000 --log --clip 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 24/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="DInfMassFlux"></a></p>
 <a class="header" href="#dinfmassflux" id="dinfmassflux"><h1>DInfMassFlux</h1></a>
 <p>This tool can be used to perform a mass flux calculation using DEM-based surface flow-routing techniques. For
@@ -7710,7 +7883,7 @@ grid digital elevation models. Water resources research, 33(2), 309-319.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/dinf_pointer.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="DepthInSink"></a></p>
 <a class="header" href="#depthinsink" id="depthinsink"><h1>DepthInSink</h1></a>
 <p>This tool measures the depth that each grid cell in an input (<code>--dem</code>) raster digital elevation model (DEM)
@@ -7989,7 +8162,7 @@ Geosciences, 17(3), 413-422.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fd8_flow_accum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 21/11/2019</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="Fd8Pointer"></a></p>
 <a class="header" href="#fd8pointer" id="fd8pointer"><h1>Fd8Pointer</h1></a>
 <p>This tool is used to generate a flow pointer grid (i.e. flow direction) using the FD8 (Freeman, 1991) algorithm.
@@ -8127,14 +8300,54 @@ before using <a href="./hydrological_analysis.html#filldepressions"><strong>Fill
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 12/12/2019</p>
+<p><a name="FillDepressionsPlanchonAndDarboux"></a></p>
+<a class="header" href="#filldepressionsplanchonanddarboux" id="filldepressionsplanchonanddarboux"><h1>FillDepressionsPlanchonAndDarboux</h1></a>
+<p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
+flat areas using the Planchon and Darboux (2002) method. This is a common pre-processing step required by
+many flow-path analysis tools to ensure continuous flow from each grid cell to an outlet located along
+the grid edge. <strong>This tool is currently not the most efficient depression-removal algorithm available in
+WhiteboxTools</strong>; <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> are both more efficient and often
+produce better, lower-impact results.</p>
+<p>The user may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
+<strong>it is best not to specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
+<p><em>Reference</em>:</p>
+<p>Planchon, O. and Darboux, F., 2002. A fast, simple and versatile algorithm to fill the depressions of digital
+elevation models. Catena, 46(2-3), pp.159-176.</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--fix_flats        </td><td> Optional flag indicating whether flat areas should have a small gradient applied</td></tr>
+<tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.fill_depressions_planchon_and_darboux(
+    dem, 
+    output, 
+    fix_flats=True, 
+    flat_increment=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FillDepressionsPlanchonAndDarboux -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--fix_flats 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_planchon_and_darboux.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 02/02/2020</p>
+<p><em>Last Modified</em>: 02/02/2020</p>
 <p><a name="FillDepressionsWangAndLiu"></a></p>
-<a class="header" href="#FillDepressionsWangAndLiu" id="FillDepressionsWangAndLiu"><h1>FillDepressionsWangAndLiu</h1></a>
+<a class="header" href="#filldepressionswangandliu" id="filldepressionswangandliu"><h1>FillDepressionsWangAndLiu</h1></a>
 <p>This tool can be used to fill all of the depressions in a digital elevation model (DEM) and to remove the
 flat areas. This is a common pre-processing step required by many flow-path analysis tools to ensure continuous
-flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#FillDepressionsWangAndLiu"><strong>FillDepressionsWangAndLiu</strong></a> algorithm is based on
+flow from each grid cell to an outlet located along the grid edge. The <a href="./hydrological_analysis.html#filldepressionswangandliu"><strong>FillDepressionsWangAndLiu</strong></a> algorithm is based on
 the computationally efficient approach of examining each cell based on its spill elevation, starting from the
 edge cells, and visiting cells from lowest order using a priority queue. As such, it is based on the algorithm
-first proposed by Wang and Liu (2006). However, itt is currently not the most efficient depression-removal algorithm
+first proposed by Wang and Liu (2006). However, it is currently not the most efficient depression-removal algorithm
 available in WhiteboxTools; <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> and <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> are both more efficient and often
 produce better, lower-impact results.</p>
 <p>If the input DEM has gaps, or missing-data holes, that contain NoData values, it is better to use the
@@ -8144,9 +8357,9 @@ a more natural-looking surface than the flat areas that are produced by depressi
 of valid data. Any NoData areas along the edge of the grid will simply be ignored and will remain NoData areas in
 the output image.</p>
 <p>The user may optionally specify the size of the elevation increment used to solve flats (<code>--flat_increment</code>), although
-<strong>it is best to not specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
+<strong>it is best not to specify this optional value and to let the algorithm determine the most suitable value itself</strong>.</p>
 <p><em>Reference</em>:</p>
-<p>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
+<p>Wang, L. and Liu, H. 2006. An efficient method for identifying and filling surface depressions in digital elevation
 models for hydrologic analysis and modelling. International Journal of Geographical Information Science, 20(2): 193-213.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
@@ -8158,7 +8371,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.fill_depressions_wang_and_lui(
+<pre><code class="language-python">wbt.fill_depressions_wang_and_liu(
     dem, 
     output, 
     fix_flats=True, 
@@ -8171,7 +8384,7 @@ models for hydrologic analysis and modelling. International Journal of Geographi
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --fix_flats 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_wang_and_lui.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/fill_depressions_wang_and_liu.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 05/12/2019</p>
@@ -8464,7 +8677,7 @@ and flat areas. The internal flow-accumulation operation will not be confounded 
 <p>Lindsay, JB (2015) Modelling the spatial pattern of potential impoundment size from DEMs.
 Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/modelling-the-spatial-pattern-of-potential-impoundment-size-from-dems/">Whitebox Blog</a></p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
+<a href="./hydrological_analysis.html#insertdams"><strong>InsertDams</strong></a>, <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -8490,6 +8703,41 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/05/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="InsertDams"></a></p>
+<a class="header" href="#insertdams" id="insertdams"><h1>InsertDams</h1></a>
+<p>This tool can be used to insert dams at one or more user-specified points (<code>--dam_pts</code>), and of a maximum length
+(<code>--damlength</code>), within an input digital elevation model (DEM) (<code>--dem</code>). This tool can be thought of as providing
+the impoundment feature that is calculated internally during a run of the the impoundment size index (ISI) tool for
+a set of points of interest. from a  (DEM).</p>
+<p><em>Reference</em>:</p>
+<p>Lindsay, JB (2015) Modelling the spatial pattern of potential impoundment size from DEMs.
+Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/modelling-the-spatial-pattern-of-potential-impoundment-size-from-dems/">Whitebox Blog</a></p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#impoundmentsizeindex"><strong>ImpoundmentSizeIndex</strong></a>, <a href="./hydrological_analysis.html#stochasticdepressionanalysis"><strong>StochasticDepressionAnalysis</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>--dam_pts          </td><td> Input vector dam points file</td></tr>
+<tr><td>-o, --output       </td><td> Output file</td></tr>
+<tr><td>--damlength        </td><td> Maximum length of the dam</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.insert_dams(
+    dem, 
+    dam_pts, 
+    output, 
+    damlength, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=InsertDams -v --wd=&quot;/path/to/data/&quot; ^
+--dem=DEM.tif --dam_pts=dams.shp -o=out.tif --damlength=11 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/insert_dams.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 19/02/2020</p>
+<p><em>Last Modified</em>: 20/02/2020</p>
 <p><a name="Isobasins"></a></p>
 <a class="header" href="#isobasins" id="isobasins"><h1>Isobasins</h1></a>
 <p>This tool can be used to divide a landscape into a group of nearly equal-sized watersheds, known as <em>isobasins</em>.
@@ -8521,7 +8769,7 @@ and stored in memory of this tool.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/12/2017</p>
-<p><em>Last Modified</em>: 29/10/2019</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
 <p>The <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
@@ -8648,6 +8896,68 @@ the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepre
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 28/10/2019</p>
+<p><a name="MdInfFlowAccumulation"></a></p>
+<a class="header" href="#mdinfflowaccumulation" id="mdinfflowaccumulation"><h1>MdInfFlowAccumulation</h1></a>
+<p>This tool is used to generate a flow accumulation grid (i.e. contributing area) using the MD-infinity algorithm
+(Seibert and McGlynn, 2007). This algorithm is an examples of a multiple-flow-direction (MFD) method because the flow entering
+each grid cell is routed to one or two downslope neighbour, i.e. flow divergence is permitted. The user must
+specify the name of the input digital elevation model (<code>--dem</code>). The DEM should have been hydrologically corrected
+to remove all spurious depressions and flat areas. DEM pre-processing is usually achieved using the
+<a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool.</p>
+<p>In addition to the input flow-pointer grid name, the user must specify the output type (<code>--out_type</code>). The output
+flow-accumulation
+can be 1) specific catchment area (SCA), which is the upslope contributing area divided by the contour length (taken
+as the grid resolution), 2) total catchment area in square-metres, or 3) the number of upslope grid cells. The user
+must also specify whether the output flow-accumulation grid should be log-tranformed, i.e. the output, if this option
+is selected, will be the natural-logarithm of the accumulated area. This is a transformation that is often performed
+to better visualize the contributing area distribution. Because contributing areas tend to be very high along valley
+bottoms and relatively low on hillslopes, when a flow-accumulation image is displayed, the distribution of values on
+hillslopes tends to be 'washed out' because the palette is stretched out to represent the highest values.
+Log-transformation (<code>--log</code>) provides a means of compensating for this phenomenon. Importantly, however, log-transformed
+flow-accumulation grids must not be used to estimate other secondary terrain indices, such as the wetness index, or
+relative stream power index.</p>
+<p>Grid cells possessing the NoData value in the input DEM raster are assigned the NoData value in the output
+flow-accumulation image. The output raster is of the float data type and continuous data scale.</p>
+<p><em>Reference</em>:</p>
+<p>Seibert, J. and McGlynn, B.L., 2007. A new triangular multiple flow direction algorithm for computing upslope areas from
+gridded digital elevation models. Water resources research, 43(4).</p>
+<p><em>See Also</em>:
+<a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'cells', 'specific contributing area' (default), and 'catchment area'</td></tr>
+<tr><td>--exponent         </td><td> Optional exponent parameter; default is 1.1</td></tr>
+<tr><td>--threshold        </td><td> Optional convergence threshold parameter, in grid cells; default is inifinity</td></tr>
+<tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
+<tr><td>--clip             </td><td> Optional flag to request clipping the display max by 1%</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.md_inf_flow_accumulation(
+    dem, 
+    output, 
+    out_type=&quot;specific contributing area&quot;, 
+    exponent=1.1, 
+    threshold=None, 
+    log=False, 
+    clip=False, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MDInfFlowAccumulation -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='cells'
+&gt;&gt;./whitebox_tools -r=MDInfFlowAccumulation ^
+-v --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--out_type='catchment area' --exponent=1.5 --threshold=10000 ^
+--log --clip 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/mdinf_flow_accum.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 12/02/2020</p>
+<p><em>Last Modified</em>: 12/02/2020</p>
 <p><a name="NumInflowingNeighbours"></a></p>
 <a class="header" href="#numinflowingneighbours" id="numinflowingneighbours"><h1>NumInflowingNeighbours</h1></a>
 <p>This tool calculates the number of inflowing neighbours for each grid cell in a raster file. The user
@@ -8992,7 +9302,7 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/subbasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 13/02/2020</p>
 <p><a name="TraceDownslopeFlowpaths"></a></p>
 <a class="header" href="#tracedownslopeflowpaths" id="tracedownslopeflowpaths"><h1>TraceDownslopeFlowpaths</h1></a>
 <p>This tool can be used to mark the flowpath initiated from user-specified locations downslope and
@@ -9108,10 +9418,10 @@ values compared with smoothed surfaces. Values, particularly on hillslopes, may 
 <p><a name="Watershed"></a></p>
 <a class="header" href="#watershed" id="watershed"><h1>Watershed</h1></a>
 <p>This tool will perform a watershedding operation based on a group of input vector pour points (<code>--pour_pts</code>),
-i.e. outlets or points-of-interest. Watershedding is a procedure that identifies all of the cells upslope of
-a cell of interest (pour point) that are connected to the pour point by a flow-path. The user must specify the
-name of a D8-derived flow pointer (flow direction) raster (<code>--d8_pntr</code>), a vector pour point file (<code>--pour_pts</code>),
-and the output raster (<code>--output</code>). The pour points must be of a Point ShapeType (i.e. Point, PointZ, PointM,
+i.e. outlets or points-of-interest, or a raster containing point points. Watershedding is a procedure that identifies
+all of the cells upslope of a cell of interest (pour point) that are connected to the pour point by a flow-path. The
+user must specify the name of a D8-derived flow pointer (flow direction) raster (<code>--d8_pntr</code>), a vector pour point file
+(<code>--pour_pts</code>), and the output raster (<code>--output</code>). The pour points must be of a Point ShapeType (i.e. Point, PointZ, PointM,
 MultiPoint, MultiPointZ, MultiPointM). Watersheds will be assigned the input pour point FID value. The flow
 pointer raster must be generated using the D8 algorithm, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>.</p>
 <p>Pour point vectors can be attained by on-screen digitizing to designate these points-of-interest locations.
@@ -9121,6 +9431,11 @@ the digitized outlets are coincident with the digital stream contained within th
 done prior to inputting a pour-point set to the <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> tool, anomalously small watersheds may be ouput, as
 pour points that fall off of the main flow path (even by one cell) in the D8 pointer will yield very different
 catchment areas.</p>
+<p>If a raster pour point is specified instead of vector points, the watershed labels will derive their IDs from the
+grid cell values of all non-zero, non-NoData valued grid cells in the pour points file. Notice that this file can
+contain any integer data. For example, if a lakes raster, with each lake possessing a unique ID, is used as the
+pour points raster, the tool will map the watersheds draining to each of the input lake features. Similarly,
+a pour points raster may actually be a streams file, such as what is generated by the <a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a> tool.</p>
 <p>By default, the pointer raster is assumed to use the clockwise indexing method used by WhiteboxTools.
 If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
 <p>There are several tools that perform similar watershedding operations in WhiteboxTools. <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a> is appropriate
@@ -9141,7 +9456,7 @@ stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--d8_pntr          </td><td> Input D8 pointer raster file</td></tr>
-<tr><td>--pour_pts         </td><td> Input vector pour points (outlet) file</td></tr>
+<tr><td>--pour_pts         </td><td> Input pour points (outlet) file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
@@ -9162,7 +9477,7 @@ stream networks, Water Resources Research, 44, W08442, doi:10.1029/2007WR006507.
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/watershed.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 14/02/2020</p>
 <a class="header" href="#image-processing-tools" id="image-processing-tools"><h1>Image Processing Tools</h1></a>
 <ul>
 <li><a href="#ChangeVectorAnalysis">ChangeVectorAnalysis</a></li>
@@ -9276,7 +9591,7 @@ window in both the x and y directions (<code>--filterx</code> and <code>--filter
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/closing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="CreateColourComposite"></a></p>
 <a class="header" href="#createcolourcomposite" id="createcolourcomposite"><h1>CreateColourComposite</h1></a>
 <p>This tool can be used to create a colour-composite image from three bands of multi-spectral imagery.
@@ -9816,7 +10131,7 @@ image noise removal. The user must specify the size of the moving window in both
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/opening.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RemoveSpurs"></a></p>
 <a class="header" href="#removespurs" id="removespurs"><h1>RemoveSpurs</h1></a>
 <p>This image processing tool removes small irregularities (i.e. spurs) on the boundaries of objects in a
@@ -10056,7 +10371,7 @@ flavours of top-hat transform the tool should perform by specifying either 'whit
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/tophat.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="WriteFunctionMemoryInsertion"></a></p>
 <a class="header" href="#writefunctionmemoryinsertion" id="writefunctionmemoryinsertion"><h1>WriteFunctionMemoryInsertion</h1></a>
 <p>Jensen (2015) describes write function memory (WFM) insertion as a simple yet effective method of visualizing
@@ -10175,7 +10490,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/adaptive_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="BilateralFilter"></a></p>
 <a class="header" href="#bilateralfilter" id="bilateralfilter"><h1>BilateralFilter</h1></a>
 <p>This tool can be used to perform an edge-preserving smoothing filter, or bilateral filter, on an image. A bilateral
@@ -10223,7 +10538,7 @@ determines the intensity domain contribution to kernel weightings.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/bilateral_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="ConservativeSmoothingFilter"></a></p>
 <a class="header" href="#conservativesmoothingfilter" id="conservativesmoothingfilter"><h1>ConservativeSmoothingFilter</h1></a>
 <p>This tool performs a conservative smoothing filter on a raster image. A conservative smoothing filter can be used
@@ -10262,7 +10577,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/conservative_smoothing_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="CornerDetection"></a></p>
 <a class="header" href="#cornerdetection" id="cornerdetection"><h1>CornerDetection</h1></a>
 <p>This tool identifies corner patterns in boolean images using hit-and-miss pattern matching. Foreground pixels
@@ -10342,7 +10657,7 @@ however, reduce overall image contrast.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/dog_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="DiversityFilter"></a></p>
 <a class="header" href="#diversityfilter" id="diversityfilter"><h1>DiversityFilter</h1></a>
 <p>This tool assigns each cell in the output grid the number of different values in a moving window centred on
@@ -10534,7 +10849,7 @@ Techniques and Applications (DICTA), 2010 International Conference on.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/fast_almost_gaussian_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/05/2018</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="GaussianFilter"></a></p>
 <a class="header" href="#gaussianfilter" id="gaussianfilter"><h1>GaussianFilter</h1></a>
 <p>This tool can be used to perform a Gaussian filter on a raster image. A Gaussian filter
@@ -10579,7 +10894,7 @@ Gaussian filter for larger kernel sizes.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gaussian_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="HighPassFilter"></a></p>
 <a class="header" href="#highpassfilter" id="highpassfilter"><h1>HighPassFilter</h1></a>
 <p>This tool performs a high-pass filter on a raster image. High-pass filters can be used to emphasize
@@ -10612,7 +10927,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/highpass_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="HighPassMedianFilter"></a></p>
 <a class="header" href="#highpassmedianfilter" id="highpassmedianfilter"><h1>HighPassMedianFilter</h1></a>
 <p>This tool performs a high-pass median filter on a raster image. High-pass filters can be used to emphasize
@@ -10691,7 +11006,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/k_nearest_mean_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="LaplacianFilter"></a></p>
 <a class="header" href="#laplacianfilter" id="laplacianfilter"><h1>LaplacianFilter</h1></a>
 <p>This tool can be used to perform a Laplacian filter on a raster image. A Laplacian filter can be used
@@ -10767,7 +11082,7 @@ The user may also optionally clip the output image distribution tails by a speci
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/laplacian_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="LaplacianOfGaussianFilter"></a></p>
 <a class="header" href="#laplacianofgaussianfilter" id="laplacianofgaussianfilter"><h1>LaplacianOfGaussianFilter</h1></a>
 <p>The Laplacian-of-Gaussian (LoG) is a spatial filter used for edge enhancement and is closely related to the
@@ -10811,7 +11126,7 @@ http://homepages.inf.ed.ac.uk/rbf/HIPR2/roberts.htm</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/log_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="LeeSigmaFilter"></a></p>
 <a class="header" href="#leesigmafilter" id="leesigmafilter"><h1>LeeSigmaFilter</h1></a>
 <p>The Lee Sigma filter is a low-pass filter used to smooth the input image (<code>--input</code>). The user must
@@ -10853,7 +11168,7 @@ processing, 24(2), 255-269.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/lee_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="LineDetectionFilter"></a></p>
 <a class="header" href="#linedetectionfilter" id="linedetectionfilter"><h1>LineDetectionFilter</h1></a>
 <p>This tool can be used to perform one of four 3x3 line-detection filters on a raster image. These
@@ -10916,7 +11231,7 @@ the output image distribution tails by a specified amount (e.g. 1%).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/line_detection_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="MajorityFilter"></a></p>
 <a class="header" href="#majorityfilter" id="majorityfilter"><h1>MajorityFilter</h1></a>
 <p>This tool performs a majority (or modal) filter on a raster image. A mode filter assigns each
@@ -10926,11 +11241,15 @@ scale. The input image should contain integer values but floating point data wil
 Because it requires binning the values in the window, a relatively computationally intensive
 task, <a href="./image_processing_tools_filters.html#majorityfilter"><strong>MajorityFilter</strong></a> is considerably less efficient than other smoothing filters. This may pose a problem
 for large images or large neighbourhoods. Like all WhiteboxTools' filters, however, this tool is
-parallelized, benefitting from multi-core processors.</p>
+parallelized, benefitting from multi-core processors, and the tool also takes advantage of the redundancy of
+the overlapping areas of filter windows along a row of data.</p>
 <p>Neighbourhood size, or filter size, is determined by the user-defined x and y dimensions. These dimensions
 should be odd, positive integer values (e.g. 3, 5, 7, 9, etc.).</p>
 <p>NoData values in the input image are ignored during filtering. When the neighbourhood around a grid cell extends
-beyond the edge of the grid, NoData values are assigned to these sites.</p>
+beyond the edge of the grid, NoData values are assigned to these sites. In the event of multiple modes, i.e.
+neighbourhoods for which there is more than one class with tied and maximal frequency within the neighbourhood,
+the tool will report the first-discovered class value in the output raster. This is unlikely to be an issue
+for larger filter windows, but may be more problematic at smaller window sizes.</p>
 <p><em>See Also</em>:
 <a href="./image_processing_tools_filters.html#medianfilter"><strong>MedianFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -10955,8 +11274,8 @@ beyond the edge of the grid, NoData values are assigned to these sites.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/majority_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 6, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Created</em>: 06/07/2017</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="MaximumFilter"></a></p>
 <a class="header" href="#maximumfilter" id="maximumfilter"><h1>MaximumFilter</h1></a>
 <p>This tool assigns each cell in the output grid (<code>--output</code>) the maximum value in a moving window centred on each grid
@@ -10992,7 +11311,7 @@ efficiency. Like most of WhiteboxTools' filters, it is also parallelized for fur
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/max_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="MeanFilter"></a></p>
 <a class="header" href="#meanfilter" id="meanfilter"><h1>MeanFilter</h1></a>
 <p>This tool performs a mean filter operation on a raster image. A mean filter, a type of low-pass filter, can be
@@ -11116,7 +11435,7 @@ efficiency. Like most of WhiteboxTools' filters, it is also parallelized for fur
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="OlympicFilter"></a></p>
 <a class="header" href="#olympicfilter" id="olympicfilter"><h1>OlympicFilter</h1></a>
 <p>This filter is a modification of the <a href="./image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, whereby the highest and lowest values in the kernel are
@@ -11150,7 +11469,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/olympic_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="PercentileFilter"></a></p>
 <a class="header" href="#percentilefilter" id="percentilefilter"><h1>PercentileFilter</h1></a>
 <p>This tool calculates the percentile of the center cell in a moving filter window applied to an input image (`--input).
@@ -11241,7 +11560,7 @@ the following schemes to calculate x and y slopes:</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/prewitt_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RangeFilter"></a></p>
 <a class="header" href="#rangefilter" id="rangefilter"><h1>RangeFilter</h1></a>
 <p>This tool performs a range filter on an input image (<code>--input</code>). A range filter assigns to each cell in the output grid
@@ -11273,7 +11592,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/range_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RobertsCrossFilter"></a></p>
 <a class="header" href="#robertscrossfilter" id="robertscrossfilter"><h1>RobertsCrossFilter</h1></a>
 <p>This tool performs Robert's Cross edge-detection filter on a raster image. The <a href="./image_processing_tools_filters.html#robertscrossfilter"><strong>RobertsCrossFilter</strong></a>
@@ -11316,7 +11635,7 @@ http://homepages.inf.ed.ac.uk/rbf/HIPR2/roberts.htm</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/roberts_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="ScharrFilter"></a></p>
 <a class="header" href="#scharrfilter" id="scharrfilter"><h1>ScharrFilter</h1></a>
 <p>This tool performs a Scharr edge-detection filter on a raster image. The Scharr filter is similar to the
@@ -11362,7 +11681,7 @@ palette. The user may therefore optionally clip the output image distribution ta
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/scharr_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="SobelFilter"></a></p>
 <a class="header" href="#sobelfilter" id="sobelfilter"><h1>SobelFilter</h1></a>
 <p>This tool performs a 3 × 3 or 5 × 5 Sobel edge-detection filter on a raster image. The Sobel filter
@@ -11410,7 +11729,7 @@ clip the output image distribution tails by a specified amount (e.g. 1%).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sobel_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="StandardDeviationFilter"></a></p>
 <a class="header" href="#standarddeviationfilter" id="standarddeviationfilter"><h1>StandardDeviationFilter</h1></a>
 <p>This tool performs a standard deviation filter on an input image (<code>--input</code>). A standard deviation filter assigns to each cell in the output grid
@@ -11442,7 +11761,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/06/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="TotalFilter"></a></p>
 <a class="header" href="#totalfilter" id="totalfilter"><h1>TotalFilter</h1></a>
 <p>This tool performs a total filter on an input image. A total filter assigns to each cell in the output grid
@@ -11474,7 +11793,7 @@ flags. These dimensions should be odd, positive integer values (e.g. 3, 5, 7, 9,
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/total_filter.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="UnsharpMasking"></a></p>
 <a class="header" href="#unsharpmasking" id="unsharpmasking"><h1>UnsharpMasking</h1></a>
 <p>Unsharp masking is an image edge-sharpening technique commonly applied in digital image processing.
@@ -11621,7 +11940,7 @@ colour composition. <em>International Journal of Remote Sensing</em>, 12:10.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/balance_contrast_enhancement.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="CorrectVignetting"></a></p>
 <a class="header" href="#correctvignetting" id="correctvignetting"><h1>CorrectVignetting</h1></a>
 <p>This tool can be used to reduce vignetting within an image. Vignetting refers to the
@@ -11710,7 +12029,7 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/direct_decorrelation_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/07/2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="GammaCorrection"></a></p>
 <a class="header" href="#gammacorrection" id="gammacorrection"><h1>GammaCorrection</h1></a>
 <p>This tool performs a gamma colour correction transform on an input image (<code>--input</code>), such that each
@@ -11824,7 +12143,7 @@ the histogram is being distorted. This is more prevalent for integer-level image
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_equalization.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/08/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="HistogramMatching"></a></p>
 <a class="header" href="#histogrammatching" id="histogrammatching"><h1>HistogramMatching</h1></a>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
@@ -11972,7 +12291,7 @@ of tonal values is determined by the number of palette entries.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_max_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="PanchromaticSharpening"></a></p>
 <a class="header" href="#panchromaticsharpening" id="panchromaticsharpening"><h1>PanchromaticSharpening</h1></a>
 <p>Panchromatic sharpening, or simply pan-sharpening, refers to a range of techniques that can be used to merge
@@ -12071,7 +12390,7 @@ of tonal values is determined by the number of palette entries.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentage_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="SigmoidalContrastStretch"></a></p>
 <a class="header" href="#sigmoidalcontraststretch" id="sigmoidalcontraststretch"><h1>SigmoidalContrastStretch</h1></a>
 <p>This tool performs a sigmoidal stretch on a raster image. This is a transformation where the input image value for a
@@ -12122,7 +12441,7 @@ images.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sigmoidal_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="StandardDeviationContrastStretch"></a></p>
 <a class="header" href="#standarddeviationcontraststretch" id="standarddeviationcontraststretch"><h1>StandardDeviationContrastStretch</h1></a>
 <p>This tool performs a standard deviation contrast stretch on a raster image. This operation maps each grid cell value
@@ -12163,7 +12482,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
 <ul>
 <li><a href="#ClassifyBuildingsInLidar">ClassifyBuildingsInLidar</a></li>
@@ -12174,6 +12493,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <li><a href="#FilterLidarScanAngles">FilterLidarScanAngles</a></li>
 <li><a href="#FindFlightlineEdgePoints">FindFlightlineEdgePoints</a></li>
 <li><a href="#FlightlineOverlap">FlightlineOverlap</a></li>
+<li><a href="#HeightAboveGround">HeightAboveGround</a></li>
 <li><a href="#LasToAscii">LasToAscii</a></li>
 <li><a href="#LasToMultipointShapefile">LasToMultipointShapefile</a></li>
 <li><a href="#LasToShapefile">LasToShapefile</a></li>
@@ -12370,7 +12690,8 @@ Class values are specified by their numerical values, such that:</p>
 <tr><td align="left"> 18                    </td><td align="left"> High noise</td></tr>
 </tbody></table>
 <p>Thus, to filter out low and high noise points from a point cloud, specify
-<code>--exclude_cls='7,18'</code>. Notice that usage of this tool assumes that the
+<code>--exclude_cls='7,18'</code>. Class ranges may also be specified, e.g. <code>--exclude_cls='3-5,7,18'</code>.
+Notice that usage of this tool assumes that the
 LAS file has underwent a comprehensive point classification, which not all
 point clouds have had. Use the <a href="./lidar_tools.html#lidarinfo"><strong>LidarInfo</strong></a> tool determine the distribution
 of various class values in your file.</p>
@@ -12398,7 +12719,7 @@ of various class values in your file.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/filter_lidar_classes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 24/07/2019</p>
-<p><em>Last Modified</em>: 24/07/2019</p>
+<p><em>Last Modified</em>: 16/01/2020</p>
 <p><a name="FilterLidarScanAngles"></a></p>
 <a class="header" href="#filterlidarscanangles" id="filterlidarscanangles"><h1>FilterLidarScanAngles</h1></a>
 <p>Removes points in a LAS file with scan angles greater than a threshold.</p>
@@ -12477,6 +12798,35 @@ of various class values in your file.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/06/2017</p>
 <p><em>Last Modified</em>: 10/05/2019</p>
+<p><a name="HeightAboveGround"></a></p>
+<a class="header" href="#heightaboveground" id="heightaboveground"><h1>HeightAboveGround</h1></a>
+<p>This tool normalizes an input LiDAR point cloud (<code>--input</code>) such that point z-values in the output LAS file
+(<code>--output</code>) are converted from elevations to heights above the ground, specifically the height above the
+nearest ground-classified point. The input LAS file must have ground-classified points, otherwise the tool
+will return an error. The <a href="./lidar_tools.html#lidartophattransform"><strong>LidarTophatTransform</strong></a> tool can be used to perform the normalization if a ground
+classification is lacking.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lidartophattransform"><strong>LidarTophatTransform</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.height_above_ground(
+    i=None, 
+    output=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=HeightAboveGround -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/height_above_ground.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 08/11/2019</p>
+<p><em>Last Modified</em>: 15/12/2019</p>
 <p><a name="LasToAscii"></a></p>
 <a class="header" href="#lastoascii" id="lastoascii"><h1>LasToAscii</h1></a>
 <p>This tool can be used to convert one or more LAS file, containing LiDAR data, into ASCII files. The user must
@@ -13282,16 +13632,31 @@ the spatial extent is large.</li>
 <p><em>Last Modified</em>: 31/10/2019</p>
 <p><a name="LidarRansacPlanes"></a></p>
 <a class="header" href="#lidarransacplanes" id="lidarransacplanes"><h1>LidarRansacPlanes</h1></a>
-<p>This tool uses the <a href="https://en.wikipedia.org/wiki/Random_sample_consensus">random sample concensus (RANSAC)</a>
-method to identify points within a LiDAR point cloud that belong to linear planes. RANSAC is a common
-method used in the field of computer vision to identify a subset of inliner points in a noisy data set
+<p>This tool uses the <a href="https://en.wikipedia.org/wiki/Random_sample_consensus">random sample consensus (RANSAC)</a>
+method to identify points within a LiDAR point cloud that belong to planar surfaces. RANSAC is a common
+method used in the field of computer vision to identify a subset of inlier points in a noisy data set
 containing abundant outlier points. Because LiDAR point clouds often contain vegetation points that do not
 form planar surfaces, this tool can be used to largely strip vegetation points from the point cloud, leaving
 behind the ground returns, buildings, and other points belonging to planar surfaces. If the <code>--classify</code> flag
 is used, non-planar points will not be removed but rather will be assigned a different class (1) than the
 planar points (0).</p>
+<p>The algorithm selects a random sample, of a specified size (<code>--num_samples</code>) of the points from within the
+neighbourhood (<code>--radius</code>) surrounding each LiDAR point. The sample is then used to parameterize a planar
+best-fit model. The distance between each neighbouring point and the plane is then evaluated; inliers are
+those neighbouring points within a user-specified distance threshold (<code>--threshold</code>). Models with at least
+a minimum number of inlier points (<code>--model_size</code>) are then accepted. This process of selecting models is
+iterated a number of user-specified times (<code>--num_iter</code>).</p>
+<p>One of the challenges with identifying planar surfaces in LiDAR point clouds is that these data are usually
+collected along scan lines. Therefore, each scan line can potentially yield a vertical planar surface, which
+is one reason that some vegetation points remain after applying the RANSAC plane-fitting method. To cope
+with this problem, the tool allows the user to specify a maximum planar slope (<code>--max_slope</code>) parameter.
+Planes that have slopes greater than this threshold are rejected by the algorithm. This has the side-effect
+of removing building walls however.</p>
+<p><em>References</em>:</p>
+<p>Fischler MA and Bolles RC. 1981. Random sample consensus: a paradigm for model fitting with applications
+to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
 <p><em>See Also</em>:
-<a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
+<a href="./lidar_tools.html#lidarsegmentation"><strong>LidarSegmentation</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
@@ -13299,8 +13664,9 @@ planar points (0).</p>
 <tr><td>--radius           </td><td> Search Radius</td></tr>
 <tr><td>--num_iter         </td><td> Number of iterations</td></tr>
 <tr><td>--num_samples      </td><td> Number of sample points on which to build the model</td></tr>
-<tr><td>--threshold        </td><td> Threshold used to determine inliner points</td></tr>
+<tr><td>--threshold        </td><td> Threshold used to determine inlier points</td></tr>
 <tr><td>--model_size       </td><td> Acceptable model size</td></tr>
+<tr><td>--max_slope        </td><td> Maximum planar slope</td></tr>
 <tr><td>--classify         </td><td> Classify points as ground (2) or off-ground (1)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -13312,6 +13678,7 @@ planar points (0).</p>
     num_samples=5, 
     threshold=0.35, 
     model_size=8, 
+    max_slope=80.0, 
     classify=False, 
     callback=default_callback
 )
@@ -13319,12 +13686,13 @@ planar points (0).</p>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarRansacPlanes -v ^
 --wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
---radius=10.0 --num_iter=10 --num_samples=5 --threshold=0.25 
+--radius=10.0 --num_iter=10 --num_samples=5 --threshold=0.25 ^
+--max_slope=70.0 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_ransac_planes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/07/2019</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 29/12/2019</p>
 <p><a name="LidarRbfInterpolation"></a></p>
 <a class="header" href="#lidarrbfinterpolation" id="lidarrbfinterpolation"><h1>LidarRbfInterpolation</h1></a>
 <p>Interpolates LAS files using a radial basis function (RBF) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
@@ -13335,7 +13703,7 @@ planar points (0).</p>
 <tr><td>--parameter        </td><td> Interpolation parameter; options are 'elevation' (default), 'intensity', 'class', 'return_number', 'number_of_returns', 'scan angle', 'rgb', 'user data'</td></tr>
 <tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
 <tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
-<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--num_points       </td><td> Number of points</td></tr>
 <tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
 <tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
 <tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
@@ -13350,13 +13718,13 @@ planar points (0).</p>
     parameter=&quot;elevation&quot;, 
     returns=&quot;all&quot;, 
     resolution=1.0, 
-    radius=2.5, 
+    num_points=20, 
     exclude_cls=None, 
     minz=None, 
     maxz=None, 
     func_type=&quot;ThinPlateSpline&quot;, 
     poly_order=&quot;none&quot;, 
-    weight=0.1, 
+    weight=5, 
     callback=default_callback
 )
 </code></pre>
@@ -13368,7 +13736,7 @@ planar points (0).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 08/11/2019</p>
-<p><em>Last Modified</em>: 08/11/2019</p>
+<p><em>Last Modified</em>: 15/12/2019</p>
 <p><a name="LidarRemoveDuplicates"></a></p>
 <a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h1>LidarRemoveDuplicates</h1></a>
 <p>This tool removes duplicate points from a LiDAR data set. Duplicates are determined
@@ -13433,43 +13801,89 @@ without the point, exceeds a threshold (elev_diff).</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="LidarSegmentation"></a></p>
 <a class="header" href="#lidarsegmentation" id="lidarsegmentation"><h1>LidarSegmentation</h1></a>
-<p>This tool segments a LiDAR point cloud based on normal vectors. The segment values
-are stored as unique, random red-green-blue (RGB) colour values stored in the output
-(<code>--output</code>) LAS file.</p>
+<p>This tool can be used to segment a LiDAR point cloud based on differences in the orientation of fitted planar
+surfaces and point proximity. The algorithm begins by attempting to fit planar surfaces to all of the points within
+a user-specified radius (<code>--radius</code>) of each point in the LiDAR data set. The planar equation is stored for each
+point for which a suitable planar model can be fit. A region-growing algorithm is then used to assign nearby points
+with similar planar models. Similarity is based on a maximum allowable angular difference (in degrees) between the
+two neighbouring points' plane normal vectors (<code>--norm_diff</code>). The <code>--norm_diff</code> parameter can therefore be thought
+of as a way of specifying the magnitude of edges mapped by the region-growing algorithm. By setting this value
+appropriately, it is possible to segment each facet of a building's roof. Segment edges for planar points may also
+be determined by a maximum allowable height difference (<code>--maxzdiff</code>) between neighbouring points on the same plane.
+Points for which no suitable planar model can be fit are assigned to 'volume' (non-planar) segments (e.g. vegetation
+points) using a region-growing method that connects neighbouring points based solely on proximity (i.e. all volume
+points within <code>radius</code> distance are considered to belong to the same segment).</p>
+<p>The resulting point cloud will have both planar segments (largely ground surfaces and building roofs and walls) and
+volume segments (largely vegetation). Each segment is assigned a random red-green-blue (RGB) colour in the output LAS
+file. The largest segment in any airborne LiDAR dataset will usually belong to the ground surface. This largest segment
+will always be assigned a dark-green RGB of (25, 120, 0) by the tool.</p>
+<p>This tool uses the <a href="https://en.wikipedia.org/wiki/Random_sample_consensus">random sample consensus (RANSAC)</a>
+method to identify points within a LiDAR point cloud that belong to planar surfaces. RANSAC is a common
+method used in the field of computer vision to identify a subset of inlier points in a noisy data set
+containing abundant outlier points. Because LiDAR point clouds often contain vegetation points that do not
+form planar surfaces, this tool can be used to largely strip vegetation points from the point cloud, leaving
+behind the ground returns, buildings, and other points belonging to planar surfaces. If the <code>--classify</code> flag
+is used, non-planar points will not be removed but rather will be assigned a different class (1) than the
+planar points (0).</p>
+<p>The algorithm selects a random sample, of a specified size (<code>--num_samples</code>) of the points from within the
+neighbourhood (<code>--radius</code>) surrounding each LiDAR point. The sample is then used to parameterize a planar
+best-fit model. The distance between each neighbouring point and the plane is then evaluated; inliers are
+those neighbouring points within a user-specified distance threshold (<code>--threshold</code>). Models with at least
+a minimum number of inlier points (<code>--model_size</code>) are then accepted. This process of selecting models is
+iterated a number of user-specified times (<code>--num_iter</code>).</p>
+<p>One of the challenges with identifying planar surfaces in LiDAR point clouds is that these data are usually
+collected along scan lines. Therefore, each scan line can potentially yield a vertical planar surface, which
+is one reason that some vegetation points may be assigned to planes during the RANSAC plane-fitting method. To cope
+with this problem, the tool allows the user to specify a maximum planar slope (<code>--max_slope</code>) parameter.
+Planes that have slopes greater than this threshold are rejected by the algorithm. This has the side-effect
+of removing building walls however.</p>
+<p><em>References</em>:</p>
+<p>Fischler MA and Bolles RC. 1981. Random sample consensus: a paradigm for model fitting with applications
+to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
 <p><em>See Also</em>:
-<a href="./lidar_tools.html#lidarsegmentationbasedfilter"><strong>LidarSegmentationBasedFilter</strong></a></p>
+<a href="./lidar_tools.html#lidarransacplanes"><strong>LidarRansacPlanes</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
-<tr><td>-o, --output       </td><td> Output file</td></tr>
-<tr><td>--dist, --radius  </td><td> Search Radius</td></tr>
+<tr><td>-o, --output       </td><td> Output LiDAR file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--num_iter         </td><td> Number of iterations</td></tr>
+<tr><td>--num_samples      </td><td> Number of sample points on which to build the model</td></tr>
+<tr><td>--threshold        </td><td> Threshold used to determine inlier points</td></tr>
+<tr><td>--model_size       </td><td> Acceptable model size</td></tr>
+<tr><td>--max_slope        </td><td> Maximum planar slope</td></tr>
 <tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
 <tr><td>--maxzdiff         </td><td> Maximum difference in elevation (z units) between neighbouring points of the same segment</td></tr>
 <tr><td>--classes          </td><td> Segments don't cross class boundaries</td></tr>
-<tr><td>--min_size         </td><td> Minimum segment size (number of points)</td></tr>
+<tr><td>--ground           </td><td> Classify the largest segment as ground points?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.lidar_segmentation(
     i, 
     output, 
-    radius=5.0, 
+    radius=2.0, 
+    num_iter=50, 
+    num_samples=10, 
+    threshold=0.15, 
+    model_size=15, 
+    max_slope=80.0, 
     norm_diff=10.0, 
     maxzdiff=1.0, 
     classes=False, 
-    min_size=1, 
+    ground=False, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarSegmentation -v ^
 --wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
---radius=10.0 --norm_diff=2.5 --maxzdiff=0.75 --classes ^
---min_size=100 
+--radius=10.0 --num_iter=10 --num_samples=5 --threshold=0.25 ^
+--max_slope=70.0 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_segmentation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/12/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 12/01/2020</p>
 <p><a name="LidarSegmentationBasedFilter"></a></p>
 <a class="header" href="#lidarsegmentationbasedfilter" id="lidarsegmentationbasedfilter"><h1>LidarSegmentationBasedFilter</h1></a>
 <p>Identifies ground points within LiDAR point clouds using a segmentation based approach.</p>
@@ -13786,6 +14200,7 @@ in the input file's header (i.e. the bounding box of the data), it is able to ta
 <li><a href="#Artanh">Artanh</a></li>
 <li><a href="#Atan2">Atan2</a></li>
 <li><a href="#AttributeCorrelation">AttributeCorrelation</a></li>
+<li><a href="#AttributeCorrelationNeighbourhoodAnalysis">AttributeCorrelationNeighbourhoodAnalysis</a></li>
 <li><a href="#AttributeHistogram">AttributeHistogram</a></li>
 <li><a href="#AttributeScattergram">AttributeScattergram</a></li>
 <li><a href="#Ceil">Ceil</a></li>
@@ -14209,7 +14624,7 @@ HMTL output (<code>--output</code>).</p>
 <a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#attributescattergram"><strong>AttributeScattergram</strong></a>, <a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -14227,6 +14642,53 @@ HMTL output (<code>--output</code>).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 29/04/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="AttributeCorrelationNeighbourhoodAnalysis"></a></p>
+<a class="header" href="#attributecorrelationneighbourhoodanalysis" id="attributecorrelationneighbourhoodanalysis"><h1>AttributeCorrelationNeighbourhoodAnalysis</h1></a>
+<p>This tool can be used to perform nieghbourhood-based (i.e. using roving search windows applied to each
+grid cell) correlation analysis on two continuous attributes (<code>--field1</code> and <code>--field2</code>) of an input vector
+(<code>--input</code>). The tool outputs correlation value and a significance (p-value) fields (<code>CORREL</code> and <code>PVALUE</code>) to
+the input vector's attribute table. Additionally,the user must specify the size of the search window (<code>--filter</code>)
+and the correlation statistic (<code>--stat</code>). Options for the correlation statistic include
+<a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"><code>pearson</code></a>,
+<a href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient"><code>kendall</code></a>, and
+<a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient"><code>spearman</code></a>. Notice that Pearson's <em>r</em> is the
+most computationally efficient of the three correlation metrics but is unsuitable when the input distributions are
+non-linearly associated, in which case, either Spearman's Rho or Kendall's tau-b correlations are more suited.
+Both Spearman and Kendall correlations evaluate monotonic associations without assuming linearity in the relation.
+Kendall's tau-b is by far the most computationally expensive of the three statistics and may not be suitable to
+larger sized search windows.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#attributecorrelation"><strong>AttributeCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>--field1           </td><td> First input field name (dependent variable) in attribute table</td></tr>
+<tr><td>--field2           </td><td> Second input field name (independent variable) in attribute table</td></tr>
+<tr><td>--radius           </td><td> Search Radius (in map units)</td></tr>
+<tr><td>--min_points       </td><td> Minimum number of points</td></tr>
+<tr><td>--stat             </td><td> Correlation type; one of 'pearson' (default) and 'spearman'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.attribute_correlation_neighbourhood_analysis(
+    i, 
+    field1, 
+    field2, 
+    radius=None, 
+    min_points=None, 
+    stat=&quot;pearson&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AttributeCorrelationNeighbourhoodAnalysis ^
+-v --wd=&quot;/path/to/data/&quot; -i=input.shp --field1=DEPEND ^
+--field2=INDEPEND --radius=4.0 --min_points=3 ^
+--stat=&quot;spearman&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/attribute_correlation_neighbourhood_analysis.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Simon Gudim and Dr. John Lindsay</p>
+<p><em>Created</em>: 19/12/2019</p>
+<p><em>Last Modified</em>: 10/01/2020</p>
 <p><a name="AttributeHistogram"></a></p>
 <a class="header" href="#attributehistogram" id="attributehistogram"><h1>AttributeHistogram</h1></a>
 <p>This tool can be used to create a histogram, which is a graph displaying the frequency
@@ -15735,8 +16197,8 @@ tend to be associated with stable elements of the data set while variance due to
 high-order, 'change components'. When used as a noise reduction technique, an inverse PCA is generally performed, leaving
 out one or more of the high-order PCA components, which account for noise variance.</p>
 <p>Note: the current implementation reads every raster into memory at one time. This is because of the calculation of the
-co-variances. As such, if the entire image stack cannot fit in memory, the tool will likely experience an out-ofs-memory error.
-This tool should be run using the <code>--wd</code> flag to spectify the working directory into which the component images will be
+co-variances. As such, if the entire image stack cannot fit in memory, the tool will likely experience an out-of-memory error.
+This tool should be run using the <code>--wd</code> flag to specify the working directory into which the component images will be
 written.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -15988,7 +16450,7 @@ values in the output image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/rescale_value_range.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: September 10, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RootMeanSquareError"></a></p>
 <a class="header" href="#rootmeansquareerror" id="rootmeansquareerror"><h1>RootMeanSquareError</h1></a>
 <p>This tool calculates the root-mean-square-error (RMSE) or root-mean-square-difference (RMSD) from two
@@ -16415,7 +16877,7 @@ example, trunc(3.2) = 3 and trunc(5.8) = 5 The output raster (<code>--output</co
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/truncate.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/07/2017</p>
-<p><em>Last Modified</em>: 26/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="TurningBandsSimulation"></a></p>
 <a class="header" href="#turningbandssimulation" id="turningbandssimulation"><h1>TurningBandsSimulation</h1></a>
 <p>This tool can be used to create a random field using the turning bands algorithm. The user must specify
@@ -16463,7 +16925,7 @@ characteristics and frequency distribution. This is the alternative approach use
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/turning_bands.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/07/2017</p>
-<p><em>Last Modified</em>: 07/12/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="TwoSampleKsTest"></a></p>
 <a class="header" href="#twosamplekstest" id="twosamplekstest"><h1>TwoSampleKsTest</h1></a>
 <p>This tool will perform a two-sample Kolmogorov-Smirnov (K-S) test to evaluate whether a significant
@@ -16776,7 +17238,7 @@ flag is specified.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/extract_streams.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="ExtractValleys"></a></p>
 <a class="header" href="#extractvalleys" id="extractvalleys"><h1>ExtractValleys</h1></a>
 <p>This tool can be used to extract channel networks from an input digital elevation models (<code>--dem</code>) using
@@ -16851,7 +17313,7 @@ processing of discrete terrain elevation data. Computer Graphics and image proce
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/extract_valleys.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="FarthestChannelHead"></a></p>
 <a class="header" href="#farthestchannelhead" id="farthestchannelhead"><h1>FarthestChannelHead</h1></a>
 <p>This tool calculates the upstream distance to the farthest stream head for each grid cell belonging to a
@@ -17303,7 +17765,7 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/remove_short_streams.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="ShreveStreamMagnitude"></a></p>
 <a class="header" href="#shrevestreammagnitude" id="shrevestreammagnitude"><h1>ShreveStreamMagnitude</h1></a>
 <p>This tool can be used to assign the Shreve stream magnitude to each link in a stream network. Stream ordering is often used
@@ -18394,6 +18856,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/mathand_stats_tools.html#Atan2">Atan2</a>: Returns the 2-argument inverse tangent (atan2). Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/mathand_stats_tools.html#AttributeCorrelationNeighbourhoodAnalysis">AttributeCorrelationNeighbourhoodAnalysis</a>: Performs a correlation on two input vector attributes within a neighbourhood search windows. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/mathand_stats_tools.html#AttributeCorrelation">AttributeCorrelation</a>: Performs a correlation analysis on attribute fields from a vector database. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
@@ -18550,7 +19015,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/mathand_stats_tools.html#CumulativeDistribution">CumulativeDistribution</a>: Converts a raster image to its cumulative distribution function. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/hydrological_analysis.html#D8FlowAccumulation">D8FlowAccumulation</a>: Calculates a D8 flow accumulation raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+<p><a href="available_tools/hydrological_analysis.html#D8FlowAccumulation">D8FlowAccumulation</a>: Calculates a D8 flow accumulation raster from an input DEM or flow pointer. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/hydrological_analysis.html#D8MassFlux">D8MassFlux</a>: Performs a D8 mass flux calculation. Found in <em>Hydrological Analysis</em>.</p>
@@ -18712,7 +19177,10 @@ SOFTWARE.</p>
 <p><a href="available_tools/hydrological_analysis.html#FillBurn">FillBurn</a>: Burns streams into a DEM using the FillBurn (Saunders, 1999) method. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/hydrological_analysis.html#FillDepressionsWangAndLiu">FillDepressionsWangAndLiu</a>: Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases. Found in <em>Hydrological Analysis</em>.</p>
+<p><a href="available_tools/hydrological_analysis.html#FillDepressionsPlanchonAndDarboux">FillDepressionsPlanchonAndDarboux</a>: Fills all of the depressions in a DEM using the Planchon and Darboux (2002) method. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#FillDepressionsWangAndLiu">FillDepressionsWangAndLiu</a>: Fills all of the depressions in a DEM using the Wang and Liu (2006) method. Depression breaching should be preferred in most cases. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/hydrological_analysis.html#FillDepressions">FillDepressions</a>: Fills all of the depressions in a DEM. Depression breaching should be preferred in most cases. Found in <em>Hydrological Analysis</em>.</p>
@@ -18785,6 +19253,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/stream_network_analysis.html#HackStreamOrder">HackStreamOrder</a>: Assigns the Hack stream order to each tributary in a stream network. Found in <em>Stream Network Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#HeightAboveGround">HeightAboveGround</a>: Normalizes a LiDAR point cloud, providing the height above the nearest ground-classified point. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools_filters.html#HighPassFilter">HighPassFilter</a>: Performs a high-pass filter on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
@@ -18860,6 +19331,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#Increment">Increment</a>: Increases the values of each grid cell in an input raster by 1.0. (see also InPlaceAdd) Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/hydrological_analysis.html#InsertDams">InsertDams</a>: Calculates the impoundment size resulting from damming a DEM. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#IntegerDivision">IntegerDivision</a>: Performs an integer division operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
@@ -18973,7 +19447,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/lidar_tools.html#LidarPointStats">LidarPointStats</a>: Creates several rasters summarizing the distribution of LAS point data. When the input/output parameters are not specified, the tool works on all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/lidar_tools.html#LidarRansacPlanes">LidarRansacPlanes</a>: Removes outliers (high and low points) in a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
+<p><a href="available_tools/lidar_tools.html#LidarRansacPlanes">LidarRansacPlanes</a>: Performs a RANSAC analysis to identify points within a LiDAR point cloud that belong to linear planes. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarRbfInterpolation">LidarRbfInterpolation</a>: Interpolates LAS files using a radial basis function (RBF) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
@@ -18988,7 +19462,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/lidar_tools.html#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a>: Identifies ground points within LiDAR point clouds using a segmentation based approach. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/lidar_tools.html#LidarSegmentation">LidarSegmentation</a>: Segments a LiDAR point cloud based on normal vectors. Found in <em>LiDAR Tools</em>.</p>
+<p><a href="available_tools/lidar_tools.html#LidarSegmentation">LidarSegmentation</a>: Segments a LiDAR point cloud based on differences in the orientation of fitted planar surfaces and point proximity. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarThinHighDensity">LidarThinHighDensity</a>: Thins points from high density areas within a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
@@ -19087,6 +19561,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/image_processing_tools_filters.html#MaximumFilter">MaximumFilter</a>: Assigns each cell in the output grid the maximum value in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/hydrological_analysis.html#MdInfFlowAccumulation">MdInfFlowAccumulation</a>: Calculates an FD8 flow accumulation raster from an input DEM. Found in <em>Hydrological Analysis</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/image_processing_tools_filters.html#MeanFilter">MeanFilter</a>: Performs a mean filter (low-pass filter) on an input image. Found in <em>Image Processing Tools → Filters</em>.</p>
 </li>
 <li>
@@ -19154,6 +19631,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#Multiply">Multiply</a>: Performs a multiplication operation on two rasters or a raster and a constant value. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MultiscaleElevationPercentile">MultiscaleElevationPercentile</a>: Calculates surface roughness over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/geomorphometric_analysis.html#MultiscaleRoughnessSignature">MultiscaleRoughnessSignature</a>: Calculates the surface roughness for points over a range of spatial scales. Found in <em>Geomorphometric Analysis</em>.</p>
@@ -19321,6 +19801,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/mathand_stats_tools.html#RasterHistogram">RasterHistogram</a>: Creates a histogram from raster values. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/gis_analysis.html#RasterPerimeter">RasterPerimeter</a>: Calculates the perimeters of polygons or classes within a raster image. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/stream_network_analysis.html#RasterStreamsToVector">RasterStreamsToVector</a>: Converts a raster stream file into a vector file. Found in <em>Stream Network Analysis</em>.</p>
 </li>
 <li>
@@ -19331,6 +19814,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/data_tools.html#RasterToVectorPoints">RasterToVectorPoints</a>: Converts a raster dataset to a vector of the POINT shapetype. Found in <em>Data Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/data_tools.html#RasterToVectorPolygons">RasterToVectorPolygons</a>: Converts a raster dataset to a vector of the POLYGON shapetype. Found in <em>Data Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/stream_network_analysis.html#RasterizeStreams">RasterizeStreams</a>: Rasterizes vector streams based on Lindsay (2016) method. Found in <em>Stream Network Analysis</em>.</p>

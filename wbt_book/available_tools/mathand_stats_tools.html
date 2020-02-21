@@ -154,6 +154,7 @@
 <li><a href="#Artanh">Artanh</a></li>
 <li><a href="#Atan2">Atan2</a></li>
 <li><a href="#AttributeCorrelation">AttributeCorrelation</a></li>
+<li><a href="#AttributeCorrelationNeighbourhoodAnalysis">AttributeCorrelationNeighbourhoodAnalysis</a></li>
 <li><a href="#AttributeHistogram">AttributeHistogram</a></li>
 <li><a href="#AttributeScattergram">AttributeScattergram</a></li>
 <li><a href="#Ceil">Ceil</a></li>
@@ -577,7 +578,7 @@ HMTL output (<code>--output</code>).</p>
 <a href="./mathand_stats_tools.html#imagecorrelation"><strong>ImageCorrelation</strong></a>, <a href="./mathand_stats_tools.html#attributescattergram"><strong>AttributeScattergram</strong></a>, <a href="./mathand_stats_tools.html#attributehistogram"><strong>AttributeHistogram</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
 <tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -595,6 +596,53 @@ HMTL output (<code>--output</code>).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 29/04/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="AttributeCorrelationNeighbourhoodAnalysis"></a></p>
+<a class="header" href="#attributecorrelationneighbourhoodanalysis" id="attributecorrelationneighbourhoodanalysis"><h1>AttributeCorrelationNeighbourhoodAnalysis</h1></a>
+<p>This tool can be used to perform nieghbourhood-based (i.e. using roving search windows applied to each
+grid cell) correlation analysis on two continuous attributes (<code>--field1</code> and <code>--field2</code>) of an input vector
+(<code>--input</code>). The tool outputs correlation value and a significance (p-value) fields (<code>CORREL</code> and <code>PVALUE</code>) to
+the input vector's attribute table. Additionally,the user must specify the size of the search window (<code>--filter</code>)
+and the correlation statistic (<code>--stat</code>). Options for the correlation statistic include
+<a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"><code>pearson</code></a>,
+<a href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient"><code>kendall</code></a>, and
+<a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient"><code>spearman</code></a>. Notice that Pearson's <em>r</em> is the
+most computationally efficient of the three correlation metrics but is unsuitable when the input distributions are
+non-linearly associated, in which case, either Spearman's Rho or Kendall's tau-b correlations are more suited.
+Both Spearman and Kendall correlations evaluate monotonic associations without assuming linearity in the relation.
+Kendall's tau-b is by far the most computationally expensive of the three statistics and may not be suitable to
+larger sized search windows.</p>
+<p><em>See Also</em>:
+<a href="./mathand_stats_tools.html#attributecorrelation"><strong>AttributeCorrelation</strong></a>, <a href="./mathand_stats_tools.html#imagecorrelationneighbourhoodanalysis"><strong>ImageCorrelationNeighbourhoodAnalysis</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector file</td></tr>
+<tr><td>--field1           </td><td> First input field name (dependent variable) in attribute table</td></tr>
+<tr><td>--field2           </td><td> Second input field name (independent variable) in attribute table</td></tr>
+<tr><td>--radius           </td><td> Search Radius (in map units)</td></tr>
+<tr><td>--min_points       </td><td> Minimum number of points</td></tr>
+<tr><td>--stat             </td><td> Correlation type; one of 'pearson' (default) and 'spearman'</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.attribute_correlation_neighbourhood_analysis(
+    i, 
+    field1, 
+    field2, 
+    radius=None, 
+    min_points=None, 
+    stat=&quot;pearson&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AttributeCorrelationNeighbourhoodAnalysis ^
+-v --wd=&quot;/path/to/data/&quot; -i=input.shp --field1=DEPEND ^
+--field2=INDEPEND --radius=4.0 --min_points=3 ^
+--stat=&quot;spearman&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/attribute_correlation_neighbourhood_analysis.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Simon Gudim and Dr. John Lindsay</p>
+<p><em>Created</em>: 19/12/2019</p>
+<p><em>Last Modified</em>: 10/01/2020</p>
 <p><a name="AttributeHistogram"></a></p>
 <a class="header" href="#attributehistogram" id="attributehistogram"><h1>AttributeHistogram</h1></a>
 <p>This tool can be used to create a histogram, which is a graph displaying the frequency
@@ -2103,8 +2151,8 @@ tend to be associated with stable elements of the data set while variance due to
 high-order, 'change components'. When used as a noise reduction technique, an inverse PCA is generally performed, leaving
 out one or more of the high-order PCA components, which account for noise variance.</p>
 <p>Note: the current implementation reads every raster into memory at one time. This is because of the calculation of the
-co-variances. As such, if the entire image stack cannot fit in memory, the tool will likely experience an out-ofs-memory error.
-This tool should be run using the <code>--wd</code> flag to spectify the working directory into which the component images will be
+co-variances. As such, if the entire image stack cannot fit in memory, the tool will likely experience an out-of-memory error.
+This tool should be run using the <code>--wd</code> flag to specify the working directory into which the component images will be
 written.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -2356,7 +2404,7 @@ values in the output image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/rescale_value_range.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: September 10, 2017</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RootMeanSquareError"></a></p>
 <a class="header" href="#rootmeansquareerror" id="rootmeansquareerror"><h1>RootMeanSquareError</h1></a>
 <p>This tool calculates the root-mean-square-error (RMSE) or root-mean-square-difference (RMSD) from two
@@ -2783,7 +2831,7 @@ example, trunc(3.2) = 3 and trunc(5.8) = 5 The output raster (<code>--output</co
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/truncate.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/07/2017</p>
-<p><em>Last Modified</em>: 26/10/2019</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="TurningBandsSimulation"></a></p>
 <a class="header" href="#turningbandssimulation" id="turningbandssimulation"><h1>TurningBandsSimulation</h1></a>
 <p>This tool can be used to create a random field using the turning bands algorithm. The user must specify
@@ -2831,7 +2879,7 @@ characteristics and frequency distribution. This is the alternative approach use
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/turning_bands.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/07/2017</p>
-<p><em>Last Modified</em>: 07/12/2018</p>
+<p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="TwoSampleKsTest"></a></p>
 <a class="header" href="#twosamplekstest" id="twosamplekstest"><h1>TwoSampleKsTest</h1></a>
 <p>This tool will perform a two-sample Kolmogorov-Smirnov (K-S) test to evaluate whether a significant
