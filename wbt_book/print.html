@@ -244,8 +244,6 @@ wbt = WhiteboxTools()
 <p>Depending on the relative location of the <em>WhiteboxTools</em> directory and the script file that you are importing to, the import statement may need to be altered slightly. In the above script, it is assumed that the folder containing the <em>WhiteboxTools</em> files (including the <em>whitebox_tools</em> Python script) is named <code>WBT</code> (Line 1) and that the calling script that is importing WhiteboxTools is located in the parent directory of <code>WBT</code>. See <a href="#an-example-whiteboxtools-python-project">An Example WhiteboxTools Python Project</a> for more details on project set-up. The use of <code>wbt</code> to designate the WhiteboxTools object variable in the above script (Line 3) is just the convention used in this manual and other project resources. In fact, any variable name can be used for this purpose.</p>
 <p>The <code>WhiteboxTools</code> class expects to find the <em>WhiteboxTools</em> executable file (<em>whitebox_tools.exe</em> on Windows and <em>whitebox_tools</em> on other platforms) within the same directory (<code>WBT</code>) as the <em>whitebox_tools.py</em> script. If the binary file is located in a separate directory, you will need to set the executable directory as follows:</p>
 <pre><code class="language-python">wbt.set_whitebox_dir('/local/path/to/whitebox/binary/')
-# Or alternatively...
-wbt.exe_path = '/local/path/to/whitebox/binary/'
 </code></pre>
 <p>Individual tools can be called using the convenience methods provided in the <code>WhiteboxTools</code> class:</p>
 <pre><code class="language-python"># This line performs a 5 x 5 mean filter on 'inFile.tif':
@@ -273,7 +271,9 @@ self.run_tool('cost_distance', args)
 <pre><code class="language-python">from whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot; # Sets the Whitebox working directory
+wbt.set_whitebox_dir(&quot;/path/to/data/&quot;) # Sets the Whitebox working directory
+
+wbt.set_compress_rasters(True) # Setting this to true enables tools to output DEFLATE compressed GeoTIFFs
 
 # Because the working directory has been set, file arguments can be
 # specified simply using file names, without paths.
@@ -383,6 +383,10 @@ tp = wbt.tool_parameters('raster_histogram')
 # Opens a browser and navigates to a tool's source code in the
 # WhiteboxTools GitHub repository
 wbt.view_code('watershed')
+
+# Use this function to specify whether output GeoTIFF rasters should be 
+# compressed using the DEFLATE compression method.
+wbt.set_compress_rasters(True) 
 </code></pre>
 <p>For a working example of how to call functions and run tools from Python, see the <em>whitebox_example.py</em> Python script, which is distributed with the <em>WhiteboxTools</em> library.</p>
 <blockquote>
@@ -415,12 +419,12 @@ wbt = WhiteboxTools()
 
 # Set the working directory, i.e. the folder containing the data,
 # to the 'data' sub-directory.
-wbt.work_dir = os.path.dirname(os.path.abspath(__file__)) + &quot;/data/&quot;
+wbt.set_working_dir(os.path.dirname(os.path.abspath(__file__)) + &quot;/data/&quot;)
 
 # When you're running mulitple tools, the outputs can be a tad
 # chatty. In this case, you may want to suppress the output by
 # setting the verbose mode to False.
-# wbt.verbose = False
+# wbt.set_verbose_mode(False)
 
 # Interpolate the LiDAR data using an inverse-distance weighting
 # (IDW) scheme.
@@ -18703,10 +18707,10 @@ main()
 <a class="header" href="#raster-formats" id="raster-formats"><h2>Raster formats</h2></a>
 <p>The <em>WhiteboxTools</em> library can currently support reading/writing raster data in several common formats.</p>
 <table><thead><tr><th align="left"> Format </th><th align="left"> Extension </th><th align="center"> Read </th><th align="center"> Write </th></tr></thead><tbody>
+<tr><td align="left"> GeoTIFF </td><td align="left"> *.tif, *.tiff </td><td align="center"> X </td><td align="center"> X </td></tr>
 <tr><td align="left"> Big GeoTIFF </td><td align="left"> *.tif, *.tiff </td><td align="center"> X </td><td align="center"> X </td></tr>
 <tr><td align="left"> ESRI ASCII </td><td align="left"> *.txt, *.asc </td><td align="center"> X </td><td align="center"> X </td></tr>
 <tr><td align="left"> ESRI Binary </td><td align="left"> *.flt and *.hdr </td><td align="center"> X </td><td align="center"> X </td></tr>
-<tr><td align="left"> GeoTIFF </td><td align="left"> *.tif, *.tiff </td><td align="center"> X </td><td align="center"> X </td></tr>
 <tr><td align="left"> GRASS ASCII </td><td align="left"> *.txt, *.asc </td><td align="center"> X </td><td align="center"> X </td></tr>
 <tr><td align="left"> Idrisi </td><td align="left"> *.rdc and *.rst </td><td align="center"> X </td><td align="center"> X </td></tr>
 <tr><td align="left"> SAGA Binary </td><td align="left"> *.sdat and *.sgrd </td><td align="center"> X </td><td align="center"> X </td></tr>
@@ -18717,7 +18721,8 @@ main()
 <blockquote>
 <p>Throughout this manual code examples that manipulate raster files all use the GeoTIFF format (.tif) but any of the supported file extensions can be used in its place.</p>
 </blockquote>
-<p><em>Multi-band GeoTIFFs are not currently supported.</em> The library is primarily tested using Whitebox raster and GeoTIFF data sets and if you encounter issues when reading/writing data in other formats, you should report the <a href="#reporting-bugs">issue</a>.</p>
+<p>The library is primarily tested using Whitebox raster and GeoTIFF data sets and if you encounter issues when reading/writing data in other formats, you should report the <a href="#reporting-bugs">issue</a>.</p>
+<p>WhiteboxTools is able to read GeoTIFFs compressed using the PackBits, DEFLATE, and LZW methods. Compressed GeoTIFFs, created using the DEFLATE algorithm, can also be output from any tool that generates raster output files by using the <code>--compress_rasters</code> command line flag. If using the Python WhiteboxTools API, you can set the flag by using the <code>set_compress_rasters</code> method (e.g. <code>wbt.set_compress_rasters(True)</code>). The default is <code>False</code>. GeoTIFF output file compression can be set in the <strong>WhiteboxTools Runner</strong> <em>Multi-band GeoTIFFs are not currently supported.</em></p>
 <p>Please note that there are no plans to incorporate third-party libraries, like <a href="http://www.gdal.org">GDAL</a>, in the project given the design goal of keeping a pure (or as close as possible) Rust codebase without third-party dependencies. This design greatly simplifies installation of the library but significantly complicates the development by necessitating hand-rolled encoders/decoders for various raster data formats. For more complicated file formats, particularly the ubiquitous GeoTIFF format, it will take time to develop a mature and bug-free encoder/decoder and it is likely that we will only ever be able to support a sub-set of the possible GeoTIFF raster types. It is helpful if users who encounter raster-format related issues <a href="(#reporting-bugs)">report their problems</a> complete with descriptions of the error (<em>What tool was being used? What type of data were input? How far along was the execution before the error was thrown? What was the error message?</em>) and if possible submit a copy of the problematic file.</p>
 <a class="header" href="#vector-formats" id="vector-formats"><h2>Vector Formats</h2></a>
 <p>At present, there is limited support in <em>WhiteboxTools</em> for working with vector geospatial data formats. The only supported vector format is the ESRI <a href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a>. Shapefiles geometries (.shp) and attributes (.dbf) can be read and written. There are plans to support a wider variety of vector file formats in the future.</p>

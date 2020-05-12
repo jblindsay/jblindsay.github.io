@@ -149,8 +149,6 @@ wbt = WhiteboxTools()
 <p>Depending on the relative location of the <em>WhiteboxTools</em> directory and the script file that you are importing to, the import statement may need to be altered slightly. In the above script, it is assumed that the folder containing the <em>WhiteboxTools</em> files (including the <em>whitebox_tools</em> Python script) is named <code>WBT</code> (Line 1) and that the calling script that is importing WhiteboxTools is located in the parent directory of <code>WBT</code>. See <a href="#an-example-whiteboxtools-python-project">An Example WhiteboxTools Python Project</a> for more details on project set-up. The use of <code>wbt</code> to designate the WhiteboxTools object variable in the above script (Line 3) is just the convention used in this manual and other project resources. In fact, any variable name can be used for this purpose.</p>
 <p>The <code>WhiteboxTools</code> class expects to find the <em>WhiteboxTools</em> executable file (<em>whitebox_tools.exe</em> on Windows and <em>whitebox_tools</em> on other platforms) within the same directory (<code>WBT</code>) as the <em>whitebox_tools.py</em> script. If the binary file is located in a separate directory, you will need to set the executable directory as follows:</p>
 <pre><code class="language-python">wbt.set_whitebox_dir('/local/path/to/whitebox/binary/')
-# Or alternatively...
-wbt.exe_path = '/local/path/to/whitebox/binary/'
 </code></pre>
 <p>Individual tools can be called using the convenience methods provided in the <code>WhiteboxTools</code> class:</p>
 <pre><code class="language-python"># This line performs a 5 x 5 mean filter on 'inFile.tif':
@@ -178,7 +176,9 @@ self.run_tool('cost_distance', args)
 <pre><code class="language-python">from whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot; # Sets the Whitebox working directory
+wbt.set_whitebox_dir(&quot;/path/to/data/&quot;) # Sets the Whitebox working directory
+
+wbt.set_compress_rasters(True) # Setting this to true enables tools to output DEFLATE compressed GeoTIFFs
 
 # Because the working directory has been set, file arguments can be
 # specified simply using file names, without paths.
