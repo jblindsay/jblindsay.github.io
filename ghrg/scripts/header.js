@@ -113,6 +113,35 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2020-06-07",
+      headline: "WhiteboxTools v1.3.0 is Released",
+      fullStory: "<li>Tools will now output DEFLATE compressed GeoTIFFs when the --compress_rasters parameter is used.</li> \
+      <li>Added support for a newly developed compressed LiDAR data format, the ZLidar file. All tools \
+        that accepted LAS file inputs and produced LAS outputs can now use '*.zlidar' files as well. I \
+        have also added the LasToZlidar and ZlidarToLas tools to perform conversions. While the ZLidar \
+        format does not yield compression rates quite as good as the popular LAZ file format, you can  \
+        expect ZLidar files to be between 20-30% of the size of the equivalent LAS file. A file  \
+        specification will be published in the near future to describe the open ZLidar data format.</li> \
+      <li>Added the AsciiToLas tool.</li> \
+      <li>Added the ContoursFromRaster tool for creating a vector contour coverage from a raster surface model (DEM).</li> \
+      <li>Added the ContoursFromPoints tool for creating a vector contour coverage from vector points.</li> \
+      <li>Added the UpdateNodataCells tool.</li> \
+      <li>Modified the Slope tool to optionally output in degrees, radians, or percent gradient.</li> \
+      <li>Modified the Mosaic tool, which now runs much faster with large numbers of input tiles.</li> \
+      <li>The vector-to-raster conversion tools now preserve input projections.</li> \
+      <li>Fixed a bug in the RasterToVectorPolygons tool.</li> \
+      <li>Fixed several bugs in the MergeTableWithCsv tool.</li> \
+      <li>Modified the FillMissingData tool to allow for the exclusion of edge-connected NoData cells from the operation.</li> \
+        This is better for irregular shaped DEMs that have large areas of NoData surrounding the valid data.</li> \
+      <li>The LidarConstructVectorTin tool has been depreciated. The tool was not creating the proper output.</li> \
+        Furthermore, since the number of points in the average LiDAR tile is usually many million, this tool \
+        would usually produce Shapefiles that exceed the maximum allowable number of shape geometries. If \
+        a vector TIN is required for a LiDAR point set, users should convert the file to a Shapefile and then \
+        use the ConstructVectorTin tool instead. And of course, if you are interested in a raster TIN from a  \
+        LiDAR file, use the LidarTinGridding tool instead.</li> \
+      <li>FlattenLakes now handles multipart lake polygons.</li>"
+    },
+    {
       date: "2020-05-04",
       headline: "Welcome to Carys Owen",
       fullStory: "The GHRG welcomes Carys Owen, our NSERC-funded summer research assistant."
