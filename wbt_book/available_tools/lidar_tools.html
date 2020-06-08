@@ -142,6 +142,7 @@
                     <main>
                         <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
 <ul>
+<li><a href="#AsciiToLas">AsciiToLas</a></li>
 <li><a href="#ClassifyBuildingsInLidar">ClassifyBuildingsInLidar</a></li>
 <li><a href="#ClassifyOverlapPoints">ClassifyOverlapPoints</a></li>
 <li><a href="#ClipLidarToPolygon">ClipLidarToPolygon</a></li>
@@ -154,11 +155,11 @@
 <li><a href="#LasToAscii">LasToAscii</a></li>
 <li><a href="#LasToMultipointShapefile">LasToMultipointShapefile</a></li>
 <li><a href="#LasToShapefile">LasToShapefile</a></li>
+<li><a href="#LasToZlidar">LasToZlidar</a></li>
 <li><a href="#LidarBlockMaximum">LidarBlockMaximum</a></li>
 <li><a href="#LidarBlockMinimum">LidarBlockMinimum</a></li>
 <li><a href="#LidarClassifySubset">LidarClassifySubset</a></li>
 <li><a href="#LidarColourize">LidarColourize</a></li>
-<li><a href="#LidarConstructVectorTin">LidarConstructVectorTin</a></li>
 <li><a href="#LidarElevationSlice">LidarElevationSlice</a></li>
 <li><a href="#LidarGroundPointFilter">LidarGroundPointFilter</a></li>
 <li><a href="#LidarHexBinning">LidarHexBinning</a></li>
@@ -185,7 +186,63 @@
 <li><a href="#LidarTophatTransform">LidarTophatTransform</a></li>
 <li><a href="#NormalVectors">NormalVectors</a></li>
 <li><a href="#SelectTilesByPolygon">SelectTilesByPolygon</a></li>
+<li><a href="#ZlidarToLas">ZlidarToLas</a></li>
 </ul>
+<p><a name="AsciiToLas"></a></p>
+<a class="header" href="#asciitolas" id="asciitolas"><h1>AsciiToLas</h1></a>
+<p>This tool can be used to convert one or more ASCII files, containing LiDAR point data, into LAS files. The user must
+specify the name(s) of the input ASCII file(s) (<code>--inputs</code>). Each input file will have a correspondingly named
+output file with a <code>.las</code> file extension. The output point data, each on a separate line, will take the format:</p>
+<pre><code>x,y,z,intensity,class,return,num_returns&quot;
+</code></pre>
+<table><thead><tr><th align="left"> Value </th><th align="left"> Interpretation    </th></tr></thead><tbody>
+<tr><td align="left"> x     </td><td align="left"> x-coordinate      </td></tr>
+<tr><td align="left"> y     </td><td align="left"> y-coordinate      </td></tr>
+<tr><td align="left"> z     </td><td align="left"> elevation         </td></tr>
+<tr><td align="left"> i     </td><td align="left"> intensity value   </td></tr>
+<tr><td align="left"> c     </td><td align="left"> classification    </td></tr>
+<tr><td align="left"> rn    </td><td align="left"> return number     </td></tr>
+<tr><td align="left"> nr    </td><td align="left"> number of returns </td></tr>
+<tr><td align="left"> time  </td><td align="left"> GPS time          </td></tr>
+<tr><td align="left"> sa    </td><td align="left"> scan angle        </td></tr>
+<tr><td align="left"> r     </td><td align="left"> red               </td></tr>
+<tr><td align="left"> b     </td><td align="left"> blue              </td></tr>
+<tr><td align="left"> g     </td><td align="left"> green             </td></tr>
+</tbody></table>
+<p>The <code>x</code>, <code>y</code>, and <code>z</code> patterns must always be specified. If the <code>rn</code> pattern is used, the <code>nr</code> pattern must
+also be specified. Examples of valid pattern string include:</p>
+<pre><code>'x,y,z,i'
+'x,y,z,i,rn,nr'
+'x,y,z,i,c,rn,nr,sa'
+'z,x,y,rn,nr'
+'x,y,z,i,rn,nr,r,g,b'
+</code></pre>
+<p>Use the <a href="./lidar_tools.html#lastoascii"><strong>LasToAscii</strong></a> tool to convert a LAS file into a text file containing LiDAR point data.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lastoascii"><strong>LasToAscii</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input LiDAR  ASCII files (.csv)</td></tr>
+<tr><td>--pattern          </td><td> Input field pattern</td></tr>
+<tr><td>--proj             </td><td> Well-known-text string or EPSG code describing projection</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.ascii_to_las(
+    inputs, 
+    pattern, 
+    proj=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AsciiToLas -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.las, file2.las, file3.las&quot; -o=outfile.las&quot; ^
+--proj=2150 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/ascii_to_las.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 10/02/2019</p>
+<p><em>Last Modified</em>: 18/01/2020</p>
 <p><a name="ClassifyBuildingsInLidar"></a></p>
 <a class="header" href="#classifybuildingsinlidar" id="classifybuildingsinlidar"><h1>ClassifyBuildingsInLidar</h1></a>
 <p>This tool can be used to assign the building class (classification value 6) to all points within an
@@ -454,7 +511,7 @@ of various class values in your file.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/flightline_overlap.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/06/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="HeightAboveGround"></a></p>
 <a class="header" href="#heightaboveground" id="heightaboveground"><h1>HeightAboveGround</h1></a>
 <p>This tool normalizes an input LiDAR point cloud (<code>--input</code>) such that point z-values in the output LAS file
@@ -487,17 +544,17 @@ classification is lacking.</p>
 <p><a name="LasToAscii"></a></p>
 <a class="header" href="#lastoascii" id="lastoascii"><h1>LasToAscii</h1></a>
 <p>This tool can be used to convert one or more LAS file, containing LiDAR data, into ASCII files. The user must
-specify the name(s) of the input LAS file(s) (<code>--inputs</code>). Each input file will have a coorespondingly named
+specify the name(s) of the input LAS file(s) (<code>--inputs</code>). Each input file will have a correspondingly named
 output file with a <code>.csv</code> file extension. CSV files are comma separated value files and contain tabular data
-with each column cooresponding to a field in the table and each row a point value. Fields are separated by
-commas in the ASCII formated file. The output point data, each on a seperate line, will take the format:</p>
+with each column corresponding to a field in the table and each row a point value. Fields are separated by
+commas in the ASCII formated file. The output point data, each on a separate line, will take the format:</p>
 <pre><code>X,Y,Z,INTENSITY,CLASS,RETURN,NUM_RETURN,SCAN_ANGLE
 </code></pre>
 <p>If the LAS file has a point format that contains RGB data, the final three columns will contain the RED,
-GREEN, and BLUE values respectively. Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
+GREEN, and BLUE values respectively. Use the <a href="./lidar_tools.html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
 point data into a LAS file.</p>
 <p><em>See Also</em>:
-<a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
+<a href="./lidar_tools.html#asciitolas"><strong>AsciiToLas</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -510,12 +567,12 @@ point data into a LAS file.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LasToAscii -v --wd=&quot;/path/to/data/&quot; ^
--i=&quot;file1.las, file2.las, file3.las&quot; -o=outfile.las&quot; 
+-i=&quot;file1.las, file2.las, file3.las&quot; 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_ascii.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 16/07/2017</p>
-<p><em>Last Modified</em>: 12/08/2019</p>
+<p><em>Last Modified</em>: 29/02/2020</p>
 <p><a name="LasToMultipointShapefile"></a></p>
 <a class="header" href="#lastomultipointshapefile" id="lastomultipointshapefile"><h1>LasToMultipointShapefile</h1></a>
 <p>Converts one or more LAS files into MultipointZ vector Shapefiles. When the input parameter is
@@ -545,7 +602,7 @@ of converting LAS point positional information.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_multipoint_shapefile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 04/09/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LasToShapefile"></a></p>
 <a class="header" href="#lastoshapefile" id="lastoshapefile"><h1>LasToShapefile</h1></a>
 <p>This tool converts one or more LAS files into a POINT vector. When the input parameter is
@@ -580,7 +637,38 @@ should be preferred instead.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_shapefile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/10/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 20/05/2020</p>
+<p><a name="LasToZlidar"></a></p>
+<a class="header" href="#lastozlidar" id="lastozlidar"><h1>LasToZlidar</h1></a>
+<p>This tool can be used to convert one or more LAS files into the
+<a href="(https://jblindsay.github.io/zLidar_spec/intro.html)"><em>zLidar</em></a> compressed
+LiDAR data format. The tool takes a list of input LAS files (<code>--inputs</code>). If <code>--inputs</code>
+is unspecified, the tool will use all LAS files contained within the working directory
+as the tool inputs. The user may also specify an optional output directory <code>--outdir</code>.
+If this parameter is unspecified, each output zLidar file will be written to the same
+directory as the input files.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#zlidartolas"><strong>ZlidarToLas</strong></a>, <a href="./lidar_tools.html#lastoshapefile"><strong>LasToShapefile</strong></a>, <a href="./lidar_tools.html#lastoascii"><strong>LasToAscii</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input LAS files</td></tr>
+<tr><td>--outdir           </td><td> Output directory into which zlidar files are created. If unspecified, it is assumed to be the same as the inputs</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.las_to_zlidar(
+    inputs=None, 
+    outdir=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LasToZlidar -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.las, file2.las, file3.las&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_zlidar.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 13/05/2020</p>
+<p><em>Last Modified</em>: 15/05/2020</p>
 <p><a name="LidarBlockMaximum"></a></p>
 <a class="header" href="#lidarblockmaximum" id="lidarblockmaximum"><h1>LidarBlockMaximum</h1></a>
 <p>Creates a block-maximum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -609,7 +697,7 @@ should be preferred instead.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_maximum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarBlockMinimum"></a></p>
 <a class="header" href="#lidarblockminimum" id="lidarblockminimum"><h1>LidarBlockMinimum</h1></a>
 <p>Creates a block-minimum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -638,7 +726,7 @@ should be preferred instead.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_minimum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarClassifySubset"></a></p>
 <a class="header" href="#lidarclassifysubset" id="lidarclassifysubset"><h1>LidarClassifySubset</h1></a>
 <p>This tool classifies points within a user-specified LiDAR point cloud (<code>--base</code>) that correpond
@@ -733,45 +821,6 @@ to determine the spatial extent of the LAS file.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 18/02/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
-<p><a name="LidarConstructVectorTin"></a></p>
-<a class="header" href="#lidarconstructvectortin" id="lidarconstructvectortin"><h1>LidarConstructVectorTin</h1></a>
-<p>This tool creates a vector triangular irregular network (TIN) for a set of LiDAR points (<code>--input</code>)
-using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a> algorithm.
-LiDAR points may be excluded from the triangulation operation based on a number of criteria,
-include the point return number (<code>--returns</code>), point classification value (<code>--exclude_cls</code>), or
-a minimum (<code>--minz</code>) or maximum (<code>--maxz</code>) elevation.</p>
-<p>For vector points, use the <a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a> tool instead.</p>
-<p><em>See Also</em>:
-<a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a></p>
-<p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
-<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
-<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
-<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
-</tbody></table>
-<p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.lidar_construct_vector_tin(
-    i=None, 
-    output=None, 
-    returns=&quot;all&quot;, 
-    exclude_cls=None, 
-    minz=None, 
-    maxz=None, 
-    callback=default_callback
-)
-</code></pre>
-<p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=LidarConstructVectorTIN -v ^
---wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
---returns=last --exclude_cls='3,4,5,6,7,18' 
-</code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_construct_vector_tin.rs">Source code on GitHub</a></p>
-<p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 23/09/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
 <p><a name="LidarElevationSlice"></a></p>
 <a class="header" href="#lidarelevationslice" id="lidarelevationslice"><h1>LidarElevationSlice</h1></a>
 <p>This tool can be used to either extract or classify the elevation values (z) of LiDAR points within
@@ -1040,7 +1089,7 @@ include the point elevations, intensity values, scan angles, and class values.</
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_idw_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/07/2017</p>
-<p><em>Last Modified</em>: 30/08/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarInfo"></a></p>
 <a class="header" href="#lidarinfo" id="lidarinfo"><h1>LidarInfo</h1></a>
 <p>This tool can be used to print basic information about the data contained within a LAS file, used to store LiDAR
@@ -1182,7 +1231,7 @@ percentage.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_nn_gridding.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/07/2017</p>
-<p><em>Last Modified</em>: 30/08/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarPointDensity"></a></p>
 <a class="header" href="#lidarpointdensity" id="lidarpointdensity"><h1>LidarPointDensity</h1></a>
 <p>Calculates the spatial pattern of point density for a LiDAR data set. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -1222,7 +1271,7 @@ percentage.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 10/07/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarPointStats"></a></p>
 <a class="header" href="#lidarpointstats" id="lidarpointstats"><h1>LidarPointStats</h1></a>
 <p>This tool creates several rasters summarizing the distribution of LiDAR points in a LAS data file.
@@ -1286,7 +1335,7 @@ the spatial extent is large.</li>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_stats.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 18/02/2018</p>
-<p><em>Last Modified</em>: 31/10/2019</p>
+<p><em>Last Modified</em>: 20/05/2020</p>
 <p><a name="LidarRansacPlanes"></a></p>
 <a class="header" href="#lidarransacplanes" id="lidarransacplanes"><h1>LidarRansacPlanes</h1></a>
 <p>This tool uses the <a href="https://en.wikipedia.org/wiki/Random_sample_consensus">random sample consensus (RANSAC)</a>
@@ -1393,7 +1442,7 @@ to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 08/11/2019</p>
-<p><em>Last Modified</em>: 15/12/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarRemoveDuplicates"></a></p>
 <a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h1>LidarRemoveDuplicates</h1></a>
 <p>This tool removes duplicate points from a LiDAR data set. Duplicates are determined
@@ -1712,7 +1761,7 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tile_footprint.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 31/08/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarTinGridding"></a></p>
 <a class="header" href="#lidartingridding" id="lidartingridding"><h1>LidarTinGridding</h1></a>
 <p>Creates a raster grid based on a Delaunay triangular irregular network (TIN) fitted to LiDAR points.</p>
@@ -1751,7 +1800,7 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tin_gridding.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/09/2018</p>
-<p><em>Last Modified</em>: 31/08/2019</p>
+<p><em>Last Modified</em>: 25/05/2020</p>
 <p><a name="LidarTophatTransform"></a></p>
 <a class="header" href="#lidartophattransform" id="lidartophattransform"><h1>LidarTophatTransform</h1></a>
 <p>This tool performs a white <a href="https://en.wikipedia.org/wiki/Top-hat_transform">top-hat transform</a> on a LiDAR point cloud.
@@ -1842,7 +1891,38 @@ in the input file's header (i.e. the bounding box of the data), it is able to ta
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/select_tiles_by_polygon.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/08/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
+<p><a name="ZlidarToLas"></a></p>
+<a class="header" href="#zlidartolas" id="zlidartolas"><h1>ZlidarToLas</h1></a>
+<p>This tool can be used to convert one or more <em>zLidar</em> files ('*.zlidar') files into the <em>LAS</em>
+LiDAR data format. <a href="https://jblindsay.github.io/zLidar_spec/intro.html">zLidar</a> files are a compressed
+form of the LAS data format. The tool takes a list of input LAS files (<code>--inputs</code>). If <code>--inputs</code>
+is unspecified, the tool will use all ZLidar files contained within the working directory
+as the tool inputs. The user may also specify an optional output directory <code>--outdir</code>.
+If this parameter is unspecified, each output LAS file will be written to the same
+directory as the input files.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lastozlidar"><strong>LasToZlidar</strong></a>, <code>ShapefileToLas</code>, <a href="./lidar_tools.html#asciitolas"><strong>AsciiToLas</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input ZLidar files</td></tr>
+<tr><td>--outdir           </td><td> Output directory into which zlidar files are created. If unspecified, it is assumed to be the same as the inputs</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.zlidar_to_las(
+    inputs=None, 
+    outdir=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ZlidarToLas -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.zlidar, file2.zlidar, file3.zlidar&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/zlidar_to_las.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 13/05/2020</p>
+<p><em>Last Modified</em>: 13/05/2020</p>
 
                     </main>
 

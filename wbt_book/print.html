@@ -143,7 +143,7 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 1.2.0  <br />
+<p>WhiteboxTools Version 1.3.0  <br />
 Dr. John B. Lindsay © 2017-2020  <br />
 <a href="https://jblindsay.github.io/ghrg/index.html">Geomorphometry and Hydrogeomatics Research Group</a>  <br />
 University of Guelph  <br />
@@ -273,7 +273,10 @@ self.run_tool('cost_distance', args)
 wbt = WhiteboxTools()
 wbt.set_whitebox_dir(&quot;/path/to/data/&quot;) # Sets the Whitebox working directory
 
-wbt.set_compress_rasters(True) # Setting this to true enables tools to output DEFLATE compressed GeoTIFFs
+# Setting the following to True enables tools to output DEFLATE compressed GeoTIFFs.
+# You only need to do this once, if you wish all tools to compress their raster
+# outputs.
+wbt.set_compress_rasters(True) 
 
 # Because the working directory has been set, file arguments can be
 # specified simply using file names, without paths.
@@ -336,8 +339,6 @@ altitude=20.0)
 <a class="header" href="#handling-tool-output" id="handling-tool-output"><h1>Handling tool output</h1></a>
 <p>Tools will frequently print text to the standard output during their execution, including warnings, progress updates and other notifications. Sometimes, when users run many tools in complex workflows and in batch mode, these output messages can be undesirable. Most tools will have their outputs suppressed by setting the <em>verbose</em> mode to <em>False</em> as follows:</p>
 <pre><code class="language-python">wbt.set_verbose_mode(False)
-# Or, alternatively...
-wbt.verbose = False
 </code></pre>
 <p>Alternatively, it may be helpful to capture the text output of a tool for custom processing. This is achieved by specifying a custom <em>callback</em> function to the tool's convenience function:</p>
 <pre><code class="language-python"># This callback function suppresses printing progress updates,
@@ -351,7 +352,7 @@ def my_callback(value):
 wbt.slope('DEM.tif', 'slope_raster.tif', callback=my_callback)
 </code></pre>
 <p>Every convienience function takes an optional callback as the last parameter. The default callback simply prints tool outputs to the standard output without any additional processing. The default callback itself can be overridden, instead of having to set callbacks in convienience functions individually:</p>
-<pre><code class="language-python">wbt.default_callback = my_callback
+<pre><code class="language-python">wbt.set_default_callback(my_callback)
 </code></pre>
 <p>Callback functions can serve as a means of cancelling operations:</p>
 <pre><code class="language-python">def my_callback(value):
@@ -691,7 +692,7 @@ removes line features with fewer than two vertices and polygon features with few
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/clean_vector.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 30/06/2019</p>
-<p><em>Last Modified</em>: 30/06/2019</p>
+<p><em>Last Modified</em>: 27/05/2020</p>
 <p><a name="ConvertNodataToZero"></a></p>
 <a class="header" href="#convertnodatatozero" id="convertnodatatozero"><h1>ConvertNodataToZero</h1></a>
 <p>This tool can be used to change the value within the grid cells of a raster file (<code>--input</code>) that contain
@@ -969,7 +970,7 @@ will correspond to only one foreign key containing the population and area data.
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/merge_table_with_csv.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Prof. John Lindsay</p>
 <p><em>Created</em>: 11/10/2018</p>
-<p><em>Last Modified</em>: 07/08/2019</p>
+<p><em>Last Modified</em>: 09/03/2020</p>
 <p><a name="MergeVectors"></a></p>
 <a class="header" href="#mergevectors" id="mergevectors"><h1>MergeVectors</h1></a>
 <p>Combines two or more input vectors of the same ShapeType creating a single, new output
@@ -1010,11 +1011,11 @@ or more files and creates one new file containing the features of all inputs, an
 <p><a name="ModifyNoDataValue"></a></p>
 <a class="header" href="#modifynodatavalue" id="modifynodatavalue"><h1>ModifyNoDataValue</h1></a>
 <p>This tool can be used to modify the value of pixels containing the NoData value for an input raster image.
-This operation differs from the <code>SetNoDataValue</code> tool, which sets the NoData value for an image in the
+This operation differs from the <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> tool, which sets the NoData value for an image in the
 image header without actually modifying pixel values. Also, <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> does not
 overwrite the input file, while the <a href="./data_tools.html#modifynodatavalue"><strong>ModifyNoDataValue</strong></a> tool does.</p>
 <p><em>See Also</em>:
-<code>SetNoDataValue</code>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a></p>
+<a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a>, <a href="./data_tools.html#convertnodatatozero"><strong>ConvertNodataToZero</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster file</td></tr>
@@ -1248,8 +1249,8 @@ feature, in addition to the standard feature ID (FID) attribute.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/data_tools/raster_to_vector_polygons.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 25/12/2019</p>
-<p><em>Last Modified</em>: 25/12/2019</p>
+<p><em>Created</em>: 18/02/2020</p>
+<p><em>Last Modified</em>: 05/03/2020</p>
 <p><a name="ReinitializeAttributeTable"></a></p>
 <a class="header" href="#reinitializeattributetable" id="reinitializeattributetable"><h1>ReinitializeAttributeTable</h1></a>
 <p>Reinitializes a vector's attribute table deleting all fields but the feature ID (FID).
@@ -1527,6 +1528,8 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#Aspect">Aspect</a></li>
 <li><a href="#AverageNormalVectorAngularDeviation">AverageNormalVectorAngularDeviation</a></li>
 <li><a href="#CircularVarianceOfAspect">CircularVarianceOfAspect</a></li>
+<li><a href="#ContoursFromPoints">ContoursFromPoints</a></li>
+<li><a href="#ContoursFromRaster">ContoursFromRaster</a></li>
 <li><a href="#DevFromMeanElev">DevFromMeanElev</a></li>
 <li><a href="#DiffFromMeanElev">DiffFromMeanElev</a></li>
 <li><a href="#DirectionalRelief">DirectionalRelief</a></li>
@@ -1729,6 +1732,90 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
 <p><em>Last Modified</em>: 02/04/2019</p>
+<p><a name="ContoursFromPoints"></a></p>
+<a class="header" href="#contoursfrompoints" id="contoursfrompoints"><h1>ContoursFromPoints</h1></a>
+<p>This tool creates a contour coverage from a set of input points (<code>--input</code>). The user must specify the contour
+interval (<code>--interval</code>) and optionally, the base contour value (<code>--base</code>). The degree to which contours are
+smoothed is controlled by the <strong>Smoothing Filter Size</strong> parameter (<code>--smooth</code>). This value, which determines
+the size of a mean filter applied to the x-y position of vertices in each contour, should be an odd integer value, e.g.
+3, 5, 7, 9, 11, etc. Larger values will result in smoother contour lines.</p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#contoursfromraster"><strong>ContoursFromRaster</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
+<tr><td>-o, --output       </td><td> Output vector lines file</td></tr>
+<tr><td>--max_triangle_edge_length</td><td> Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
+<tr><td>--interval         </td><td> Contour interval</td></tr>
+<tr><td>--base             </td><td> Base contour height</td></tr>
+<tr><td>--smooth           </td><td> Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.contours_from_points(
+    i, 
+    output, 
+    field=None, 
+    use_z=False, 
+    max_triangle_edge_length=None, 
+    interval=10.0, 
+    base=0.0, 
+    smooth=5, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ContoursFromPoints -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=HEIGHT ^
+-o=contours.shp --max_triangle_edge_length=100.0 ^
+--interval=100.0 --base=0.0 --smooth=11 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/contours_from_points.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/04/2020</p>
+<p><em>Last Modified</em>: 26/04/2020</p>
+<p><a name="ContoursFromRaster"></a></p>
+<a class="header" href="#contoursfromraster" id="contoursfromraster"><h1>ContoursFromRaster</h1></a>
+<p>This tool can be used to create a vector contour coverage from an input raster surface model (<code>--input</code>), such as a digital
+elevation model (DEM). The user must specify the contour interval (<code>--interval</code>) and optionally, the base contour value (<code>--base</code>).
+The degree to which contours are smoothed is controlled by the <strong>Smoothing Filter Size</strong> parameter (<code>--smooth</code>). This value, which
+determines the size of a mean filter applied to the x-y position of vertices in each contour, should be an odd integer value, e.g.
+3, 5, 7, 9, 11, etc. Larger values will result in smoother contour lines. The tolerance parameter (<code>--tolerance</code>) controls the
+amount of line generalization. That is, vertices in a contour line will be selectively removed from the line if they do not result in
+an angular deflection in the line's path of at least this threshold value. Increasing this value can significantly decrease the size
+of the output contour vector file, at the cost of generating straighter contour line segments.</p>
+<p><em>See Also</em>:
+<a href="./data_tools.html#rastertovectorpolygons"><strong>RasterToVectorPolygons</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input surface raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector contour file</td></tr>
+<tr><td>--interval         </td><td> Contour interval</td></tr>
+<tr><td>--base             </td><td> Base contour height</td></tr>
+<tr><td>--smooth           </td><td> Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
+<tr><td>--tolerance        </td><td> Tolerance factor, in degrees (0-45); determines generalization level</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.contours_from_raster(
+    i, 
+    output, 
+    interval=10.0, 
+    base=0.0, 
+    smooth=9, 
+    tolerance=10.0, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ContoursFromRaster -v ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=contours.shp ^
+--interval=100.0 --base=0.0 --smooth=11 --tolerance=20.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/contours_from_raster.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/02/2020</p>
+<p><em>Last Modified</em>: 04/03/2020</p>
 <p><a name="DevFromMeanElev"></a></p>
 <a class="header" href="#devfrommeanelev" id="devfrommeanelev"><h1>DevFromMeanElev</h1></a>
 <p>This tool can be used to calculate the difference between the elevation of each grid
@@ -2126,8 +2213,20 @@ elevation updating procedures are also based on raster filtering operations. The
 modifications make this tool more efficient than Sun's original method, but will
 also result in a slightly different output than what would be achieved with Sun's
 method.</p>
+<p>The user must specify the values of three key parameters, including the filter size
+(<code>--filter</code>), the normal difference threshold (<code>--norm_diff</code>), and the number of
+iterations (<code>--num_iter</code>). Lindsay et al. (2019) found that <strong>the degree of smoothing
+was less impacted by the filter size than it was either the normal difference threshold
+and the number of iterations</strong>. A filter size of 11, the default value, tends to work
+well in many cases. To increase the level of smoothing applied to the DEM, consider
+increasing the normal difference threshold, i.e. the angular difference in normal vectors
+between the center cell of a filter window and a neighbouring cell. This parameter determines
+which neighbouring values are included in a filtering operation and higher values will
+result in a greater number of neighbouring cells included, and therefore smooother surfaces.
+Similarly, increasing the number of iterations from the default value of 3 to upwards of
+5-10 will result in significantly greater smoothing.</p>
 <p><em>Reference</em>:</p>
-<p>Lindsay JB, Francioni* A, Cockburn JMH. 2019. LiDAR DEM smoothing and the preservation of
+<p>Lindsay JB, Francioni A, Cockburn JMH. 2019. LiDAR DEM smoothing and the preservation of
 drainage features. <em>Remote Sensing</em>, 11(16), 1926; DOI: 10.3390/rs11161926.</p>
 <p>Sun, X., Rosin, P., Martin, R., &amp; Langbein, F. (2007). Fast and effective feature-preserving
 mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</em>, (5), 925-938.</p>
@@ -2228,6 +2327,10 @@ the size of gap that is filled, and the IDW weight (<code>--weight</code>).</p>
 <p>The filter size, specified in grid cells, is used to determine how far the algorithm will search for valid,
 non-NoData values. Therefore, setting a larger filter size allows for the filling of larger gaps in the input
 raster.</p>
+<p>The <code>--no_edges</code> flag can be used to exclude NoData values that are connected to the edges of the raster. It is
+usually the case that irregularly shaped DEMs have large regions of NoData values along the containing raster
+edges. This flag can be used to exclude these regions from the gap-filling operation, leaving only interior gaps
+for filling.</p>
 <p><em>See Also</em>:
 <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -2236,6 +2339,7 @@ raster.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--filter           </td><td> Filter size (cells)</td></tr>
 <tr><td>--weight           </td><td> IDW weight value</td></tr>
+<tr><td>--no_edges         </td><td> Optional flag indicating whether to exclude NoData cells in edge regions</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.fill_missing_data(
@@ -2243,13 +2347,14 @@ raster.</p>
     output, 
     filter=11, 
     weight=2.0, 
+    no_edges=True, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FillMissingData -v ^
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif --filter=25 ^
---weight=1.0 
+--weight=1.0 --no_edges 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fill_missing_data.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -3537,7 +3642,7 @@ processes</em>, 5(1), 3-30.</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="Slope"></a></p>
 <a class="header" href="#slope" id="slope"><h1>Slope</h1></a>
-<p>This tool calculates slope gradient (i.e. slope steepness in degrees) for each grid cell
+<p>This tool calculates slope gradient (i.e. slope steepness in degrees, radians, or percent) for each grid cell
 in an input digital elevation model (DEM). The user must specify the name of the input
 DEM (<code>--dem</code>) and the output raster image. The <em>Z conversion factor</em> is only important
 when the vertical and horizontal units are not the same in the DEM. When this is the case,
@@ -3575,23 +3680,25 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--units            </td><td> Units of output raster; options include 'degrees', 'radians', 'percent'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.slope(
     dem, 
     output, 
     zfactor=1.0, 
+    units=&quot;degrees&quot;, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Slope -v --wd=&quot;/path/to/data/&quot; ^
---dem=DEM.tif -o=output.tif 
+--dem=DEM.tif -o=output.tif --units=&quot;radians&quot; 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
 <p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
@@ -3971,11 +4078,26 @@ on computer systems with high core-counts and plenty of memory.</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="WetnessIndex"></a></p>
 <a class="header" href="#wetnessindex" id="wetnessindex"><h1>WetnessIndex</h1></a>
-<p>Calculates the topographic wetness index, Ln(A / tan(slope)).</p>
+<p>This tool can be used to calculate the topographic wetness index, commonly used in the TOPMODEL rainfall-runoff framework.
+The index describes the propensity for a site to be saturated to the surface given its contributing area and local slope
+characteristics. It is calculated as:</p>
+<blockquote>
+<p>WI = Ln(As / tan(Slope))</p>
+</blockquote>
+<p>Where <code>As</code> is the specific catchment area (i.e. the upslope contributing area per unit contour length) estimated using one of
+the available flow accumulation algorithms in the Hydrological Analysis toolbox. Notice that <code>As</code> must not be log-transformed
+prior to being used; log-transformation of <code>As</code> is a common practice when visualizing the data. The slope image should be
+measured in degrees and can be created from the base digital elevation model (DEM) using the <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a> tool. Grid cells with a
+slope of zero will be assigned <strong>NoData</strong> in the output image to compensate for the fact that division by zero is infinity.
+These very flat sites likely coincide with the wettest parts of the landscape. The input images must have the same grid dimensions.</p>
+<p>Grid cells possessing the NoData value in either of the input images are assigned NoData value in the output image. The output
+raster is of the float data type and continuous data scale.</p>
+<p>See Also
+<a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <code>Fd8FlowAccumulation</code>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--sca              </td><td> Input raster specific contributing area (SCA) file</td></tr>
-<tr><td>--slope            </td><td> Input raster slope file</td></tr>
+<tr><td>--slope            </td><td> Input raster slope file (in degrees)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -3992,8 +4114,8 @@ on computer systems with high core-counts and plenty of memory.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/wetness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
-<p><em>Last Modified</em>: January 21, 2018</p>
+<p><em>Created</em>: 02/07/2017</p>
+<p><em>Last Modified</em>: 21/01/2018</p>
 <a class="header" href="#gis-analysis" id="gis-analysis"><h1>GIS Analysis</h1></a>
 <ul>
 <li><a href="#AggregateRaster">AggregateRaster</a></li>
@@ -4245,12 +4367,12 @@ specified.</p>
 using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a> algorithm.
 TIN vertex heights can be assigned based on either a field in the vector's attribute table (<code>--field</code>),
 or alternatively, if the vector is of a z-dimension <em>ShapeTypeDimension</em>, the point z-values may be
-used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a> tool instead.</p>
+used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_lidarconstructvectortin.&#x27;,srcmain.rs:72:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a> tool instead.</p>
 <p>Triangulation often creates very long, narrow triangles near the edges of the data coverage, particularly
 in convex regions along the data boundary. To avoid these spurious triangles, the user may optionally
 specify the maximum allowable edge length of a triangular facet (<code>--max_triangle_edge_length</code>).</p>
 <p><em>See Also</em>:
-<a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a></p>
+<a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_lidarconstructvectortin.&#x27;,srcmain.rs:72:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector points file</td></tr>
@@ -4312,7 +4434,7 @@ and whether the hexagonal orientation (<code>--orientation</code>) is <code>hori
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_hexagonal_vector_grid.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
-<p><em>Last Modified</em>: 20/01/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="CreatePlane"></a></p>
 <a class="header" href="#createplane" id="createplane"><h1>CreatePlane</h1></a>
 <p>This tool can be used to create a new raster with values that are determined by the equation of a simple plane. The user
@@ -4388,7 +4510,7 @@ and <code>--yorig</code>) and the grid cell width and height (<code>--width</cod
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_rectangular_vector_grid.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
-<p><em>Last Modified</em>: 20/01/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="Dissolve"></a></p>
 <a class="header" href="#dissolve" id="dissolve"><h1>Dissolve</h1></a>
 <p>This tool can be used to remove the interior, or shared, boundaries within a vector
@@ -4961,7 +5083,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector polygons file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polyline file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.polygon_long_axis(
@@ -4977,7 +5099,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_long_axis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 03/03/2020</p>
 <p><a name="PolygonPerimeter"></a></p>
 <a class="header" href="#polygonperimeter" id="polygonperimeter"><h1>PolygonPerimeter</h1></a>
 <p>This tool calculates the perimeter of vector polygons, adding the result
@@ -5012,7 +5134,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector polygons file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polyline file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.polygon_short_axis(
@@ -5028,7 +5150,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_short_axis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 03/03/2020</p>
 <p><a name="RadialBasisFunctionInterpolation"></a></p>
 <a class="header" href="#radialbasisfunctioninterpolation" id="radialbasisfunctioninterpolation"><h1>RadialBasisFunctionInterpolation</h1></a>
 <p>This tool interpolates vector points into a raster surface using a radial basis function (RBF) scheme.</p>
@@ -5476,7 +5598,7 @@ data (i.e. raster interpolation), use the <a href="./gis_analysis.html#nearestne
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/voronoi_diagram.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/10/2018</p>
-<p><em>Last Modified</em>: 05/12/2018</p>
+<p><em>Last Modified</em>: 26/03/2020</p>
 <a class="header" href="#gis-analysis--distance-tools" id="gis-analysis--distance-tools"><h1>GIS Analysis → Distance Tools</h1></a>
 <ul>
 <li><a href="#BufferRaster">BufferRaster</a></li>
@@ -5755,6 +5877,7 @@ neighborhood, <em>Computer Vision and Image Understanding</em>, 93: 195-205.</p>
 <li><a href="#SumOverlay">SumOverlay</a></li>
 <li><a href="#SymmetricalDifference">SymmetricalDifference</a></li>
 <li><a href="#Union">Union</a></li>
+<li><a href="#UpdateNodataCells">UpdateNodataCells</a></li>
 <li><a href="#WeightedOverlay">WeightedOverlay</a></li>
 <li><a href="#WeightedSum">WeightedSum</a></li>
 </ul>
@@ -6630,6 +6753,38 @@ resulting from the overlay operation.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/11/2018</p>
 <p><em>Last Modified</em>: 08/04/2019</p>
+<p><a name="UpdateNodataCells"></a></p>
+<a class="header" href="#updatenodatacells" id="updatenodatacells"><h1>UpdateNodataCells</h1></a>
+<p>This tool will assign the <em>NoData</em> valued cells in an input raster (<code>--input1</code>) the
+values contained in the corresponding grid cells in a second input raster (<code>--input2</code>).
+This operation is sometimes necessary because most other overlay operations exclude
+areas of <em>NoData</em> values from the analysis. This tool can be used when there is need
+to update the values of a raster within these missing data areas.</p>
+<p><em>See Also</em>:
+<code>IsNodata</code></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file 1</td></tr>
+<tr><td>--input2           </td><td> Input raster file 2; update layer</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.update_nodata_cells(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=UpdateNodataCells -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif ^
+--input2=update_layer.tif -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/update_nodata_cells.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/05/2020</p>
+<p><em>Last Modified</em>: 26/05/2020</p>
 <p><a name="WeightedOverlay"></a></p>
 <a class="header" href="#weightedoverlay" id="weightedoverlay"><h1>WeightedOverlay</h1></a>
 <p>This tool performs a weighted overlay on multiple input images. It can be used to
@@ -7029,7 +7184,7 @@ perimeter-area ratio exhibits the undesirable property of polygon size dependenc
 (Mcgarigal et al. 2002). That is, holding shape constant, an increase in polygon
 size will cause a decrease in the perimeter-area ratio. The perimeter-area ratio is
 the inverse of the compactness ratio.</p>
-<p>The output data will be displayed as a new field (P-A_RATIO) in the input vector's
+<p>The output data will be displayed as a new field (P_A_RATIO) in the input vector's
 database file.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
@@ -7048,7 +7203,7 @@ database file.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/perimeter_area_ratio.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 03/03/2020</p>
 <p><a name="RadiusOfGyration"></a></p>
 <a class="header" href="#radiusofgyration" id="radiusofgyration"><h1>RadiusOfGyration</h1></a>
 <p>This can be used to calculate the radius of gyration (RoG) for the polygon
@@ -7482,7 +7637,7 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--dist             </td></tr>
+<tr><td>--dist             </td><td> Maximum search distance for breach paths in cells</td></tr>
 <tr><td>--max_cost         </td><td> Optional maximum breach cost (default is Inf)</td></tr>
 <tr><td>--min_dist         </td><td> Optional flag indicating whether to minimize breach distances</td></tr>
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
@@ -8495,7 +8650,8 @@ determines lake elevation automatically based on the minimum perimeter elevation
 polygon. The minimum perimeter elevation is assumed to be the lake outlet elevation and is assigned
 to the entire interior region of lake polygons, excluding island geometries. Note, this tool will not
 provide satisfactory results if the input vector polygons contain wide river features rather than true
-lakes.</p>
+lakes. When this is the case, the tool will lower the entire river to the elevation of its mouth, leading
+to the creation of an artifical gorge.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -8519,7 +8675,7 @@ lakes.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flatten_lakes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 29/03/2018</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 28/05/2020</p>
 <p><a name="FloodOrder"></a></p>
 <a class="header" href="#floodorder" id="floodorder"><h1>FloodOrder</h1></a>
 <p>This tool takes an input digital elevation model (DEM) and creates an output raster where every grid cell
@@ -8686,7 +8842,7 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output file</td></tr>
-<tr><td>--out_type         </td><td> Output type; one of 'depth' (default), 'volume', and 'area'</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'mean depth' (default), 'volume', 'area', 'max depth'</td></tr>
 <tr><td>--damlength        </td><td> Maximum length of the dam</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -8694,14 +8850,14 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
     dem, 
     output, 
     damlength, 
-    out_type=&quot;depth&quot;, 
+    out_type=&quot;mean depth&quot;, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentSizeIndex -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif ^
---out_type=depth --damlength=11 
+--out_type='max depth' --damlength=11 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/impoundment_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -9187,7 +9343,7 @@ not parallelized.</p>
 </ol>
 <p>In addition to the input DEM (<code>--dem</code>) and output p<sub>dep</sub> file name (<code>--output</code>), the user
 must specify the nature of the error model, including the root-mean-square error (<code>--rmse</code>) and
-the error field correlation length (<code>--range</code>). These parameters determine the statistical frequency
+the error field correlation length (<code>--range</code>, in map units). These parameters determine the statistical frequency
 distribution and spatial characteristics of the modeled error fields added to the DEM in each
 iteration of the simulation. The user must also specify the number of iterations (<code>--iterations</code>).
 A larger number of iterations will produce a smoother p<sub>dep</sub> raster.</p>
@@ -9946,7 +10102,12 @@ introduction. John Wiley &amp; Sons.</p>
 one of three resampling methods including, nearest neighbour, bilinear interpolation,
 and cubic convolution. The order of the input source image files is important. Grid
 cells in the output image will be assigned the corresponding value determined from the
-first image found in the list to possess an overlapping coordinate.</p>
+last image found in the list to possess an overlapping coordinate.</p>
+<p>Note that when the <code>--inputs</code> parameter is left unspecified, the tool will use
+all of the <em>.tif</em>, <em>.tiff</em>, <em>.rdc</em>, <em>.flt</em>, <em>.sdat</em>, and <em>.dep</em> files located in the working directory.
+This can be a useful way of mosaicing large number of tiles, particularly when
+the text string that would be required to specify all of the input tiles is
+longer than the allowable limit.</p>
 <p>This is the preferred mosaicing tool to use when appending multiple images with
 little to no overlapping areas, e.g. tiled data. When images have significant overlap
 areas, users are advised to use the <a href="./image_processing_tools.html#mosaicwithfeathering"><strong>MosaicWithFeathering</strong></a> tool instead.</p>
@@ -9971,9 +10132,9 @@ assigned the NoData value.</p>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.mosaic(
-    inputs, 
     output, 
-    method=&quot;cc&quot;, 
+    inputs=None, 
+    method=&quot;nn&quot;, 
     callback=default_callback
 )
 </code></pre>
@@ -12489,6 +12650,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <a class="header" href="#lidar-tools" id="lidar-tools"><h1>LiDAR Tools</h1></a>
 <ul>
+<li><a href="#AsciiToLas">AsciiToLas</a></li>
 <li><a href="#ClassifyBuildingsInLidar">ClassifyBuildingsInLidar</a></li>
 <li><a href="#ClassifyOverlapPoints">ClassifyOverlapPoints</a></li>
 <li><a href="#ClipLidarToPolygon">ClipLidarToPolygon</a></li>
@@ -12501,11 +12663,11 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <li><a href="#LasToAscii">LasToAscii</a></li>
 <li><a href="#LasToMultipointShapefile">LasToMultipointShapefile</a></li>
 <li><a href="#LasToShapefile">LasToShapefile</a></li>
+<li><a href="#LasToZlidar">LasToZlidar</a></li>
 <li><a href="#LidarBlockMaximum">LidarBlockMaximum</a></li>
 <li><a href="#LidarBlockMinimum">LidarBlockMinimum</a></li>
 <li><a href="#LidarClassifySubset">LidarClassifySubset</a></li>
 <li><a href="#LidarColourize">LidarColourize</a></li>
-<li><a href="#LidarConstructVectorTin">LidarConstructVectorTin</a></li>
 <li><a href="#LidarElevationSlice">LidarElevationSlice</a></li>
 <li><a href="#LidarGroundPointFilter">LidarGroundPointFilter</a></li>
 <li><a href="#LidarHexBinning">LidarHexBinning</a></li>
@@ -12532,7 +12694,63 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <li><a href="#LidarTophatTransform">LidarTophatTransform</a></li>
 <li><a href="#NormalVectors">NormalVectors</a></li>
 <li><a href="#SelectTilesByPolygon">SelectTilesByPolygon</a></li>
+<li><a href="#ZlidarToLas">ZlidarToLas</a></li>
 </ul>
+<p><a name="AsciiToLas"></a></p>
+<a class="header" href="#asciitolas" id="asciitolas"><h1>AsciiToLas</h1></a>
+<p>This tool can be used to convert one or more ASCII files, containing LiDAR point data, into LAS files. The user must
+specify the name(s) of the input ASCII file(s) (<code>--inputs</code>). Each input file will have a correspondingly named
+output file with a <code>.las</code> file extension. The output point data, each on a separate line, will take the format:</p>
+<pre><code>x,y,z,intensity,class,return,num_returns&quot;
+</code></pre>
+<table><thead><tr><th align="left"> Value </th><th align="left"> Interpretation    </th></tr></thead><tbody>
+<tr><td align="left"> x     </td><td align="left"> x-coordinate      </td></tr>
+<tr><td align="left"> y     </td><td align="left"> y-coordinate      </td></tr>
+<tr><td align="left"> z     </td><td align="left"> elevation         </td></tr>
+<tr><td align="left"> i     </td><td align="left"> intensity value   </td></tr>
+<tr><td align="left"> c     </td><td align="left"> classification    </td></tr>
+<tr><td align="left"> rn    </td><td align="left"> return number     </td></tr>
+<tr><td align="left"> nr    </td><td align="left"> number of returns </td></tr>
+<tr><td align="left"> time  </td><td align="left"> GPS time          </td></tr>
+<tr><td align="left"> sa    </td><td align="left"> scan angle        </td></tr>
+<tr><td align="left"> r     </td><td align="left"> red               </td></tr>
+<tr><td align="left"> b     </td><td align="left"> blue              </td></tr>
+<tr><td align="left"> g     </td><td align="left"> green             </td></tr>
+</tbody></table>
+<p>The <code>x</code>, <code>y</code>, and <code>z</code> patterns must always be specified. If the <code>rn</code> pattern is used, the <code>nr</code> pattern must
+also be specified. Examples of valid pattern string include:</p>
+<pre><code>'x,y,z,i'
+'x,y,z,i,rn,nr'
+'x,y,z,i,c,rn,nr,sa'
+'z,x,y,rn,nr'
+'x,y,z,i,rn,nr,r,g,b'
+</code></pre>
+<p>Use the <a href="./lidar_tools.html#lastoascii"><strong>LasToAscii</strong></a> tool to convert a LAS file into a text file containing LiDAR point data.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lastoascii"><strong>LasToAscii</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input LiDAR  ASCII files (.csv)</td></tr>
+<tr><td>--pattern          </td><td> Input field pattern</td></tr>
+<tr><td>--proj             </td><td> Well-known-text string or EPSG code describing projection</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.ascii_to_las(
+    inputs, 
+    pattern, 
+    proj=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=AsciiToLas -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.las, file2.las, file3.las&quot; -o=outfile.las&quot; ^
+--proj=2150 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/ascii_to_las.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 10/02/2019</p>
+<p><em>Last Modified</em>: 18/01/2020</p>
 <p><a name="ClassifyBuildingsInLidar"></a></p>
 <a class="header" href="#classifybuildingsinlidar" id="classifybuildingsinlidar"><h1>ClassifyBuildingsInLidar</h1></a>
 <p>This tool can be used to assign the building class (classification value 6) to all points within an
@@ -12801,7 +13019,7 @@ of various class values in your file.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/flightline_overlap.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/06/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="HeightAboveGround"></a></p>
 <a class="header" href="#heightaboveground" id="heightaboveground"><h1>HeightAboveGround</h1></a>
 <p>This tool normalizes an input LiDAR point cloud (<code>--input</code>) such that point z-values in the output LAS file
@@ -12834,17 +13052,17 @@ classification is lacking.</p>
 <p><a name="LasToAscii"></a></p>
 <a class="header" href="#lastoascii" id="lastoascii"><h1>LasToAscii</h1></a>
 <p>This tool can be used to convert one or more LAS file, containing LiDAR data, into ASCII files. The user must
-specify the name(s) of the input LAS file(s) (<code>--inputs</code>). Each input file will have a coorespondingly named
+specify the name(s) of the input LAS file(s) (<code>--inputs</code>). Each input file will have a correspondingly named
 output file with a <code>.csv</code> file extension. CSV files are comma separated value files and contain tabular data
-with each column cooresponding to a field in the table and each row a point value. Fields are separated by
-commas in the ASCII formated file. The output point data, each on a seperate line, will take the format:</p>
+with each column corresponding to a field in the table and each row a point value. Fields are separated by
+commas in the ASCII formated file. The output point data, each on a separate line, will take the format:</p>
 <pre><code>X,Y,Z,INTENSITY,CLASS,RETURN,NUM_RETURN,SCAN_ANGLE
 </code></pre>
 <p>If the LAS file has a point format that contains RGB data, the final three columns will contain the RED,
-GREEN, and BLUE values respectively. Use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
+GREEN, and BLUE values respectively. Use the <a href="./lidar_tools.html#asciitolas"><strong>AsciiToLas</strong></a> tool to convert a text file containing LiDAR
 point data into a LAS file.</p>
 <p><em>See Also</em>:
-<a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_asciitolas.&#x27;,srcmain.rs:66:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace..html#asciitolas"><strong>AsciiToLas</strong></a></p>
+<a href="./lidar_tools.html#asciitolas"><strong>AsciiToLas</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input LiDAR files</td></tr>
@@ -12857,12 +13075,12 @@ point data into a LAS file.</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LasToAscii -v --wd=&quot;/path/to/data/&quot; ^
--i=&quot;file1.las, file2.las, file3.las&quot; -o=outfile.las&quot; 
+-i=&quot;file1.las, file2.las, file3.las&quot; 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_ascii.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 16/07/2017</p>
-<p><em>Last Modified</em>: 12/08/2019</p>
+<p><em>Last Modified</em>: 29/02/2020</p>
 <p><a name="LasToMultipointShapefile"></a></p>
 <a class="header" href="#lastomultipointshapefile" id="lastomultipointshapefile"><h1>LasToMultipointShapefile</h1></a>
 <p>Converts one or more LAS files into MultipointZ vector Shapefiles. When the input parameter is
@@ -12892,7 +13110,7 @@ of converting LAS point positional information.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_multipoint_shapefile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 04/09/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LasToShapefile"></a></p>
 <a class="header" href="#lastoshapefile" id="lastoshapefile"><h1>LasToShapefile</h1></a>
 <p>This tool converts one or more LAS files into a POINT vector. When the input parameter is
@@ -12927,7 +13145,38 @@ should be preferred instead.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_shapefile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/10/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 20/05/2020</p>
+<p><a name="LasToZlidar"></a></p>
+<a class="header" href="#lastozlidar" id="lastozlidar"><h1>LasToZlidar</h1></a>
+<p>This tool can be used to convert one or more LAS files into the
+<a href="(https://jblindsay.github.io/zLidar_spec/intro.html)"><em>zLidar</em></a> compressed
+LiDAR data format. The tool takes a list of input LAS files (<code>--inputs</code>). If <code>--inputs</code>
+is unspecified, the tool will use all LAS files contained within the working directory
+as the tool inputs. The user may also specify an optional output directory <code>--outdir</code>.
+If this parameter is unspecified, each output zLidar file will be written to the same
+directory as the input files.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#zlidartolas"><strong>ZlidarToLas</strong></a>, <a href="./lidar_tools.html#lastoshapefile"><strong>LasToShapefile</strong></a>, <a href="./lidar_tools.html#lastoascii"><strong>LasToAscii</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input LAS files</td></tr>
+<tr><td>--outdir           </td><td> Output directory into which zlidar files are created. If unspecified, it is assumed to be the same as the inputs</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.las_to_zlidar(
+    inputs=None, 
+    outdir=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LasToZlidar -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.las, file2.las, file3.las&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/las_to_zlidar.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 13/05/2020</p>
+<p><em>Last Modified</em>: 15/05/2020</p>
 <p><a name="LidarBlockMaximum"></a></p>
 <a class="header" href="#lidarblockmaximum" id="lidarblockmaximum"><h1>LidarBlockMaximum</h1></a>
 <p>Creates a block-maximum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -12956,7 +13205,7 @@ should be preferred instead.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_maximum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarBlockMinimum"></a></p>
 <a class="header" href="#lidarblockminimum" id="lidarblockminimum"><h1>LidarBlockMinimum</h1></a>
 <p>Creates a block-minimum raster from an input LAS file. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -12985,7 +13234,7 @@ should be preferred instead.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/block_minimum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarClassifySubset"></a></p>
 <a class="header" href="#lidarclassifysubset" id="lidarclassifysubset"><h1>LidarClassifySubset</h1></a>
 <p>This tool classifies points within a user-specified LiDAR point cloud (<code>--base</code>) that correpond
@@ -13080,45 +13329,6 @@ to determine the spatial extent of the LAS file.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 18/02/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
-<p><a name="LidarConstructVectorTin"></a></p>
-<a class="header" href="#lidarconstructvectortin" id="lidarconstructvectortin"><h1>LidarConstructVectorTin</h1></a>
-<p>This tool creates a vector triangular irregular network (TIN) for a set of LiDAR points (<code>--input</code>)
-using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a> algorithm.
-LiDAR points may be excluded from the triangulation operation based on a number of criteria,
-include the point return number (<code>--returns</code>), point classification value (<code>--exclude_cls</code>), or
-a minimum (<code>--minz</code>) or maximum (<code>--maxz</code>) elevation.</p>
-<p>For vector points, use the <a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a> tool instead.</p>
-<p><em>See Also</em>:
-<a href="./gis_analysis.html#constructvectortin"><strong>ConstructVectorTIN</strong></a></p>
-<p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
-<tr><td>--returns          </td><td> Point return types to include; options are 'all' (default), 'last', 'first'</td></tr>
-<tr><td>--exclude_cls      </td><td> Optional exclude classes from interpolation; Valid class values range from 0 to 18, based on LAS specifications. Example, --exclude_cls='3,4,5,6,7,18'</td></tr>
-<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
-<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
-</tbody></table>
-<p><em>Python function</em>:</p>
-<pre><code class="language-python">wbt.lidar_construct_vector_tin(
-    i=None, 
-    output=None, 
-    returns=&quot;all&quot;, 
-    exclude_cls=None, 
-    minz=None, 
-    maxz=None, 
-    callback=default_callback
-)
-</code></pre>
-<p><em>Command-line Interface</em>:</p>
-<pre><code>&gt;&gt;./whitebox_tools -r=LidarConstructVectorTIN -v ^
---wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
---returns=last --exclude_cls='3,4,5,6,7,18' 
-</code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_construct_vector_tin.rs">Source code on GitHub</a></p>
-<p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: 23/09/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
 <p><a name="LidarElevationSlice"></a></p>
 <a class="header" href="#lidarelevationslice" id="lidarelevationslice"><h1>LidarElevationSlice</h1></a>
 <p>This tool can be used to either extract or classify the elevation values (z) of LiDAR points within
@@ -13387,7 +13597,7 @@ include the point elevations, intensity values, scan angles, and class values.</
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_idw_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/07/2017</p>
-<p><em>Last Modified</em>: 30/08/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarInfo"></a></p>
 <a class="header" href="#lidarinfo" id="lidarinfo"><h1>LidarInfo</h1></a>
 <p>This tool can be used to print basic information about the data contained within a LAS file, used to store LiDAR
@@ -13529,7 +13739,7 @@ percentage.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_nn_gridding.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/07/2017</p>
-<p><em>Last Modified</em>: 30/08/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarPointDensity"></a></p>
 <a class="header" href="#lidarpointdensity" id="lidarpointdensity"><h1>LidarPointDensity</h1></a>
 <p>Calculates the spatial pattern of point density for a LiDAR data set. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
@@ -13569,7 +13779,7 @@ percentage.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 10/07/2017</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarPointStats"></a></p>
 <a class="header" href="#lidarpointstats" id="lidarpointstats"><h1>LidarPointStats</h1></a>
 <p>This tool creates several rasters summarizing the distribution of LiDAR points in a LAS data file.
@@ -13633,7 +13843,7 @@ the spatial extent is large.</li>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_point_stats.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 18/02/2018</p>
-<p><em>Last Modified</em>: 31/10/2019</p>
+<p><em>Last Modified</em>: 20/05/2020</p>
 <p><a name="LidarRansacPlanes"></a></p>
 <a class="header" href="#lidarransacplanes" id="lidarransacplanes"><h1>LidarRansacPlanes</h1></a>
 <p>This tool uses the <a href="https://en.wikipedia.org/wiki/Random_sample_consensus">random sample consensus (RANSAC)</a>
@@ -13740,7 +13950,7 @@ to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_radial_basis_function_interpolation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 08/11/2019</p>
-<p><em>Last Modified</em>: 15/12/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarRemoveDuplicates"></a></p>
 <a class="header" href="#lidarremoveduplicates" id="lidarremoveduplicates"><h1>LidarRemoveDuplicates</h1></a>
 <p>This tool removes duplicate points from a LiDAR data set. Duplicates are determined
@@ -14059,7 +14269,7 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tile_footprint.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 31/08/2018</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarTinGridding"></a></p>
 <a class="header" href="#lidartingridding" id="lidartingridding"><h1>LidarTinGridding</h1></a>
 <p>Creates a raster grid based on a Delaunay triangular irregular network (TIN) fitted to LiDAR points.</p>
@@ -14098,7 +14308,7 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_tin_gridding.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/09/2018</p>
-<p><em>Last Modified</em>: 31/08/2019</p>
+<p><em>Last Modified</em>: 25/05/2020</p>
 <p><a name="LidarTophatTransform"></a></p>
 <a class="header" href="#lidartophattransform" id="lidartophattransform"><h1>LidarTophatTransform</h1></a>
 <p>This tool performs a white <a href="https://en.wikipedia.org/wiki/Top-hat_transform">top-hat transform</a> on a LiDAR point cloud.
@@ -14189,7 +14399,38 @@ in the input file's header (i.e. the bounding box of the data), it is able to ta
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/select_tiles_by_polygon.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/08/2018</p>
-<p><em>Last Modified</em>: 10/05/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
+<p><a name="ZlidarToLas"></a></p>
+<a class="header" href="#zlidartolas" id="zlidartolas"><h1>ZlidarToLas</h1></a>
+<p>This tool can be used to convert one or more <em>zLidar</em> files ('*.zlidar') files into the <em>LAS</em>
+LiDAR data format. <a href="https://jblindsay.github.io/zLidar_spec/intro.html">zLidar</a> files are a compressed
+form of the LAS data format. The tool takes a list of input LAS files (<code>--inputs</code>). If <code>--inputs</code>
+is unspecified, the tool will use all ZLidar files contained within the working directory
+as the tool inputs. The user may also specify an optional output directory <code>--outdir</code>.
+If this parameter is unspecified, each output LAS file will be written to the same
+directory as the input files.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lastozlidar"><strong>LasToZlidar</strong></a>, <code>ShapefileToLas</code>, <a href="./lidar_tools.html#asciitolas"><strong>AsciiToLas</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs       </td><td> Input ZLidar files</td></tr>
+<tr><td>--outdir           </td><td> Output directory into which zlidar files are created. If unspecified, it is assumed to be the same as the inputs</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.zlidar_to_las(
+    inputs=None, 
+    outdir=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ZlidarToLas -v --wd=&quot;/path/to/data/&quot; ^
+-i=&quot;file1.zlidar, file2.zlidar, file3.zlidar&quot; 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/zlidar_to_las.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 13/05/2020</p>
+<p><em>Last Modified</em>: 13/05/2020</p>
 <a class="header" href="#math-and-stats-tools" id="math-and-stats-tools"><h1>Math and Stats Tools</h1></a>
 <ul>
 <li><a href="#AbsoluteValue">AbsoluteValue</a></li>
@@ -15606,7 +15847,7 @@ be assigned 0.0 in the output image.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/math_stat_analysis/isnodata.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/07/2017</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 01/06/2020</p>
 <p><a name="KappaIndex"></a></p>
 <a class="header" href="#kappaindex" id="kappaindex"><h1>KappaIndex</h1></a>
 <p>This tool calculates the <a href="https://en.wikipedia.org/wiki/Cohen%27s_kappa">Kappa index of agreement</a> (KIA), or
@@ -18728,7 +18969,7 @@ main()
 <p>At present, there is limited support in <em>WhiteboxTools</em> for working with vector geospatial data formats. The only supported vector format is the ESRI <a href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a>. Shapefiles geometries (.shp) and attributes (.dbf) can be read and written. There are plans to support a wider variety of vector file formats in the future.</p>
 <p>While the Shapefile format is extremely common, it does have certain limitations for vector representation. For example, owing to their 32-bit indexing, Shapefiles are limited in the number of geometries that can be stored in these files. Furthermore, Shapefiles are incapable of storing geometries of more than one type (point, lines, polygons) within the same file. As such, the vector-related tools in <em>WhiteboxTools</em> also carry these same limitations imposed by the Shapefile format.</p>
 <a class="header" href="#point-cloud-lidar-formats" id="point-cloud-lidar-formats"><h2>Point Cloud (LiDAR) Formats</h2></a>
-<p>LiDAR data can be read/written in the common <a href="https://www.asprs.org/committee-general/laser-las-file-format-exchange-activities.html">LAS</a> data format. <em>WhiteboxTools</em> can read and write LAS files that have been compressed (zipped with a .zip extension) using the common DEFLATE algorithm. Note that only LAS file should be contained within a zipped archive file. The following is an example of running a LiDAR tool using zipped input/output files:</p>
+<p>LiDAR data can be read/written in the common <a href="https://www.asprs.org/committee-general/laser-las-file-format-exchange-activities.html">LAS</a> data format. WhiteboxTools also supports the losslessly compressed open-source <a href="https://jblindsay.github.io/zLidar_spec/intro.html">zLidar</a> data format. zLidar files are often 15-25% of the equivalent LAS file size, making the managment of large LiDAR data projects more manageable. <em>WhiteboxTools</em> can also read and write LAS files that have been compressed (zipped with a .zip extension) using the common DEFLATE algorithm. Note that only LAS file should be contained within a zipped archive file. The following is an example of running a LiDAR tool using zipped input/output files:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarTophatTransform -v --wd=&quot;/path/to/data/&quot;
 -i=&quot;input.las.zip&quot; -o=&quot;output.las.zip&quot; --radius=10.0
 </code></pre>
@@ -18855,6 +19096,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/mathand_stats_tools.html#Artanh">Artanh</a>: Returns the inverse hyperbolic tangent (arctanh) of each values in a raster. Found in <em>Math and Stats Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/lidar_tools.html#AsciiToLas">AsciiToLas</a>: Converts one or more ASCII files containing LiDAR points into LAS files. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/geomorphometric_analysis.html#Aspect">Aspect</a>: Calculates an aspect raster from an input DEM. Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
@@ -18964,6 +19208,12 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis.html#ConstructVectorTin">ConstructVectorTin</a>: Creates a vector triangular irregular network (TIN) for a set of vector points. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#ContoursFromPoints">ContoursFromPoints</a>: Creates a contour coverage from a set of input points. Found in <em>Geomorphometric Analysis</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#ContoursFromRaster">ContoursFromRaster</a>: Derives a vector contour coverage from a raster surface. Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/data_tools.html#ConvertNodataToZero">ConvertNodataToZero</a>: Converts nodata values in a raster to zero. Found in <em>Data Tools</em>.</p>
@@ -19389,6 +19639,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/lidar_tools.html#LasToShapefile">LasToShapefile</a>: Converts one or more LAS files into a vector Shapefile of POINT ShapeType. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/lidar_tools.html#LasToZlidar">LasToZlidar</a>: Converts one or more LAS files into the zlidar compressed LiDAR data format. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/gis_analysis.html#LayerFootprint">LayerFootprint</a>: Creates a vector polygon footprint of the area covered by a raster grid or vector layer. Found in <em>GIS Analysis</em>.</p>
 </li>
 <li>
@@ -19411,9 +19664,6 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarColourize">LidarColourize</a>: Adds the red-green-blue colour fields of a LiDAR (LAS) file based on an input image. Found in <em>LiDAR Tools</em>.</p>
-</li>
-<li>
-<p><a href="available_tools/lidar_tools.html#LidarConstructVectorTin">LidarConstructVectorTin</a>: Creates a vector triangular irregular network (TIN) fitted to LiDAR points. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarElevationSlice">LidarElevationSlice</a>: Outputs all of the points within a LiDAR (LAS) point file that lie between a specified elevation range. Found in <em>LiDAR Tools</em>.</p>
@@ -20067,6 +20317,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/image_processing_tools_filters.html#UnsharpMasking">UnsharpMasking</a>: An image sharpening technique that enhances edges. Found in <em>Image Processing Tools → Filters</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/gis_analysis_overlay_tools.html#UpdateNodataCells">UpdateNodataCells</a>: Replaces the NoData values in an input raster with the corresponding values contained in a second update layer. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/hydrological_analysis.html#UpslopeDepressionStorage">UpslopeDepressionStorage</a>: Estimates the average upslope depression storage depth. Found in <em>Hydrological Analysis</em>.</p>
 </li>
 <li>
@@ -20116,6 +20369,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#ZScores">ZScores</a>: Standardizes the values in an input raster by converting to z-scores. Found in <em>Math and Stats Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/lidar_tools.html#ZlidarToLas">ZlidarToLas</a>: Converts one or more zlidar files into the LAS data format. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/mathand_stats_tools.html#ZonalStatistics">ZonalStatistics</a>: Extracts descriptive statistics for a group of patches in a raster. Found in <em>Math and Stats Tools</em>.</p>

@@ -604,7 +604,12 @@ introduction. John Wiley &amp; Sons.</p>
 one of three resampling methods including, nearest neighbour, bilinear interpolation,
 and cubic convolution. The order of the input source image files is important. Grid
 cells in the output image will be assigned the corresponding value determined from the
-first image found in the list to possess an overlapping coordinate.</p>
+last image found in the list to possess an overlapping coordinate.</p>
+<p>Note that when the <code>--inputs</code> parameter is left unspecified, the tool will use
+all of the <em>.tif</em>, <em>.tiff</em>, <em>.rdc</em>, <em>.flt</em>, <em>.sdat</em>, and <em>.dep</em> files located in the working directory.
+This can be a useful way of mosaicing large number of tiles, particularly when
+the text string that would be required to specify all of the input tiles is
+longer than the allowable limit.</p>
 <p>This is the preferred mosaicing tool to use when appending multiple images with
 little to no overlapping areas, e.g. tiled data. When images have significant overlap
 areas, users are advised to use the <a href="./image_processing_tools.html#mosaicwithfeathering"><strong>MosaicWithFeathering</strong></a> tool instead.</p>
@@ -629,9 +634,9 @@ assigned the NoData value.</p>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.mosaic(
-    inputs, 
     output, 
-    method=&quot;cc&quot;, 
+    inputs=None, 
+    method=&quot;nn&quot;, 
     callback=default_callback
 )
 </code></pre>

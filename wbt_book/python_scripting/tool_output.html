@@ -143,8 +143,6 @@
                         <a class="header" href="#handling-tool-output" id="handling-tool-output"><h1>Handling tool output</h1></a>
 <p>Tools will frequently print text to the standard output during their execution, including warnings, progress updates and other notifications. Sometimes, when users run many tools in complex workflows and in batch mode, these output messages can be undesirable. Most tools will have their outputs suppressed by setting the <em>verbose</em> mode to <em>False</em> as follows:</p>
 <pre><code class="language-python">wbt.set_verbose_mode(False)
-# Or, alternatively...
-wbt.verbose = False
 </code></pre>
 <p>Alternatively, it may be helpful to capture the text output of a tool for custom processing. This is achieved by specifying a custom <em>callback</em> function to the tool's convenience function:</p>
 <pre><code class="language-python"># This callback function suppresses printing progress updates,
@@ -158,7 +156,7 @@ def my_callback(value):
 wbt.slope('DEM.tif', 'slope_raster.tif', callback=my_callback)
 </code></pre>
 <p>Every convienience function takes an optional callback as the last parameter. The default callback simply prints tool outputs to the standard output without any additional processing. The default callback itself can be overridden, instead of having to set callbacks in convienience functions individually:</p>
-<pre><code class="language-python">wbt.default_callback = my_callback
+<pre><code class="language-python">wbt.set_default_callback(my_callback)
 </code></pre>
 <p>Callback functions can serve as a means of cancelling operations:</p>
 <pre><code class="language-python">def my_callback(value):

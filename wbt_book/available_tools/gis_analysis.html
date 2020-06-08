@@ -391,12 +391,12 @@ specified.</p>
 using a 2D <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation">Delaunay triangulation</a> algorithm.
 TIN vertex heights can be assigned based on either a field in the vector's attribute table (<code>--field</code>),
 or alternatively, if the vector is of a z-dimension <em>ShapeTypeDimension</em>, the point z-values may be
-used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a> tool instead.</p>
+used for vertex heights (<code>--use_z</code>). For LiDAR points, use the <a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_lidarconstructvectortin.&#x27;,srcmain.rs:72:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a> tool instead.</p>
 <p>Triangulation often creates very long, narrow triangles near the edges of the data coverage, particularly
 in convex regions along the data boundary. To avoid these spurious triangles, the user may optionally
 specify the maximum allowable edge length of a triangular facet (<code>--max_triangle_edge_length</code>).</p>
 <p><em>See Also</em>:
-<a href="./lidar_tools.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a></p>
+<a href="./thread&#x27;main&#x27;panickedat&#x27;_unrecognizedtoolname_lidarconstructvectortin.&#x27;,srcmain.rs:72:21note:runwith%60rust_backtrace=1%60environmentvariabletodisplayabacktrace.html#lidarconstructvectortin"><strong>LidarConstructVectorTIN</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector points file</td></tr>
@@ -458,7 +458,7 @@ and whether the hexagonal orientation (<code>--orientation</code>) is <code>hori
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_hexagonal_vector_grid.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
-<p><em>Last Modified</em>: 20/01/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="CreatePlane"></a></p>
 <a class="header" href="#createplane" id="createplane"><h1>CreatePlane</h1></a>
 <p>This tool can be used to create a new raster with values that are determined by the equation of a simple plane. The user
@@ -534,7 +534,7 @@ and <code>--yorig</code>) and the grid cell width and height (<code>--width</cod
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/create_rectangular_vector_grid.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
-<p><em>Last Modified</em>: 20/01/2019</p>
+<p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="Dissolve"></a></p>
 <a class="header" href="#dissolve" id="dissolve"><h1>Dissolve</h1></a>
 <p>This tool can be used to remove the interior, or shared, boundaries within a vector
@@ -1107,7 +1107,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector polygons file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polyline file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.polygon_long_axis(
@@ -1123,7 +1123,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_long_axis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 03/03/2020</p>
 <p><a name="PolygonPerimeter"></a></p>
 <a class="header" href="#polygonperimeter" id="polygonperimeter"><h1>PolygonPerimeter</h1></a>
 <p>This tool calculates the perimeter of vector polygons, adding the result
@@ -1158,7 +1158,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input vector polygons file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polyline file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.polygon_short_axis(
@@ -1174,7 +1174,7 @@ therefore a vector of simple two-point polylines forming a vector field.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygon_short_axis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 15/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 03/03/2020</p>
 <p><a name="RadialBasisFunctionInterpolation"></a></p>
 <a class="header" href="#radialbasisfunctioninterpolation" id="radialbasisfunctioninterpolation"><h1>RadialBasisFunctionInterpolation</h1></a>
 <p>This tool interpolates vector points into a raster surface using a radial basis function (RBF) scheme.</p>
@@ -1622,7 +1622,7 @@ data (i.e. raster interpolation), use the <a href="./gis_analysis.html#nearestne
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/voronoi_diagram.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/10/2018</p>
-<p><em>Last Modified</em>: 05/12/2018</p>
+<p><em>Last Modified</em>: 26/03/2020</p>
 
                     </main>
 

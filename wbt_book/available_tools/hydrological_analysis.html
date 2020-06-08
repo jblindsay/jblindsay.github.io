@@ -430,7 +430,7 @@ using the  <a href="./hydrological_analysis.html#filldepressions"><strong>FillDe
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--dist             </td></tr>
+<tr><td>--dist             </td><td> Maximum search distance for breach paths in cells</td></tr>
 <tr><td>--max_cost         </td><td> Optional maximum breach cost (default is Inf)</td></tr>
 <tr><td>--min_dist         </td><td> Optional flag indicating whether to minimize breach distances</td></tr>
 <tr><td>--flat_increment   </td><td> Optional elevation increment applied to flat areas</td></tr>
@@ -1443,7 +1443,8 @@ determines lake elevation automatically based on the minimum perimeter elevation
 polygon. The minimum perimeter elevation is assumed to be the lake outlet elevation and is assigned
 to the entire interior region of lake polygons, excluding island geometries. Note, this tool will not
 provide satisfactory results if the input vector polygons contain wide river features rather than true
-lakes.</p>
+lakes. When this is the case, the tool will lower the entire river to the elevation of its mouth, leading
+to the creation of an artifical gorge.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -1467,7 +1468,7 @@ lakes.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/flatten_lakes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 29/03/2018</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 28/05/2020</p>
 <p><a name="FloodOrder"></a></p>
 <a class="header" href="#floodorder" id="floodorder"><h1>FloodOrder</h1></a>
 <p>This tool takes an input digital elevation model (DEM) and creates an output raster where every grid cell
@@ -1634,7 +1635,7 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output file</td></tr>
-<tr><td>--out_type         </td><td> Output type; one of 'depth' (default), 'volume', and 'area'</td></tr>
+<tr><td>--out_type         </td><td> Output type; one of 'mean depth' (default), 'volume', 'area', 'max depth'</td></tr>
 <tr><td>--damlength        </td><td> Maximum length of the dam</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -1642,14 +1643,14 @@ Online resource: <a href="https://whiteboxgeospatial.wordpress.com/2015/04/29/mo
     dem, 
     output, 
     damlength, 
-    out_type=&quot;depth&quot;, 
+    out_type=&quot;mean depth&quot;, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ImpoundmentSizeIndex -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif ^
---out_type=depth --damlength=11 
+--out_type='max depth' --damlength=11 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/impoundment_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -2135,7 +2136,7 @@ not parallelized.</p>
 </ol>
 <p>In addition to the input DEM (<code>--dem</code>) and output p<sub>dep</sub> file name (<code>--output</code>), the user
 must specify the nature of the error model, including the root-mean-square error (<code>--rmse</code>) and
-the error field correlation length (<code>--range</code>). These parameters determine the statistical frequency
+the error field correlation length (<code>--range</code>, in map units). These parameters determine the statistical frequency
 distribution and spatial characteristics of the modeled error fields added to the DEM in each
 iteration of the simulation. The user must also specify the number of iterations (<code>--iterations</code>).
 A larger number of iterations will produce a smoother p<sub>dep</sub> raster.</p>

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The case for the zLidar format - The zLidar Specification</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="intro.html"><strong aria-hidden="true">1.</strong> What is a zLidar file?</a></li><li><a href="section2.html" class="active"><strong aria-hidden="true">2.</strong> The case for the zLidar format</a></li><li><a href="section3.html"><strong aria-hidden="true">3.</strong> The zLidar File Structure</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">The zLidar Specification</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#2-the-case-for-the-zlidar-format" id="2-the-case-for-the-zlidar-format"><h1>2. The Case For The zLidar Format</h1></a>
+<p>Some readers may ask why there is a need for the zLidar format when the LiDAR community already has other compressed file formats, such as zLAS and LAZ? Importantly, neither of these compressed LiDAR file formats have an open specification, of the type that we see with LAS, e57, Shapefile, GeoTIFF, or other standard data formats used in geomatics.</p>
+<p>The zLAS format (*.zlas), sometimes called the <a href="https://www.esri.com/arcgis-blog/products/product/3d-gis/esri-optimized-las-zlas-i-o-runtime-library-is-now-available/">Esri optimized LAS</a> file, is a proprietary format developed by Esri. While Esri maintain an <a href="https://www.arcgis.com/home/item.html?id=787794cdbd384261bc9bf99a860a374f">open-source library</a> (licensed under the Apache License, Version 2.0) that is available to 3<sup>rd</sup> party developers to add support for reading and writing the data format in their own software, the zLAS format itself is closed-source. Furthermore, the zLAS encoding/decoding library is only available on MS Windows operating system and is therefore not a cross-platform solution.</p>
+<p>The LAZ file format is a compelling file format for compressed LiDAR data and has been widely adopted by the geomatics community. It provides a LiDAR-specific compression scheme that often results in impressive compression ratios; LAZ files are always significantly smaller than the corresponding LAS files. The LAZ file format is the LiDAR data format that is used within the popular LasTools software, developed by rapidlasso. Like Esri's zLas format, an open-source LAZ encoding/decoding library is maintained and has been broadly adopted by geomatics software applications, including many open-source GIS. Unlike the zLas format, however, it is entirely possible, at least theoretically, to determine how LAZ files are formatted by interrogating this library's source code.</p>
+<p>It is however important to understand that LAZ is currently defined by an open-source <a href="https://en.wikipedia.org/wiki/Reference_implementation"><strong>reference implementation</strong></a> rather than an <a href="https://en.wikipedia.org/wiki/Open_specifications"><strong>open specification</strong></a>. That is, there is currently no document that describes the internal structure of a LAZ file (other than the source code), like there is with the LAS and e57 data formats. There is a short conference proceedings (Isenburg, 2013) that partially describes the general structure of the file format; however, this paper is evidently out of date compared with the current LAZ scheme. For example, the Isenburg (2013) paper makes reference to several future changes to the data format that may or may not have been adopted. Furthermore, this paper does not provide sufficient detail to allow the reader to develop an independent LAZ encoder/decoder because of the brief nature of conference proceedings. Interrogating the source code to determine the file structure is also very challenging given the sophisticated and complex nature of a project of this scale. The complexity of the LAZ format reflects the primary objective of the format, which is to create the highest possible lossless compression rate for LiDAR data, for which the LAZ format has been commendable.</p>
+<p>Using a reference implementation to define a file format carries with it the potential for data incompatibility, a situation where the main reader/writer software no longer supports some legacy data when the implementation adopts backwards incompatible changes. That is, if the maintainers of the LAZ format alter the file structure (or rather the encoder/decoder implementation) in a backwards-incompatible manner, all existing data stored using the previous format would become incompatible with the only existing reader/writer of the format. While this is unlikely to occur, it is a general vulnerability associated with the use of a reference implementation rather than an open specification. Software implementations are constantly evolving, and therefore, so too are implementation-defined file formats.</p>
+<blockquote>
+<p><em>An open specification for a data format, however, serves as a contract with the user and developer communities regarding the long-term stability and viability of a particular data format. With data formats defined by open specifications, developers must ensure that their 3<sup>rd</sup> party readers/writers are compatible with the specification, which adheres to strict versioning rules.</em></p>
+</blockquote>
+<p>With the above rationale established, we present the zLidar data format in this document. The primary objectives of the zLidar data format are:</p>
+<ol>
+<li>To provide a simple and flexible means for storing LiDAR data in a losslessly compressed format that significantly reduces data storage needs compared with LAS data.</li>
+<li>To provide a compressed LiDAR data format that is defined by an open specification that allows for development of multiple independent encoder/decoder libraries that are accessible to the user and developer communities.</li>
+</ol>
+<p>The main benefit of this approach is viable long-term storage of valuable LiDAR data resources in a manner that is less vulnerable to the ephemeral nature of software projects and their individual developers.</p>
+<a class="header" href="#references" id="references"><h2>References</h2></a>
+<blockquote>
+<p>Weitz, Lindsay (Esri). 2015. <a href="https://www.esri.com/arcgis-blog/products/product/3d-gis/esri-optimized-las-zlas-i-o-runtime-library-is-now-available/">Esri Optimized LAS (zLAS) I/O Runtime Library is Now Available</a>. Online resource viewed 08/06/2020.</p>
+<p>Isenburg, M., 2013. LASzip: lossless compression of LiDAR data. Photogrammetric engineering and remote sensing, 79(2), pp.209-217.</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="section3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="section3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

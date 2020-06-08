@@ -167,6 +167,7 @@
 <li><a href="#SumOverlay">SumOverlay</a></li>
 <li><a href="#SymmetricalDifference">SymmetricalDifference</a></li>
 <li><a href="#Union">Union</a></li>
+<li><a href="#UpdateNodataCells">UpdateNodataCells</a></li>
 <li><a href="#WeightedOverlay">WeightedOverlay</a></li>
 <li><a href="#WeightedSum">WeightedSum</a></li>
 </ul>
@@ -1042,6 +1043,38 @@ resulting from the overlay operation.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/11/2018</p>
 <p><em>Last Modified</em>: 08/04/2019</p>
+<p><a name="UpdateNodataCells"></a></p>
+<a class="header" href="#updatenodatacells" id="updatenodatacells"><h1>UpdateNodataCells</h1></a>
+<p>This tool will assign the <em>NoData</em> valued cells in an input raster (<code>--input1</code>) the
+values contained in the corresponding grid cells in a second input raster (<code>--input2</code>).
+This operation is sometimes necessary because most other overlay operations exclude
+areas of <em>NoData</em> values from the analysis. This tool can be used when there is need
+to update the values of a raster within these missing data areas.</p>
+<p><em>See Also</em>:
+<code>IsNodata</code></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1           </td><td> Input raster file 1</td></tr>
+<tr><td>--input2           </td><td> Input raster file 2; update layer</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.update_nodata_cells(
+    input1, 
+    input2, 
+    output, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=UpdateNodataCells -v ^
+--wd=&quot;/path/to/data/&quot; --input1=input1.tif ^
+--input2=update_layer.tif -o=output.tif 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/update_nodata_cells.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/05/2020</p>
+<p><em>Last Modified</em>: 26/05/2020</p>
 <p><a name="WeightedOverlay"></a></p>
 <a class="header" href="#weightedoverlay" id="weightedoverlay"><h1>WeightedOverlay</h1></a>
 <p>This tool performs a weighted overlay on multiple input images. It can be used to

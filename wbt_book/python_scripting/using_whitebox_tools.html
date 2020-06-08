@@ -178,7 +178,10 @@ self.run_tool('cost_distance', args)
 wbt = WhiteboxTools()
 wbt.set_whitebox_dir(&quot;/path/to/data/&quot;) # Sets the Whitebox working directory
 
-wbt.set_compress_rasters(True) # Setting this to true enables tools to output DEFLATE compressed GeoTIFFs
+# Setting the following to True enables tools to output DEFLATE compressed GeoTIFFs.
+# You only need to do this once, if you wish all tools to compress their raster
+# outputs.
+wbt.set_compress_rasters(True) 
 
 # Because the working directory has been set, file arguments can be
 # specified simply using file names, without paths.

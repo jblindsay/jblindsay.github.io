@@ -145,6 +145,8 @@
 <li><a href="#Aspect">Aspect</a></li>
 <li><a href="#AverageNormalVectorAngularDeviation">AverageNormalVectorAngularDeviation</a></li>
 <li><a href="#CircularVarianceOfAspect">CircularVarianceOfAspect</a></li>
+<li><a href="#ContoursFromPoints">ContoursFromPoints</a></li>
+<li><a href="#ContoursFromRaster">ContoursFromRaster</a></li>
 <li><a href="#DevFromMeanElev">DevFromMeanElev</a></li>
 <li><a href="#DiffFromMeanElev">DiffFromMeanElev</a></li>
 <li><a href="#DirectionalRelief">DirectionalRelief</a></li>
@@ -347,6 +349,90 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
 <p><em>Last Modified</em>: 02/04/2019</p>
+<p><a name="ContoursFromPoints"></a></p>
+<a class="header" href="#contoursfrompoints" id="contoursfrompoints"><h1>ContoursFromPoints</h1></a>
+<p>This tool creates a contour coverage from a set of input points (<code>--input</code>). The user must specify the contour
+interval (<code>--interval</code>) and optionally, the base contour value (<code>--base</code>). The degree to which contours are
+smoothed is controlled by the <strong>Smoothing Filter Size</strong> parameter (<code>--smooth</code>). This value, which determines
+the size of a mean filter applied to the x-y position of vertices in each contour, should be an odd integer value, e.g.
+3, 5, 7, 9, 11, etc. Larger values will result in smoother contour lines.</p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#contoursfromraster"><strong>ContoursFromRaster</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
+<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
+<tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
+<tr><td>-o, --output       </td><td> Output vector lines file</td></tr>
+<tr><td>--max_triangle_edge_length</td><td> Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
+<tr><td>--interval         </td><td> Contour interval</td></tr>
+<tr><td>--base             </td><td> Base contour height</td></tr>
+<tr><td>--smooth           </td><td> Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.contours_from_points(
+    i, 
+    output, 
+    field=None, 
+    use_z=False, 
+    max_triangle_edge_length=None, 
+    interval=10.0, 
+    base=0.0, 
+    smooth=5, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ContoursFromPoints -v ^
+--wd=&quot;/path/to/data/&quot; -i=points.shp --field=HEIGHT ^
+-o=contours.shp --max_triangle_edge_length=100.0 ^
+--interval=100.0 --base=0.0 --smooth=11 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/contours_from_points.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 26/04/2020</p>
+<p><em>Last Modified</em>: 26/04/2020</p>
+<p><a name="ContoursFromRaster"></a></p>
+<a class="header" href="#contoursfromraster" id="contoursfromraster"><h1>ContoursFromRaster</h1></a>
+<p>This tool can be used to create a vector contour coverage from an input raster surface model (<code>--input</code>), such as a digital
+elevation model (DEM). The user must specify the contour interval (<code>--interval</code>) and optionally, the base contour value (<code>--base</code>).
+The degree to which contours are smoothed is controlled by the <strong>Smoothing Filter Size</strong> parameter (<code>--smooth</code>). This value, which
+determines the size of a mean filter applied to the x-y position of vertices in each contour, should be an odd integer value, e.g.
+3, 5, 7, 9, 11, etc. Larger values will result in smoother contour lines. The tolerance parameter (<code>--tolerance</code>) controls the
+amount of line generalization. That is, vertices in a contour line will be selectively removed from the line if they do not result in
+an angular deflection in the line's path of at least this threshold value. Increasing this value can significantly decrease the size
+of the output contour vector file, at the cost of generating straighter contour line segments.</p>
+<p><em>See Also</em>:
+<a href="./data_tools.html#rastertovectorpolygons"><strong>RasterToVectorPolygons</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input surface raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector contour file</td></tr>
+<tr><td>--interval         </td><td> Contour interval</td></tr>
+<tr><td>--base             </td><td> Base contour height</td></tr>
+<tr><td>--smooth           </td><td> Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
+<tr><td>--tolerance        </td><td> Tolerance factor, in degrees (0-45); determines generalization level</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.contours_from_raster(
+    i, 
+    output, 
+    interval=10.0, 
+    base=0.0, 
+    smooth=9, 
+    tolerance=10.0, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=ContoursFromRaster -v ^
+--wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=contours.shp ^
+--interval=100.0 --base=0.0 --smooth=11 --tolerance=20.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/contours_from_raster.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/02/2020</p>
+<p><em>Last Modified</em>: 04/03/2020</p>
 <p><a name="DevFromMeanElev"></a></p>
 <a class="header" href="#devfrommeanelev" id="devfrommeanelev"><h1>DevFromMeanElev</h1></a>
 <p>This tool can be used to calculate the difference between the elevation of each grid
@@ -744,8 +830,20 @@ elevation updating procedures are also based on raster filtering operations. The
 modifications make this tool more efficient than Sun's original method, but will
 also result in a slightly different output than what would be achieved with Sun's
 method.</p>
+<p>The user must specify the values of three key parameters, including the filter size
+(<code>--filter</code>), the normal difference threshold (<code>--norm_diff</code>), and the number of
+iterations (<code>--num_iter</code>). Lindsay et al. (2019) found that <strong>the degree of smoothing
+was less impacted by the filter size than it was either the normal difference threshold
+and the number of iterations</strong>. A filter size of 11, the default value, tends to work
+well in many cases. To increase the level of smoothing applied to the DEM, consider
+increasing the normal difference threshold, i.e. the angular difference in normal vectors
+between the center cell of a filter window and a neighbouring cell. This parameter determines
+which neighbouring values are included in a filtering operation and higher values will
+result in a greater number of neighbouring cells included, and therefore smooother surfaces.
+Similarly, increasing the number of iterations from the default value of 3 to upwards of
+5-10 will result in significantly greater smoothing.</p>
 <p><em>Reference</em>:</p>
-<p>Lindsay JB, Francioni* A, Cockburn JMH. 2019. LiDAR DEM smoothing and the preservation of
+<p>Lindsay JB, Francioni A, Cockburn JMH. 2019. LiDAR DEM smoothing and the preservation of
 drainage features. <em>Remote Sensing</em>, 11(16), 1926; DOI: 10.3390/rs11161926.</p>
 <p>Sun, X., Rosin, P., Martin, R., &amp; Langbein, F. (2007). Fast and effective feature-preserving
 mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</em>, (5), 925-938.</p>
@@ -846,6 +944,10 @@ the size of gap that is filled, and the IDW weight (<code>--weight</code>).</p>
 <p>The filter size, specified in grid cells, is used to determine how far the algorithm will search for valid,
 non-NoData values. Therefore, setting a larger filter size allows for the filling of larger gaps in the input
 raster.</p>
+<p>The <code>--no_edges</code> flag can be used to exclude NoData values that are connected to the edges of the raster. It is
+usually the case that irregularly shaped DEMs have large regions of NoData values along the containing raster
+edges. This flag can be used to exclude these regions from the gap-filling operation, leaving only interior gaps
+for filling.</p>
 <p><em>See Also</em>:
 <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -854,6 +956,7 @@ raster.</p>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--filter           </td><td> Filter size (cells)</td></tr>
 <tr><td>--weight           </td><td> IDW weight value</td></tr>
+<tr><td>--no_edges         </td><td> Optional flag indicating whether to exclude NoData cells in edge regions</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.fill_missing_data(
@@ -861,13 +964,14 @@ raster.</p>
     output, 
     filter=11, 
     weight=2.0, 
+    no_edges=True, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=FillMissingData -v ^
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif --filter=25 ^
---weight=1.0 
+--weight=1.0 --no_edges 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fill_missing_data.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -2155,7 +2259,7 @@ processes</em>, 5(1), 3-30.</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="Slope"></a></p>
 <a class="header" href="#slope" id="slope"><h1>Slope</h1></a>
-<p>This tool calculates slope gradient (i.e. slope steepness in degrees) for each grid cell
+<p>This tool calculates slope gradient (i.e. slope steepness in degrees, radians, or percent) for each grid cell
 in an input digital elevation model (DEM). The user must specify the name of the input
 DEM (<code>--dem</code>) and the output raster image. The <em>Z conversion factor</em> is only important
 when the vertical and horizontal units are not the same in the DEM. When this is the case,
@@ -2193,23 +2297,25 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--units            </td><td> Units of output raster; options include 'degrees', 'radians', 'percent'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.slope(
     dem, 
     output, 
     zfactor=1.0, 
+    units=&quot;degrees&quot;, 
     callback=default_callback
 )
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Slope -v --wd=&quot;/path/to/data/&quot; ^
---dem=DEM.tif -o=output.tif 
+--dem=DEM.tif -o=output.tif --units=&quot;radians&quot; 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 21/02/2020</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
 <p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
@@ -2589,11 +2695,26 @@ on computer systems with high core-counts and plenty of memory.</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="WetnessIndex"></a></p>
 <a class="header" href="#wetnessindex" id="wetnessindex"><h1>WetnessIndex</h1></a>
-<p>Calculates the topographic wetness index, Ln(A / tan(slope)).</p>
+<p>This tool can be used to calculate the topographic wetness index, commonly used in the TOPMODEL rainfall-runoff framework.
+The index describes the propensity for a site to be saturated to the surface given its contributing area and local slope
+characteristics. It is calculated as:</p>
+<blockquote>
+<p>WI = Ln(As / tan(Slope))</p>
+</blockquote>
+<p>Where <code>As</code> is the specific catchment area (i.e. the upslope contributing area per unit contour length) estimated using one of
+the available flow accumulation algorithms in the Hydrological Analysis toolbox. Notice that <code>As</code> must not be log-transformed
+prior to being used; log-transformation of <code>As</code> is a common practice when visualizing the data. The slope image should be
+measured in degrees and can be created from the base digital elevation model (DEM) using the <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a> tool. Grid cells with a
+slope of zero will be assigned <strong>NoData</strong> in the output image to compensate for the fact that division by zero is infinity.
+These very flat sites likely coincide with the wettest parts of the landscape. The input images must have the same grid dimensions.</p>
+<p>Grid cells possessing the NoData value in either of the input images are assigned NoData value in the output image. The output
+raster is of the float data type and continuous data scale.</p>
+<p>See Also
+<a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <code>Fd8FlowAccumulation</code>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>--sca              </td><td> Input raster specific contributing area (SCA) file</td></tr>
-<tr><td>--slope            </td><td> Input raster slope file</td></tr>
+<tr><td>--slope            </td><td> Input raster slope file (in degrees)</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -2610,8 +2731,8 @@ on computer systems with high core-counts and plenty of memory.</p>
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/wetness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
-<p><em>Created</em>: July 2, 2017</p>
-<p><em>Last Modified</em>: January 21, 2018</p>
+<p><em>Created</em>: 02/07/2017</p>
+<p><em>Last Modified</em>: 21/01/2018</p>
 
                     </main>
 
