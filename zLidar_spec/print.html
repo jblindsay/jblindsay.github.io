@@ -172,8 +172,12 @@ June 8, 2020</p>
 <a class="header" href="#31-data-types" id="31-data-types"><h2>3.1. Data Types</h2></a>
 <p>The following data types are used to store information contained within a zLidar file. Note that these data types are conform with the 1999 ANSI C Language Specification.</p>
 <p>u8 = unsigned 8-bit interger (byte) <br />
+u16 = unsigned 16-bit integer (short) <br />
 u32 = unsigned 32-bit integer (long) <br />
-u64 = unsigned 64-bit integer (long long)</p>
+u64 = unsigned 64-bit integer (long long)
+i16 = signed 16-bit integer (signed short) <br />
+i32 = signed 32-bit integer (signed long) <br />
+f64 = 64-bit floating-point (double)</p>
 <a class="header" href="#32-file-header-and-variable-length-records-vlrs" id="32-file-header-and-variable-length-records-vlrs"><h2>3.2 File Header and Variable Length Records (VLRs)</h2></a>
 <p>The file header of a zLidar file is exactly the same as that found in a <a href="https://www.asprs.org/wp-content/uploads/2010/12/LAS_1_4_r13.pdf">LAS file</a>, with the one notable exception that the <em>File Signature</em> field is changed from “LASF” to “ZLDR” in the zLidar file header. Variable length records (VLRs) are stored in the same way described in the LAS specification. Notice that the zLidar format does not specify which LAS format the data are derived from and therefore a zLidar encoder/decoder should be able to handle LAS v1.1, v1.2, v1.3 and v1.4 formatted header data.</p>
 <a class="header" href="#33-point-record-data" id="33-point-record-data"><h2>3.3 Point Record Data</h2></a>
@@ -190,7 +194,7 @@ u64 = unsigned 64-bit integer (long long)</p>
 <p>The byte offset to point data contained within the file header (i.e. the LAS header), should point to the start of the first point block header.</p>
 <ul>
 <li>
-<p><strong>NumberOfFields</strong>: This value indicates how many point fields are used to describe point features. It is determined by the LAS point data record format. For example, point data containing LAS point format 0 data usually contain 9 point fields, including x, y, z, intensity, the return data byte (containing the return number, number of returns, scan direction bit flag, and edge of flight line bit flag), the classification byte, the scan angle, the user data, and the point source ID. Notice that the intensity and user data are actually optional fields in the LAS specification and so there may actually be fewer than 9 fields.</p>
+<p><strong>NumberOfFields</strong>: This value indicates how many point fields are used to describe point features. It is determined by the LAS point data record format. For example, point data containing LAS point format 0 data usually contain 9 point fields, including x, y, z, intensity, the return data byte (containing the return number, number of returns, scan direction bit flag, and edge of flight line bit flag), the classification byte, the scan angle, the user data, and the point source ID. Notice that the intensity and user data are actually optional fields in the LAS specification and so there may actually be fewer than 9 fields. Other LAS point record formats will have greater numbers of fields (e.g. GPS time data, RGB colour data, etc.). The reader is referred to the LAS specification for a mapping of mandatory and optional point fields onto point record formats.</p>
 </li>
 <li>
 <p><strong>CompressionMethod</strong>: At the moment only the DEFLATE compression method is supported and this field is set to 0. Future versions of the specification may allow for alternative compression methods (e.g. LZW), in which case other non-zero values could be used in this field.</p>
@@ -199,7 +203,7 @@ u64 = unsigned 64-bit integer (long long)</p>
 <p><strong>MajorVersion and MinorVersion</strong>: A zLidar file that meets the current specification must set these values to 1 and 0 respectively.</p>
 </li>
 <li>
-<p><strong>FieldDescriptorValues</strong>: A point block header ends with a listing of <strong>FieldDescriptors</strong>, one for each point field (NumberOfFields) contained in the point block. The <strong>FieldDescriptor</strong> data structure is organized as follows:</p>
+<p><strong>FieldDescriptorValues</strong>: A point block header ends with a listing of <strong>FieldDescriptors</strong>, one for each point field (of which there are <em>NumberOfFields</em> fields) contained in the point block. The <strong>FieldDescriptor</strong> data structure is organized as follows:</p>
 </li>
 </ul>
 <p>Table 2: The <strong>FieldDescriptor</strong> data structure of a zLidar file.</p>
@@ -212,20 +216,20 @@ u64 = unsigned 64-bit integer (long long)</p>
 <li><strong>DataCode</strong>: This value documents the kind of data contained within a point field. This numeric code maps values onto point fields based on the following scheme:</li>
 </ul>
 <p>Table 3: Interpretation of the DataCode field used in a zLidar file.</p>
-<table><thead><tr><th> Value </th><th> Field </th></tr></thead><tbody>
-<tr><td align="center"> 0 </td><td align="right"> x-coordinate value </td></tr>
-<tr><td align="center"> 1 </td><td align="right"> y-coordinate value </td></tr>
-<tr><td align="center"> 2 </td><td align="right"> z-coordinate value </td></tr>
-<tr><td align="center"> 3 </td><td align="right"> intensity </td></tr>
-<tr><td align="center"> 4 </td><td align="right"> point return bit-field </td></tr>
-<tr><td align="center"> 5 </td><td align="right"> classification bit-field </td></tr>
-<tr><td align="center"> 6 </td><td align="right"> scan angle </td></tr>
-<tr><td align="center"> 7 </td><td align="right"> user data </td></tr>
-<tr><td align="center"> 8 </td><td align="right"> point source ID </td></tr>
-<tr><td align="center"> 9 </td><td align="right"> GPS time data </td></tr>
-<tr><td align="center"> 10 </td><td align="right"> red-colour values </td></tr>
-<tr><td align="center"> 11 </td><td align="right"> green-colour value </td></tr>
-<tr><td align="center"> 12 </td><td align="right"> blue-colour value </td></tr>
+<table><thead><tr><th> Value </th><th> Field </th><th> Data Type </th></tr></thead><tbody>
+<tr><td align="center"> 0 </td><td align="right"> x-coordinate value </td><td align="center"> i32 </td></tr>
+<tr><td align="center"> 1 </td><td align="right"> y-coordinate value </td><td align="center"> i32 </td></tr>
+<tr><td align="center"> 2 </td><td align="right"> z-coordinate value </td><td align="center"> i32 </td></tr>
+<tr><td align="center"> 3 </td><td align="right"> intensity </td><td align="center"> u16 </td></tr>
+<tr><td align="center"> 4 </td><td align="right"> point return bit-field </td><td align="center"> u8 </td></tr>
+<tr><td align="center"> 5 </td><td align="right"> classification bit-field </td><td align="center"> u8 </td></tr>
+<tr><td align="center"> 6 </td><td align="right"> scan angle </td><td align="center"> i16 </td></tr>
+<tr><td align="center"> 7 </td><td align="right"> user data </td><td align="center"> u8 </td></tr>
+<tr><td align="center"> 8 </td><td align="right"> point source ID </td><td align="center"> u16 </td></tr>
+<tr><td align="center"> 9 </td><td align="right"> GPS time data </td><td align="center"> f64 </td></tr>
+<tr><td align="center"> 10 </td><td align="right"> red-colour values </td><td align="center"> u16 </td></tr>
+<tr><td align="center"> 11 </td><td align="right"> green-colour value </td><td align="center"> u16 </td></tr>
+<tr><td align="center"> 12 </td><td align="right"> blue-colour value </td><td align="center"> u16 </td></tr>
 </tbody></table>
 <ul>
 <li>
@@ -235,14 +239,15 @@ u64 = unsigned 64-bit integer (long long)</p>
 <p><strong>ByteLength</strong>: This value contains the compressed byte length of the point field data. Importantly, the length must be exclusive of any buffering 0 values used to ensure point field data are aligned to 32-bit boundaries.</p>
 </li>
 </ul>
+<p>Notice that there is no information contained within the header to describe the number of points in the point block. A zLidar decoder can obtain this information either from the number of data values that the decompression algorithm yields or from the auxiliary index file, if present. A zLidar decoder should perform checks to ensure that the number of values is the same for each point field, i.e. that there is a consistent block size of point field values within a point block.</p>
 <p>Individual compressed point fields are stored sequentially after the point block header. While there is no requirement that point field data are stored in any particular order, these data must be sorted in the order described within the header's <strong>FieldDescriptorValues</strong>.</p>
-<p>For most of the field data types (Table 3), the data are merely compressed using the appropriate compression method (e.g., DEFLATE) and then saved to the file at the location described by the corresponding offset value. For example, the compressed byte data for all of the x-coordinates of the point block are saved to the file, followed by the compressed byte data for all of the point y-coordinates, etc. This differs from the LAS structure, where all of the data associated with a single point is stored sequentially in the file on a point-by-point basis.</p>
-<p>While most of the point fields are simply the DEFLATE treated byte representation of the raw data, certain field data are pre-processed before compression to allow for greater compression rates. Specifically, the x- and y-coordinate data are first converted to their 32-bit integer representations (using the offset and scale factors contained within the LAS header) and then each point value in the block sequence is subtracted from the previous value. It is these x and y point difference values that are then compressed and stored in the zLidar file. (Notice that the first point within the point block is left undifferenced since there is no preceding value.) Scan angle and GPS time data are also pre-differenced before compression is applied. The z-coordinate data are compressed using a similar scheme to the x and y coordinate data (i.e., converting to 32-bit integer values using the offsets and scale values and then performing point differencing), except that point values are differenced not from the previous point in the block, but instead from the previous point of the same return class, distinguishing between late-return points (i.e., last and single returns) and early return points (i.e., first and intermediate returns). This does add the extra complexity that a zLidar decoder must ensure that the point return data is read prior to the point z-coordinate data.</p>
+<p>For most of the field data types (Table 3), the data are merely compressed using the appropriate compression method (e.g., DEFLATE) and then saved to the file at the location described by the corresponding offset value. For example, the compressed byte data for all of the x-coordinates of the point block are saved to the file, followed by the compressed byte data for all of the point y-coordinates, etc. This differs from the LAS structure, where all of the data associated with a single point is stored sequentially in the file on a point-by-point basis. The data type used for each point field matches that of the LAS specification. So, for example, x-coordinate data are represented as u32s, intensity data are represented as u16s, etc. The reader should refer the data types listed in Table 3 or to the LAS specification for more detail.</p>
+<p>While most of the point fields are simply the DEFLATE treated byte representation of the raw data, certain field data are pre-processed before compression to allow for greater compression rates. Specifically, the x- and y-coordinate data are first converted to their i32 representations (using the offset and scale factors contained within the LAS header) and then each point value in the block sequence is subtracted from the previous value. It is these x and y point difference values that are then compressed and stored in the zLidar file. (Notice that the first point within the point block is left undifferenced since there is no preceding value.) Scan angle and GPS time data are also pre-differenced before compression is applied. The z-coordinate data are compressed using a similar scheme to the x and y coordinate data (i.e., converting to i32 values using the offsets and scale values and then performing point differencing), except that point values are differenced not from the previous point in the block, but instead from the previous point of the same broad return class, distinguishing between a late-return point class (i.e., last and single returns) and an early-return point class (i.e., first and intermediate returns). This does add the extra complexity that a zLidar decoder must ensure that the point return data is read prior to the point z-coordinate data.</p>
 <a class="header" href="#34-auxiliary-index-file" id="34-auxiliary-index-file"><h2>3.4 Auxiliary Index File</h2></a>
 <p>The index file is optional and can allow for more effective retrieval of point data without the need to read the entire zLidar data file. Thus, the zLidar index file serves a similar function to the corresponding *.shx file for Shapefiles. zLidar encoders/decoders are not required to read or write these files; that is, zLidar encoders/decoders should have the ability to read zLidar formated data without an accompanying index file. When provided, these are <a href="https://en.wikipedia.org/wiki/Sidecar_file">sidecar files</a> are stored using the *.zLidarx file extension. Thus a zLidar file named 1km174180469202017LLAKEERIE.zlidar may have an accompanying 1km174180469202017LLAKEERIE.zlidarx index file.</p>
 <p>The zLidar index file begins with the same LAS file header and VLR data contained within the parent zLidar file. After these, the zLidar index file contains a data header for each of the point blocks contained within the parent zLidar file. This header is structured as follows:</p>
 <p>Table 4: The point block header structure of a zLidar file.</p>
-<table><thead><tr><th align="right"> Description </th><th> Data Type </th><th> Bytes </th></tr></thead><tbody>
+<table><thead><tr><th> Description </th><th> Data Type </th><th> Bytes </th></tr></thead><tbody>
 <tr><td> NumberOfFields </td><td align="center"> u8 </td><td align="right"> 1 </td></tr>
 <tr><td> CompressionMethod </td><td align="center"> u8 </td><td align="right"> 1 </td></tr>
 <tr><td> MajorVersion </td><td align="center"> u8 </td><td align="right"> 1 </td></tr>
