@@ -226,7 +226,7 @@ Sponsored by:</p>
 </blockquote>
 <p>Be sure to follow the instructions for installing Rust carefully. In particular, if you are installing on Microsoft Windows, you must have a linker installed prior to installing the Rust compiler (<em>rustc</em>). The Rust webpage recommends either the <strong>MS Visual C++ 2015 Build Tools</strong> or the GNU equivalent and offers details for each installation approach.</p>
 <a class="header" href="#using-whiteboxtools" id="using-whiteboxtools"><h1>Using <em>WhiteboxTools</em></h1></a>
-<p>Users interact with the <em>WhiteboxTools</em> platform either from a <a href="./command_prompt.html">command prompt</a> (i.e. terminal), through the <a href="python_scripting/scripting.html">Python</a>, <a href="./r_interface.html"><em>R</em> language</a>, or <a href="https://nim-lang.org">Nim</a> interfaces, or from one of the available <a href="./qgis_plugin.html">graphical user interfaces (GUI)</a> applications.</p>
+<p>Users interact with the <em>WhiteboxTools</em> platform either from a <a href="./command_prompt.html">command prompt</a> (i.e. terminal), through the <a href="python_scripting/scripting.html">Python</a>, <a href="./r_interface.html"><em>R</em> language</a>, or <a href="./nim_scripting.html">Nim</a> interfaces, or from one of the available <a href="./qgis_plugin.html">graphical user interfaces (GUI)</a> applications.</p>
 <a class="header" href="#interfacing-with-python" id="interfacing-with-python"><h1>Interfacing With Python</h1></a>
 <blockquote>
 <p><strong>Important note</strong>: all of the following material assumes the user system is configured with Python 3. The code snippets below are not guaranteed to work with older versions of the language.</p>
@@ -533,9 +533,11 @@ breach_depressions(&quot;./smoothed.tif&quot;, &quot;./breached.tif&quot;)
 d_inf_flow_accumulation(dem, &quot;./flow_accum.tif&quot;, verbose_mode=FALSE)
 </code></pre>
 <a class="header" href="#interfacing-with-nim" id="interfacing-with-nim"><h1>Interfacing With <em>Nim</em></h1></a>
-<p><a href="https://nim-lang.org">Nim</a> is a statically compiled programming language that has Python-like syntax (e.g. significant whitespace) and c-level efficiency. It has been used by Python programmers who are looking for a faster, more efficient language but don't want to give up the elegant and terse syntax of Python. <a href="https://github.com/jblindsay/wbt_nim"><em>wbt_nim</em></a> is a Nim-based application programming interface (API) used to call WhiteboxTools functionality from Nim programs. To use this API, simply copy the <a href="https://github.com/jblindsay/wbt_nim/tree/master/src">source file</a> into your Nim project and import <em>wbt_nim</em>. You will need to ensure that the WhiteboxTools binary, pre-compiled for your operating system, is also within the same directory. Otherwise, use the <em>setExecutableDirectory</em> function to tell <em>wbt_nim</em> where the WhiteboxTools binary is located on your system. The Nim interface is very similar to the Python API.</p>
+<p><a href="https://nim-lang.org">Nim</a> is a statically compiled programming language that has <a href="https://github.com/nim-lang/Nim/wiki/Nim-for-Python-Programmers">Python-like syntax</a> (e.g. significant whitespace) and <a href="https://github.com/kostya/benchmarks">c-level efficiency</a>. It has been used by Python programmers who are looking for a faster, more efficient language but don't want to give up the elegant and terse syntax of Python.</p>
+<p><a href="https://github.com/jblindsay/wbt_nim"><em>wbt_nim</em></a> is a Nim-based application programming interface (API) used to call WhiteboxTools functionality from Nim programs. The documentation for <em>wbt_nim</em> can be found on <a href="https://jblindsay.github.io/wbt_nim/wbt_nim.html">GitHub</a>. To use this API, simply copy the <a href="https://github.com/jblindsay/wbt_nim/tree/master/src">source file</a> into your Nim project and import <em>wbt_nim</em>. You will need to ensure that the WhiteboxTools binary, pre-compiled for your operating system, is also within the same directory. Otherwise, use the <em>setExecutableDirectory</em> function to tell <em>wbt_nim</em> where the WhiteboxTools binary is located on your system.</p>
+<p>The Nim interface is very similar to the Python API:</p>
 <pre><code class="language-python">import wbt_nim
-import options
+import options, strformat, strutils
 
 proc main() =
     # Create a new WhiteboxTools object
@@ -563,13 +565,13 @@ proc main() =
 
     # WhiteboxTools is open-access software. If you'd like to see the source 
     # code for any tool, simply use the following:
-    wbt.viewCode(&quot;balanceContrastEnhancement&quot;)
+    discard wbt.viewCode(&quot;balanceContrastEnhancement&quot;)
 
     # To get a brief description of a tool and it's parameters:
     echo(wbt.getToolHelp(&quot;breachDepressionsLeastCost&quot;))
 
     # If you'd like to see more detailed help documentation:
-    wbt.viewHelpPage(&quot;breachDepressionsLeastCost&quot;)
+    discard wbt.viewHelpPage(&quot;breachDepressionsLeastCost&quot;)
     # This will open the default browser and navigate to the relevant tool help.
 
     # Here's an example of how to run a tool:
@@ -600,7 +602,6 @@ proc main() =
 
 main()
 </code></pre>
-<p>The documentation for <em>wbt_nim</em> can be found on <a href="https://jblindsay.github.io/wbt_nim/wbt_nim.html">GitHub</a>.</p>
 <a class="header" href="#whiteboxtools-runner" id="whiteboxtools-runner"><h1><em>WhiteboxTools Runner</em></h1></a>
 <p>There is a Python script contained within the <em>WhiteboxTools</em> directory called '<em>wb_runner.py</em>'. This script is intended to provide a very basic user-interface, <em>WhiteboxTools Runner</em>, for running the tools contained within the <em>WhiteboxTools</em> library. The user-interface uses Python's TkInter GUI library and is cross-platform. The user interface is currently experimental and is under heavy testing. Please report any issues that you experience in using it.</p>
 <p><img src="img/WBRunner.png" alt="The WhiteboxTools Runner user-interface" /></p>

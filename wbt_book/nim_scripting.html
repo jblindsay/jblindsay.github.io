@@ -141,9 +141,11 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#interfacing-with-nim" id="interfacing-with-nim"><h1>Interfacing With <em>Nim</em></h1></a>
-<p><a href="https://nim-lang.org">Nim</a> is a statically compiled programming language that has Python-like syntax (e.g. significant whitespace) and c-level efficiency. It has been used by Python programmers who are looking for a faster, more efficient language but don't want to give up the elegant and terse syntax of Python. <a href="https://github.com/jblindsay/wbt_nim"><em>wbt_nim</em></a> is a Nim-based application programming interface (API) used to call WhiteboxTools functionality from Nim programs. To use this API, simply copy the <a href="https://github.com/jblindsay/wbt_nim/tree/master/src">source file</a> into your Nim project and import <em>wbt_nim</em>. You will need to ensure that the WhiteboxTools binary, pre-compiled for your operating system, is also within the same directory. Otherwise, use the <em>setExecutableDirectory</em> function to tell <em>wbt_nim</em> where the WhiteboxTools binary is located on your system. The Nim interface is very similar to the Python API.</p>
+<p><a href="https://nim-lang.org">Nim</a> is a statically compiled programming language that has <a href="https://github.com/nim-lang/Nim/wiki/Nim-for-Python-Programmers">Python-like syntax</a> (e.g. significant whitespace) and <a href="https://github.com/kostya/benchmarks">c-level efficiency</a>. It has been used by Python programmers who are looking for a faster, more efficient language but don't want to give up the elegant and terse syntax of Python.</p>
+<p><a href="https://github.com/jblindsay/wbt_nim"><em>wbt_nim</em></a> is a Nim-based application programming interface (API) used to call WhiteboxTools functionality from Nim programs. The documentation for <em>wbt_nim</em> can be found on <a href="https://jblindsay.github.io/wbt_nim/wbt_nim.html">GitHub</a>. To use this API, simply copy the <a href="https://github.com/jblindsay/wbt_nim/tree/master/src">source file</a> into your Nim project and import <em>wbt_nim</em>. You will need to ensure that the WhiteboxTools binary, pre-compiled for your operating system, is also within the same directory. Otherwise, use the <em>setExecutableDirectory</em> function to tell <em>wbt_nim</em> where the WhiteboxTools binary is located on your system.</p>
+<p>The Nim interface is very similar to the Python API:</p>
 <pre><code class="language-python">import wbt_nim
-import options
+import options, strformat, strutils
 
 proc main() =
     # Create a new WhiteboxTools object
@@ -171,13 +173,13 @@ proc main() =
 
     # WhiteboxTools is open-access software. If you'd like to see the source 
     # code for any tool, simply use the following:
-    wbt.viewCode(&quot;balanceContrastEnhancement&quot;)
+    discard wbt.viewCode(&quot;balanceContrastEnhancement&quot;)
 
     # To get a brief description of a tool and it's parameters:
     echo(wbt.getToolHelp(&quot;breachDepressionsLeastCost&quot;))
 
     # If you'd like to see more detailed help documentation:
-    wbt.viewHelpPage(&quot;breachDepressionsLeastCost&quot;)
+    discard wbt.viewHelpPage(&quot;breachDepressionsLeastCost&quot;)
     # This will open the default browser and navigate to the relevant tool help.
 
     # Here's an example of how to run a tool:
@@ -208,7 +210,6 @@ proc main() =
 
 main()
 </code></pre>
-<p>The documentation for <em>wbt_nim</em> can be found on <a href="https://jblindsay.github.io/wbt_nim/wbt_nim.html">GitHub</a>.</p>
 
                     </main>
 
