@@ -176,6 +176,7 @@
 <li><a href="#LidarRbfInterpolation">LidarRbfInterpolation</a></li>
 <li><a href="#LidarRemoveDuplicates">LidarRemoveDuplicates</a></li>
 <li><a href="#LidarRemoveOutliers">LidarRemoveOutliers</a></li>
+<li><a href="#LidarRooftopAnalysis">LidarRooftopAnalysis</a></li>
 <li><a href="#LidarSegmentation">LidarSegmentation</a></li>
 <li><a href="#LidarSegmentationBasedFilter">LidarSegmentationBasedFilter</a></li>
 <li><a href="#LidarThin">LidarThin</a></li>
@@ -1506,6 +1507,53 @@ without the point, exceeds a threshold (elev_diff).</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/02/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="LidarRooftopAnalysis"></a></p>
+<a class="header" href="#lidarrooftopanalysis" id="lidarrooftopanalysis"><h1>LidarRooftopAnalysis</h1></a>
+<p>This tool can be used to identify roof segments in a LiDAR point cloud.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#classifybuildingsinlidar"><strong>ClassifyBuildingsInLidar</strong></a>, <a href="./lidar_tools.html#cliplidartopolygon"><strong>ClipLidarToPolygon</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file</td></tr>
+<tr><td>--buildings        </td><td> Input vector build footprint polygons file</td></tr>
+<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--num_iter         </td><td> Number of iterations</td></tr>
+<tr><td>--num_samples      </td><td> Number of sample points on which to build the model</td></tr>
+<tr><td>--threshold        </td><td> Threshold used to determine inlier points</td></tr>
+<tr><td>--model_size       </td><td> Acceptable model size</td></tr>
+<tr><td>--max_slope        </td><td> Maximum planar slope</td></tr>
+<tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
+<tr><td>--azimuth          </td><td> Illumination source azimuth in degrees</td></tr>
+<tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.lidar_rooftop_analysis(
+    buildings, 
+    output, 
+    i=None, 
+    radius=2.0, 
+    num_iter=50, 
+    num_samples=10, 
+    threshold=0.15, 
+    model_size=15, 
+    max_slope=65.0, 
+    norm_diff=10.0, 
+    azimuth=180.0, 
+    altitude=30.0, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarRooftopAnalysis -v ^
+--wd=&quot;/path/to/data/&quot; -i='data.las' --polygons='buildings.shp' ^
+-o='rooftops.shp' --radius=10.0 --num_iter=10 --num_samples=5 ^
+--threshold=0.25 --max_slope=70.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_rooftop_analysis.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 10/06/2020</p>
+<p><em>Last Modified</em>: 10/06/2020</p>
 <p><a name="LidarSegmentation"></a></p>
 <a class="header" href="#lidarsegmentation" id="lidarsegmentation"><h1>LidarSegmentation</h1></a>
 <p>This tool can be used to segment a LiDAR point cloud based on differences in the orientation of fitted planar

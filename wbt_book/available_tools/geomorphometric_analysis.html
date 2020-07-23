@@ -163,6 +163,7 @@
 <li><a href="#Hillshade">Hillshade</a></li>
 <li><a href="#HorizonAngle">HorizonAngle</a></li>
 <li><a href="#HypsometricAnalysis">HypsometricAnalysis</a></li>
+<li><a href="#HypsometricallyTintedHillshade">HypsometricallyTintedHillshade</a></li>
 <li><a href="#MaxAnisotropyDev">MaxAnisotropyDev</a></li>
 <li><a href="#MaxAnisotropyDevSignature">MaxAnisotropyDevSignature</a></li>
 <li><a href="#MaxBranchLength">MaxBranchLength</a></li>
@@ -171,6 +172,7 @@
 <li><a href="#MaxElevDevSignature">MaxElevDevSignature</a></li>
 <li><a href="#MaxElevationDeviation">MaxElevationDeviation</a></li>
 <li><a href="#MinDownslopeElevChange">MinDownslopeElevChange</a></li>
+<li><a href="#MultidirectionalHillshade">MultidirectionalHillshade</a></li>
 <li><a href="#MultiscaleElevationPercentile">MultiscaleElevationPercentile</a></li>
 <li><a href="#MultiscaleRoughness">MultiscaleRoughness</a></li>
 <li><a href="#MultiscaleRoughnessSignature">MultiscaleRoughnessSignature</a></li>
@@ -1034,7 +1036,7 @@ Horn's (1981) 3rd-order finate difference method.</p>
 <p>Gallant, J. C., and J. P. Wilson, 2000, Primary topographic attributes, in Terrain Analysis: Principles
 and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
 <p><em>See Also</em>:
-<a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
+<a href="./geomorphometric_analysis.html#hypsometricallytintedhillshade"><strong>HypsometricallyTintedHillshade</strong></a>, <a href="./geomorphometric_analysis.html#multidirectionalhillshade"><strong>MultidirectionalHillshade</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
@@ -1138,6 +1140,72 @@ distribution function of elevations in a geographical area.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 30/01/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="HypsometricallyTintedHillshade"></a></p>
+<a class="header" href="#hypsometricallytintedhillshade" id="hypsometricallytintedhillshade"><h1>HypsometricallyTintedHillshade</h1></a>
+<p>This tool creates a hypsometrically tinted shaded relief (Swiss hillshading) image from an input digital elevation model (DEM).
+The tool combines a colourized version of the DEM with varying illumination provided by a hillshade image, to
+produce a composite relief model that can be used to visual topography for more effective interpretation of
+landscapes. The output (<code>--output</code>) of the tool is a 24-bit red-green-blue (RGB) colour image.</p>
+<p>The user must specify the name of the input DEM and the output image name. Other parameters that must
+be specified include the illumination source azimuth (<code>--azimuth</code>), or sun direction (0-360 degrees), the
+illumination source altitude (<code>--altitude</code>; i.e. the elevation of the sun above the horizon, measured as an angle
+from 0 to 90 degrees), the hillshade weight (<code>--hs_weight</code>; 0-1), image brightness (<code>--brightness</code>; 0-1), and atmospheric
+effects (<code>--atmospheric</code>; 0-1). The hillshade weight can be used to increase or subdue the relative prevalence of the
+hillshading effect in the output image. The image brightness parameter is used to create an overall brighter or
+darker version of the terrain rendering; note however, that very high values may over-saturate the well-illuminated
+portions of the terrain. The atmospheric effects parameter can be used to introduce a haze or atmosphere effect to
+the output image. It is intended to reproduce the effect of viewing mountain valley bottoms through a thicker and
+more dense atmosphere. Values greater than zero will introduce a slightly blue tint, particularly at lower altitudes,
+blur the hillshade edges slightly, and create a random haze-like speckle in lower areas. The user must also specify
+the Z conversion factor (<code>--zfactor</code>). The <em>Z conversion factor</em> is only important when the vertical and horizontal
+units are not the same in the DEM. When this is the case, the algorithm will multiply each elevation in the DEM by the
+Z conversion factor. If the DEM is in the geographic coordinate system (latitude and longitude), the following equation
+is used:</p>
+<blockquote>
+<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+</blockquote>
+<p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
+<p><img src="../img/hypsometricallyTintedHillshade_fig1.png" alt="" /></p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#hillshade"><strong>Hillshade</strong></a>, <a href="./geomorphometric_analysis.html#multidirectionalhillshade"><strong>MultidirectionalHillshade</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
+<tr><td>--hs_weight        </td><td> Weight given to hillshade relative to relief (0.0-1.0)</td></tr>
+<tr><td>--brightness       </td><td> Brightness factor (0.0-1.0)</td></tr>
+<tr><td>--atmospheric      </td><td> Atmospheric effects weight (0.0-1.0)</td></tr>
+<tr><td>--palette          </td><td> Options include 'atlas', 'high_relief', 'arid', 'soft', 'muted', 'purple', 'viridi', 'gn_yl', 'pi_y_g', 'bl_yl_rd', and 'deep</td></tr>
+<tr><td>--reverse          </td><td> Optional flag indicating whether to use reverse the palette</td></tr>
+<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--full_mode        </td><td> Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.hypsometrically_tinted_hillshade(
+    dem, 
+    output, 
+    altitude=45.0, 
+    hs_weight=0.5, 
+    brightness=0.5, 
+    atmospheric=0.0, 
+    palette=&quot;atlas&quot;, 
+    reverse=False, 
+    zfactor=1.0, 
+    full_mode=False, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=HypsometricallyTintedHillshade -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif --altitude=45.0 ^
+--hs_weight=0.3 --brightness=0.6 --atmospheric=0.2 ^
+--palette=arid --full_mode 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hypsometrically_tinted_hillshade.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 09/07/2020</p>
+<p><em>Last Modified</em>: 19/07/2020</p>
 <p><a name="MaxAnisotropyDev"></a></p>
 <a class="header" href="#maxanisotropydev" id="maxanisotropydev"><h1>MaxAnisotropyDev</h1></a>
 <p>Calculates the maximum anisotropy (directionality) in elevation deviation over a range of spatial scales.</p>
@@ -1437,6 +1505,69 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="MultidirectionalHillshade"></a></p>
+<a class="header" href="#multidirectionalhillshade" id="multidirectionalhillshade"><h1>MultidirectionalHillshade</h1></a>
+<p>This tool performs a hillshade operation (also called shaded relief) on an input digital elevation model (DEM)
+with multiple sources of illumination. The user must specify the  name of the input DEM (<code>--dem</code>) and the output
+hillshade image name (<code>--output</code>). Other parameters that must be specified include the altitude of the illumination
+sources (<code>--altitude</code>; i.e. the elevation of the sun above the horizon, measured as an angle
+from 0 to 90 degrees) and the Z conversion factor (<code>--zfactor</code>). The <em>Z conversion factor</em> is only important
+when the vertical and horizontal units are not the same in the DEM. When this is the case,
+the algorithm will multiply each elevation in the DEM by the Z conversion factor. If the
+DEM is in the geographic coordinate system (latitude and longitude), the following equation
+is used:</p>
+<blockquote>
+<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+</blockquote>
+<p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians. The Z conversion factor can also be used
+used to apply a vertical exageration to further emphasize landforms within the hillshade output.</p>
+<p>The hillshade value (<em>HS</em>) of a DEM grid cell is calculate as:</p>
+<blockquote>
+<p><em>HS</em> = tan(<em>s</em>) / [1 - tan(<em>s</em>)<sup>2</sup>]<sup>0.5</sup> x [sin(<em>Alt</em>) / tan(<em>s</em>) - cos(<em>Alt</em>) x sin(<em>Az</em> - <em>a</em>)]</p>
+</blockquote>
+<p>where <em>s</em> and <em>a</em> are the local slope gradient and aspect (orientation) respectively and <em>Alt</em> and <em>Az</em>
+are the illumination source altitude and azimuth respectively. Slope and aspect are calculated using
+Horn's (1981) 3rd-order finate difference method.</p>
+<p>Lastly, the user must specify whether or not to use full 360-degrees of illumination sources (<code>--full_mode</code>). When this
+flag is not specified, the tool will perform a weighted summation of the hillshade images from four illumination azimuth
+positions at 225, 270, 315, and 360 (0) degrees, given weights of 0.1, 0.4, 0.4, and 0.1 respectively. When run in the
+full 360-degree mode, eight illumination source azimuths are used to calculate the output at 0, 45, 90, 135, 180, 225,
+270, and 315 degrees, with weights of 0.15, 0.125, 0.1, 0.05, 0.1, 0.125, 0.15, and 0.2 respectively.</p>
+<p>Classic hillshade (Azimuth=315, Altitude=45.0)
+<img src="../img/MultidirectionalHillshade_fig1.png" alt="" /></p>
+<p>Multi-directional hillshade (Altitude=45.0, Four-direction mode)
+<img src="../img/MultidirectionalHillshade_fig2.png" alt="" /></p>
+<p>Multi-directional hillshade (Altitude=45.0, 360-degree mode)
+<img src="../img/MultidirectionalHillshade_fig3.png" alt="" /></p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#hillshade"><strong>Hillshade</strong></a>, HypsometricallyTintedHillshade, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
+<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--full_mode        </td><td> Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.multidirectional_hillshade(
+    dem, 
+    output, 
+    altitude=45.0, 
+    zfactor=1.0, 
+    full_mode=False, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MultidirectionalHillshade -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif ^
+--altitude=30.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multidirectional_hillshade.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 19/07/2020</p>
+<p><em>Last Modified</em>: 19/07/2020</p>
 <p><a name="MultiscaleElevationPercentile"></a></p>
 <a class="header" href="#multiscaleelevationpercentile" id="multiscaleelevationpercentile"><h1>MultiscaleElevationPercentile</h1></a>
 <p>This tool calculates the most elevation percentile (EP) across a range of spatial scales.
