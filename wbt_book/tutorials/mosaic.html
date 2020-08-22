@@ -142,121 +142,67 @@
                     <main>
                         <a class="header" href="#how-can-i-mosaic-hundreds-of-rasters" id="how-can-i-mosaic-hundreds-of-rasters"><h1>How can I mosaic hundreds of rasters?</h1></a>
 <p>Sometimes you find that you need to mosaic many individual raster tiles into a single larger raster image. You can use WhiteboxTools' <strong>Mosaic</strong> tool to join multiple rasters together; however, this operation can become extremely challenging if you have many hundreds of large raster tiles. The following script shows how you can use WhiteboxTools' Python interface to mosaic many rasters using intermediate mosaicing steps, which are then merged in a final step. Each intermediate mosaic raster is cleaned up at the end. The script assumes that the initial raster tiles are contained in a single directory (<code>source_data_dir</code>) and that the output mosaics will be contained in a seperate directory (<code>raster_data_dir</code>). Please modify these as needed.</p>
-<pre><code class="language-python">import os
-from os import path
-from WBT.whitebox_tools import WhiteboxTools
+<pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
+# Authors: Anthony Francioni, Carys Owens, and John Lindsay
+# Created: 01/07/2020
+# Last Modified: 17/08/2020
+# License: MIT
+
+
+######################################################################################
+# This script creates an image mosaic from one or more input image files using the   #
+# Mosaic tool from Whitebox tools. This tool uses one of three user-defined          #
+# resampling methods (--method) including, nearest neighbour (&quot;nn&quot;), bilinear        #
+# interpolation (&quot;bilinear&quot;), and cubic convolution (&quot;cc&quot;).                          #
+#                                                                                    #
+# The order of the input source image files is important. Grid cells in the output   #
+# image will be assigned the corresponding value determined from the last image      #
+# found in the list to possess an overlapping coordinate.                            #
+#                                                                                    #
+# Note that when the --inputs parameter is left unspecified, the tool will use all   #
+# of the raster files of supported data formats located in the working directory.    #
+#                                                                                    #
+# This is the preferred mosaicing tool to use when appending multiple images with    #
+# little to no overlapping areas, e.g. tiled data. When images have significant      #
+# overlap areas, users are advised to use the MosaicWithFeathering tool instead.     #
+######################################################################################
+
+# Library import statements
+import os
+from WBT.whitebox_tools import WhiteboxTools # Module call to WhiteboxTools. For more information see https://jblindsay.github.io/wbt_book/python_scripting/using_whitebox_tools.html)
+
 
 def main():
-    #####################################################################
-    # Script Settings: modify these as is appropriate to your use-case. #
-    #####################################################################
-    source_data_dir = &quot;/directory/to/source/raster/tiles/&quot;
-    # See the user manual for a listing of all supported raster formats.
-    tile_extension = &quot;.asc&quot; # Here I've used an ArcGIS ASCII raster format as input. 
-    raster_data_dir = &quot;/directory/to/output/raster/mosaic/&quot;
-    mosaic_extension = &quot;.tif&quot; # The output mosaic is being saved here as a GeoTIFF.
-    mosaic_method = &quot;nn&quot; # &quot;nn&quot; = nearest neighbour; &quot;bilinear&quot; = bilinear; &quot;cc&quot; = cubic convolution
-    delete_source_tiles = False
-    fill_nodata_gaps = False
-
-    ########################
-    # Set up WhiteboxTools #
-    ########################
+    #########################
+    # Set up Whitebox tools #
+    #########################
     wbt = WhiteboxTools()
-    wbt.work_dir = raster_data_dir # set working directory
-    wbt.verbose = False # Make it so that Whitebox doesn't output every progress update
-    if not os.path.exists(raster_data_dir):
-        os.makedirs(raster_data_dir)
-
-    ##############################################################
-    # Mosaic raster tiles; this is done using intermediate steps #
-    ##############################################################
-    processed_files = []
-    num_mosaiced = 1
-    flag = True
-    round = 1
-    while flag:
-        # This will mosaic a maximum of 50 tiles together; these sub-files
-        # will subsequently be merged. Mosaicing many hundreds of tiles
-        # together at one time is otherwise too computationally intensive.
-        # Depending on your system resources and the tile sizes, you may have to 
-        # adjust this number.
-        file_names = find_files(source_data_dir, tile_extension, processed_files, 50)
-        if len(file_names) &gt; 1:
-            in_files = &quot;&quot;
-            for i in range(len(file_names)):
-                if i &lt; len(file_names)-1:
-                    in_files += f&quot;{file_names[i]};&quot;
-                else:
-                    in_files += f&quot;{file_names[i]}&quot;
-
-                processed_files.append(file_names[i])
-                num_mosaiced += 1
-
-            out_file = raster_data_dir + f&quot;mosaic{round}{mosaic_extension}&quot;
-            wbt.mosaic(inputs=in_files, output=out_file, method=mosaic_method)
-            print(f&quot;Processing mosaic {round}; num. files = {num_mosaiced}&quot;)
-
-            if delete_source_tiles:
-                for i in range(len(file_names)):
-                    os.remove(source_data_dir + file_names[i])
-
-        else:
-            flag = False
-
-        round += 1
-
-    wbt.verbose = True
-    mosaic_file = raster_data_dir + f&quot;final_mosaic{mosaic_extension}&quot;
-    file_names = find_mosaic_files(raster_data_dir, mosaic_extension)
-    if len(file_names) &gt; 1:
-        in_files = &quot;&quot;
-        for i in range(len(file_names)):
-            if i &lt; len(file_names)-1:
-                in_files += f&quot;{file_names[i]};&quot;
-            else:
-                in_files += f&quot;{file_names[i]}&quot;
-
-            num_mosaiced += 1
-
-
-        wbt.mosaic(inputs=in_files, output=mosaic_file, method=mosaic_method)
-
-        # now clean up the intermediate mosaics; you'll want to delete them.
-        for i in range(len(file_names)):
-            os.remove(raster_data_dir + file_names[i])
-
-
-
-    ##############################################
-    # Would you like to fill in the NoData gaps? #
-    ##############################################
-    if fill_nodata_gaps:
-        dem_nodata_filled = raster_data_dir + f&quot;DEM_gaps_filled{mosaic_extension}&quot;
-        wbt.fill_missing_data(mosaic_file, dem_nodata_filled, filter=101)
-
-    print(&quot;Done!&quot;)
-
-def find_files(input_dir, extension, processed_files, max_num=10):
-    files = os.listdir(input_dir)
-    file_names = []
-    for f in files:
-        if f.endswith(extension) and f not in processed_files:
-            if len(file_names) &lt; max_num:
-                file_names.append(f)
-            else:
-                break
-
-    return file_names
-
-def find_mosaic_files(input_dir, mosaic_extension):
-    files = os.listdir(input_dir)
-    file_names = []
-    for f in files:
-        if &quot;mosaic&quot; in f and f.endswith(mosaic_extension):
-            file_names.append(f)
-
-    return file_names
+    wbt.set_verbose_mode(True) # Sets verbose mode. If verbose mode is False, tools will not print output messages as they run
+    wbt.set_compress_rasters(True) # Compressed TIF file format based on the DEFALTE algorithm
+    
+    ##########################
+    # Set up tool parameters #
+    ##########################
+    input_directory = &quot;C:\\Path\\to\\input\\files\\&quot; # Input directory; change to match user environment
+    output_directory = &quot;C:\\Path\\to\\output\\directory\\&quot; # Output directory; change to match yours
+    
+    if os.path.isdir(output_directory) != True: # Creates output dir if it does not already exist 
+        os.mkdir(output_directory)      
+    
+    ################
+    # Run the tool #
+    ################
+    wbt.set_working_dir(input_directory) # Set the working dir: This should be teh location of the input files #
+    outfile = os.path.join(output_directory,&quot;NAME_OF_FILE.tif&quot;) # Create the output file by joining the output directory path with the name of file
+    # Calls mosaic tool with nearest neighbour as the resampling method (&quot;nn&quot;)
+    if wbt.mosaic(
+        output=outfile, 
+        method = &quot;nn&quot;
+    ) != 0:
+        # Non-zero returns indicate an error.
+        print('ERROR running mosaic')
+    
+    print(&quot;Complete!&quot;)
 
 main()
 </code></pre>
