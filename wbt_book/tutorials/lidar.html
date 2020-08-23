@@ -143,7 +143,9 @@
                         <a class="header" href="#processing-lidar-data" id="processing-lidar-data"><h1>Processing LiDAR data</h1></a>
 <ul>
 <li><a href="#grid_lidar">How do I convert a LAS point cloud into a raster?</a></li>
+<li><a href="#select_tiles_by_polygon">How do I extract a subset of LiDAR files that overlap with an area of interest?</a></li>
 <li><a href="#classification">How do I exclude points with certain classifications?</a></li>
+<li><a href="#LidarGroundPointFilter">How do I remove non-ground points from my LiDAR file?</a></li>
 <li><a href="#folder">I have many LAS files and want to interpolate all of them at once</a></li>
 <li><a href="#low_points">What if my data contains anomalously high/low points?</a></li>
 <li><a href="#laz">My data are in LAZ format. How do I interpolate them?</a></li>
@@ -152,11 +154,11 @@
 <li><a href="#resolution">How do I decide on an appropriate grid resolution?</a></li>
 <li><a href="#nodata_gaps">My raster contains NoData gaps. How do I remove these?</a></li>
 <li><a href="#mosaic">How do I combine many LiDAR tiles into a single raster?</a></li>
-<li><a href="#workflow">Is there a complete example LiDAR processing workflow available?</a></li>
+<li><a href="#workflow">What is the workflow after mosaicking my DEM?</a></li>
 </ul>
 <p><a name="grid_lidar"></a></p>
 <a class="header" href="#how-do-i-convert-a-las-point-cloud-into-a-raster" id="how-do-i-convert-a-las-point-cloud-into-a-raster"><h2>How do I convert a LAS point cloud into a raster?</h2></a>
-<p>Converting your LiDAR data into a raster requires an interpolation operation. There are many such interpolation methods. The following is an example of how to interpolate the last-return points of a LAS/zLidar file using an inverse distance weighted (IDW) interpolation scheme, with a search window radius of 2.5 m, an exponent of 2.0, and an output grid resolution of 1.5 m.</p>
+<p>Converting your LiDAR data into a raster requires an interpolation operation. There are many such interpolation methods. The following is an example of how to interpolate the last-return points of a LAS/zLidar file using an inverse distance weighted (IDW) interpolation scheme, with a search window radius of 2.5 m, an exponent of 2.0, and an output grid resolution of 1.5 m. You may prefer to derive your raster DEM using Delaunay triangulation (TINing) instead.</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
@@ -173,8 +175,43 @@ radius=2.5
 )
 </code></pre>
 <p>Other methods for gridding a LAS file include nearest neighbour, Delaunay triangulation (TINing), block minimum, and block maximum gridding schemes.</p>
+<p><a name="select_tiles_by_polygon"></a></p>
+<a class="header" href="#how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest" id="how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest"><h2>How do I extract a subset of LiDAR files that overlap with an area of interest?</h2></a>
+<p>Sometimes, you need to extract all of the LAS/zLidar tiles from a large dataset that overlap with a particular area of interest. For example, you may need to interpolate all the files overlapping with a watershed or a particular city. For this task, you can use <em>select_tiles_by_polygon</em>.
+# Uncomment the four lines below if you want to do this.
+# outdir = &quot;/Users/johnlindsay/Documents/data/LAS_files_in_watershed/&quot;
+# polygons = &quot;/Users/johnlindsay/Documents/data/LAS_files_in_watershed/watershed.shp&quot;
+# wbt.select_tiles_by_polygon(las_files_dir, outdir, polygons)
+# las_files_dir = outdir # this way the analysis below works only on the selected tiles.</p>
+<pre><code class="language-python">import os
+from WBT.whitebox_tools import WhiteboxTools # module call to WhiteboxTools. For more information see https://jblindsay.github.io/wbt_book/python_scripting/using_whitebox_tools.html)
+
+def main():
+    ########################
+    # Set up WhiteboxTools #
+    ########################
+    wbt = WhiteboxTools()
+    wbt.set_verbose_mode(False) # Sets verbose mode. If verbose mode is False, tools will not print output messages
+    input_directory = &quot;C:\\Insert\\Path\\to\\infile\\directory\\&quot; # Input file directory; change to match your environment
+    output_directory = &quot;C:\\Insert\\path\\to\\output\\directory\\&quot; # Output file directory; change to match your environment
+    aoi_polygon = &quot;C:\\path\\area_of_interest.shp&quot; # Name of the shapefile containing the AOI; change to match your file
+    # Note: the AOI shapefile must be in the same CRS as the LiDAR data.
+    
+    if os.path.isdir(output_directory) != True: # Creates the output directory if it does not already exist
+        os.mkdir(output_directory)
+
+    wbt.select_tiles_by_polygon(
+        indir=input_directory, 
+        outdir=output_directory, 
+        polygons=aoi_polygon
+    )
+
+if __name__ == &quot;__main__&quot; :
+    main()
+    print(&quot;Complete&quot;)
+</code></pre>
 <p><a name="classification"></a></p>
-<a class="header" href="#how-do-i-exclude-points-with-certain-classifications" id="how-do-i-exclude-points-with-certain-classifications"><h2>How do I exclude points with certain classifications?</h2></a></h2>
+<a class="header" href="#how-do-i-exclude-points-with-certain-classifications" id="how-do-i-exclude-points-with-certain-classifications"><h2>How do I exclude points with certain classifications?</h2></a>
 <p>It is commonly the case that points with certain class values should be excluded from the gridding of LiDAR data. For example, you may wish to exclude points associated with vegetation, buildings, bridges, utility lines, etc. The <em>LidarIdwInterpolation</em> and <em>LidarNearestNeighbourGridding</em> tools allow for excluded point classes using the <em>exclude_cls</em> parameter. The parameter takes a numeric list as input, e.g. <code>exclude_cls='3,4,5,6,7,18'</code>. Class values follow those of the LAS v.1.4 specifications:</p>
 <p><em>LAS point classification values</em></p>
 <table><thead><tr><th align="left"> Classification Value  </th><th align="left"> Meaning                              </th></tr></thead><tbody>
@@ -200,6 +237,110 @@ radius=2.5
 </tbody></table>
 <p>Of course, not all LAS/zLidar files have had point classifications applied and stored. To determine whether your data contains point class
 data, you can run the <em>LidarInfo</em> tool before interpolation.</p>
+<p><a name="LidarGroundPointFilter"></p>
+<a class="header" href="#how-do-i-remove-non-ground-points-from-my-lidar-file" id="how-do-i-remove-non-ground-points-from-my-lidar-file"><h2>How do I remove non-ground points from my LiDAR file?</h2></a>
+<pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
+# Authors: Anthony Francioni, Carys Owens, and John Lindsay
+# Created: 01/07/2020
+# Last Modified: 17/08/2020
+# License: MIT
+
+##########################################################################
+# The workflow was designed to preform the WBT LidarGroundPointFilter on #
+# .las or .zlidar files to remove non-ground points. This script first   #
+# calls a function on the input directory to gather all files ending in  #
+# the .las or .zlidar extension. It then sets up WhiteboxTools according #
+# to the user's settings and runs the LidarGroundPointFilter tool on all #
+# the collected .las or .zlidar files. This tool performs a slope-based  #
+# classification, or filtering (i.e. removal), of non-ground points      #
+# within a LiDAR point-cloud. Inter-point slopes are compared between    #
+# pairs of points contained within local neighbourhoods of size --radius.#
+# Neighbourhoods with fewer than the user-specified minimum number of    #
+# points (--min_neighbours) are extended until the minimum point number  #
+# is equaled or exceeded. Points that are above neighbouring points by   #
+# the --height_threshold and have an inter-point slope greater than the  #
+# --slope_threshold are considered non-ground points and are either      #
+# optionally excluded from the output point-cloud or assigned the        #
+# unclassified (value 1) class value (--classify). Slope-based           #
+# ground-point classification methods suffer from the challenge of using #
+# a constant slope threshold under varying terrain slopes. Some          #
+# researchers have developed schemes for varying the slope threshold     #
+# based on underlying terrain slopes. LidarGroundPointFilter instead     #
+# allows the user to optionally (--slope_norm) normalize the underlying  #
+# terrain (i.e. flatten the terrain) using a white top-hat transform. A  #
+# constant slope threshold may then be used without contributing to      #
+# poorer performance under steep topography. Note, that this option,     #
+# while useful in rugged terrain, is computationally intensive. If the   #
+# point-cloud is of a relatively flat terrain, this option may be        #
+# excluded.                                                              #
+##########################################################################
+
+# library import statements #
+import os
+from WBT.whitebox_tools import WhiteboxTools # module call to WhiteboxTools. For more information see https://jblindsay.github.io/wbt_book/python_scripting/using_whitebox_tools.html)
+
+
+# Function to find all the .las or z.lidar files in the input directory
+def find_files (input_directory, processed_files):
+    files = os.listdir(input_directory)
+    file_names = []
+    for f in files:
+        if f.endswith(&quot;.las&quot;) or f.endswith(&quot;.zlidar&quot;) and f not in processed_files: #if filename is a .las or .zlidar file and not already processed, append the file to the list
+            file_names.append(f)
+    return(file_names)
+
+
+def main():
+    ########################
+    # Set up WhiteboxTools #
+    ########################
+    wbt = WhiteboxTools()
+    wbt.set_verbose_mode(False) # Sets verbose mode. If verbose mode is False, tools will not print output messages
+    input_directory = &quot;C:\\Insert\\Path\\to\\infile\\directory\\&quot; # Input file directory; change to match your environment
+    output_directory = &quot;C:\\Insert\\path\\to\\output\\directory\\&quot; # Output file directory; change to match your environment
+    
+
+    if os.path.isdir(output_directory) != True: # Creates the output directory if it does not already exist
+        os.mkdir(output_directory)
+
+    #################################################################################################
+    # Script Settings: modify these as is appropriate to your use-case and desired filter settings. #
+    #################################################################################################
+    processed_files = [] # list of files that have been processed
+    num_filtered = 1 #keeps track of how many files have been filtered 
+    flag = True # flag argument.. this block of code will execute as long as true
+    while flag:
+        file_names = find_files(input_directory, processed_files) # calls the function to get all the las or zlidar files in the input directory
+        if len(file_names) &gt; 0: # if there is still files in the in directory 
+            for i in range (len(file_names)):
+                in_file = os.path.join(input_directory, file_names[i]) # creates the input file name by joining the path with the file name
+                out_file = os.path.join(output_directory, file_names[i].replace(&quot;.zlidar&quot;, &quot;_filtered.zlidar&quot;))  # creates the out file name by joining the path with the file name... change the file type to either .las or .zlidar depending on the analysis 
+                print(&quot;Processing GroundPointFilter LAS {} OF {} (total filtered = {})&quot;.format(i+1, len(file_names), num_filtered))
+                # Calls the LidarGroundPointFilter on the input file; change the user parameters accordingly
+
+                # This one is a SLOW operation, particularly when using slope_norm=True. If you are
+                # confident that you have good point classification data, i.e. that the vegetation 
+                # and building classes have been properly populated, this operation can likely be
+                # avoided and interpolation should use the appropriate exclude_cls values.
+                wbt.lidar_ground_point_filter(i=in_file, # name of input file
+                output=out_file, # name of output file
+                radius=2.0,
+                min_neighbours=5,
+                slope_threshold=45.0,
+                height_threshold=0.35,
+                classify=True,
+                slope_norm=True,
+                height_above_ground=False) 
+
+                processed_files.append(file_names[i]) # append the processed file to the list
+                num_filtered += 1 # counter to update completed files
+            else:
+                flag = False
+
+    print(&quot;Complete&quot;)
+
+main()
+</code></pre>
 <p><a name="folder"></a></p>
 <a class="header" href="#i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once" id="i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once"><h2>I have many LAS/zLidar files and want to interpolate all of them at once</h2></a>
 <p>When you have hundreds, or even thousands, of LAS/zLidar files you might be inclined to write a Python script that calls the above function for each input file contained within a folder. But that isn't the best way to handle this common situation. Instead, if the input (i) and output parameters are left unspecified, each of WhiteboxTool's LiDAR gridding methods will interpolate all of the LAS files in the working directory, e.g.</p>
@@ -445,7 +586,7 @@ def main():
 
             # Convert LAS to zlidar
             wbt.set_working_dir(out_las_file_dir) # Set working dir to location of .LAS files needed to be converted
-            print(&quot;Converting LAS TO zlidar&quot;)
+            print(&quot;Converting LAS to zLidar&quot;)
             wbt.las_to_zlidar(outdir=out_zlidar_file_dir) # Calls the WBT tool las_to_zlidar to convert .LAS files to .zlidar files
 
             # Delete LAS
@@ -489,186 +630,138 @@ wbt.fill_missing_data(&quot;dem.tif&quot;, &quot;new_dem.tif&quot;, filter=11)
 <p>The choice of a filter size will depend on the extent of the largest interior void area.</p>
 <p><a name="mosaic"></a></p>
 <a class="header" href="#how-do-i-combine-many-lidar-tiles-into-a-single-raster" id="how-do-i-combine-many-lidar-tiles-into-a-single-raster"><h2>How do I combine many LiDAR tiles into a single raster?</h2></a>
-<p>Often you have many hundred LAS files, which you've intepolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
-<pre><code class="language-python">from os import listdir
-from WBT.whitebox_tools import WhiteboxTools
+<p>Often you have many hundred LAS files, which you've interpolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
+<pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
+# Authors: Anthony Francioni, Carys Owens, and John Lindsay
+# Created: 01/07/2020
+# Last Modified: 17/08/2020
+# License: MIT
 
-wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot;
 
-# find all GeoTIFFs in the path
-input_files = &quot;&quot;
-for f in listdir(wbt.work_dir):
-    if f.endswith(&quot;.tif&quot;):
-        input_files += &quot;;&quot; + f
+######################################################################################
+# This script creates an image mosaic from one or more input image files using the   #
+# Mosaic tool from Whitebox tools. This tool uses one of three user-defined          #
+# resampling methods (--method) including, nearest neighbour (&quot;nn&quot;), bilinear        #
+# interpolation (&quot;bilinear&quot;), and cubic convolution (&quot;cc&quot;).                          #
+#                                                                                    #
+# The order of the input source image files is important. Grid cells in the output   #
+# image will be assigned the corresponding value determined from the last image      #
+# found in the list to possess an overlapping coordinate.                            #
+#                                                                                    #
+# Note that when the --inputs parameter is left unspecified, the tool will use all   #
+# of the raster files of supported data formats located in the working directory.    #
+#                                                                                    #
+# This is the preferred mosaicing tool to use when appending multiple images with    #
+# little to no overlapping areas, e.g. tiled data. When images have significant      #
+# overlap areas, users are advised to use the MosaicWithFeathering tool instead.     #
+######################################################################################
 
-input_files = input_files[1:]  # strips the first ';'
+# Library import statements
+import os
+from WBT.whitebox_tools import WhiteboxTools # Module call to WhiteboxTools. For more information see https://jblindsay.github.io/wbt_book/python_scripting/using_whitebox_tools.html)
 
-wbt.mosaic(inputs=input_files, output=&quot;big_DEM.tif&quot;)&lt;/code&gt;&lt;/pre&gt;
+
+def main():
+    #########################
+    # Set up Whitebox tools #
+    #########################
+    wbt = WhiteboxTools()
+    wbt.set_verbose_mode(True) # Sets verbose mode. If verbose mode is False, tools will not print output messages as they run
+    wbt.set_compress_rasters(True) # Compressed TIF file format based on the DEFALTE algorithm
+    
+    ##########################
+    # Set up tool parameters #
+    ##########################
+    input_directory = &quot;C:\\Path\\to\\input\\files\\&quot; # Input directory; change to match user environment
+    output_directory = &quot;C:\\Path\\to\\output\\directory\\&quot; # Output directory; change to match yours
+    
+    if os.path.isdir(output_directory) != True: # Creates output dir if it does not already exist 
+        os.mkdir(output_directory)      
+    
+    ################
+    # Run the tool #
+    ################
+    wbt.set_working_dir(input_directory) # Set the working dir: This should be teh location of the input files #
+    outfile = os.path.join(output_directory,&quot;NAME_OF_FILE.tif&quot;) # Create the output file by joining the output directory path with the name of file
+    # Calls mosaic tool with nearest neighbour as the resampling method (&quot;nn&quot;)
+    if wbt.mosaic(
+        output=outfile, 
+        method = &quot;nn&quot;
+    ) != 0:
+        # Non-zero returns indicate an error.
+        print('ERROR running mosaic')
+    
+    print(&quot;Complete!&quot;)
+
+main()
 </code></pre>
 <p><a name="workflow"></a></p>
-<a class="header" href="#is-there-a-complete-example-lidar-processing-workflow-available" id="is-there-a-complete-example-lidar-processing-workflow-available"><h2>Is there a complete example LiDAR processing workflow available?</h2></a>
-<p>Yes! The following code is an example of some of the common tasks required in processing large LiDAR datasets of many hundreds of LAS files.</p>
+<a class="header" href="#what-is-the-workflow-after-mosaicking-my-dem" id="what-is-the-workflow-after-mosaicking-my-dem"><h2>What is the workflow after mosaicking my DEM?</h2></a>
+<p>The following code is an example of some of the common tasks required in processing large LiDAR datasets.</p>
 <pre><code class="language-python">import os
 from os import path
 from WBT.whitebox_tools import WhiteboxTools
 
 def main():
 
-    las_files_dir = &quot;/Users/johnlindsay/Documents/data/test_lidar/&quot;
-    filtered_las_dir = &quot;/Users/johnlindsay/Documents/data/test_lidar/filtered_LAS/&quot;
-    raster_data_dir = &quot;/Users/johnlindsay/Documents/data/test_lidar/interpolated_grids/&quot;
+    input_directory = &quot;C:\\Path\\to\\input\\files\\&quot; # Input directory; change to match user environment
 
     wbt = WhiteboxTools()
-    wbt.work_dir = las_files_dir #set working directory
+    wbt.set_working_dir(input_directory) # Set working directory
     wbt.verbose = False
     if not os.path.exists(filtered_las_dir):
         os.makedirs(filtered_las_dir)
 
-    # Sometimes, I like to extract all of the LAS tiles that overlap with a
-    # particular area. For example, I might want to interpolate all the files
-    # overlapping with a watershed. For this, you can use select_tiles_by_polygon.
-    # Uncomment the four lines below if you want to do this.
-    # outdir = &quot;/Users/johnlindsay/Documents/data/LAS_files_in_watershed/&quot;
-    # polygons = &quot;/Users/johnlindsay/Documents/data/LAS_files_in_watershed/watershed.shp&quot;
-    # wbt.select_tiles_by_polygon(las_files_dir, outdir, polygons)
-    # las_files_dir = outdir # this way the analysis below works only on the selected tiles.
-
-    ##################################################################################
-    # Filter the ground points in the LAS files using lidar_ground_point_filter tool #
-    ##################################################################################
-
-    # This one is the SLOWEST part of the workflow and can be avoided if you are
-    # confident that you have good point classification data, i.e. that the
-    # vegetation and building classes have been properly populated.
-    processed_files = []
-    num_filtered = 1
-    flag = True
-    while flag:
-        file_names = find_las_files(las_files_dir, processed_files)
-        if len(file_names) &gt; 0: # and len(processed_files) &lt; 3000:
-            for i in range(len(file_names)):
-                in_file = las_files_dir + file_names[i]
-                out_file = filtered_las_dir + file_names[i].replace(&quot;.las&quot;, &quot;_filtered.las&quot;)
-                print(&quot;Processing LAS {} of {} (total filtered={}) {}&quot;.format(i+1, len(file_names), num_filtered, file_names[i]))
-                processed_files.append(file_names[i])
-                wbt.lidar_ground_point_filter(in_file, out_file, radius=2.0, slope_threshold=45, height_threshold=1.0)
-                num_filtered += 1
-        else:
-            flag = False
-
-
-    ##############################
-    # Interpolate the LAS files. #
-    ##############################
-
-    # If you don't use the above ground point filter the directory below must be
-    # updated to point to the original LAS files.
-    wbt.work_dir = filtered_las_dir
-
-    # You can use either IDW, nearest neighbour, or TINing (Delaunay triangulation)
-    # for the gridding step. TINing option is available as of WhiteboxTools v0.11.
-    wbt.lidar_idw_interpolation(parameter=&quot;elevation&quot;, returns=&quot;all&quot;, resolution=2.0, weight=1.0, radius=5.0, exclude_cls='3,4,5,6,7,18')
-    # wbt.lidar_nearest_neighbour_gridding(returns=&quot;last&quot;, resolution=1.5, radius=2.5, exclude_cls='3,4,5,6,7,18')
-    # wbt.lidar_tin_gridding(parameter=&quot;elevation&quot;, returns=&quot;all&quot;, resolution=2.0, exclude_cls='3,4,5,6,7,18')
-
-    ###############################################################
-    # Now mosaic the tiles; this is done using intermediate steps #
-    ###############################################################
-    if not os.path.exists(raster_data_dir):
-        os.makedirs(raster_data_dir)
-
-    wbt.work_dir = filtered_las_dir #set working directory
-    wbt.verbose = False
-    processed_files = []
-    num_mosaiced = 1
-    flag = True
-    round = 1
-    while flag:
-        # This will mosaic a maximum of 250 tiles together; these sub-files
-        # will subsequently be merged. Mosaicing many hundreds of tiles
-        # together at one time is otherwise too intensive.
-        file_names = find_tiff_files(filtered_las_dir, processed_files, 2)
-        if len(file_names) &gt; 1:
-            in_files = &quot;&quot;
-            for i in range(len(file_names)):
-                if i &lt; len(file_names)-1:
-                    in_files += f&quot;{file_names[i]};&quot;
-                else:
-                    in_files += f&quot;{file_names[i]}&quot;
-
-                processed_files.append(file_names[i])
-                num_mosaiced += 1
-
-            out_file = raster_data_dir + f&quot;mosaic{round}.tif&quot;
-            wbt.mosaic(inputs=in_files, output=out_file, method=&quot;nn&quot;)
-            print(f&quot;Processing mosaic {round}; num. files = {num_mosaiced}&quot;)
-
-            # now clean up the individual tiles
-            for i in range(len(file_names)):
-                os.remove(filtered_las_dir + file_names[i])
-
-        else:
-            flag = False
-
-        round += 1
-
-    wbt.work_dir = raster_data_dir #set working directory
-    mosaic_file = raster_data_dir + f&quot;final_mosaic.tif&quot;
-    file_names = find_mosaic_files(raster_data_dir)
-    if len(file_names) &gt; 1:
-        in_files = &quot;&quot;
-        for i in range(len(file_names)):
-            if i &lt; len(file_names)-1:
-                in_files += f&quot;{file_names[i]};&quot;
-            else:
-                in_files += f&quot;{file_names[i]}&quot;
-
-            num_mosaiced += 1
-
-
-        wbt.mosaic(inputs=in_files, output=mosaic_file, method=&quot;nn&quot;)
-
-        # now clean up the intermediate mosaics
-        for i in range(len(file_names)):
-            os.remove(raster_data_dir + file_names[i])
-
-
-
     ##############################################
     # Would you like to fill in the NoData gaps? #
     ##############################################
-    dem_nodata_filled = raster_data_dir + f&quot;DEM_gaps_filled.tif&quot;
-    wbt.fill_missing_data(mosaic_file, dem_nodata_filled, filter=11)
+    dem_nodata_filled = input_directory + &quot;DEM_gaps_filled.tif&quot;
+    wbt.fill_missing_data(
+        mosaic_file, 
+        dem_nodata_filled, 
+        filter=11
+    )
 
 
     ######################################################################
     # I usually remove off-terrain objects, like any remaining buildings #
     ######################################################################
-    dem_no_otos = raster_data_dir + f&quot;DEM_no_OTOs.tif&quot;
-    wbt.remove_off_terrain_objects(dem_nodata_filled, dem_no_otos, filter=11, slope=15.0)
+    dem_no_otos = input_directory + &quot;DEM_no_OTOs.tif&quot;
+    wbt.remove_off_terrain_objects(
+        dem_nodata_filled, 
+        dem_no_otos, 
+        filter=11, 
+        slope=15.0
+    )
 
 
     #####################################
     # Would you like to smooth the DEM? #
     #####################################
-    dem_smoothed = raster_data_dir + f&quot;DEM_smoothed.tif&quot;
-    wbt.feature_preserving_denoise(dem_no_otos, dem_smoothed, filter=11, norm_diff=8.0)
+    dem_smoothed = input_directory + &quot;DEM_smoothed.tif&quot;
+    wbt.feature_preserving_denoise(
+        dem_no_otos, 
+        dem_smoothed, 
+        filter=11, 
+        norm_diff=8.0
+    )
 
 
     ################################
     # Want to fix the depressions? #
     ################################
-    dem_breached = raster_data_dir + f&quot;DEM_breached.tif&quot;
+    dem_breached = input_directory + &quot;DEM_breached.tif&quot;
     # Set the maximum breach depth appropriate for the terrain. You can
-    # also restrict breaching based on a maximum breach channel length.
-    wbt.breach_depressions(dem_smoothed, dem_breached, max_depth=5.0)
-
-    # because we restricted the use of very deep breach channels, there
-    # may still be depressions in the DEM. To get rid of these, we can
-    # perform a subsequent depression filling operation.
-    dem_filled = raster_data_dir + f&quot;DEM_filled.tif&quot;
-    wbt.fill_depressions(dem_breached, dem_filled)
+    # also restrict breaching based on a maximum breach channel length (dist).
+    wbt.breach_depressions_least_cost(
+        dem=dem_smoothed, 
+        output=dem_breached, 
+        dist=100.0, 
+        max_cost=10.0, 
+        min_dist=True, 
+        flat_increment=None, 
+        fill=True
+    )
 
 
     ####################################################################
@@ -679,41 +772,41 @@ def main():
     ####################################################################
 
     # slope
-    slope_file = raster_data_dir + f&quot;slope.tif&quot;
+    slope_file = input_directory + &quot;slope.tif&quot;
     wbt.slope(dem_filled, slope_file)
 
     # plan curvature
-    plan_curv_file = raster_data_dir + f&quot;plan_curv.tif&quot;
+    plan_curv_file = input_directory + &quot;plan_curv.tif&quot;
     wbt.plan_curvature(dem_filled, plan_curv_file)
 
     # profile curvature; other curvatures are available too.
-    profile_curv_file = raster_data_dir + f&quot;profile_curv.tif&quot;
+    profile_curv_file = input_directory + &quot;profile_curv.tif&quot;
     wbt.profile_curvature(dem_filled, profile_curv_file)
 
     # hillshade (shaded relief raster)
-    hillshade_file = raster_data_dir + f&quot;hillshade.tif&quot;
+    hillshade_file = input_directory + &quot;hillshade.tif&quot;
     wbt.hillshade(dem_filled, hillshade_file)
 
     # relative topographic position (RTP) index
-    rtp_file = raster_data_dir + f&quot;relative_topographic_position.tif&quot;
+    rtp_file = input_directory + &quot;relative_topographic_position.tif&quot;
     wbt.relative_topographic_position(dem_filled, rtp_file, filterx=11, filtery=11)
 
     # or even better, multiscale topographic position
-    dev_max_mag = raster_data_dir + f&quot;multiscale_topo_position_mag.tif&quot;
-    dev_max_scale = raster_data_dir + f&quot;multiscale_topo_position_scale.tif&quot;
+    dev_max_mag = input_directory + &quot;multiscale_topo_position_mag.tif&quot;
+    dev_max_scale = input_directory + &quot;multiscale_topo_position_scale.tif&quot;
     wbt.max_elevation_deviation(dem_filled, dev_max_mag, dev_max_scale, min_scale=1, max_scale=100, step=2)
 
     # ruggedness index
-    ruggedness_index_file = raster_data_dir + f&quot;ruggedness_index.tif&quot;
+    ruggedness_index_file = input_directory + &quot;ruggedness_index.tif&quot;
     wbt.ruggedness_index(dem_filled, ruggedness_index_file)
 
     # or even better, multiscale roughness
-    roughness_mag = raster_data_dir + f&quot;multiscale_roughness_mag.tif&quot;
-    roughness_scale = raster_data_dir + f&quot;multiscale_roughness_scale.tif&quot;
+    roughness_mag = input_directory + &quot;multiscale_roughness_mag.tif&quot;
+    roughness_scale = input_directory + &quot;multiscale_roughness_scale.tif&quot;
     wbt.multiscale_roughness(dem_filled, roughness_mag, roughness_scale, min_scale=1, max_scale=100, step=2)
 
     # D-infinity flow accumulation
-    flow_accum_file = raster_data_dir + f&quot;dinf_flow_accum.tif&quot;
+    flow_accum_file = input_directory + &quot;dinf_flow_accum.tif&quot;
     wbt.d_inf_flow_accumulation(dem_filled, flow_accum_file, log=True)
 
     # There literally hundreds of other useful parameters that could be
@@ -722,36 +815,6 @@ def main():
 
     print(&quot;Done!&quot;)
 
-def find_las_files(input_dir, processed_files):
-    files = os.listdir(input_dir)
-    file_names = []
-    for f in files:
-        if f.endswith(&quot;.las&quot;) and f not in processed_files:
-            file_names.append(f)
-
-    return file_names
-
-
-def find_tiff_files(input_dir, processed_files, max_num=10):
-    files = os.listdir(input_dir)
-    file_names = []
-    for f in files:
-        if f.endswith(&quot;.tif&quot;) and f not in processed_files:
-            if len(file_names) &lt; max_num:
-                file_names.append(f)
-            else:
-                break
-
-    return file_names
-
-def find_mosaic_files(input_dir):
-    files = os.listdir(input_dir)
-    file_names = []
-    for f in files:
-        if &quot;mosaic&quot; in f and (f.endswith(&quot;.tif&quot;) or f.endswith(&quot;.dep&quot;)):
-            file_names.append(f)
-
-    return file_names
 
 main()
 </code></pre>
