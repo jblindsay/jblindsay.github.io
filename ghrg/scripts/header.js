@@ -113,6 +113,18 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2020-04-09",
+      headline: "WhiteboxTools v1.4.0 released",
+      fullStory: "I am pleased to announce the release of <a href=\"https://jblindsay.github.io/ghrg/WhiteboxTools/index.html\">WhiteboxTools v1.4.0</a>. \
+      This release sees the addition of several tools, bug fixes, and enhancements to the documentation. Of the new tools, I am most excited about the \
+      addition of the <a href=\"https://jblindsay.github.io/wbt_book/available_tools/geomorphometric_analysis.html#TimeInDaylight\">TimeInDaylighttool</a> tool, \
+      which estimates the proportion of daytime that each cell in a digital surface model (DSM) is in an exposed location. The new \
+      <a href=\"https://jblindsay.github.io/wbt_book/available_tools/lidar_tools.html#LidarDigitalSurfaceModel\">LidarDigitalSurfaceModel</a> tool \
+      can be used to create DSMs for input to the TimeInDaylight tool. Pre-compiled binaries are available for Windows (win), MacOS (Darwin), and \
+      Linux on Github and from the <a href=\"https://jblindsay.github.io/ghrg/WhiteboxTools/download.html\">WhiteboxTools download page. Please \
+      report any bugs that you encounter by creating an issue on the WhiteboxTools Github site."
+    },
+    {
       date: "2020-06-07",
       headline: "WhiteboxTools v1.3.0 is Released",
       fullStory: "<li>Tools will now output DEFLATE compressed GeoTIFFs when the --compress_rasters parameter is used.</li> \
