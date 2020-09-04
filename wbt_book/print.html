@@ -143,12 +143,12 @@
                         <!-- <center>![](img/WhiteboxToolsLogoBlue.png)</center> -->
 <center><img src="img/WhiteboxToolsLogoBlue.png" alt="drawing" height="120"/></center>
 <!-- ![](img/WhiteboxToolsLogo_vert.svg) -->
-<p>WhiteboxTools Version 1.3.1  <br />
+<p>WhiteboxTools Version 1.4.0  <br />
 Dr. John B. Lindsay © 2017-2020  <br />
 <a href="https://jblindsay.github.io/ghrg/index.html">Geomorphometry and Hydrogeomatics Research Group</a>  <br />
 University of Guelph  <br />
 Guelph, Canada <br />
-July 23, 2020
+September 4, 2020
 <br />
 <br />
 <br />
@@ -1451,7 +1451,7 @@ coverages.</p>
 <p><a name="VectorLinesToRaster"></a></p>
 <a class="header" href="#vectorlinestoraster" id="vectorlinestoraster"><h1>VectorLinesToRaster</h1></a>
 <p>This tool can be used to convert a vector lines or polygon file into a raster grid of lines. If a vector of one
-of the polygon shapetypes is selected, the resulting raster will outline the polygons without filling these
+of the polygon ShapeTypes is selected, the resulting raster will outline the polygons without filling these
 features. Use the <code>VectorPolygonToRaster</code> tool if you need to fill the polygon features.</p>
 <p>The user must specify the name of the input vector (<code>--input</code>) and the output raster file (<code>--output</code>). The Field
 Name (<code>--field</code>) is
@@ -1618,6 +1618,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#HorizonAngle">HorizonAngle</a></li>
 <li><a href="#HypsometricAnalysis">HypsometricAnalysis</a></li>
 <li><a href="#HypsometricallyTintedHillshade">HypsometricallyTintedHillshade</a></li>
+<li><a href="#MapOffTerrainObjects">MapOffTerrainObjects</a></li>
 <li><a href="#MaxAnisotropyDev">MaxAnisotropyDev</a></li>
 <li><a href="#MaxAnisotropyDevSignature">MaxAnisotropyDevSignature</a></li>
 <li><a href="#MaxBranchLength">MaxBranchLength</a></li>
@@ -1652,6 +1653,7 @@ assigned (<code>--assign</code>) the first, last (default), min, max, or sum of 
 <li><a href="#StreamPowerIndex">StreamPowerIndex</a></li>
 <li><a href="#SurfaceAreaRatio">SurfaceAreaRatio</a></li>
 <li><a href="#TangentialCurvature">TangentialCurvature</a></li>
+<li><a href="#TimeInDaylight">TimeInDaylight</a></li>
 <li><a href="#TotalCurvature">TotalCurvature</a></li>
 <li><a href="#Viewshed">Viewshed</a></li>
 <li><a href="#VisibilityIndex">VisibilityIndex</a></li>
@@ -1667,7 +1669,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The tool uses Horn's (1981) 3rd-order finite difference method to estimate slope. Given
@@ -1702,7 +1704,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.aspect(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -1713,7 +1715,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="AverageNormalVectorAngularDeviation"></a></p>
 <a class="header" href="#averagenormalvectorangulardeviation" id="averagenormalvectorangulardeviation"><h1>AverageNormalVectorAngularDeviation</h1></a>
 <p>This tool characterizes the spatial distribution of the average normal vector angular deviation, a measure of
@@ -1755,7 +1757,7 @@ Interaction (pp. 116-121). Springer, Cham.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/average_normal_vector_angular_deviation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
-<p><em>Last Modified</em>: 02/04/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="CircularVarianceOfAspect"></a></p>
 <a class="header" href="#circularvarianceofaspect" id="circularvarianceofaspect"><h1>CircularVarianceOfAspect</h1></a>
 <p>This tool can be used to calculate the circular variance (i.e. one minus the mean resultant length) of aspect
@@ -1804,7 +1806,7 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/circular_variance_of_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
-<p><em>Last Modified</em>: 02/04/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="ContoursFromPoints"></a></p>
 <a class="header" href="#contoursfrompoints" id="contoursfrompoints"><h1>ContoursFromPoints</h1></a>
 <p>This tool creates a contour coverage from a set of input points (<code>--input</code>). The user must specify the contour
@@ -2023,7 +2025,7 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/directional_relief.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="DownslopeIndex"></a></p>
 <a class="header" href="#downslopeindex" id="downslopeindex"><h1>DownslopeIndex</h1></a>
 <p>This tool can be used to calculate the downslope index described by Hjerdt et al. (2004).
@@ -2104,7 +2106,7 @@ texture of any of the available roughness tools.</p>
     output, 
     filter=11, 
     norm_diff=5.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2116,7 +2118,7 @@ texture of any of the available roughness tools.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/edge_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/01/2019</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="ElevAbovePit"></a></p>
 <a class="header" href="#elevabovepit" id="elevabovepit"><h1>ElevAbovePit</h1></a>
 <p>This tool will calculate the elevation of each grid cell in a digital elevation model (DEM) above the nearest
@@ -2325,7 +2327,7 @@ mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</
     norm_diff=15.0, 
     num_iter=3, 
     max_diff=0.5, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2337,7 +2339,7 @@ mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_smoothing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/11/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="FetchAnalysis"></a></p>
 <a class="header" href="#fetchanalysis" id="fetchanalysis"><h1>FetchAnalysis</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the distance, in meters, to the nearest
@@ -2391,7 +2393,7 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fetch_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="FillMissingData"></a></p>
 <a class="header" href="#fillmissingdata" id="fillmissingdata"><h1>FillMissingData</h1></a>
 <p>This tool can be used to fill in small gaps in a raster or digital elevation model (DEM). The gaps,
@@ -2476,7 +2478,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The hillshade value (<em>HS</em>) of a DEM grid cell is calculate as:</p>
@@ -2505,7 +2507,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
     output, 
     azimuth=315.0, 
     altitude=30.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2516,7 +2518,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="HorizonAngle"></a></p>
 <a class="header" href="#horizonangle" id="horizonangle"><h1>HorizonAngle</h1></a>
 <p>This tool calculates the horizon angle (<em>Sx</em>), i.e. the maximum slope along a specified azimuth (0-360 degrees) for
@@ -2539,19 +2541,24 @@ northerly wind, you could perform the following calculation:</p>
 </blockquote>
 <p>Ray-tracing is a highly computationally intensive task and therefore this tool may take considerable time to operate for
 larger sized DEMs. Maximum upwind slope is best displayed using a Grey scale palette that is inverted.</p>
+<p>Horizon angle is best visualized using a white-to-black palette and rescaled from approximately -10 to 70 (see below for
+an example of horizon angle calculated at a 150-degree azimuth).</p>
+<p><img src="../img/HorizonAngle.png" alt="" /></p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#timeindaylight"><strong>TimeInDaylight</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--azimuth          </td><td> Wind azimuth in degrees</td></tr>
-<tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units)</td></tr>
+<tr><td>--azimuth          </td><td> Azimuth, in degrees</td></tr>
+<tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units). Minimum value is 5 x cell size</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.horizon_angle(
     dem, 
     output, 
     azimuth=0.0, 
-    max_dist=None, 
+    max_dist=100.0, 
     callback=default_callback
 )
 </code></pre>
@@ -2562,7 +2569,7 @@ larger sized DEMs. Maximum upwind slope is best displayed using a Grey scale pal
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/horizon_angle.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="HypsometricAnalysis"></a></p>
 <a class="header" href="#hypsometricanalysis" id="hypsometricanalysis"><h1>HypsometricAnalysis</h1></a>
 <p>This tool can be used to derive the hypsometric curve, or area-altitude curve, of one or more
@@ -2616,7 +2623,7 @@ units are not the same in the DEM. When this is the case, the algorithm will mul
 Z conversion factor. If the DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p><img src="../img/hypsometricallyTintedHillshade_fig1.png" alt="" /></p>
@@ -2630,7 +2637,7 @@ is used:</p>
 <tr><td>--hs_weight        </td><td> Weight given to hillshade relative to relief (0.0-1.0)</td></tr>
 <tr><td>--brightness       </td><td> Brightness factor (0.0-1.0)</td></tr>
 <tr><td>--atmospheric      </td><td> Atmospheric effects weight (0.0-1.0)</td></tr>
-<tr><td>--palette          </td><td> Options include 'atlas', 'high_relief', 'arid', 'soft', 'muted', 'purple', 'viridi', 'gn_yl', 'pi_y_g', 'bl_yl_rd', and 'deep</td></tr>
+<tr><td>--palette          </td><td> Options include 'atlas', 'high_relief', 'arid', 'soft', 'muted', 'purple', 'viridi', 'gn_yl', 'pi_y_g', 'bl_yl_rd', and 'deep'</td></tr>
 <tr><td>--reverse          </td><td> Optional flag indicating whether to use reverse the palette</td></tr>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 <tr><td>--full_mode        </td><td> Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
@@ -2645,7 +2652,7 @@ is used:</p>
     atmospheric=0.0, 
     palette=&quot;atlas&quot;, 
     reverse=False, 
-    zfactor=1.0, 
+    zfactor=None, 
     full_mode=False, 
     callback=default_callback
 )
@@ -2659,7 +2666,44 @@ is used:</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hypsometrically_tinted_hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/07/2020</p>
-<p><em>Last Modified</em>: 19/07/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
+<p><a name="MapOffTerrainObjects"></a></p>
+<a class="header" href="#mapoffterrainobjects" id="mapoffterrainobjects"><h1>MapOffTerrainObjects</h1></a>
+<p>This tool can be used to map off-terrain objects in a digital surface model (DSM) based on cell-to-cell differences
+in elevations and local slopes. The algorithm works by using a region-growing operation to connect neighbouring grid
+cells outwards from seed cells. Two neighbouring cells are considered connected if the slope between the two cells
+is less than the user-specified maximum slope value (<code>--max_slope</code>). Mapped segments that are less than the minimum
+feature size (<code>--min_size</code>), in grid cells, are assigned a common background value. Note that this method of mapping
+off-terrain objects, and thereby separating ground cells from non-ground objects in DSMs, works best with fine-resolution
+DSMs that have been interpolated using a non-smoothing method, such as triangulation (TINing) or nearest-neighbour
+interpolation.</p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--max_slope        </td><td> Maximum inter-cell absolute slope</td></tr>
+<tr><td>--min_size         </td><td> Minimum feature size, in grid cells</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.map_off_terrain_objects(
+    dem, 
+    output, 
+    max_slope=40.0, 
+    min_size=1, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MapOffTerrainObjects -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--max_diff=1.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/map_otos.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 27/07/2020</p>
+<p><em>Last Modified</em>: 27/07/2020</p>
 <p><a name="MaxAnisotropyDev"></a></p>
 <a class="header" href="#maxanisotropydev" id="maxanisotropydev"><h1>MaxAnisotropyDev</h1></a>
 <p>Calculates the maximum anisotropy (directionality) in elevation deviation over a range of spatial scales.</p>
@@ -2971,7 +3015,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians. The Z conversion factor can also be used
 used to apply a vertical exageration to further emphasize landforms within the hillshade output.</p>
@@ -3008,7 +3052,7 @@ full 360-degree mode, eight illumination source azimuths are used to calculate t
     dem, 
     output, 
     altitude=45.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     full_mode=False, 
     callback=default_callback
 )
@@ -3021,7 +3065,7 @@ full 360-degree mode, eight illumination source azimuths are used to calculate t
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multidirectional_hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/07/2020</p>
-<p><em>Last Modified</em>: 19/07/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleElevationPercentile"></a></p>
 <a class="header" href="#multiscaleelevationpercentile" id="multiscaleelevationpercentile"><h1>MultiscaleElevationPercentile</h1></a>
 <p>This tool calculates the most elevation percentile (EP) across a range of spatial scales.
@@ -3135,7 +3179,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/02/2018</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleRoughnessSignature"></a></p>
 <a class="header" href="#multiscaleroughnesssignature" id="multiscaleroughnesssignature"><h1>MultiscaleRoughnessSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -3168,7 +3212,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/02/2018</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleStdDevNormals"></a></p>
 <a class="header" href="#multiscalestddevnormals" id="multiscalestddevnormals"><h1>MultiscaleStdDevNormals</h1></a>
 <p>This tool can be used to map the spatial pattern of maximum spherical standard deviation
@@ -3232,7 +3276,7 @@ and a step size (<code>--step</code>) of <em>step</em>.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_std_dev_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/06/2019</p>
-<p><em>Last Modified</em>: 13/06/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleStdDevNormalsSignature"></a></p>
 <a class="header" href="#multiscalestddevnormalssignature" id="multiscalestddevnormalssignature"><h1>MultiscaleStdDevNormalsSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -3267,7 +3311,7 @@ and a step size (<code>--step</code>) of <em>step</em>.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_std_dev_normals_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/06/2019</p>
-<p><em>Last Modified</em>: 20/06/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleTopographicPositionImage"></a></p>
 <a class="header" href="#multiscaletopographicpositionimage" id="multiscaletopographicpositionimage"><h1>MultiscaleTopographicPositionImage</h1></a>
 <p>This tool creates a multiscale topographic position (MTP) image (<a href="https://www.uoguelph.ca/%7Ehydrogeo/pubs/UpdatedPosterMapSm.png">see here for an
@@ -3435,7 +3479,7 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
     slope=3.0, 
     prof=0.1, 
     plan=0.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -3447,7 +3491,7 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/pennock_landform_class.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="PercentElevRange"></a></p>
 <a class="header" href="#percentelevrange" id="percentelevrange"><h1>PercentElevRange</h1></a>
 <p>Percent elevation range (PER) is a measure of local topographic position (LTP). It expresses the vertical
@@ -3504,7 +3548,7 @@ are not the same in the DEM. When this is the case, the algorithm will multiply 
 elevation in the DEM by the Z Conversion Factor. If the DEM is in the geographic coordinate
 system (latitude and longitude), the following equation is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The algorithm uses the same formula for the calculation of plan curvature as Gallant and
@@ -3525,7 +3569,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.plan_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -3536,7 +3580,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/plan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="Profile"></a></p>
 <a class="header" href="#profile" id="profile"><h1>Profile</h1></a>
 <p>This tool can be used to plot the data profile, along a set of one or more vector lines (<code>--lines</code>), in
@@ -3584,7 +3628,7 @@ are not the same in the DEM. When this is the case, the algorithm will multiply 
 elevation in the DEM by the Z Conversion Factor. If the DEM is in the geographic coordinate
 system (latitude and longitude), the following equation is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The algorithm uses the same formula for the calculation of plan curvature as Gallant and
@@ -3605,7 +3649,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.profile_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -3616,7 +3660,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/prof_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/062017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="RelativeAspect"></a></p>
 <a class="header" href="#relativeaspect" id="relativeaspect"><h1>RelativeAspect</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the terrain aspect relative to a user-specified
@@ -3645,7 +3689,7 @@ Science, 33, 195-226.</p>
     dem, 
     output, 
     azimuth=0.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -3656,7 +3700,7 @@ Science, 33, 195-226.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 17/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="RelativeTopographicPosition"></a></p>
 <a class="header" href="#relativetopographicposition" id="relativetopographicposition"><h1>RelativeTopographicPosition</h1></a>
 <p>Relative topographic position (RTP) is an index of local topographic position (i.e. how
@@ -3725,7 +3769,7 @@ tool to remove or classify OTOs within a LiDAR point-cloud.</p>
 <p>J.B. Lindsay (2018) A new method for the removal of off-terrain objects from LiDAR-derived raster surface
 models. Available online, DOI: <a href="https://www.researchgate.net/publication/323003064_A_new_method_for_the_removal_of_off-terrain_objects_from_LiDAR-derived_raster_surface_models">10.13140/RG.2.2.21226.62401</a></p>
 <p><em>See Also</em>:
-<a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
+<a href="./geomorphometric_analysis.html#mapoffterrainobjects"><strong>MapOffTerrainObjects</strong></a>, <a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -3750,7 +3794,7 @@ models. Available online, DOI: <a href="https://www.researchgate.net/publication
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/remove_off_terrain_objects.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 07/08/2020</p>
 <p><a name="RuggednessIndex"></a></p>
 <a class="header" href="#ruggednessindex" id="ruggednessindex"><h1>RuggednessIndex</h1></a>
 <p>The terrain ruggedness index (TRI) is a measure of local topographic relief. The TRI calculates
@@ -3777,7 +3821,7 @@ terrain provided in Riley et al. (1999)</p>
 <pre><code class="language-python">wbt.ruggedness_index(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -3788,7 +3832,7 @@ terrain provided in Riley et al. (1999)</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/ruggedness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SedimentTransportIndex"></a></p>
 <a class="header" href="#sedimenttransportindex" id="sedimenttransportindex"><h1>SedimentTransportIndex</h1></a>
 <p>This tool calculates the sediment transport index, or sometimes, length-slope (<em>LS</em>)
@@ -3858,7 +3902,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The tool uses Horn's (1981) 3rd-order finite difference method to estimate slope. Given
@@ -3894,7 +3938,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.slope(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     units=&quot;degrees&quot;, 
     callback=default_callback
 )
@@ -3906,7 +3950,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 21/02/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
 <p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
@@ -3944,7 +3988,7 @@ watersheds, designated by unique identifiers.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope_vs_elev_plot.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/02/2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SphericalStdDevOfNormals"></a></p>
 <a class="header" href="#sphericalstddevofnormals" id="sphericalstddevofnormals"><h1>SphericalStdDevOfNormals</h1></a>
 <p>This tool can be used to calculate the spherical standard deviation of the distribution of surface normals
@@ -4002,7 +4046,7 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/05/2019</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StandardDeviationOfSlope"></a></p>
 <a class="header" href="#standarddeviationofslope" id="standarddeviationofslope"><h1>StandardDeviationOfSlope</h1></a>
 <p>Calculates the standard deviation of slope from an input DEM, a metric of
@@ -4019,7 +4063,7 @@ roughness described by Grohmann et al., (2011).</p>
 <pre><code class="language-python">wbt.standard_deviation_of_slope(
     i, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     filterx=11, 
     filtery=11, 
     callback=default_callback
@@ -4032,7 +4076,7 @@ roughness described by Grohmann et al., (2011).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/standard_deviation_of_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Anthony Francioni</p>
 <p><em>Created</em>: 26/05/2018</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StreamPowerIndex"></a></p>
 <a class="header" href="#streampowerindex" id="streampowerindex"><h1>StreamPowerIndex</h1></a>
 <p>This tool can be used to calculate the relative stream power (<em>RSP</em>) index. This index is directly related
@@ -4137,7 +4181,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.tangential_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -4148,7 +4192,79 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/tan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
+<p><a name="TimeInDaylight"></a></p>
+<a class="header" href="#timeindaylight" id="timeindaylight"><h1>TimeInDaylight</h1></a>
+<p>This tool calculates the proportion of time a location is within daylight. That is, it calculates the
+proportion of time, during a user-defined time frame, that a grid cell in an input digital elevation
+model (<code>--dem</code>) is outside of an area of shadow cast by a local object. The input DEM should truly be
+a digital surface model (DSM) that contains significant off-terrain objects. Such a model, for example,
+could be created using the first-return points of a LiDAR data set, or using the <a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a>
+tool.</p>
+<p>The tool operates by calculating a solar almanac, which estimates the sun's position for the location, in
+latitude and longitude coordinate (<code>--lat</code>, <code>--long</code>), of the input DSM. The algorithm then calculates
+horizon angle (see <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>) rasters from the DSM based on the user-specified azimuth fraction (<code>--az_fraction</code>).
+For example, if an azimuth fraction of 15-degrees is specified, horizon angle rasters could be calculated for
+the solar azimuths 0, 15, 30, 45... In reality, horizon angle rasters are only calculated for azimuths for which
+the sun is above the horizon for some time during the tested time period. A horizon angle raster evaluates
+the vertical angle between each grid cell in a DSM and a distant obstacle (e.g. a mountain ridge, building, tree, etc.) that
+blocks the view along a specified direction. In calculating horizon angle, the user must specify the maximum search
+distance (<code>--max_dist</code>) beyond which the query for higher, more distant objects will cease. This parameter strongly
+impacts the performance of the tool, with larger values resulting in significantly longer run-times. Users are advised
+to set the <code>--max_dist</code> based on the maximum shadow length expected in an area. For example, in a relatively flat
+urban landscape, the tallest building will likely determine the longest shadow lengths. All grid cells for which the
+calculated solar positions throughout the time frame are higher than the cell's horizon angle are deemed to be
+illuminated during the time the sun is in the corresponding azimuth fraction.</p>
+<p>By default, the tool calculates time-in-daylight for a time-frame spanning an entire year. That is, the solar almanac
+is calculated for each hour, at 10-second intervals, and for each day of the year. Users may alternatively restrict the
+time of year over which time-in-daylight is calculated by specifying a starting day (1-365; <code>--start_day</code>) and ending day
+(1-365; <code>--end_day</code>). Similarly, by specifying start time (<code>--start_time</code>) and end time (<code>--end_time</code>) parameters,
+the user is able to measure time-in-daylight for specific ranges of the day (e.g. for the morning or afternoon hours).
+These time parameters must be specified in 24-hour time (HH:MM:SS), e.g. 15:30:00. <code>sunrise</code> and <code>sunset</code> are also
+acceptable inputs for the start time and end time respectively. The timing of sunrise and sunset on each day in the
+tested time-frame will be determined using the solar almanac.</p>
+<p><img src="../img/TimeInDaylight.png" alt="" /></p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a>, <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--az_fraction      </td><td> Azimuth fraction in degrees</td></tr>
+<tr><td>--max_dist         </td><td> Optional maximum search distance. Minimum value is 5 x cell size</td></tr>
+<tr><td>--lat              </td><td> Centre point latitude</td></tr>
+<tr><td>--long             </td><td> Centre point longitude</td></tr>
+<tr><td>--utc_offset       </td><td> UTC time offset, in hours (e.g. -04:00, +06:00)</td></tr>
+<tr><td>--start_day        </td><td> Start day of the year (1-365)</td></tr>
+<tr><td>--end_day          </td><td> End day of the year (1-365)</td></tr>
+<tr><td>--start_time       </td><td> Starting hour to track shadows (e.g. 5, 5:00, 05:00:00). Assumes 24-hour time: HH:MM:SS. 'sunrise' is also a valid time</td></tr>
+<tr><td>--end_time         </td><td> Starting hour to track shadows (e.g. 21, 21:00, 21:00:00). Assumes 24-hour time: HH:MM:SS. 'sunset' is also a valid time</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.time_in_daylight(
+    dem, 
+    output, 
+    lat, 
+    long, 
+    az_fraction=10.0, 
+    max_dist=100.0, 
+    utc_offset=&quot;00:00&quot;, 
+    start_day=1, 
+    end_day=365, 
+    start_time=&quot;00:00:00&quot;, 
+    end_time=&quot;23:59:59&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TimeInDaylight -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif --az_fraction=15.0 ^
+--max_dist=100.0 --lat=43.545 --long= -80.248 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/time_in_daylight.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 29/07/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="TotalCurvature"></a></p>
 <a class="header" href="#totalcurvature" id="totalcurvature"><h1>TotalCurvature</h1></a>
 <p>This tool calculates the total curvature, which measures the curvature of the topographic surface rather
@@ -4177,7 +4293,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.total_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -4188,7 +4304,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/total_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="Viewshed"></a></p>
 <a class="header" href="#viewshed" id="viewshed"><h1>Viewshed</h1></a>
 <p>This tool can be used to calculate the viewshed (i.e. the visible area) from a
@@ -4343,6 +4459,7 @@ raster is of the float data type and continuous data scale.</p>
 <li><a href="#ExtendVectorLines">ExtendVectorLines</a></li>
 <li><a href="#ExtractNodes">ExtractNodes</a></li>
 <li><a href="#ExtractRasterValuesAtPoints">ExtractRasterValuesAtPoints</a></li>
+<li><a href="#FilterRasterFeaturesByArea">FilterRasterFeaturesByArea</a></li>
 <li><a href="#FindLowestOrHighestPoints">FindLowestOrHighestPoints</a></li>
 <li><a href="#IdwInterpolation">IdwInterpolation</a></li>
 <li><a href="#LayerFootprint">LayerFootprint</a></li>
@@ -4531,7 +4648,7 @@ multi-part features a single entity.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/centroid_vector.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 24/07/2020</p>
 <p><a name="Clump"></a></p>
 <a class="header" href="#clump" id="clump"><h1>Clump</h1></a>
 <p>This tool re-categorizes data in a raster image by grouping cells that form
@@ -4879,6 +4996,39 @@ more suitable for this application.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 17/06/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="FilterRasterFeaturesByArea"></a></p>
+<a class="header" href="#filterrasterfeaturesbyarea" id="filterrasterfeaturesbyarea"><h1>FilterRasterFeaturesByArea</h1></a>
+<p>This tool takes an input raster (<code>--input</code>) containing integer-labelled features, such as the output of the <a href="./gis_analysis.html#clump"><strong>Clump</strong></a> tool,
+and removes all features that are smaller than a user-specified size (<code>--threshold</code>), measured in grid cells. The
+user must specify the replacement value for removed features using the <code>--background</code> parameter, which can be either
+<code>zero</code> or <code>nodata</code>.</p>
+<p><em>See Also</em>:
+<a href="./gis_analysis.html#clump"><strong>Clump</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--threshold        </td><td> Remove features with fewer grid cells than this threshold value</td></tr>
+<tr><td>--background       </td><td> Background value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.filter_raster_features_by_area(
+    i, 
+    output, 
+    threshold, 
+    background=&quot;zero&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FilterRasterFeaturesByArea -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif ^
+--background=zero 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/filter_raster_features_by_area.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/06/2017</p>
+<p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="FindLowestOrHighestPoints"></a></p>
 <a class="header" href="#findlowestorhighestpoints" id="findlowestorhighestpoints"><h1>FindLowestOrHighestPoints</h1></a>
 <p>This tool locates the lowest and/or highest cells in a raster and outputs these locations to a vector
@@ -5032,7 +5182,7 @@ y-coordinate (Med Y) are calculated.</li>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/medoid.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 24/07/2020</p>
 <p><a name="MinimumBoundingBox"></a></p>
 <a class="header" href="#minimumboundingbox" id="minimumboundingbox"><h1>MinimumBoundingBox</h1></a>
 <p>This tool delineates the minimum bounding box (MBB) for a group of vectors. The MBB is the smallest box to
@@ -6163,6 +6313,8 @@ cells that fall outside of a polygons in the clip file will be assigned the NoDa
 file. By default, the output raster will be cropped to the spatial extent of the clip file, unless the
 <code>--maintain_dimensions</code> parameter is used, in which case the output grid extent will match that of the input raster.
 The grid resolution of output raster is the same as the input raster.</p>
+<p>It is very important that the input raster and the input vector polygon file share the same projection. The result
+is unlikely to be satisfactory otherwise.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#erasepolygonfromraster"><strong>ErasePolygonFromRaster</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -7954,7 +8106,8 @@ elevation during a second stream traversal.</p>
 D8 (O'Callaghan and Mark, 1984) algorithm. This algorithm is an example of single-flow-direction
 (SFD) method because the flow entering each grid cell is routed to only one downslope neighbour,
 i.e. flow divergence is not permitted. The user must specify the name of the input digital
-elevation model (DEM) or D8 flow pointer (<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>) raster (<code>--input</code>). If an input DEM is used, it must have
+elevation model (DEM) or flow pointer raster (<code>--input</code>) derived using the D8 or Rho8 method
+(<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#rho8pointer"><strong>Rho8Pointer</strong></a>). If an input DEM is used, it must have
 been hydrologically corrected to remove all spurious depressions and flat areas. DEM pre-processing
 is usually achieved using the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools. If a D8 pointer
 raster is input, the user must also specify the optional <code>--pntr</code> flag. If the D8 pointer follows
@@ -7975,7 +8128,7 @@ indices, such as the wetness index, or relative stream power index.</p>
 <p>Grid cells possessing the <strong>NoData</strong> value in the input DEM/pointer raster are assigned the <strong>NoData</strong>
 value in the output flow-accumulation image.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<a href="./hydrological_analysis.html#rho8pointer"><strong>Rho8Pointer</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster DEM or D8 pointer file</td></tr>
@@ -9116,6 +9269,10 @@ and the isobasin target area (<code>--size</code>) specified in units of grid ce
 corrected to remove all spurious depressions and flat areas. DEM pre-processing is usually achived using either
 the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. Several temporary rasters are created during the execution
 and stored in memory of this tool.</p>
+<p>The tool can optionally (<code>--connections</code>) output a CSV table that contains the upstream/downstream connections
+among isobasins. That is, this table will identify the downstream basin of each isobasin, or will list N/A in
+the event that there is no downstream basin, i.e. if it drains to an edge. The output CSV file will have the
+same name as the output raster, but with a *.csv file extension.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -9123,12 +9280,14 @@ and stored in memory of this tool.</p>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--size             </td><td> Target basin size, in grid cells</td></tr>
+<tr><td>--connections      </td><td> Output upstream-downstream flow connections among basins?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.isobasins(
     dem, 
     output, 
     size, 
+    connections=False, 
     callback=default_callback
 )
 </code></pre>
@@ -9139,7 +9298,7 @@ and stored in memory of this tool.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/12/2017</p>
-<p><em>Last Modified</em>: 13/02/2020</p>
+<p><em>Last Modified</em>: 24/07/2020</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
 <p>The <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
@@ -10357,7 +10516,7 @@ assigned the NoData value.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mosaic.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/01/2018</p>
-<p><em>Last Modified</em>: 02/01/2018</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MosaicWithFeathering"></a></p>
 <a class="header" href="#mosaicwithfeathering" id="mosaicwithfeathering"><h1>MosaicWithFeathering</h1></a>
 <p>This tool will create a mosaic from two input images. It is similar in operation to the <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> tool,
@@ -10543,27 +10702,37 @@ the output raster must be read and written to during the same loop.</p>
 <p><em>Last Modified</em>: 16/02/2019</p>
 <p><a name="Resample"></a></p>
 <a class="header" href="#resample" id="resample"><h1>Resample</h1></a>
-<p>Resample is very similar in operation to the Mosaic tool. The Resample tool should
-be used when there is an existing image into which you would like to dump information
-from one or more source images. If the source images are more extensive than the
-destination image, i.e. there are areas that extend beyond the destination image
-boundaries, these areas will not be represented in the updated image. Grid cells in the
-destination image that are not overlapping with any of the input source images will not
-be updated, i.e. they will possess the same value as before the resampling operation. The
-Mosaic tool is used when there is no existing destination image. In this case, a new
-image is created that represents the bounding rectangle of each of the two or more input
-images. Grid cells in the output image that do not overlap with any of the input images
-will be assigned the NoData value.</p>
+<p>This tool can be used to modify the grid resolution of one or more rasters. The user
+specifies the names of one or more input rasters (<code>--inputs</code>) and the output raster
+(<code>--output</code>). The resolution of the output raster is determined either using a
+specified <code>--cell_size</code> parameter, in which case the output extent is determined by the
+combined extent of the inputs, or by an optional base raster (<code>--base</code>), in which case
+the output raster spatial extent matches that of the base file. This operation is similar
+to the <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> tool, except that <a href="./image_processing_tools.html#resample"><strong>Resample</strong></a> modifies the output resolution. The <a href="./image_processing_tools.html#resample"><strong>Resample</strong></a>
+tool may also be used with a single input raster (when the user wants to modify its
+spatial resolution, whereas, <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> always includes multiple inputs.</p>
+<p>If the input source images are more extensive than the base image (if optionally specified),
+these areas will not be represented in the output image. Grid cells in the
+output image that are not overlapping with any of the input source images will not be
+assigned the NoData value, which will be the same as the first input image. Grid cells in
+the output image that overlap with multiple input raster cells will be assigned the last
+input value in the stack. Thus, the order of input images is important.</p>
+<p><em>See Also</em>:
+<a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--destination      </td><td> Destination raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 <tr><td>--method           </td><td> Resampling method; options include 'nn' (nearest neighbour), 'bilinear', and 'cc' (cubic convolution)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.resample(
     inputs, 
-    destination, 
+    output, 
+    cell_size=None, 
+    base=None, 
     method=&quot;cc&quot;, 
     callback=default_callback
 )
@@ -10576,7 +10745,7 @@ will be assigned the NoData value.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/resample.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/01/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 25/08/2020</p>
 <p><a name="RgbToIhs"></a></p>
 <a class="header" href="#rgbtoihs" id="rgbtoihs"><h1>RgbToIhs</h1></a>
 <p>This tool transforms three raster images of multispectral data (red, green, and blue channels) into their equivalent
@@ -12879,6 +13048,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <li><a href="#LidarBlockMinimum">LidarBlockMinimum</a></li>
 <li><a href="#LidarClassifySubset">LidarClassifySubset</a></li>
 <li><a href="#LidarColourize">LidarColourize</a></li>
+<li><a href="#LidarDigitalSurfaceModel">LidarDigitalSurfaceModel</a></li>
 <li><a href="#LidarElevationSlice">LidarElevationSlice</a></li>
 <li><a href="#LidarGroundPointFilter">LidarGroundPointFilter</a></li>
 <li><a href="#LidarHexBinning">LidarHexBinning</a></li>
@@ -13541,6 +13711,85 @@ to determine the spatial extent of the LAS file.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 18/02/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="LidarDigitalSurfaceModel"></a></p>
+<a class="header" href="#lidardigitalsurfacemodel" id="lidardigitalsurfacemodel"><h1>LidarDigitalSurfaceModel</h1></a>
+<p>This tool creates a digital surface model (DSM) from a LiDAR point cloud. A DSM reflects the elevation of the tops
+of all off-terrain objects (i.e. non-ground features) contained within the data set. For example, a DSM will model
+the canopy top as well as building roofs. This is in stark contrast to a bare-earth digital elevation model (DEM),
+which models the ground surface without off-terrain objects present. Bare-earth DEMs can be derived from LiDAR data
+by interpolating last-return points using one of the other LiDAR interpolators (e.g. <a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>). The algorithm
+used for interpolation in this tool is based on gridding a triangulation (TIN) fit to top-level points in the
+input LiDAR point cloud. All points in the input LiDAR data set that are below other neighbouring points, within
+a specified search radius (<code>--radius</code>), and that have a large inter-point slope, are filtered out. Thus, this tool
+will remove the ground surface beneath as well as any intermediate points within a forest canopy, leaving only the
+canopy top surface to be interpolated. Similarly, building wall points and any ground points beneath roof overhangs
+will also be remove prior to interpolation. Note that because the ground points beneath overhead wires and utility
+lines are filtered out by this operation, these features tend to be appear as 'walls' in the output DSM. If these
+points are classified in the input LiDAR file, you may wish to filter them out before using this tool (<a href="./lidar_tools.html#filterlidarclasses"><strong>FilterLidarClasses</strong></a>).</p>
+<p>The following images show the differences between creating a DSM using the <a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a>
+and by interpolating first-return points only using the <a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a> tool respectively. Note, the images show
+<a href="./geomorphometric_analysis.html#timeindaylight"><strong>TimeInDaylight</strong></a>, which is a more effective way of hillshading DSMs than the traditional <a href="./geomorphometric_analysis.html#hillshade"><strong>Hillshade</strong></a> method. Compare
+how the DSM created <a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a> tool (above) has far less variability in areas of tree-cover, more
+effectively capturing the canopy top. As well, notice how building rooftops are more extensive and straighter in
+the <a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a> DSM image. This is because this method eliminates ground returns beneath roof overhangs
+before the triangulation operation.</p>
+<p><img src="../img/DSM.png" alt="" /></p>
+<p><img src="../img/FirstReturnTIN.png" alt="" /></p>
+<p>The user must specify the grid resolution of the output raster (<code>--resolution</code>), and optionally, the name of the
+input LiDAR file (<code>--input</code>) and output raster (<code>--output</code>). Note that if an input LiDAR file (<code>--input</code>) is not
+specified by the user, the tool will search for all valid LiDAR (*.las, *.zlidar) contained within the current
+working directory. This feature can be very useful when you need to interpolate a DSM for a large number of LiDAR
+files. Not only does this batch processing mode enable the tool to run in a more optimized parallel manner, but it
+will also allow the tool to include a small buffer of points extending into adjacent tiles when interpolating an
+individual file. This can significantly reduce edge-effects when the output tiles are later mosaicked together.
+When run in this batch mode, the output file (<code>--output</code>) also need not be specified; the tool will instead create
+an output file with the same name as each input LiDAR file, but with the .tif extension. This can provide a very
+efficient means for processing extremely large LiDAR data sets.</p>
+<p>Users may also exclude points from the interpolation if they fall below or above the minimum (<code>--minz</code>) or
+maximum (<code>--maxz</code>) thresholds respectively. This can be a useful means of excluding anomalously high or low
+points. Note that points that are classified as low points (LAS class 7) or high noise (LAS class 18) are
+automatically excluded from the interpolation operation.</p>
+<p>Triangulation will generally completely fill the convex hull containing the input point data. This can sometimes
+result in very long and narrow triangles at the edges of the data or connecting vertices on either side of void
+areas. In LiDAR data, these void areas are often associated with larger waterbodies, and triangulation can result
+in very unnatural interpolated patterns within these areas. To avoid this problem, the user may specify a the
+maximum allowable triangle edge length (<code>max_triangle_edge_length</code>) and all grid cells within triangular facets
+with edges larger than this threshold are simply assigned the NoData values in the output DSM. These NoData areas
+can later be better dealt with using the <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool after interpolation.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>, <a href="./lidar_tools.html#filterlidarclasses"><strong>FilterLidarClasses</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a>, <a href="./geomorphometric_analysis.html#timeindaylight"><strong>TimeInDaylight</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file (including extension)</td></tr>
+<tr><td>--resolution       </td><td> Output raster's grid resolution</td></tr>
+<tr><td>--radius           </td><td> Search Radius</td></tr>
+<tr><td>--minz             </td><td> Optional minimum elevation for inclusion in interpolation</td></tr>
+<tr><td>--maxz             </td><td> Optional maximum elevation for inclusion in interpolation</td></tr>
+<tr><td>--max_triangle_edge_length</td><td> Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.lidar_digital_surface_model(
+    i=None, 
+    output=None, 
+    resolution=1.0, 
+    radius=0.5, 
+    minz=None, 
+    maxz=None, 
+    max_triangle_edge_length=None, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=LidarDigitalSurfaceModel -v ^
+--wd=&quot;/path/to/data/&quot; -i=file.las -o=outfile.tif ^
+--returns=last --resolution=2.0 --exclude_cls='3,4,5,6,7,18' ^
+--max_triangle_edge_length=5.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_dsm.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 16/08/2020</p>
+<p><em>Last Modified</em>: 16/08/2020</p>
 <p><a name="LidarElevationSlice"></a></p>
 <a class="header" href="#lidarelevationslice" id="lidarelevationslice"><h1>LidarElevationSlice</h1></a>
 <p>This tool can be used to either extract or classify the elevation values (z) of LiDAR points within
@@ -13769,7 +14018,36 @@ include the point elevations, intensity values, scan angles, and class values.</
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="LidarIdwInterpolation"></a></p>
 <a class="header" href="#lidaridwinterpolation" id="lidaridwinterpolation"><h1>LidarIdwInterpolation</h1></a>
-<p>Interpolates LAS files using an inverse-distance weighted (IDW) scheme. When the input/output parameters are not specified, the tool interpolates all LAS files contained within the working directory.</p>
+<p>This tool interpolates LiDAR files using <a href="https://en.wikipedia.org/wiki/Inverse_distance_weighting">inverse-distance weighting</a>
+(IDW) scheme. The user must specify the value of the IDW weight parameter (<code>--weight</code>). The output grid can be
+based on any of the stored LiDAR point parameters (<code>--parameter</code>), including elevation
+(in which case the output grid is a digital elevation model, DEM), intensity, class, return number, number of
+returns, scan angle, RGB (colour) values, and user data values. Similarly, the user may specify which point
+return values (<code>--returns</code>) to include in the interpolation, including all points, last returns (including single
+return points), and first returns (including single return points).</p>
+<p>The user must specify the grid resolution of the output raster (<code>--resolution</code>), and optionally, the name of the
+input LiDAR file (<code>--input</code>) and output raster (<code>--output</code>). Note that if an input LiDAR file (<code>--input</code>) is not
+specified by the user, the tool will search for all valid LiDAR (*.las, *.zlidar) contained within the current
+working directory. This feature can be very useful when you need to interpolate a DEM for a large number of LiDAR
+files. Not only does this batch processing mode enable the tool to run in a more optimized parallel manner, but it
+will also allow the tool to include a small buffer of points extending into adjacent tiles when interpolating an
+individual file. This can significantly reduce edge-effects when the output tiles are later mosaicked together.
+When run in this batch mode, the output file (<code>--output</code>) also need not be specified; the tool will instead create
+an output file with the same name as each input LiDAR file, but with the .tif extension. This can provide a very
+efficient means for processing extremely large LiDAR data sets.</p>
+<p>Users may excluded points from the interpolation based on point classification values, which follow the LAS
+classification scheme. Excluded classes are specified using the <code>--exclude_cls</code> parameter. For example,
+to exclude all vegetation and building classified points from the interpolation, use --exclude_cls='3,4,5,6'.
+Users may also exclude points from the interpolation if they fall below or above the minimum (<code>--minz</code>) or
+maximum (<code>--maxz</code>) thresholds respectively. This can be a useful means of excluding anomalously high or low
+points. Note that points that are classified as low points (LAS class 7) or high noise (LAS class 18) are
+automatically excluded from the interpolation operation.</p>
+<p>The tool will search for the nearest input LiDAR point to each grid cell centre, up to a maximum search distance
+(<code>--radius</code>). If a grid cell does not have a LiDAR point within this search distance, it will be assigned the
+NoData value in the output raster. In LiDAR data, these void areas are often associated with larger waterbodies.
+These NoData areas can later be better dealt with using the <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool after interpolation.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>, <a href="./lidar_tools.html#lidarnearestneighbourgridding"><strong>LidarNearestNeighbourGridding</strong></a>, <a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
@@ -13913,7 +14191,47 @@ percentage.</p>
 <p><em>Last Modified</em>: 04/01/2019</p>
 <p><a name="LidarNearestNeighbourGridding"></a></p>
 <a class="header" href="#lidarnearestneighbourgridding" id="lidarnearestneighbourgridding"><h1>LidarNearestNeighbourGridding</h1></a>
-<p>Grids LAS files using nearest-neighbour scheme. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory.</p>
+<p>This tool grids LiDAR files using nearest-neighbour (NN) scheme, that is, each grid cell in the output image will
+be assigned the parameter value of the point nearest the grid cell centre. This method should not be confused
+for the similarly named <a href="https://en.wikipedia.org/wiki/Natural_neighbor_interpolation">natural-neighbour interpolation</a>
+(a.k.a Sibson's method). Nearest neighbour gridding is generally regarded as a poor way of interpolating surfaces
+from low-density point sets and results in the creation of a <a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi
+diagram</a>. However, this method has several advantages when
+applied to LiDAR data. NN gridding is one of the fastest methods for generating raster surfaces from large
+LiDAR data sets. NN gridding is one of the few interpolation methods, along with triangulation, that will preserve
+vertical breaks-in-slope, such as occur at the edges of building. This characteristic can be important when using
+some post-processing methods, such as the <a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a> tool. Furthermore, because most LiDAR data
+sets have remarkably high point densities compared with other types of geographic data, this approach does often
+produce a satisfactory result; this is particularly true when the point density is high enough that there are multiple
+points in the majority of grid cells.</p>
+<p>The output grid can be based on any of the stored LiDAR point parameters (<code>--parameter</code>), including elevation
+(in which case the output grid is a digital elevation model, DEM), intensity, class, return number, number of
+returns, scan angle, RGB (colour) values, and user data values. Similarly, the user may specify which point
+return values (<code>--returns</code>) to include in the interpolation, including all points, last returns (including single
+return points), and first returns (including single return points).</p>
+<p>The user must specify the grid resolution of the output raster (<code>--resolution</code>), and optionally, the name of the
+input LiDAR file (<code>--input</code>) and output raster (<code>--output</code>). Note that if an input LiDAR file (<code>--input</code>) is not
+specified by the user, the tool will search for all valid LiDAR (*.las, *.zlidar) contained within the current
+working directory. This feature can be very useful when you need to interpolate a DEM for a large number of LiDAR
+files. Not only does this batch processing mode enable the tool to run in a more optimized parallel manner, but it
+will also allow the tool to include a small buffer of points extending into adjacent tiles when interpolating an
+individual file. This can significantly reduce edge-effects when the output tiles are later mosaicked together.
+When run in this batch mode, the output file (<code>--output</code>) also need not be specified; the tool will instead create
+an output file with the same name as each input LiDAR file, but with the .tif extension. This can provide a very
+efficient means for processing extremely large LiDAR data sets.</p>
+<p>Users may excluded points from the interpolation based on point classification values, which follow the LAS
+classification scheme. Excluded classes are specified using the <code>--exclude_cls</code> parameter. For example,
+to exclude all vegetation and building classified points from the interpolation, use --exclude_cls='3,4,5,6'.
+Users may also exclude points from the interpolation if they fall below or above the minimum (<code>--minz</code>) or
+maximum (<code>--maxz</code>) thresholds respectively. This can be a useful means of excluding anomalously high or low
+points. Note that points that are classified as low points (LAS class 7) or high noise (LAS class 18) are
+automatically excluded from the interpolation operation.</p>
+<p>The tool will search for the nearest input LiDAR point to each grid cell centre, up to a maximum search distance
+(<code>--radius</code>). If a grid cell does not have a LiDAR point within this search distance, it will be assigned the
+NoData value in the output raster. In LiDAR data, these void areas are often associated with larger waterbodies.
+These NoData areas can later be better dealt with using the <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool after interpolation.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>, <a href="./lidar_tools.html#lidaridwinterpolation"><strong>LidarIdwInterpolation</strong></a>, <a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>, <a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
@@ -14095,6 +14413,7 @@ to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
 <tr><td>--model_size       </td><td> Acceptable model size</td></tr>
 <tr><td>--max_slope        </td><td> Maximum planar slope</td></tr>
 <tr><td>--classify         </td><td> Classify points as ground (2) or off-ground (1)</td></tr>
+<tr><td>--last_returns     </td><td> Only include last- and only-return points</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.lidar_ransac_planes(
@@ -14107,6 +14426,7 @@ to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
     model_size=8, 
     max_slope=80.0, 
     classify=False, 
+    last_returns=False, 
     callback=default_callback
 )
 </code></pre>
@@ -14114,7 +14434,7 @@ to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LidarRansacPlanes -v ^
 --wd=&quot;/path/to/data/&quot; -i=&quot;input.las&quot; -o=&quot;output.las&quot; ^
 --radius=10.0 --num_iter=10 --num_samples=5 --threshold=0.25 ^
---max_slope=70.0 
+--max_slope=70.0 --last_returns 
 </code></pre>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/lidar_analysis/lidar_ransac_planes.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
@@ -14239,11 +14559,11 @@ without the point, exceeds a threshold (elev_diff).</p>
 <tr><td>--radius           </td><td> Search Radius</td></tr>
 <tr><td>--num_iter         </td><td> Number of iterations</td></tr>
 <tr><td>--num_samples      </td><td> Number of sample points on which to build the model</td></tr>
-<tr><td>--threshold        </td><td> Threshold used to determine inlier points</td></tr>
-<tr><td>--model_size       </td><td> Acceptable model size</td></tr>
-<tr><td>--max_slope        </td><td> Maximum planar slope</td></tr>
+<tr><td>--threshold        </td><td> Threshold used to determine inlier points (in elevation units)</td></tr>
+<tr><td>--model_size       </td><td> Acceptable model size, in points</td></tr>
+<tr><td>--max_slope        </td><td> Maximum planar slope, in degrees</td></tr>
 <tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
-<tr><td>--azimuth          </td><td> Illumination source azimuth in degrees</td></tr>
+<tr><td>--azimuth          </td><td> Illumination source azimuth, in degrees</td></tr>
 <tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
@@ -14311,6 +14631,7 @@ is one reason that some vegetation points may be assigned to planes during the R
 with this problem, the tool allows the user to specify a maximum planar slope (<code>--max_slope</code>) parameter.
 Planes that have slopes greater than this threshold are rejected by the algorithm. This has the side-effect
 of removing building walls however.</p>
+<p><img src="../img/LidarSegmentation.png" alt="" /></p>
 <p><em>References</em>:</p>
 <p>Fischler MA and Bolles RC. 1981. Random sample consensus: a paradigm for model fitting with applications
 to image analysis and automated cartography. Commun. ACM, 24(6):381–395.</p>
@@ -14532,7 +14853,38 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
 <p><em>Last Modified</em>: 19/05/2020</p>
 <p><a name="LidarTinGridding"></a></p>
 <a class="header" href="#lidartingridding" id="lidartingridding"><h1>LidarTinGridding</h1></a>
-<p>Creates a raster grid based on a Delaunay triangular irregular network (TIN) fitted to LiDAR points.</p>
+<p>This tool creates a raster grid based on a Delaunay triangular irregular network (TIN) fitted to LiDAR points.
+The output grid can be based on any of the stored LiDAR point parameters (<code>--parameter</code>), including elevation
+(in which case the output grid is a digital elevation model, DEM), intensity, class, return number, number of
+returns, scan angle, RGB (colour) values, and user data values. Similarly, the user may specify which point
+return values (<code>--returns</code>) to include in the interpolation, including all points, last returns (including single
+return points), and first returns (including single return points).</p>
+<p>The user must specify the grid resolution of the output raster (<code>--resolution</code>), and optionally, the name of the
+input LiDAR file (<code>--input</code>) and output raster (<code>--output</code>). Note that if an input LiDAR file (<code>--input</code>) is not
+specified by the user, the tool will search for all valid LiDAR (*.las, *.zlidar) contained within the current
+working directory. This feature can be very useful when you need to interpolate a DEM for a large number of LiDAR
+files. Not only does this batch processing mode enable the tool to run in a more optimized parallel manner, but it
+will also allow the tool to include a small buffer of points extending into adjacent tiles when interpolating an
+individual file. This can significantly reduce edge-effects when the output tiles are later mosaicked together.
+When run in this batch mode, the output file (<code>--output</code>) also need not be specified; the tool will instead create
+an output file with the same name as each input LiDAR file, but with the .tif extension. This can provide a very
+efficient means for processing extremely large LiDAR data sets.</p>
+<p>Users may excluded points from the interpolation based on point classification values, which follow the LAS
+classification scheme. Excluded classes are specified using the <code>--exclude_cls</code> parameter. For example,
+to exclude all vegetation and building classified points from the interpolation, use --exclude_cls='3,4,5,6'.
+Users may also exclude points from the interpolation if they fall below or above the minimum (<code>--minz</code>) or
+maximum (<code>--maxz</code>) thresholds respectively. This can be a useful means of excluding anomalously high or low
+points. Note that points that are classified as low points (LAS class 7) or high noise (LAS class 18) are
+automatically excluded from the interpolation operation.</p>
+<p>Triangulation will generally completely fill the convex hull containing the input point data. This can sometimes
+result in very long and narrow triangles at the edges of the data or connecting vertices on either side of void
+areas. In LiDAR data, these void areas are often associated with larger waterbodies, and triangulation can result
+in very unnatural interpolated patterns within these areas. To avoid this problem, the user may specify a the
+maximum allowable triangle edge length (<code>max_triangle_edge_length</code>) and all grid cells within triangular facets
+with edges larger than this threshold are simply assigned the NoData values in the output DSM. These NoData areas
+can later be better dealt with using the <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a> tool after interpolation.</p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lidaridwinterpolation"><strong>LidarIdwInterpolation</strong></a>, <a href="./lidar_tools.html#lidarnearestneighbourgridding"><strong>LidarNearestNeighbourGridding</strong></a>, <a href="./lidar_tools.html#lidartingridding"><strong>LidarTINGridding</strong></a>, <a href="./lidar_tools.html#filterlidarclasses"><strong>FilterLidarClasses</strong></a>, <a href="./geomorphometric_analysis.html#fillmissingdata"><strong>FillMissingData</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input LiDAR file (including extension)</td></tr>
@@ -14552,7 +14904,7 @@ the convex hull mode), is able to take <code>LAZ</code> input files.</p>
     parameter=&quot;elevation&quot;, 
     returns=&quot;all&quot;, 
     resolution=1.0, 
-    exclude_cls=None, 
+    exclude_cls=&quot;7,18&quot;, 
     minz=None, 
     maxz=None, 
     max_triangle_edge_length=None, 
@@ -18471,7 +18823,7 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_id.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
-<p><em>Last Modified</em>: 18/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StreamLinkLength"></a></p>
 <a class="header" href="#streamlinklength" id="streamlinklength"><h1>StreamLinkLength</h1></a>
 <p>This tool can be used to measure the length of each link in a stream network. The user must specify the names of
@@ -18778,11 +19130,11 @@ main()
 </code></pre>
 <a class="header" href="#processing-lidar-data" id="processing-lidar-data"><h1>Processing LiDAR data</h1></a>
 <ul>
-<li><a href="#grid_lidar">How do I convert a LAS point cloud into a raster?</a></li>
+<li><a href="#grid_lidar">How do I convert a LiDAR point cloud into a raster?</a></li>
 <li><a href="#select_tiles_by_polygon">How do I extract a subset of LiDAR files that overlap with an area of interest?</a></li>
 <li><a href="#classification">How do I exclude points with certain classifications?</a></li>
 <li><a href="#LidarGroundPointFilter">How do I remove non-ground points from my LiDAR file?</a></li>
-<li><a href="#folder">I have many LAS files and want to interpolate all of them at once</a></li>
+<li><a href="#folder">I have many LiDAR files and want to interpolate all of them at once</a></li>
 <li><a href="#low_points">What if my data contains anomalously high/low points?</a></li>
 <li><a href="#laz">My data are in LAZ format. How do I interpolate them?</a></li>
 <li><a href="#lazToZlidar">How do I convert LAS or LAZ to zLidar?</a></li>
@@ -18793,12 +19145,12 @@ main()
 <li><a href="#workflow">What is the workflow after mosaicking my DEM?</a></li>
 </ul>
 <p><a name="grid_lidar"></a></p>
-<a class="header" href="#how-do-i-convert-a-las-point-cloud-into-a-raster" id="how-do-i-convert-a-las-point-cloud-into-a-raster"><h2>How do I convert a LAS point cloud into a raster?</h2></a>
+<a class="header" href="#how-do-i-convert-a-lidar-point-cloud-into-a-raster" id="how-do-i-convert-a-lidar-point-cloud-into-a-raster"><h2>How do I convert a LiDAR point cloud into a raster?</h2></a>
 <p>Converting your LiDAR data into a raster requires an interpolation operation. There are many such interpolation methods. The following is an example of how to interpolate the last-return points of a LAS/zLidar file using an inverse distance weighted (IDW) interpolation scheme, with a search window radius of 2.5 m, an exponent of 2.0, and an output grid resolution of 1.5 m. You may prefer to derive your raster DEM using Delaunay triangulation (TINing) instead.</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot;
+wbt.wbt.set_working_dir(&quot;/path/to/data/&quot;)
 
 wbt.lidar_idw_interpolation(
 i=&quot;myFile.las&quot;,
@@ -18810,7 +19162,7 @@ weight=2.0,
 radius=2.5
 )
 </code></pre>
-<p>Other methods for gridding a LAS file include nearest neighbour, Delaunay triangulation (TINing), block minimum, and block maximum gridding schemes.</p>
+<p>Other methods for gridding a LAS/zLidar file include nearest neighbour, Delaunay triangulation (TINing), block minimum, and block maximum gridding schemes.</p>
 <p><a name="select_tiles_by_polygon"></a></p>
 <a class="header" href="#how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest" id="how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest"><h2>How do I extract a subset of LiDAR files that overlap with an area of interest?</h2></a>
 <p>Sometimes, you need to extract all of the LAS/zLidar tiles from a large dataset that overlap with a particular area of interest. For example, you may need to interpolate all the files overlapping with a watershed or a particular city. For this task, you can use <em>select_tiles_by_polygon</em>.
@@ -18979,7 +19331,7 @@ main()
 </code></pre>
 <p><a name="folder"></a></p>
 <a class="header" href="#i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once" id="i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once"><h2>I have many LAS/zLidar files and want to interpolate all of them at once</h2></a>
-<p>When you have hundreds, or even thousands, of LAS/zLidar files you might be inclined to write a Python script that calls the above function for each input file contained within a folder. But that isn't the best way to handle this common situation. Instead, if the input (i) and output parameters are left unspecified, each of WhiteboxTool's LiDAR gridding methods will interpolate all of the LAS files in the working directory, e.g.</p>
+<p>When you have hundreds, or even thousands, of LAS/zLidar files you might be inclined to write a Python script that calls the above function for each input file contained within a folder. But that isn't the best way to handle this common situation. Instead, if the input (i) and output parameters are left unspecified, each of WhiteboxTool's LiDAR gridding methods will interpolate all of the LAS and zLidar files in the working directory, e.g.</p>
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, and John Lindsay
 # Created: 01/07/2020
@@ -18995,7 +19347,7 @@ main()
 # by the user in the script settings section. The exclude_cls parameter  #
 # allows you to optionally exclude listed point classes from the         #
 # interpolation; Valid class values range from 0 to 18, based on the LAS #
-#  specifications.                                                       #
+# specifications.                                                       #
 #                                                                        #
 # This script makes use of batch processing in which the input include   #
 # and entire directory of .las or .zlidar files. This is more beneficial #
@@ -19062,7 +19414,7 @@ def main():
     maxz=None,
     max_triangle_edge_length=15.0
     )
-    print(&quot;Completed TIN inteprolation \n&quot;)
+    print(&quot;Completed TIN interpolation \n&quot;)
 
     # Mosaic the individual tiles.
     outfile = os.path.join(output_dir,&quot;NAME_OFF_FILE.tif&quot;) # Creates the output file by joining the output directory with the output file name.
@@ -19245,7 +19597,7 @@ if __name__ == &quot;__main__&quot; :
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot;
+wbt.wbt.set_working_dir(&quot;/path/to/data/&quot;)
 
 wbt.lidar_nearest_neighbour_gridding(
 &quot;in.las&quot;, &quot;out.tif&quot;, parameter=&quot;intensity&quot;)
@@ -19259,14 +19611,14 @@ wbt.lidar_nearest_neighbour_gridding(
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot;
+wbt.wbt.set_working_dir(&quot;/path/to/data/&quot;)
 
 wbt.fill_missing_data(&quot;dem.tif&quot;, &quot;new_dem.tif&quot;, filter=11)
 </code></pre>
 <p>The choice of a filter size will depend on the extent of the largest interior void area.</p>
 <p><a name="mosaic"></a></p>
 <a class="header" href="#how-do-i-combine-many-lidar-tiles-into-a-single-raster" id="how-do-i-combine-many-lidar-tiles-into-a-single-raster"><h2>How do I combine many LiDAR tiles into a single raster?</h2></a>
-<p>Often you have many hundred LAS files, which you've interpolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
+<p>Often you have many hundred LAS/zLidar files, which you've interpolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, and John Lindsay
 # Created: 01/07/2020
@@ -19964,6 +20316,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/lidar_tools.html#FilterLidarScanAngles">FilterLidarScanAngles</a>: Removes points in a LAS file with scan angles greater than a threshold. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/gis_analysis.html#FilterRasterFeaturesByArea">FilterRasterFeaturesByArea</a>: Removes small-area features from a raster. Found in <em>GIS Analysis</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/lidar_tools.html#FindFlightlineEdgePoints">FindFlightlineEdgePoints</a>: Identifies points along a flightline's edge in a LAS file. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
@@ -20180,6 +20535,9 @@ SOFTWARE.</p>
 <p><a href="available_tools/lidar_tools.html#LidarColourize">LidarColourize</a>: Adds the red-green-blue colour fields of a LiDAR (LAS) file based on an input image. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
+<p><a href="available_tools/lidar_tools.html#LidarDigitalSurfaceModel">LidarDigitalSurfaceModel</a>: Creates a top-surface digital surface model (DSM) from a LiDAR point cloud. Found in <em>LiDAR Tools</em>.</p>
+</li>
+<li>
 <p><a href="available_tools/lidar_tools.html#LidarElevationSlice">LidarElevationSlice</a>: Outputs all of the points within a LiDAR (LAS) point file that lie between a specified elevation range. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
@@ -20207,7 +20565,7 @@ SOFTWARE.</p>
 <p><a href="available_tools/lidar_tools.html#LidarKappaIndex">LidarKappaIndex</a>: Performs a kappa index of agreement (KIA) analysis on the classifications of two LAS files. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
-<p><a href="available_tools/lidar_tools.html#LidarNearestNeighbourGridding">LidarNearestNeighbourGridding</a>: Grids LAS files using nearest-neighbour scheme. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
+<p><a href="available_tools/lidar_tools.html#LidarNearestNeighbourGridding">LidarNearestNeighbourGridding</a>: Grids LiDAR files using nearest-neighbour scheme. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/lidar_tools.html#LidarPointDensity">LidarPointDensity</a>: Calculates the spatial pattern of point density for a LiDAR data set. When the input/output parameters are not specified, the tool grids all LAS files contained within the working directory. Found in <em>LiDAR Tools</em>.</p>
@@ -20295,6 +20653,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools_filters.html#MajorityFilter">MajorityFilter</a>: Assigns each cell in the output grid the most frequently occurring value (mode) in a moving window centred on each grid cell in the input raster. Found in <em>Image Processing Tools → Filters</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#MapOffTerrainObjects">MapOffTerrainObjects</a>: Maps off-terrain objects in a digital elevation model (DEM). Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis_overlay_tools.html#MaxAbsoluteOverlay">MaxAbsoluteOverlay</a>: Evaluates the maximum absolute value for each grid cell from a stack of input rasters. Found in <em>GIS Analysis → Overlay Tools</em>.</p>
@@ -20784,6 +21145,9 @@ SOFTWARE.</p>
 </li>
 <li>
 <p><a href="available_tools/image_processing_tools.html#ThickenRasterLine">ThickenRasterLine</a>: Thickens single-cell wide lines within a raster image. Found in <em>Image Processing Tools</em>.</p>
+</li>
+<li>
+<p><a href="available_tools/geomorphometric_analysis.html#TimeInDaylight">TimeInDaylight</a>: Calculates the proportion of time a location is not within an area of shadow. Found in <em>Geomorphometric Analysis</em>.</p>
 </li>
 <li>
 <p><a href="available_tools/gis_analysis.html#TinGridding">TinGridding</a>: Creates a raster grid based on a triangular irregular network (TIN) fitted to vector points. Found in <em>GIS Analysis</em>.</p>

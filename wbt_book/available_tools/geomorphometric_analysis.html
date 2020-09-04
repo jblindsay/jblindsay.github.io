@@ -164,6 +164,7 @@
 <li><a href="#HorizonAngle">HorizonAngle</a></li>
 <li><a href="#HypsometricAnalysis">HypsometricAnalysis</a></li>
 <li><a href="#HypsometricallyTintedHillshade">HypsometricallyTintedHillshade</a></li>
+<li><a href="#MapOffTerrainObjects">MapOffTerrainObjects</a></li>
 <li><a href="#MaxAnisotropyDev">MaxAnisotropyDev</a></li>
 <li><a href="#MaxAnisotropyDevSignature">MaxAnisotropyDevSignature</a></li>
 <li><a href="#MaxBranchLength">MaxBranchLength</a></li>
@@ -198,6 +199,7 @@
 <li><a href="#StreamPowerIndex">StreamPowerIndex</a></li>
 <li><a href="#SurfaceAreaRatio">SurfaceAreaRatio</a></li>
 <li><a href="#TangentialCurvature">TangentialCurvature</a></li>
+<li><a href="#TimeInDaylight">TimeInDaylight</a></li>
 <li><a href="#TotalCurvature">TotalCurvature</a></li>
 <li><a href="#Viewshed">Viewshed</a></li>
 <li><a href="#VisibilityIndex">VisibilityIndex</a></li>
@@ -213,7 +215,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The tool uses Horn's (1981) 3rd-order finite difference method to estimate slope. Given
@@ -248,7 +250,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.aspect(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -259,7 +261,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="AverageNormalVectorAngularDeviation"></a></p>
 <a class="header" href="#averagenormalvectorangulardeviation" id="averagenormalvectorangulardeviation"><h1>AverageNormalVectorAngularDeviation</h1></a>
 <p>This tool characterizes the spatial distribution of the average normal vector angular deviation, a measure of
@@ -301,7 +303,7 @@ Interaction (pp. 116-121). Springer, Cham.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/average_normal_vector_angular_deviation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
-<p><em>Last Modified</em>: 02/04/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="CircularVarianceOfAspect"></a></p>
 <a class="header" href="#circularvarianceofaspect" id="circularvarianceofaspect"><h1>CircularVarianceOfAspect</h1></a>
 <p>This tool can be used to calculate the circular variance (i.e. one minus the mean resultant length) of aspect
@@ -350,7 +352,7 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/circular_variance_of_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
-<p><em>Last Modified</em>: 02/04/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="ContoursFromPoints"></a></p>
 <a class="header" href="#contoursfrompoints" id="contoursfrompoints"><h1>ContoursFromPoints</h1></a>
 <p>This tool creates a contour coverage from a set of input points (<code>--input</code>). The user must specify the contour
@@ -569,7 +571,7 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/directional_relief.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="DownslopeIndex"></a></p>
 <a class="header" href="#downslopeindex" id="downslopeindex"><h1>DownslopeIndex</h1></a>
 <p>This tool can be used to calculate the downslope index described by Hjerdt et al. (2004).
@@ -650,7 +652,7 @@ texture of any of the available roughness tools.</p>
     output, 
     filter=11, 
     norm_diff=5.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -662,7 +664,7 @@ texture of any of the available roughness tools.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/edge_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/01/2019</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="ElevAbovePit"></a></p>
 <a class="header" href="#elevabovepit" id="elevabovepit"><h1>ElevAbovePit</h1></a>
 <p>This tool will calculate the elevation of each grid cell in a digital elevation model (DEM) above the nearest
@@ -871,7 +873,7 @@ mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</
     norm_diff=15.0, 
     num_iter=3, 
     max_diff=0.5, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -883,7 +885,7 @@ mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_smoothing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/11/2017</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="FetchAnalysis"></a></p>
 <a class="header" href="#fetchanalysis" id="fetchanalysis"><h1>FetchAnalysis</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the distance, in meters, to the nearest
@@ -937,7 +939,7 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fetch_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="FillMissingData"></a></p>
 <a class="header" href="#fillmissingdata" id="fillmissingdata"><h1>FillMissingData</h1></a>
 <p>This tool can be used to fill in small gaps in a raster or digital elevation model (DEM). The gaps,
@@ -1022,7 +1024,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The hillshade value (<em>HS</em>) of a DEM grid cell is calculate as:</p>
@@ -1051,7 +1053,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
     output, 
     azimuth=315.0, 
     altitude=30.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -1062,7 +1064,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="HorizonAngle"></a></p>
 <a class="header" href="#horizonangle" id="horizonangle"><h1>HorizonAngle</h1></a>
 <p>This tool calculates the horizon angle (<em>Sx</em>), i.e. the maximum slope along a specified azimuth (0-360 degrees) for
@@ -1085,19 +1087,24 @@ northerly wind, you could perform the following calculation:</p>
 </blockquote>
 <p>Ray-tracing is a highly computationally intensive task and therefore this tool may take considerable time to operate for
 larger sized DEMs. Maximum upwind slope is best displayed using a Grey scale palette that is inverted.</p>
+<p>Horizon angle is best visualized using a white-to-black palette and rescaled from approximately -10 to 70 (see below for
+an example of horizon angle calculated at a 150-degree azimuth).</p>
+<p><img src="../img/HorizonAngle.png" alt="" /></p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#timeindaylight"><strong>TimeInDaylight</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--azimuth          </td><td> Wind azimuth in degrees</td></tr>
-<tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units)</td></tr>
+<tr><td>--azimuth          </td><td> Azimuth, in degrees</td></tr>
+<tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units). Minimum value is 5 x cell size</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.horizon_angle(
     dem, 
     output, 
     azimuth=0.0, 
-    max_dist=None, 
+    max_dist=100.0, 
     callback=default_callback
 )
 </code></pre>
@@ -1108,7 +1115,7 @@ larger sized DEMs. Maximum upwind slope is best displayed using a Grey scale pal
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/horizon_angle.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="HypsometricAnalysis"></a></p>
 <a class="header" href="#hypsometricanalysis" id="hypsometricanalysis"><h1>HypsometricAnalysis</h1></a>
 <p>This tool can be used to derive the hypsometric curve, or area-altitude curve, of one or more
@@ -1162,7 +1169,7 @@ units are not the same in the DEM. When this is the case, the algorithm will mul
 Z conversion factor. If the DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p><img src="../img/hypsometricallyTintedHillshade_fig1.png" alt="" /></p>
@@ -1176,7 +1183,7 @@ is used:</p>
 <tr><td>--hs_weight        </td><td> Weight given to hillshade relative to relief (0.0-1.0)</td></tr>
 <tr><td>--brightness       </td><td> Brightness factor (0.0-1.0)</td></tr>
 <tr><td>--atmospheric      </td><td> Atmospheric effects weight (0.0-1.0)</td></tr>
-<tr><td>--palette          </td><td> Options include 'atlas', 'high_relief', 'arid', 'soft', 'muted', 'purple', 'viridi', 'gn_yl', 'pi_y_g', 'bl_yl_rd', and 'deep</td></tr>
+<tr><td>--palette          </td><td> Options include 'atlas', 'high_relief', 'arid', 'soft', 'muted', 'purple', 'viridi', 'gn_yl', 'pi_y_g', 'bl_yl_rd', and 'deep'</td></tr>
 <tr><td>--reverse          </td><td> Optional flag indicating whether to use reverse the palette</td></tr>
 <tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 <tr><td>--full_mode        </td><td> Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
@@ -1191,7 +1198,7 @@ is used:</p>
     atmospheric=0.0, 
     palette=&quot;atlas&quot;, 
     reverse=False, 
-    zfactor=1.0, 
+    zfactor=None, 
     full_mode=False, 
     callback=default_callback
 )
@@ -1205,7 +1212,44 @@ is used:</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hypsometrically_tinted_hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/07/2020</p>
-<p><em>Last Modified</em>: 19/07/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
+<p><a name="MapOffTerrainObjects"></a></p>
+<a class="header" href="#mapoffterrainobjects" id="mapoffterrainobjects"><h1>MapOffTerrainObjects</h1></a>
+<p>This tool can be used to map off-terrain objects in a digital surface model (DSM) based on cell-to-cell differences
+in elevations and local slopes. The algorithm works by using a region-growing operation to connect neighbouring grid
+cells outwards from seed cells. Two neighbouring cells are considered connected if the slope between the two cells
+is less than the user-specified maximum slope value (<code>--max_slope</code>). Mapped segments that are less than the minimum
+feature size (<code>--min_size</code>), in grid cells, are assigned a common background value. Note that this method of mapping
+off-terrain objects, and thereby separating ground cells from non-ground objects in DSMs, works best with fine-resolution
+DSMs that have been interpolated using a non-smoothing method, such as triangulation (TINing) or nearest-neighbour
+interpolation.</p>
+<p><em>See Also</em>:
+<a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--max_slope        </td><td> Maximum inter-cell absolute slope</td></tr>
+<tr><td>--min_size         </td><td> Minimum feature size, in grid cells</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.map_off_terrain_objects(
+    dem, 
+    output, 
+    max_slope=40.0, 
+    min_size=1, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=MapOffTerrainObjects -v ^
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--max_diff=1.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/map_otos.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 27/07/2020</p>
+<p><em>Last Modified</em>: 27/07/2020</p>
 <p><a name="MaxAnisotropyDev"></a></p>
 <a class="header" href="#maxanisotropydev" id="maxanisotropydev"><h1>MaxAnisotropyDev</h1></a>
 <p>Calculates the maximum anisotropy (directionality) in elevation deviation over a range of spatial scales.</p>
@@ -1517,7 +1561,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians. The Z conversion factor can also be used
 used to apply a vertical exageration to further emphasize landforms within the hillshade output.</p>
@@ -1554,7 +1598,7 @@ full 360-degree mode, eight illumination source azimuths are used to calculate t
     dem, 
     output, 
     altitude=45.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     full_mode=False, 
     callback=default_callback
 )
@@ -1567,7 +1611,7 @@ full 360-degree mode, eight illumination source azimuths are used to calculate t
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multidirectional_hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/07/2020</p>
-<p><em>Last Modified</em>: 19/07/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleElevationPercentile"></a></p>
 <a class="header" href="#multiscaleelevationpercentile" id="multiscaleelevationpercentile"><h1>MultiscaleElevationPercentile</h1></a>
 <p>This tool calculates the most elevation percentile (EP) across a range of spatial scales.
@@ -1681,7 +1725,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/02/2018</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleRoughnessSignature"></a></p>
 <a class="header" href="#multiscaleroughnesssignature" id="multiscaleroughnesssignature"><h1>MultiscaleRoughnessSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -1714,7 +1758,7 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/02/2018</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleStdDevNormals"></a></p>
 <a class="header" href="#multiscalestddevnormals" id="multiscalestddevnormals"><h1>MultiscaleStdDevNormals</h1></a>
 <p>This tool can be used to map the spatial pattern of maximum spherical standard deviation
@@ -1778,7 +1822,7 @@ and a step size (<code>--step</code>) of <em>step</em>.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_std_dev_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/06/2019</p>
-<p><em>Last Modified</em>: 13/06/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleStdDevNormalsSignature"></a></p>
 <a class="header" href="#multiscalestddevnormalssignature" id="multiscalestddevnormalssignature"><h1>MultiscaleStdDevNormalsSignature</h1></a>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
@@ -1813,7 +1857,7 @@ and a step size (<code>--step</code>) of <em>step</em>.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_std_dev_normals_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/06/2019</p>
-<p><em>Last Modified</em>: 20/06/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleTopographicPositionImage"></a></p>
 <a class="header" href="#multiscaletopographicpositionimage" id="multiscaletopographicpositionimage"><h1>MultiscaleTopographicPositionImage</h1></a>
 <p>This tool creates a multiscale topographic position (MTP) image (<a href="https://www.uoguelph.ca/%7Ehydrogeo/pubs/UpdatedPosterMapSm.png">see here for an
@@ -1981,7 +2025,7 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
     slope=3.0, 
     prof=0.1, 
     plan=0.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -1993,7 +2037,7 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/pennock_landform_class.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="PercentElevRange"></a></p>
 <a class="header" href="#percentelevrange" id="percentelevrange"><h1>PercentElevRange</h1></a>
 <p>Percent elevation range (PER) is a measure of local topographic position (LTP). It expresses the vertical
@@ -2050,7 +2094,7 @@ are not the same in the DEM. When this is the case, the algorithm will multiply 
 elevation in the DEM by the Z Conversion Factor. If the DEM is in the geographic coordinate
 system (latitude and longitude), the following equation is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The algorithm uses the same formula for the calculation of plan curvature as Gallant and
@@ -2071,7 +2115,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.plan_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2082,7 +2126,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/plan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="Profile"></a></p>
 <a class="header" href="#profile" id="profile"><h1>Profile</h1></a>
 <p>This tool can be used to plot the data profile, along a set of one or more vector lines (<code>--lines</code>), in
@@ -2130,7 +2174,7 @@ are not the same in the DEM. When this is the case, the algorithm will multiply 
 elevation in the DEM by the Z Conversion Factor. If the DEM is in the geographic coordinate
 system (latitude and longitude), the following equation is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The algorithm uses the same formula for the calculation of plan curvature as Gallant and
@@ -2151,7 +2195,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.profile_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2162,7 +2206,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/prof_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/062017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="RelativeAspect"></a></p>
 <a class="header" href="#relativeaspect" id="relativeaspect"><h1>RelativeAspect</h1></a>
 <p>This tool creates a new raster in which each grid cell is assigned the terrain aspect relative to a user-specified
@@ -2191,7 +2235,7 @@ Science, 33, 195-226.</p>
     dem, 
     output, 
     azimuth=0.0, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2202,7 +2246,7 @@ Science, 33, 195-226.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 17/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="RelativeTopographicPosition"></a></p>
 <a class="header" href="#relativetopographicposition" id="relativetopographicposition"><h1>RelativeTopographicPosition</h1></a>
 <p>Relative topographic position (RTP) is an index of local topographic position (i.e. how
@@ -2271,7 +2315,7 @@ tool to remove or classify OTOs within a LiDAR point-cloud.</p>
 <p>J.B. Lindsay (2018) A new method for the removal of off-terrain objects from LiDAR-derived raster surface
 models. Available online, DOI: <a href="https://www.researchgate.net/publication/323003064_A_new_method_for_the_removal_of_off-terrain_objects_from_LiDAR-derived_raster_surface_models">10.13140/RG.2.2.21226.62401</a></p>
 <p><em>See Also</em>:
-<a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
+<a href="./geomorphometric_analysis.html#mapoffterrainobjects"><strong>MapOffTerrainObjects</strong></a>, <a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
@@ -2296,7 +2340,7 @@ models. Available online, DOI: <a href="https://www.researchgate.net/publication
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/remove_off_terrain_objects.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 07/08/2020</p>
 <p><a name="RuggednessIndex"></a></p>
 <a class="header" href="#ruggednessindex" id="ruggednessindex"><h1>RuggednessIndex</h1></a>
 <p>The terrain ruggedness index (TRI) is a measure of local topographic relief. The TRI calculates
@@ -2323,7 +2367,7 @@ terrain provided in Riley et al. (1999)</p>
 <pre><code class="language-python">wbt.ruggedness_index(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2334,7 +2378,7 @@ terrain provided in Riley et al. (1999)</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/ruggedness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SedimentTransportIndex"></a></p>
 <a class="header" href="#sedimenttransportindex" id="sedimenttransportindex"><h1>SedimentTransportIndex</h1></a>
 <p>This tool calculates the sediment transport index, or sometimes, length-slope (<em>LS</em>)
@@ -2404,7 +2448,7 @@ the algorithm will multiply each elevation in the DEM by the Z conversion factor
 DEM is in the geographic coordinate system (latitude and longitude), the following equation
 is used:</p>
 <blockquote>
-<p>zfactor = 1.0 / (113200.0 x cos(mid_lat))</p>
+<p>zfactor = 1.0 / (111320.0 x cos(mid_lat))</p>
 </blockquote>
 <p>where <code>mid_lat</code> is the latitude of the centre of the raster, in radians.</p>
 <p>The tool uses Horn's (1981) 3rd-order finite difference method to estimate slope. Given
@@ -2440,7 +2484,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.slope(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     units=&quot;degrees&quot;, 
     callback=default_callback
 )
@@ -2452,7 +2496,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 21/02/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
 <a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
 <p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
@@ -2490,7 +2534,7 @@ watersheds, designated by unique identifiers.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope_vs_elev_plot.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/02/2018</p>
-<p><em>Last Modified</em>: 12/10/2018</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SphericalStdDevOfNormals"></a></p>
 <a class="header" href="#sphericalstddevofnormals" id="sphericalstddevofnormals"><h1>SphericalStdDevOfNormals</h1></a>
 <p>This tool can be used to calculate the spherical standard deviation of the distribution of surface normals
@@ -2548,7 +2592,7 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/05/2019</p>
-<p><em>Last Modified</em>: 22/10/2019</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StandardDeviationOfSlope"></a></p>
 <a class="header" href="#standarddeviationofslope" id="standarddeviationofslope"><h1>StandardDeviationOfSlope</h1></a>
 <p>Calculates the standard deviation of slope from an input DEM, a metric of
@@ -2565,7 +2609,7 @@ roughness described by Grohmann et al., (2011).</p>
 <pre><code class="language-python">wbt.standard_deviation_of_slope(
     i, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     filterx=11, 
     filtery=11, 
     callback=default_callback
@@ -2578,7 +2622,7 @@ roughness described by Grohmann et al., (2011).</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/standard_deviation_of_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Anthony Francioni</p>
 <p><em>Created</em>: 26/05/2018</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StreamPowerIndex"></a></p>
 <a class="header" href="#streampowerindex" id="streampowerindex"><h1>StreamPowerIndex</h1></a>
 <p>This tool can be used to calculate the relative stream power (<em>RSP</em>) index. This index is directly related
@@ -2683,7 +2727,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.tangential_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2694,7 +2738,79 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/tan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
+<p><a name="TimeInDaylight"></a></p>
+<a class="header" href="#timeindaylight" id="timeindaylight"><h1>TimeInDaylight</h1></a>
+<p>This tool calculates the proportion of time a location is within daylight. That is, it calculates the
+proportion of time, during a user-defined time frame, that a grid cell in an input digital elevation
+model (<code>--dem</code>) is outside of an area of shadow cast by a local object. The input DEM should truly be
+a digital surface model (DSM) that contains significant off-terrain objects. Such a model, for example,
+could be created using the first-return points of a LiDAR data set, or using the <a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a>
+tool.</p>
+<p>The tool operates by calculating a solar almanac, which estimates the sun's position for the location, in
+latitude and longitude coordinate (<code>--lat</code>, <code>--long</code>), of the input DSM. The algorithm then calculates
+horizon angle (see <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>) rasters from the DSM based on the user-specified azimuth fraction (<code>--az_fraction</code>).
+For example, if an azimuth fraction of 15-degrees is specified, horizon angle rasters could be calculated for
+the solar azimuths 0, 15, 30, 45... In reality, horizon angle rasters are only calculated for azimuths for which
+the sun is above the horizon for some time during the tested time period. A horizon angle raster evaluates
+the vertical angle between each grid cell in a DSM and a distant obstacle (e.g. a mountain ridge, building, tree, etc.) that
+blocks the view along a specified direction. In calculating horizon angle, the user must specify the maximum search
+distance (<code>--max_dist</code>) beyond which the query for higher, more distant objects will cease. This parameter strongly
+impacts the performance of the tool, with larger values resulting in significantly longer run-times. Users are advised
+to set the <code>--max_dist</code> based on the maximum shadow length expected in an area. For example, in a relatively flat
+urban landscape, the tallest building will likely determine the longest shadow lengths. All grid cells for which the
+calculated solar positions throughout the time frame are higher than the cell's horizon angle are deemed to be
+illuminated during the time the sun is in the corresponding azimuth fraction.</p>
+<p>By default, the tool calculates time-in-daylight for a time-frame spanning an entire year. That is, the solar almanac
+is calculated for each hour, at 10-second intervals, and for each day of the year. Users may alternatively restrict the
+time of year over which time-in-daylight is calculated by specifying a starting day (1-365; <code>--start_day</code>) and ending day
+(1-365; <code>--end_day</code>). Similarly, by specifying start time (<code>--start_time</code>) and end time (<code>--end_time</code>) parameters,
+the user is able to measure time-in-daylight for specific ranges of the day (e.g. for the morning or afternoon hours).
+These time parameters must be specified in 24-hour time (HH:MM:SS), e.g. 15:30:00. <code>sunrise</code> and <code>sunset</code> are also
+acceptable inputs for the start time and end time respectively. The timing of sunrise and sunset on each day in the
+tested time-frame will be determined using the solar almanac.</p>
+<p><img src="../img/TimeInDaylight.png" alt="" /></p>
+<p><em>See Also</em>:
+<a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a>, <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--az_fraction      </td><td> Azimuth fraction in degrees</td></tr>
+<tr><td>--max_dist         </td><td> Optional maximum search distance. Minimum value is 5 x cell size</td></tr>
+<tr><td>--lat              </td><td> Centre point latitude</td></tr>
+<tr><td>--long             </td><td> Centre point longitude</td></tr>
+<tr><td>--utc_offset       </td><td> UTC time offset, in hours (e.g. -04:00, +06:00)</td></tr>
+<tr><td>--start_day        </td><td> Start day of the year (1-365)</td></tr>
+<tr><td>--end_day          </td><td> End day of the year (1-365)</td></tr>
+<tr><td>--start_time       </td><td> Starting hour to track shadows (e.g. 5, 5:00, 05:00:00). Assumes 24-hour time: HH:MM:SS. 'sunrise' is also a valid time</td></tr>
+<tr><td>--end_time         </td><td> Starting hour to track shadows (e.g. 21, 21:00, 21:00:00). Assumes 24-hour time: HH:MM:SS. 'sunset' is also a valid time</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.time_in_daylight(
+    dem, 
+    output, 
+    lat, 
+    long, 
+    az_fraction=10.0, 
+    max_dist=100.0, 
+    utc_offset=&quot;00:00&quot;, 
+    start_day=1, 
+    end_day=365, 
+    start_time=&quot;00:00:00&quot;, 
+    end_time=&quot;23:59:59&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=TimeInDaylight -v --wd=&quot;/path/to/data/&quot; ^
+-i='input.tif' -o=output.tif --az_fraction=15.0 ^
+--max_dist=100.0 --lat=43.545 --long= -80.248 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/time_in_daylight.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 29/07/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="TotalCurvature"></a></p>
 <a class="header" href="#totalcurvature" id="totalcurvature"><h1>TotalCurvature</h1></a>
 <p>This tool calculates the total curvature, which measures the curvature of the topographic surface rather
@@ -2723,7 +2839,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code class="language-python">wbt.total_curvature(
     dem, 
     output, 
-    zfactor=1.0, 
+    zfactor=None, 
     callback=default_callback
 )
 </code></pre>
@@ -2734,7 +2850,7 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/total_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 30/01/2020</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="Viewshed"></a></p>
 <a class="header" href="#viewshed" id="viewshed"><h1>Viewshed</h1></a>
 <p>This tool can be used to calculate the viewshed (i.e. the visible area) from a

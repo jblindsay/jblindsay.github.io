@@ -157,6 +157,7 @@
 <li><a href="#ExtendVectorLines">ExtendVectorLines</a></li>
 <li><a href="#ExtractNodes">ExtractNodes</a></li>
 <li><a href="#ExtractRasterValuesAtPoints">ExtractRasterValuesAtPoints</a></li>
+<li><a href="#FilterRasterFeaturesByArea">FilterRasterFeaturesByArea</a></li>
 <li><a href="#FindLowestOrHighestPoints">FindLowestOrHighestPoints</a></li>
 <li><a href="#IdwInterpolation">IdwInterpolation</a></li>
 <li><a href="#LayerFootprint">LayerFootprint</a></li>
@@ -345,7 +346,7 @@ multi-part features a single entity.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/centroid_vector.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 24/07/2020</p>
 <p><a name="Clump"></a></p>
 <a class="header" href="#clump" id="clump"><h1>Clump</h1></a>
 <p>This tool re-categorizes data in a raster image by grouping cells that form
@@ -693,6 +694,39 @@ more suitable for this application.</p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 17/06/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
+<p><a name="FilterRasterFeaturesByArea"></a></p>
+<a class="header" href="#filterrasterfeaturesbyarea" id="filterrasterfeaturesbyarea"><h1>FilterRasterFeaturesByArea</h1></a>
+<p>This tool takes an input raster (<code>--input</code>) containing integer-labelled features, such as the output of the <a href="./gis_analysis.html#clump"><strong>Clump</strong></a> tool,
+and removes all features that are smaller than a user-specified size (<code>--threshold</code>), measured in grid cells. The
+user must specify the replacement value for removed features using the <code>--background</code> parameter, which can be either
+<code>zero</code> or <code>nodata</code>.</p>
+<p><em>See Also</em>:
+<a href="./gis_analysis.html#clump"><strong>Clump</strong></a></p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input        </td><td> Input raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--threshold        </td><td> Remove features with fewer grid cells than this threshold value</td></tr>
+<tr><td>--background       </td><td> Background value</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.filter_raster_features_by_area(
+    i, 
+    output, 
+    threshold, 
+    background=&quot;zero&quot;, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=FilterRasterFeaturesByArea -v ^
+--wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif ^
+--background=zero 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/filter_raster_features_by_area.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay</p>
+<p><em>Created</em>: 22/06/2017</p>
+<p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="FindLowestOrHighestPoints"></a></p>
 <a class="header" href="#findlowestorhighestpoints" id="findlowestorhighestpoints"><h1>FindLowestOrHighestPoints</h1></a>
 <p>This tool locates the lowest and/or highest cells in a raster and outputs these locations to a vector
@@ -846,7 +880,7 @@ y-coordinate (Med Y) are calculated.</li>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/medoid.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/09/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 24/07/2020</p>
 <p><a name="MinimumBoundingBox"></a></p>
 <a class="header" href="#minimumboundingbox" id="minimumboundingbox"><h1>MinimumBoundingBox</h1></a>
 <p>This tool delineates the minimum bounding box (MBB) for a group of vectors. The MBB is the smallest box to

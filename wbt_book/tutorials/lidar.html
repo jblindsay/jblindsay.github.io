@@ -142,11 +142,11 @@
                     <main>
                         <a class="header" href="#processing-lidar-data" id="processing-lidar-data"><h1>Processing LiDAR data</h1></a>
 <ul>
-<li><a href="#grid_lidar">How do I convert a LAS point cloud into a raster?</a></li>
+<li><a href="#grid_lidar">How do I convert a LiDAR point cloud into a raster?</a></li>
 <li><a href="#select_tiles_by_polygon">How do I extract a subset of LiDAR files that overlap with an area of interest?</a></li>
 <li><a href="#classification">How do I exclude points with certain classifications?</a></li>
 <li><a href="#LidarGroundPointFilter">How do I remove non-ground points from my LiDAR file?</a></li>
-<li><a href="#folder">I have many LAS files and want to interpolate all of them at once</a></li>
+<li><a href="#folder">I have many LiDAR files and want to interpolate all of them at once</a></li>
 <li><a href="#low_points">What if my data contains anomalously high/low points?</a></li>
 <li><a href="#laz">My data are in LAZ format. How do I interpolate them?</a></li>
 <li><a href="#lazToZlidar">How do I convert LAS or LAZ to zLidar?</a></li>
@@ -157,12 +157,12 @@
 <li><a href="#workflow">What is the workflow after mosaicking my DEM?</a></li>
 </ul>
 <p><a name="grid_lidar"></a></p>
-<a class="header" href="#how-do-i-convert-a-las-point-cloud-into-a-raster" id="how-do-i-convert-a-las-point-cloud-into-a-raster"><h2>How do I convert a LAS point cloud into a raster?</h2></a>
+<a class="header" href="#how-do-i-convert-a-lidar-point-cloud-into-a-raster" id="how-do-i-convert-a-lidar-point-cloud-into-a-raster"><h2>How do I convert a LiDAR point cloud into a raster?</h2></a>
 <p>Converting your LiDAR data into a raster requires an interpolation operation. There are many such interpolation methods. The following is an example of how to interpolate the last-return points of a LAS/zLidar file using an inverse distance weighted (IDW) interpolation scheme, with a search window radius of 2.5 m, an exponent of 2.0, and an output grid resolution of 1.5 m. You may prefer to derive your raster DEM using Delaunay triangulation (TINing) instead.</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot;
+wbt.wbt.set_working_dir(&quot;/path/to/data/&quot;)
 
 wbt.lidar_idw_interpolation(
 i=&quot;myFile.las&quot;,
@@ -174,7 +174,7 @@ weight=2.0,
 radius=2.5
 )
 </code></pre>
-<p>Other methods for gridding a LAS file include nearest neighbour, Delaunay triangulation (TINing), block minimum, and block maximum gridding schemes.</p>
+<p>Other methods for gridding a LAS/zLidar file include nearest neighbour, Delaunay triangulation (TINing), block minimum, and block maximum gridding schemes.</p>
 <p><a name="select_tiles_by_polygon"></a></p>
 <a class="header" href="#how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest" id="how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest"><h2>How do I extract a subset of LiDAR files that overlap with an area of interest?</h2></a>
 <p>Sometimes, you need to extract all of the LAS/zLidar tiles from a large dataset that overlap with a particular area of interest. For example, you may need to interpolate all the files overlapping with a watershed or a particular city. For this task, you can use <em>select_tiles_by_polygon</em>.
@@ -343,7 +343,7 @@ main()
 </code></pre>
 <p><a name="folder"></a></p>
 <a class="header" href="#i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once" id="i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once"><h2>I have many LAS/zLidar files and want to interpolate all of them at once</h2></a>
-<p>When you have hundreds, or even thousands, of LAS/zLidar files you might be inclined to write a Python script that calls the above function for each input file contained within a folder. But that isn't the best way to handle this common situation. Instead, if the input (i) and output parameters are left unspecified, each of WhiteboxTool's LiDAR gridding methods will interpolate all of the LAS files in the working directory, e.g.</p>
+<p>When you have hundreds, or even thousands, of LAS/zLidar files you might be inclined to write a Python script that calls the above function for each input file contained within a folder. But that isn't the best way to handle this common situation. Instead, if the input (i) and output parameters are left unspecified, each of WhiteboxTool's LiDAR gridding methods will interpolate all of the LAS and zLidar files in the working directory, e.g.</p>
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, and John Lindsay
 # Created: 01/07/2020
@@ -359,7 +359,7 @@ main()
 # by the user in the script settings section. The exclude_cls parameter  #
 # allows you to optionally exclude listed point classes from the         #
 # interpolation; Valid class values range from 0 to 18, based on the LAS #
-#  specifications.                                                       #
+# specifications.                                                       #
 #                                                                        #
 # This script makes use of batch processing in which the input include   #
 # and entire directory of .las or .zlidar files. This is more beneficial #
@@ -426,7 +426,7 @@ def main():
     maxz=None,
     max_triangle_edge_length=15.0
     )
-    print(&quot;Completed TIN inteprolation \n&quot;)
+    print(&quot;Completed TIN interpolation \n&quot;)
 
     # Mosaic the individual tiles.
     outfile = os.path.join(output_dir,&quot;NAME_OFF_FILE.tif&quot;) # Creates the output file by joining the output directory with the output file name.
@@ -609,7 +609,7 @@ if __name__ == &quot;__main__&quot; :
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot;
+wbt.wbt.set_working_dir(&quot;/path/to/data/&quot;)
 
 wbt.lidar_nearest_neighbour_gridding(
 &quot;in.las&quot;, &quot;out.tif&quot;, parameter=&quot;intensity&quot;)
@@ -623,14 +623,14 @@ wbt.lidar_nearest_neighbour_gridding(
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot;
+wbt.wbt.set_working_dir(&quot;/path/to/data/&quot;)
 
 wbt.fill_missing_data(&quot;dem.tif&quot;, &quot;new_dem.tif&quot;, filter=11)
 </code></pre>
 <p>The choice of a filter size will depend on the extent of the largest interior void area.</p>
 <p><a name="mosaic"></a></p>
 <a class="header" href="#how-do-i-combine-many-lidar-tiles-into-a-single-raster" id="how-do-i-combine-many-lidar-tiles-into-a-single-raster"><h2>How do I combine many LiDAR tiles into a single raster?</h2></a>
-<p>Often you have many hundred LAS files, which you've interpolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
+<p>Often you have many hundred LAS/zLidar files, which you've interpolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, and John Lindsay
 # Created: 01/07/2020

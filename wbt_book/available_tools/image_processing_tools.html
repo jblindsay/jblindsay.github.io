@@ -648,7 +648,7 @@ assigned the NoData value.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/mosaic.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/01/2018</p>
-<p><em>Last Modified</em>: 02/01/2018</p>
+<p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MosaicWithFeathering"></a></p>
 <a class="header" href="#mosaicwithfeathering" id="mosaicwithfeathering"><h1>MosaicWithFeathering</h1></a>
 <p>This tool will create a mosaic from two input images. It is similar in operation to the <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> tool,
@@ -834,27 +834,37 @@ the output raster must be read and written to during the same loop.</p>
 <p><em>Last Modified</em>: 16/02/2019</p>
 <p><a name="Resample"></a></p>
 <a class="header" href="#resample" id="resample"><h1>Resample</h1></a>
-<p>Resample is very similar in operation to the Mosaic tool. The Resample tool should
-be used when there is an existing image into which you would like to dump information
-from one or more source images. If the source images are more extensive than the
-destination image, i.e. there are areas that extend beyond the destination image
-boundaries, these areas will not be represented in the updated image. Grid cells in the
-destination image that are not overlapping with any of the input source images will not
-be updated, i.e. they will possess the same value as before the resampling operation. The
-Mosaic tool is used when there is no existing destination image. In this case, a new
-image is created that represents the bounding rectangle of each of the two or more input
-images. Grid cells in the output image that do not overlap with any of the input images
-will be assigned the NoData value.</p>
+<p>This tool can be used to modify the grid resolution of one or more rasters. The user
+specifies the names of one or more input rasters (<code>--inputs</code>) and the output raster
+(<code>--output</code>). The resolution of the output raster is determined either using a
+specified <code>--cell_size</code> parameter, in which case the output extent is determined by the
+combined extent of the inputs, or by an optional base raster (<code>--base</code>), in which case
+the output raster spatial extent matches that of the base file. This operation is similar
+to the <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> tool, except that <a href="./image_processing_tools.html#resample"><strong>Resample</strong></a> modifies the output resolution. The <a href="./image_processing_tools.html#resample"><strong>Resample</strong></a>
+tool may also be used with a single input raster (when the user wants to modify its
+spatial resolution, whereas, <a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a> always includes multiple inputs.</p>
+<p>If the input source images are more extensive than the base image (if optionally specified),
+these areas will not be represented in the output image. Grid cells in the
+output image that are not overlapping with any of the input source images will not be
+assigned the NoData value, which will be the same as the first input image. Grid cells in
+the output image that overlap with multiple input raster cells will be assigned the last
+input value in the stack. Thus, the order of input images is important.</p>
+<p><em>See Also</em>:
+<a href="./image_processing_tools.html#mosaic"><strong>Mosaic</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--destination      </td><td> Destination raster file</td></tr>
+<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<tr><td>--cell_size        </td><td> Optionally specified cell size of output raster. Not used when base raster is specified</td></tr>
+<tr><td>--base             </td><td> Optionally specified input base raster file. Not used when a cell size is specified</td></tr>
 <tr><td>--method           </td><td> Resampling method; options include 'nn' (nearest neighbour), 'bilinear', and 'cc' (cubic convolution)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.resample(
     inputs, 
-    destination, 
+    output, 
+    cell_size=None, 
+    base=None, 
     method=&quot;cc&quot;, 
     callback=default_callback
 )
@@ -867,7 +877,7 @@ will be assigned the NoData value.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/resample.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/01/2018</p>
-<p><em>Last Modified</em>: 13/10/2018</p>
+<p><em>Last Modified</em>: 25/08/2020</p>
 <p><a name="RgbToIhs"></a></p>
 <a class="header" href="#rgbtoihs" id="rgbtoihs"><h1>RgbToIhs</h1></a>
 <p>This tool transforms three raster images of multispectral data (red, green, and blue channels) into their equivalent

@@ -537,7 +537,8 @@ elevation during a second stream traversal.</p>
 D8 (O'Callaghan and Mark, 1984) algorithm. This algorithm is an example of single-flow-direction
 (SFD) method because the flow entering each grid cell is routed to only one downslope neighbour,
 i.e. flow divergence is not permitted. The user must specify the name of the input digital
-elevation model (DEM) or D8 flow pointer (<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>) raster (<code>--input</code>). If an input DEM is used, it must have
+elevation model (DEM) or flow pointer raster (<code>--input</code>) derived using the D8 or Rho8 method
+(<a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#rho8pointer"><strong>Rho8Pointer</strong></a>). If an input DEM is used, it must have
 been hydrologically corrected to remove all spurious depressions and flat areas. DEM pre-processing
 is usually achieved using the <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tools. If a D8 pointer
 raster is input, the user must also specify the optional <code>--pntr</code> flag. If the D8 pointer follows
@@ -558,7 +559,7 @@ indices, such as the wetness index, or relative stream power index.</p>
 <p>Grid cells possessing the <strong>NoData</strong> value in the input DEM/pointer raster are assigned the <strong>NoData</strong>
 value in the output flow-accumulation image.</p>
 <p><em>See Also</em>:
-<a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
+<a href="./hydrological_analysis.html#rho8pointer"><strong>Rho8Pointer</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./hydrological_analysis.html#dinfpointer"><strong>DInfPointer</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
 <tr><td>-i, --input        </td><td> Input raster DEM or D8 pointer file</td></tr>
@@ -1699,6 +1700,10 @@ and the isobasin target area (<code>--size</code>) specified in units of grid ce
 corrected to remove all spurious depressions and flat areas. DEM pre-processing is usually achived using either
 the <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a> or <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a> tool. Several temporary rasters are created during the execution
 and stored in memory of this tool.</p>
+<p>The tool can optionally (<code>--connections</code>) output a CSV table that contains the upstream/downstream connections
+among isobasins. That is, this table will identify the downstream basin of each isobasin, or will list N/A in
+the event that there is no downstream basin, i.e. if it drains to an edge. The output CSV file will have the
+same name as the output raster, but with a *.csv file extension.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>, <a href="./hydrological_analysis.html#basins"><strong>Basins</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
@@ -1706,12 +1711,14 @@ and stored in memory of this tool.</p>
 <tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
 <tr><td>-o, --output       </td><td> Output raster file</td></tr>
 <tr><td>--size             </td><td> Target basin size, in grid cells</td></tr>
+<tr><td>--connections      </td><td> Output upstream-downstream flow connections among basins?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.isobasins(
     dem, 
     output, 
     size, 
+    connections=False, 
     callback=default_callback
 )
 </code></pre>
@@ -1722,7 +1729,7 @@ and stored in memory of this tool.</p>
 <p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/hydro_analysis/isobasins.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 03/12/2017</p>
-<p><em>Last Modified</em>: 13/02/2020</p>
+<p><em>Last Modified</em>: 24/07/2020</p>
 <p><a name="JensonSnapPourPoints"></a></p>
 <a class="header" href="#jensonsnappourpoints" id="jensonsnappourpoints"><h1>JensonSnapPourPoints</h1></a>
 <p>The <a href="./hydrological_analysis.html#jensonsnappourpoints"><strong>JensonSnapPourPoints</strong></a> tool can be used to move the location of vector pour points (i.e. outlets used in a <a href="./hydrological_analysis.html#watershed"><strong>Watershed</strong></a>
