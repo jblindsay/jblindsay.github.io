@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>FillBurn</h1>
+
+<p><b>FillBurn</b> is an algorithm for enforcing flow in a DEM to match that of a known, or mapped, vector stream 
+network. The algorithm can be thought of as the standard method for performing stream burning and
+was described in detail by Saunders (1999). It works by first rasterizing the vector stream network 
+onto a grid of the same dimensions as the DEM. The stream network is then thinned using a line-thinning 
+algorithm and the DEM is lowered by 10,000 elevation units at each grid cell coincident with the thinned
+streams. A depression filling algorithm is applied to the streams decremented DEM and finally the 
+stream cells are raised by a constant value such that the entire stream network is just slightly lower
+ than the surrounding terrain.</p>
+
+ <p><strong>This is not a good algorithm for enforcing flow pattern with mapped streas data and 
+ is not recommended for general use.</strong> It has only been provided for comparison purposes only. 
+ Instead, the <strong>Topological Breach-Burn</strong> tool 
+ should be used. This is because traditional methods for stream burning suffer from a number of 
+ limitations that result in erroneous stream captures between nearby stream links that can yield
+ highly inaccurate modelled surface flow patterns, as described by Lindsay (2016).</p>
+
+<br/><h2 class="SeeAlso">References:</h2>
+<ul>
+<li>Saunders, W. 1999. Preparation of DEMs for use in environmental modeling analysis, in: ESRI User 
+Conference. pp. 24-30.</li>
+<br/><br/><li>Lindsay JB. 2016. The practice of DEM stream burning revisited. <i>Earth Surface 
+Processes and Landforms</i>, 41(5): 658-668. DOI: 10.1002/esp.3888</li>
+</ul>
+
+<br/><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="TopologicalBreachBurn.html">Topological Breach-Burn</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                DEMFile = wd + "DEM.dep"&#10;<br>
+                streamsFile = wd + "streams.shp"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [DEMFile, streamsFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("FillBurn", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def DEMFile = wd + "DEM.dep"&#10;<br>
+                def streamsFile = wd + "streams.shp"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [DEMFile, outputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("FillBurn", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<br/><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2015), jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

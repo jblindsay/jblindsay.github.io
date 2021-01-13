@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>New raster from base raster</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>New raster from base raster</h1>
+
+        <p>
+            This tool can be used to create a new raster with the same coordinates and 
+            dimensions (i.e. rows and columns) as an existing base image. The user must 
+            specify the name of the base image, the value that the new grid will be filled 
+            with (default of zero), and the data type (either <i>float</i> or 
+            <i>integer</i>). Notice that if you desire the newly created grid to be filled 
+            with <b><i>NoData</i></b> values, simply type "NoData" as the constant value. 
+            Notice that the functionality of this tool is the same as multiplying the base 
+            image by zero and adding the constant value.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="AssignRowOrColNumber.html">Assign row or column number to grid cells of a new image</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                constantValue = "NoData"&#10;<br>
+                dataType = "float"&#10;<br>
+                args = [inputFile, outputFile, constantValue, dataType]&#10;<br>
+                pluginHost.runPlugin("NewRasterFromBase", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def constantValue = "0.0"&#10;<br>
+                def dataType = "integer"&#10;<br>
+                String[] args = [inputFile, outputFile, constantValue, dataType]&#10;<br>
+                pluginHost.runPlugin("NewRasterFromBase", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

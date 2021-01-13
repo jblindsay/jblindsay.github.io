@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Weighted overlay</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body><h1>Weighted overlay</h1>
+
+        <p>
+            This tool performs a weighted overlay on multiple input images. It can be 
+            used to combine multiple factors with varying levels of weight or relative 
+            importance. The <b><i>Weighted Overlay</i></b> tool is similar to the 
+            <a href="WeightedSum.html"><b><i>Weighted Sum</i></b></a> tool but is 
+            more powerful because it automatically converts the input factors to a 
+            common  user-defined scale and allows the user to specify <i>benefit 
+                factors</i> and <i>cost factors</i>. A benefit factor is a factor 
+            for which higher values are <i>more</i> suitable. A cost factor is a 
+            factor for which higher values are <i>less</i> suitable. By default, 
+            <b><i>Weighted Overlay</i></b> assumes that input images are benefit 
+            factors, unless the <b><i>Cost?</i></b> checkbox is checked. 
+            Constraints are absolute restriction with values of 0 (unsuitable) 
+            and 1 (suitable). This tool is particularly useful for performing 
+            multi-criteria evaluations (MCE). </p>
+
+        <p>Notice that the algorithm will convert the user-defined factor 
+            weights internally such that the sum of the weights is always 
+            equal to one. As such, the user can specify the relative weights 
+            as decimals, percentages, or relative weightings (e.g. slope is 
+            2 times more important than elevation, in which case the weights 
+            may not sum to 1 or 100).</p>
+
+        <p><b><i>NoData</i></b> valued grid cells in any of the input images 
+            will be assigned <b><i>NoData</i></b> values in the output image. The 
+            output raster is of the <i>float</i> data type and <i>continuous</i> 
+            data scale.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="WeightedSum.html">Weighted sum</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # image1;weight1;image2;weight2;...
+                inputData = wd + "input1.dep" + ";" + "0.2" + ";" + wd + "input2.dep" + ";" + "0.8"&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                constraintsFiles = wd + "constraint1.dep" + ";" + wd + "constraint2.dep" + ";" + wd + "constraint3.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                commonScale = "0-1" # must be 0-1, 0-100, or 0-255&#10;<br>
+                args = [inputData, constraintsFiles, outputFile, commonScale]&#10;<br>
+                pluginHost.runPlugin("WeightedOverlay", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // image1;weight1;image2;weight2;...
+                def inputData = wd + "input1.dep" + ";" + "0.2" + ";" + wd + "input2.dep" + ";" + "0.8"&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def constraintsFiles = wd + "constraint1.dep" + ";" + wd + "constraint2.dep" + ";" + wd + "constraint3.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def commonScale = "0-255" // must be 0-1, 0-100, or 0-255&#10;<br>
+                String[] args = [inputData, constraintsFiles, outputFile, commonScale]&#10;<br>
+                pluginHost.runPlugin("WeightedOverlay", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Isolate ground points (LiDAR)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Isolate ground points (LiDAR)</h1>
+
+        <p>This tool can be used to filter out non-ground points in an input point cloud 
+        dataset derived from laser scanning (LiDAR). The user must specifiy the input points file, 
+        which can either be a ShapeFile of Point or MultiPoint base ShapeType or a LAS file. 
+        The LAS file format is an industry standard format for storing data 
+        acquired by laser scanners. If a ShapeFile is input, an attribute field containing the 
+        elevation data (Z) must also be specified. The user must input the name of the output 
+        ShapeFile. At present, the tool outputs a ShapeFile of MultiPointZ ShapeType and cannot output 
+        a LAS file. The user must also specify the search distance, defining the radius of the 
+        circular neighbourhood in which points are found, the minimum number of points, the 
+        inter-point slope threshold, and whether the output file should be automatically displayed 
+        when the tool has completed. If a search neighbourhood contains fewer than the 
+        specified minimum number of points, its radius will be increased to that of the 
+        smallest circle enclosing this minimum number of neighbours. </p>
+        
+        <p>The tool distinguishes ground points from non-ground points 
+        based on the inter-point slope threshold. All of the points within the 
+        circle encompassing each grid cell is then examined as a neighbourhood. All points within 
+        a neighbourhood that have an inter-point slope with any other point and is also situated 
+        above the corresponding point, is considered to be a non-ground point. An appropriate 
+        value for the inter-point slope threshold parameter will depend on the steepness of the 
+        terrain, but generally values of 15-35 degrees produce satisfactory results for flat to 
+        moderatly flat areas. </p>
+
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="LiDAR_BareEarthDEM.html">Bare-Earth DEM (LiDAR)</a></li>
+        	  <li><a href="RemoveOffTerrainObjects.html">Remove Off-Terrain Objects</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.las"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                searchDistance = "1.0"&#10;<br>
+                minNeighbours = "0"&#10;<br>
+                maxSlope = "20.0"&#10;<br>
+                displayOutput = "false"&#10;<br>
+                args = [inputFile, outputFile, searchDistance, minNeighbours, maxSlope, displayOutput]&#10;<br>
+                pluginHost.runPlugin("IsolateGroundPoints", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.shp"&#10;<br>
+                def elevField = "ELEV"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def searchDistance = "1.0"&#10;<br>
+                def minNeighbours = "0"&#10;<br>
+                def maxSlope = "20.0"&#10;<br>
+                def displayOutput = "false"&#10;<br>
+                String[] args = [inputFile, elevField, outputFile, searchDistance, minNeighbours, maxSlope, displayOutput]&#10;<br>
+                pluginHost.runPlugin("IsolateGroundPoints", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

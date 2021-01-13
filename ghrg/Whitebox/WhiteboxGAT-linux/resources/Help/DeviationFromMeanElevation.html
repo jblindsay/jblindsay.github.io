@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Deviation from mean elevation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Deviation from mean elevation</h1>
+
+        <p>This tool can be used to calculate the difference between the elevation of 
+            each grid cell and the mean elevation of the centering local neighbourhood,
+            normalized by standard deviation. Therefore, this index of topographic 
+            residual is essentially equivalent to a local <i>z</i>-score. This attribute 
+            measures the relative topographic position as a fraction of local relief, 
+            and so is normalized to the local surface roughness.</p>
+                
+            <p>The user must specify the name of the input digital elevation model (DEM), 
+            the name of the output file, and the size of the neighbourhood. Neighbourhood 
+            size is specified in map units, e.g. metres.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="DifferenceFromMeanElevation.html">Difference From Mean Elevation</a></li>
+            <li><a href="FilterStandardDeviation.html">Standard Deviation Filter</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                neighbourhoodSize = "3"&#10;<br>
+                args = [inputFile, outputFile, neighbourhoodSize]&#10;<br>
+                pluginHost.runPlugin("DeviationFromMeanElevation", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def neighbourhoodSize = "3"&#10;<br>
+                String[] args = [inputFile, outputFile, neighbourhoodSize]&#10;<br>
+                pluginHost.runPlugin("DeviationFromMeanElevation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (jlindsay@uoguelph.ca), 2015</li>
+        </ul>
+    </body>
+</html>

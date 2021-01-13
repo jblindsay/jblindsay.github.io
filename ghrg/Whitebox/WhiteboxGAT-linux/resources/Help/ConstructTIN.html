@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Construct TIN</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Construct TIN</h1>
+        <p>The Construct TIN tool can be used to create a triangular irregular network (TIN) from 
+        a collection of vector points or the nodes in a vector polyline or polygon coverage. The 
+        user must specify the name of the input vector shapefile, the name of the field within the 
+        vector's attribute table that is used to indicate height, or optionally if the shapefile is 
+        of a <i>z</i>-dimension (i.e. ShapeType of PointZ, PolyLineZ, or PolygonZ) height values 
+        can be derived from the z-values. The output vector will be of a polygon ShapeType with an 
+        attribute table containing fields related to the plane associated with each triangular facet. 
+        The output fields include the entries EQ_AX, EQ_BY, EQ_CZ, and EQ_D, which together describe 
+        the parameters of the facets planar equation, such that:</p>
+        <p><code><i>Ax + By + Cz + d = 0</i></code></p>
+        <p>Additionally, the output vector's attribute table contains fields for the plane's slope 
+        gradient (steepness), slope aspect (orientation), a hillshade value, and the elevation of 
+        the central value. When the tool is complete, the resulting TIN is automatically displayed 
+        rendered with the hillshade attribute.</p>
+        <p>It is possible to use the <a href="RasterizeTIN.html"><b><i>Rasterize TIN</i></b></a> tool 
+        to convert the vector TIN model to a raster grid.</p>
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="RasterizeTIN.html">Rasterize TIN</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # Input data has the shapefile name followed&#10;<br>
+                # by the attribute, separated by a semicolon.&#10;<br>
+                inputData = wd + "spotHeights.shp" + ";" + "HEIGHT"&#10;<br>
+                useZValues = "false"&#10;<br>
+                outputFile = wd + "TIN.shp"&#10;<br>
+                args = [inputData, useZValues, outputFile]&#10;<br>
+                pluginHost.runPlugin("ConstructTIN", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // Input data has the shapefile name followed &#10;<br>
+                // by the attribute, separated by a semicolon.&#10;<br>
+                def inputData = wd + "spotHeights.shp" + ";" + "not specified"&#10;<br>
+                def useZValues = "true"&#10;<br>
+                def outputFile = wd + "TIN.shp"&#10;<br>
+                String[] args = [inputData, useZValues, outputFile]&#10;<br>
+                pluginHost.runPlugin("ConstructTIN", args, False)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

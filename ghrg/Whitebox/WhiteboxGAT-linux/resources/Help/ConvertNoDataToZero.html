@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Convert NoData to zero</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Convert NoData to zero</h1>
+
+        <p>This tool can be used to change the value within the grid cells of a raster file that contain 
+            <b><i>NoData</i></b> to zero. The most common reason for using this tool is to change the background 
+            region of a raster image such that it can be included in analysis since <b><i>NoData</i></b> values are 
+            usually ignored by by most tools. This change, however, will result in the background no longer 
+            displaying transparently. This change can be reversed using the <a href="SetNoData.html">Set NoData Value</a> 
+            tool.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="NoData.html">NoData</a></li>
+            <li><a href="SetNoData.html">Set NoData Value</a></li>
+            <li><a href="IsNoData.html">Is NoData</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("ConvertNoDataToZero", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("ConvertNoDataToZero", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

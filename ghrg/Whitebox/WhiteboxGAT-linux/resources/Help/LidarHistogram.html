@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>LiDAR histogram</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>LiDAR histogram</h1>
+
+<p>This tool creates a histogram for the attributes of a LiDAR (LAS) file, including 
+elevation, intensity, and scan angle. The user must input the name of a LiDAR LAS file 
+(*.las), the attribute name (Elevation, Intensity, or Scan Angle) on which the analysis 
+will be performed, and the number of histogram bins.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="AttributeHistogram.html">Attribute histogram</a></li>
+<li><a href="Histogram.html">Histogram</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # The tool accepts LAS files&#10;<br>
+                inputFile = wd + "input.las"&#10;<br>
+                attribute = "Elevation"&#10;<br>
+                bins = "10"&#10;<br>
+                args = [inputFile, attribute, bins]&#10;<br>
+                pluginHost.runPlugin("LidarHistogram", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // The tool accepts LAS files&#10;<br>
+                def inputFile = wd + "input.las"&#10;<br>
+                def attribute = "Intensity"&#10;<br>
+                def bins = "10"&#10;<br>
+                String[] args = [inputFile, attribute, bins]&#10;<br>
+                pluginHost.runPlugin("LidarHistogram", args, false)&#10;<br>
+            </code>
+        </p>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

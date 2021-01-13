@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Truncate values</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body><h1>Truncate values</h1>
+
+        <p>
+            This tool truncates the values in an input image to the desired number of decimal places. Use the <a href="Round.html"><b><i>Round</b></i></a> tool if you would prefer to round the values in the input image to the <i>nearest</i> whole number. <b><i>NoData</i></b> values in either of the input images will be assigned <b><i>NoData</i></b> values in the output image.</p>
+    <h2 class="SeeAlso">See Also:</h2>
+    <ul>
+        <li><a href="Round.html">Round</a></li>
+        <li><a href="MathTools.html">Mathematical Analysis Tools</a></li>
+    </ul>
+
+    <h2 class="SeeAlso">Scripting:</h2>
+    <p>The following is an example of a Python script that uses this tool:</p>
+    <p style="background-color: rgb(240,240,240)">
+        <code>
+            wd = pluginHost.getWorkingDirectory()&#10;<br>
+            inputFile = wd + "input.dep"&#10;<br>
+            decimalPlaces = "2"&#10;<br>
+            outputFile = wd + "output.dep"&#10;<br>
+            args = [inputFile, decimalPlaces, outputFile]&#10;<br>
+            pluginHost.runPlugin("Truncate", args, False)&#10;<br>
+        </code>
+    </p>
+    <p>This is a Groovy script also using this tool:</p>
+    <p style="background-color: rgb(240,240,240)">
+        <code>
+            def wd = pluginHost.getWorkingDirectory()&#10;<br>
+            def inputFile = wd + "input.dep"&#10;<br>
+            def decimalPlaces = "2"&#10;<br>
+            def outputFile = wd + "output.dep"&#10;<br>
+            String[] args = [inputFile, decimalPlaces, outputFile]&#10;<br>
+            pluginHost.runPlugin("Truncate", args, false)&#10;<br>
+        </code>
+    </p>
+
+    <h2 class="SeeAlso">Credits:</h2>
+    <ul>
+        <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+    </ul>
+</body>
+</html>

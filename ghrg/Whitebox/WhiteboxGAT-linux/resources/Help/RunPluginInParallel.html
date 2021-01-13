@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Run plugin in parallel</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Run plugin in parallel</h1>
+
+        <p>This tool is useful in situations when you have to run the same plugin tool many times. For 
+        example, you may have numerous images all of which must be processed with a spatial filter. 
+        To run the tool, the user must specify the name of the plugin and the name of a text file 
+        containing the parameter information. The plugin tool will be run once for each non-empty 
+        line within the parameter text file. Parameters should be separated by commas. The correct 
+        type and order of parameters for any plugin tool can be found by reading the <b><i>Scripting</i></b> 
+        section of its help entry. There is no need to enclose parameters within quotation marks in 
+        the parameter file. The parameter file can be made using any plain text editor. The user must 
+        also specify whether or not to suppress any data that is returned by the plugin tool, e.g. an 
+        automatically displayed image. Notice that it is not recommended that the same file be used as 
+        input to more than one of the plugin runs as this may cause a concurrency error if the file 
+        is read simutaneously by more than one thread.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+
+        <p>This is an example of a Python script using this tool:</p>
+
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                pluginName = "FillDepressions"&#10;<br>
+                parameterFile = wd + "parameters.txt"&#10;<br>
+                suppressReturns = "false"&#10;<br>
+                args = [pluginName, parameterFile, suppressReturns]&#10;<br>
+                pluginHost.runPlugin("RunPluginInParallel", args, False)&#10;<br>
+
+            </code>
+        </p>
+
+        <p>And the following is a Groovy script also using this tool:</p>
+
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def pluginName = "FilterGaussian"&#10;<br>
+                def parameterFile = wd + "parameters.txt"&#10;<br>
+                def suppressReturns = "true"&#10;<br>
+                String[] args = [pluginName, parameterFile, suppressReturns]&#10;<br>
+                pluginHost.runPlugin("RunPluginInParallel", args, false)&#10;<br>
+
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014)</li>
+        </ul>
+    </body>
+</html>

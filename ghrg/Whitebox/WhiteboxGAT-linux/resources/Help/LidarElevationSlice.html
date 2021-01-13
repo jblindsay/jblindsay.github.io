@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>LiDAR Elevation Slice</h1>
+
+<p>This tool either removes or reclassifies points in a LiDAR point cloud that are above or below
+specified thresholds. The user must input a minimum elevation threshold, a maximum threshold, or both. 
+At least one of the two threshold must be specified before running. If in-slice and out-of-slice 
+values are provided, the tool will assign these class values to each point in the output LAS file,
+overriding any class data within the input file. Note that class values must fall within the range 0-31.
+When these parameters are not provided, the tool will simply remove the points in the input file that
+fall outside of the elvation bounds. </p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="TileLasFile.html">Tile LAS File</a></li>
+</ul>
+<br><h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                input = wd + "input.las"&#10;<br>
+                output = wd + "output.dep"&#10;<br>
+                minz = "0.0"&#10;<br>
+                maxz = "not specified"&#10;<br>
+                in_slice = "not specified"&#10;<br>
+                out_slice = "not specified"&#10;<br>
+                args = [input, output, minz, maxz, in_slice, out_slice]&#10;<br>
+                pluginHost.runPlugin("LidarElevationSlice", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                def output = wd + "output.dep"&#10;<br>
+                def minz = "0.0"&#10;<br>
+                def maxz = "500.0"&#10;<br>
+                def in_slice = "2"&#10;<br>
+                def out_slice = "1"&#10;<br>
+                String[] args = [input, output, minz, maxz, in_slice, out_slice]&#10;<br>
+                pluginHost.runPlugin("LidarElevationSlice", args, false)&#10;<br>
+            </code>
+        </p>
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2017) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Clip raster to polygon</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Clip raster to polygon</h1>
+
+        <p>This tool can be used to clip one or more rasters to the extent of a vector polygon (shapefile). The 
+            user must specify the names of the input raster files and the input clip file. The input clip file must 
+            be a shapefile of a Polygon base shape type. The clip file may contain multiple polygon features. Only the 
+            exterior hull of polygons will be used for clipping, i.e. polygon holes are ignored. Raster grid cells that 
+            are not within a polygon in the clip file will be assigned the <b><i>NoData</i></b> value in the output 
+            file. Output files have the same name as their input raster files but have a <i>'_clipped'</i> suffix 
+            appended. The grid resolution of output images are the same as their corresponding input rasters. If the 
+            <b><i>'Maintain input raster dimensions'</i></b> option is selected, output images will also have the 
+            same number of rows and columns and geographic extent as their corresponding input rasters. If this 
+            option is not selected, the tool will crop the output raster to fit the clip polygon(s).</p>
+
+        <p>Clip polygons can be created using <a href="tutorials/HowToDigitizeNewVectors.html">
+                on-screen digitizing</a> to identify an area of interest on the base raster.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ErasePolygonFromRaster.html">Erase Polygon From Raster</a></li>
+            <li><a href="HowToDigitizeNewVectors.html">How To Digitize New Vectors</a></li>
+            <li><a href="Clip.html">Clip</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                clipFile = wd + "polygon.shp"&#10;<br>
+                maintainDimensions = "false"&#10;<br>
+                args = [inputFiles, clipFile, maintainDimensions]&#10;<br>
+                pluginHost.runPlugin("ClipRasterToPolygon", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def clipFile = wd + "polygon.shp"&#10;<br>
+                def maintainDimensions = "true"&#10;<br>
+                String[] args = [inputFiles, clipFile, maintainDimensions]&#10;<br>
+                pluginHost.runPlugin("ClipRasterToPolygon", args, false)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

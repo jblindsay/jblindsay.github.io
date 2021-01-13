@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Rasterize TIN</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Rasterize TIN</h1>
+        <p>The Rasterize TIN tool can be used to convert a vector triangular irregular network 
+        (TIN) to a raster grid using linear interpolation based on the planar equation for each 
+        triangular facet. The user must specify the name of the input vector TIN shapefile, which 
+        must be created using the <a href="ConstructTIN.html"><b><i>Construct TIN</i></b></a> tool. 
+        Additionally, the user must specify the name of the output raster file and either the 
+        grid resolution or the name of an existing raster file from which to derive the geographical 
+        extent and grid resolution. If a cell size (grid resolution) is specified, the output raster 
+        will derive its geographical extent from that of the input vector TIN.
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ConstructTIN.html">Construct TIN</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "TIN.shp"&#10;<br>
+                outputFile = wd + "raster TIN.dep"&#10;<br>
+                cellSize = "10.0"&#10;<br>
+                baseFile = "not specified"&#10;<br>
+                args = [inputFile, outputFile, cellSize, baseFile]&#10;<br>
+                pluginHost.runPlugin("RasterizeTIN", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def nputFile = wd + "TIN.shp"&#10;<br>
+                def outputFile = wd + "raster TIN.dep"&#10;<br>
+                def cellSize = "not specified"&#10;<br>
+                def baseFile = wd + "baseRaster.dep"&#10;<br>
+                String[] args = [inputFile, outputFile, cellSize, baseFile]&#10;<br>
+                pluginHost.runPlugin("RasterizeTIN", args, False)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

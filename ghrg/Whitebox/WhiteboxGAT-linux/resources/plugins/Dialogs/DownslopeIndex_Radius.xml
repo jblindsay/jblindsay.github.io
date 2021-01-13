@@ -1,0 +1,57 @@
+<Dialog Name="FlowAccumDinf" HelpFile="FlowAccumDinf.html">
+	<DialogComponent type="DialogFile">
+		<Name>DEM</Name>
+		<Description>Enter the name of the DEM input raster here</Description>
+		<LabelText>DEM Input Raster:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>Output</Name>
+		<Description>Enter the name of the output raster here</Description>
+		<LabelText>Output Raster:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>d</Name>
+		<Description>Enter the desired head potential, in the same units as the elevation</Description>
+		<LabelText>Head potential drop (d):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>MaxRadius</Name>
+		<Description>Enter the maximum search radius (in number of grid cells)</Description>
+		<LabelText>Maximum search radius:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>10</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+	<DialogComponent type="DialogComboBox">
+		<Name>OutputType</Name>
+		<Description>What output type would you like?</Description>
+		<LabelText>Output Type:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>Tangent, Degrees, Radians, Distance</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+	<DialogComponent type="DialogCheckBox">
+		<Name>UseMinimum</Name>
+		<Description>Use lowest elevation if no elevation with distance d can be found</Description>
+		<LabelText>Use lowest elevation:</LabelText>
+		<InitialState>True</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+</Dialog>

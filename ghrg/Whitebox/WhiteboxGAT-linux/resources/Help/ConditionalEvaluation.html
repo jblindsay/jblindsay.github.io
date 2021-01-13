@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Conditional evaluation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+        <style>
+        		table {margin-left: 15px;}
+			table {font-size: 12pt; font-family: Helvetica, Verdana, Geneva, Arial, sans-serif;}
+			table th {border-width: 1px; padding: 8px; border-style: solid; border-color: #666666; background-color: #dedede; }
+			table td {border-width: 1px; padding: 8px; border-style: solid; border-color: #666666; background-color: #ffffff; }
+			caption {font-family: Helvetica, Verdana, Geneva, Arial, sans-serif; margin-left: 15px; margin-right: 15px;}
+			.numberCell { text-align: right; }
+        </style>
+    </head>
+    <body>
+        <h1>Conditional evaluation</h1>
+
+        <p>The <b>Conditional Evaluation</b> tool can be used to perform an if-then-else style
+        conditional evaluation on a raster image on a cell-to-cell basis. The user specifies the 
+        names of an input raster image and an output raster. The grid cell values in the output 
+        image will be determined by the <b>TRUE</b> and <b>FALSE</b> values and a <b>conditional 
+        statement</b>. The conditional statement is a logical Boolean expression that 
+        <b><i>must evaluate to either TRUE or FALSE</i></b>, i.e. a Boolean value. Then depending on 
+        how this statement evaluates for each grid cell, the TRUE or FALSE values will be 
+        assigned to the corresponding cells of the output raster. The TRUE or FALSE 
+        values may take the form of either a constant numerical value or a raster image (which may 
+        be the same image as the input).</p>
+
+        <p>The <b>conditional statement</b> is a single-line logical condition, expressed using 
+        <a href="http://groovy.codehaus.org/">Groovy</a> language syntax. Groovy is a scripting 
+        language similar to Python. In additon to the common comparison and logical operators, 
+        i.e. &lt; &gt; &lt;= &gt;= == (EQUAL TO) != (NOT EQUAL TO) || (OR) &amp;&amp; (AND), 
+        there are a number of variables available to build conditional statements. These include 
+        the following:</p>
+
+        <table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">
+		<caption>Special Variable Names For Use In Conditional Statements</caption>
+		<tr><th>Name</th><th>Description</th></tr>
+		<tr><td>value</td><td>The grid cell value.</td></tr>
+		<tr><td>nodata</td><td>The input raster's NoData value.</td></tr>
+		<tr><td>null</td><td>The input raster's NoData value.</td></tr>
+		<tr><td>minvalue</td><td>The input raster's minimum value.</td></tr>
+		<tr><td>maxvalue</td><td>The input raster's maximum value.</td></tr>
+		<tr><td>displayminvalue</td><td>The input raster's minimum displayed value.</td></tr>
+		<tr><td>displaymaxvalue</td><td>The input raster's maximum displayed value.</td></tr>
+		<tr><td>rows</td><td>The input raster's number of rows.</td></tr>
+		<tr><td>columns</td><td>The input raster's number of columns.</td></tr>
+		<tr><td>row</td><td>The grid cell's row number.</td></tr>
+		<tr><td>column</td><td>The grid cell's column number.</td></tr>
+		<tr><td>rowy</td><td>The row's y-coordinate.</td></tr>
+		<tr><td>columnx</td><td>The column's x-coordinate.</td></tr>
+		<tr><td>north</td><td>The input raster's northern coordinate.</td></tr>
+		<tr><td>south</td><td>The input raster's southern coordinate.</td></tr>
+		<tr><td>east</td><td>The input raster's eastern coordinate.</td></tr>
+		<tr><td>west</td><td>The input raster's western coordinate.</td></tr>
+		<tr><td>cellsizex</td><td>The input raster's grid resolution in the x-direction.</td></tr>
+		<tr><td>cellsizey</td><td>The input raster's grid resolution in the y-direction.</td></tr>
+        </table>
+
+        <p>The special variable names are case-sensitive. Each of the special variable names 
+        can also be used as valid TRUE or FALSE constant values.</p>
+
+        <p>The following are examples of valid conditional statements:</p>
+
+        <code>value != 300.0</code>
+
+		<br><code>row &gt; (rows / 2)</code>
+
+		<br><code>value &gt;= (minvalue + 35.0)</code>
+
+		<br><code>(value &gt;= 25.0) &amp;&amp; (value &lt;= 75.0)</code>
+
+		<p>The Conditional Evaluation tool is replicated by the <b>IF</b> operator in the 
+		<a href="RasterCalculator.html">Raster Calculator</a>. Any grid cell in the input raster 
+		containing the NoData value will be assigned NoData in the output raster, unless a 
+		NoData grid cell value allows the conditional statement to evaluate to True (i.e. the 
+		conditional statement includes the NoData value), in which case the True value will be 
+		assigned to the output.</p>
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="RasterCalculator.html">Raster Calculator</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                inputFile = "\some_directory\input.dep"&#10;<br>
+                conditionalStatment = "value &lt; (maxvalue - 100.0)"&#10;<br>
+                trueValue = "\some_directory\input.dep"&#10;<br>
+                falseValue = "\some_directory\some_other_image.dep"&#10;<br>
+                outputFile = "\some_directory\output.dep"&#10;<br>
+                args = [inputFile, conditionalStatment, trueValue, falseValue, outputFile]&#10;<br>
+                pluginHost.runPlugin("ConditionalEvaluation", args, False)&#10;<br>
+            </code>
+        </p>
+
+        <p>This is a Groovy script also using the tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def inputFile = "\some_directory\input.dep"&#10;<br>
+                def conditionalStatment = "value &gt; 652.7"&#10;<br>
+                def trueValue = "\some_directory\input.dep"&#10;<br>
+                def falseValue = "nodata"&#10;<br>
+                def outputFile = "\some_directory\output.dep"&#10;<br>
+                String[] args = [inputFile, conditionalStatment, trueValue, falseValue, outputFile]&#10;<br>
+                pluginHost.runPlugin("ConditionalEvaluation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

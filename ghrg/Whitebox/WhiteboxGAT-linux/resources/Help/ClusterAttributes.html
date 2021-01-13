@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Cluster attributes</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Cluster attributes</h1>
+
+        <p>This tool can be used to performs <a href="http://en.wikipedia.org/wiki/K-means_clustering">
+        <i>k</i>-means clustering</a> on a selected 
+ 		group of attributes associated with a vector file. Each of the input attributes 
+ 		must be numerical. If the group of attributes are measured on different scales, 
+ 		it is advisable to either standardize the data (i.e. convert to z-scores) or 
+ 		normalize (transform the scale to range from 0 to 1). Both of these options 
+ 		can be specified as a pre-processing step to the cluster analysis. The user 
+ 		must also specify the number of clusters, the maximum number of iterations, and 
+ 		the minimum percent change, i.e. the minimum number of cases in the data set 
+ 		that change clusters between iterations before the iteration process is stopped. 
+ 		The cluster assignment for each record will be output to a new field in the 
+ 		vector file's attribute table named <i>CLUSTER</i>. Additionally, upon completion 
+ 		the tool will output a chart illustrating the cluster assignment change between 
+ 		iterations and an HTML report of cluster characteristics. Cluster centres are 
+ 		initialized with randomly selected records.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="kMeansClassification.html"><i>k</i>-means Classification</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputData = wd + "neighbourhoods.shp" + ";" + "POPULATION" + ";" + "CRIME_RATE" + ";" + "INCOME"&#10;<br>
+                rescalingMethod = "standardize"&#10;<br>
+                numClusters = "10"&#10;<br>
+                maxIterations = "500"&#10;<br>
+                minChange = "0.5"&#10;<br>
+                args = [inputData, rescalingMethod, numClusters, maxIterations, minChange]&#10;<br>
+                pluginHost.runPlugin("ClusterAttributes", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputData = wd + "neighbourhoods.shp" + ";" + "POPULATION" + ";" + "CRIME_RATE" + ";" + "INCOME"&#10;<br>
+                def rescalingMethod = "normalize"&#10;<br>
+                def numClusters = "10"&#10;<br>
+                def maxIterations = "500"&#10;<br>
+                def minChange = "0.5"&#10;<br>
+                String[] args = [inputData, rescalingMethod, numClusters, maxIterations, minChange]&#10;<br>
+                pluginHost.runPlugin("ClusterAttributes", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

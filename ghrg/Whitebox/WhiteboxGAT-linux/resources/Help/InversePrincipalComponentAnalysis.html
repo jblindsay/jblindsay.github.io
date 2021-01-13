@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Inverse principal component analysis</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Inverse principal component analysis</h1>
+
+        <p>This tool can be used to perform an inverse principal component 
+            analysis (PCA) on a set of PCA component images. The component 
+            images must have been created using the 
+            <a href="PrincipalComponentAnalysis.html"><b><i>Principal Component 
+                        Analysis</i></b></a> tool. PCA is a type of data 
+            transformation that is used with multi-dimensional data, 
+            such as that provided by multi-spectral remotely sensed 
+            imagery. PCA is used for numerous applications including data 
+            reduction, change detection, and noise reduction. When used as a 
+            noise reduction technique, an inverse PCA is performed, leaving out 
+            one or more of the high-order PCA components, which account for 
+            most of the noise variance in the original data set. The decision 
+            of how many components to leave out of the inverse transformation 
+            should be based on an analysis of the PCA output, considering the 
+            amount of explained variance in each PCA component.</p>
+
+        <p>The inverse PCA transformation is based on the eigenvectors and 
+            eigenvalues contained in the metadata of the component image header 
+            files (.dep). These entries are written into the header files by the 
+            <a href="PrincipalComponentAnalysis.html"><b><i>Principal Component 
+                        Analysis</i></b></a> tool and must not have been 
+            modified for the inverse transformation to work properly.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="PrincipalComponentAnalysis.html">Principal Component Analysis</a></li>
+            <li><a href="PCAForAttributes.html">PCA For Attributes</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                outputSuffix = "invPCA"&#10;<br>
+                args = [inputFiles, outputSuffix]&#10;<br>
+                pluginHost.runPlugin("InversePrincipalComponentAnalysis", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def outputSuffix = "invPCA"&#10;<br>
+                String[] args = [inputFiles, outputSuffix]&#10;<br>
+                pluginHost.runPlugin("InversePrincipalComponentAnalysis", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012), email: jlindsay@uoguelph.ca</li>
+        </ul>
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Jensen, J.R. 2005. Introductory digital image processing: A remote 
+                sensing perspective, 3rd Ed. Prentice Hall series in Geographic 
+                Information Science, Upper Saddle River, N.J., pp. 526.</li>
+        </ul>
+    </body>
+</html>

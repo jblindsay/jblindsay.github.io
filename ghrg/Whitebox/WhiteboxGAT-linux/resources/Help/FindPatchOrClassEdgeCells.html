@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Find patch or class edge cells</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Find patch or class edge cells</h1>
+
+        <p>This tool finds all grid cells in a raster image containing categorical data (i.e. classes or objects) 
+            that are located on the edge of patch or class features. The user must specify the name of the input image, 
+            which must be of a categorical data type, and the output image. Grid cells that are located along class or 
+            patch boundaries will be assigned their class value/patch ID. All other grid cells will be assigned a zero 
+            in the output image.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="EdgeProportion.html">Edge Proportion</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("FindPatchOrClassEdgeCells", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("FindPatchOrClassEdgeCells", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

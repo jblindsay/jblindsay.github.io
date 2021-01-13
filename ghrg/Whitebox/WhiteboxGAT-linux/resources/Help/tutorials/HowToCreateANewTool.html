@@ -1,0 +1,189 @@
+<!--
+Copyright (C) 2013 Dr. John Lindsay <jlindsay@uoguelph.ca>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How to create a plugin tool for Whitebox</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../Help.css">
+    </head>
+    <body>
+        <div><h1>Creating Whitebox GAT plugin tools</h1>
+            <h2><br>By John Lindsay, Ph.D. (Last modified, May 2013)</h2>
+            <p><b><i>Please note that this tutorial only applies to Whitebox GAT v. 2.0 
+                and higher. The 1.0 series of Whitebox GAT was developed using the 
+                .NET framework and not Java.</i></b></p>
+
+            <p>Creating a Whitebox GAT plugin tool can be quite a fast and 
+                painless process once you have the steps down. Whitebox tools 
+                are generally written in Java, although you can use any 
+                programming language targeting the Java Virtual Machine (JVM), 
+                including Scala, Groovy, Jython, and Kotlin. Generally 
+                development is made easier if you use an integrated development 
+                environment (IDE), such as Netbeans. An IDE is simply an 
+                environment for computer programming and there are many very 
+                good, free IDEs that are used for Java development. Whitebox has 
+                been developed using the Netbeans IDE, which you may want to 
+                download and install for this tutorial.</p>
+            
+            <p>1. Using the Netbeans IDE, create a new Java project. There are a 
+                few things that you need to configure before coding the new tool.</p>
+
+            <p>2. First, add a new package called 'plugins' to the 'Source 
+                Packages' (right-click over 'Source Packages' and select 
+                'Java Package').</p>
+            
+            <p>3. Now add a new Java class to 'plugins'...call it whatever you will, 
+                but this name will be important for other things so you should 
+                put some thought into it. It should be relatively short, contain 
+                no spaces or numbers, and should be descriptive of what the tool 
+                does (unlike the 'MyTool' tool in the example above!). Notice as 
+                well that the Java convention for class names is camel-case, i.e. 
+                capitalize the first letter and any concatenated words.</p>
+            
+            <p>4. Add a new folder called 'META-INF/services' to the source 
+                packages. Notice that although you will use the path separator, 
+                it will appear as a dot in 'Source Packages'. Letter case is 
+                important here.</p>
+
+            <p>5. Within 'META-INF/services', add a new FILE called 
+                'whitebox.interfaces.WhiteboxPlugin'. Open this file and enter a 
+                line for your new plugin tool, e.g. plugins.MyTool for the 
+                MyTool plugin tool. You can have as many plugin tools within the 
+                plugins package as you like but each of them need to have a 
+                'plugin.' line entry in this file in order to be visible as a 
+                plugin to the main Whitebox GUI.</p>
+
+            <p>6. You will likely need to add the WhiteboxAPI.jar to your Library 
+                folder. This file will allow you to read/write Whitebox files and 
+                Shapefiles and a number of other important functions.</p>
+
+            <p>7. Now open 'MyTool.java' or whatever file is associated with 
+                your newly created tool.</p>
+
+            <p>8. Launch Whitebox GAT, open the dialog for whatever tool is 
+                closest to the tool that you are creating and press the 
+                'View Code' button on the dialog box. Copy and paste the code 
+                from this tool into the java file for your new tool. Be sure to 
+                erase anything that may be in the new file before pasting.</p>
+
+            <p>9. There will be a number of quick modifications to the code that 
+                you will need to make now. First, if your new tools does not reside 
+                within the same package (jar file) as the tool you just pasted the 
+                code from, you will need to alter the package statement on the 
+                first line; in the example from the image above, the MyTool class 
+                would need to have a first line that states, 'package 
+                JohnLindsaysTools' in reference to the JohnLindsaysTools.jar 
+                file that will be created when I compile my project. You will 
+                also need to change the class name at the top so that it matches 
+                the name of your new tool (i.e. the name of the java file). Also 
+                change the return string within the 'getName' function to this 
+                very same name. You also need to change the returns of the 
+                'getDescriptiveName' (this is the name that your tool is given 
+                in the tools list and tree and can contain spaces, unlike the 
+                getName version of the tool name) and the 'getToolDescription' 
+                (this is the bit of text that will appear along the status bar 
+                when the user clicks on your tool in the tools list or tree).</p>
+
+            <p>10. Unless your tool will occupy the same toolbox as the tool 
+                from which you copied the code, you will need to update the 
+                'getToolbox' return string array. Your tool can be listed in 
+                multiple toolboxes within the tools tree, with each one 
+                occupying a cell in this string array. You can find out the 
+                names of the various existing toolboxes, or create a new 
+                toolbox, by examining/editing the toolbox.xml file contained 
+                within the 'Resources' folder of Whitebox (itself contained 
+                within the 'lib' folder). Alternatively you can simply examine 
+                the 'getToolbox' returns of a tool contained within the toolbox 
+                that you want your new tool to occupy.</p>
+
+            <p>11. The real work done by your tool is contained within the 'run' 
+                method of the code. You can learn how to work with Whitebox files 
+                simply by examining the code of several existing tools. You will 
+                likely notice several similarities in the structures of these 
+                tools. For example, the various parameters that will be fed to 
+                the program are usually ingested early in the method by assigning 
+                the various elements of the 'args' array to variables. Input and 
+                output raster images are then generally initialized before 
+                performing any sort of analysis. Nearer the end of the 'run' 
+                method you will likely find that input/output files are closed 
+                and returns are fed back to Whitebox using the 'returnData' 
+                function. This function accepts an Object. If the return is a 
+                string value containing the full file name, including directory, 
+                of a WhiteboxRaster or Shapefile, the Whitebox GUI will 
+                automatically display the file in the map area. If it contains 
+                a string of data, it will be displayed within the text area of 
+                the Whitebox GUI. If it contains a jPanel, the panel will be 
+                embedded in a jDialog and displayed by the GUI (e.g. see the 
+                'FeatureSpacePlot' tool as an example of this). This is also 
+                useful if you want to create a custom dialog for a more 
+                complicated plugin tool.</p>
+
+            <p>12. If you examine the source code of several Whitebox tools, you 
+                may notice that some of them contain a commented-out main function 
+                near the bottom of the code file. This function is used for 
+                debugging purposes only. Although most Whitebox plugin tools 
+                are not meant to be executed independently from the main GUI 
+                (i.e. they are part of plugin libraries), by creating a main 
+                function you are able to hard-code input parameters and launch 
+                the tool. This provides a convenient means for debugging. Just 
+                be sure to comment out or delete this method before including 
+                the tool in Whitebox.</p>
+
+            <p>13. Once you are done debugging your new tool, compile the 
+                project, find the newly created jar file contained within the 
+                projects 'dist' folder and copy it into the 'plugins' folder 
+                within Whitebox's 'Resources' folder. Whitebox will now discover 
+                your new tool when it launches. If Whitebox is already open, 
+                close it and re-launch it. Your new tool should be listed in 
+                the specified toolbox(es) within the tools tree and also in the 
+                tools list.</p>
+
+            <p>14. The next thing that you have to do is to write the 
+                instructions for Whitebox to create a dialog when the user 
+                selects your new tool. Most tools in Whitebox use a standard 
+                set of input parameters, which are then fed to the plugin tools 
+                when the user selects the 'OK' button on the tool dialog. (Note: 
+                not all tool need to use a standard dialog and it is possible 
+                for you to embed a custom dialog in Whitebox as well by 
+                returning a jPanel.) The instructions to draw a tool dialog are 
+                contained in an xml file, which is located in the 'Dialogs' 
+                folder within the 'plugins' folder, and which has the same name 
+                as your tool (i.e. the short name, or class name, and not the 
+                descriptive name). It's probably easiest if you find a tool with 
+                similar input and output parameters to your own and simply copy 
+                and modify its dialog xml file as needed. Importantly, the order 
+                of the parameters in this file must match the order in which you 
+                ingest the parameters of the 'args' array within the tool's run 
+                method.</p>
+
+            <p>15. That's it. Now all you need to do is to create an 
+                accompanying help file for your new tool. If you haven't already 
+                created one, then when you open the tool's dialog you will 
+                notice a button on the lower right-hand side that says 'Create 
+                New Help Entry'. If you press this button, you will be presented 
+                with another dialog that will allow you to create the html file 
+                that will become the tool's associated help file. It will 
+                automatically contain the formatting necessary for a Whitebox 
+                help entry and will be saved in the appropriate folder for it to 
+                be discovered the next time that the dialog is opened.</p>
+
+                <p>Congratulations...you've just created a new Whitebox GAT 
+                    tool!</p>
+        </div>
+    </body>
+</html>

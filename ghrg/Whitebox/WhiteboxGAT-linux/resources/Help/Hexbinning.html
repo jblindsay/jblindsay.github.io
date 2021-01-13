@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Hex-binning</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Hex-binning</h1>
+
+        <p>
+            The practice of <i>binning</i> point data to form a type of 2D histogram, density plot, or 
+            what is sometimes called a heatmap, is quite useful as an alternative for the cartographic 
+            display of of very dense points sets. This is particularly the case when the points 
+            experience significant overlap at the displayed scale. The <a href="PointDensity.html">Point Density</a> 
+            tool can be used to perform binning based on a regular grid (raster output). This tool, 
+            by comparison, bases the binning on a hexagonal grid.</p>
+            
+            <p>The tool is similar to the <a href="CreateHexagonalVectorGrid.html">Create Hexagonal Vector Grid</a> tool, 
+            however instead will create an output hexagonal grid 
+            in which each hexagonal cell possesses a COUNT attribute which specifies the number of 
+            points from an input points file (either ShapeFile or LAS file) that are contained within
+            the hexagonal cell. </p>
+
+        <p>In addition to the names of the input points file and the output ShapeFile, the user must 
+        also specify the desired hexagon width (<i>w</i>), which is the distance between opposing sides 
+        of each hexagon. The size (<i>s</i>) each side of the hexagon can then be calculated as, 
+<code><i>s</i> = <i>w</i> / [2 x cos(PI / 6)]</code>. The area of each hexagon (<i>A</i>) is, 
+<code><i>A</i> = 3<i>s(w / 2)</i></code>. The user must also specify the orientation of the grid with options 
+of horizontal (pointy side up) and vertical (flat side up).</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="CreateHexagonalVectorGrid.html">Create Hexagonal Vector Grid</a></li>
+            <li><a href="PointDensity.html">Point Density</a></li>
+            <li><a href="TileLasFile.html">Tile LAS File</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # The tool accepts both SHP and LAS files
+                inputFile = wd + "input.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                hexWidth = "10.0"&#10;<br>
+                gridDirection = "horizontal"&#10;<br>
+                args = [inputFile, outputFile, hexWidth, gridDirection]&#10;<br>
+                pluginHost.runPlugin("Hexbinning", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // The tool accepts both SHP and LAS files
+                def inputFile = wd + "input.las"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def hexWidth = "10.0"&#10;<br>
+                def gridDirection = "vertical"&#10;<br>
+                String[] args = [inputFile, outputFile, hexWidth, gridDirection]&#10;<br>
+                pluginHost.runPlugin("Hexbinning", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+
+        </ul>
+    </body>
+</html>

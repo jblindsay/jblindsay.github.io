@@ -1,0 +1,34 @@
+<Dialog Name="PrincipalComponentAnalysis" HelpFile="PrincipalComponentAnalysis.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFiles</Name>
+		<Description>Enter the name of the input files here</Description>
+		<LabelText>Input Raster Files:</LabelText>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>suffix</Name>
+		<Description>Enter any suffix that you would like attached to output file names here</Description>
+		<LabelText>Output File Suffix (e.g. PCA):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>PCA</InitialText>
+		<NumericalInputOnly>False</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>standardize</Name>
+		<Description>Would you like to standardize the data? Standarizing the data is good practice when there is substantial difference in the variance among the images or if the input images use different units of measurement.</Description>
+		<LabelText>Perform a standaradized (normalized) PCA?</LabelText>
+		<InitialState>False</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>numComponents</Name>
+		<Description>How many of the component images should be created? Leave this blank if you would like all of the images to be saved.</Description>
+		<LabelText>Number of component images (blank for all):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+	</DialogComponent>
+</Dialog>

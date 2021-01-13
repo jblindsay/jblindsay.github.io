@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>User-defined weights filter</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>User-defined weights filter</h1>
+
+        <p>This tool can be used to perform a convolution-type filter where the weights of the moving window, 
+            or kernel, are specified by the user. As such, this tool provides a convenient means of creating a 
+            custom filter or performing a filter type that is not currently available as a standard tool in 
+            Whitebox. The user must specify the names of the input and output images, the kernel weights text file, 
+            the location of the center of the kernel (defaults to center of window but you can also specify one of 
+            the corners), whether or not to reflect image data at the image edges, and if normalization of kernel 
+            weights should be applied. The custom weights are derived from a text file containing a rectangular table 
+            of weight values. The table columns can be delimited using either tabs, spaces, or commas. If a particular 
+            cell in the kernel should be ignored (e.g. if a non-rectangular kernel is desired) then a non-numeric 
+            value (e.g. X) or a zero should be entered. The following is an example of the contents of a kernel 
+            text file for a 9 x 9 rounded filter:</p>
+
+        <div><p><code>
+                    X, X, 1, 1, 1, 1, 1, X, X&#10;<br>
+                    X, 1, 2, 3, 3, 3, 2, 1, X&#10;<br>
+                    1, 2, 3, 6, 7, 6, 3, 2, 1&#10;<br>
+                    1, 3, 6, 9, 11, 9, 6, 3, 1&#10;<br>
+                    1, 3, 7, 11, 12, 11, 7, 3, 1&#10;<br>
+                    1, 3, 6, 9, 11, 9, 6, 3, 1&#10;<br>
+                    1, 2, 3, 6, 7, 6, 3, 2, 1&#10;<br>
+                    X, 1, 2, 3, 3, 3, 2, 1, X&#10;<br>
+                    X, X, 1, 1, 1, 1, 1, X, X&#10;<br>
+                </code></p></div>
+
+        <p><b><i>NoData</i></b> values in the input image are ignored during the convolution operation. This can 
+            lead to unexpected behavior at the edges of images (since the default behavior is to return <b><i>NoData</i></b> 
+            when addressing cells beyond the grid edge) and where the grid contains interior areas of <b><i>NoData</i></b> 
+            values. The option to reflect image data at the edges can be useful in this regard. Normalization can 
+            also be useful for handling the edge effects associated with interior areas of <b><i>NoData</i></b> values. 
+            When the normalization option is selected, the sum of the cell value-weight product is divided by the 
+            sum of the weights on a cell-by-cell basis. Therefore, if the kernel at a particular grid cell contains 
+            neighboring cells of <b><i>NoData</i></b> values, normalization effectively re-adjusts the weighting 
+            to account for the missing data values. Normalization also ensures that the output image will possess 
+            values within the range of the input image and allows the user to specify integer value weights in the 
+            kernel.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="SpatialFilters.html">Spatial Filters</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+
+        <p>This is an example of a Python script using this tool:</p>
+
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                input_file = wd + "input.dep"&#10;<br>
+                output_file = wd + "output.dep"&#10;<br>
+                kernel_file = wd + "filter_kernel.txt"&#10;<br>
+                kernel_origin = "kernel center" &#10;<br>
+                reflect_edges = "true"&#10;<br>
+                normalize = "true"&#10;<br>
+                parallel_proc = "true"&#10;<br>
+                args = [input_file, output_file, kernel_file, kernel_origin, reflect_edges, normalize, parallel_proc]&#10;<br>
+                pluginHost.runPlugin("FilterUserDefinedWeights", args, False)&#10;<br>
+
+            </code>
+        </p>
+
+        <p>And the following is a Groovy script also using this tool:</p>
+
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def kernelFile = wd + "filter_kernel.txt"&#10;<br>
+                def kernelOrigin = "kernel center"&#10;<br>
+                def reflectEdges = "true"&#10;<br>
+                def normalize = "true"&#10;<br>
+                def parallelProc = "true"&#10;<br>
+                String[] args = [inputFile, outputFile, kernelFile, kernelOrigin, reflectEdges, normalize, parallelProc]&#10;<br>
+                pluginHost.runPlugin("FilterUserDefinedWeights", args, false)&#10;<br>
+
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+
+    </body>
+</html>

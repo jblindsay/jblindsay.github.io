@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>MDInf flow accumulation</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+
+<h1>MDInf flow accumulation</h1>
+
+<p>This tool is used to generate a flow accumulation grid (i.e. contributing
+area) using the MDInf algorithm (Seibert and McGlynn, 2007). The MDInf algorithm combines the advantages
+of the multiple flow direction algorithm as proposed by
+Quinn et al. (1991) with the use of triangular facets as in the
+DInf approach described by Tarboton (1997).</p>
+
+<p>The user must specify:
+<br>The name of the input digital
+elevation model (DEM) that has been hydrologically corrected to remove all
+spurious depressions and flat areas. DEM pre-processing is usually achived
+using the <i><b><a href="FillDepressions.html">Fill Depressions</a></b></i> tool.
+<br>The names of the <i><b>Upslope</b></i>, <i><b>Streams</b></i> and <i><b>LocalIn</b></i> output grids needs to be specified. The Upslope grid contains the contributing area, the Streams grid the total contribution to the stream, whereas the LocalIn grid contains the local contribution to the stream.
+<br>The <i><b>exponent parameter</b></i>, a number
+that controls the degree of dispersion in the resulting flow-accumulation grid.
+<br>The <i><b>output type</b></i>, either 1) specific
+catchment area (SCA), which is the upslope contributing area divided by the
+contour length (taken as the grid resolution), 2) total catchment area, or 3) the number of upslope grid cells.
+<br>Whether the output grids should be <i><b>log-tranformed</b></i>. If this option is selected, the output will be the natural-logarithm of
+the accumulated area. This is a transformation that is often performed to
+better visualize the contributing area distribution. Because contributing areas
+tend to be very high along valley bottoms and relatively low on hillslopes,
+when a flow-accumulation image is displayed, the distribution of values on
+hillslopes tends to be 'washed out' because the palette is stretched out to
+represent the highest values. Log-transformation provides a means of
+compensating for this phenomenon. Importantly, however, log-transformed
+flow-accumulation grids must not be used to estimate other secondary terrain
+indices, such as the <a href="WetnessIndex.html">wetness index</a>, or <a
+href="RelativeStreamPowerIndex.html">relative stream power index</a>. Perhaps a
+better alternative to log-transformation of flow-accumulation values is to
+increase the <i><b>'Palette non-linearity'</b></i> value under the <i><b>Layer
+Properties</b></i> tab.
+<br>The <i><b>non-dispersive threshold</b></i>. This is a flow-accumulation value
+(measured in upslope grid cells, which is directly proportional to area) above
+which flow dispersion is not longer permitted. Grid cells with flow-accumulation
+values above this threshold will have their flow routed in a manner that is
+similar to the <i><b><a href="FlowPointerD8.html">D8</a></b></i>
+single-flow-direction algorithm, directing all flow towards the steepest
+downslope neighbour. This is usually done under the assumption that flow
+dispersion, whilst appropriate on hillslope areas, is not realistic once flow
+becomes channelized.
+</p>
+
+<p>Grid cells possessing the <i><b>NoData</b></i> value in the input
+flow-pointer grid are assigned the <i><b>NoData</b></i> value in the output
+flow-accumulation image. The output raster is of the <i>float</i> data type and
+<i>continuous</i> data scale.</p>
+
+<h2 class="SeeAlso">References:</h2>
+  <p>Quinn, P. F., Beven K. J., Chevallier P. and Planchon O. (1991), The prediction of hillslope flowpaths for distributed modelling using digital terrain models, Hydrol. Processes, 5, 59-80.</p>
+  <p>Seibert, J. and McGlynn B. L. (2007), A new triangular multiple flow direction algorithm for computing upslope areas from gridded digital elevation models, Water Resources Research, Vol. 43, W04501.</p>
+  <p>Tarboton, D. G. (1997), A new method for the determination of flow directions and upslope areas in grid digital elevation models, Water Resour. Res., 33(2), 309-319.</p>
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="FlowTools.html">Other flow modelling tools</a></li>
+  <li><a href="FillDepressions.html">Fill depressions</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+			 dem = wd + dem.dep"&#10;<br>
+			 upslope = wd + "fcc.dep"&#10;<br>
+			 streams = wd + "streams.dep"&#10;<br>
+			 localIn = wd + "localIn.dep"&#10;<br>
+			 expParameter = "1"&#10;<br>
+			 outType = "Specific catchment area (sca)" &#10;<br>
+			 logTrans = "false"&#10;<br>
+			 dispersThresh = "5000"&#10;<br>
+			 args = [dem, upslope, streams, localIn, expParameter, outType, logTrans, dispersThresh]&#10;<br>
+			 pluginHost.runPlugin("FlowAccumMDInf", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+			 def dem = wd + dem.dep"&#10;<br>
+			 def upslope = wd + "fcc.dep"&#10;<br>
+			 def streams = wd + "streams.dep"&#10;<br>
+			 def localIn = wd + "localIn.dep"&#10;<br>
+			 def expParameter = "1"&#10;<br>
+			 def outType = "Specific catchment area (sca)" &#10;<br>
+			 def logTrans = "false"&#10;<br>
+			 def dispersThresh = "5000"&#10;<br>
+			 String[] args = [dem, upslope, streams, localIn, expParameter, outType, logTrans, dispersThresh]&#10;<br>
+			 pluginHost.runPlugin("FlowAccumMDInf", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>Jan Seibert (2014) email: jan.seibert@geo.uzh.ch</li>
+  <li>Marc Vis (2014) email: marc.vis@geo.uzh.ch</li>
+</ul>
+</body>
+</html>

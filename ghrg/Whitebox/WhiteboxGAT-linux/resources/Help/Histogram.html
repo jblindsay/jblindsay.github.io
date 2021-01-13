@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Histogram</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Histogram</h1>
+
+        <p>This tool can be used to generate histogram data (i.e. data about the
+            statistical distribution) of the values in an image. Notice that the output of
+            this tool is text, which can be readily copied and pasted into a spreadsheet
+            program for graphing. The user must specify the size of the bins used to
+            aggregate the data. The default value is 1, however, this is heavily dependent
+            on the characteristic of the input image and should be adjusted accordingly. A
+            bin size that is too large will result in too few bins and therefore a poor
+            representation of the histogram. It is recommended that the range of values in
+            the image (determined by examining the display minimum and maximum values)
+            guide the setting of this parameter. The user can optionally specify the bin
+            starting and ending values. If these two parameters are not set, the algorithm
+            will assume values of the display minimum and maximum values. If the parameters
+            are set, any grid cells containing values either less than the starting bin or
+            higher than the ending bin, will not be included in the histogram. Thus,
+            setting these values can be an effective way of 1) ensuring logically-valued
+            bin ranges, and 2) excluding values that may represent undesirable extremes of
+            the statistical distribution.</p>
+
+        <p>The user may also optionally choose to have the cumulative probability
+            distribution (cpd) generated rather than the normal histogram. In this case,
+            the value assigned to each bin represents the cumulative probability. This is a
+            very useful function for comparing the statistical distributions of multiple
+            images.</p>
+
+        <p><b><i>NoData</i></b> values in the input image are ignored during the
+            generation of the histogram or cpd.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="AttributeHistogram.html">Attribute histogram</a></li>
+            <li><a href="LidarHistogram.html">LiDAR histogram</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                binSize = "10.0"&#10;<br>
+                startBin = "0.0"&#10;<br>
+                endBin = "not specified"&#10;<br>
+                cumulative = "false"&#10;<br>
+                args = [inputFile, binSize, startBin, endBin, cumulative]&#10;<br>
+                pluginHost.runPlugin("Histogram", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def binSize = "10.0"&#10;<br>
+                def startBin = "0.0"&#10;<br>
+                def endBin = "100.0"&#10;<br>
+                def cumulative = "true"&#10;<br>
+                String[] args = [inputFile, binSize, startBin, endBin, cumulative]&#10;<br>
+                pluginHost.runPlugin("Histogram", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+        </ul>
+    </body>
+</html>

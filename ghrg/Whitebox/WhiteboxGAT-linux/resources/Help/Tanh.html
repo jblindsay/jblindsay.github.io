@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Hyperbolic tangent</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Hyperbolic tangent</h1>
+        <p>
+            This tool creates a new raster in which each grid cell 
+            is equal to the hyperbolic tangent of the corresponding 
+            grid cell in an input raster. The input raster image 
+            should contain angular data measured in either degrees 
+            or radians. The algorithm determines the input units by 
+            checking the <b><i>ZUnits</i></b> field in the raster 
+            header file (.dep). If this field is not set to radians, 
+            it is assumed that the input raster is measured in degrees 
+            and the appropriate conversion is made before the operation 
+            is carried out. Grid cells with <b><i>NoData</i></b> 
+            values in the input raster will be assigned 
+            <b><i>NoData</i></b> values in the output raster.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="MathTools.html">Mathematical analysis tools</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("Tanh", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("Tanh", args, false)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

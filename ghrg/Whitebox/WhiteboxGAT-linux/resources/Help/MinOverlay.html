@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+  <title>Min overlay</title>
+  <link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Min overlay</h1>
+
+<p>This tool can be used to find the minimum value in each cell of a grid from
+a set of input images. It is therefore similar to the MIN operator in the
+Whitebox GAT <a href="RasterCalculator.html">Raster Calculator</a>, except that
+it is capable of accepting more than two input images. It is found within the
+Overlay and Multi-Criteria Evaluation (MCE) toolbox.</p>
+
+<p><b><i>NoData</i></b> values in any of the input images will result in a <b><i>NoData</i></b> pixel in
+the output image. The output raster is of the <i>float</i> data type and <i>continuous</i>
+data scale.</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+  <li><a href="MaxOverlay.html">Max Overlay</a></li>
+  <li><a href="MaxAbsOverlay.html">Max Absolute Overlay</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("MinOverlay", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("MinOverlay", args, false)&#10;<br>
+            </code>
+        </p>
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Percent greater than</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Percent greater than</h1>
+
+        <p>This tool generate one or more longitudinal profiles for the flowpaths issuing from a 
+        set of vector points. The user must specify the name of an input digital elevation 
+        model (DEM) raster. The DEM should have been pre-processed to remove all sinks using a 
+        flow-enforcement technique such as depression breaching or filling, which will also 
+        remove flat areas, ensuring continuous flowpaths. The user must also specify the name 
+        of an input seed points vector file. An optional text file (.csv) may also be created in 
+        addition to the line graph that is automatically generated.</p>
+
+        <p>The vector seeds points file 
+        can be generated through on-screen digitizing using the <a href="CreateNewShapefile.html">
+        Create New Shapefile</a> tool. See this <a href="tutorials/HowToDigitizeNewVectors.html">link</a> 
+        for more detailed instructions on how to carry out on-screen digitizing.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LongProfile.html">Long profile</a></li>
+            <li><a href="Profile.html">Profile</a></li>
+            <li><a href="TraceDownslopeFlowpaths.html">Trace downslope flowpaths</a></li>
+            <li><a href="CreateNewShapefile.html">Create New Shapefile</a></li>
+            <li><a href="tutorials/HowToDigitizeNewVectors.html">How to Digitize New Vectors</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "dem.dep"&#10;<br>
+                seedFile = wd + "seeds.shp"&#10;<br>
+                textFile = "not specified"&#10;<br>
+                args = [demFile, seedFile, textFile]&#10;<br>
+                pluginHost.runPlugin("LongProfileFromPoint", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "dem.dep"&#10;<br>
+                def seedFile = wd + "seeds.shp"&#10;<br>
+                def textFile = "not specified"&#10;<br>
+                String[] args = args = [demFile, seedFile, textFile]&#10;<br>
+                pluginHost.runPlugin("LongProfileFromPoint", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

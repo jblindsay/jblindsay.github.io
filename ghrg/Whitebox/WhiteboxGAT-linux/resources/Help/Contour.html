@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Contour</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Contour</h1>
+
+        <p>Creates a vector contour coverage from a digital elevation model (DEM). The user must specify the name of a 
+            raster DEM file and the name of the output shapefile. The shapefile's attribute table will contain a field 
+            called 'ELEV' that will contain the elevation value for each contour feature. Contours will correspond with 
+            grid cell edges. As such, the contours in the output vector file will appear jagged, following pixel 
+            boundaries. If you require a more cartographically pleasing smoothed contour line (albeit less accurate), 
+            use the <a href="Smooth.html">Smooth</a> tool.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Smooth.html">Smooth</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                contourInterval = "50.0"&#10;<br>
+                baseContour = "0.0"&#10;<br>
+                zFactor = "1.0"&#10;<br>
+                args = [demFile, outputFile, contourInterval, baseContour, zFactor]&#10;<br>
+                pluginHost.runPlugin("Contour", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def contourInterval = "50.0"&#10;<br>
+                def baseContour = "0.0"&#10;<br>
+                def zFactor = "1.0"&#10;<br>
+                String[] args = [demFile, outputFile, contourInterval, baseContour, zFactor]&#10;<br>
+                pluginHost.runPlugin("Contour", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

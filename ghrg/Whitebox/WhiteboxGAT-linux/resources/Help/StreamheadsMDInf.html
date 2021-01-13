@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Find streamheads (MDInf)</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+
+<h1>Find streamheads (MDInf)</h1>
+
+<p>This tool is used to generate a streamheads grid by applying the MDInf 
+    algorithm (Seibert and McGlynn, 2007) and using a threshold value for stream 
+    initiation. The MDInf algorithm combines the advantages
+of the multiple flow direction algorithm as proposed by
+Quinn et al. (1991) with the use of triangular facets as in the
+DInf approach described by Tarboton (1997).</p>
+
+<p>The user must specify:
+<br>The name of the input digital elevation model (DEM).
+<br>The name of the output streamheads raster. Streamhead cells will have a value 
+of 1, non-streamhead cells a value of 0.
+<br>The <i><b>exponent parameter</b></i>, a number that controls the degree of 
+dispersion in the resulting flow-accumulation grid.
+<br>The <i><b>stream initiation threshold</b></i>, a flow-accumulation value 
+above which flow dispersion is not longer permitted.
+<br>If the stream initiation threshold is specified as 1) specific catchment 
+area (SCA), 2) total catchment area, or 3) the number of upslope grid cells.
+</p>
+
+<p>Grid cells possessing the <i><b>NoData</b></i> value in the input
+DEM are assigned the <i><b>NoData</b></i> value in the output
+raster. The output raster is of the <i>float</i> data type and
+<i>continuous</i> data scale.</p>
+
+<h2 class="SeeAlso">References:</h2>
+  <p>Quinn, P. F., Beven K. J., Chevallier P. and Planchon O. (1991), The 
+      prediction of hillslope flowpaths for distributed modelling using 
+      digital terrain models, Hydrol. Processes, 5, 59-80.</p>
+  <p>Seibert, J. and McGlynn B. L. (2007), A new triangular multiple flow direction 
+      algorithm for computing upslope areas from gridded digital elevation 
+      models, Water Resources Research, Vol. 43, W04501.</p>
+  <p>Tarboton, D. G. (1997), A new method for the determination of flow 
+      directions and upslope areas in grid digital elevation models, Water 
+      Resour. Res., 33(2), 309-319.</p>
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="FlowAccumMDInf.html">MDInf Flow Accumulation</a></li>
+</ul>
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>Jan Seibert (2014) email: jan.seibert@geo.uzh.ch</li>
+  <li>Marc Vis (2014) email: marc.vis@geo.uzh.ch</li>
+</ul>
+</body>
+</html>

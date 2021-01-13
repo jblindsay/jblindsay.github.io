@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Watershed</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Watershed</h1>
+
+        <p>This tool will perform a watershedding operation based on a group of 
+            specified pour points, i.e. outlets or target cells. The user must specify 
+            the name of a flow pointer (flow direction) raster, a pour point file (raster 
+            or vector), and the output raster. If a vector pour point file is specified, 
+            it must be of a Point ShapeType (i.e. Point, PointZ, PointM, MultiPoint, 
+            MultiPointZ, MultiPointM). Watersheds will be assigned the input pour point 
+            ID value. If a raster pour point file is specified, pour point, or target, 
+            cells are denoted in the input pour-point image as any non-zero, 
+            non-<b><i>NoData</i></b> value. The flow pointer raster should be generated 
+            using the <a href="FlowPointerD8.html">D8 algorithm</a>.</p>
+
+        <p>Pour point vectors can be developed by creating a new point-type shapefile 
+            (<a href="CreateNewShapefile.html"><b><i>Create New Shapefile</i></b></a>) 
+            and using on-screen digitizing to designate pour point locations. It may 
+            help to have either a stream network image or a flow accumulation raster 
+            displayed in the background. it is recommended that you use the 
+            <a href="JensonSnapPourPoints.html"><b><i>Jenson's Snap Pour Point 
+                        method</i></b></a> to ensure the digitized outlets are coincident with the 
+            digital stream contained within the DEM flowpaths.</p>
+
+        <p>To create a pour point raster, use the <a href="NewRasterFromBase.html"><b><i>
+                        New Raster From Base Raster</i></b></a> tool to create a blank image. The 
+            newly created raster image should have a background value of either zero 
+            or <b><i>NoData</i></b>. Display a stream network image or a contributing 
+            area image (bottom layer) and the newly created blank image (top layer). 
+            (Notice that if you filled the newly created blank image with zeros 
+            instead of <b><i>NoData</i></b> values, you will need to set the 
+            transparency of the displayed blank image as something greater than 0%, 
+            such that you can see the underlying base image.) Select the <i>Modify 
+                Pixel Values in Image</i> button or from the <i>Tools</i> menu. Zoom 
+            into and select the pixels associated with the features of interest 
+            and modify the value to some non-zero positive value. If you do not 
+            manage to get the outlet on the correct cell coincident with the 
+            stream, you can post-process the outlets raster 
+            using <a href="JensonSnapPourPoints.html"><b><i>Jenson's Snap Pour 
+                        Point method</i></b></a>.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="HowToDigitizeNewVectors.html">How To Digitize New Vectors</a></li>
+            <li><a href="CreateNewShapefile.html">Create New Shapefile</a></li>
+            <li><a href="FlowPointerD8.html">D8 Flow Pointer</a></li>
+            <li><a href="NewRasterFromBase.html">New Raster From Base Image</a></li>
+            <li><a href="JensonSnapPourPoints.html">Jenson's Snap Pour Point method</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                outletsFile = wd + "pour points.shp"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [pointerFile, outletsFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("Watershed", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                def outletsFile = wd + "pour points.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [pointerFile, outletsFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("Watershed", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+        </ul>
+    </body>
+</html>

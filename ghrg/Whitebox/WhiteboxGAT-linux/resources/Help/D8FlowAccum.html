@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>D8 pointer (parallel)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>D8 Flow Accumulation (parallel)</h1>
+
+        <p>This tool is used to generate a flow accumulation raster using the simple D8
+            (O'Callaghan and Mark, 1984) algorithm. It is a parallel alternative to the 
+            <a href="FlowAccumD8.html"><b>D8 and Rho8 Flow Accumulation</b></a> tool and is 
+            currently considered to be experimental. It may result in performance 
+            improvements compared with the serial tool, depending on the users system. 
+            Changes may occur to this tool in the future. </p>
+        
+        <p>The user must specify the name of a
+            digital elevation model (DEM) that has been hydrologically corrected to remove
+            all spurious depressions and flat areas. DEM pre-processing is usually achived
+            using the <a href="FillDeps.html">Fill Depressions tool</a> or the 
+            <a href="FastBreachDepressions.html">Breach Depressions (Fast)</a> tool.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FlowAccumD8.html">D8 and Rho8 Flow Accumulation</a></li>
+        	  <li><a href="FlowPointerD8.html">D8 Flow Pointer</a></li>
+            <li><a href="FastBreachDepressions.html">Breach Depressions (Fast)</a></li>
+            <li><a href="FillDepressions.html">Fill depressions</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "pointer.dep"&#10;<br>
+                runParallel = "true"&#10;<br>
+                args = [demFile, outputFile, runParallel]&#10;<br>
+                pluginHost.runPlugin("D8FlowAccum", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "pointer.dep"&#10;<br>
+                def runParallel = "true"&#10;<br>
+                String[] args = [demFile, outputFile, runParallel]&#10;<br>
+                pluginHost.runPlugin("D8FlowAccum", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+        <title>Relative stream power index</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Relative stream power index</h1>
+
+        <p>
+            This tool can be used to calculate the relative stream power index. 
+            This index is directly related to the stream power if the assumption 
+            can be made that discharge is directly proportional to upslope 
+            contributing area (<i>A<sub>s</sub></i>). The index is calculated as:</p>
+
+        <p><code><i>RSP</i> = <i>A<sub>s</sub></i><sup><i>p</i></sup> &#x00D7 tan(<i>B</i>)</code></p>
+
+        <p>Where <i>As</i> is the specific catchment area (i.e. the upslope 
+            contributing area per unit contour length) estimated using one of the 
+            available flow accumulation algorithms in the Hydrology toolbox; <i>B</i> 
+            is the local slope gradient in degrees; and, <i>p</i> is a user-defined 
+            exponent term that controls the location-specific relation between 
+            contributing area and discharge. Notice that <i>As</i> must not be 
+            log-transformed prior to being used; <i>As</i> is commonly log-transformed 
+            to enhance visualization of the data. The slope image can be created from 
+            the base digital elevation model (DEM) using the 
+            <a href="Slope.html"><i><b>Slope</b></i></a> tool. The input images 
+            must have the same grid dimensions.</p>
+
+        <p>Grid cells possessing the <i><b>NoData</b></i> value in either of the 
+            input images are assigned <i><b>NoData</b></i> value in the output image. 
+            The output raster is of the<i> float</i> data type and <i>continuous</i> 
+            data scale.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Slope.html">Slope</a></li>
+            <li><a href="WetnessIndex.html">Wetness index</a></li>
+            <li><a href="SedimentTransportIndex.html">Sediment transport index</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                caFile = wd + "contributing area.dep"&#10;<br>
+                slopeFile = wd + "slope.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                caExponentValue = "1.0"&#10;<br>
+                args = [caFile, slopeFile, outputFile, caExponentValue]&#10;<br>
+                pluginHost.runPlugin("RelativeStreamPowerIndex", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def caFile = wd + "contributing area.dep"&#10;<br>
+                def slopeFile = wd + "slope.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def caExponentValue = "1.0"&#10;<br>
+                String[] args = [caFile, slopeFile, outputFile, caExponentValue]&#10;<br>
+                pluginHost.runPlugin("RelativeStreamPowerIndex", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

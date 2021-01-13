@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Maximum elevation deviation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Maximum elevation deviation</h1>
+
+        <p>This tool calculates the maximum value of <a href="DeviationFromMeanElevation.html">deviation 
+        from mean elevation (DEV)</a> across a range of spatial scales. The user must specify the name of an 
+        input digital elevation model (DEM) raster. Two output rasters are created including a raster 
+        containing the maximum deviation value and a second raster containing the scale at which this 
+        maximum occurred. The scale range must be specified using the minimum and maximum search window 
+        radius, or the window half-size, <i>r</i>, where <i>D</i> = 2<i>r</i> + 1. The series <i>r</i> 
+        = 1, 2, 3, therefore describes the series of square pixel-centered windows, such that <i>r</i> = 1 
+        denotes a 3 x 3 roving window, <i>r</i> = 2 denotes a 5 x 5 window, and so on. Window half-sizes 
+        must be positive integers. Additionally, the user must specify the step size, which determines 
+        the step in <i>r</i> between consecutive derived DEV rasters, and therefore determines the 
+        sampling density of the scale signature. The minimum step value is 1. Note that derived DEV 
+        rasters for each scale are only stored in memory and only the two output rasters are ever 
+        stored to disc. The tool uses an extremely efficient technique based on an integral images 
+        to calculate DEV for each scale. The efficiency of this method is independent of the size of 
+        the search window, thereby allowing for the calculation of DEV with very large window sizes.</p>
+
+		<h2 class="SeeAlso">Reference:</h2>
+        <ul>
+            <li>Lindsay J, 
+            Cockburn J, Russell H. 2015. An integral image approach to performing multi-scale topographic 
+            position analysis. Geomorphology 245: 51-61. 
+            DOI: http://dx.doi.org/10.1016/j.geomorph.2015.05.025</li>
+        </ul>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="DeviationFromMeanElevation.html">Deviation From Mean Elevation</a></li>
+            <li><a href="LocalTopographicPositionScaleSignature.html">Local Topographic Position Scale Signature</a></li>
+            <li><a href="DifferenceFromMeanElevation.html">Difference From Mean Elevation</a></li>
+            <li><a href="MultiscaleElevationResidualIndex.html">Multiscale Elevation Residual Index</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputMagnitudeFile = wd + "outputMagnitude.dep"&#10;<br>
+                outputScaleFile = wd + "outputScale.dep"&#10;<br>
+                minNeighbourhood = "3"&#10;<br>
+                maxNeighbourhood = "1000"&#10;<br>
+                stepSize = "10"&#10;<br>
+                args = [demFile, outputMagnitudeFile, outputScaleFile, minNeighbourhood, maxNeighbourhood, stepSize]&#10;<br>
+                pluginHost.runPlugin("MaximumElevationDeviation", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputMagnitudeFile = wd + "outputMagnitude.dep"&#10;<br>
+                def outputScaleFile = wd + "outputScale.dep"&#10;<br>
+                def minNeighbourhood = "3"&#10;<br>
+                def maxNeighbourhood = "1000"&#10;<br>
+                def stepSize = "10"&#10;<br>
+                String[] args = [demFile, outputMagnitudeFile, outputScaleFile, minNeighbourhood, maxNeighbourhood, stepSize]&#10;<br>
+                &#10;<br>pluginHost.runPlugin("MaximumElevationDeviation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Viewshed</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Viewshed</h1>
+
+        <p>This tool can be used to calculate the viewshed (i.e. the visible area) from 
+            a location (i.e. viewing station) or group of locations based on the topography 
+            defined by an input digital elevation model (DEM). The user must specify the 
+            name of the input DEM, a viewing station input file, the output file name, and 
+            the viewing height. The viewing station input file can be a vector shapefile 
+            of a Point base ShapeType (i.e. Point, PointZ, PointM, MultiPoint, MultiPointZ, 
+            and MultiPointM), or a raster file. If a raster viewing station raster is 
+            specified, viewing station locations will be inferred from all non-zero, 
+            non-NoData grid cells. The output image will be a Boolean raster, containing 
+            1's and 0's, where 1's imply that the grid cell is visible from at least one 
+            viewing station. The viewing height is in the same units as the elevations of 
+            the DEM and represent a height above the ground elevation from which the 
+            viewshed is calculated. Viewshed analysis is a very computationally 
+            intensive task. Depending on the size of the input DEM grid and the number 
+            of viewing stations, this operation may take considerable time to complete.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="VisibilityIndex.html">Visibility Index</a></li>
+            <li><a href="HowToDigitizeNewVectors.html">How To Digitize New Vectors</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                viewingStationFile = wd + "station.shp"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                stationHeight = "10.0"&#10;<br>
+                args = [demFile, viewingStationFile, outputFile, stationHeight]&#10;<br>
+                pluginHost.runPlugin("Viewshed", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def viewingStationFile = wd + "station.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def stationHeight = "10.0"&#10;<br>
+                String[] args = [demFile, viewingStationFile, outputFile, stationHeight]&#10;<br>
+                pluginHost.runPlugin("Viewshed", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uguleph.ca</li>
+        </ul>
+    </body>
+</html>

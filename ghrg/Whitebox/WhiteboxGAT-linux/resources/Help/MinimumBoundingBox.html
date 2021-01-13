@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Minimum bounding box</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Minimum bounding box</h1>
+
+        <p>This tool delineates the minimum bounding box (MBB) for a group of vectors. 
+            The MBB is 
+            the smallest box to completely enclose a feature. The algorithm works by rotating the feature, calculating the 
+            axis-aligned bounding box for each rotation, and finding the box with the smallest area. The minimum bounding 
+            boxes are output as polylines by default, but can optionally be output as vector polygons. The MBB is 
+            needed to compute several shape indices, such as the <a href="ElongationRatio.html"><i><b>Elongation Ratio</b></i></a>, 
+            <a href="PatchOrientation.html"><i><b>Patch Orientation</b></i></a>, and the 
+            <a href="PatchOrientationVectorField.html"><i><b>Patch Orientation Vector Field</b></i></a>. In addition, the 
+            MBB is related to the <a href="LayerFootprint.html"><i><b>Layer Footprint</b></i></a>, which is an axis-aligned 
+            bounding box, and the <a href="MinimumConvexHull.html"><i><b>Minimum Convex Hull</b></i></a>, which is the 
+            enclosing convex polygon of a feature.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ElongationRatio.html">Elongation Ratio</a></li>
+            <li><a href="PatchOrientation.html">Patch Orientation</a></li>
+            <li><a href="PatchOrientationVectorField.html">Patch Orientation Vector Field</a></li>
+            <li><a href="LayerFootprint.html">Layer Footprint</a></li>
+            <li><a href="MinimumConvexHull.html">Minimum Convex Hull</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                outputPolygons = "true"&#10;<br>
+                args = [inputFile, outputFile, outputPolygons]&#10;<br>
+                pluginHost.runPlugin("MinimumBoundingBox", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def outputPolygons = "false"&#10;<br>
+                String[] args = [inputFile, outputFile, outputPolygons]&#10;<br>
+                pluginHost.runPlugin("MinimumBoundingBox", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013)</li>
+        </ul>
+    </body>
+</html>

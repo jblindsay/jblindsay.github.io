@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Import Surfer ASCII grid</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Import Surfer ASCII grid</h1>
+
+        <p>
+            This tool can be used to import a Surfer (Golden Software) ASCII grid file (*.grd) to a <a href="FileFormatsDescriptions.html">Whitebox GAT raster file</a>. ASCII files are text and as such are capable of being opened and viewed using any text editor. The user must specify the name of one or more Surfer ASCII grid files to be imported. The tool will create Whitebox GAT raster files for each input file. Output file names are the same of the input files.</p>
+        <p>The format of the Surfer ASCII grid format is as follows:</p>
+        <p>DSAA<br>NumberOfColumns NumberOfRows<br>MinXCoordinate MaxXCoordinate<br>MinYCoordinate MaxYCoordinate<br>MinZValue MaxZValue<br>####.### ####.### ####.###...<br>####.### ####.### ####.###...</p>
+        <p>An Example is given below:</p>
+        <p>DSAA<br>201 380<br>416798.95 417000<br>4679619.71 4680000<br>174.66 174.54 174.39 ...<br>175.44 174.32 173.99 ...</p>
+        <p>ASCII files can be very large when there are a large number of rows and columns in the grid and are also much slower to read/write compared to binary files. Notice as well that all grid cells containing the Surfer NoData value of 1.70141E+38 will be converted to the Whitebox GAT <b><i>NoData</i></b> values (-32,768) in the output grid.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ExportSurferAsciiGrid.html">Export Surfer ASCII grid</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.grd" + ";" + wd + "input2.grd" + ";" + wd + "input3.grd"&#10;<br>
+                args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportSurferAsciiGrid", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.grd" + ";" + wd + "input2.grd" + ";" + wd + "input3.grd"&#10;<br>
+                String[] args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportSurferAsciiGrid", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

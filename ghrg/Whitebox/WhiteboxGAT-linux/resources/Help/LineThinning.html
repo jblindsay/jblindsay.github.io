@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Line thinning</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Line thinning</h1>
+
+        <p>This image processing tool reduces all polygons in a Boolean raster image to their single-cell wide skeletons. This operation is sometimes called line thinning or skeletonization. In fact, the input image need not be truly Boolean (i.e. contain only 1's and 0's). All non-zero, positive values are considered to be foreground pixels while all zero valued cells are considered background pixels. The <a href="RemoveSpurs.html"><b><i>Remove Spurs</i></b></a> tool is useful for cleaning up an image before performing a line thinning operation.</p>
+
+        <p><b><i>NoData</i></b> values in the input raster image are assigned <i><b>NoData</b></i> values in the output image. The output raster image is of the <i>float</i> data type and <i>categorical</i> data scale.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="RemoveSpurs.html">Remove spurs</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("LineThinning", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("LineThinning", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

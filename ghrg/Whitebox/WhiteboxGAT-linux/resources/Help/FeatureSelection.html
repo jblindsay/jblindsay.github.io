@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Feature selection</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+        
+    </head>
+    <body>
+
+        <h1>Feature selection</h1>
+
+        <p>Vector feature selection is carried out within the Attribute Table dialog, which can 
+        only be displayed if the vector layer has been displayed on an open map. This tool will 
+        open a vector layer for display, if it is not already opened, and will automatically display 
+        the Feature Selection dialog. Feature selection is carried out using Groovy scripting. For 
+        details on how this is conducted, please see the tutorial 
+        <a href="tutorials/HowToSelectVectorFeatures.html"><b><i>How to select vector features</i></b></a>. 
+        To select features based on spatial relations instead of attributes, use the 
+        <a href="IsolateVectorFeaturesByLocation.html"><b><i>Isolate vector features by location</i></b></a> tool.</p>
+	   
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="tutorials/HowToSelectVectorFeatures.html">How to Select Vector Features</a></li>
+            <li><a href="IsolateVectorFeaturesByLocation.html">Isolate vector features by location</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "Countries.shp"&#10;<br>
+                args = [inputFile]&#10;<br>
+                pluginHost.runPlugin("FeatureSelection", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "Countries.shp"&#10;<br>
+                String[] args = [inputFile]&#10;<br>
+                pluginHost.runPlugin("FeatureSelection", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014)</li>
+        </ul>
+    </body>
+</html>

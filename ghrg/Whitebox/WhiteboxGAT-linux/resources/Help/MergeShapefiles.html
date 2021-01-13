@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Merge shapefiles</h1>
+
+<p>This tool can be used to merge two or more vector files. The input shapefiles must be of the 
+same ShapeType (e.g. POINT, POLYLINE, POLYGON, etc.). The output file will have an attribute table 
+that is the combination of the inputs.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li>None</li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # The names of the multiple input files must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.shp" + ";" + wd + "input2.shp" + ";" + wd + "input3.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("MergeShapefiles", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // The names of the multiple input files must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.shp" + ";" + wd + "input2.shp" + ";" + wd + "input3.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                String[] args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("MergeShapefiles", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2015), email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

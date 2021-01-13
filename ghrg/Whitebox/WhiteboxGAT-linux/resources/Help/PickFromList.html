@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Pick from list</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Pick from list</h1>
+
+        <p>This tool outputs the value from a raster stack specified by a position raster.
+        The user must specify the name of the position raster, 
+        the names of the raster files contained in the stack (i.e. group of images), 
+        and an output raster file name. The tool, working on a cell-by-cell basis, 
+        will assign the value to the output grid cell contained in the corresponding 
+        cell in the stack image in the position specified by the cell value in the 
+        position raster. Importantly, the positions raster should be in zero-based order. 
+        That is, the first image in the stack should be assigned the value zero, the second 
+        raster is assigned 1, and so on.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="PercentEqualTo.html">Percent equal to</a></li>
+            <li><a href="PercentGreaterThan.html">Percent greater than</a></li>
+            <li><a href="PercentEqualTo.html">Percent equal to</a></li>
+            <li><a href="HighestPosition.html">Highest position</a></li>
+            <li><a href="LowestPosition.html">Lowest position</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                positionRaster = wd + "position.dep"&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [positionRaster, inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("PickFromList", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def positionRaster = wd + "position.dep"&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [positionRaster, inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("PickFromList", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

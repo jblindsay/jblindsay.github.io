@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Import CSV</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Import CSV</h1>
+
+        <p>This tool can be used to import a series of points contained within a comma-separated values (*.csv) file 
+            into a vector shapefile of a POINT ShapeType. The input files must be ASCII text files with a .csv 
+            extensions. The user can optionally specify an arbitrary number of column definitions of <b><i>x-coordinate</i></b>, 
+            <b><i>y-coordinate</i></b>, <b><i>numerical attribute</i></b>, or <b><i>string attribute</i></b>. If 
+            column defintions are not specified, the tool will automatically detect the column type, and 
+            importantly, it will assume that the first column containing decimal data cooresponds to the 
+            x-coordinate and that the second such column is the y-coordinate. If automatic column detection 
+            is used, integer x- and y-coordinates should be avoided. When automatic column detection is used, 
+            all non-coordinate columns will be automatically imported as attributes, appended to the the 
+            output shapefile's attribute table. The tool will also automatically detect whether the first 
+            line of the file is a header line and should therefore be excluded from data import.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ImportXYZToVectorPoints.html">Import XYZ to vector points</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.csv" + ";" + wd + "input2.csv" + ";" + wd + "input3.csv"&#10;<br>
+                args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportCSV", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.csv" + ";" + wd + "input2.csv" + ";" + wd + "input3.csv"&#10;<br>
+                def firstColumnDef = "x"&#10;<br>
+                def secondColumnDef = "y"&#10;<br>
+                def thirdColumnDef = "numerical"&#10;<br>
+                def fourthColumnDef = "string"&#10;<br>
+                String[] args = [inputFiles, firstColumnDef, secondColumnDef, thirdColumnDef, fourthColumnDef]&#10;<br>
+                pluginHost.runPlugin("ImportCSV", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

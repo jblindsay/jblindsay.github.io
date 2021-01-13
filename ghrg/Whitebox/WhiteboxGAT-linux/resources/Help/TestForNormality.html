@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>KS test for normality</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>KS test for normality</h1>
+
+        <p>This tool will perform a Kolmogorov-Smirnov (K-S) test for normality to evaluate whether the frequency 
+            distribution of values within a raster image are drawn from a Gaussian (normal) distribution. The user must 
+            specify the name of the raster image. The test can be performed optionally on the entire image or on a 
+            random sub-sample of pixel values of a user-specified size. In evaluating the significance of the test, it is 
+            important to keep in mind that given a sufficiently large sample, extremely small and non-notable differences 
+            can be found to be statistically significant. Furthermore statistical significance says nothing about the 
+            practical significance of a difference.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                sampleSize = "1000"&#10;<br>
+                args = [inputFile, sampleSize]&#10;<br>
+                pluginHost.runPlugin("TestForNormality", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def sampleSize = "1000"&#10;<br>
+                String[] args = [inputFile, sampleSize]&#10;<br>
+                pluginHost.runPlugin("TestForNormality", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

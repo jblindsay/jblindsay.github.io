@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Estimate heights from parallax</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+        
+    </head>
+    <body>
+
+        <h1>Estimate heights from parallax</h1>
+
+        <p>This tool is <i><b>intended for demonstration purposes only</b></i> and can be used to estimate 
+        point elevations (<i>h</i>) from tie-points derived from vertical stereo-images, e.g. stereo 
+        aerial photographs, acquired from frame cameras using the basic form of the parallax equation:</p>
+
+        <code><i>h</i> = (<i>A</i> - <i>G</i>) * <i>dp</i> / (<i>P</i> + <i>dp</i>)</code>
+
+        <p>Where <i>A</i> is flying altitude of the aircraft, <i>G</i> is the average elevation 
+        of the ground within the scene, <i>dp</i> is the difference in parallax of the point, and 
+        <i>P</i> is the absolute parallax and airbase (distance along the flight-line between 
+        exposures). Notice that this equation is only valid for vertical images and should not 
+        be used in highly rugged terrain.</p>
+
+        <p>The tie points can be acquired from the stereo-image pair using automated feature point 
+        detection methods such as that provided by the <a href="FindTiePoints.html">Find Tie Points</a> 
+        tool in combination with <a href="tutorials/HowToDigitizeNewVectors.html">manual digitizing</a> 
+        of matching points. 
+        In addition to the left- and right-image tie point vector files, the user must also specify 
+        the names of the files containing the digitized vector principal points and conjugate principal 
+        points. A conjugate principal point is the location of the principal point of the neighbouring 
+        image within its stereo pair. The user must also provide the flying height of the aircraft at 
+        the time of image aquisition, the average ground elevation, and the name of the field in the 
+        attribute table of the two tie points files into which the calculated height data will be 
+        recorded. Notice that this field will be newly created to hold the data and should not already 
+        exist in the attribute tables.</p>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FindTiePoints.html">Find Tie Points</a></li>
+            <li><a href="tutorials/HowToDigitizeNewVectors.html">How to Digitize New Vectors</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                leftPrincipalPoint = wd + "leftPP.shp"&#10;<br>
+                leftConjugatePP = wd + "leftCPP.shp"&#10;<br>
+                leftTiePoints = wd + "leftTPs.shp"&#10;<br>
+                rigtPrincipalPoint = wd + "rigtPP.shp"&#10;<br>
+                rigtConjugatePP = wd + "rigtCPP.shp"&#10;<br>
+                rigtTiePoints = wd + "rigtTPs.shp"&#10;<br>
+                flyingHeight = "1000.0"&#10;<br>
+                avgGrdHgt = "354.0"&#10;<br>
+                outputField = "HEIGHT"&#10;<br>
+                args = [leftPrincipalPoint, leftConjugatePP, leftTiePoints, rigtPrincipalPoint, rigtConjugatePP, rigtTiePoints, flyingHeight, avgGrdHgt, outputField]&#10;<br>
+                pluginHost.runPlugin("EstimateHeightsFromParallax", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def leftPrincipalPoint = wd + "leftPP.shp"&#10;<br>
+                def leftConjugatePP = wd + "leftCPP.shp"&#10;<br>
+                def leftTiePoints = wd + "leftTPs.shp"&#10;<br>
+                def rigtPrincipalPoint = wd + "rigtPP.shp"&#10;<br>
+                def rigtConjugatePP = wd + "rigtCPP.shp"&#10;<br>
+                def rigtTiePoints = wd + "rigtTPs.shp"&#10;<br>
+                def flyingHeight = "1000.0"&#10;<br>
+                def avgGrdHgt = "354.0"&#10;<br>
+                def outputField = "HEIGHT"&#10;<br>
+                String[] args = [leftPrincipalPoint, leftConjugatePP, leftTiePoints, rigtPrincipalPoint, rigtConjugatePP, rigtTiePoints, flyingHeight, avgGrdHgt, outputField]&#10;<br>
+			 pluginHost.runPlugin("EstimateHeightsFromParallax", args, false)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

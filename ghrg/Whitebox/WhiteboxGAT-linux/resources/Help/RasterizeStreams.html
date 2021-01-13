@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>RasterizeStreams</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Rasterize streams</h1>
+
+        <p>Rasterizes an input vector stream network using the method described by Lindsay (2016)</p>
+
+	   <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Lindsay JB. 2016. The practice of DEM stream burning revisited. Earth Surface Processes and Landforms, 41(5): 658-668. DOI: 10.1002/esp.3888</li>
+        </ul>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="VectorLinesToRaster.html">Vector Lines To Raster</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                streamsFile = wd + "streams.shp"&#10;<br>
+                baseFile = wd + "base.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                nodataBackground = "true"&#10;<br>
+                useFeatureNumAsOutput = "true"&#10;<br>
+                outputCollisions = "false"&#10;<br>
+                args = [streamsFile, baseFile, outputFile, nodataBackground, useFeatureNumAsOutput, outputCollisions]&#10;<br>
+                pluginHost.runPlugin("RasterizeStreams", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def streamsFile = wd + "streams.shp"&#10;<br>
+                def baseFile = wd + "base.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def nodataBackground = "true"&#10;<br>
+                def useFeatureNumAsOutput = "true"&#10;<br>
+                def outputCollisions = "false"&#10;<br>
+                String[] args = [streamsFile, baseFile, outputFile, nodataBackground, useFeatureNumAsOutput, outputCollisions]&#10;<br>
+                pluginHost.runPlugin("RasterizeStreams", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Nearest-neighbour analysis</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Nearest-neighbour analysis</h1>
+
+        <p>This tool can be used to determine whether a distribution of vector points is 
+        is significantly clustered or dispersed or if they are randomly distributed. It 
+        is based on the calculation of the average distance of each point to its 
+        nearest-neighbour (NN). The observed mean nearest-neighbour distance (<i>d<sub>o</sub></i>) 
+        is then compared to the expected value (<i>d<sub>e</sub></i>):</p>
+
+		<code><i>d<sub>e</sub></i> = 0.5 &#xd7; (<i>A</i> / <i>n</i>)<sup>0.5</sup> [eq. 1]</code>
+		
+	   <p>Where <i>A</i> is the area of the minimum bounding box (MBB) enclosing the points 
+	   and <i>n</i> is the number of points. The nearest-neighbour ratio, defined as 
+	   <code><i>d<sub>o</sub></i> / <i>d<sub>e</sub></i></code> , ranges from 0.0 for a distribution 
+	   of coincident points, to 1.0 for a random point distribution, to a maximum of 2.15 for 
+	   a hexagonal grid with maximal dispersion. Points that are situated along a regular square 
+	   grid should have a NN ratio near 2. The analysis also includes a statistical testing for 
+	   the significance of the computed <i>z</i>-score based on the standard error of the mean NN distance 
+	   ((<i>s<sub>e</sub></i>)):</p>
+
+	   <code><i>s<sub>e</sub></i> = 0.26136 / (<i>n</i> &#xd7; <i>n</i> / <i>A</i>)<sup>0.5</sup> [eq. 2]</code>
+
+	   <p>The null hypothesis of this test is that the points are randomly distributed.</p>
+	   
+	   <p>Nearest-neighbour analysis is strongly affected by edge effects because points located at 
+	   the edges of the extent may have their NN situated beyond the edge. To compensate for this 
+	   bias, the data can optionally be tiled in a 3 &#xd7; 3 grid and the statistic is then calculated 
+	   for the central area, a procedure recommended by Davis (2002) <i>Statistics and Data Analysis 
+	   In Geology, 3rd Ed.</i> If the study area is anomolous within the larger region, the results of 
+	   this analysis will be significantly influenced by edge effects.</p>
+
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.shp"&#10;<br>
+                edgeStrategy = "tile"&#10;<br>
+                args = [inputFile, edgeStrategy]&#10;<br>
+                pluginHost.runPlugin("NearestNeighbourAnalysis", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.shp"&#10;<br>
+                def edgeStrategy = "nothing"&#10;<br>
+                String[] args = [inputFile, edgeStrategy]&#10;<br>
+                pluginHost.runPlugin("NearestNeighbourAnalysis", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<Dialog Name="XYZTextToRaster" HelpFile="XYZTextToRaster.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFilesString</Name>
+		<Description>Enter the names of the input files here</Description>
+		<LabelText>Input XYZ Text Files:</LabelText>
+		<Filter>ASCII Files (*.asc), ASC|Text Files (*.txt), TXT|All Files (*.*), ***</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>firstLineHeader</Name>
+		<Description>Is the first line of the text file a header line?</Description>
+		<LabelText>Is the first line of the file a header?</LabelText>
+		<InitialState>True</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>OutputFile</Name>
+		<Description>Enter the name of the output file here</Description>
+		<LabelText>Output Raster File:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>baseFileHeader</Name>
+		<Description>Enter the name of the base raster into which the points will be placed here</Description>
+		<LabelText>Input Base Raster File:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogComboBox">
+		<Name>dataType</Name>
+		<Description>What data type would you like the output image to have?</Description>
+		<LabelText>Data Type:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>double, float, integer</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+</Dialog>

@@ -1,0 +1,46 @@
+<Dialog Name="InterpolationNN" HelpFile="InterpolationNN.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFiles</Name>
+		<Description>Enter the names of the input files here</Description>
+		<LabelText>Input XYZ Text Files:</LabelText>
+		<Filter>ASCII Files (*.asc), ASC|Text Files (*.txt), TXT|All Files (*.*), ***</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>firstLineHeader</Name>
+		<Description>Is the first line of the text file a header line?</Description>
+		<LabelText>Is the first line of the file a header?</LabelText>
+		<InitialState>True</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>OutputFile</Name>
+		<Description>Enter the name of the output file here</Description>
+		<LabelText>Output Raster File:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>resolution</Name>
+		<Description>Enter the desired grid resolution (cell size) here</Description>
+		<LabelText>Grid Cell Resolution:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>maxDist</Name>
+		<Description>Enter the maximum distance to search for points here</Description>
+		<LabelText>Maximum Search Distance:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+</Dialog>

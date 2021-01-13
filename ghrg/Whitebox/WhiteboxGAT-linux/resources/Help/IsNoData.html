@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Is NoData value</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Is NoData value</h1>
+
+        <p>This tool can be used to identify areas of <i><b>NoData</b></i> values within
+            an image. The user must specify the name of the input and output raster images.
+            Grid cells containing the <i><b>NoData</b></i> value in the input image will be
+            assigned a one in the output image. All non-<i><b>NoData</b></i> valued grid
+            cells will be assigned zeros in the output image. The output raster is of the
+            <i>integer</i> data type and <i>Boolean</i> data scale.</p>
+
+        <p>Notice that this same operation can be performed using the <b><i><a
+                        href="Reclass.html">Reclass</a></i></b> tool, which allows for more complex
+            reclass patterns.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="SetNoData.html">Set NoData value</a></li>
+            <li><a href="Reclass.html">Reclass</a></li>
+            <li><a href="NoData.html">NoData</a></li>
+        </ul>
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("IsNoData", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("IsNoData", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

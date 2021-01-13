@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Single-parts to multi-parts</title>
+        <!--<style type="text/css">
+                #myDiv { height:100px; width:150px;}
+		#myDiv img {
+			max-width:100%; 
+			max-height:100%;
+			margin:auto;
+			display:block;
+		}
+        </style> -->
+        <link rel="stylesheet" type="text/css" href="Help.css">
+        
+    </head>
+    <body>
+
+        <h1>Single-parts to multi-parts</h1>
+
+        <p>This tool can be used to convert a vector file containing single-part features into 
+        a vector containing multi-part features. The user has the option to either group features 
+        based on an <b><i>ID Field</i></b>, which is a categorical field within the vector's attribute 
+        table, or to group all features together into one large multi-part vector. If all features are 
+        to be grouped then the ID Field should be set to <i>'merge all'</i>. This tool works for vectors 
+        containing either point, line, or polygon features. Since shapefiles of a POINT ShapeType cannot 
+        represent multi-part features, the ShapeType of the output file will be modified to a MULTIPOINT 
+        ShapeType if the input file is of a POINT ShapeType. If the input vector is of a POLYGON ShapeType, 
+        the user can optionally set the algorithm to search for polygons that should be represented as 
+        hole parts. In the case of grouping based on an ID Field, hole parts are polygon features contained 
+        within larger polygons of the same ID value. Please note that searching for polygon holes may 
+        significantly increase processing time for larger polygon coverages.</p>
+
+	   <p>To better understand the difference between multi-part and single-part vectors consider 
+	   the following. The image below shows a vector coverage of Canada in which data are stored as a single 
+	   record in a multi-part polygon. The attribute table only contains one entry.</p>
+        
+        <div>
+        <img alt="Multi-part polygon" src="img/Cnd_multipart.png" />
+        </div>
+        
+        <p>In comparison, the following vector stores features as many individual single-part polygons. Each 
+        polygon is a seperate feature that possesses its own record in the attribute table.</p>
+	   
+        <div>
+	   <img alt="Single-part polygon" src="img/Cnd_singlepart.png" />
+	   </div>
+	   
+	   
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="MultipartsToSingleparts.html">Multi-parts to Single-parts</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "polygons.shp"&#10;<br>
+                idField = "CLASS_ID"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                searchForHoles = "true"&#10;<br>
+                args = [inputFile, idField, outputFile, searchForHoles]&#10;<br>
+                pluginHost.runPlugin("SinglepartsToMultiparts", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "lines.shp"&#10;<br>
+                def idField = "merge all"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                String[] args = [inputFile, idField, outputFile]&#10;<br>
+                // searchForHoles need not be specified because the input vector does not contain polygons.
+                pluginHost.runPlugin("SinglepartsToMultiparts", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014)</li>
+        </ul>
+    </body>
+</html>

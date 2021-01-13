@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>CreateMultiscaleTopographicPositionImage</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Create Multiscale Topographic Position Image</h1>
+
+<p>This tool will create a colour composite image by combining three rasters created using the 
+<a href="MaximumElevationDeviation.html"><b>Maximum Elevation Devation (Multiscale)</b></a> tool. 
+Lindsay et al. (2015) demonstrated that these multiscale topographic position images can be 
+very effective for visualizing the topographic character of a landscape across a wide range of
+spatial scales. Examples of MSTP images can be found
+<a href="https://whiteboxgeospatial.wordpress.com/2014/12/25/a-new-form-of-multi-scale-topographic-position-visualization/">
+<b>here</b></a>.</p>
+
+<br><h2 class="SeeAlso">References:</h2>
+<ul>
+<li>Lindsay J, Cockburn J, Russell H. 2015. An integral image approach to performing multi-scale 
+topographic position analysis. Geomorphology, 245: 51-61. DOI: 10.1016/j.geomorph.2015.05.025</li>
+</ul>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="MaximumElevationDeviation.html">Maximum Elevation Devation (Multiscale)</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                localScaleFile = wd + "local.dep"&#10;<br>
+                mesoScaleFile = wd + "meso.dep"&#10;<br>
+                broadScaleFile = wd + "broad.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                outputScaleFile = wd + "outputScale.dep"&#10;<br>
+                imageLightness = "1.2"&#10;<br>
+                args = [localScaleFile, mesoScaleFile, broadScaleFile, outputFile, imageLightness]&#10;<br>
+                pluginHost.runPlugin("CreateMultiscaleTopographicPositionImage", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def localScaleFile = wd + "local.dep"&#10;<br>
+                def mesoScaleFile = wd + "meso.dep"&#10;<br>
+                def broadScaleFile = wd + "broad.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def imageLightness = "1.2"&#10;<br>
+                String[] args = [localScaleFile, mesoScaleFile, broadScaleFile, outputFile, imageLightness]&#10;<br>
+                &#10;<br>pluginHost.runPlugin("CreateMultiscaleTopographicPositionImage", args, false)&#10;<br>
+            </code>
+        </p>
+
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

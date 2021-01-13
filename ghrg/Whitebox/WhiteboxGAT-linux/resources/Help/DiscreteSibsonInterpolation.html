@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>DiscreteSibsonInterpolation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Discrete Sibson interpolation</h1>
+
+        <p>This tool can be used to interpolate a regular grid raster from a ShapeFile of Point ShapeType
+        using a discrete Sibson (natural neighbour) interpolation method. The user inputs one or more ShapeFile datasets and the field within the file's 
+            attribute table to be interpolated (if the input file is of a 'Z' type, then the 'Z' value 
+            can also be used in place of an attribute). The name of the output raster 
+            file must also be specified. The grid cell size and spatial extent of the output grid 
+            is determined by specifying either the Cell Size or an existing Base Raster File. One of these
+            two options must be specified. If the user inputs a desired Cell Size, the output grid will 
+            have a spatial extent approximately matching that of the input ShapeFile. If the user instead
+            inputs an existing base file raster, the output image will have the same grid cell resolution 
+            and extent as the base file. The user must also specify the discretization factor (5-20). The algorithm
+        is extremely computationally intenstive and may take a long while to complete.</p>
+        <p>Grid cells that have no points within the search radius assigned the <i><b>NoData</b></i> value in the 
+            output image. The output raster is of the <i>float</i> data type and <i>continuous</i> data scale.</p>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="InterpolationIDW.html">IDW Interpolation</a></li>
+        	  <li><a href="InterpolationNN.html">Nearest-Neighbour Interpolation</a></li>
+        	  
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # Specify the input file name and attribute 
+                # separated by a semicolon 
+                inputData = wd + "input.shp";"HEIGHT"&#10;<br>
+                useZValues = "false" # Only used with 'Z' ShapeType&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                gridRes = "1.5"&#10;<br>
+                baseFile = "not specified"&#10;<br>
+                discretizationFactor = "5"&#10;<br>
+                args = [inputData, useZValues, outputFile, gridRes, baseFile, maxDistance]&#10;<br>
+                pluginHost.runPlugin("DiscreteSibsonInterpolation", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // Specify the input file name and attribute 
+                // separated by a semicolon 
+                def inputData = wd + "input.shp";""&#10;<br>
+                def useZValues = "true" // Used with 'Z' ShapeType&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def gridRes = "not specified"&#10;<br>
+                def baseFile = wd + "existingRaster.dep"&#10;<br>
+                def discretizationFactor = "5"&#10;<br>
+                String[] args = [inputData, useZValues, outputFile, gridRes, baseFile, discretizationFactor]&#10;<br>
+                pluginHost.runPlugin("DiscreteSibsonInterpolation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

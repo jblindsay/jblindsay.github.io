@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Clip</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Clip</h1>
+
+<p>The Clip tool will extract all the features, or parts of features, that overlap 
+with the features of the <i>Clip</i> vector file. The clipping operation is one of the 
+most common vector overlay operations in GIS and effectively imposes the boundary of 
+the clip layer on a set of input vector features, or target features. The operation is 
+sometimes likened to a 'cookie-cutter'. The input vector file can 
+be of any feature type (i.e. points, lines, polygons), however, the <i>Clip</i> 
+vector must consist of polygons. This tool operates in parallel and will experience 
+significantly faster processing when run using a system with a multi-core processor.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="Intersect.html">Intersect</a></li>
+<li><a href="ClipRasterToPolygon.html">Clip Raster To Polygon</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.shp"&#10;<br>
+                clipFile = wd + "clip.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                args = [inputFile, clipFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("Clip", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.shp"&#10;<br>
+                def clipFile = wd + "clip.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                String[] args = [inputFile, clipFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("Clip", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

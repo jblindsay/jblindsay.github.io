@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Short axis</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Short axis</h1>
+
+        <p>This tool can be used to map the short axis of a polygon feature. The short axis is the shorter of 
+           the two primary axes of the minimum bounding box (MBB), i.e. the smallest box to completely 
+           enclose a feature. The short axis is drawn for each polygon in the input vector file such that 
+           it passes through the centre point of the MBB. The output file is therefore a vector of 
+           simple two-point polylines forming a vector field.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="LongAxis.html">Long Axis</a></li>
+        	  <li><a href="MinimumBoundingBox.html">Minimum Bounding Box</a></li>
+            <li><a href="ElongationRatio.html">Elongation Ratio</a></li>
+            <li><a href="PatchOrientation.html">Patch Orientation</a></li>
+            <li><a href="PatchOrientationVectorField.html">Patch Orientation Vector Field</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("ShortAxis", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("ShortAxis", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014)</li>
+        </ul>
+    </body>
+</html>

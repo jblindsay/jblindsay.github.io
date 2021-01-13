@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Retrieve SRTM DEM data</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Retrieve SRTM DEM data</h1>
+
+        <p>
+            This tool can be used to retrieve Shuttle Radar Topography Mission (SRTM) digital elevation 
+            models (DEMs) from the USGS SRTM FTP site. This requires an Internet connection. The user 
+            specifies the latitude and longitude of the bounding box for an area of interest. Coordinates 
+            must be specified in integer (whole number) values. The tool will download the SRTM tiles 
+            contained within the area of interest, imports the tiles by calling the 
+            <a href="ImportSRTM.html"><b><i>Import SRTM</i></b></a> tool, and can optionally 
+            <a href="FillMissingDataHoles.html">fill</a> missing data holes, which are common with 
+            SRTM data in rugged terrain, and finally, <a href="Mosaic.html">mosaic</a> the tiles. Latitude 
+            values in the southern hemisphere are denoted as negative values and, similarly, longitude 
+            values in the western hemisphere are negative. If the option to mosaic the imported 
+            tiles is selected, an output file name must be specified.</p>
+            
+        <p>The global SRTM 3-arcsecond (approximately 90 m resolution) dataset is supported. Within 
+            the United States of America, the higher resolution (~30 m) SRTM 1-arcsecond data can 
+            be retrieved. Please note that SRTM tiles are only available for 1-degree by 1-degree 
+            areas containing some portion of land. </p>
+
+        <p>The data are in geographic coordinates (latitude and longitude). It is likely that you 
+        will need to reproject the data to a UTM projection before carrying out any kind of 
+        spatial analysis. Any projection utility can be used to accomplish this task. In Whitebox GAT 
+        the current tool for reprojecting to UTM coordiates is the 
+        <a href="CoordinateSystemTransformation.html"><b><i>Coordinate System Transformation</i></b></a> tool.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ImportSRTM.html">Import SRTM</a></li>
+            <li><a href="FillMissingDataHoles.html">Fill Missing Data Holes</a></li>
+            <li><a href="Mosaic.html">Mosaic</a></li>
+            <li><a href="CoordinateSystemTransformation.html">Coordinate System Transformation</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                dataset = "3-arcsecond"&#10;<br>
+                startingLat = "42"&#10;<br>
+                endingLat = "45"&#10;<br>
+                startingLon = "-81"&#10;<br>
+                endingLon = "-77"&#10;<br>
+                fillHoles = "true"&#10;<br>
+                fixElevations = "true"&#10;<br>
+                mosaicTiles = "true"&#10;<br>
+                masaicName = pluginHost.getWorkingDirectory() + "output.dep"&#10;<br>
+                args = [dataset, startingLat, endingLat, startingLon, endingLon, fillHoles, fixElevations, mosaicTiles, mosaicName]&#10;<br>
+                pluginHost.runPlugin("RetrieveSRTMData", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def dataset = "3-arcsecond"&#10;<br>
+                def startingLat = "48"&#10;<br>
+                def endingLat = "49"&#10;<br>
+                def startingLon = "16"&#10;<br>
+                def endingLon = "17"&#10;<br>
+                def fillHoles = "true"&#10;<br>
+                def fixElevations = "true"&#10;<br>
+                def mosaicTiles = "false"&#10;<br>
+                String[] args = [dataset, startingLat, endingLat, startingLon, endingLon, fillHoles, fixElevations, mosaicTiles]&#10;<br>
+                pluginHost.runPlugin("RetrieveSRTMData", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Total length of upstream channels</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Total length of upstream channels</h1>
+
+        <p>
+            This tool can be used to calculate the total length of channels draining to 
+            each grid cell in a raster stream network. The user must specify the names 
+            of a streams raster image and <a href="FlowPointerD8.html">D8 pointer</a> 
+            image. Stream cells are designated in the streams image as all positive, 
+            nonzero values. Thus all 
+            non-stream or background grid cells are commonly assigned either zeros or 
+            <b><i>NoData</i></b> values. The pointer image is used to traverse the 
+            stream network and should only be created using the 
+            <a href="FlowPointerD8.html">D8 algorithm</a>. Background cells will be 
+            assigned the <b><i>NoData</i></b> value in the output image. The output 
+            raster is of an <i>integer</i> data type and <i>continuous</i> data scale.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="FlowPointerD8.html">D8 Flow Pointer</a></li>
+            <li><a href="FurthestUpstreamChannelHeadDistance.html">Furthest Upstream Channel Head Distance</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                streamsFile = wd + "streams.dep"&#10;<br>
+                pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [streamsFile, pointerFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("TotalLengthOfUpstreamChannels", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def streamsFile = wd + "streams.dep"&#10;<br>
+                def pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [streamsFile, pointerFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("TotalLengthOfUpstreamChannels", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

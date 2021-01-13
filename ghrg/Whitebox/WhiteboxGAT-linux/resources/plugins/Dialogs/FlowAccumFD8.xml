@@ -1,0 +1,55 @@
+<Dialog Name="FlowAccumFD8" HelpFile="FlowAccumFD8.html">
+	<DialogComponent type="DialogFile">
+		<Name>InputFile</Name>
+		<Description>Enter the name of the input digital elevation model (DEM) file here</Description>
+		<LabelText>Input DEM Raster File:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>OutputFile</Name>
+		<Description>Enter the name of the output file here</Description>
+		<LabelText>Output Raster File:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>power</Name>
+		<Description>Exponent parameter used to determine the amount of dispersion.</Description>
+		<LabelText>Exponent Parameter:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>1</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogComboBox">
+		<Name>outputType</Name>
+		<Description>What output type would you like?</Description>
+		<LabelText>Output Type:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>specific catchment area (sca), total catchment area, number of upslope grid cells</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>logTransform</Name>
+		<Description>Would you like to output log-transformed values?</Description>
+		<LabelText>Log-transormed flow accumulation values?</LabelText>
+		<InitialState>False</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>power</Name>
+		<Description>Use this optional parameter to specify a threshold contributing area value beyond which the algorithm behaves non-dispersively. This is based on the notion of a minimum contributing area for channelization.</Description>
+		<LabelText>Threshold (in cells; blank if none):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+	</DialogComponent>
+</Dialog>

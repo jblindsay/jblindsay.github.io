@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Filter LAS scan angles</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Filter LAS scan angles</h1>
+
+        <p>This tool removes points in a LAS file with scan angles greater than a threshold. 
+        Because Whitebox GAT cannot currently write LAS files (read only) the output is placed 
+        into a MultiPoint type shapefile. The user must specify the names of one or more LAS 
+        files, the name of the output file, and a threshold scan angle value above which 
+        points in the input files will be ignored. Not all LAS files contain scan angle data. 
+        You may use the <a href="GetLasFileSummary.html"><b>Get LAS file summary</b></a> tool 
+        to see whether a file contains scan angle information.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="GetLasFileSummary.html">Get LAS file summary</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must &#10;<br>
+                # be separated by semicolons in the string. &#10;<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                threshold = "15"&#10;<br>
+                args = [inputs, threshold]&#10;<br>
+                pluginHost.runPlugin("FilterLasScanAngles", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must &#10;<br>
+                // be separated by semicolons in the string. &#10;<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                def threshold = "15"&#10;<br>
+                String[] args = args = [inputs, threshold]&#10;<br>
+                pluginHost.runPlugin("FilterLasScanAngles", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

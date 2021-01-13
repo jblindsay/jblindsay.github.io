@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Branch length</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Branch length</h1>
+
+        <h2>Description</h2>
+        <p>Maximum branch length (Bmax) is the longest branch length between a grid 
+            cell's flowpath and the flowpaths initiated at each of its neighbours. 
+            It can be conceptualized as the downslope distance that a volume of 
+            water that is split into two portions by a drainage divide would travel 
+            before reuniting.</p>
+
+        <div style="text-align:center"><img alt="Bmax" src="img/Bmax2.png" /></div>
+
+        <p>If the two flowpaths of neighbouring grid cells do not intersect, Bmax is 
+            simply the flowpath length from the starting cell to its terminus at the 
+            edge of the grid or a cell with undefined flow direction (i.e. a pit cell 
+            either in a topographic depression or at the edge of a major body of water).</p>
+
+        <p>The pattern of Bmax derived from a DEM should be familiar to anyone who has 
+            interpreted upslope contributing area images. In fact, Bmax can be thought 
+            of as the complement of upslope contributing area. Whereas contributing area 
+            is greatest along valley bottoms and lowest at drainage divides, Bmax is 
+            greatest at divides and lowest along channels. The two topographic attributes 
+            are also distinguished by their units of measurements; Bmax is a length 
+            rather than an area. The presence of a major drainage divide between 
+            neighbouring grid cells is apparent in a Bmax image as a linear feature, 
+            often two grid cells wide, of relatively high values</p>
+
+        <p>Bmax is useful in the study of landscape structure, particularly with 
+            respect to drainage patterns. The index gives the relative significance of 
+            a specific location along a divide, with respect to the dispersion of 
+            materials across the landscape, in much the same way that stream ordering 
+            can be used to assess stream size.</p>
+
+        <h2>Operation</h2>
+        <p>The user must specify the name of a flow pointer grid derived using the 
+            <a href="FlowPointerD8.html">D8 flow algorithm</a>. In fact, the flow 
+            pointer raster could be derived using any non-dispersive flow algorithm 
+            that uses the same flow direction naming convention. The user must also 
+            specify whether or not to include diagonal neighbours in the calculation.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FlowTools.html">Other flow modelling tools</a></li>
+            <li><a href="FlowPointerD8.html">D8 flow pointer (direction)</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [pointerFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("BranchLength", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [pointerFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("BranchLength", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

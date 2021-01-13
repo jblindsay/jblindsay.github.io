@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Erase polygon from raster</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Erase polygon from raster</h1>
+
+        <p>This tool can be used to remove (i.e. replace with no-data values) one or more areas 
+            defined by a vector polygon (shapefile) from a rasters. The 
+            user must specify the names of the input raster files and the input vector polygon 
+            file. The input vector file must 
+            be a shapefile of a Polygon base shape type. This file may contain multiple polygon features. Only the 
+            exterior hull of polygons will be used, i.e. polygon holes are ignored. Output files 
+            have the same name as their input raster files but have an <i>'_erased'</i> suffix 
+            appended. </p>
+
+        <p>Erase polygons can be created using <a href="tutorials/HowToDigitizeNewVectors.html">
+                on-screen digitizing</a> to identify an area of interest on the base raster.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ClipRasterToPolygon.html">Clip Raster to Polygon</a></li>
+            <li><a href="HowToDigitizeNewVectors.html">How To Digitize New Vectors</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                clipFile = wd + "polygon.shp"&#10;<br>
+                args = [inputFiles, clipFile]&#10;<br>
+                pluginHost.runPlugin("ErasePolygonFromRaster", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def clipFile = wd + "polygon.shp"&#10;<br>
+                String[] args = [inputFiles, clipFile]&#10;<br>
+                pluginHost.runPlugin("ErasePolygonFromRaster", args, false)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

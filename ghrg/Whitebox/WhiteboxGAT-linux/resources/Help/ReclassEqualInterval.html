@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+<title>Reclass (equal interval)</title>
+<link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+<body><h1>Reclass (equal interval)</h1>
+
+<p>This tool reclassifies the values in an input raster file based on an equal-interval 
+scheme, where the user must specify the reclass interval value, the starting value, and 
+optionally, the ending value. Grid cells containing values that fall outside of the range 
+defined by the starting and ending values, will be assigned their original values in the 
+output grid. If the user does not specify an ending value, the tool will assign a very 
+large positive value.</p>
+
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="Reclass.html">Reclass</a></li>
+<li><a href="ReclassFromFile.html">Reclass from file</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                reclassInterval = "10.0"&#10;<br>
+                startValue = "0.0"&#10;<br>
+                endValue = "not specified"&#10;<br>
+                args = [inputFile, outputFile, reclassInterval, startValue, endValue]&#10;<br>
+                pluginHost.runPlugin("ReclassEqualInterval", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def reclassInterval = "10.0"&#10;<br>
+                def startValue = "0.0"&#10;<br>
+                def endValue = "100.0"&#10;<br>
+                String[] args = [inputFile, outputFile, reclassInterval, startValue, endValue]&#10;<br>
+                pluginHost.runPlugin("ReclassEqualInterval", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

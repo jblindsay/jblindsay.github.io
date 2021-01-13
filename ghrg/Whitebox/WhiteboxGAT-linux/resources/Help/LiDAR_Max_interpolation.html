@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Maximum interpolation (LiDAR)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Maximum interpolation (LiDAR)</h1>
+
+        <p>This tool can be used to interpolate a regular grid raster from a point cloud LiDAR dataset using the 
+            maximum interpolation method. Each grid cell in the output raster digital elevation model (DEM) is 
+            assigned the maximum point value from the group of LiDAR points contained within a circular area encompassing 
+            the grid cell. The user inputs one or more LiDAR datasets in LAS file format (.las) and the name of the output raster 
+            file suffix. Output grids will be created for each input LAS file. The file names of the output grids will be 
+            the same as the corresponding input LAS files, with the file suffix appended to the end. Although most 
+            often this tool will be used to create a DEM from the elevation data associated 
+            with the LiDAR dataset, the user can also specify a number of other parameters to interpolate including 
+            the LiDAR point intensity, classification, and associated red, green, and blue values. Note that not all 
+            LiDAR datasets will include each of these parameters. Interpolation can be based on all of the points in 
+            the dataset, first return points only, or last return points only.</p>
+        <p>Grid cells that have no points within the search radius assigned the <i><b>NoData</b></i> value in the 
+            output image. The output raster is of the <i>float</i> data type and <i>continuous</i> data scale.</p>
+        <p>If the LiDAR data you wish to interpolate is not contained in the LAS file format, but rather an ASCII 
+            text file, you may use one of the interpolation tools contained in the <b><i>Raster Creation</i></b> toolbox 
+            to interpolate the dataset.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LiDARTools.html">LiDAR Tools</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                suffix = "max"&#10;<br>
+                interpParameter = "z (elevation"&#10;<br>
+                ptReturn = "all points"&#10;<br>
+                gridRes = "1.0"&#10;<br>
+                # excluded points...
+                neverClassified = "false"&#10;<br>
+                unclassified = "false"&#10;<br>
+                bareGround = "false"&#10;<br>
+                lowVeg = "false"&#10;<br>
+                mediumVeg = "false"&#10;<br>
+                highVeg = "false"&#10;<br>
+                buildings = "false"&#10;<br>
+                lowPoints = "false"&#10;<br>
+                keyPoints = "false"&#10;<br>
+                water = "false"&#10;<br>
+                args = [inputs, suffix, interpParameter, ptReturn, gridRes, &#10;<br>
+                neverClassified, unclassified, bareGround, lowVeg, mediumVeg, &#10;<br>
+                highVeg, buildings, lowPoints, keyPoints, water]&#10;<br>
+                pluginHost.runPlugin("LiDAR_Max_interpolation", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                def suffix = "max"&#10;<br>
+                def interpParameter = "intensity"&#10;<br>
+                def ptReturn = "last return"&#10;<br>
+                def gridRes = "1.0"&#10;<br>
+                // excluded points...
+                def neverClassified = "false"&#10;<br>
+                def unclassified = "false"&#10;<br>
+                def bareGround = "false"&#10;<br>
+                def lowVeg = "false"&#10;<br>
+                def mediumVeg = "false"&#10;<br>
+                def highVeg = "false"&#10;<br>
+                def buildings = "false"&#10;<br>
+                def lowPoints = "false"&#10;<br>
+                def keyPoints = "false"&#10;<br>
+                def water = "false"&#10;<br>
+                String[] args = [inputs, suffix, interpParameter, ptReturn, gridRes, &#10;<br>
+                neverClassified, unclassified, bareGround, lowVeg, mediumVeg, &#10;<br>
+                highVeg, buildings, lowPoints, keyPoints, water]&#10;<br>
+                pluginHost.runPlugin("LiDAR_Max_interpolation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

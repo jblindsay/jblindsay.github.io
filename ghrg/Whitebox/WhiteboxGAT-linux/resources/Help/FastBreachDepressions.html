@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Breach depressions (fast)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Breach depressions (fast)</h1>
+
+        <p>This tool can be used to pre-process a digital elevation model (DEM) prior to being used for 
+            hydrological analysis. It will remove topographic depressions and apparent dams in the DEM in 
+            order to enforce continuous flow. This is achieved by breaching through topographic barriers.
+            As such, depression breaching provides an alternative to <a href="FillDepressions.html">depression 
+            filling</a>. Unlike depression filling, which has one unique solution for each depression 
+            (filling algorithm differ by their approach rather than their solution), there may be several 
+            competing solutions for depression breaching. The pathway of breach channel, connecting the 
+            interior of topographic depression to a downslope neighbour, derived using this tool will 
+            be based on the flood order. The flood order is the sequence of grid cells that are encountered 
+            during a search, starting from the raster grid edges and the lowest grid cell, moving inward at 
+            increasing elevations. This is in fact similar to how the highly efficient Wang and Liu (2006) 
+            depression filling algorithm operates, except when a grid cell contained in a topographic 
+            depression is encountered during the flood sequence, the algorithm works backwards along 
+            the sequence until a lower cell is found, then the flow directions and elevations along 
+            this pathway are updated to reflect the breach channel. The algorithm is also similar to the 
+            depression breaching method described by Soille (2004).</p>
+            
+            <p>Importantly, the breach channels resulting from this method are not optimized to 
+            reduce the degree to which the DEM must be modified to enforce flow, as is the case with 
+            the <a href="BreachDepressions.html">Breach Depressions</a> tool. The Breach Depressions tool 
+            is therefore superior in terms of the resulting solution compared with this algorithm. The 
+            main drawback to that optimized solution is that it is extremely computationally expensive and 
+            takes considerable time and computer resourses to complete. By comparison, the Breach Depressions 
+            (Fast) algorithm is highly efficient, comparable in run time to the Wang and Liu (2006) filling 
+            method. <b>Note that depression breaching, using any breaching approach, has been demonstrated 
+            to reduce the impact on the DEM during the flow-enforcement step compared with depression 
+            filling methods.</b> With the exception of well-type pit cells (i.e. single grid cells that are 
+            anomolously lower than their neighbours), depression breaching will almost always remove 
+            topographic depressions in a way reduces the loss of the surface flow information 
+            contained in the original DEM compared with a filling solution. Depression filling is useful 
+            as a technique for measuring the depth of topographic depression, but breaching-based methods are
+            recommended for hydrological conditioning of DEMs prior to flow accumulation workflows. So then, 
+            why do workers so commonly fill topographic depressions? One reason is the relative greater 
+            availability of depression filling tools in GIS (many GIS only offer filling solutions). However, 
+            another common reason is that compared with previously available breaching methods, there have 
+            been many advances in making depression filling algorithm very fast. Well this tool is just 
+            about as fast as Whitebox's depression filling tool. So now you have no excuse. <b>This tool 
+            should be your default tool for hydrological processing of DEMs.</b> Its result is not as good 
+            as the optimal breaching tool but it is far more efficient and still much better than filling. 
+            Please breach!</p>
+            
+            <p>The user must specify the names of the input DEM and output files. The maximum breach length 
+            (measured in pixels) parameter can optionally be set to limit the length of a breach channel. 
+            Most breach channels will be relatively short (usually just a few grid cells in length). However, 
+            when a pixel is quite a bit lower than all of its neighbouring cells, a much longer breach 
+            path may be required to find a breaching solution. Notice that the Breach Depressions (Fast) tool 
+            will raise the elevation of all very deep pit cells (so called wells) prior to breaching in an 
+            attempt to lessen this effect. As such, the maximum breach length can generally be left blank. 
+            If the maximum breach length parameter is not specified, the tool will remove every depression 
+            contained in the original DEM. If however, a maximum breach length value is specified, some 
+            depressions may still exist in the resulting DEM and other techniques (e.g. filling) may be 
+            necessary to remove the remaining depressions.</p>
+
+            <p>During the breaching process, the algorithm will keep track of flow-direction data in the 
+            form of a <a href="FlowPointerD8.html">D8 flow pointer grid</a>. This flow direction raster is
+            commonly used in surface flowpath modelling workflows and therefore can be optionally output 
+            from the operation of the breaching tool. The name of the flow-pointer grid will be the same 
+            as the input DEM, with "_flow_pntr" appended to the end. Similarly, the user can also optionally 
+            specify that the tool automatically use the flow direction raster to perform a 
+            <a href="FlowAccumD8.html">D8 flow accumulation</a> (upslope catchment area) operation. The 
+            resulting file will have a "_flow_accum" suffix.</p>
+
+            <p>Please note that like the <a href="FillDepressions.html">Fill Depressions</a> tool, the 
+            Breach Depressions (Fast) tool will read the entire DEM into memory, along with several 
+            other grids. This the algorithm is not suited to processing massive DEMs except where the 
+            user's computer has substantial memory (RAM) resources.</p>
+
+        <h2 class="SeeAlso">References:</h2>
+        <ol>
+        	  <li>Soille, P. 2004. Morphological carving. <i>Pattern Recognition Letters</i>, 25: 543-550.</li>
+        	  <li>Wang, L. and Lui, H. 2006. An efficient method for identifying and filling surface 
+        	  depressions in digital elevation models for hydrologic analysis and modelling. 
+        	  <i>International Journal of Geographical Information Science</i>, 20(2): 193-213.</li>
+        </ol>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="BreachDepressions.html">Breach Depressions</a></li>
+            <li><a href="FillDepressions.html">Fill Depressions</a></li>
+            <li><a href="FillDepressionsPandD.html">Fill Depressions (Planchon and Darboux)</a></li>
+            <li><a href="FlowPointerD8.html">D8 flow pointer grid</a></li>
+            <li><a href="FlowAccumD8.html">D8 flow accumulation</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                maxBreachLength = "not specified"&#10;<br>
+                outputPointer = "true"&#10;<br>
+                performFlowAccumulation = "true"&#10;<br>
+                args = [inputFile, outputFile, maxBreachLength, outputPointer, performFlowAccumulation]&#10;<br>
+                pluginHost.runPlugin("FastBreachDepressions", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def maxBreachLength = "50"&#10;<br>
+                def outputPointer = "true"&#10;<br>
+                def performFlowAccumulation = "true"&#10;<br>
+                String[] args = [inputFile, outputFile, maxBreachLength, outputPointer, performFlowAccumulation]&#10;<br>
+                pluginHost.runPlugin("FastBreachDepressions", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

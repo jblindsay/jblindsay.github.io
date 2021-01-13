@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Polygonize</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Polygonize</h1>
+
+        <p>The Polygonize tool outputs a vector polygon file from two or more intersecting line 
+        features contained in one or more input vector line files. Each space enclosed by the 
+        intersecting line set is converted to polygon added to the output layer. This tool should 
+        not be confused with the <a href="LinesToPolygons.html"><b>Lines To Polygons</b></a> tool, 
+        which can be used to convert a vector file of polylines into a set of polygons, simply by 
+        closing each line feature. It does not deal with line intersection in the same way that 
+        the Polygonize tool does.
+        </p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LinesToPolygons.html">Lines To Polygons</a></li>
+            <li><a href="PolygonsToLines.html">Polygons To Lines</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must &#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.shp" + ";" + wd + "input2.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("Polygonize", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must &#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.shp" + ";" + wd + "input2.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                String[] args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("Polygonize", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

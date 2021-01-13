@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Merge table with CSV</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Merge table with CSV</h1>
+        <p>This tool can be used to merge a shapefile's attribute table with a comma separated values 
+        (CSV) file. CSV files stores tabular data (numbers and text) in plain-text form such that 
+        each row is a record and each column a field. Fields are typically separated by commas although 
+        the tool will also support tab and space delimited files. The user must 
+        specify the name of the shapefile (and associated attribute file) as well as the primary key 
+        within the table. The <b>primary key</b> is the field within the table that is being appended to that 
+        serves as the unique identifier. Additionally, the user must specify the name of a CSV text 
+        file with either a *.csv or *.txt extension. The file may optionally possess a header row, i.e. 
+        the first row may contain information about the names of the various fields. If a header row 
+        is not present in the file, the names of the fields within the CSV file will be taken to be 
+        COLUMN1, COLUMN2, COLUMN3... The <b>foreign key</b>, the unique identifying field within the CSV file 
+        that corresponds with the data contained within the primary key in the table, must be specified. 
+        Both the primary and foreign key should either be strings (text) or integer values. Fields 
+        containing decimal values are not good candidates for keys. Lastly, the names of the fields 
+        within the CSV file to include in the merge operation must also be input.</p>
+
+        <p>Merging works for <b>one-to-one</b> and <b>many-to-one</b> database relations. A one-to-one relations exists 
+        when each record in the attribute table cooresponds to one record in the CSV file and each 
+        primary key is unique. Since each record in the attribute table is associated with a geospatial 
+        feature in the shapefile, an example of a one-to-one relation may be where the CSV file contains 
+        AREA and PERIMETER fields for each polygon feature in the shapefile. This is the most basic type 
+        of relation. A many-to-one relation would exist when each record in the attribute table 
+        cooresponds to one record in the CSV file and the primary key is NOT unique. Consider as an 
+        example a shapefile and attribute table associated with a world map of countries. Each country 
+        has one or more more polygon features in the shapefile, e.g. Canada has its mainland and many 
+        hundred large islands. You may want to append a CSV table containing data about the population 
+        and area of each country. In this case, the COUNTRY columns in the attribute table and the CSV 
+        file serve as the primary and foreign keys respectively. While there may be many duplicate 
+        primary keys (all of those Canadian polygons) each will correspond to only one foreign key 
+        containing the population and area data. This is a many-to-one relation. <b>The MergeTableWithCSV 
+        tool does not support one-to-many nor many-to-many relations.</b></p>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="MergeTables.html">Merge Tables</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # Input data has the shapefile name followed&#10;<br>
+                # by the attribute (primary key), separated by &#10;<br>
+                # a semicolon.&#10;<br>
+                inputData = wd + "coutries.shp" + ";" + "NAME"&#10;<br>
+                csvFile = wd + "populationData.csv"&#10;<br>
+                containsHeader = "true"&#10;<br>
+                foreignKey = "COUNTRY"&#10;<br>
+                includeFields = "POPULATION;AREA"&#10;<br>
+                args = [inputData, csvFile, containsHeader, foreignKey, includeFields]&#10;<br>
+                pluginHost.runPlugin("MergeTableWithCSV", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // Input data has the shapefile name followed &#10;<br>
+                // by the attribute (primary key), separated by &#10;<br>
+                // a semicolon.&#10;<br>
+                def inputData = wd + "coutries.shp" + ";" + "NAME"&#10;<br>
+                def csvFile = wd + "populationData.csv"&#10;<br>
+                def containsHeader = "false"&#10;<br>
+                def foreignKey = "COLUMN1"&#10;<br>
+                def includeFields = "COLUMN2;COLUMN3"&#10;<br>
+                String[] args = [inputData, csvFile, containsHeader, foreignKey, includeFields]&#10;<br>
+                pluginHost.runPlugin("MergeTableWithCSV", args, False)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Union</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Union</h1>
+
+        <p>This tool can be used to join the features, or parts of features, in two input vectors. 
+            <b><i>Union</i></b> is the vector equivalent to the Boolean operator <a href="OR.html"><b><i>OR</i></b></a> 
+            used for raster overlay. Importantly, the <b><i>Union</i></b> tool will remove all interior boundaries 
+            when combining features. If there is a need to preserve interior boundaries between features, you should 
+            use the <a href="Fuse.html"><b><i>Fuse</i></b></a> instead. Therefore, the <a href="Fuse.html"><b><i>Fuse</i></b>
+            </a> is more similar to ArcGIS's <b><i>Union</i></b> tool.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="OR.html">OR</a></li>
+            <li><a href="SymmetricDifference.html">Symmetric Difference</a></li>
+            <li><a href="Difference.html">Difference</a></li>
+            <li><a href="Intersect.html">Intersect</a></li>
+            <li><a href="Fuse.html">Fuse</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input shapefiles but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.shp" + ";" + wd + "input2.shp" + ";" + wd + "input3.shp"&#10;<br>
+                outputFile = wd + "tmp1.shp"&#10;<br>
+                args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("Append", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input shapefiles but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.shp" + ";" + wd + "input2.shp + ";" + wd + "input3.shp""&#10;<br>
+                def outputFile = wd + "tmp1.shp"&#10;<br>
+                String[] args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("Append", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

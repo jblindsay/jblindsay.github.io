@@ -1,0 +1,27 @@
+<Dialog Name="Resample" HelpFile="Resample.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFiles</Name>
+		<Description>Enter the name of the input files here</Description>
+		<LabelText>Input Raster Files:</LabelText>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogFile">
+		<Name>destinationHeader</Name>
+		<Description>Enter the name of the destination image here. This image must already exist.</Description>
+		<LabelText>Destination Raster File:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogComboBox">
+		<Name>resampleMethod</Name>
+		<Description>What unit is the buffer size specified in?</Description>
+		<LabelText>Resample Method:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>nearest neighbour, bilinear, cubic convolution</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+</Dialog>

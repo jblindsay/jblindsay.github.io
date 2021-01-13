@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Import SRTM DEM</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Import SRTM DEM</h1>
+
+        <p>
+            This tool can be used to convert Shuttle Radar Topography Mission (SRTM) digital elevation 
+            models (DEMs) to <a href="FileFormatsDescriptions.html">Whitebox GAT raster files</a>. 
+            Only SRTM 1-arcsecond and SRTM 3-arcsecond formats are supported. The input files must 
+            follow the file structure specified by the SRTM white-paper (*.hgt), including the 
+            common file naming convention (e.g. NYYWXXX.hgt). The output Whitebox Raster files 
+            will be of the Integer data type, with elevations reported in meters to the nearest 
+            whole number. Void cells are assigned the <b><i>NoData</i></b> value of -32,768.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="RetrieveSRTMData.html">Retrieve SRTM DEM Data</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "N51W124.hgt" + ";" + wd + "N51W125.hgt" + ";" + wd + "N51W126.hgt"&#10;<br>
+                args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportSRTM", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "N51W124.hgt" + ";" + wd + "N51W125.hgt" + ";" + wd + "N51W126.hgt"&#10;<br>
+                String[] args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportSRTM", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

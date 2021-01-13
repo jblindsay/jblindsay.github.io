@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Map gully depth</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Map gully depth</h1>
+
+        <p>This tool can be used to map gully depth from a digital elevation model (DEM). The user 
+        must specify the name of the DEM file and the output gully depth map file, the maximum 
+        gully width (in the xy-units), the minimum and maximum gully depths (in the z-units), a 
+        threshold in <a href="DifferenceFromMeanElevation.html"><b><i>difference from mean elevation 
+        (DFME)</i></b></a>, a plan curvature threshold, and a smoothing parameter. Gullies within 
+        the DEM are differentiated from larger valleys or ravines because they have widths and maximum 
+        cross-sectional depths that are less than the specified parameters. The DFME threshold is 
+        used to determine low-lying areas, in which gullies are included. A gully cross-section must 
+        also cross at least one grid cell with a plan curvature value larger than the specified 
+        threshold. Areas of high plan curvature tend to follow the bottoms of fluvial erosional 
+        features like gullies. The smoothing parameter is used to smooth the input DEM prior to 
+        estimating the plan curvature grid.</p>
+
+        <p>The user must also specify whether the background value (non-gully grid cells) should be 
+        <b><i>NoData</i></b> or zero. The tool will create two to three temporary files that will be 
+        deleted upon completion.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="DifferenceFromMeanElevation.html">Difference From Mean Elevation</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "dem.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                maxGullyWidth = "25"&#10;<br>
+                maxGullyDepth = "3.0"&#10;<br>
+                minGullyDepth = "0.25"&#10;<br>
+                dfmeThreshold = "0.0"&#10;<br>
+                planCurvThreshold = "100.0"&#10;<br>
+                smoothing = "5"&#10;<br>
+                useNodataBackground = "true"&#10;<br>
+                args = [demFile, outputFile, maxGullyWidth, maxGullyDepth, minGullyDepth, dfmeThreshold, planCurvThreshold, smoothing, useNodataBackground]&#10;<br>
+                pluginHost.runPlugin("MapGullyDepth", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "dem.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def maxGullyWidth = "25"&#10;<br>
+                def maxGullyDepth = "3.0"&#10;<br>
+                def minGullyDepth = "0.25"&#10;<br>
+                def dfmeThreshold = "0.0"&#10;<br>
+                def planCurvThreshold = "100.0"&#10;<br>
+                def smoothing = "5"&#10;<br>
+                def useNodataBackground = "true"&#10;<br>
+                String[] args = [demFile, outputFile, maxGullyWidth, maxGullyDepth, minGullyDepth, dfmeThreshold, planCurvThreshold, smoothing, useNodataBackground]&#10;<br>
+                pluginHost.runPlugin("MapGullyDepth", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014)</li>
+        </ul>
+    </body>
+</html>

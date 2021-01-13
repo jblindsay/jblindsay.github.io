@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Average flowpath slope from cell to divide</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body><h1>Average flowpath slope from cell to divide</h1>
+
+        <p>
+            This tool calculates the average slope gradient (i.e. slope 
+            steepness in degrees) of the flowpaths that run through 
+            each grid cell in an input digital elevation model (DEM) to 
+            the upslope divide cells. The user must specify the name of 
+            a flow pointer grid derived using the <a href="FlowPointerD8.html">
+                D8 flow algorithm</a>.The user must also specify the 
+            name of the input DEM and the output raster image. The 
+            <i>Z Conversion Factor</i> is only important when the 
+            vertical and horizontal units are not the same in the 
+            DEM. When this is the case, the algorithm will multiply 
+            each elevation in the DEM by the <i>Z Conversion Factor</i>. </p>
+        <p>Four temporary images are created during the operation of this 
+            tool. Each of the temporary images should be automatically 
+            deleted upon successful completion. <b><i>NoData</i></b> 
+            valued grid cells in the input pointer image will be 
+            assigned <b><i>NoData</i></b> values in the output image. 
+            The output raster is of the <i>float</i> data type and 
+            <i>continuous</i> data scale.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FlowPointerD8.html">D8 flow algorithm</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputPointer = wd + "D8 pointer.dep"&#10;<br>
+                inputDEM = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                zFactor = "1.0"&#10;<br>
+                args = [inputPointer, inputDEM, outputFile, zFactor]&#10;<br>
+                pluginHost.runPlugin("AverageSlopeToDivide", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputPointer = wd + "D8 pointer.dep"&#10;<br>
+                def inputDEM = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def zFactor = "1.0"&#10;<br>
+                String[] args = [inputPointer, inputDEM, outputFile, zFactor]&#10;<br>
+                pluginHost.runPlugin("AverageSlopeToDivide", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

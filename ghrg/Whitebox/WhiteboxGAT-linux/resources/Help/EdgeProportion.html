@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Edge proportion</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Edge proportion</h1>
+
+        <p>This tool will measure the edge proportion, i.e. the proportion of 
+            grid cells in a polygon that are located along the polygon's boundary, 
+            for an input raster image. Edge proportion is an indicator of polygon 
+            shape complexity and elongation. The user must specify the name of the 
+            output raster file, which will be raster layer containing the input 
+            features assigned the edge proportion. The user may also optionally 
+            choose to output text data for easy input to a spreadsheet or 
+            database.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ShapeComplexityIndex.html">Shape Complexity Index</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                textOutput = "true"&#10;<br>
+                args = [inputFile, outputFile, textOutput]&#10;<br>
+                pluginHost.runPlugin("EdgeProportion", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                textOutput = "true"&#10;<br>
+                String[] args = [inputFile, outputFile, textOutput]&#10;<br>
+                pluginHost.runPlugin("EdgeProportion", args, false)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

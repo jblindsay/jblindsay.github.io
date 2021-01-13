@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Import SAGA grid</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Import SAGA grid</h1>
+
+        <p>
+            This tool can be used to convert SAGA GIS raster grids to 
+            <a href="FileFormatsDescriptions.html">Whitebox GAT raster files</a>. SAGA grid 
+            files consist of an ASCII (i.e. human readable text) header file with a *.sgrd 
+            extension and a binary data file with a *.sdat extension. Importantly, the 
+            corresponding header and data files must be located within the same directory. 
+            The tool will create Whitebox GAT raster files for each input file. Output file 
+            names are the same of the input files. The tool supports reading SAGA rasters of 
+            the following data types: BIT, BYTE_UNSIGNED, BYTE, SHORTINT_UNSIGNED, SHORTINT, 
+            INTEGER_UNSIGNED, INTEGER, FLOAT, and DOUBLE.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ExportSagaGrid.html">Export SAGA Grid</a></li>
+            <li><a href="FileFormatsDescriptions.html">Whitebox file formats</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "image1.sgrd" + ";" + wd + "image2.sgrd" + ";" + wd + "image3.sgrd"&#10;<br>
+                args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportSagaGrid", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "image1.sgrd" + ";" + wd + "image2.sgrd" + ";" + wd + "image3.sgrd"&#10;<br>
+                String[] args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportSagaGrid", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

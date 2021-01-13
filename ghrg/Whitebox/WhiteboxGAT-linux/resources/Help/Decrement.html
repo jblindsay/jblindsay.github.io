@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Decrement</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Decrement</h1>
+
+        <p>The <b><i>Decrement</i></b> tool decreases the grid cell values in an input 
+        raster file by the corresponding grid cell values in a second raster or by a 
+        user-specified constant value. Notice that if the specified decrement raster is 
+        a Boolean (i.e. contains only 1's and 0's), or a constant value of 1 is specified, 
+        then the result is the traditional <i>decrement</i> (--) operation. If a value 
+        other than 1 is used, then the tool outputs the result of an <i>Subtraction AND 
+        Assignment</i> (-=) operator. The only difference between this tool and the 
+        <a href="Subtract.html"><b><i>Subtract</i></b></a> tool is that <b><i>Subtract</i></b> outputs 
+        to a new raster, whereas <b><i>Decrement</i></b> simply updates the input 
+        raster. This tool is paired with the <a href="Increment.html"><b><i>Increment</i></b></a> 
+        tool, which can be used to increase the grid cell values in a raster.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Subtract.html">Subtract</a></li>
+            <li><a href="Increment.html">Increment</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input1.dep"&#10;<br>
+                decrementFile = wd + "input2.dep"&#10;<br>
+                args = [inputFile, decrementFile]&#10;<br>
+                pluginHost.runPlugin("Decrement", args, False)&#10;<br>
+            </code>
+        </p>
+
+        <p>This is a Groovy script also using the tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def decrementValue = "5"&#10;<br>
+                String[] args = [inputFile, decrementValue]&#10;<br>
+                pluginHost.runPlugin("Decrement", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

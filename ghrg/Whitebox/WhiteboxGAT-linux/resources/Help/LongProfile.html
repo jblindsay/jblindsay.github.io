@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en"><head><meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+<title>Long profile</title>
+<link rel="stylesheet" type="text/css" href="Help.css"></head>
+<body>
+<h1>Long profile</h1>
+
+        <p>
+		This tool can be used to create a long profile plot. A longitudinal stream profile 
+		is a plot of elevation against downstream distance. Most long profiles use distance 
+		from channel head as the distance measure. This tool, however, uses the distance 
+		to the stream network outlet cell, or mouth, as the distance measure. The reason for this 
+		difference is that while for any one location within a stream network there is only 
+		ever one downstream outlet, there is usually many upstream channel heads. Thus plotted 
+		using the traditional downstream-distance method, the same point within a network will 
+		plot in many different long profile locations, whereas it will always plot on one unique 
+		location in the distance-to-mouth method. One consequence of this difference is that 
+		the long profile will be oriented from right-to-left rather than left-to-right, as 
+		would traditionally be the case.</p>
+		
+		<p>The user must specify 
+		the names of a D8 pointer image (flow direction) and a streams raster image. Stream 
+		cells are designated in the streams image as all positive, nonzero values. Thus 
+		all non-stream or background grid cells are commonly assigned either zeros or 
+		NoData values. The pointer image is used to traverse the stream network and should 
+		only be created using the <a href="FlowPointerD8.html">D8 flow algorithm</a>. The 
+		streams image should be derived using a flow accumulation based stream network 
+		extraction algorithm, also based on the D8 flow algorithm. </p>
+
+		<p>In addition to the output chart, the user may optionally specify the name of a 
+		comma-separated value (*.csv) text file to output the profile to.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FlowPointerD8.html">D8 flow pointer</a></li>
+            <li><a href="StreamTools.html">Other stream network analysis tools</a></li>
+            <li><a href="Profile.html">Profile</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                streams = wd + "streams.dep"&#10;<br>
+                dem = wd + "DEM.dep"&#10;<br>
+                args = [pointerFile, streams, dem]&#10;<br>
+                pluginHost.runPlugin("LongProfile", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                def streams = wd + "stream.dep"&#10;<br>
+                def dem = wd + "DEM.dep"&#10;<br>
+                def outFile = wd + "profile.csv"&#10;<br>
+                String[] args = [pointerFile, streams, dem, outFile]&#10;<br>
+                pluginHost.runPlugin("LongProfile", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Canopy model (LiDAR)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Canopy model (LiDAR)</h1>
+
+        <p>This tool interpolates a canopy-height model grid from one or more input LAS files. 
+        The LAS file format is an industry standard format for storing data acquired by laser 
+        scanners. The canopy height is estimated by differencing the maximum non-ground point 
+        height within the circle encompassing each grid cell from the ground elevation estimate 
+        for the cell. Ground points are distinguished from off-terrain points (largely vegetation) 
+        using the same method as the <a href="LiDAR_BareEarthDEM.html"><b><i>Bare-Earth DEM 
+        (LiDAR)</i></b></a>, which is based on a maximum allowable inter-point slope for ground 
+        points. It is therefore possible to derive the canopy model for any LAS file, even those 
+        that do not contain information about the point return.</p>
+        <p>The user must specify the name of one or more LAS files. The canopy-height models will  
+        have the same name as the corresponding input LAS file, with specified file suffix appended 
+        to the end of the file name. The user must also specify the grid resolution, the minimum 
+        canopy height (all cells with a height below this value will be assigned NoData), and 
+        the inter-point slope threshold. All points that have an inter-point slope with any 
+        neighbouring point, and is located above the corresponding slope, is considered to be a 
+        non-ground point (vegetation). An appropriate value of this parameter will depend on the 
+        steepness of the terrain, but generally values of 15-35 degrees produce satisfactory 
+        results.<p> 
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LiDAR_BareEarthDEM.html">Bare-Earth DEM (LiDAR)</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                suffix = "canopy"&#10;<br>
+                resolution = "1.0"&#10;<br>
+                minHeight = "2.0"&#10;<br>
+                maxSlope = "20.0"&#10;<br>
+                args = [inputs, suffix, resolution, minHeight, maxSlope]&#10;<br>
+                pluginHost.runPlugin("LiDAR_CanopyModel", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                def suffix = "canopy"&#10;<br>
+                def resolution = "1.0"&#10;<br>
+                def minHeight = "2.0"&#10;<br>
+                def maxSlope = "20.0"&#10;<br>
+                def args = [inputs, suffix, resolution, minHeight, maxSlope]&#10;<br>
+                pluginHost.runPlugin("LiDAR_CanopyModel", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

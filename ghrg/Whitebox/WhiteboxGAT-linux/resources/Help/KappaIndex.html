@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Kappa index of agreement</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Kappa index of agreement</h1>
+
+        <p>This tool calculates the Kappa index of agreement (KIA) for two classified raster images. The user must 
+            specify the names of the two input images and the output html file. The output file will be displayed 
+            automatically but can also be displayed in afterwards in any web browser.. The input images must be of a
+            categorical data type, i.e. contain classes. As a measure of overall classification accuracy, the KIA is 
+            more robust than the percent agreement calculation since it takes into account the agreement occurring by 
+            random chance. In addition to the KIA, the tool will output the producer's and user's accuracy, the 
+            overall accuracy, and the error matrix. The KIA is often used as a means of assessing the accuracy of an 
+            image classification analysis.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                classificationImage = wd + "class.dep"&#10;<br>
+                referenceImage = wd + "reference.dep"&#10;<br>
+                outputFile = wd + "kappa_analysis.html"&#10;<br>
+                args = [classificationImage, referenceImage, outputFile]&#10;<br>
+                pluginHost.runPlugin("KappaIndex", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def classificationImage = wd + "class.dep"&#10;<br>
+                def referenceImage = wd + "reference.dep"&#10;<br>
+                def outputFile = wd + "kappa_analysis.html"&#10;<br>
+                String[] args = [classificationImage, referenceImage, outputFile]&#10;<br>
+                pluginHost.runPlugin("KappaIndex", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

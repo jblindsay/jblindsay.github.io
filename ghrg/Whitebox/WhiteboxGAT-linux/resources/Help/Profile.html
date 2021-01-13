@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Profile</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Profile</h1>
+
+        <p>This tool can be used to to create a topographic profile. The user must specify 
+        the name of the input surface raster and a vector line file. The vector file must 
+        be of a <b><i>PolyLine</i></b> ShapeType. A topographic profile chart will be 
+        generated, with one profile for each line within the input shapefile. The line file 
+        can be generated through on-screen digitizing using the <a href="CreateNewShapefile.html">
+        Create New Shapefile</a> tool. See this <a href="tutorials/HowToDigitizeNewVectors.html">link</a> 
+        for more detailed instructions on how to carry out on-screen digitizing.</p>
+
+        <p>In addition to the output chart, the user may optionally specify the name of a 
+		comma-separated value (*.csv) text file to output the profile to.</p>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="CreateNewShapefile.html">Create New Shapefile</a></li>
+            <li><a href="tutorials/HowToDigitizeNewVectors.html">How to Digitize New Vectors</a></li>
+            <li><a href="LongProfile.html">Long Profile</a></li>
+            <li><a href="LongProfileFromPoint.html">Long Profile From Point</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                surfaceFile = wd + "surface.dep"&#10;<br>
+                lineFile = wd + "profileLines.shp"&#10;<br>
+                args = [surfaceFile, lineFile]&#10;<br>
+                pluginHost.runPlugin("Profile", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def surfaceFile = wd + "surface.dep"&#10;<br>
+                def lineFile = wd + "profileLines.shp"&#10;<br>
+                def outFile = wd + "profile.csv"&#10;<br>
+                String[] args = [surfaceFile, lineFile, outFile]&#10;<br>
+                pluginHost.runPlugin("Profile", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

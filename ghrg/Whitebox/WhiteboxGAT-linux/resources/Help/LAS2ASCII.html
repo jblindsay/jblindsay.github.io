@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Convert LAS to ASCII (LAS2ASCII)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Convert LAS to ASCII (LAS2ASCII)</h1>
+
+        <p>This tool can be used to convert a LAS file, containing LiDAR data, into an equivalent ASCII text file. 
+            The output text file will contain fields for the point number, elevation, intensity, classification 
+            value, return number, and number of returns, in that order. Notice that the LAS file format 
+            is a highly efficient format for storing LiDAR data compared with the ASCII format, and as such, it is 
+            expected that ASCII file will be considerably larger than their equivalent LAS files.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LAS2Shapefile.html">Convert LAS to Shapefile (LAS2Shapefile)</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("LAS2ASCII", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                String[] args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("LAS2ASCII", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

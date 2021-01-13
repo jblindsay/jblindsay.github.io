@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Extract statistics</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Extract statistics</h1>
+
+        <p>This tool can be used to extract common descriptive statistics associated
+            with the distribution of some underlying <i><b>Data Raster Image</b></i> based on area units
+            defined by a <i><b>Feature Definition Raster Image</b></i>. For example, this tool can be
+            used to measure the maximum or average slope gradient (data image) for each of
+            a group of watersheds (feature definitions). Although the <i><b>Data Raster Image</b></i> can
+            contain any type of data, the <i><b>Feature Definition Raster Image</b></i> must be
+            categorical, i.e. it must define area entities using integer values. </p>
+
+        <p>If an output image name is specified, the tool will assign the descriptive
+            statistic value to each of the spatial entities defined in the <i><b>Feature
+                    Definition Image</b></i>. If text output is selected, a table will be output, which can
+            then be readily copied into a spreadsheet program for further analysis. This is
+            a very powerful and useful tool for creating numerical summary data from
+            spatial data which can then be interrogated using statistical analyses. At
+            least one output type (image or text) must be specified for the tool to
+            operate.  </p>
+
+        <p><b><i>NoData</i></b> values in either of the two input images are ignored
+            during the calculation of the descriptive statistic.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                dataFile = wd + "data.dep"&#10;<br>
+                featureFile = wd + "features.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                stat = "average"&#10;<br>
+                textOutput = "true"&#10;<br>
+                args = [dataFile, featureFile, outputFile, stat, textOutput]&#10;<br>
+                pluginHost.runPlugin("ExtractStatistics", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def dataFile = wd + "data.dep"&#10;<br>
+                def featureFile = wd + "features.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def stat = "maximum"&#10;<br>
+                def textOutput = "true"&#10;<br>
+                String[] args = [dataFile, featureFile, outputFile, stat, textOutput]&#10;<br>
+                pluginHost.runPlugin("ExtractStatistics", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

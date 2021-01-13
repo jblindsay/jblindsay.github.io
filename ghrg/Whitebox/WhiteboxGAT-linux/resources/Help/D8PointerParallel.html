@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>D8 pointer (parallel)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>D8 pointer (parallel)</h1>
+
+        <p>This tool is used to generate a flow pointer grid using the simple D8
+            (O'Callaghan and Mark, 1984) algorithm. It is a parallel version of the 
+            <a href="FlowPointerD8.html"><b>D8 Flow Pointer</b></a> tool and is 
+            currently considered to be experimental and may result in performance 
+            improvements compared with the serial tool. Changes may occur to this 
+            tool in the future. </p>
+        
+        <p>The user must specify the name of a
+            digital elevation model (DEM) that has been hydrologically corrected to remove
+            all spurious depressions and flat areas. DEM pre-processing is usually achived
+            using the <a href="FillDeps.html">Fill Depressions tool</a> or the 
+            <a href="FastBreachDepressions.html">Breach Depressions (Fast)</a> tool.</p>
+
+        <p>In Whitebox GAT, D8 flow pointers use the following clockwise, base-2
+            numeric naming convention:</p>
+
+        <p><img alt="Flow directions" src="img/FlowPointerNamingConvention2.png"></p>
+
+        <p>Thus, a grid cell that flows to the northwest will be assigned a '64' in the
+            D8 flow pointer raster. Notice that grid cells that have no lower neighbours
+            are assigned a flow direction of zero. In a DEM that has been pre-processed to
+            remove all depressions and flat areas, this condition will only occur along the
+            edges of the grid.</p>
+
+        <p>Grid cells possessing the <i><b>NoData</b></i> value in the input DEM are
+            assigned the <i><b>NoData</b></i> value in the output image. The output raster
+            is of the <i>integer</i> data type and <i>categorical</i> data scale.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="FlowPointerD8.html">D8 Flow Pointer</a></li>
+            <li><a href="FlowTools.html">Other flow modelling tools</a></li>
+            <li><a href="FastBreachDepressions.html">Breach Depressions (Fast)</a></li>
+            <li><a href="FillDepressions.html">Fill depressions</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "pointer.dep"&#10;<br>
+                runParallel = "true"&#10;<br>
+                args = [demFile, outputFile, runParallel]&#10;<br>
+                pluginHost.runPlugin("D8PointerParallel", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "pointer.dep"&#10;<br>
+                def runParallel = "true"&#10;<br>
+                String[] args = [demFile, outputFile, runParallel]&#10;<br>
+                pluginHost.runPlugin("D8PointerParallel", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

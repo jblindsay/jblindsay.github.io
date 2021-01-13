@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Area</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Area</h1>
+
+        <p>
+            This tools estimates the area of each category, polygon, or 
+            patch in an input image. The input image must be categorical 
+            in data scale. The user must specify whether the output is 
+            given in Map Units or Grid Cells. Map Units are physical 
+            units, e.g. if the image's scale is in metres, <b><i>Area</i></b> 
+            will report in square-metres. Notice that square-metres can be 
+            converted into hectares by dividing by 10,000 and into 
+            square-kilometres by dividing by 1,000,000. </p>
+        <p>The user can specify whether they would like an image output, 
+            text output, or both. No output image is created if the Output 
+            Raster File box is left blank. At least one output type must be 
+            chosen for the tool to operate. </p>
+        <p><b><i>NoData</i></b> values are ignored during the area analysis.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="GISTools.html">GIS Tools</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = "not specified"&#10;<br>
+                outputText = "true"&#10;<br>
+                units = "map units"&#10;<br>
+                zeroBackground = "false"&#10;<br>
+                args = [inputFile, outputFile, outputText, units, zeroBackground]&#10;<br>
+                pluginHost.runPlugin("Area", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def outputText = "false"&#10;<br>
+                def units = "grid cells"&#10;<br>
+                def zeroBackground = "false"&#10;<br>
+                String[] args = [inputFile, outputFile, outputText, units, zeroBackground]&#10;<br>
+                pluginHost.runPlugin("Area", args, false)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

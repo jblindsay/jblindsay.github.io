@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Feature space plot</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Feature space plot</h1>
+
+        <p>A <a href="FeatureVectorAndFeatureSpace.html">feature space</a> plot is similar to a scattergram. It plots the frequency of occurrance of brightness 
+            value pairs in the two-dimensional feature space of defined by two images. The input images are usually 
+            two bands of multispectral imagery, but any two overlapping images with the same dimensions can be used. 
+            The higher the frequency of a value pair, the brighter it is represented in the feature space plot. Note 
+            that this tool provides a means of visualizing the relation between two raster images, which is often the 
+            necessary step before either correlation analysis or regression analysis. The tool is intended to work with 
+            images of an integer data type, or with images with a float data type that have a large enough range that 
+            they can be rounded to integer values in a meaningful way.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="ImageCorrelation">Image Correlation</a></li>
+            <li><a href="ImageRegression">Image Regression</a></li>
+            <li><a href="FeatureVectorAndFeatureSpace.html">Feature Vector and Feature Space</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("FeatureSpacePlot", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("FeatureSpacePlot", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Jensen, J.R. 2005. Introductory digital image processing: A remote sensing perspective, 3rd Ed. 
+                Prentice Hall series in Geographic Information Science, Upper Saddle River, N.J., pp. 526.</li>
+        </ul>
+    </body>
+</html>

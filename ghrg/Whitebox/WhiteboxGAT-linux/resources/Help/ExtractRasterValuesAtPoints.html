@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Extract raster values at points</h1>
+
+<p>This tool can be used to extract the values from one or more raster images at a set of points 
+specified by a shapefile of POINT ShapeType. The user must input the names of one or more 
+raster images and the name of the vector points file. The attribute table of the input shapefile
+will be updated with fields named <b>VALUE1</b>, <b>VALUE2</b>, <b>VALUE3</b>... cooresponding 
+to the input raster stack. The order of the fields will match that of the input rasters.</p>
+
+<p>This tool is very similar in function to the <a href="ImageStackProfile.html">
+<b>Image stack profile</b></a> tool except that it outputs values to a vector file's attribute 
+table rather than a graphical output (line graph).</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="ImageStackProfile.html">Image stack profile</a></li>
+<li><a href="ExtractValuesAtXYCoords.html">Extract values at XY coordinates</a></li>
+<li><a href="AddPointCoordinatesToTable.html">Add point coordinates to table</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # The names of the multiple input files must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                pointsFile = wd + "points.shp"&#10;<br>
+                args = [inputFiles, pointsFile]&#10;<br>
+                pluginHost.runPlugin("ExtractRasterValuesAtPoints", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // The names of the multiple input files must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def pointsFile = wd + "points.shp"&#10;<br>
+                String[] args = [inputFiles, pointsFile]&#10;<br>
+                pluginHost.runPlugin("ExtractRasterValuesAtPoints", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

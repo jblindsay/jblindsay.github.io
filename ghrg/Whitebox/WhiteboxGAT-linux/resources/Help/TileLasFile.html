@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Tile LAS file</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Tile LAS file</h1>
+
+        <p>
+            This tool separates larger LAS files, containing point cloud data sets derived from 
+            laser scanner systems (LiDAR), into smaller tiles of a regular grid. The user specifies 
+            the name of an input LAS file (.las file extension), the x and y tile dimensions, the 
+            origins of the tile grid (usually set to 0, 0) and the minimum number of points within 
+            a tile. Tiles that contain fewer than the minimum number of points will not be output.
+            At present, this tool outputs ShapeFiles of a MultiPointZ ShapeType, rather than LAS 
+            files. Output file names will be automatically generated and will be related to the 
+            row and column number of the tile. The tool will also output a grid index ShapeFile, 
+            which can be used to visualize the number of points contained in each of the output 
+            tile ShapeFiles, with the COUNT attribute contained in the index file's attribute table.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Hexbinning.html">Hex-binning</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.las"&#10;<br>
+                tileSizeX = "1000.0"&#10;<br>
+                tilesizeY = "1000.0"&#10;<br>
+                originX = "0.0"&#10;<br>
+                originY = "0.0"&#10;<br>
+                minNumPoints = "0"&#10;<br>
+                args = [inputFile, tileSizeX, tileSizeY, originX, originY, minNumPoints]&#10;<br>
+                pluginHost.runPlugin("TileLasFile", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.las"&#10;<br>
+                def tileSizeX = "1000.0"&#10;<br>
+                def tilesizeY = "1000.0"&#10;<br>
+                def originX = "0.0"&#10;<br>
+                def originY = "0.0"&#10;<br>
+                def minNumPoints = "0"&#10;<br>
+                String[] args = [inputFile, tileSizeX, tileSizeY, originX, originY, minNumPoints]&#10;<br>
+                pluginHost.runPlugin("TileLasFile", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Import XYZ to vector points</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Import XYZ to vector points</h1>
+
+        <p>This tool can be used to import a series of x,y,z points into a vector shapefile of a POINT ShapeType. 
+            The input file must be an ASCII type with either a .txt or .asc extension. The file must contain three 
+            columns with x, y, and z data respectively. The z column may contain any numeric value, e.g. a point ID 
+            or elevation value. There must be one point per row in the file without blank rows. The file may contain 
+            a header row, i.e. the first row may contain text information, in which case, this must be specified by 
+            checking the <i>is the first line of the file a header?</i> checkbox in the tool dialog.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.txt" + ";" + wd + "input2.txt" + ";" + wd + "input3.txt"&#10;<br>
+                firstLineIsHeader = "false"&#10;<br>
+                args = [inputFiles, firstLineIsHeader]&#10;<br>
+                pluginHost.runPlugin("ImportXYZToVectorPoints", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.txt" + ";" + wd + "input2.txt" + ";" + wd + "input3.txt"&#10;<br>
+                def firstLineIsHeader = "true"&#10;<br>
+                String[] args = [inputFiles, firstLineIsHeader]&#10;<br>
+                pluginHost.runPlugin("ImportXYZToVectorPoints", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

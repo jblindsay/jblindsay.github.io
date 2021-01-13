@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Elevation above stream</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Elevation above stream</h1>
+
+        <p>This tool can be used to calculate the elevation of each grid cell 
+        in a raster above the nearest stream cell, measured along the downslope 
+        flowpath. The user must specify the name of a flow pointer grid derived 
+        using the <a href="FlowPointerD8.html">D8 flow algorithm</a>. This grid should 
+        be derived from a digital elevation model (DEM) that has been pre-processed 
+        to remove artifact topographic depressions and flat areas. The user must also 
+        provide a DEM raster file and a streams raster file. The stream raster should 
+        have been created using one of the DEM-based stream mapping methods, e.g. 
+        contributing area thresholding. Stream cells are designated in this raster as 
+        all non-zero values. The output of this tool, along with the 
+        <a href="DownslopeDistanceToStream.html">Downslope Distance To Stream</a> tool, 
+        can be useful for preliminary flood plain mapping when combined with high-accuracy 
+        DEM data.</p>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FlowPointerD8.html">D8 Flow Algorithm</a></li>
+            <li><a href="DownslopeDistanceToStream.html">Downslope Distance To Stream</a></li>
+            <li><a href="DownslopeFlowpathLength.html">Downslope Flowpath Length</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                streamsFile = wd + "streams.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [pointerFile, demFile, streamsFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("ElevationAboveStream", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def streamsFile = wd + "streams.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [pointerFile, demFile, streamsFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("ElevationAboveStream", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

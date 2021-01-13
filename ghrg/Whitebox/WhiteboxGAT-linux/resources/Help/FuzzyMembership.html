@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Fuzzy membership</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Fuzzy membership</h1>
+
+        <p>This tool can be used to create fuzzy membership probability (MP) images. The user must specify the name 
+            of the input and output raster images and the model type (sigmoidal or linear). The output image contains 
+            membership probabilities, and therefore the grid cells in the output raster vary from zero to one. The user 
+            can optionally specify a lower bound for membership (i.e. value at which MP rises above 0 and value at which 
+            MP rises to 1), an upper bound for membership (i.e. value at which MP falls below 1 and value at which MP 
+            falls to 0), or both. If only a lower membership boundary is desired, leave the upper bound membership boxes 
+            blank. Similarly, if an upper membership boundary is desired, leave the lower bound membership boxes blank. 
+            For a good discussion of fuzzy membership functions please see Burrough and McDonnell (1998), pages 268-272.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="CrispnessIndex.html">Crispness Index</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                modelType = "sigmoidal"&#10;<br>
+                mpRisesAbove0At = "55.0"&#10;<br>
+                mpRisesTo1At = "90.0"&#10;<br>
+                mpFallsBelow1At = "not specified"&#10;<br>
+                mpFallsTo0At = "not specified"&#10;<br>
+                args = [inputFile, outputFile, modelType, mpRisesAbove0At, mpRisesTo1At, mpFallsBelow1At, mpFallsTo0At]&#10;<br>
+                pluginHost.runPlugin("FuzzyMembership", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def modelType = "linear"&#10;<br>
+                def mpRisesAbove0At = "55.0"&#10;<br>
+                def mpRisesTo1At = "90.0"&#10;<br>
+                def mpFallsBelow1At = "95.0"&#10;<br>
+                def mpFallsTo0At = "120.0"&#10;<br>
+                String[] args = [inputFile, outputFile, modelType, mpRisesAbove0At, mpRisesTo1At, mpFallsBelow1At, mpFallsTo0At]&#10;<br>
+                pluginHost.runPlugin("FuzzyMembership", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Burrough, P.A., and McDonnell, A. (1998) Principles of Geographical Information Systems, Oxford 
+                University Press, Oxford UK, p. 333.</li>
+        </ul>
+    </body>
+</html>

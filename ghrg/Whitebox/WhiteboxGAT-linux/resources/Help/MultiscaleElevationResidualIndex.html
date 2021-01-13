@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Multiscale elevation residual index</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Multiscale elevation residual index</h1>
+
+        <p>
+            The multiscale elevation residual index (MERI) characterizes the relative 
+            landscape position of a location across a range of spatial scales. The algorithm 
+            calculates the <a href="DifferenceFromMeanElevation.html"><b><i>Difference From Mean 
+            Elevation</i></b></a> (DFME) for each grid cell for each scale, defined by a the neighbourhood 
+            size of the DFME operation. Mean elevations are determined for each tested scale at 
+            each grid cell in an input digital elevation model (DEM) uing a highly efficient method 
+            based on an integral image, sometimes referred to as a summed area table. Neighbourhoods 
+            are therefore based on the square regions surrounding each cell, with the smallest tested 
+            neighbourhood having a search radius of one cell (i.e. the 3 x 3 neighbourhood) to the 
+            maximum tested search radius (<i>r<sub>max</sub></i>):</p>
+
+        <p><code><i>r<sub>max</sub></i> = floor[log<sub>B</sub>(min{<i>Col</i> / 2, <i>R</i> / 2})]</code></p>
+
+	   <p>Where <i>B</i> is the base value and <i>C</i> and <i>R</i> are the number 
+	      of columns and rows in the DEM respectively. The base value determines the density with 
+	      which the range of scales are sampled. The default base value is 1.5 and 1 &lt
+	      <i>B</i> &#8804 2. The series of neighbourhoods of dimensions <i>s</i> x <i>s</i> is given as:</p>
+
+	   <p><code><i>s</i> = 2 x floor(<i>B</i><sup><i>i</i></sup>) + 1</code></p>
+	   <p>for 0 &#8804 <i>i</i> &#8804 <i>r<sub>max</sub></i>. Additionally, repeated values, which can 
+	      occur for small values of <i>i</i> and <i>B</i> are removed from the series.</p>
+	      
+        <p>The DFME is calculated for each neighbourhood in the series above.  
+           The index is then defined as the proportion of the tested scales for which the grid cell's 
+           elevation is higher than the mean elevation. Thus, MERI ranges from 0, indicating that 
+           a location (i.e. grid cell in a DEM) is lower than the mean elevation across the entire range 
+           of tested scales, and 1, indicating that the location is consitently higher than the mean 
+           elevation. The calculation of DFME requires creating two temporary images that will be deleted 
+           upon completion.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="DifferenceFromMeanElevation.html">Difference From Mean Elevation</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                baseValue = "1.5"&#10;<br>
+                args = [inputFile, outputFile, baseValue]&#10;<br>
+                pluginHost.runPlugin("MultiscaleElevationResidualIndex", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def baseValue = "1.5"&#10;<br>
+                String[] args = [inputFile, outputFile, baseValue]
+                &#10;<br>pluginHost.runPlugin("MultiscaleElevationResidualIndex", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

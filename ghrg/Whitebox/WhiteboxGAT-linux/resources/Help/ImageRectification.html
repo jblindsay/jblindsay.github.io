@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Image rectification</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Image rectification</h1>
+
+        <p>This tool is used to perform image-to-map rectification, i.e. transform the 
+            geometric properties of an image to match that of a projected map, or image-to-
+            image registration. Image-to-map rectification is commonly used when an image 
+            must be overlayed with other geographic data, e.g a road network, and image-to-
+            image registration is usually only carried out for change detection applications 
+            where two images must be exactly co-registered on a pixel-to-pixel basis. The 
+            two operations follow the same approach. A collection of ground control points 
+            (GCPs) must be digitized on the input image. These GCPs are input to the tool in 
+            the form of a shapefile of a Point ShapeType. This file can be created through 
+            on-screen digitizing into a blank shapefile created using the 
+            <a href="CreateNewShapefile.html"><b><i>Create New Shapefile</i></b></a> tool. 
+            Each control point in the image GCP file must have a corresponding GCP digitized 
+            in the reference coordinate system (i.e. either in the map coordinates or the 
+            coordinate system of a second reference image for rectification and registration 
+            respectively) and contained in the map GCP shapefile.</p>
+
+        <p>Once the user specifies the names of the input files and output image file, 
+            they will be presented with the rectification dialog, which displays information 
+            about the transformation error associated with each GCP and the overall root-mean-
+            square-error (RMSE). The user can optionally deactivate individual, poorly 
+            performing GCPs to reduce the RMSE. The transformation is based on a two-variable 
+            (X, Y) polynomial transformation. The order of the polynomial can range between 
+            1 (an affine transformation) and 5. Satellite imagery can typically be rectified 
+            using a low-order transform (e.g. 1-2), while sub-orbital imagery usually requires 
+            a higher-order transform (e.g. 2-4). Although higher-order polynomials generally 
+            reduce the overall error, it is often the case that the improved fit is localized 
+            to the areas immediately adjacent to the GCPs and undesirable warping can occur 
+            in regions not covered by GCPs. As such, it is recommended that the lowest order 
+            polynomial that allows for a reasonably good fit to the data be applied. Affine 
+            transformations can account for geometric distortions resulting from translation, 
+            scaling, rotation, and skew. The success of a rectification operation is highly 
+            dependent on the number, placement, and quality of GCPs. Furthermore, the higher 
+            the order of polynomial transformation the greater the number of GCPs that are 
+            required. The mathematically defined minimum number of GCPs for a 1, 2, 3, 4, 
+            and 5 order polynomial transformation are 3, 6, 10, 15, and 21 respectively. 
+            However, in reality many more than the mathematical minimum number of GCPs are 
+            required to rectify imagery adequately.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="CreateNewShapefile.html">Create New Shapefile</a></li>
+            <li><a href="HowToDigitizeNewVectors.html">How To Digitize New Vectors</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>This tool requires a higher level of user interaction than most other 
+            tools and is not intended for a scripting environment.</p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

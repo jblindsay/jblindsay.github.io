@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>DenoiseDEM</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>De-noise DEM</h1>
+
+        <p>This tool is intended to be used to remove short-scale variation in a fine-resolution 
+        LiDAR digital elevation model (DEM). It works by removing peaks and depressions of a specified
+        size in a de-trended version of the DEM. Experiements have shown that this method can be very 
+        effective at smoothing LiDAR DEMs without significantly affecting short-scale linear features 
+        that are salient for modelling surface drainage. The user must specify the names of the input 
+        and output raster files, the neighbourhood size (in cells) which determines the spatial scale
+        of undesirable surface roughness, whether or not to remove only the peaks, whether or not to 
+        output a hillshade raster in addition to the de-noised DEM, and the number of significant 
+        decimal places. The number of significant decimal places is a parameter that is used in the 
+        creation of an integral image, which is used in DEM de-trending, in order to reduce the 
+        potential for numerical overflow errors.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="RemoveOffTerrainObjects.html">Remove Off-Terrain Objects</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                neighbourhoodSize = "5"&#10;<br>
+                peaksOnly = "false"&#10;<br>
+                outputHillshade = "true"&#10;<br>
+                decimalPlaces = "2"&#10;<br>
+                args = [inputFile, outputFile, neighbourhoodSize, peaksOnly, outputHillshade, decimalPlaces]&#10;<br>
+                pluginHost.runPlugin("DenoiseDEM", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def neighbourhoodSize = "7"&#10;<br>
+                def peaksOnly = "false"&#10;<br>
+                def outputHillshade = "true"&#10;<br>
+                def decimalPlaces = "2"&#10;<br>
+                String[] args = [inputFile, outputFile, neighbourhoodSize, peaksOnly, outputHillshade, decimalPlaces]&#10;<br>
+                pluginHost.runPlugin("DenoiseDEM", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

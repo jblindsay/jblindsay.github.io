@@ -1,0 +1,50 @@
+<Dialog Name="FlowAccumDinf" HelpFile="FlowAccumDinf.html">
+	<DialogComponent type="DialogFile">
+		<Name>DEM</Name>
+		<Description>Enter the name of the DEM input raster here</Description>
+		<LabelText>DEM Input Raster:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>StreamHeads</Name>
+		<Description>Enter the name of the StreamHeads output raster here</Description>
+		<LabelText>StreamHeads Output Raster:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>Power</Name>
+		<Description>Exponent parameter used to determine the amount of dispersion</Description>
+		<LabelText>Exponent parameter:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>1</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>CAThreshold</Name>
+		<Description>Parameter to specify a threshold contributing area value beyond which the algorithm behaves non-dispersively. This is based on the notion of a minimum contributing area for channelization.</Description>
+		<LabelText>Stream initiation threshold:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+	<DialogComponent type="DialogComboBox">
+		<Name>CAThresholdType</Name>
+		<Description>In which units is the CAThreshold value specified?</Description>
+		<LabelText>Stream initiation threshold specified as:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>Specific catchment area (sca), Total catchment area, Number of upslope grid cells</ListItems>
+		<DefaultItem>0</DefaultItem>
+	</DialogComponent>
+</Dialog>

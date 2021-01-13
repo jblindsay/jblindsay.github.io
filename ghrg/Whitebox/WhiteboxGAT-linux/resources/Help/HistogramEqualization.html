@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Histogram equalization</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Histogram equalization</h1>
+
+        <p>This tool alters the cumulative distribution function (CDF) of a raster image to match, as closely as 
+            possible, the CDF of a uniform distribution. Histogram equalization works by first calculating the 
+            histogram of the input image. This input histogram is then converted into a CDF. Each grid cell value in 
+            the input image is then mapped to the corresponding value in the uniform distribution's CDF that 
+            has an equivalent (or as close as possible) cumulative probability value. Histogram equalization provides 
+            a very effective means of performing image contrast adjustment in an efficient manner with little need 
+            for human input.</p>
+
+        <p>The user must specify the names of one or more input images to perform histogram equalization on. Each 
+            of the output images will have the names of their corresponding input image with the specified 'Output file 
+            suffix' appended. The user must also specify the number of bins, corresponding to the number of intensity 
+            values, in the output image.</p>
+
+        <p>Histogram equalization is related to the <a href="TwoImageHistogramMatching.html"><b><i>Histogram Matching 
+                        (Two Images</i></b></a> tool (used when an image's CDF is to be matched to a reference CDF derived from a 
+            reference image). Similarly, <a href="HistogramMatching.html"><b><i>Histogram Matching</i></b></a> ,and 
+            <a href="GaussianStretch.html"><b><i>Gaussian Contrast Stretch</i></b></a> are similarly related 
+            tools frequently used for image contrast adjustment, where the reference CDFs are uniform and Gaussian 
+            (normal) respectively.</p>
+
+        <p>Notes: </p>
+        <ul>
+            <li>The algorithm can introduces gaps in the histograms (steps in the CDF). This is to be expected 
+                because the histogram is being distorted. This is more prevalent for integer-level images.</li>
+
+            <li>Histogram equalization is not appropriate for images containing categorical (class) data. It is 
+                also not intended for images containing RGB data, in which case, the colour channels should be split 
+                using the <a href="SplitColourComposite.html"><b><i>Split Colour Composite</i></b></a> tool.</li>
+        </ul>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="TwoImageHistogramMatching.html">Histogram Matching (Two Images)</a></li>
+            <li><a href="HistogramMatching.html">Histogram Matching</a></li>
+            <li><a href="GaussianStretch.html">Gaussian Contrast Stretch</a></li>
+            <li><a href="SplitColourComposite.html">Split Colour Composite</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                outputSuffix = "_HistoEqual"&#10;<br>
+                numBins = "256"&#10;<br>
+                args = [inputFiles, outputSuffix, numBins]&#10;<br>
+                pluginHost.runPlugin("HistogramEqualization", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def outputSuffix = "_HistoEqual"&#10;<br>
+                def numBins = "256"&#10;<br>
+                String[] args = [inputFiles, outputSuffix, numBins]&#10;<br>
+                pluginHost.runPlugin("HistogramEqualization", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

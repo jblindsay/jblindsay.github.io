@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Highest position</h1>
+
+<p>This tool identifies the stack position (index) of the maximum value within a 
+raster stack on a cell-by-cell basis. For example, if five raster images are input 
+the output raster would display which of the five input rasters contained the 
+highest value for each grid cell. The index value in the output raster is the zero-order 
+number of the raster stack, i.e. if the highest value in the stack is contained in the
+first image, the output value would be 0; if the highest stack value were the second 
+image, the output value would be 1, and so on. If any of the cell values within the 
+stack is <b>NoData</b>, the output raster will contain the <b>NoData</b> value for 
+the corresponding grid cell.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="LowestPosition.html">Lowest position</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("HighestPosition", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("HighestPosition", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2015), email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

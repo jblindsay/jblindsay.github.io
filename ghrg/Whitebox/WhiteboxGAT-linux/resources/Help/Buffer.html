@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Buffer (raster)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body><h1>Buffer (raster)</h1>
+
+        <p>
+            This tool can be used to identify an area of interest within a specified distance of features of interest 
+            in a <b>raster</b> data set. For the equivalent operation performed on a vector data set, see the 
+            <a href="BufferVector.html">Buffer (Vector)</a> tool. The two tools differ significantly in their implementations.</p> 
+
+        <p>The <a href="EuclideanDistance.html">Euclidean distance</a> (i.e. straight-line distance) is calculated 
+            between each grid cell and the nearest 'target cell' in the input image. Target cells are all non-zero, 
+            non-NoData grid cells. Because <b><i>NoData</i></b> values in the input image are assigned the 
+            <b><i>NoData</i></b> value in the output image, the only valid background value in the input image is zero.</p>
+
+        <p>The user must specify the input target image, the output image name, the desired buffer size, and the 
+            units that the buffer size are measured in. Buffer size units are either  map units (e.g. meters) or grid 
+            cells.</p>
+        <p>Buffer grid cells in the output image are assigned the value of the nearest target grid cell in the input 
+            image. All non-buffer grid cells are assigned the <b><i>NoData</i></b> in the output. Therefore, the output 
+            of <b><i>Buffer</i></b> is essentially the intersection between the 
+            <a href="EuclideanAllocation.html">Euclidean allocation</a> image and a <b><i>Less Than Or Equal 
+                    To</i></b> comparison operation on the <a href="EuclideanDistance.html">Euclidean distance</a> image, 
+            specifying some maximum distance.</p>
+        <p>Three temporary images are created during the calculation and should be automatically deleted upon 
+            completion. There must be enough room on the computer hard drive to store these temporary images.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="BufferVector.html">Buffer (Vector)</a></li>
+            <li><a href="EuclideanDistance.html">Euclidean distance</a></li>
+            <li><a href="EuclideanAllocation.html">Euclidean allocation</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                bufferSize = "500.0"&#10;<br>
+                bufferUnits = "map units"&#10;<br>
+                args = [inputFile, outputFile, bufferSize, bufferUnits]&#10;<br>
+                pluginHost.runPlugin("Buffer", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def bufferSize = "500.0"&#10;<br>
+                def bufferUnits = "grid cells"&#10;<br>
+                String[] args = [inputFile, outputFile, bufferSize, bufferUnits]&#10;<br>
+                pluginHost.runPlugin("Buffer", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

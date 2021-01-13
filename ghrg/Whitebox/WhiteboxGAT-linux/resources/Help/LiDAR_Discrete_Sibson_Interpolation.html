@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>LiDAR_Discrete_Sibson_Interpolation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Discrete Sibson Interpolation (LiDAR)</h1>
+
+        <p>This tool interpolates a digital elevation model (DEM) from one or more 
+        input LAS files. The interpolator is based on a descretized version of the Sibson, or
+        Natural Neighbour, method. The LAS file format is an industry standard format for storing data 
+        acquired by laser scanners. The user must specify the name of one or more LAS files. 
+        The output DEMs will have the same name as the corresponding input LAS file, 
+        with specified file suffix appended to the end of the file name. The user must also 
+        specify the grid resolution, the discretization factor (5-20). All of the LiDAR points within the 
+        circle encompassing each grid cell is then examined as a neighbourhood. The algorithm
+        is extremely computationally intenstive and may take a long while to complete.</p>
+
+        <p>If the 
+        area of coverage contains numerous buildings, it is advisable that the output of this 
+        tool be further processed using the <a href="RemoveOffTerrainObjects.html">Remove 
+        Off-Terrain Objects</a> tool to further remove all buildings. Also, if there are many 
+        NoData holes within the resulting DEM, it may also be advisable to process the DEM 
+        using the <a href="FillMissingDataHoles.html">Fill Missing Data Holes</a> tool.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="LiDAR_IDW_Interpolation.html">IDW Interpolation (LiDAR)</a></li>
+        	  <li><a href="LiDAR_NN_Interpolation.html">Nearest-Neighbour Interpolation (LiDAR)</a></li>
+        	  <li><a href="RemoveOffTerrainObjects.html">Remove Off-Terrain Objects</a></li>
+        	  <li><a href="FillMissingDataHoles.html">Fill Missing Data Holes</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las"&#10;<br>
+                suffix = "Sibson"&#10;<br>
+                interpParameter = "z (elevation)"&#10;<br>
+                ptReturn = "all points"&#10;<br>
+                resolution = "1.0"&#10;<br>
+                discretizationFactor = "5"&#10;<br>
+                # excluded points...&#10;<br>
+                neverClassified = "false"&#10;<br>
+                unclassified = "false"&#10;<br>
+                bareGround = "false"&#10;<br>
+                lowVeg = "false"&#10;<br>
+                mediumVeg = "false"&#10;<br>
+                highVeg = "false"&#10;<br>
+                buildings = "false"&#10;<br>
+                lowPoints = "false"&#10;<br>
+                keyPoints = "false"&#10;<br>
+                water = "false"&#10;<br>
+                args = [inputs, suffix, interpParameter, ptReturn, resolution, discretizationFactor, neverClassified, unclassified, bareGround, lowVeg, mediumVeg, &#10;<br>
+                highVeg, buildings, lowPoints, keyPoints, water]&#10;<br>
+                pluginHost.runPlugin("LiDAR_Discrete_Sibson_Interpolation", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las"&#10;<br>
+                def suffix = "Sibson"&#10;<br>
+                def interpParameter = "Intensity"&#10;<br>
+                def ptReturn = "all points"&#10;<br>
+                def resolution = "1.0"&#10;<br>
+                def discretizationFactor = "5"&#10;<br>
+                // excluded points...&#10;<br>
+                def neverClassified = "false"&#10;<br>
+                def unclassified = "false"&#10;<br>
+                def bareGround = "false"&#10;<br>
+                def lowVeg = "false"&#10;<br>
+                def mediumVeg = "false"&#10;<br>
+                def highVeg = "false"&#10;<br>
+                def buildings = "false"&#10;<br>
+                def lowPoints = "false"&#10;<br>
+                def keyPoints = "false"&#10;<br>
+                def water = "false"&#10;<br>
+                def args = [inputs, suffix, interpParameter, ptReturn, resolution, discretizationFactor, neverClassified, unclassified, bareGround, lowVeg, mediumVeg, &#10;<br>
+                highVeg, buildings, lowPoints, keyPoints, water]&#10;<br>
+                pluginHost.runPlugin("LiDAR_Discrete_Sibson_Interpolation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<Dialog Name="Histogram" HelpFile="Histogram.html">
+	<DialogComponent type="DialogFile">
+		<Name>inputFile</Name>
+		<Description>Enter the name of the input file here</Description>
+		<LabelText>Input Raster File:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>classSize</Name>
+		<Description>Enter the bin size</Description>
+		<LabelText>Bin Size:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>1</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>startingClass</Name>
+		<Description>Enter the starting class value. If this is blank, it will default to the file display minimum value.</Description>
+		<LabelText>Starting Bin (Optional):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>endingClass</Name>
+		<Description>Enter the ending class value. If this is blank, it will default to the file display maximum value.</Description>
+		<LabelText>Ending Bin (Optional):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>blnCumulative</Name>
+		<Description>Would you like to output a cumulative frequency distribution?</Description>
+		<LabelText>Output a cumulative frequency distribution?</LabelText>
+		<InitialState>False</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+</Dialog>

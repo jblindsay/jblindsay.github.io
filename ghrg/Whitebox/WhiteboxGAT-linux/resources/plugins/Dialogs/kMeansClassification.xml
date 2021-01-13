@@ -1,0 +1,54 @@
+<Dialog Name="kMeansClassification" HelpFile="kMeansClassification.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFiles</Name>
+		<Description>Enter the name of the input files here</Description>
+		<LabelText>Input Raster Files:</LabelText>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogFile">
+		<Name>outputHeader</Name>
+		<Description>Enter the name of the output file here</Description>
+		<LabelText>Output Raster File:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>numClasses</Name>
+		<Description>Enter the number of classes</Description>
+		<LabelText>Number of classes:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>maxIterations</Name>
+		<Description>Enter the maximum number of iterations</Description>
+		<LabelText>Maximum number of iterations:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>25</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>percentChangedThreshold</Name>
+		<Description>The classification process will terminate when fewer than the specified percentage of cell class values are changed between iterations.</Description>
+		<LabelText>Pixel class change threshold (%):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>2.0</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogComboBox">
+		<Name>initializationMode</Name>
+		<Description>What technique should be used to initialize cluster centres?</Description>
+		<LabelText>Initalize cluster centres:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>with max dispersion along diagonal, randomly</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+</Dialog>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Simplify line or polygon</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Simplify line or polygon</h1>
+
+        <p>This uses the Douglas and Peucker (1973) algorithm to simplify vector line or polygon features. The 
+            tool requires the user to input the name of a vector shapefile of a polyline or polgon shape-type, a 
+            distance tolerance threshold parameter (measured in the file's x-y units). The user may also opt to ensure 
+            that no features are lost. Without this option, smaller features that have few nodes distanced closely 
+            together may be erased from the output shapefile. Note that in general the Douglas and Peucker (1973) 
+            algorithm does not preserve topology, i.e. polygons can be split, collapse to lines, holes can disappear 
+            or be created, and lines can cross. The tool uses the line simplification algorithm provided by the Java 
+            Topology Suite (JTS) library. Line simplification can be computationally intensive and time consuming for 
+            large and complex vector files.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Smooth.html">Smooth</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "lines.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                distanceTolerance = "24.5"&#10;<br>
+                ensureNoFeatureLost = "false"&#10;<br>
+                args = [inputFile, outputFile, distanceTolerance, ensureNoFeatureLost]&#10;<br>
+                pluginHost.runPlugin("SimplifyLineOrPolygon", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "polygons.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def distanceTolerance = "24.5"&#10;<br>
+                def ensureNoFeatureLost = "true"&#10;<br>
+                String[] args = [inputFile, outputFile, distanceTolerance, ensureNoFeatureLost]&#10;<br>
+                pluginHost.runPlugin("SimplifyLineOrPolygon", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

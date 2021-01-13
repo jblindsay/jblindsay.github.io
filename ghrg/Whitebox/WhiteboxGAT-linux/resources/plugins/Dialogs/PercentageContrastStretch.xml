@@ -1,0 +1,47 @@
+<Dialog Name="PercentageContrastStretch" HelpFile="PercentageContrastStretch.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFiles</Name>
+		<Description>Enter the name of the input files here</Description>
+		<LabelText>Input Raster Files:</LabelText>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>outputSuffix</Name>
+		<Description>Enter the suffix to be appended to the input image as the output file name.</Description>
+		<LabelText>Suffix (for output file name):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>PercentStretch</InitialText>
+		<NumericalInputOnly>False</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>clipPercentage</Name>
+		<Description>Enter the clip percentage value</Description>
+		<LabelText>Tail clip value (%):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>1.0</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+        <DialogComponent type="DialogComboBox">
+		<Name>whichTailsToClip</Name>
+		<Description>Which tails should be clipped?</Description>
+		<LabelText>Which tails should be clipped?</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>Both, Lower, Upper</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>numBins</Name>
+		<Description>Enter the range in brightness values</Description>
+		<LabelText>Number of tones:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>256</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+</Dialog>

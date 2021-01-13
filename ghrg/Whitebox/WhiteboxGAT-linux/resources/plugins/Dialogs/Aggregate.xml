@@ -1,0 +1,40 @@
+<Dialog Name="Aggregate" HelpFile="Aggregate.html">
+	<DialogComponent type="DialogFile">
+		<Name>inputHeader</Name>
+		<Description>Enter the name of the input DEM file here</Description>
+		<LabelText>Input Raster File:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>outputHeader</Name>
+		<Description>Enter the name of the output file here</Description>
+		<LabelText>Output Raster File:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>aggregationFactor</Name>
+		<Description>Enter the aggregation factor in pixels here</Description>
+		<LabelText>Aggregation Factor (pixels):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>2</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+        <DialogComponent type="DialogComboBox">
+		<Name>aggregationType</Name>
+		<Description>Aggregation type</Description>
+		<LabelText>Aggregation Type:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>mean, sum, maximum, minimum, range</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+</Dialog>

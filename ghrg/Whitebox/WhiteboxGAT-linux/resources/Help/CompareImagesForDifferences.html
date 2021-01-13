@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Compare images for differences</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Compare images for differences</h1>
+
+        <p>This tool can be used to compare two images for statistically significant 
+            differences. It performs either a paired-sample t-test or a two-sample 
+            Kolmogorov-Smirnov (K-S) test on the two images. The user can optionally 
+            choose to take a random sub-sample of the pixel data for the test, 
+            which is advisable because given a sufficiently large sample, extremely 
+            small and non-notable differences can be found to be statistically significant, 
+            and statistical significance says nothing about the practical significance of 
+            a difference.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile1 = wd + "input1.dep"&#10;<br>
+                inputFile2 = wd + "input2.dep"&#10;<br>
+                testType = "t-test"&#10;<br>
+                sampleSize = "not specified" # use all cells&#10;<br>
+                args = [inputFile1, inputFile2, testType, sampleSize]&#10;<br>
+                pluginHost.runPlugin("CompareImagesForDifferences", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile1 = wd + "input1.dep"&#10;<br>
+                def inputFile2 = wd + "input2.dep"&#10;<br>
+                def testType = "k-s test"&#10;<br>
+                def sampleSize = "1000"&#10;<br>
+                String[] args = [inputFile1, inputFile2, testType, sampleSize]&#10;<br>
+                pluginHost.runPlugin("CompareImagesForDifferences", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

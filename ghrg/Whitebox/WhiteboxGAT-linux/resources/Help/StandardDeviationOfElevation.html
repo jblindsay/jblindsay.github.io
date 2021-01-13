@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>StandardDeviationOfElevation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Standard deviation of elevation</h1>
+
+        <p>This tool can be used to calculate the standard deviation of elevations within a 
+            moving window of a specified size passed over an input DEM. This is a common
+            measure of local surface roughness. The local neighbourhood 
+            (window size) is defined as a rectangular area of a 
+            user-specified dimension surrounding each grid cell. Grid cells 
+            containing <b><i>NoData</i></b> values in the input images are 
+            assigned the <b><i>NoData</i></b> value in the output raster. The output 
+            raster is of the <i>float</i> data type and <i>continuous</i> data scale.</p>
+
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Lindsay J, Cockburn J, Russell H. 2015. An integral image approach to performing 
+            multi-scale topographic position analysis. Geomorphology, 
+            245: 51-61. DOI: 10.1016/j.geomorph.2015.05.025</li>
+        </ul>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="DeviationFromMeanElevation.html">Deviation From Mean Elevation</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                neighbourhoodSize = "5"&#10;<br>
+                decimalPlaces = "2"&#10;<br>
+                args = [demFile, outputFile, neighbourhoodSize, decimalPlaces]&#10;<br>
+                pluginHost.runPlugin("StandardDeviationOfElevation", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def neighbourhoodSize = "5"&#10;<br>
+                def decimalPlaces = "2"&#10;<br>
+                String[] args = [demFile, outputFile, neighbourhoodSize, decimalPlaces]&#10;<br>
+                pluginHost.runPlugin("StandardDeviationOfElevation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Number of upslope neighbours</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Number of upslope neighbours</h1>
+
+        <p>
+            This tool calculates the number of upslope neighbours of each grid cell in a 
+            raster digital elevation model (DEM). The user must specify the name of the 
+            input DEM and the output raster name. The tool examines the eight neighbouring 
+            cells for each grid cell in a the DEM and calculates the number of neighbours 
+            with an elevation <b><i>greater than</i></b> the centre cell of the 3 x 3 
+            window. The output image can therefore have values ranging from 0 to 8, although 
+            in a DEM that has been hydrologically conditioned (i.e. depressions and flats 
+            removed), the values of the output will not exceed 7. This tool can be used with 
+            the <a href="NumDownslopeNeighbours.html"><b><i>Number of Downslope 
+                        Neighbours</i></b></a> tool to assess the degree of local flow 
+            divergence/convergence.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="NumDownslopeNeighbours.html">Number of Downslope Neighbours</a></li>
+            <li><a href="NumInflowingNeighbours.html">Number of Inflowing Neighbours</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [demFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("NumUpslopeNeighbours", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [demFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("NumUpslopeNeighbours", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

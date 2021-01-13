@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>FD8 flow accumulation 2</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>FD8 flow accumulation 2</h1>
+
+        <p>This tool provides an alternative method for calculating a flow accumulation grid (i.e. contributing
+            area) using the FD8 algorithm (Freeman, 1991). It uses an efficient stack-based method. For more
+            details on the FD8 method please see <a href="FlowAccumFD8.html"><b>FD8 Flow Accumulation</b></a>.
+            Please note that the output raster gives the number of upslope cells. Flow dispersion ceases for
+            grid cells with upslope areas greater than the flow convergence threshold.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="FlowAccumFD8.html">FD8 Flow Accumulation</a></li>
+            <li><a href="FlowTools.html">Other flow modelling tools</a></li>
+            <li><a href="FlowPointerFD8.html">FD8 flow pointer (direction)</a></li>
+            <li><a href="FlowPointerD8.html">D8 flow pointer (direction)</a></li>
+            <li><a href="FillDeps.html">Fill depressions</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                exponent = "1.0"&#10;<br>
+                threshold = "1000"&#10;<br>
+                args = [demFile, outputFile, exponent, threshold]&#10;<br>
+                pluginHost.runPlugin("FlowAccumFD82", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def exponent = "1.0"&#10;<br>
+                def threshold = "not specified"&#10;<br>
+                String[] args = [demFile, outputFile, exponent, threshold]&#10;<br>
+                pluginHost.runPlugin("FlowAccumFD82", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012) email: jlindsay@uoguelph.ca</li>
+
+        </ul>
+    </body>
+</html>

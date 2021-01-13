@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Burn streams at roads</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Burn streams at roads</h1>
+
+        <p>This tool decements (lowers) the elevations of pixels within an input digital elevation 
+        model (DEM) along an input vector stream network at the sites of roads. The user must 
+        specify the names of the input DEM, the streams and road network ShapeFiles, the output 
+        raster DEM, and the average road width, in pixels. The road width parameter is used to 
+        determine the length of channel along stream lines, at the junctions between streams and 
+        roads, that the burning (i.e. decrementing) operation occurs.</p>
+           
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="FastBreachDepressions.html">Breach Depressions (Fast)</a></li>
+            <li><a href="BreachDepressions.html">Breach Depressions</a></li>
+            <li><a href="BurnStreams.html">Burn Streams</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "DEM.dep"&#10;<br>
+                streamsFile = wd + "streams.shp"&#10;<br>
+                roadsFile = wd + "roads.shp"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                roadWidth = "20"&#10;<br>
+                args = [inputFile, streamsFile, roadsFile, outputFile, roadWidth]&#10;<br>
+                pluginHost.runPlugin("BurnStreamsAtRoads", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "DEM.dep"&#10;<br>
+                def streamsFile = wd + "streams.shp"&#10;<br>
+                def roadsFile = wd + "roads.shp"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def roadWidth = "20"&#10;<br>
+                String[] args = [inputFile, streamsFile, roadsFile, outputFile, roadWidth]&#10;<br>
+                pluginHost.runPlugin("BurnStreamsAtRoads", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

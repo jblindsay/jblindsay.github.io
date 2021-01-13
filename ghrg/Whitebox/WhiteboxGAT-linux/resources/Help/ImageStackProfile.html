@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Whitebox GAT Help</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Image stack profile</h1>
+
+<p>This tool can be used to extract the values from one or more raster images at a set of points 
+specified by a shapefile of POINT ShapeType. The user must input the names of one or more 
+raster images and the name of the vector points file. The tool will output a line graph where each 
+point in the input vector file is presented as a unique line with each pixel value in the raster 
+stack given a node in the line, representing the pixel value. This tool could be used to create 
+the spectral signature for a group of multispectral images for specified pixels. The order of the 
+fields will match that of the input rasters. The user may also optionally output a text file 
+containing the pixel values cooresponding to the points.</p>
+
+<p>This tool is very similar in function to the <a href="ExtractRasterValuesAtPoints.html">
+<b>Extract Raster Values At Points</b></a> tool except that this tool's output is graphical.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="ExtractRasterValuesAtPoints.html">Extract raster values at points</a></li>
+<li><a href="ExtractValuesAtXYCoords.html">Extract values at XY coordinates</a></li>
+<li><a href="AddPointCoordinatesToTable.html">Add point coordinates to table</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # The names of the multiple input files must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                pointsFile = wd + "points.shp"&#10;<br>
+                textFile = "not specified"&#10;<br>
+                args = [inputFiles, pointsFile, textFile]&#10;<br>
+                pluginHost.runPlugin("ImageStackProfile", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // The names of the multiple input files must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def pointsFile = wd + "points.shp"&#10;<br>
+                def textFile = wd + "textOutput.txt"&#10;<br>
+                String[] args = [inputFiles, pointsFile, textFile]&#10;<br>
+                pluginHost.runPlugin("ImageStackProfile", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

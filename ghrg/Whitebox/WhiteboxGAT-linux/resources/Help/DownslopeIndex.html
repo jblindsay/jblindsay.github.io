@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Downslope index</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Downslope index</h1>
+
+        <p>This tool can be used to calculate the <b><i>downslope index </i></b>described 
+            by Hjerdt et al. (2004). The <b><i>downslope index</i></b> is a measure of the 
+            slope gradient between a grid cell and some downslope location (along the 
+            flowpath passing through the upslope grid cell) that represents a specified 
+            vertical drop (i.e. a potential head drop). The index has been shown to be 
+            useful for hydrological, geomorphological, and biogeochemical applications.</p>
+        <p>The user must specify the name of a flow pointer grid derived using the 
+            <a href="FlowPointerD8.html">D8 flow algorithm</a>. This grid should be 
+            derived from a digital elevation model that has been pre-processed to remove 
+            artifact topographic depressions and flat areas. The user must also specify 
+            the name of the digital elevaton model (DEM) from which the flow pointer grid 
+            has been derived, the head potential drop (<i>d</i>), and the output type. The 
+            output type can be either 'tangent', 'degrees', 'radians', or 'distance'. If 
+            'distance' is selected as the output type, the output grid actually represents 
+            the <b><i>downslope flowpath length</i></b> required to drop <i>d</i> meters 
+            from each grid cell. Linear interpolation is used when the specified drop value 
+            is encountered between two adjacent grid cells along a flowpath traverse.</p>
+
+        <p>Notice that this algorithm is affected by edge contamination. That is, for 
+            some grid cells, the edge of the grid will be encountered along a flowpath 
+            traverse before the specified vertical drop occurs. In these cases, the 
+            value of the <b><i>downslope index</i></b> is approximated by replacing 
+            <i>d</i> with the actual elevation drop observed along the flowpath. To avoid 
+            this problem, the entire watershed containing an area of interest should be 
+            contained in the DEM.</p>
+
+        <p>Grid cells containing <b><i>NoData</i></b> values in any of the input images 
+            are assigned the <b><i>NoData</i></b> value in the output raster. The output 
+            raster is of the <i>float</i> data type and <i>continuous</i> data scale.</p>
+
+        <h2 class="SeeAlso">Reference:</h2>
+        <p>Hjerdt, K.N., McDonnell, J.J., Seibert, J. Rodhe, A. (2004) A new topographic 
+            index to quantify downslope controls on local drainage, <i>Water Resources 
+                Research</i>, 40, W05602, doi:10.1029/2004WR003130.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FlowPointerD8.html">D8 flow algorithm</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                verticalDrop = "10.0"&#10;<br>
+                outputType = "tangent"&#10;<br>
+                args = [pointerFile, demFile, outputFile, verticalDrop, outputType]&#10;<br>
+                pluginHost.runPlugin("DownslopeIndex", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def verticalDrop = "10.0"&#10;<br>
+                def outputType = "degrees"&#10;<br>
+                String[] args = [pointerFile, demFile, outputFile, verticalDrop, outputType]&#10;<br>
+                pluginHost.runPlugin("DownslopeIndex", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

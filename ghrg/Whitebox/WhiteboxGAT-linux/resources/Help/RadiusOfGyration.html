@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Radius of gyration</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Radius of gyration</h1>
+
+        <p>This can be used to calculate the radius of gyration (RoG) for the 
+            polygon features within a raster image. RoG measures how far across 
+            the landscape a polygon extends its reach on average, given by the 
+            mean distance between cells in a patch (Mcgarigal et al. 2002). 
+            The radius of gyration can be considered a measure of the average 
+            distance an organism can move within a patch before encountering 
+            the patch boundary from a random starting point (Mcgarigal et al. 
+            2002). The input raster grid should contain polygons with unique 
+            identifiers greater than zero. The user must also specify the name  
+            of the output raster file (where the radius of gyration will be 
+            assigned to each feature in the input file) and the specified 
+            option of outputting text data.</p>
+            
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "polygons.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                textOutput = "true"&#10;<br>
+                args = [inputFile, outputFile, textOutput]&#10;<br>
+                pluginHost.runPlugin("RadiusOfGyration", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "polygons.dep" // raster input&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def textOutput = "true"&#10;<br>
+                String[] args = [inputFile, outputFile, textOutput]&#10;<br>
+                pluginHost.runPlugin("RadiusOfGyration", args, False)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2012)</li>
+        </ul>
+
+        <h2 class="SeeAlso">References:</h2>
+        <ul><li>Mcgarigal, K., Cushman, S. A., Neel, M. C., & Ene, E. (2002). 
+                FRAGSTATS: spatial pattern analysis program for categorical maps.</li>
+
+        </ul>
+    </body>
+</html>

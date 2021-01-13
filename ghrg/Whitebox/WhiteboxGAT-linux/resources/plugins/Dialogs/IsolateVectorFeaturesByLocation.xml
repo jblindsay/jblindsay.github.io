@@ -1,0 +1,58 @@
+<Dialog Name="IsolateVectorFeaturesByLocation" HelpFile="IsolateVectorFeaturesByLocation.html">
+	<DialogComponent type="DialogComboBox">
+		<Name>blnSelect</Name>
+		<Description>Do you want to isolate or remove features meeting a condition?</Description>
+		<LabelText>I want to</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>isolate features from, remove features from</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+        <DialogComponent type="DialogFile">
+		<Name>featureHeader</Name>
+		<Description>Enter the name of the feature definition file here</Description>
+		<LabelText>this vector</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>ShapeFile (*.shp), SHP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+        <DialogComponent type="DialogComboBox">
+		<Name>instructions</Name>
+		<Description>What is the condition for the spatial query?</Description>
+		<LabelText>that</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>intersect,does not intersect,are completely within,contains,does not contain,covers,are covered by,crosses,touches,does not touch,are within a distance of</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+        <DialogComponent type="DialogFile">
+		<Name>dataHeader</Name>
+		<Description>Enter the name of the data file here</Description>
+		<LabelText>the features in this vector:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>ShapeFile (*.shp), SHP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>outputHeader</Name>
+		<Description>Enter the name of the output file here</Description>
+		<LabelText>and name the output vector:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>ShapeFile (*.shp), SHP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>distThreshold</Name>
+		<Description>Enter a value here only if the 'are within a distance of' condition is selected. Otherwise, leave this space blank.</Description>
+		<LabelText>Distance threshold (Optional):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+</Dialog>

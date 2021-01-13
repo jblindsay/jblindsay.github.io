@@ -1,0 +1,62 @@
+<Dialog Name="VectorLinesToRaster" HelpFile="VectorLinesToRaster.html">
+	<DialogComponent type="DialogFile">
+		<Name>inputFile</Name>
+		<Description>Enter the name of the input shapefile here</Description>
+		<LabelText>Input Vector File</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>ShapeFile (*.shp), SHP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+        <DialogComponent type="DialogFile">
+		<Name>outputHeader</Name>
+		<Description>Enter the name of the output raster file here</Description>
+		<LabelText>Output Raster File:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>fieldName</Name>
+		<Description>Enter the field name from the database file here</Description>
+		<LabelText>Field Name (optional):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>False</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>backgroundValue</Name>
+		<Description>Enter the desired background value here. This can be the text string 'nodata'.</Description>
+		<LabelText>Background value:</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>NoData</InitialText>
+		<NumericalInputOnly>False</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>cellSize</Name>
+		<Description>Enter the desired cell size here.</Description>
+		<LabelText>Cell Size (optional):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>True</MakeOptional>
+		<Width>60</Width>
+	</DialogComponent>
+        <DialogComponent type="DialogFile">
+		<Name>baseFileHeader</Name>
+		<Description>Enter the name of the raster base file here. This parameter is optional. The coordinates and cell size will be copied from this file, if specified.</Description>
+		<LabelText>Base Raster File (optional):</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>True</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+</Dialog>

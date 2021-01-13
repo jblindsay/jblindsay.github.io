@@ -1,0 +1,114 @@
+<Dialog Name="LiDAR_PointDensity" HelpFile="LiDAR_PointDensity.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFiles</Name>
+		<Description>Enter the name of the input LAS files here</Description>
+		<LabelText>Input LAS Raster Files:</LabelText>
+		<Filter>LAS Files (*.las), LAS</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>suffix</Name>
+		<Description>Enter any suffix that you would like attached to output file names here</Description>
+		<LabelText>Output File Suffix (e.g. last return):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText></InitialText>
+		<NumericalInputOnly>False</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogComboBox">
+		<Name>returnNumberToInterpolate</Name>
+		<Description>Choose the the point return to interpolate</Description>
+		<LabelText>Point Return:</LabelText>
+		<IsVisible>True</IsVisible>
+		<ListItems>All Points,First Return,Last Return</ListItems>
+		<DefaultItem>0</DefaultItem>		
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>resolution</Name>
+		<Description>Enter the grid resolution</Description>
+		<LabelText>Grid resolution (m):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>1</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="Label">
+            <Name>excludeLabel</Name>
+            <LabelText>Exclude points with the following classification</LabelText>
+        </DialogComponent>
+        <DialogComponent type="Label">
+            <Name>excludeLabel</Name>
+            <LabelText>values from the interpolation:</LabelText>
+        </DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeNeverClassified</Name>
+		<Description>Never Classified</Description>
+		<LabelText>Never Classified:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeUnclassified</Name>
+		<Description>Unclassified</Description>
+		<LabelText>Unclassified:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeBareGround</Name>
+		<Description>Bare ground</Description>
+		<LabelText>Bare Ground:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeLowVegetation</Name>
+		<Description>Low vegetation</Description>
+		<LabelText>Low Vegetation:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeMediumVegetation</Name>
+		<Description>Medium vegetation</Description>
+		<LabelText>Medium Vegetation:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeHighVegetation</Name>
+		<Description>High vegetation</Description>
+		<LabelText>High Vegetation:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeBuilding</Name>
+		<Description>Buildings</Description>
+		<LabelText>Building:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeLowPoint</Name>
+		<Description>Low points</Description>
+		<LabelText>Low Points:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeModelKeyPoint</Name>
+		<Description>Model key point</Description>
+		<LabelText>Model Key Point:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>excludeWater</Name>
+		<Description>Water</Description>
+		<LabelText>Water:</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        
+</Dialog>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Edge-preserving smoothing filter</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Lee (Sigma) filter</h1>
+
+        <p>The Lee filter (or sigma filter) is a convolution filter devised by Lee (1983) that is
+           commonly used in image processing to remove speckle-type noise from images. 
+           Speckle, or white noise, is short-scale variation with low spatial autocorrelation. 
+           The Lee filter is therefore used to smooth images, but unlike other smoothing 
+           filters like the  <a href="FilterMean.html">Mean filter</a>, the Lee filter 
+           is better at preserving edge features in the original image.</p> 
+           
+          <p>The Lee filter smooths image noise by averaging only those neighbourhood pixels that 
+           have intensities within a fixed range of the centre pixel. This range is defined 
+           as the centre pixel intensity value plus and minus two-sigma values, where sigma
+           is a user-specified parameter. Sigma should be related to the standarad deviation 
+           of the statistical distribution of image speckle noise, assuming a Gaussian form
+           of the distribution. </p>
+           
+           <p>The M-Threshold parameter is the minimum allowable number of pixels within the 
+           intensity range. Pixels with fewer neighbours within the intensity range 
+           than this threshold will have their neighbourhood average substituted for the 
+           sigma-restricted average in the output image.</p>
+
+        <p><b><i>NoData</i></b> values in the input image are ignored during 
+            filtering. When the neighbourhood around a grid cell extends beyond 
+            the edge of the grid, <b><i>NoData</i></b> values are assigned to 
+            these sites. The output raster is of the <i>float</i> data type and 
+            <i>continuous</i> data scale.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="SpatialFilters.html">Spatial Filters</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                neighbourhoodSizeX = "5"&#10;<br>
+                neighbourhoodSizeY = "5"&#10;<br>
+                sigma = "2"&#10;<br>
+                mThreshold = "10"&#10;<br>
+                reflectEdges = "true"&#10;<br>
+                args = [inputFile, outputFile, neighbourhoodSizeX, neighbourhoodSizeY, sigma, mThreshold, reflectEdges]&#10;<br>
+                pluginHost.runPlugin("LeeSigmaFilter", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using the tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def neighbourhoodSizeX = "5"&#10;<br>
+                def neighbourhoodSizeY = "5"&#10;<br>
+                def sigma = "2"&#10;<br>
+                def mThreshold = "10"&#10;<br>
+                def reflectEdges = "true"&#10;<br>
+                String[] args = [inputFile, outputFile, neighbourhoodSizeX, neighbourhoodSizeY, sigma, mThreshold, reflectEdges]&#10;<br>
+                pluginHost.runPlugin("LeeSigmaFilter", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+
+        <h2 class="SeeAlso">References:</h2>
+        <ul>
+            <li>Lee, J-S. (1983) Digital Image Smoothing and the Sigma Filter. 
+            ￼Computer Vision, Graphics, and Image Processing, 24, 255-269.</li>
+        </ul>
+    </body>
+</html>

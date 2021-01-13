@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Percent greater than</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Percent greater than</h1>
+
+        <p>This tool calculates the percentage of a raster stack that have cell 
+        values greater than an input. The user must specify the name of the value raster, 
+        the names of the raster files contained in the stack (i.e. group of images), 
+        and an output raster file name. The tool, working on a cell-by-cell basis, 
+        will count the number of rasters within the stack that have a higher 
+        cell value as the corresponding grid cell in the Value raster. This 
+        count is then expressed as a percentage of the number of rasters contained 
+        within the stack and output. If any of the rasters within the stack contain 
+        the <b>NoData</b> value, the corresponding grid cell in the output raster 
+        will be assigned <b>NoData</b>. </p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="PercentEqualTo.html">Percent equal to</a></li>
+            <li><a href="PercentLessThan.html">Percent less than</a></li>
+            <li><a href="PickFromList.html">Pick from list</a></li>
+            <li><a href="HighestPosition.html">Highest position</a></li>
+            <li><a href="LowestPosition.html">Lowest position</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                valueRaster = wd + "value.dep"&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [valueRaster, inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("PercentGreaterThan", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def valueRaster = wd + "value.dep"&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [valueRaster, inputFiles, outputFile]&#10;<br>
+                pluginHost.runPlugin("PercentGreaterThan", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

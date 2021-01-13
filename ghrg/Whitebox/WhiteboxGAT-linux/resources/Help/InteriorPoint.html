@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Interior point</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Interior point</h1>
+
+        <p>This can be used to identify an interior point for a vector polygon. The interior point 
+        will generally be located in a central position and is guaranteed to be located within the 
+        polygon, unlike the <a href="CentroidVector.html"><b><i>centroid</i></b></a>, which may fall 
+        outside the feature for highly convoluted or irregular shaped polygons. For layers containing 
+        multi-part polygons, the user can optionally choose to extract an interior point for each 
+        part. The default for multi-part polygons is to extract a single point, contained within the 
+        widest part of the multi-part polygon.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="CentroidVector.html">Centroid (Vector)</li>
+            <li><a href="Centroid.html">Centroid (Raster)</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "polygons.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                multipart = "false"&#10;<br>
+                args = [inputFile, outputFile, multipart]&#10;<br>
+                pluginHost.runPlugin("InteriorPoint", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "polygons.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def multipart = "true"&#10;<br>
+                String[] args = [inputFile, outputFile, multipart]&#10;<br>
+                pluginHost.runPlugin("InteriorPoint", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014)</li>
+        </ul>
+    </body>
+</html>

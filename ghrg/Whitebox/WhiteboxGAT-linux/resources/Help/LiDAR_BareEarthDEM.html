@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Bare-Earth DEM (LiDAR)</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Bare-Earth DEM (LiDAR)</h1>
+
+        <p>This tool interpolates a bare-Earth digital elevation model (DEM) from one or more 
+        input LAS files. The LAS file format is an industry standard format for storing data 
+        acquired by laser scanners. The user must specify the name of one or more LAS files. 
+        The output bare-Earth DEMs will have the same name as the corresponding input LAS file, 
+        with specified file suffix appended to the end of the file name. The user must also 
+        specify the grid resolution, the inter-point slope threshold, and optionally the 
+        maximum scan angle deviation. The tool distinguishes ground points from non-ground points 
+        based on the inter-point slope threshold. The interpolation area is divided into grid 
+        cells, corresponding to the cells of the output DEM. All of the LiDAR points within the 
+        circle encompassing each grid cell is then examined as a neighbourhood. All points within 
+        a neighbourhood that have an inter-point slope with any other point and is also situated 
+        above the corresponding point, is considered to be a non-ground point. An appropriate 
+        value for the inter-point slope threshold parameter will depend on the steepness of the 
+        terrain, but generally values of 15-35 degrees produce satisfactory results. The elevation 
+        assigned to the grid cell is then the nearest ground point elevation.</p>
+
+        <p>Importantly, this method of distinguishing non-ground points from terrain points does 
+        not rely on any information about the point return (e.g. first versus last return). It is 
+        therefore possible to derive a bare-Earth DEM for any LAS file, even those that do not 
+        contain information about the point return. The technique has been shown to work very 
+        well at creating bare-Earth DEMs even compared to interpolation using last-return points 
+        only, as is the case with the <a href="LiDAR_IDW_Interpolation.html">IDW</a> and regular 
+        <a href="LiDAR_NN_interpolation.html">nearest-neighbour</a> tools. The technique is 
+        however <b><i>only useful for removing semi-transparent off-terrain objects</i></b> such 
+        as vegetation and utilities lines. It will not remove buidings from the DEM. If the 
+        area of coverage contains numerous buildings, it is advisable that the output of this 
+        tool be further processed using the <a href="RemoveOffTerrainObjects.html">Remove 
+        Off-Terrain Objects</a> tool to further remove all buildings. Also, if there are many 
+        NoData holes within the resulting DEM, it may also be advisable to process the DEM 
+        using the <a href="FillMissingDataHoles.html">Fill Missing Data Holes</a> tool.</p>
+        
+        <p>The maximum scan angle deviation parameter can be used to filter points from 
+           the neighbourhood around each interpolated grid cell that have scan angles 
+           that are larger than the neighbourhood minimum scan angle by this user-defined 
+           threshold value. Large variation in the scan angle of nearby LiDAR points can 
+           be common near the edges of scan lines. Although the effects of this are rarely 
+           apparent in the DEM, the impact of using a collection of points with greatly 
+           varying scan angles for interpolation can be observed in the derived products 
+           of the DEM, particularly the hillshade image. This can significantly impact 
+           modelled surface flowpaths in flight-line edge areas. Lowering the maximum 
+           scan angle deviation parameter will have the impact of reducing this artifact. 
+           If the parameter is set too low, however, the resulting interpolated surface 
+           may contain extensive areas of NoData values. It is not recommended that this 
+           parameter be set lower than 3.0 degrees. An appropriate value is however dependent 
+           on the specific data set and can only be determined through experimentation. 
+           If you do not want to exclude any points as a result of the variation of 
+           scan angles within interpolation neighbourhoods, simply leave this parameter 
+           blank (or 'not specified').</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+        	  <li><a href="RemoveOffTerrainObjects.html">Remove Off-Terrain Objects</a></li>
+        	  <li><a href="LiDAR_CanopyModel.html">Canopy Model (LiDAR)</a></li>
+        	  <li><a href="LiDAR_IDW_Interpolation.html">IDW Interpolation (LiDAR)</a></li>
+        	  <li><a href="FillMissingDataHoles.html">Fill Missing Data Holes</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                suffix = "canopy"&#10;<br>
+                resolution = "1.0"&#10;<br>
+                maxSlope = "20.0"&#10;<br>
+                maxScanAngle = "not specified"&#10;<br>
+                args = [inputs, suffix, resolution, maxSlope, maxScanAngle]&#10;<br>
+                pluginHost.runPlugin("LiDAR_BareEarthDEM", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                def suffix = "canopy"&#10;<br>
+                def resolution = "1.0"&#10;<br>
+                def maxSlope = "20.0"&#10;<br>
+                def maxScanAngle = "5.0"&#10;<br>
+                def args = [inputs, suffix, resolution, maxSlope, maxScanAngle]&#10;<br>
+                pluginHost.runPlugin("LiDAR_BareEarthDEM", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

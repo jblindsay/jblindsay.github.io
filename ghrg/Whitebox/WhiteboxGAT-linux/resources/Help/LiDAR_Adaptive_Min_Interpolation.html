@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>LiDAR_Adaptive_Min_Interpolation</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Adaptive minimum interpolation (LiDAR)</h1>
+
+        <p>
+            This tool can be used to interpolate a regular grid raster from a point cloud 
+            LiDAR dataset using an adaptive form of the minimum interpolation method. The
+            method differs from the <a href="LiDAR_Min_interpolation.html"><b>Minimum 
+            Interpolation (LiDAR)</b></a> tool, which simply assigns a grid cell the minimum
+            elevation of the points within the grid cell, in the way that the assigned
+            elevation value is found. First, all of the points within a neighbourhood of a 
+            specified size centered on the grid cell are identified and sorted from nearest
+            to farthest. The sorted points are then visited in order and the minimum elevation
+            of the previously visited points is recorded. This effectively creates a minimum 
+            elevation versus distance function. The function is scanned a second time, looking 
+            for steps where the minimum function drops by at least the specified <b>Height 
+            Difference Parameter</b>. When such a step is located, the lower elevation at the
+            bottom of the step is recorded. The lower-step elevation of the distant most such 
+            step is then assigned to the output grid cell. In this way, the assigned elevation
+            will not necessarily be the lowest elevation within the neighbourhood but rather 
+            the elevation associated with a large drop in the minimum elevation function. If
+            no such drop occurs in the minimum elevation function, the output grid cell will be
+            assigned the nearest elevation, effectively performing a nearest neighbour 
+            interpolation. Block-minimum gridding is a common method of interpolating LiDAR
+            data in order to remove the impact of points associated with non-ground, or
+            off-terrain, points. However, this gridding method affects every location, 
+            not just those grid cells associated with non-ground points. The adaptive 
+        minimum interpolation method is an attempt to reduce the impact of this minimum
+        interpolator while retaining its effectiveness at removing off-terrain objects.</p>
+         <p>
+            The user inputs one or more LiDAR datasets in LAS file format (.las) and the name of the 
+            suffix to assign output raster grids that are created. Although most often this 
+            tool will be used 
+            to create a digital elevation model (DEM) from the elevation data associated 
+            with the LiDAR dataset, the user can also specify a number of other parameters 
+            to interpolate including the LiDAR point intensity, classification, and 
+            associated red, green, and blue values. Note that not all LiDAR datasets will 
+            include each of these parameters. Interpolation can be based on all of the 
+            points in the dataset, first return points, or last return points. The user 
+            must also specify the IDW exponent, the search radius, and rotation value 
+            (if any).</p>
+        <p>The minimum height parameter can be used to eliminate the effects of LiDAR point 
+           drop outs (i.e. erroneously low points), which are common in some data sets. The maximum scan angle deviation parameter can be used to filter points from 
+           the neighbourhood around each interpolated grid cell that have scan angles 
+           that are larger than the neighbourhood minimum scan angle by this user-defined 
+           threshold value. Large variation in the scan angle of nearby LiDAR points can 
+           be common near the edges of scan lines. Although the effects of this are rarely 
+           apparent in the DEM, the impact of using a collection of points with greatly 
+           varying scan angles for interpolation can be observed in the derived products 
+           of the DEM, particularly the hillshade image. This can significantly impact 
+           modelled surface flowpaths in flight-line edge areas. Lowering the maximum 
+           scan angle deviation parameter will have the impact of reducing this artifact. 
+           If the parameter is set too low, however, the resulting interpolated surface 
+           may contain extensive areas of NoData values. It is not recommended that this 
+           parameter be set lower than 3.0 degrees. Similarly, if you do not want to 
+           exclude any points as a result of the variation of scan angles within interpolation 
+           neighbourhoods, simply set this parameter to a high value, e.g. 90.0 degrees.</p>
+
+        <p>Grid cells that have no points within the search radius assigned the 
+            <i><b>NoData</b></i> value in the output image. The output raster is of 
+            the <i>float</i> data type and <i>continuous</i> data scale.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="LiDAR_Min_interpolation.html">Minimum Interpolation (LiDAR)</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                suffix = "IDW"&#10;<br>
+                interpParameter = "z (elevation)"&#10;<br>
+                ptReturn = "all points"&#10;<br>
+                maxSearchDist = "5.0"&#10;<br>
+                gridRes = "1.0"&#10;<br>
+                heightDiff = "2.0"&#10;<br>
+                minHeight = "0.0"&#10;<br>
+                maxScanAngleDeviation = "3.0"&#10;<br>
+                # excluded points...
+                neverClassified = "false"&#10;<br>
+                unclassified = "false"&#10;<br>
+                bareGround = "false"&#10;<br>
+                lowVeg = "false"&#10;<br>
+                mediumVeg = "false"&#10;<br>
+                highVeg = "false"&#10;<br>
+                buildings = "false"&#10;<br>
+                lowPoints = "false"&#10;<br>
+                keyPoints = "false"&#10;<br>
+                water = "false"&#10;<br>
+                args = [inputs, suffix, interpParameter, ptReturn, maxSearchDist, gridRes, heightDiff, minHeight, maxScanAngleDeviation,
+                neverClassified, unclassified, bareGround, lowVeg, mediumVeg, &#10;<br>
+                highVeg, buildings, lowPoints, keyPoints, water]&#10;<br>
+                pluginHost.runPlugin("LiDAR_Adaptive_Min_Interpolation", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputs = wd + "input1.las" + ";" + wd + "input2.las" + ";" + wd + "input3.las"&#10;<br>
+                def suffix = "IDW"&#10;<br>
+                def interpParameter = "intensity"&#10;<br>
+                def ptReturn = "last return"&#10;<br>
+                def maxSearchDist = "5.0"&#10;<br>
+                def gridRes = "1.0"&#10;<br>
+                def heightDiff = "2.0"&#10;<br>
+                def minHeight = "0.0"&#10;<br>
+                def maxScanAngleDeviation = "5.0"&#10;<br>
+                // excluded points...
+                def neverClassified = "false"&#10;<br>
+                def unclassified = "false"&#10;<br>
+                def bareGround = "false"&#10;<br>
+                def lowVeg = "false"&#10;<br>
+                def mediumVeg = "false"&#10;<br>
+                def highVeg = "false"&#10;<br>
+                def buildings = "false"&#10;<br>
+                def lowPoints = "false"&#10;<br>
+                def keyPoints = "false"&#10;<br>
+                def water = "false"&#10;<br>
+                String[] args = [inputs, suffix, interpParameter, ptReturn, maxSearchDist, gridRes, heightDiff, minHeight, maxScanAngleDeviation,
+                neverClassified, unclassified, bareGround, lowVeg, mediumVeg, &#10;<br>
+                highVeg, buildings, lowPoints, keyPoints, water]&#10;<br>
+                pluginHost.runPlugin("LiDAR_Adaptive_Min_Interpolation", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

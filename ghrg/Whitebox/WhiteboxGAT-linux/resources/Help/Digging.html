@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Remove creek sinks (digging)</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+
+<h1>Remove creek sinks (digging)</h1>
+
+<p>This tool removes creek sinks by digging a flowpath to a lower located cell.</p>
+
+<p>The user must specify:
+<br>The name of the digital elevation model (DEM) to be corrected.
+<br>The name of a streamheads raster. For the creation of the streamheads raster, the <i><b><a href="StreamHeadsMDInf.html">Find Streamheads</a></b></i> tool could be used.
+<br>The name of the corrected output DEM.
+<br>The name of the output raster containing the elevation modification values.
+<br>The maximum radius around a creek cell to search for a downslope cell.
+</p>
+
+<p>The Remove Creek Sinks tool searches a flowpath for each of the streamhead 
+    cells. In principle, the <i><b>D8</b></i> method is used. However, when a 
+    creek sink has been reached, the tool switches to the digging algorithm. A 
+    path to a cell with a lower elevation is digged out. The path is chosen 
+    based on the criteria that the least possible amount of soil should be removed.</p>
+
+<p>Grid cells possessing the <i><b>NoData</b></i> value in the input
+DEM are assigned the <i><b>NoData</b></i> value in the output
+corrected DEM. The output rasters are of the <i>float</i> data type and
+<i>continuous</i> data scale.</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="StreamHeadsMDInf.html">Find Streamheads</a></li>
+</ul>
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+  <li>Jan Seibert (2014) email: jan.seibert@geo.uzh.ch</li>
+  <li>Marc Vis (2014) email: marc.vis@geo.uzh.ch</li>
+</ul>
+</body>
+</html>

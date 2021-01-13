@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Vector feature density</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Vector feature density</h1>
+
+        <p>This tool maps the spatial pattern of vector feature density onto a raster grid. 
+        The tool can be used to answer the question, what is the density of vector features (points, 
+        lines, or polygons) within a specified distance of each grid cell in a raster? This can 
+        be quite a useful operation for visualizing spatial patterns. The user must specify the name 
+        of the input vector file. The user must also provide either the grid resolution of the 
+        output surface or the name of an existing raster file from which to derive the geographical 
+        extent and grid resolution. If a cell size (grid resolution) is specified, the output raster 
+        will derive its geographical extent from that of the input vector file. Each grid cell in the 
+        output raster image will contain the density of the features contained (or partially contained) 
+        within circular neighbourhood centered on the grid cell. If no features are contained within 
+        the neighbourhood, the <b><i>NoData</i></b> value will be assigned to the grid cell. This 
+        tool operates in parallel and will experience significantly faster processing when run using a 
+        system with a multi-core processor.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="VectorAttributeGridding.html">Vector Attribute Gridding</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.shp"&#10;<br>
+                cellSize = "10.0"&#10;<br>
+                baseFile = "not specified"&#10;<br>
+                searchDistance = "100.0"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [inputFile, cellSize, baseFile, searchDistance, outputFile]&#10;<br>
+                pluginHost.runPlugin("VectorFeatureDensity", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.shp"&#10;<br>
+                def cellSize = "not specified"&#10;<br>
+                def baseFile = wd + "basefile.dep"&#10;<br>
+                def searchDistance = "100.0"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [inputFile, cellSize, baseFile, searchDistance, outputFile]&#10;<br>
+                pluginHost.runPlugin("VectorFeatureDensity", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

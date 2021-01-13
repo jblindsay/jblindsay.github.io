@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Plot variogram</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Plot variogram</h1>
+
+        <p>
+            This tool can be used to plot a variogram based on a vector 
+            points file. The user must specify the 
+            name of the input vector shapefile and the name of the field within the vector's 
+            attribute table that is used to indicate the interpolated variable (taken to be 
+            height). The 
+        <b><i>variogram</i></b> measures differences in observed values over a set of separation distance bands, 
+        or <b><i>lags</i></b>. The plot of semivariance (a measure of the difference in values) by lag 
+        distance derived for a set of point observations is known as the <b><i>experimental variogram</i></b>. 
+        The variogram is central to the <a href="KrigingInterpolation.html">Kriging Interpolation</a> method. 
+        In fact, kriging methods do not use this data directly to determine interpolation 
+        weights. Instead, a continuous model is fit to these observed data and this forms the 
+        basis for weight determination. The continuous model, known as the <b><i>theoretical 
+        variogram</i></b>, may take many forms but the three options that are included by this tool 
+        include, Gaussian, Exponential, and Spherical models. The models differ largely in the 
+        shape of the fitted line, however, each model type has the characteristic that the 
+        semivariance starts off low at the shortest lag distances (i.e. near points have 
+        similar values) and increases until eventually levelling off. The separation distance 
+        at which the variogram levels off is known as the <b><i>range</i></b> or active lag 
+        distance. This represents the maximum distance to which spatial autocorrelation 
+        is observed within the data set. The semivariance value at which the variogram 
+        levels off is known as the <b><i>sill</i></b>. In fact, not all variograms display 
+        this characteristic levelling off. Such variograms are referred to as non-transitive. 
+        This occurs when the data points do not extend beyond the correlation length of 
+        the modelled phenomena. The y-intercept of the variogram model is known as the 
+        <b><i>nugget</i></b> or nugget variance. The nugget is assumed to be non-spatial variation, 
+        i.e. apparent random noise, resulting from either measurement error or else 
+        variation caused by phenomena operating at shorter spatial scales than the minimum 
+        separation distance within the sampled data.</p>
+
+        <p>If the characteristics of spatial autocorrelation within the data set are the 
+        same in all directions, the variogram is said to be <b><i>isotopic</i></b>. If the data 
+        demonstrate a strong directional trend, the same variogram will not apply in all 
+        directions. An <b><i>anisotropic</i></b>, or directionally variant, variogram model can 
+        be applied by specifying the <b><i>angle</i></b>, <b><i>tolerance</i></b>, and 
+        <b><i>band width</i></b> parameters within an anisotropic variogram model.</p>
+
+        <p>Generally, the process of deriving a theoretical variogram model for use in 
+        kriging requires a certain amount of experimentation. It is an iterative 
+        process that requires modifying the model type, number of lags, and lag size 
+        in order to achieve the best possible fit. The <b>Plot Variogram</b> tool allows 
+        users to interactively adjust these input parameters and to view the variogram 
+        and variogram surface map. When the user has found a satisfactory model, the tool 
+        can be run and the final variogram report will be output along with the variogram 
+        plot and optionally the variogram map.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="KrigingInterpolation.html">Kriging Interpolation</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # Input data has the shapefile name followed 
+                # by the attribute, separated by a semicolon. 
+                inputData = wd + "spotHeights.shp" + ";" + "HEIGHT"&#10;<br>
+                modelType = "Gaussian"&#10;<br>
+                numLags = "12"&#10;<br>
+                lagSize = "1000.0"&#10;<br>
+                applyNugget = "true"&#10;<br>
+                anisotropic = "false"&#10;<br>
+                angle = "not specified"&#10;<br>
+                tolerance = "not specified"&#10;<br>
+                bandWidth = "not specified"&#10;<br>
+                showVariogramMap = "true"&#10;<br>
+                args = [inputData, modelType, numLags, lagSize, applyNugget, anisotropic, angle, tolerance, bandWidth, showVariogramMap]&#10;<br>
+                pluginHost.runPlugin("PlotVariogram", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // Input data has the shapefile name followed 
+                // by the attribute, separated by a semicolon. 
+                def inputData = wd + "spotHeights.shp" + ";" + "HEIGHT"&#10;<br>
+                def modelType = "Gaussian"&#10;<br>
+                def numLags = "12"&#10;<br>
+                def lagSize = "1000.0"&#10;<br>
+                def applyNugget = "true"&#10;<br>
+                def anisotropic = "false"&#10;<br>
+                def angle = "not specified"&#10;<br>
+                def tolerance = "not specified"&#10;<br>
+                def bandWidth = "not specified"&#10;<br>
+                def showVariogramMap = "true"&#10;<br>
+                String[] args = [inputData, modelType, numLags, lagSize, applyNugget, anisotropic, angle, tolerance, bandWidth, showVariogramMap]&#10;<br>
+                pluginHost.runPlugin("PlotVariogram", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>Ehsan Roshani (2014)</li>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

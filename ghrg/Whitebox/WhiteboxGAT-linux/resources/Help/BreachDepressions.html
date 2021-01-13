@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Breach depressions</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Breach depressions</h1>
+
+        <p>This tool can be used to pre-process a digital elevation model (DEM) prior to being used for 
+            hydrological analysis. It will remove topographic depressions and apparent dams in the DEM in 
+            order to enforce continuous flow. This is achieved by breaching through topographic barriers.
+            As such, depression breaching provides an alternative to <a href="FillDepressions.html">depression filling</a>. 
+            Unlike depression filling, which has one unique solution for each depression, there may be several 
+            competing solutions for depression breaching. This tool uses a cost-distance criteria for deciding 
+            upon the breach target, i.e. the cell to which the tool will trench a connecting path, and for 
+            determining the breach path itself. As such, the trenched path will not necessarily follow a straight 
+            line, but rather, will follow a path of lowest cost, where the cost is determined by the amount of 
+            change made to the original DEM.</p>
+
+        <p>The <a href="FastBreachDepressions.html">Breach Depressions (Fast)</a> offers an alternative 
+        depression breaching solution, that is not as optimal as the solution provided by this tool, but 
+        which is considerably more computationally efficient, i.e. it runs faster. When this tool 
+        cannot be used, the Breach Depressions (Fast) tool should be viewed as a viable alternative to 
+        depression filling, as it will likely reduce the impact of the flow enforcement step on the 
+        surface flowpath information contained in the original DEM. Also note, that unlike the Breach 
+        Depressions (Fast) tool, this breaching algorithm will not necessarily find a breaching solution 
+        for every depression contained in the DEM. As such, the fast breaching method can offer a useful 
+        post-processing method for DEM processed using this optimized breaching algorithm to remove any 
+        features that remain after processing.</p>  
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FastBreachDepressions.html">Breach Depressions (Fast)</a></li>
+            <li><a href="FillDepressions.html">Fill Depressions</a></li>
+            <li><a href="FillDepressionsPandD.html">Fill Depressions (Planchon and Darboux)</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "DEM.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                maxBreachLength = "50.0"&#10;<br>
+                maxElevationDecrement = "not specified"&#10;<br>
+                minElevationDrop = "not specified"&#10;<br>
+                args = [inputFile, outputFile, maxElevationDecrement, minElevationDrop]&#10;<br>
+                pluginHost.runPlugin("BreachDepressions", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "DEM.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def maxBreachLength = "50.0"&#10;<br>
+                def maxElevationDecrement = "10.0"&#10;<br>
+                def minElevationDrop = "0.15"&#10;<br>
+                String[] args = [inputFile, outputFile, maxElevationDecrement, minElevationDrop]&#10;<br>
+                pluginHost.runPlugin("BreachDepressions", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

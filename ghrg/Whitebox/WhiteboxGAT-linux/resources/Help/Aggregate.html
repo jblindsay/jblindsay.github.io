@@ -1,0 +1,73 @@
+<!--
+Copyright (C) 2013 Dr. John Lindsay <jlindsay@uoguelph.ca>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Aggregate</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Aggregate</h1>
+        <div>This tool can be used to reduce the grid resolution of a raster 
+            by a user specified amount. For example, using an aggregation 
+            factor of 2 would result in a raster with half the number of rows 
+            and columns. The grid cell values in the output image will consist of 
+            the mean, sum, maximum, minimum, or range of the overlapping grid 
+            cells in the input raster (four cells in the case of an aggregation 
+            factor of 2).</div>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "DEM filled.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                aggFactor = "2"&#10;<br>
+                aggType = "mean"&#10;<br>
+                args = [inputFile, outputFile, aggFactor, aggType]&#10;<br>
+                pluginHost.runPlugin("Aggregate", args, False)&#10;<br>
+            </code>
+        </p>
+
+        <p>This is a Groovy script also using this tool:</p>
+
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "DEM filled.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def aggFactor = "2"&#10;<br>
+                def aggType = "mean"&#10;<br>
+                String[] args = [inputFile, outputFile, aggFactor, aggType]&#10;<br>
+                pluginHost.runPlugin("Aggregate", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

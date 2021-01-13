@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Trace downslope flowpaths</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+        
+    </head>
+    <body>
+
+        <h1>Trace downslope flowpaths</h1>
+
+        <p>This tool can be used to mark the flowpath initiated from user-specified 
+        locations downslope and terminating at either the grid's edge or a grid cell 
+        with undefined flow direction. The user must input the name of a <a href="FlowPointerD8.html">
+        D8 flow pointer</a> grid and an input file indicating the location of one 
+        or more initiation areas (seed points). The seed point file can either be a 
+        raster file or a vector file of the POINT shapetype.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="FlowPointerD8.html">D8 Flow Pointer</a></li>
+        </ul>
+        
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                pointerFile = wd + "D8Pointer.dep"&#10;<br>
+                seedFile = wd + "seed.shp"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                isBackgroundNodata = "true"&#10;<br>
+                args = [leftInputFile, rightinputFile, outputFile, isBackgroundNodata]&#10;<br>
+                pluginHost.runPlugin("TraceDownslopeFlowpaths", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def pointerFile = wd + "D8Pointer.dep"&#10;<br>
+                def seedFile = wd + "seed.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def isBackgroundNodata = "true"&#10;<br>
+                args = [leftInputFile, rightinputFile, outputFile, isBackgroundNodata]&#10;<br>
+                pluginHost.runPlugin("TraceDownslopeFlowpaths", args, false)&#10;<br>
+            </code>
+        </p>
+        
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

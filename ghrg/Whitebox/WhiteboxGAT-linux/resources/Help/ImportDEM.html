@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Import DEM</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Import DEM</h1>
+
+        <p>
+            This tool can be used to convert US Geological Survey/Canadian Digital Elevation Data (CDED) 
+            digital elevation models (DEMs) to <a href="FileFormatsDescriptions.html">Whitebox GAT 
+            raster files</a>. The DEM format is an ASCII text file format for storing raster DEM data 
+            based on the description in "Standards for digital elevation models, U.S. Department of 
+            the Interior, U.S. Geological Survey, National Mapping Division." The algorithm was actually 
+            based on the description of the file format provided in "Canadian Digital Elevation Data, 
+            Level 1 Product Specifications". Input files should have a *.dem file extension. If the 
+            files are compressed (zipped), they must be decompressed prior to running this tool. The 
+            output Whitebox Raster files will be of the Float data type. Void cells are assigned the 
+            <b><i>NoData</i></b> value of -32,768.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "040p_0101_deme.dem" + ";" + wd + "040p_0101_demw.dem"&#10;<br>
+                args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportDEM", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "040p_0101_deme.dem" + ";" + wd + "040p_0101_demw.dem"&#10;<br>
+                String[] args = [inputFiles]&#10;<br>
+                pluginHost.runPlugin("ImportDEM", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2013) email: jlindsay@uoguelph.ca</li>
+            <li>Funding to develop this tool provided by Natural Resources Canada (GSC)</li>
+        </ul>
+    </body>
+</html>

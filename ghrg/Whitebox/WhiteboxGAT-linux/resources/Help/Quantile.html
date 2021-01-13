@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+<title>Quantile</title>
+<link rel="stylesheet" type="text/css" href="Help.css">
+</head>
+
+<body>
+<h1>Quantile</h1>
+
+<p>The <b>Quantile</b> tool transforms a raster into quantiles. Quantiles 
+ are values taken at regular intervals from the inverse of the cumulative 
+ distribution function (CDF) of a random variable.</p>
+
+<br><h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="ReclassEqualInterval.html">Reclass (equal interval)</a></li>
+</ul>
+
+<h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                input = wd + "input.dep"&#10;<br>
+                output = wd + "output.dep"&#10;<br>
+                numQuantiles = "5"&#10;<br>
+                args = [input, output, numQuantiles]&#10;<br>
+                pluginHost.runPlugin("Quantile", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def input = wd + "input.dep"&#10;<br>
+                def output = wd + "output.dep"&#10;<br>
+                def numQuantiles = "5"&#10;<br>
+                String[] args = [input, output, numQuantiles]&#10;<br>
+                pluginHost.runPlugin("Quantile", args, false)&#10;<br>
+            </code>
+        </p>
+        
+<br><h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2016) email: jlindsay@uoguelph.ca</li>
+
+</ul>
+</body>
+</html>

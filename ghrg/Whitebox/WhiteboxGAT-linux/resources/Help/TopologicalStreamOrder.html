@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Topological stream order</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Topological stream order</h1>
+
+        <p>
+            This tool can be used to assign the topological stream order to each link in 
+            a stream network. According to this stream numbering system, the link directly   
+            draining to the outlet is assigned an order of one. Each of the two tributaries 
+            draining to the order-one link are assigned an order of two, and so on until 
+            the most distant link from the catchment outlet has been assigned an order. The 
+            topological order can therefore be thought of as a measure of the topological 
+            distance of each link in the network to the catchment outlet and is likely to 
+            be related to travel time.</p>
+            
+        <p>Stream order is often used in hydro-geomorphic 
+            and ecological studies to quantify the relative size and importance of a stream 
+            segment to the overall river system. Unlike some other stream ordering systems, 
+            e.g. <a href="StreamOrder.html">Horton-Strahler stream order</a> and
+            <a href="StreamMagnitude.html">Shreve's stream magnitude</a>, topological stream 
+            ordering method increases from the catchment outlet towards the channel heads. 
+            This has the main advantage that the catchment outlet is likely to be 
+            accurately located while the channel network extent may be less accurately mapped.</p>
+            
+        <p>The user must specify the names of a streams raster image and 
+            <a href="FlowPointerD8.html">D8 pointer</a> image. Stream cells are 
+            designated in the streams image as all positive, nonzero values. Thus all 
+            non-stream or background grid cells are commonly assigned either zeros or 
+            <b><i>NoData</i></b> values. The pointer image is used to traverse the 
+            stream network and should only be created using the 
+            <a href="FlowPointerD8.html">D8 algorithm</a>. Background cells will be 
+            assigned the <b><i>NoData</i></b> value in the output image. The output 
+            raster is of an <i>integer</i> data type and <i>continuous</i> data scale.</p>
+
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="StreamOrder.html">Horton-Strahler Stream Order</a></li>
+            <li><a href="HackStreamOrder.html">Hack Stream Order</a></li>
+            <li><a href="StreamMagnitude.html">Shreve Stream Magnitude</a></li>
+            <li><a href="FlowPointerD8.html">D8 Flow Pointer</a></li>
+            <li><a href="StreamTools.html">Other Stream Network Analysis Tools</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                streamsFile = wd + "streams.dep"&#10;<br>
+                pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                args = [streamsFile, pointerFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("TopologicalStreamOrder", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def streamsFile = wd + "streams.dep"&#10;<br>
+                def pointerFile = wd + "D8 pointer.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                String[] args = [streamsFile, pointerFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("TopologicalStreamOrder", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

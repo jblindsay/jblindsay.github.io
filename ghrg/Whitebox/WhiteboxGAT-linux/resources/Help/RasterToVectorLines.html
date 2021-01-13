@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Raster to vector lines</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Raster to vector lines</h1>
+
+        <p>This tool converts a raster dataset containing one or more single-cell wide line networks into a 
+            vector shapefile. <b>This tool is currently under development and is considered experimental. It is unlikely 
+                that it will produce satifactory results for most raster datasets. Its use is not advisable.</b></p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="VectorToRasterLines.html">Vector to Raster Lines</a></li>
+            <li><a href="RasterToVectorPoints.html">Raster to Vector Points</a></li>
+            <li><a href="RasterToVectorPolygons.html">Raster to Vector Polygons</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.dep"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                minLineLength = "2"&#10;<br>
+                args = [inputFile, outputFile, minLineLength]&#10;<br>
+                pluginHost.runPlugin("RasterToVectorLines", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.dep"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def minLineLength = "2"&#10;<br>
+                String[] args = [inputFile, outputFile, minLineLength]&#10;<br>
+                pluginHost.runPlugin("RasterToVectorLines", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uougelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

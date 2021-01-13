@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+      <title>Lines to polygons</title>
+      <link rel="stylesheet" type="text/css" href="Help.css">
+  </head>
+  <body>
+    
+<h1>Lines to polygons</h1>
+
+<p>This tool will convert a shapefile containing lines to a shapefile 
+    containing polygons. It does so by closing each of the line parts 
+    in the input file. Notice that this may not be appropriate for 
+    certain line files. Notice that this operation should not be confused 
+    with the <a href="Polygonize.html"><b>Polygonize</b></a> tool, which will 
+    identify the polygon features defining the enclosed spaces created 
+    by a set of intersecting lines.</p>
+
+<h2 class="SeeAlso">See Also:</h2>
+<ul>
+<li><a href="PolygonsToLines.html">Polygons to Lines</a></li>
+<li><a href="Polygonize.html">Polygonize</a></li>
+</ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputFile = wd + "input.shp"&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("LinesToPolygons", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputFile = wd + "input.shp"&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                String[] args = [inputFile, outputFile]&#10;<br>
+                pluginHost.runPlugin("LinesToPolygons", args, false)&#10;<br>
+            </code>
+        </p>
+
+<h2 class="SeeAlso">Credits:</h2>
+<ul>
+<li>John Lindsay (2014) email: jlindsay@uoguelph.ca</li>
+</ul>
+</body>
+</html>

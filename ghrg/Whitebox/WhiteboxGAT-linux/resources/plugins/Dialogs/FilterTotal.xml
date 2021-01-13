@@ -1,0 +1,54 @@
+<Dialog Name="FilterTotal" HelpFile="FilterTotal.html">
+	<DialogComponent type="DialogFile">
+		<Name>InputFile</Name>
+		<Description>Enter the name of the input file here</Description>
+		<LabelText>Input Raster File:</LabelText>
+		<DialogMode>Open File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogFile">
+		<Name>OutputFile</Name>
+		<Description>Enter the name of the output file here</Description>
+		<LabelText>Output Raster File:</LabelText>
+		<DialogMode>Save File</DialogMode>
+		<Filter>Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+		<MakeOptional>False</MakeOptional>
+		<ShowButton>True</ShowButton>
+	</DialogComponent>
+	<DialogComponent type="DialogDataInput">
+		<Name>filterSizeX</Name>
+		<Description>Enter the size of the filter's x-dimension, in pixels</Description>
+		<LabelText>Filter Size X-dimension (in pixels):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>3</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>filterSizeY</Name>
+		<Description>Enter the size of the filter's Y-dimension, in pixels</Description>
+		<LabelText>Filter Size Y-dimension (in pixels):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>3</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>filterRounded</Name>
+		<Description>Should the filter be rounded?</Description>
+		<LabelText>Rounded-shaped filter?</LabelText>
+		<InitialState>false</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>reflectAtBorders</Name>
+		<Description>Would you like to reflect values at the image edges?</Description>
+		<LabelText>Reflect values at image edges?</LabelText>
+		<InitialState>true</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+</Dialog>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Wall-in watershed</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Wall-in watershed</h1>
+
+        <p>This tool is used to increment the elevations in a digital elevation model (DEM) along the 
+            boundaries of a watershed polygon. The user must specify the name of the raster DEM, the watershed 
+            file, the output file name, and the increment height. The watershed file can be either a raster, containing 
+            one or more polygons, or a vector shapefile.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>none</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                demFile = wd + "DEM.dep"&#10;<br>
+                watershed = wd + "watershed.shp"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                elevIncrement = "50.0"&#10;<br>
+                args = [demFile, watershed, outputFile, elevIncrement]&#10;<br>
+                pluginHost.runPlugin("WallWatershed", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def demFile = wd + "DEM.dep"&#10;<br>
+                def watershed = wd + "watershed.dep"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def elevIncrement = "50.0"&#10;<br>
+                String[] args = [demFile, watershed, outputFile, elevIncrement]&#10;<br>
+                pluginHost.runPlugin("WallWatershed", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="jlindsay@uoguelph.ca">John Lindsay</a> (2012)</li>
+        </ul>
+    </body>
+</html>

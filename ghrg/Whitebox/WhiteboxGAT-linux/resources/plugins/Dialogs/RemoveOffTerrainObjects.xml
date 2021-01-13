@@ -1,0 +1,43 @@
+<Dialog Name="RemoveOffTerrainObjects" HelpFile="RemoveOffTerrainObjects.html">
+	<DialogComponent type="DialogMultiFile">
+		<Name>inputFiles</Name>
+		<Description>Enter the name of the input raster files here</Description>
+		<LabelText>Input Raster Files:</LabelText>
+		<Filter>Whitebox Raster Files (*.dep), DEP</Filter>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>suffix</Name>
+		<Description>Enter any suffix that you would like attached to output file names here</Description>
+		<LabelText>Output File Suffix (e.g. bare earth):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>bare earth</InitialText>
+		<NumericalInputOnly>False</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>OTOMaxSize</Name>
+		<Description>This value determines the approximate size of off-terrain objects</Description>
+		<LabelText>Maximum Off-Terrain Object Size (pixels):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>150</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogDataInput">
+		<Name>minOTOEdgeSlope</Name>
+		<Description>Enter the minimum allowable edge slope for OTOs</Description>
+		<LabelText>Minimum OTO Edge Slope (Degrees):</LabelText>
+		<IsVisible>True</IsVisible>
+		<InitialText>15</InitialText>
+		<NumericalInputOnly>True</NumericalInputOnly>
+		<MakeOptional>False</MakeOptional>
+	</DialogComponent>
+        <DialogComponent type="DialogCheckBox">
+		<Name>iterateRemoveOTOs</Name>
+		<Description>Iterate algorithm until no further changes?</Description>
+		<LabelText>Iterate algorithm until no further changes?</LabelText>
+		<InitialState>True</InitialState>
+		<IsVisible>True</IsVisible>
+	</DialogComponent>
+</Dialog>

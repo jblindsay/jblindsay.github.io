@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Simple region grow</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Simple region grow</h1>
+
+        <p>This tool performs a simple region-growing operation. The user must specify the 
+        names of one or more raster images, forming a raster image stack. Note that all of 
+        the rasters in the stack must have the same dimensions. A seed points vector file 
+        then serves as the starting locations (seeds) for a simple region-growing operation 
+        such that neighbouring grid cells with values that differ from their adjoining 
+        seed pixel by less than a specified threshold value, are clumped into the same 
+        object. Object values (identifiers) are taken from the seed point feature numbers 
+        within the input shapefile. Connectivity can be defined using either the 8-cell (Moore) 
+        or 4-cell (von Neumann) connectivity rules, depending on whether diagnol neighbours 
+        should be included. The similarity value is calculated based on grid cell stack totals.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                # You may have multiple input files but they must&#10;<br>
+                # be separated by semicolons in the string.&#10;<br>
+                inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                seedFile = wd + "seeds.shp"&#10;<br>
+                outputFile = wd + "output.dep"&#10;<br>
+                similarity = "100.0"&#10;<br>
+                neighbourhoodType = "vonNeumann"&#10;<br>
+                args = [inputFiles, seedFile, outputFile, similarity, neighbourhoodType]&#10;<br>
+                pluginHost.runPlugin("SimpleRegionGrow", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240);">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                // You may have multiple input files but they must&#10;<br>
+                // be separated by semicolons in the string.&#10;<br>
+                def inputFiles = wd + "input1.dep" + ";" + wd + "input2.dep" + ";" + wd + "input3.dep"&#10;<br>
+                def seedFile = wd + "seeds.shp"&#10;<br>
+                def outputFile = wd + "output.dep"&#10;<br>
+                def similarity = "100.0"&#10;<br>
+                def neighbourhoodType = "moore"&#10;<br>
+                String[] args = [inputFiles, seedFile, outputFile, similarity, neighbourhoodType]&#10;<br>
+                pluginHost.runPlugin("SimpleRegionGrow", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

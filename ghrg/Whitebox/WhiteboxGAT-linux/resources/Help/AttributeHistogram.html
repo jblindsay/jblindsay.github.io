@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Attribute histogram</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+        <h1>Attribute histogram</h1>
+        <p>This tool can be used to create a histogram, which is a graph displaying the 
+        frequency distribution of data, for the values contained in a field of a 
+        shapefile's attribute table. The user must specify the name of an input shapefile and 
+        the name of one of the fields contained it the associated attribute table. The user may 
+        optionally specify the number of bins used to create the histogram. If the specified field 
+        is non-numerical, the tool will produce a bar-chart of class frequency.</p>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="AttributeScattergram.html">Attribute Scattergram</a></li>
+            <li><a href="ListUniqueValues.html">List Unique Values</a></li>
+            <li><a href="Histogram.html">Histogram</a></li>
+            <li><a href="LidarHistogram.html">LiDAR Histogram</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                inputData = wd + "countries.shp" + ";" + "POPULATION"&#10;<br>
+                numBins = "10"&#10;<br>
+                args = [inputData, numBins]&#10;<br>
+                pluginHost.runPlugin("AttributeHistogram", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def inputData = wd + "countries.shp" + ";" + "POPULATION"&#10;<br>
+                // Note: the number of bins is not specified in this example&#10;<br>
+                String[] args = [inputData]&#10;<br>
+                pluginHost.runPlugin("AttributeHistogram", args, False)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2014), email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>

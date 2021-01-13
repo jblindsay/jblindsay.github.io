@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Create new shapefile</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+    <body>
+
+        <h1>Create new shapefile</h1>
+
+        <p>This tool creates a new blank shapefile. The user must specify the name of the output file and the 
+            shapefile type (e.g. point, polyline, polygon, etc.). Upon completion, the newly created shapefile will 
+            be added to the displayed and the 'Edit Vector' tool will be selected. Attributes can be added to the 
+            blank shapefile at this point by opening the attributes table ('Add New Field').</p>
+
+        <p><b><i>CreateNewShapefile</i></b> is a necessary tool for any operation requiring 
+            on-screen digitizing, including <a href="Watershed.html"><b><i>Watershed</i></b></a>
+            extraction, <a href="Viewshed.html"><b><i>Viewshed</i></b></a> mapping, and 
+            <a href="ImageRectification.html"><b><i>Image Rectification</i></b></a>, among others.</p>
+
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li><a href="Watershed.html">Watershed</a></li>
+            <li><a href="Viewshed.html">Viewshed</a></li>
+            <li><a href="ImageRectification.html">Image Rectification</a></li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                outputFile = wd + "output.shp"&#10;<br>
+                shapeType = "Point"&#10;<br>
+                args = [outputFile, shapeType]&#10;<br>
+                pluginHost.runPlugin("CreateNewShapefile", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def outputFile = wd + "output.shp"&#10;<br>
+                def shapeType = "Polygon"&#10;<br>
+                String[] args = [outputFile, shapeType]&#10;<br>
+                pluginHost.runPlugin("CreateNewShapefile", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li><a href="mailto:jlindsay@uoguelph.ca">John Lindsay</a> (2013)</li>
+        </ul>
+    </body>
+</html>

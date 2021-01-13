@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="content-type">
+        <title>Delete small lakes and extend rivers</title>
+        <link rel="stylesheet" type="text/css" href="Help.css">
+    </head>
+
+    <body>
+        <h1>Delete small lakes and extend rivers</h1>
+
+        <p>This tool can be used to remove small lakes (polygons) in a vector drainage 
+        network and to extend the associated river  network (intersecting polylines) into 
+        the interior of the lake. The user must specify the names of the input and output 
+        lakes (polygon) and streams (polyline) shapefiles, as well as the lakes area threshold. 
+        The tool is similar to the <b>Delete Polygons and Extend Lines</b> tool in ArcGIS's 
+        Production Mapping toolset. The tool differs from the ArcGIS tool in that it does not 
+        modify the input polygon (lakes) and polyline (rivers) shapefiles, but rather outputs 
+        separate shapefiles for each; storage is cheap and there is no undo button once you've 
+        modified a shapefile! It also uses a distance threshold, such that it will identify 
+        an inlet/outlet as a river segment starting/ending node that is within the specified 
+        distance to a lake polygon. That way, if the rivers do not perfectly connect with the 
+        lakes, a solution can still be found. Stream segments are extended to a central, and 
+        always interior, point within the lake.</p>
+
+        <div style="text-align:center"><img alt="Delete small lakes" src="img/deleteSmallLakes.png" /></div>
+        
+        <h2 class="SeeAlso">See Also:</h2>
+        <ul>
+            <li>None</li>
+        </ul>
+
+        <h2 class="SeeAlso">Scripting:</h2>
+        <p>The following is an example of a Python script that uses this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                wd = pluginHost.getWorkingDirectory()&#10;<br>
+                lakesFileIn = wd + "inLakes.shp"&#10;<br>
+                streamsFileIn = wd + "inStreams.shp"&#10;<br>
+                lakesFileOut = wd + "outLakes.shp"&#10;<br>
+                streamsFileOut = wd + "outStreams.shp"&#10;<br>
+                areaThreshold = "100.0"&#10;<br>
+                distThreshold = "50.0"&#10;<br>
+                args = [lakesFileIn, streamsFileIn, lakesFileOut, streamsFileOut, areaThreshold, distThreshold]&#10;<br>
+                pluginHost.runPlugin("DeleteSmallLakesAndExtendRivers", args, False)&#10;<br>
+            </code>
+        </p>
+        <p>This is a Groovy script also using this tool:</p>
+        <p style="background-color: rgb(240,240,240)">
+            <code>
+                def wd = pluginHost.getWorkingDirectory()&#10;<br>
+                def lakesFileIn = wd + "inLakes.shp"&#10;<br>
+                def streamsFileIn = wd + "inStreams.shp"&#10;<br>
+                def lakesFileOut = wd + "outLakes.shp"&#10;<br>
+                def streamsFileOut = wd + "outStreams.shp"&#10;<br>
+                def areaThreshold = "100.0"&#10;<br>
+                def distThreshold = "50.0"&#10;<br>
+                String[] args = [lakesFileIn, streamsFileIn, lakesFileOut, streamsFileOut, areaThreshold, distThreshold]&#10;<br>
+                pluginHost.runPlugin("DeleteSmallLakesAndExtendRivers", args, false)&#10;<br>
+            </code>
+        </p>
+
+        <h2 class="SeeAlso">Credits:</h2>
+        <ul>
+            <li>John Lindsay (2015) email: jlindsay@uoguelph.ca</li>
+        </ul>
+    </body>
+</html>
