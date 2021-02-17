@@ -402,7 +402,10 @@ print(&quot;All done!&quot;)
 </blockquote>
 <a class="header" href="#image-smoothing-and-noise-reduction" id="image-smoothing-and-noise-reduction"><h2>Image Smoothing and Noise Reduction</h2></a>
 <p>You may recall from the previous section that PCA is sometimes used to remove noise from multi-spectral image datasets. Low-pass and edge-preserving low-pass filters similarly are used for reducing the occurrence of noise within images, although, unlike PCA, these operations are carried out on a single band (or the individual RGB components). Many satellite images contains substantial speckle, i.e. white noise. Speckle refers to a high-frequency, short-spatial scale variation among neighouring pixels. To enhance the image and to improve its information content, it is necessary to remove this speckle. This is sometimes useful prior to image classification and other mapping applications where it can be good to reduce the within-patch variability (e.g. tonal variation, or texture, within agricultural fields) and to maximize the between-patch tonal distinctions (e.g. the differences between adjoining agricultural fields).</p>
-<p>Apply a 5 × 5 mean filter to the <code>natural_colour_hsi.tif</code> image created in Part 1 using WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MeanFilter"><strong>MeanFilter</strong></a> tool. To do so, we'll need to split this RGB composite image apart into its individual components, using the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#SplitColourComposite"><strong>SplitColourComposite</strong></a> and then add them back together after the filtering operation:</p>
+<p>Apply a 5 × 5 mean filter to the <code>natural_colour_hsi.tif</code> image created in Part 1 using WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MeanFilter"><strong>MeanFilter</strong></a> tool. To do so, we'll need to split this RGB composite image apart into its individual components, using the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#SplitColourComposite"><strong>SplitColourComposite</strong></a> and then add them back together after the filtering operation.</p>
+<blockquote>
+<p><strong>Notice that the code in the script below will not work as is. It contains a bug and you will need to be able to identify it and fix it before you can run it. Debugging code is a major part of learning how to program. It involves interpreting error messages and various other skills (e.g. inserting print statements to help you determine where the program is failing).</strong></p>
+</blockquote>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
 
@@ -458,15 +461,16 @@ print(&quot;All done!&quot;)
 </code></pre>
 <p>Once the script has successfully run, open the resulting <code>nat_clr_5x5mean.tif</code> image using the data visualization software and compare it to the original <code>natural_colour_hsi.tif</code> image.</p>
 <blockquote>
-<p>3.1. Describe the impact of the mean filter on the image? How does the filter impact the variation of tone (texture) with the larger land-cover patches (e.g. fields)? How does it impact the edges between patches as well as other linear features, such as roads? <strong>(5 mark)</strong></p>
+<p>3.1 What was the bug in the script above? Briefly describe the process that you used to identify and rectify it. (2 mark)</p>
+<p>3.2. Describe the impact of the mean filter on the image? How does the filter impact the variation of tone (texture) with the larger land-cover patches (e.g. fields)? How does it impact the edges between patches as well as other linear features, such as roads? <strong>(5 mark)</strong></p>
 </blockquote>
 <p>One of the key characteristics of all spatial filters used in image processing is the kernel size, i.e. the size of the roving window. Modify the script so that it applies a 7 × 7 mean filter and compare the output to that of the 5 × 5 (be sure to change the output file name when you modify the script or you will overwrite the first filtered image).</p>
 <blockquote>
-<p>3.2. What was the impact of increasing the filter size? Why might you need to increase or decrease the window size of a filter? <strong>(3 mark)</strong></p>
+<p>3.3. What was the impact of increasing the filter size? Why might you need to increase or decrease the window size of a filter? <strong>(3 mark)</strong></p>
 </blockquote>
 <p>Modify the script again, this time change the filter tool to perform a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MedianFilter"><strong>MedianFilter</strong></a> (be sure to look at the help documentation description of tool parameters; use <code>sig_digits=0</code>) and a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter"><strong>EdgePreservingMeanFilter</strong></a> (use parameters <code>threshold=40</code> and <code>filter=7</code>).</p>
 <blockquote>
-<p>3.3. How do the median and edge-preserving mean filters compare, with respect to their ability to smooth patches while preserving edges and linear features, to the earlier 7 × 7 mean filter? <strong>(4 marks)</strong></p>
+<p>3.4. How do the median and edge-preserving mean filters compare, with respect to their ability to smooth patches while preserving edges and linear features, to the earlier 7 × 7 mean filter? <strong>(4 marks)</strong></p>
 </blockquote>
 <a class="header" href="#edge-detection" id="edge-detection"><h3>Edge Detection</h3></a>
 <p>Spatial convolution filters can be used for many common image processing tasks other than noise reduction. One common task is edge-detection, which is often used during automated mapping operations. Apply a 3 × 3 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#SobelFilter">Sobel edge-detection filter</a> to the <code>natural_colour_hsi.tif</code> image using the following script:</p>
@@ -488,12 +492,12 @@ wbt.sobel_filter(
 <p>Notice, that unlike the previous filters, there is no need to split the input colour composite image apart before applying the Sobel filter. This tool will work well with the RGB composite input image. When the script has successfully completed, display the resulting image using your data visualization software.</p>
 <blockquote>
 <p>Include a screenshot of the Sobel image with your Lab report <strong>(1 mark)</strong>.</p>
-<p>3.4. How well does the filter work to highlight edges between adjacent land-use patches and linear features? <strong>(2 mark)</strong></p>
+<p>3.5. How well does the filter work to highlight edges between adjacent land-use patches and linear features? <strong>(2 mark)</strong></p>
 </blockquote>
 <p>Modify the script above to run using the <strong>EdgePreservingMeanFilter</strong> colour composite image created in the previous lab part as the input image.</p>
 <blockquote>
 <p>Include your modified script with your Lab report <strong>(1 mark)</strong>.</p>
-<p>3.5. To what extent does the use of a previously filtered image improve the detection of edge and linear features in the image? <strong>(2 mark)</strong></p>
+<p>3.6. To what extent does the use of a previously filtered image improve the detection of edge and linear features in the image? <strong>(2 mark)</strong></p>
 </blockquote>
 <p>Typically, one would threshold the Sobel image (i.e. find all pixels <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#GreaterThan">greater than</a> a threshold value) and then apply a <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#LineThinning"><strong>line thinning</strong></a> method to further refine the mapped edges. But let's leave that for another day!</p>
 
