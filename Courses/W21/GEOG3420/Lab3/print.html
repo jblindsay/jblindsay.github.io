@@ -156,9 +156,9 @@
 <p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images.</p>
 <!-- Notice that you will need to have paid your lab fee to have printing privileges in the Hutt building computer labs. -->
 <a class="header" href="#part-1-hsi-transform" id="part-1-hsi-transform"><h1>Part 1: HSI Transform</h1></a>
-<p>In Lab 2, we saw how various contrast stretches can be used to improve the contrast (i.e. image lightness) and thereby improve the colour-composite derived from three stretched images. In this part of Lab 3, you will be introduced to the HSI transform, which can be used, along with contrast stretching, to further refine the colour balance of colour images.</p>
+<p>In Lab 2, we saw how various contrast stretches can be used to improve the contrast (i.e. image lightness) and thereby improve the colour-composite derived from three stretched images. In this part of Lab 3, you will be introduced to the HSI transform (also called <em>IHS</em>), which can be used, along with contrast stretching, to further refine the colour balance of colour images.</p>
 <blockquote>
-<p><strong>Readings:</strong> Mather and Koch (2011), <em>Computer Processing of Remotely-Sensed Images</em>, pp 171-172</p>
+<p><strong>Readings:</strong> Tempfli et al. (2009). Chapter 5 Section 5.2 <em>Visualization</em>, Subsection <em>IHS</em> pg. 176-177.</p>
 </blockquote>
 <p>The RGB-to-HSI transform takes three bands of imagery, or a red-green-blue (RGB) colour composite, as input and produces three transformed bands: <em>hue</em>, <em>saturation</em>, and <em>intensity</em> (HSI). Note, HSI is sometimes referred to as ISH or even HIS; Mather and Koch refer to this transform by the HSI convention, while WhiteboxTools uses ISH. <em>Hue</em> is related to the dominant wavelength of light and is perceived as the color associated with a pixel in a composite image. <em>Saturation</em> is the purity of a color. Colours become less pure as more white light is added, making them appear somewhat pastel. <em>Intensity</em> refers to the brightness, or lightness, of a color. There are several versions of the RGB-to-HSI transform, but one common convention results in HSI values within the following numerical ranges:</p>
 <blockquote>
@@ -274,7 +274,7 @@ print(&quot;All done!&quot;)
 <a class="header" href="#part-2-principal-component-analysis" id="part-2-principal-component-analysis"><h1>Part 2: Principal Component Analysis</h1></a>
 <p>This part of the lab exercise is designed to familiarize students with Principal Component Analysis (PCA) for multispectral imagery.</p>
 <blockquote>
-<p><strong>Readings:</strong> Mather and Koch (2011), <em>Computer Processing of Remotely-Sensed Images</em>, pp 160-168</p>
+<p><strong>Readings:</strong> Esri, <a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-principal-components-works.htm"><em>How Principal Components Work</em></a>, ArcGIS Pro Help Documentation, available online (https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-principal-components-works.htm).</p>
 </blockquote>
 <a class="header" href="#correlation-among-multispectral-images" id="correlation-among-multispectral-images"><h2>Correlation Among Multispectral Images</h2></a>
 <p>Correlation is a statistical technique that is used to evaluate the degree of association between two variables. Correlation, usually designated by the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson <em>r</em> value</a>, can be positive (indicating that as variable <em>X</em> increases in value variable <em>Y</em> also tends to increase) or negative (as <em>X</em> increases, <em>Y</em> tends to decrease in value). Correlation values vary from -1, indicating a strong negative association between variables, and 1, indicating a strong positive association. An <em>r</em>-value of 0 indicates that there is no statistical association between the two test variables.</p>
@@ -398,7 +398,7 @@ print(&quot;All done!&quot;)
 </li>
 </ol>
 <blockquote>
-<p><strong>Readings:</strong> Mather and Koch (2011), <em>Computer Processing of Remotely-Sensed Images</em>, pp 203-220</p>
+<p><strong>Readings:</strong> Tempfli et al. (2009). Chapter 5 Section 5.4.3 <em>Filter operations</em> pg. 198-203.</p>
 </blockquote>
 <a class="header" href="#image-smoothing-and-noise-reduction" id="image-smoothing-and-noise-reduction"><h2>Image Smoothing and Noise Reduction</h2></a>
 <p>You may recall from the previous section that PCA is sometimes used to remove noise from multi-spectral image datasets. Low-pass and edge-preserving low-pass filters similarly are used for reducing the occurrence of noise within images, although, unlike PCA, these operations are carried out on a single band (or the individual RGB components). Many satellite images contains substantial speckle, i.e. white noise. Speckle refers to a high-frequency, short-spatial scale variation among neighouring pixels. To enhance the image and to improve its information content, it is necessary to remove this speckle. This is sometimes useful prior to image classification and other mapping applications where it can be good to reduce the within-patch variability (e.g. tonal variation, or texture, within agricultural fields) and to maximize the between-patch tonal distinctions (e.g. the differences between adjoining agricultural fields).</p>
