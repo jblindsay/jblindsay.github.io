@@ -154,10 +154,14 @@
 <p>Hue is actually an angular quantity, and therefore its degree range takes 0 &lt; H &lt; 360.</p>
 <p>Be sure to download the imagery data associated with this lab assignment into an appropriate directory. These data should contain a sub-region of a Landsat 8 scene, including seven bands (i.e. bands 1 through 7) of image data, for an area of Southern Ontario between Kitchener-Waterloo, Cambridge, and Guelph. The image was acquired June 21, 2016. To get a sense of the data, use WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool to create a 432 natural-colour RGB composite image. Using a Python script, this might look something like the following:</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
-
+import os
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot; # Update this
+
+# declare your working directory as a variable
+wdir = &quot;Your working directory here&quot;
+assert(os.path.isdir(wdir)
+wbt.work_dir = wdir
 
 print(&quot;Creating a colour composite...&quot;)
 wbt.verbose = False  # We don't need progress updates

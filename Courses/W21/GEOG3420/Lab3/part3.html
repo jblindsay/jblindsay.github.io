@@ -169,10 +169,14 @@
 <p><strong>Notice that the code in the script below will not work as is. It contains a bug and you will need to be able to identify it and fix it before you can run it. Debugging code is a major part of learning how to program. It involves interpreting error messages and various other skills (e.g. inserting print statements to help you determine where the program is failing).</strong></p>
 </blockquote>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
-
+import os
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot; # Update this
+
+# declare your working directory as a variable
+wdir = &quot;Your working directory here&quot;
+assert(os.path.isdir(wdir)
+wbt.work_dir = wdir
 
 wbt.verbose = False
 

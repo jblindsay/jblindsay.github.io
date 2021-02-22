@@ -161,10 +161,15 @@
 <p>Use WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#PrincipalComponentAnalysis"><strong>PrincipalComponentAnalysis</strong></a> tool to run a PCA on the Landsat data set. Input all seven available bands. <strong>Do not standardized the PCA</strong>. This is only done when the variances in your input images differ substantially, such as would be the case if they contained values that were recorded in different units (e.g. feet and meters). Each of our input images have the same bit depth so we do not need to standardize the analysis. We want to create all of the component images, i.e. <code>num_comp=7</code>.</p>
 <p>You may run the PCA in a Python script (e.g. <em>pca.py</em>) that has been set up in the usual manner (i.e. importing WhiteboxTools, creating a <code>wbt</code> object, etc.), by using the following code:</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+import os
 
 
 wbt = WhiteboxTools()
-wbt.work_dir = &quot;/path/to/data/&quot; # Update this
+
+# declare your working directory as a variable
+wdir = &quot;Your working directory here&quot;
+assert(os.path.isdir(wdir)
+wbt.work_dir = wdir
 
 print(&quot;Performing PCA...&quot;)
 wbt.verbose = True  # We would like the PCA report to be automatically displayed
