@@ -1,24 +1,40 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Stream network analysis - WhiteboxTools User Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
         <link rel="shortcut icon" href="../favicon.png">
+        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
+        
         <link rel="stylesheet" href="../css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -30,11 +46,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +72,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,44 +94,48 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html" class="active"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../preface.html">Preface</a></li><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li class="chapter-item expanded "><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li class="chapter-item expanded "><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li class="chapter-item expanded "><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li class="chapter-item expanded "><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li class="chapter-item expanded "><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li class="chapter-item expanded "><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li class="chapter-item expanded "><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li class="chapter-item expanded "><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li class="chapter-item expanded "><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li class="chapter-item expanded "><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li class="chapter-item expanded "><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li class="chapter-item expanded "><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/stream_network_analysis.html" class="active"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li class="chapter-item expanded "><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li class="chapter-item expanded "><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li class="chapter-item expanded "><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li class="chapter-item expanded "><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+                    <h1 class="menu-title">WhiteboxTools User Manual</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
                     </div>
                 </div>
 
@@ -140,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#stream-network-analysis" id="stream-network-analysis"><h1>Stream Network Analysis</h1></a>
+                        <h1 id="stream-network-analysis"><a class="header" href="#stream-network-analysis">Stream Network Analysis</a></h1>
 <ul>
 <li><a href="#DistanceToOutlet">DistanceToOutlet</a></li>
 <li><a href="#ExtractStreams">ExtractStreams</a></li>
@@ -166,7 +189,7 @@
 <li><a href="#TributaryIdentifier">TributaryIdentifier</a></li>
 </ul>
 <p><a name="DistanceToOutlet"></a></p>
-<a class="header" href="#distancetooutlet" id="distancetooutlet"><h1>DistanceToOutlet</h1></a>
+<h1 id="distancetooutlet"><a class="header" href="#distancetooutlet">DistanceToOutlet</a></h1>
 <p>This tool calculates the distance of stream grid cells to the channel network outlet cell for each grid cell belonging to a
 raster stream network. The user must specify the name of a raster containing streams data (<code>--streams</code>), where
 stream grid cells are denoted by all positive non-zero values, and a D8 flow pointer (i.e. flow direction) raster
@@ -180,12 +203,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#downslopedistancetostream"><strong>DownslopeDistanceToStream</strong></a>, <a href="./stream_network_analysis.html#lengthofupstreamchannels"><strong>LengthOfUpstreamChannels</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.distance_to_outlet(
@@ -205,12 +228,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/dist_to_outlet.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/dist_to_outlet.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="ExtractStreams"></a></p>
-<a class="header" href="#extractstreams" id="extractstreams"><h1>ExtractStreams</h1></a>
+<h1 id="extractstreams"><a class="header" href="#extractstreams">ExtractStreams</a></h1>
 <p>This tool can be used to extract, or map, the likely stream cells from an input flow-accumulation image
 (<code>--flow_accum</code>). The algorithm applies a threshold to the input flow accumulation image such that streams
 are considered to be all grid cells with accumulation values greater than the specified threshold
@@ -230,11 +253,11 @@ flag is specified.</p>
 <p><em>See Also</em>:
 <a href="./mathand_stats_tools.html#greaterthan"><strong>GreaterThan</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--flow_accum       </td><td> Input raster D8 flow accumulation file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--threshold        </td><td> Threshold in flow accumulation values for channelization</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--flow_accum</td><td>Input raster D8 flow accumulation file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--threshold</td><td>Threshold in flow accumulation values for channelization</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.extract_streams(
@@ -250,12 +273,12 @@ flag is specified.</p>
 --flow_accum='d8accum.tif' -o='output.tif' --threshold=100.0 ^
 --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/extract_streams.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/extract_streams.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="ExtractValleys"></a></p>
-<a class="header" href="#extractvalleys" id="extractvalleys"><h1>ExtractValleys</h1></a>
+<h1 id="extractvalleys"><a class="header" href="#extractvalleys">ExtractValleys</a></h1>
 <p>This tool can be used to extract channel networks from an input digital elevation models (<code>--dem</code>) using
 one of three techniques that are based on local topography alone.</p>
 <p>The Lindsay (2006) 'lower-quartile' method (<code>--variant='LQ'</code>) algorithm is a type of 'valley recognition'
@@ -300,12 +323,12 @@ processing of discrete terrain elevation data. Computer Graphics and image proce
 <p><em>See Also</em>:
 <code>FeaturePreservingDenoise</code></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--variant          </td><td> Options include 'LQ' (lower quartile), 'JandR' (Johnston and Rosenfeld), and 'PandD' (Peucker and Douglas); default is 'LQ'</td></tr>
-<tr><td>--line_thin        </td><td> Optional flag indicating whether post-processing line-thinning should be performed</td></tr>
-<tr><td>--filter           </td><td> Optional argument (only used when variant='lq') providing the filter size, in grid cells, used for lq-filtering (default is 5)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--variant</td><td>Options include 'LQ' (lower quartile), 'JandR' (Johnston and Rosenfeld), and 'PandD' (Peucker and Douglas); default is 'LQ'</td></tr>
+<tr><td>--line_thin</td><td>Optional flag indicating whether post-processing line-thinning should be performed</td></tr>
+<tr><td>--filter</td><td>Optional argument (only used when variant='lq') providing the filter size, in grid cells, used for lq-filtering (default is 5)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.extract_valleys(
@@ -325,12 +348,12 @@ processing of discrete terrain elevation data. Computer Graphics and image proce
 --wd=&quot;/path/to/data/&quot; --dem=pointer.tif -o=out.tif ^
 --variant='lq' --filter=7 --line_thin 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/extract_valleys.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/extract_valleys.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="FarthestChannelHead"></a></p>
-<a class="header" href="#farthestchannelhead" id="farthestchannelhead"><h1>FarthestChannelHead</h1></a>
+<h1 id="farthestchannelhead"><a class="header" href="#farthestchannelhead">FarthestChannelHead</a></h1>
 <p>This tool calculates the upstream distance to the farthest stream head for each grid cell belonging to a
 raster stream network. The user must specify the name of a raster containing streams data (<code>--streams</code>), where
 stream grid cells are denoted by all positive non-zero values, and a D8 flow pointer (i.e. flow direction) raster
@@ -344,12 +367,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#lengthofupstreamchannels"><strong>LengthOfUpstreamChannels</strong></a>, <a href="./stream_network_analysis.html#findmainstem"><strong>FindMainStem</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.farthest_channel_head(
@@ -369,20 +392,20 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/farthest_channel_head.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/farthest_channel_head.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="FindMainStem"></a></p>
-<a class="header" href="#findmainstem" id="findmainstem"><h1>FindMainStem</h1></a>
+<h1 id="findmainstem"><a class="header" href="#findmainstem">FindMainStem</a></h1>
 <p>This tool can be used to identify the main channel in a stream network. The user must specify the names of
 a D8 pointer (flow direction) raster (<code>--d8_pntr</code>), and a streams raster (<code>--streams</code>). The pointer raster
 is used to traverse the stream network and should only be created using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>. By default, the pointer
 raster is assumed to use the clockwise indexing method used by WhiteboxTools:</p>
-<table><thead><tr><th align="center"> .  </th><th>  .  </th><th>  . </th></tr></thead><tbody>
-<tr><td align="center"> 64 </td><td align="center"> 128 </td><td align="center"> 1  </td></tr>
-<tr><td align="center"> 32 </td><td align="center">  0  </td><td align="center"> 2  </td></tr>
-<tr><td align="center"> 16 </td><td align="center">  8  </td><td align="center"> 4  </td></tr>
+<table><thead><tr><th align="center">.</th><th align="center">.</th><th align="center">.</th></tr></thead><tbody>
+<tr><td align="center">64</td><td align="center">128</td><td align="center">1</td></tr>
+<tr><td align="center">32</td><td align="center">0</td><td align="center">2</td></tr>
+<tr><td align="center">16</td><td align="center">8</td><td align="center">4</td></tr>
 </tbody></table>
 <p>If the pointer file contains ESRI flow direction values instead, the <code>--esri_pntr</code> parameter must be specified.</p>
 <p>The streams raster should have been created using one of the DEM-based stream mapping methods, i.e. contributing
@@ -394,12 +417,12 @@ When a confluence is encountered, the traverse follows the branch with the large
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.find_main_stem(
@@ -419,12 +442,12 @@ When a confluence is encountered, the traverse follows the branch with the large
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/find_main_stem.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/find_main_stem.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="HackStreamOrder"></a></p>
-<a class="header" href="#hackstreamorder" id="hackstreamorder"><h1>HackStreamOrder</h1></a>
+<h1 id="hackstreamorder"><a class="header" href="#hackstreamorder">HackStreamOrder</a></h1>
 <p>This tool can be used to assign the Hack stream order to each link in a stream network. According to this common
 stream numbering system, the main stream is assigned an order of one. All tributaries to the main stream (i.e. the trunk)
 are assigned an order of two; tributaries to second-order links are assigned an order of three, and so on. The trunk or
@@ -448,12 +471,12 @@ Printing Office.</p>
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.hack_stream_order(
@@ -473,12 +496,12 @@ Printing Office.</p>
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/hack_order.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/hack_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="HortonStreamOrder"></a></p>
-<a class="header" href="#hortonstreamorder" id="hortonstreamorder"><h1>HortonStreamOrder</h1></a>
+<h1 id="hortonstreamorder"><a class="header" href="#hortonstreamorder">HortonStreamOrder</a></h1>
 <p>This tool can be used to assign the Strahler stream order to each link in a stream network. Stream ordering is often used
 in hydro-geomorphic and ecological studies to quantify the relative size and importance of a stream segment to the overall
 river system. There are several competing stream ordering schemes. Based on to this common stream numbering system, headwater
@@ -501,12 +524,12 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a>, <a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.horton_stream_order(
@@ -526,12 +549,12 @@ morphology. Geological society of America bulletin, 56(3), 275-370.</p>
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/horton_order.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/horton_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="LengthOfUpstreamChannels"></a></p>
-<a class="header" href="#lengthofupstreamchannels" id="lengthofupstreamchannels"><h1>LengthOfUpstreamChannels</h1></a>
+<h1 id="lengthofupstreamchannels"><a class="header" href="#lengthofupstreamchannels">LengthOfUpstreamChannels</a></h1>
 <p>This tool calculates, for each stream grid cell in an input streams raster (<code>--streams</code>) the
 total length of channels upstream. The user must specify the name of a raster containing streams data (<code>--streams</code>), where
 stream grid cells are denoted by all positive non-zero values, and a D8 flow pointer (i.e. flow direction) raster
@@ -545,12 +568,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#farthestchannelhead"><strong>FarthestChannelHead</strong></a>, <a href="./stream_network_analysis.html#findmainstem"><strong>FindMainStem</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.length_of_upstream_channels(
@@ -570,12 +593,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/total_length_channels.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/total_length_channels.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="LongProfile"></a></p>
-<a class="header" href="#longprofile" id="longprofile"><h1>LongProfile</h1></a>
+<h1 id="longprofile"><a class="header" href="#longprofile">LongProfile</a></h1>
 <p>This tool can be used to create a <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> plot.
 A longitudinal stream profile is a plot of elevation against downstream distance. Most long profiles use distance
 from channel head as the distance measure. This tool, however, uses the distance to the stream network outlet cell,
@@ -597,12 +620,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#longprofilefrompoints"><strong>LongProfileFromPoints</strong></a>, <a href="./geomorphometric_analysis.html#profile"><strong>Profile</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>--dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.long_profile(
@@ -619,12 +642,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --d8_pntr=D8.tif --streams=streams.tif --dem=dem.tif ^
 -o=output.html --esri_pntr 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/long_profile.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/long_profile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/02/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="LongProfileFromPoints"></a></p>
-<a class="header" href="#longprofilefrompoints" id="longprofilefrompoints"><h1>LongProfileFromPoints</h1></a>
+<h1 id="longprofilefrompoints"><a class="header" href="#longprofilefrompoints">LongProfileFromPoints</a></h1>
 <p>This tool can be used to create a <a href="http://www.fao.org/docrep/003/X6841E/X6841E02.HTM">longitudinal profile</a> plot
 for a set of vector points (<code>--points</code>).  A longitudinal stream profile is a plot of elevation against downstream
 distance. Most long profiles use distance from channel head as the distance measure. This tool, however, uses the
@@ -638,12 +661,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile</strong></a>, <a href="./geomorphometric_analysis.html#profile"><strong>Profile</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--points           </td><td> Input vector points file</td></tr>
-<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--points</td><td>Input vector points file</td></tr>
+<tr><td>--dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.long_profile_from_points(
@@ -660,12 +683,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --points=stream_head.shp ^
 --dem=dem.tif -o=output.html --esri_pntr 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/long_profile_from_points.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/long_profile_from_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/02/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="RasterStreamsToVector"></a></p>
-<a class="header" href="#rasterstreamstovector" id="rasterstreamstovector"><h1>RasterStreamsToVector</h1></a>
+<h1 id="rasterstreamstovector"><a class="header" href="#rasterstreamstovector">RasterStreamsToVector</a></h1>
 <p>This tool converts a raster stream file into a vector file. The user must specify: 1)
 the name of the raster streams file, 2) the name of the D8 flow pointer file,
 and 3) the name of the output vector file. Streams in the input raster streams
@@ -678,11 +701,11 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#rasterizestreams"><strong>RasterizeStreams</strong></a>, <a href="./data_tools.html#rastertovectorlines"><strong>RasterToVectorLines</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.raster_streams_to_vector(
@@ -701,12 +724,12 @@ D8 flow pointer algorithm. The output vector will contain PolyLine features.</p>
 --wd=&quot;/path/to/data/&quot; --streams=streams.tif --d8_pntr=D8.tif ^
 -o=output.shp --esri_pntr 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/raster_streams_to_vector.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/raster_streams_to_vector.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 24/09/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="RasterizeStreams"></a></p>
-<a class="header" href="#rasterizestreams" id="rasterizestreams"><h1>RasterizeStreams</h1></a>
+<h1 id="rasterizestreams"><a class="header" href="#rasterizestreams">RasterizeStreams</a></h1>
 <p>This tool can be used rasterize an input vector stream network (<code>--streams</code>) using on Lindsay (2016) method.
 The user must specify the name of an existing raster (<code>--base</code>), from which the output raster's grid resolution
 is determined.</p>
@@ -716,12 +739,12 @@ is determined.</p>
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#rasterstreamstovector"><strong>RasterStreamsToVector</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--streams          </td><td> Input vector streams file</td></tr>
-<tr><td>--base             </td><td> Input base raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--nodata           </td><td> Use NoData value for background?</td></tr>
-<tr><td>--feature_id       </td><td> Use feature number as output value?</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--streams</td><td>Input vector streams file</td></tr>
+<tr><td>--base</td><td>Input base raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--nodata</td><td>Use NoData value for background?</td></tr>
+<tr><td>--feature_id</td><td>Use feature number as output value?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.rasterize_streams(
@@ -738,12 +761,12 @@ is determined.</p>
 --wd=&quot;/path/to/data/&quot; --streams=streams.shp --base=raster.tif ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/rasterize_streams.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/rasterize_streams.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/03/2018</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="RemoveShortStreams"></a></p>
-<a class="header" href="#removeshortstreams" id="removeshortstreams"><h1>RemoveShortStreams</h1></a>
+<h1 id="removeshortstreams"><a class="header" href="#removeshortstreams">RemoveShortStreams</a></h1>
 <p>This tool can be used to remove stream links in a stream network that are shorter than a user-specified length (<code>--min_length</code>).
 The user must specify the names of a streams raster image (<code>--streams</code>) and D8 pointer image (<code>--d8_pntr</code>). Stream cells
 are designated in the streams raster as all positive, nonzero values. Thus all non-stream or background grid cells are
@@ -755,12 +778,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#extractstreams"><strong>ExtractStreams</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--min_length       </td><td> Minimum tributary length (in map units) used for network prunning</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--min_length</td><td>Minimum tributary length (in map units) used for network prunning</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.remove_short_streams(
@@ -777,12 +800,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/remove_short_streams.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/remove_short_streams.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="ShreveStreamMagnitude"></a></p>
-<a class="header" href="#shrevestreammagnitude" id="shrevestreammagnitude"><h1>ShreveStreamMagnitude</h1></a>
+<h1 id="shrevestreammagnitude"><a class="header" href="#shrevestreammagnitude">ShreveStreamMagnitude</a></h1>
 <p>This tool can be used to assign the Shreve stream magnitude to each link in a stream network. Stream ordering is often used
 in hydro-geomorphic and ecological studies to quantify the relative size and importance of a stream segment to the overall
 river system. There are several competing stream ordering schemes. Shreve stream magnitude is equal to the number of
@@ -799,12 +822,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.shreve_stream_magnitude(
@@ -824,12 +847,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/shreve_magnitude.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/shreve_magnitude.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="StrahlerStreamOrder"></a></p>
-<a class="header" href="#strahlerstreamorder" id="strahlerstreamorder"><h1>StrahlerStreamOrder</h1></a>
+<h1 id="strahlerstreamorder"><a class="header" href="#strahlerstreamorder">StrahlerStreamOrder</a></h1>
 <p>This tool can be used to assign the Strahler stream order to each link in a stream network. Stream ordering is often used
 in hydro-geomorphic and ecological studies to quantify the relative size and importance of a stream segment to the overall
 river system. There are several competing stream ordering schemes. Based on to this common stream numbering system, headwater
@@ -852,12 +875,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a>, <a href="./stream_network_analysis.html#topologicalstreamorder"><strong>TopologicalStreamOrder</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.strahler_stream_order(
@@ -877,12 +900,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/strahler_order.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/strahler_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="StreamLinkClass"></a></p>
-<a class="header" href="#streamlinkclass" id="streamlinkclass"><h1>StreamLinkClass</h1></a>
+<h1 id="streamlinkclass"><a class="header" href="#streamlinkclass">StreamLinkClass</a></h1>
 <p>This tool identifies all interior and exterior links, and source, link, and sink nodes in an input stream network
 (<code>--streams</code>). The input streams file is used to designate which grid cells contain a stream and the pointer
 image is used to traverse the stream network. Stream cells are designated in the streams image as all values
@@ -890,12 +913,12 @@ greater than zero. Thus, all non-stream or background grid cells are commonly as
 values. Background cells will be assigned the NoData value in the output image, unless the <code>--zero_background</code>
 parameter is used, in which case non-stream cells will be assinged zero values in the output.</p>
 <p>Each feature is assigned the following identifier in the output image:</p>
-<table><thead><tr><th>Value </th><th> Stream Type</th></tr></thead><tbody>
-<tr><td>1    </td><td> Exterior Link</td></tr>
-<tr><td>2    </td><td> Interior Link</td></tr>
-<tr><td>3    </td><td> Source Node (head water)</td></tr>
-<tr><td>4    </td><td> Link Node</td></tr>
-<tr><td>5    </td><td> Sink Node</td></tr>
+<table><thead><tr><th>Value</th><th>Stream Type</th></tr></thead><tbody>
+<tr><td>1</td><td>Exterior Link</td></tr>
+<tr><td>2</td><td>Interior Link</td></tr>
+<tr><td>3</td><td>Source Node (head water)</td></tr>
+<tr><td>4</td><td>Link Node</td></tr>
+<tr><td>5</td><td>Sink Node</td></tr>
 </tbody></table>
 <p>The user must specify the names of an input stream file, a pointer (flow direction) file (<code>--d8_pntr</code>)
 and the output raster file (<code>--output</code>). The flow pointer and streams rasters should be generated
@@ -906,12 +929,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.stream_link_class(
@@ -931,12 +954,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_class.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/stream_link_class.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
 <p><em>Last Modified</em>: 10/10/2019</p>
 <p><a name="StreamLinkIdentifier"></a></p>
-<a class="header" href="#streamlinkidentifier" id="streamlinkidentifier"><h1>StreamLinkIdentifier</h1></a>
+<h1 id="streamlinkidentifier"><a class="header" href="#streamlinkidentifier">StreamLinkIdentifier</a></h1>
 <p>This tool can be used to assign each link in a stream network a unique numeric identifier. This grid is
 used by a number of other stream network analysis tools.</p>
 <p>The input streams file (<code>--streams</code>) is used to designate which grid cells contain a stream and the pointer
@@ -953,12 +976,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./stream_network_analysis.html#tributaryidentifier"><strong>TributaryIdentifier</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.stream_link_identifier(
@@ -978,12 +1001,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_id.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/stream_link_id.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StreamLinkLength"></a></p>
-<a class="header" href="#streamlinklength" id="streamlinklength"><h1>StreamLinkLength</h1></a>
+<h1 id="streamlinklength"><a class="header" href="#streamlinklength">StreamLinkLength</a></h1>
 <p>This tool can be used to measure the length of each link in a stream network. The user must specify the names of
 a stream link ID raster (<code>--linkid</code>), created using the <a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a> and D8 pointer raster (<code>--d8_pntr</code>).
 The flow pointer raster is used to traverse the stream network and should only be created using the <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a> algorithm.
@@ -993,12 +1016,12 @@ cells will be assinged zero values in the output.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./stream_network_analysis.html#streamlinkslope"><strong>StreamLinkSlope</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--linkid           </td><td> Input raster streams link ID (or tributary ID) file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--linkid</td><td>Input raster streams link ID (or tributary ID) file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.stream_link_length(
@@ -1019,12 +1042,12 @@ cells will be assinged zero values in the output.</p>
 --linkid=streamsID.tif --dem=dem.tif -o=output.tif --esri_pntr ^
 --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_length.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/stream_link_length.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="StreamLinkSlope"></a></p>
-<a class="header" href="#streamlinkslope" id="streamlinkslope"><h1>StreamLinkSlope</h1></a>
+<h1 id="streamlinkslope"><a class="header" href="#streamlinkslope">StreamLinkSlope</a></h1>
 <p>This tool can be used to measure the average slope gradient, in degrees, of each link in a raster stream
 network. To estimate the slope of individual grid cells in a raster stream network, use the
 <a href="./stream_network_analysis.html#streamslopecontinuous"><strong>StreamSlopeContinuous</strong></a> tool instead. The user must specify the names of a stream link identifier raster image (<code>--linkid</code>), a D8
@@ -1039,13 +1062,13 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#streamslopecontinuous"><strong>StreamSlopeContinuous</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--linkid           </td><td> Input raster streams link ID (or tributary ID) file</td></tr>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--linkid</td><td>Input raster streams link ID (or tributary ID) file</td></tr>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.stream_link_slope(
@@ -1067,12 +1090,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --linkid=streamsID.tif --dem=dem.tif -o=output.tif --esri_pntr ^
 --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_link_slope.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/stream_link_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="StreamSlopeContinuous"></a></p>
-<a class="header" href="#streamslopecontinuous" id="streamslopecontinuous"><h1>StreamSlopeContinuous</h1></a>
+<h1 id="streamslopecontinuous"><a class="header" href="#streamslopecontinuous">StreamSlopeContinuous</a></h1>
 <p>This tool can be used to measure the slope gradient, in degrees, each grid cell in a raster stream network. To
 estimate the average slope for each link in a stream network, use the
 <a href="./stream_network_analysis.html#streamlinkslope"><strong>StreamLinkSlope</strong></a> tool instead. The user must specify the names of a stream raster image (<code>--streams</code>), a D8
@@ -1087,13 +1110,13 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#streamlinkslope"><strong>StreamLinkSlope</strong></a>, <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.stream_slope_continuous(
@@ -1115,12 +1138,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --d8_pntr=D8.tif --streams=streamsID.tif --dem=dem.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/stream_slope_continuous.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/stream_slope_continuous.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/07/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="TopologicalStreamOrder"></a></p>
-<a class="header" href="#topologicalstreamorder" id="topologicalstreamorder"><h1>TopologicalStreamOrder</h1></a>
+<h1 id="topologicalstreamorder"><a class="header" href="#topologicalstreamorder">TopologicalStreamOrder</a></h1>
 <p>This tool can be used to assign the topological stream order to each link in a stream network. According to this
 stream numbering system, the link directly draining to the outlet is assigned an order of one. Each of the two
 tributaries draining to the order-one link are assigned an order of two, and so on until the most distant link from
@@ -1136,12 +1159,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#hackstreamorder"><strong>HackStreamOrder</strong></a>, <a href="./stream_network_analysis.html#hortonstreamorder"><strong>HortonStreamOrder</strong></a>, <a href="./stream_network_analysis.html#strahlerstreamorder"><strong>StrahlerStreamOrder</strong></a>, <a href="./stream_network_analysis.html#shrevestreammagnitude"><strong>ShreveStreamMagnitude</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.topological_stream_order(
@@ -1161,12 +1184,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/topological_stream_order.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/topological_stream_order.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/06/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="TributaryIdentifier"></a></p>
-<a class="header" href="#tributaryidentifier" id="tributaryidentifier"><h1>TributaryIdentifier</h1></a>
+<h1 id="tributaryidentifier"><a class="header" href="#tributaryidentifier">TributaryIdentifier</a></h1>
 <p>This tool can be used to assigns a unique identifier to each tributary in a stream network. A tributary is
 a section of a stream network extending from a channel head downstream to a confluence with a larger stream.
 Relative stream size is estimated using stream length as a surrogate. Tributaries therefore extend from channel
@@ -1186,12 +1209,12 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#d8pointer"><strong>D8Pointer</strong></a>, <a href="./stream_network_analysis.html#streamlinkidentifier"><strong>StreamLinkIdentifier</strong></a>, <a href="./hydrological_analysis.html#breachdepressions"><strong>BreachDepressions</strong></a>, <a href="./hydrological_analysis.html#filldepressions"><strong>FillDepressions</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--d8_pntr          </td><td> Input raster D8 pointer file</td></tr>
-<tr><td>--streams          </td><td> Input raster streams file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--esri_pntr        </td><td> D8 pointer uses the ESRI style scheme</td></tr>
-<tr><td>--zero_background  </td><td> Flag indicating whether a background value of zero should be used</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--d8_pntr</td><td>Input raster D8 pointer file</td></tr>
+<tr><td>--streams</td><td>Input raster streams file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--esri_pntr</td><td>D8 pointer uses the ESRI style scheme</td></tr>
+<tr><td>--zero_background</td><td>Flag indicating whether a background value of zero should be used</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.tributary_identifier(
@@ -1211,7 +1234,7 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 --wd=&quot;/path/to/data/&quot; --d8_pntr=D8.tif --streams=streams.tif ^
 -o=output.tif --esri_pntr --zero_background 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/stream_network_analysis/tributary_id.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/stream_network_analysis/tributary_id.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 10/10/2019</p>
@@ -1239,13 +1262,13 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../available_tools/mathand_stats_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../available_tools/mathand_stats_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../tutorials/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../tutorials/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -1255,6 +1278,14 @@ If the pointer file contains ESRI flow direction values instead, the <code>--esr
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         

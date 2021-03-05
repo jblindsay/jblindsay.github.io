@@ -1,24 +1,40 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Processing LiDAR data - WhiteboxTools User Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
         <link rel="shortcut icon" href="../favicon.png">
+        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
+        
         <link rel="stylesheet" href="../css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -30,11 +46,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +72,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,44 +94,48 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li><a href="../tutorials/lidar.html" class="active"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../preface.html">Preface</a></li><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li class="chapter-item expanded "><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li class="chapter-item expanded "><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li class="chapter-item expanded "><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li class="chapter-item expanded "><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li class="chapter-item expanded "><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li class="chapter-item expanded "><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li class="chapter-item expanded "><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li class="chapter-item expanded "><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li class="chapter-item expanded "><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li class="chapter-item expanded "><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li class="chapter-item expanded "><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li class="chapter-item expanded "><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li class="chapter-item expanded "><a href="../tutorials/lidar.html" class="active"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li class="chapter-item expanded "><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li class="chapter-item expanded "><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li class="chapter-item expanded "><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+                    <h1 class="menu-title">WhiteboxTools User Manual</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
                     </div>
                 </div>
 
@@ -140,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#processing-lidar-data" id="processing-lidar-data"><h1>Processing LiDAR data</h1></a>
+                        <h1 id="processing-lidar-data"><a class="header" href="#processing-lidar-data">Processing LiDAR data</a></h1>
 <ul>
 <li><a href="#grid_lidar">How do I convert a LiDAR point cloud into a raster?</a></li>
 <li><a href="#select_tiles_by_polygon">How do I extract a subset of LiDAR files that overlap with an area of interest?</a></li>
@@ -157,7 +180,7 @@
 <li><a href="#workflow">What is the workflow after mosaicking my DEM?</a></li>
 </ul>
 <p><a name="grid_lidar"></a></p>
-<a class="header" href="#how-do-i-convert-a-lidar-point-cloud-into-a-raster" id="how-do-i-convert-a-lidar-point-cloud-into-a-raster"><h2>How do I convert a LiDAR point cloud into a raster?</h2></a>
+<h2 id="how-do-i-convert-a-lidar-point-cloud-into-a-raster"><a class="header" href="#how-do-i-convert-a-lidar-point-cloud-into-a-raster">How do I convert a LiDAR point cloud into a raster?</a></h2>
 <p>Converting your LiDAR data into a raster requires an interpolation operation. There are many such interpolation methods. The following is an example of how to interpolate the last-return points of a LAS/zLidar file using an inverse distance weighted (IDW) interpolation scheme, with a search window radius of 2.5 m, an exponent of 2.0, and an output grid resolution of 1.5 m. You may prefer to derive your raster DEM using Delaunay triangulation (TINing) instead.</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
@@ -176,7 +199,7 @@ radius=2.5
 </code></pre>
 <p>Other methods for gridding a LAS/zLidar file include nearest neighbour, Delaunay triangulation (TINing), block minimum, and block maximum gridding schemes.</p>
 <p><a name="select_tiles_by_polygon"></a></p>
-<a class="header" href="#how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest" id="how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest"><h2>How do I extract a subset of LiDAR files that overlap with an area of interest?</h2></a>
+<h2 id="how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest"><a class="header" href="#how-do-i-extract-a-subset-of-lidar-files-that-overlap-with-an-area-of-interest">How do I extract a subset of LiDAR files that overlap with an area of interest?</a></h2>
 <p>Sometimes, you need to extract all of the LAS/zLidar tiles from a large dataset that overlap with a particular area of interest. For example, you may need to interpolate all the files overlapping with a watershed or a particular city. For this task, you can use <em>select_tiles_by_polygon</em>.
 # Uncomment the four lines below if you want to do this.
 # outdir = &quot;/Users/johnlindsay/Documents/data/LAS_files_in_watershed/&quot;
@@ -211,34 +234,34 @@ if __name__ == &quot;__main__&quot; :
     print(&quot;Complete&quot;)
 </code></pre>
 <p><a name="classification"></a></p>
-<a class="header" href="#how-do-i-exclude-points-with-certain-classifications" id="how-do-i-exclude-points-with-certain-classifications"><h2>How do I exclude points with certain classifications?</h2></a>
+<h2 id="how-do-i-exclude-points-with-certain-classifications"><a class="header" href="#how-do-i-exclude-points-with-certain-classifications">How do I exclude points with certain classifications?</a></h2>
 <p>It is commonly the case that points with certain class values should be excluded from the gridding of LiDAR data. For example, you may wish to exclude points associated with vegetation, buildings, bridges, utility lines, etc. The <em>LidarIdwInterpolation</em> and <em>LidarNearestNeighbourGridding</em> tools allow for excluded point classes using the <em>exclude_cls</em> parameter. The parameter takes a numeric list as input, e.g. <code>exclude_cls='3,4,5,6,7,18'</code>. Class values follow those of the LAS v.1.4 specifications:</p>
 <p><em>LAS point classification values</em></p>
-<table><thead><tr><th align="left"> Classification Value  </th><th align="left"> Meaning                              </th></tr></thead><tbody>
-<tr><td align="left"> 0                     </td><td align="left"> Created never classified</td></tr>
-<tr><td align="left"> 1                     </td><td align="left"> Unclassified3</td></tr>
-<tr><td align="left"> 2                     </td><td align="left"> Ground</td></tr>
-<tr><td align="left"> 3                     </td><td align="left"> Low Vegetation</td></tr>
-<tr><td align="left"> 4                     </td><td align="left"> Medium Vegetation</td></tr>
-<tr><td align="left"> 5                     </td><td align="left"> High Vegetation</td></tr>
-<tr><td align="left"> 6                     </td><td align="left"> Building</td></tr>
-<tr><td align="left"> 7                     </td><td align="left"> Low Point (noise)</td></tr>
-<tr><td align="left"> 8                     </td><td align="left"> Reserved</td></tr>
-<tr><td align="left"> 9                     </td><td align="left"> Water</td></tr>
-<tr><td align="left"> 10                    </td><td align="left"> Rail</td></tr>
-<tr><td align="left"> 11                    </td><td align="left"> Road Surface</td></tr>
-<tr><td align="left"> 12                    </td><td align="left"> Reserved</td></tr>
-<tr><td align="left"> 13                    </td><td align="left"> Wire – Guard (Shield)</td></tr>
-<tr><td align="left"> 14                    </td><td align="left"> Wire – Conductor (Phase)</td></tr>
-<tr><td align="left"> 15                    </td><td align="left"> Transmission Tower</td></tr>
-<tr><td align="left"> 16                    </td><td align="left"> Wire-structure Connector (e.g. Insulator)</td></tr>
-<tr><td align="left"> 17                    </td><td align="left"> Bridge Deck</td></tr>
-<tr><td align="left"> 18                    </td><td align="left"> High Noise</td></tr>
+<table><thead><tr><th align="left">Classification Value</th><th align="left">Meaning</th></tr></thead><tbody>
+<tr><td align="left">0</td><td align="left">Created never classified</td></tr>
+<tr><td align="left">1</td><td align="left">Unclassified3</td></tr>
+<tr><td align="left">2</td><td align="left">Ground</td></tr>
+<tr><td align="left">3</td><td align="left">Low Vegetation</td></tr>
+<tr><td align="left">4</td><td align="left">Medium Vegetation</td></tr>
+<tr><td align="left">5</td><td align="left">High Vegetation</td></tr>
+<tr><td align="left">6</td><td align="left">Building</td></tr>
+<tr><td align="left">7</td><td align="left">Low Point (noise)</td></tr>
+<tr><td align="left">8</td><td align="left">Reserved</td></tr>
+<tr><td align="left">9</td><td align="left">Water</td></tr>
+<tr><td align="left">10</td><td align="left">Rail</td></tr>
+<tr><td align="left">11</td><td align="left">Road Surface</td></tr>
+<tr><td align="left">12</td><td align="left">Reserved</td></tr>
+<tr><td align="left">13</td><td align="left">Wire – Guard (Shield)</td></tr>
+<tr><td align="left">14</td><td align="left">Wire – Conductor (Phase)</td></tr>
+<tr><td align="left">15</td><td align="left">Transmission Tower</td></tr>
+<tr><td align="left">16</td><td align="left">Wire-structure Connector (e.g. Insulator)</td></tr>
+<tr><td align="left">17</td><td align="left">Bridge Deck</td></tr>
+<tr><td align="left">18</td><td align="left">High Noise</td></tr>
 </tbody></table>
 <p>Of course, not all LAS/zLidar files have had point classifications applied and stored. To determine whether your data contains point class
 data, you can run the <em>LidarInfo</em> tool before interpolation.</p>
-<p><a name="LidarGroundPointFilter"></p>
-<a class="header" href="#how-do-i-remove-non-ground-points-from-my-lidar-file" id="how-do-i-remove-non-ground-points-from-my-lidar-file"><h2>How do I remove non-ground points from my LiDAR file?</h2></a>
+<a name="LidarGroundPointFilter">
+## How do I remove non-ground points from my LiDAR file?
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, and John Lindsay
 # Created: 01/07/2020
@@ -342,7 +365,7 @@ def main():
 main()
 </code></pre>
 <p><a name="folder"></a></p>
-<a class="header" href="#i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once" id="i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once"><h2>I have many LAS/zLidar files and want to interpolate all of them at once</h2></a>
+<h2 id="i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once"><a class="header" href="#i-have-many-laszlidar-files-and-want-to-interpolate-all-of-them-at-once">I have many LAS/zLidar files and want to interpolate all of them at once</a></h2>
 <p>When you have hundreds, or even thousands, of LAS/zLidar files you might be inclined to write a Python script that calls the above function for each input file contained within a folder. But that isn't the best way to handle this common situation. Instead, if the input (i) and output parameters are left unspecified, each of WhiteboxTool's LiDAR gridding methods will interpolate all of the LAS and zLidar files in the working directory, e.g.</p>
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, and John Lindsay
@@ -448,13 +471,13 @@ main()
 </code></pre>
 <p>Using this approach to folder-based interpolation has some advantages other than a greatly simplified script. WhiteboxTools will be able to parallelize the operation better, greatly improving the overall time required to interpolate the batch of files. Also, the gridding operations will be carried out with a strip of buffered data surrounding each LiDAR tile, i.e. there will be reduced edge-effects. This will reduce the potential for artifacts in the final mosaiced DEM.</p>
 <p><a name="low_points"></a></p>
-<a class="header" href="#what-if-my-data-contains-anomalously-highlow-points" id="what-if-my-data-contains-anomalously-highlow-points"><h2>What if my data contains anomalously high/low points?</h2></a>
+<h2 id="what-if-my-data-contains-anomalously-highlow-points"><a class="header" href="#what-if-my-data-contains-anomalously-highlow-points">What if my data contains anomalously high/low points?</a></h2>
 <p>This is a fairly common problem with LiDAR data. If you're fortunate, these points, which often fall hundreds of meters above  or below the terrain surface, will be classified appropriately. When  this is the case, you may simply exclude the points with class values of 7 (low point) and 18 (high point). Alternatively, you may use the optional <code>minz</code> and <code>maxz</code> interpolation parameters to exclude unclassified outlier points. Lastly, you may remove these points from the original point cloud data set using the <em>LidarRemoveOutliers</em> tool.</p>
 <p><a name="laz"></a></p>
-<a class="header" href="#my-data-are-in-laz-format-how-do-i-interpolate-them" id="my-data-are-in-laz-format-how-do-i-interpolate-them"><h2>My data are in LAZ format. How do I interpolate them?</h2></a>
+<h2 id="my-data-are-in-laz-format-how-do-i-interpolate-them"><a class="header" href="#my-data-are-in-laz-format-how-do-i-interpolate-them">My data are in LAZ format. How do I interpolate them?</a></h2>
 <p>WhiteboxTools does not currently support the compressed LiDAR format LAZ. To use these data, you will first need to decompress the files to a LAS format. You may wish to use LasTools for this purpose. You may also want to convert the LAS files into the <a href="https://jblindsay.github.io/zLidar_spec/intro.html">zLidar compressed LiDAR format</a> which is supported.</p>
 <p><a name="lazToZlidar"></a></p>
-<a class="header" href="#how-do-i-convert-las-or-laz-to-zlidar" id="how-do-i-convert-las-or-laz-to-zlidar"><h2>How do I convert LAS or LAZ to zLidar?</h2></a>
+<h2 id="how-do-i-convert-las-or-laz-to-zlidar"><a class="header" href="#how-do-i-convert-las-or-laz-to-zlidar">How do I convert LAS or LAZ to zLidar?</a></h2>
 <p>The <a href="../available_tools/lidar_tools.html#LasToZlidar">LasToZlidar</a> tool can be used to convert one ore more LAS files to the <a href="https://jblindsay.github.io/zLidar_spec/intro.html">zLidar compressed LiDAR format</a>. Converting LAZ files into the zLidar format requires a more complex workflow because the LASTools library is needed.</p>
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, John Lindsay
@@ -604,7 +627,7 @@ if __name__ == &quot;__main__&quot; :
     print(&quot;script complete&quot;)
 </code></pre>
 <p><a name="intensity"></a></p>
-<a class="header" href="#how-do-i-interpolate-an-image-from-the-intensity-data" id="how-do-i-interpolate-an-image-from-the-intensity-data"><h2>How do I interpolate an image from the intensity data?</h2></a>
+<h2 id="how-do-i-interpolate-an-image-from-the-intensity-data"><a class="header" href="#how-do-i-interpolate-an-image-from-the-intensity-data">How do I interpolate an image from the intensity data?</a></h2>
 <p>The <code>parameter</code> argument of the IDW and nearest neighbour interpolator tools allows you to interpolate intensity data (options include 'elevation', 'intensity', 'class', 'scan angle', and 'user data'). Here is an example:</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
@@ -615,10 +638,10 @@ wbt.lidar_nearest_neighbour_gridding(
 &quot;in.las&quot;, &quot;out.tif&quot;, parameter=&quot;intensity&quot;)
 </code></pre>
 <p><a name="resolution"></a></p>
-<a class="header" href="#how-do-i-decide-on-an-appropriate-grid-resolution" id="how-do-i-decide-on-an-appropriate-grid-resolution"><h2>How do I decide on an appropriate grid resolution?</h2></a>
+<h2 id="how-do-i-decide-on-an-appropriate-grid-resolution"><a class="header" href="#how-do-i-decide-on-an-appropriate-grid-resolution">How do I decide on an appropriate grid resolution?</a></h2>
 <p>You want to choose a grid resolution where the vast majority of grid cells in the area covered by data have at least one return point. If you are interpolating with last-return points only, then this will necessarily reduce the potential resolution. Ultimately, there is not single appropriate value and the range of suitable resolutions will depend on the distribution of point density with the area of coverage. If the specified resolution is too high given the point density of the LiDAR data set, many of the grid cells will either be NoData holes, or represent interpolated values from relatively distant (up to the search radius) points. A higher than necessary grid resolution will also make working with the final mosaiced DEM raster more challenging, due to the computational effort needed to work with massive rasters and increase the storage and memory requirements. It is advisable to experiment with the <em>LidarPointDensity</em> and <em>LidarPointStats</em> tools before deciding upon a grid resolution for interpolation.</p>
 <p><a name="nodata_gaps"></a></p>
-<a class="header" href="#my-raster-contains-nodata-gaps-how-do-i-remove-these" id="my-raster-contains-nodata-gaps-how-do-i-remove-these"><h2>My raster contains NoData gaps. How do I remove these?</h2></a>
+<h2 id="my-raster-contains-nodata-gaps-how-do-i-remove-these"><a class="header" href="#my-raster-contains-nodata-gaps-how-do-i-remove-these">My raster contains NoData gaps. How do I remove these?</a></h2>
 <p>First, we need to distinguish between two common areas of NoData values in the interpolated rasters of LiDAR data sets. Because LiDAR data are often collected for irregularly shaped sites, it is frequently the case that LiDAR DEMs have large NoData areas beyond the area of LiDAR point coverage. These are generally acceptable void areas and should not be altered. The more problemmatic void areas are interior data gaps (so called doughnut holes). These generally arise because the point density in an area of LiDAR coverage is lower than the grid resolution (and search radius) dictate in an area. Sometimes these NoData areas are associated with specific non-reflective surfaces, such as water, or areas of dense vegetation (and therefore the last return point density is far lower than in other areas). If the NoData gaps are extensive and spread throughout he area of coverage, that is a sign that you likely need to interpolate either with a coarser grid resolution or a larger search radius, or quite probably both. If your LiDAR DEM has a small number these void areas, and they are not extensive, then you may interpolate to remove the gaps using the <em>FillMissingData</em> tool:</p>
 <pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
 
@@ -629,7 +652,7 @@ wbt.fill_missing_data(&quot;dem.tif&quot;, &quot;new_dem.tif&quot;, filter=11)
 </code></pre>
 <p>The choice of a filter size will depend on the extent of the largest interior void area.</p>
 <p><a name="mosaic"></a></p>
-<a class="header" href="#how-do-i-combine-many-lidar-tiles-into-a-single-raster" id="how-do-i-combine-many-lidar-tiles-into-a-single-raster"><h2>How do I combine many LiDAR tiles into a single raster?</h2></a>
+<h2 id="how-do-i-combine-many-lidar-tiles-into-a-single-raster"><a class="header" href="#how-do-i-combine-many-lidar-tiles-into-a-single-raster">How do I combine many LiDAR tiles into a single raster?</a></h2>
 <p>Often you have many hundred LAS/zLidar files, which you've interpolated into an equally large number of raster files. To combine these rasters into a single large DEM, use the Mosaic tool.</p>
 <pre><code class="language-python"># This script is affiliated with the WhiteboxTools Geospatial analysis library 
 # Authors: Anthony Francioni, Carys Owens, and John Lindsay
@@ -696,7 +719,7 @@ def main():
 main()
 </code></pre>
 <p><a name="workflow"></a></p>
-<a class="header" href="#what-is-the-workflow-after-mosaicking-my-dem" id="what-is-the-workflow-after-mosaicking-my-dem"><h2>What is the workflow after mosaicking my DEM?</h2></a>
+<h2 id="what-is-the-workflow-after-mosaicking-my-dem"><a class="header" href="#what-is-the-workflow-after-mosaicking-my-dem">What is the workflow after mosaicking my DEM?</a></h2>
 <p>The following code is an example of some of the common tasks required in processing large LiDAR datasets.</p>
 <pre><code class="language-python">import os
 from os import path
@@ -842,13 +865,13 @@ main()
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../tutorials/mosaic.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../tutorials/mosaic.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../supported_formats.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../supported_formats.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -858,6 +881,14 @@ main()
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         

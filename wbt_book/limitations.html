@@ -1,24 +1,40 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Limitations and Memory - WhiteboxTools User Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        
         <link rel="stylesheet" href="css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -30,11 +46,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +72,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,44 +94,48 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="preface.html">Preface</a></li><li><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li><a href="python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li><a href="python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li><a href="python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li><a href="r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li><a href="nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li><a href="whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li><a href="qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li><a href="arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li><a href="command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li><a href="available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li><a href="available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li><a href="tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li><a href="supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="limitations.html" class="active"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li><a href="license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="preface.html">Preface</a></li><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li class="chapter-item expanded "><a href="using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li class="chapter-item expanded "><a href="python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li class="chapter-item expanded "><a href="python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li class="chapter-item expanded "><a href="python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li class="chapter-item expanded "><a href="r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li class="chapter-item expanded "><a href="nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li class="chapter-item expanded "><a href="whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li class="chapter-item expanded "><a href="qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li class="chapter-item expanded "><a href="arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li class="chapter-item expanded "><a href="command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li class="chapter-item expanded "><a href="available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li class="chapter-item expanded "><a href="available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li class="chapter-item expanded "><a href="available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li class="chapter-item expanded "><a href="available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li class="chapter-item expanded "><a href="available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li class="chapter-item expanded "><a href="available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li class="chapter-item expanded "><a href="available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li class="chapter-item expanded "><a href="available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li class="chapter-item expanded "><a href="available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li class="chapter-item expanded "><a href="available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li class="chapter-item expanded "><a href="available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li class="chapter-item expanded "><a href="tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li class="chapter-item expanded "><a href="tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li class="chapter-item expanded "><a href="supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li class="chapter-item expanded "><a href="limitations.html" class="active"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li class="chapter-item expanded "><a href="license.html"><strong aria-hidden="true">9.</strong> License</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+                    <h1 class="menu-title">WhiteboxTools User Manual</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
                     </div>
                 </div>
 
@@ -140,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#known-issues-and-limitations" id="known-issues-and-limitations"><h1>Known Issues and Limitations</h1></a>
+                        <h1 id="known-issues-and-limitations"><a class="header" href="#known-issues-and-limitations">Known Issues and Limitations</a></h1>
 <ul>
 <li>The LAZ and zLAS (Esri) compressed LiDAR data formats are currently unsupported although <a href="https://jblindsay.github.io/zLidar_spec/intro.html">zLidar</a> and zipped LAS files (.zip) are.</li>
 <li>There is no support for reading waveform data contained within or associated with LAS files.</li>
@@ -148,10 +171,10 @@
 <li>The Python scripts included with <strong>WhiteboxTools</strong> require Python 3. They will not work with Python 2, which is frequently the default Python version installed on many systems.</li>
 <li>Not all types of GeoTIFF files are supported. The GeoTIFF format is very flexible and certain less common varieties may not be read properly by WhiteboxTools. The WhiteboxTools GeoTIFF reader/writer is a custom implementation and does not rely on other library (e.g. GDAL) and therefore there may be difficulties when exchanging GeoTIFF data between WhiteboxTools and GDAL supported software.</li>
 </ul>
-<a class="header" href="#memory-requirements" id="memory-requirements"><h1>Memory Requirements</h1></a>
-<p>People sometimes ask me what the memory requirements of WhiteboxTools is. There is no simple answer to this question because each tool has different memory requirements. The memory requirements of a tool will depend on a number of factors. Clearly the tools that read and write raster data have among the largest memory requirements, although the LiDAR tools will also have substantial memory footprints compared with others as well. When you are working with raster data, say a digital elevation model (DEM) data set, a good convention is that the minimum memory that your system will need is at least 4X greater than the size of your data set. Likely you will want to ensure that you have more than this minimum, i.e. 5-10X is an appropriate range.</p>
-<p>However, there are some important factors to consider when trying to calculate the memory that you'll need to process a data set. First, whatever size your raster file is on disc does not relate to how large it will be when read into memory. Raster files are commonly compressed, e.g. GeoTIFFs are usually compressed) and the actual uncompressed size of the file may be considerably larger. The number of grid cells (rows x columns) and the data type (bit depth) are better indicators of memory size than is the file size. Secondly, when WhiteboxTools reads your file, it will convert the grid cell values into 64-bit floating point values, while it is quite likely that the data set contains data in a smaller data type. For example, it is common for DEM data to be stored as 32-bit floats, meaning that the in-memory footprint of your DEM will be doubled. Why does WhiteboxTools do this? When WhiteboxTools reads your raster file, it converts it into a <em>generic raster</em> format that is then fed to the tool that you are running. The tool likely needs to read individual grid cell values. For example, it may scan an input raster DEM cell-by-cell and place the cell values into a variable (<code>z = DEM.get_value(row, col)</code>) to then work with. The variable <code>z</code> needs to have a data type assigned to it at compile time and it cannot know in advance what type of data will be contained within your file. And so it will be assigned a data type that is large enough to hold (after conversion) any data type that the user may throw at it--a 64-bit float in most cases. This approach greatly simplifies the code for tools compared with the alternative by which each possible input data type is handled in separate code paths. The main implication of this approach is that whatever the uncompressed data size of your input raster file is, it will likely be doubled (if it is 32-bit data on disc), or even quadrupled (if it is 16-bit data on disc), when it is read into memory.</p>
-<p>Furthermore, in addition to the memory requirements of the input raster, most tools need to create an output file, which exists in memory before being written into a file at the end of operation. This is why it was stated above that the minimum memory requirement is 4X the size of the data set (8X if it is in 16-bit form on disc), i.e. a doubling for the data type issue and another doubling for the input/output raster of the tool. Many tool, particularly those that perform complex tasks beyond simply scanning the data in a filter-type operation, will also have intermediate data that are often in the form of in-memory rasters or data structures used for spatial searches. This further increases the memory requirements of individual tools. I always try to develop tools so that they have as modest memory requirements as possible. However, in developing WhiteboxTools, I have made certain design decisions that favour speed over memory footprint. This is why I frequently get feedback from users that WhiteboxTools is impressively fast. The relation between performance speed and memory requirements is a balance and Whitebox has certainly favoured speed. This was an intentional design decision in recognition that 1) system memory has increased significantly since 2017 when the project began and continues to do so (128 GB and 256 GB systems are now widely available), and RAM is becoming cheaper, and 2) users that are working with extremely massive data set often have access to systems with large enough memory resources to handle the processing needs of WhiteboxTools when working with these types of data.</p>
+<h1 id="memory-requirements"><a class="header" href="#memory-requirements">Memory Requirements</a></h1>
+<p>People sometimes ask me what the memory requirements of WhiteboxTools is. There is no simple answer to this question because each tool has different memory requirements. The memory requirements of a tool will depend on a number of factors. Clearly the tools that read and write raster data have among the largest memory requirements, although the LiDAR tools will also have substantial memory footprints compared with others as well. When you are working with raster data, say a digital elevation model (DEM) data set, a good convention is that the minimum memory that your system will need is at least 4X greater than the size of your data set. Likely you will want to ensure that you have more than this minimum, i.e. 5-10X is an appropriate range. </p>
+<p>However, there are some important factors to consider when trying to calculate the memory that you'll need to process a data set. First, whatever size your raster file is on disc does not relate to how large it will be when read into memory. Raster files are commonly compressed, e.g. GeoTIFFs are usually compressed) and the actual uncompressed size of the file may be considerably larger. The number of grid cells (rows x columns) and the data type (bit depth) are better indicators of memory size than is the file size. Secondly, when WhiteboxTools reads your file, it will convert the grid cell values into 64-bit floating point values, while it is quite likely that the data set contains data in a smaller data type. For example, it is common for DEM data to be stored as 32-bit floats, meaning that the in-memory footprint of your DEM will be doubled. Why does WhiteboxTools do this? When WhiteboxTools reads your raster file, it converts it into a <em>generic raster</em> format that is then fed to the tool that you are running. The tool likely needs to read individual grid cell values. For example, it may scan an input raster DEM cell-by-cell and place the cell values into a variable (<code>z = dem.get_value(row, col)</code>) to then work with. The variable <code>z</code> needs to have a data type assigned to it at compile time and it cannot know in advance what type of data will be contained within your file. And so it will be assigned a data type that is large enough to hold (after conversion) any data type that the user may throw at it--a 64-bit float in most cases. This approach greatly simplifies the code for tools compared with the alternative by which each possible input data type is handled in separate code paths. The main implication of this approach is that whatever the uncompressed data size of your input raster file is, it will likely be doubled (if it is 32-bit data on disc), or even quadrupled (if it is 16-bit data on disc), when it is read into memory. </p>
+<p>Furthermore, in addition to the memory requirements of the input raster, most tools need to create an output file, which exists in memory before being written into a file at the end of operation. This is why it was stated above that the minimum memory requirement is 4X the size of the data set (8X if it is in 16-bit form on disc), i.e. a doubling for the data type issue and another doubling for the input/output raster of the tool. Many tool, particularly those that perform complex tasks beyond simply scanning the data in a filter-type operation, will also have intermediate data that are often in the form of in-memory rasters or data structures used for spatial searches. This further increases the memory requirements of individual tools. I always try to develop tools so that they have as modest memory requirements as possible. However, in developing WhiteboxTools, I have made certain design decisions that favour speed over memory footprint. This is why I frequently get feedback from users that WhiteboxTools is impressively fast. The relation between performance speed and memory requirements is a balance and Whitebox has certainly favoured speed. This was an intentional design decision in recognition that 1) system memory has increased significantly since 2017 when the project began and continues to do so (systems with between 64 GB and 256 GB are now widely available), and RAM is becoming cheaper, and 2) users that are working with extremely massive data set often have access to systems with large enough memory resources to handle the processing needs of WhiteboxTools when working with these types of data. </p>
 <p>WhiteboxTools' predecessor, Whitebox GAT, was developed using the Java programming language. Java is known to use memory very inefficiently, and I would regularly have users contact me with out-of-memory issues. This was one of the main motivations that I had in developing WhiteboxTools, and for choosing the Rust programming language to do so. Using Rust for this project has afforded me significant performance gains over Java, but it has also significantly lowered the memory requirements of equivalent tools. Rust uses memory more conservatively than Java. And this is the main reason why I rarely receive feedback from users who have encountered out-of-memory issues using WhiteboxTools. It certainly can happen however, particularly if you are trying to process a large data set on a system with insufficient memory resources and without an understanding of the relationship between file size and system memory.</p>
 
                     </main>
@@ -177,13 +200,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="contributing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="contributing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="license.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="license.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -193,6 +216,14 @@
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         

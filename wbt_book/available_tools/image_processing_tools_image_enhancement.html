@@ -1,24 +1,40 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Image enchancement - WhiteboxTools User Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
         <link rel="shortcut icon" href="../favicon.png">
+        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
+        
         <link rel="stylesheet" href="../css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -30,11 +46,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +72,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,44 +94,48 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html" class="active"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../preface.html">Preface</a></li><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li class="chapter-item expanded "><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li class="chapter-item expanded "><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li class="chapter-item expanded "><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li class="chapter-item expanded "><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li class="chapter-item expanded "><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li class="chapter-item expanded "><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li class="chapter-item expanded "><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li class="chapter-item expanded "><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li class="chapter-item expanded "><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li class="chapter-item expanded "><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li class="chapter-item expanded "><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_image_enhancement.html" class="active"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li class="chapter-item expanded "><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li class="chapter-item expanded "><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li class="chapter-item expanded "><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li class="chapter-item expanded "><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li class="chapter-item expanded "><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+                    <h1 class="menu-title">WhiteboxTools User Manual</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
                     </div>
                 </div>
 
@@ -140,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#image-processing-tools--image-enhancement" id="image-processing-tools--image-enhancement"><h1>Image Processing Tools → Image Enhancement</h1></a>
+                        <h1 id="image-processing-tools--image-enhancement"><a class="header" href="#image-processing-tools--image-enhancement">Image Processing Tools → Image Enhancement</a></h1>
 <ul>
 <li><a href="#BalanceContrastEnhancement">BalanceContrastEnhancement</a></li>
 <li><a href="#CorrectVignetting">CorrectVignetting</a></li>
@@ -157,7 +180,7 @@
 <li><a href="#StandardDeviationContrastStretch">StandardDeviationContrastStretch</a></li>
 </ul>
 <p><a name="BalanceContrastEnhancement"></a></p>
-<a class="header" href="#balancecontrastenhancement" id="balancecontrastenhancement"><h1>BalanceContrastEnhancement</h1></a>
+<h1 id="balancecontrastenhancement"><a class="header" href="#balancecontrastenhancement">BalanceContrastEnhancement</a></h1>
 <p>This tool can be used to reduce colour bias in a colour composite image based on the
 technique described by Liu (1991). Colour bias is a common phenomena with colour images
 derived from multispectral imagery, whereby a higher average brightness value in one
@@ -174,10 +197,10 @@ colour composition. <em>International Journal of Remote Sensing</em>, 12:10.</p>
 <p><em>See Also</em>:
 <a href="./image_processing_tools_image_enhancement.html#directdecorrelationstretch"><strong>DirectDecorrelationStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input colour composite image file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--band_mean        </td><td> Band mean value</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input colour composite image file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--band_mean</td><td>Band mean value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.balance_contrast_enhancement(
@@ -192,12 +215,12 @@ colour composition. <em>International Journal of Remote Sensing</em>, 12:10.</p>
 --wd=&quot;/path/to/data/&quot; --input=image.tif -o=output.tif ^
 --band_mean=120 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/balance_contrast_enhancement.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/balance_contrast_enhancement.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="CorrectVignetting"></a></p>
-<a class="header" href="#correctvignetting" id="correctvignetting"><h1>CorrectVignetting</h1></a>
+<h1 id="correctvignetting"><a class="header" href="#correctvignetting">CorrectVignetting</a></h1>
 <p>This tool can be used to reduce vignetting within an image. Vignetting refers to the
 reducuction of image brightness away from the image centre (i.e. the principal point).
 Vignetting is a radiometric distortion resulting from lens characteristics. The
@@ -213,13 +236,13 @@ the input image.</p>
 <p>If an RGB image is input, the analysis will be performed on the intensity component
 of the HSI transform.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>--pp               </td><td> Input principal point file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--focal_length     </td><td> Camera focal length, in millimeters</td></tr>
-<tr><td>--image_width      </td><td> Distance between photograph edges, in millimeters</td></tr>
-<tr><td>-n                  </td><td> The 'n' parameter</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>--pp</td><td>Input principal point file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--focal_length</td><td>Camera focal length, in millimeters</td></tr>
+<tr><td>--image_width</td><td>Distance between photograph edges, in millimeters</td></tr>
+<tr><td>-n</td><td>The 'n' parameter</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.correct_vignetting(
@@ -238,12 +261,12 @@ of the HSI transform.</p>
 -o=output.tif --focal_length=304.8 --image_width=228.6 ^
 -n=4.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/correct_vignetting.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/correct_vignetting.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 24/04/2018</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="DirectDecorrelationStretch"></a></p>
-<a class="header" href="#directdecorrelationstretch" id="directdecorrelationstretch"><h1>DirectDecorrelationStretch</h1></a>
+<h1 id="directdecorrelationstretch"><a class="header" href="#directdecorrelationstretch">DirectDecorrelationStretch</a></h1>
 <p>The Direct Decorrelation Stretch (DDS) is a simple type of saturation stretch. The stretch is
 applied to a colour composite image and is used to improve the saturation, or colourfulness,
 of the image. The DDS operates by reducing the achromatic (grey) component of a pixel's colour
@@ -262,11 +285,11 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 <p><em>See Also</em>:
 <a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a>, <a href="./image_processing_tools_image_enhancement.html#balancecontrastenhancement"><strong>BalanceContrastEnhancement</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input colour composite image file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>-k                  </td><td> Achromatic factor (k) ranges between 0 (no effect) and 1 (full saturation stretch), although typical values range from 0.3 to 0.7</td></tr>
-<tr><td>--clip             </td><td> Optional percent to clip the upper tail by during the stretch</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input colour composite image file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>-k</td><td>Achromatic factor (k) ranges between 0 (no effect) and 1 (full saturation stretch), although typical values range from 0.3 to 0.7</td></tr>
+<tr><td>--clip</td><td>Optional percent to clip the upper tail by during the stretch</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.direct_decorrelation_stretch(
@@ -281,12 +304,12 @@ International Journal of Remote Sensing, 17:5, 1005-1018.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DirectDecorrelationStretch -v ^
 --wd=&quot;/path/to/data/&quot; --input=image.tif -o=output.tif -k=0.4 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/direct_decorrelation_stretch.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/direct_decorrelation_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="GammaCorrection"></a></p>
-<a class="header" href="#gammacorrection" id="gammacorrection"><h1>GammaCorrection</h1></a>
+<h1 id="gammacorrection"><a class="header" href="#gammacorrection">GammaCorrection</a></h1>
 <p>This tool performs a gamma colour correction transform on an input image (<code>--input</code>), such that each
 input pixel value (z<sub>in</sub><sup>) is mapped to the corresponding output value (z<sub>out</sub>) as:</p>
 <blockquote>
@@ -295,10 +318,10 @@ input pixel value (z<sub>in</sub><sup>) is mapped to the corresponding output va
 <p>The user must specify the value of the <code>gamma</code> parameter. The input image may be of either a greyscale or RGB colour
 composite data type.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--gamma            </td><td> Gamma value</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--gamma</td><td>Gamma value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.gamma_correction(
@@ -312,12 +335,12 @@ composite data type.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=GammaCorrection -v ^
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif --gamma=0.5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gamma_correction.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/gamma_correction.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="GaussianContrastStretch"></a></p>
-<a class="header" href="#gaussiancontraststretch" id="gaussiancontraststretch"><h1>GaussianContrastStretch</h1></a>
+<h1 id="gaussiancontraststretch"><a class="header" href="#gaussiancontraststretch">GaussianContrastStretch</a></h1>
 <p>This tool performs a Gaussian stretch on a raster image. The observed histogram of the input image is fitted
 to a Gaussian histogram, i.e. normal distribution. A histogram matching technique is used to map the values from
 the input image onto the output Gaussian distribution. The user must the number of tones (<code>--num_tones</code>) used in the
@@ -329,10 +352,10 @@ to an input image, and other contrast enhancement tools such as <a href="./image
 <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a>,
 <a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--num_tones</td><td>Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.gaussian_contrast_stretch(
@@ -347,12 +370,12 @@ to an input image, and other contrast enhancement tools such as <a href="./image
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif ^
 --num_tones=1024 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/gaussian_contrast_stretch.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/gaussian_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/05/2018</p>
 <p><em>Last Modified</em>: 22/10/2019</p>
 <p><a name="HistogramEqualization"></a></p>
-<a class="header" href="#histogramequalization" id="histogramequalization"><h1>HistogramEqualization</h1></a>
+<h1 id="histogramequalization"><a class="header" href="#histogramequalization">HistogramEqualization</a></h1>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
 as closely as possible, the CDF of a uniform distribution. Histogram equalization works
 by first calculating the histogram of the input image. This input histogram is then
@@ -377,10 +400,10 @@ the histogram is being distorted. This is more prevalent for integer-level image
 <p><em>See Also</em>:
 <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--num_tones</td><td>Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.histogram_equalization(
@@ -395,12 +418,12 @@ the histogram is being distorted. This is more prevalent for integer-level image
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif ^
 --num_tones=1024 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_equalization.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/histogram_equalization.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/08/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="HistogramMatching"></a></p>
-<a class="header" href="#histogrammatching" id="histogrammatching"><h1>HistogramMatching</h1></a>
+<h1 id="histogrammatching"><a class="header" href="#histogrammatching">HistogramMatching</a></h1>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match,
 as closely as possible, the CDF of a reference histogram. Histogram matching works by
 first calculating the histogram of the input image. This input histogram and reference
@@ -434,10 +457,10 @@ channels should be split using the <a href="./image_processing_tools.html#splitc
 <p><em>See Also</em>:
 <a href="./image_processing_tools_image_enhancement.html#histogrammatchingtwoimages"><strong>HistogramMatchingTwoImages</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools.html#splitcolourcomposite"><strong>SplitColourComposite</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>--histo_file       </td><td> Input reference probability distribution function (pdf) text file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>--histo_file</td><td>Input reference probability distribution function (pdf) text file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.histogram_matching(
@@ -452,12 +475,12 @@ channels should be split using the <a href="./image_processing_tools.html#splitc
 --wd=&quot;/path/to/data/&quot; -i=input1.tif --histo_file=histo.txt ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/histogram_matching.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/09/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="HistogramMatchingTwoImages"></a></p>
-<a class="header" href="#histogrammatchingtwoimages" id="histogrammatchingtwoimages"><h1>HistogramMatchingTwoImages</h1></a>
+<h1 id="histogrammatchingtwoimages"><a class="header" href="#histogrammatchingtwoimages">HistogramMatchingTwoImages</a></h1>
 <p>This tool alters the cumulative distribution function (CDF) of a raster image to match, as closely
 as possible, the CDF of a reference image. Histogram matching works by first calculating the
 histograms of the input image (i.e. the image to be adjusted) and the reference image. These
@@ -479,10 +502,10 @@ using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>S
 <p><em>See Also</em>:
 <a href="./image_processing_tools_image_enhancement.html#histogrammatching"><strong>HistogramMatching</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools.html#splitcolourcomposite"><strong>SplitColourComposite</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--i1, --input1    </td><td> Input raster file to modify</td></tr>
-<tr><td>--i2, --input2    </td><td> Input reference raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1</td><td>Input raster file to modify</td></tr>
+<tr><td>--i2, --input2</td><td>Input reference raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.histogram_matching_two_images(
@@ -497,12 +520,12 @@ using the <a href="./image_processing_tools.html#splitcolourcomposite"><strong>S
 --wd=&quot;/path/to/data/&quot; --i1=input1.tif --i2=input2.tif ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/histogram_matching_two_images.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/histogram_matching_two_images.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 31/08/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="MinMaxContrastStretch"></a></p>
-<a class="header" href="#minmaxcontraststretch" id="minmaxcontraststretch"><h1>MinMaxContrastStretch</h1></a>
+<h1 id="minmaxcontraststretch"><a class="header" href="#minmaxcontraststretch">MinMaxContrastStretch</a></h1>
 <p>This tool performs a minimum-maximum contrast stretch on a raster image. This operation maps each grid cell
 value in the input raster image (z) onto a new scale that ranges from the user-specified lower-tail clip
 value (<code>min_val</code>) to the upper-tail clip value (<code>max_val</code>), with the specified number of tonal values
@@ -521,12 +544,12 @@ of tonal values is determined by the number of palette entries.</p>
 <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a>,
 <a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--min_val          </td><td> Lower tail clip value</td></tr>
-<tr><td>--max_val          </td><td> Upper tail clip value</td></tr>
-<tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--min_val</td><td>Lower tail clip value</td></tr>
+<tr><td>--max_val</td><td>Upper tail clip value</td></tr>
+<tr><td>--num_tones</td><td>Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.min_max_contrast_stretch(
@@ -543,12 +566,12 @@ of tonal values is determined by the number of palette entries.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif ^
 --min_val=45.0 --max_val=200.0 --num_tones=1024 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/min_max_contrast_stretch.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/min_max_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="PanchromaticSharpening"></a></p>
-<a class="header" href="#panchromaticsharpening" id="panchromaticsharpening"><h1>PanchromaticSharpening</h1></a>
+<h1 id="panchromaticsharpening"><a class="header" href="#panchromaticsharpening">PanchromaticSharpening</a></h1>
 <p>Panchromatic sharpening, or simply pan-sharpening, refers to a range of techniques that can be used to merge
 finer spatial resolution panchromatic images with coarser spatial resolution multi-spectral images. The
 multi-spectral data provides colour information while the panchromatic image provides improved spatial information.
@@ -565,14 +588,14 @@ corresponds closely to the green (band 2), red (band 3), and near-infrared (band
 <p><em>See Also</em>:
 <a href="./image_processing_tools.html#createcolourcomposite"><strong>CreateColourComposite</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--red              </td><td> Input red band image file. Optionally specified if colour-composite not specified</td></tr>
-<tr><td>--green            </td><td> Input green band image file. Optionally specified if colour-composite not specified</td></tr>
-<tr><td>--blue             </td><td> Input blue band image file. Optionally specified if colour-composite not specified</td></tr>
-<tr><td>--composite        </td><td> Input colour-composite image file. Only used if individual bands are not specified</td></tr>
-<tr><td>--pan              </td><td> Input panchromatic band file</td></tr>
-<tr><td>-o, --output       </td><td> Output colour composite file</td></tr>
-<tr><td>--method           </td><td> Options include 'brovey' (default) and 'ihs'</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--red</td><td>Input red band image file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--green</td><td>Input green band image file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--blue</td><td>Input blue band image file. Optionally specified if colour-composite not specified</td></tr>
+<tr><td>--composite</td><td>Input colour-composite image file. Only used if individual bands are not specified</td></tr>
+<tr><td>--pan</td><td>Input panchromatic band file</td></tr>
+<tr><td>-o, --output</td><td>Output colour composite file</td></tr>
+<tr><td>--method</td><td>Options include 'brovey' (default) and 'ihs'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.panchromatic_sharpening(
@@ -595,12 +618,12 @@ corresponds closely to the green (band 2), red (band 3), and near-infrared (band
 -v --wd=&quot;/path/to/data/&quot; --composite=image.tif --pan=pan.tif ^
 --output=pan_sharp.tif --method='ihs' 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/pan_sharpening.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/pan_sharpening.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/07/2017</p>
 <p><em>Last Modified</em>: 11/02/2019</p>
 <p><a name="PercentageContrastStretch"></a></p>
-<a class="header" href="#percentagecontraststretch" id="percentagecontraststretch"><h1>PercentageContrastStretch</h1></a>
+<h1 id="percentagecontraststretch"><a class="header" href="#percentagecontraststretch">PercentageContrastStretch</a></h1>
 <p>This tool performs a percentage contrast stretch on a raster image. This operation maps each grid cell value
 in the input raster image (z<sub>in</sub>) onto a new scale that ranges from a lower-tail clip value (<code>min_val</code>)
 to the upper-tail clip value (<code>max_val</code>), with the user-specified number of tonal values (<code>num_tones</code>), such that:</p>
@@ -620,12 +643,12 @@ of tonal values is determined by the number of palette entries.</p>
 <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a>,
 <a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--clip             </td><td> Optional amount to clip the distribution tails by, in percent</td></tr>
-<tr><td>--tail             </td><td> Specified which tails to clip; options include 'upper', 'lower', and 'both' (default is 'both')</td></tr>
-<tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--clip</td><td>Optional amount to clip the distribution tails by, in percent</td></tr>
+<tr><td>--tail</td><td>Specified which tails to clip; options include 'upper', 'lower', and 'both' (default is 'both')</td></tr>
+<tr><td>--num_tones</td><td>Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.percentage_contrast_stretch(
@@ -642,12 +665,12 @@ of tonal values is determined by the number of palette entries.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif --clip=2.0 ^
 --tail='both' --num_tones=1024 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/percentage_contrast_stretch.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/percentage_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="SigmoidalContrastStretch"></a></p>
-<a class="header" href="#sigmoidalcontraststretch" id="sigmoidalcontraststretch"><h1>SigmoidalContrastStretch</h1></a>
+<h1 id="sigmoidalcontraststretch"><a class="header" href="#sigmoidalcontraststretch">SigmoidalContrastStretch</a></h1>
 <p>This tool performs a sigmoidal stretch on a raster image. This is a transformation where the input image value for a
 grid cell (z<sub>in</sub>) is transformed to an output value zout such that:</p>
 <blockquote>
@@ -671,12 +694,12 @@ images.</p>
 <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>,  <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>,
 <a href="./image_processing_tools_image_enhancement.html#standarddeviationcontraststretch"><strong>StandardDeviationContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--cutoff           </td><td> Cutoff value between 0.0 and 0.95</td></tr>
-<tr><td>--gain             </td><td> Gain value</td></tr>
-<tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--cutoff</td><td>Cutoff value between 0.0 and 0.95</td></tr>
+<tr><td>--gain</td><td>Gain value</td></tr>
+<tr><td>--num_tones</td><td>Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.sigmoidal_contrast_stretch(
@@ -693,12 +716,12 @@ images.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif --cutoff=0.1 ^
 --gain=2.0 --num_tones=1024 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/sigmoidal_contrast_stretch.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/sigmoidal_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="StandardDeviationContrastStretch"></a></p>
-<a class="header" href="#standarddeviationcontraststretch" id="standarddeviationcontraststretch"><h1>StandardDeviationContrastStretch</h1></a>
+<h1 id="standarddeviationcontraststretch"><a class="header" href="#standarddeviationcontraststretch">StandardDeviationContrastStretch</a></h1>
 <p>This tool performs a standard deviation contrast stretch on a raster image. This operation maps each grid cell value
 in the input raster image (z<sub>in</sub>) onto a new scale that ranges from a lower-tail clip value (<code>min_val</code>)
 to the upper-tail clip value (<code>max_val</code>), with the user-specified number of tonal values (<code>num_tones</code>), such that:</p>
@@ -714,11 +737,11 @@ and standard deviation and estimate the clip values from these statistics.</p>
 <a href="./image_processing_tools_image_enhancement.html#gaussiancontraststretch"><strong>GaussianContrastStretch</strong></a>, <a href="./image_processing_tools_image_enhancement.html#histogramequalization"><strong>HistogramEqualization</strong></a>, <a href="./image_processing_tools_image_enhancement.html#minmaxcontraststretch"><strong>MinMaxContrastStretch</strong></a>,  <a href="./image_processing_tools_image_enhancement.html#percentagecontraststretch"><strong>PercentageContrastStretch</strong></a>,
 <a href="./image_processing_tools_image_enhancement.html#sigmoidalcontraststretch"><strong>SigmoidalContrastStretch</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--clip, --stdev   </td><td> Standard deviation clip value</td></tr>
-<tr><td>--num_tones        </td><td> Number of tones in the output image</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--clip, --stdev</td><td>Standard deviation clip value</td></tr>
+<tr><td>--num_tones</td><td>Number of tones in the output image</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.standard_deviation_contrast_stretch(
@@ -734,7 +757,7 @@ and standard deviation and estimate the clip values from these statistics.</p>
 --wd=&quot;/path/to/data/&quot; -i=input.tif -o=output.tif --stdev=2.0 ^
 --num_tones=1024 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/image_analysis/stdev_contrast_stretch.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/image_analysis/stdev_contrast_stretch.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
@@ -762,13 +785,13 @@ and standard deviation and estimate the clip values from these statistics.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../available_tools/image_processing_tools_filters.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../available_tools/image_processing_tools_filters.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../available_tools/lidar_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../available_tools/lidar_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -778,6 +801,14 @@ and standard deviation and estimate the clip values from these statistics.</p>
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         

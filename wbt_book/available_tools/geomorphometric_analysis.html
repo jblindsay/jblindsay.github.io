@@ -1,24 +1,40 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Geomorphometric analysis - WhiteboxTools User Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
         <link rel="shortcut icon" href="../favicon.png">
+        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
+        
         <link rel="stylesheet" href="../css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -30,11 +46,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +72,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,44 +94,48 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html" class="active"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../preface.html">Preface</a></li><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li class="chapter-item expanded "><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li class="chapter-item expanded "><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li class="chapter-item expanded "><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li class="chapter-item expanded "><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li class="chapter-item expanded "><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li class="chapter-item expanded "><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li class="chapter-item expanded "><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li class="chapter-item expanded "><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li class="chapter-item expanded "><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li class="chapter-item expanded "><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li class="chapter-item expanded "><a href="../available_tools/geomorphometric_analysis.html" class="active"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_overlay_tools.html"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li class="chapter-item expanded "><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li class="chapter-item expanded "><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li class="chapter-item expanded "><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li class="chapter-item expanded "><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li class="chapter-item expanded "><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+                    <h1 class="menu-title">WhiteboxTools User Manual</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
                     </div>
                 </div>
 
@@ -140,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#geomorphometric-analysis" id="geomorphometric-analysis"><h1>Geomorphometric Analysis</h1></a>
+                        <h1 id="geomorphometric-analysis"><a class="header" href="#geomorphometric-analysis">Geomorphometric Analysis</a></h1>
 <ul>
 <li><a href="#Aspect">Aspect</a></li>
 <li><a href="#AverageNormalVectorAngularDeviation">AverageNormalVectorAngularDeviation</a></li>
@@ -156,6 +179,7 @@
 <li><a href="#ElevPercentile">ElevPercentile</a></li>
 <li><a href="#ElevRelativeToMinMax">ElevRelativeToMinMax</a></li>
 <li><a href="#ElevRelativeToWatershedMinMax">ElevRelativeToWatershedMinMax</a></li>
+<li><a href="#EmbankmentMapping">EmbankmentMapping</a></li>
 <li><a href="#FeaturePreservingSmoothing">FeaturePreservingSmoothing</a></li>
 <li><a href="#FetchAnalysis">FetchAnalysis</a></li>
 <li><a href="#FillMissingData">FillMissingData</a></li>
@@ -206,7 +230,7 @@
 <li><a href="#WetnessIndex">WetnessIndex</a></li>
 </ul>
 <p><a name="Aspect"></a></p>
-<a class="header" href="#aspect" id="aspect"><h1>Aspect</h1></a>
+<h1 id="aspect"><a class="header" href="#aspect">Aspect</a></h1>
 <p>This tool calculates slope aspect (i.e. slope orientation in degrees clockwise from north) for each grid cell
 in an input digital elevation model (DEM). The user must specify the name of the input
 DEM (<code>--dem</code>) and the output raster image. The <em>Z conversion factor</em> is only important
@@ -241,10 +265,10 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#plancurvature"><strong>PlanCurvature</strong></a>, <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.aspect(
@@ -258,12 +282,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code>&gt;&gt;./whitebox_tools -r=Aspect -v --wd=&quot;/path/to/data/&quot; ^
 --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/aspect.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 03/09/2020</p>
+<p><em>Last Modified</em>: 01/03/2021</p>
 <p><a name="AverageNormalVectorAngularDeviation"></a></p>
-<a class="header" href="#averagenormalvectorangulardeviation" id="averagenormalvectorangulardeviation"><h1>AverageNormalVectorAngularDeviation</h1></a>
+<h1 id="averagenormalvectorangulardeviation"><a class="header" href="#averagenormalvectorangulardeviation">AverageNormalVectorAngularDeviation</a></h1>
 <p>This tool characterizes the spatial distribution of the average normal vector angular deviation, a measure of
 surface roughness. Working in the field of 3D printing, Ko et al. (2016) defined a measure of surface roughness
 based on quantifying the angular deviations in the direction of the normal vector of a real surface from its ideal
@@ -281,10 +305,10 @@ Interaction (pp. 116-121). Springer, Cham.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--output           </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--output</td><td>Output raster file</td></tr>
+<tr><td>--filter</td><td>Size of the filter kernel</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.average_normal_vector_angular_deviation(
@@ -300,12 +324,12 @@ Interaction (pp. 116-121). Springer, Cham.</p>
 --out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/average_normal_vector_angular_deviation.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/average_normal_vector_angular_deviation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="CircularVarianceOfAspect"></a></p>
-<a class="header" href="#circularvarianceofaspect" id="circularvarianceofaspect"><h1>CircularVarianceOfAspect</h1></a>
+<h1 id="circularvarianceofaspect"><a class="header" href="#circularvarianceofaspect">CircularVarianceOfAspect</a></h1>
 <p>This tool can be used to calculate the circular variance (i.e. one minus the mean resultant length) of aspect
 for an input digital elevation model (DEM). This is a measure of how variable slope aspect is within a local
 neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a> is therefore a measure of <strong>surface
@@ -317,8 +341,8 @@ of the angular dispersion measure integrating (accumulating) all of the surface 
 test scale. A more interesting scale relation can therefore be estimated by isolating the amount of surface complexity
 associated with specific scale ranges. That is, at large spatial scales, the metric should reflect
 the texture of large-scale landforms rather than the accumulated complexity at all smaller scales, including
-microtopographic roughness. As such, <strong><em>this tool normalizes the surface complexity of scales that are smaller than
-the filter size by applying Gaussian blur</em></strong> (with a standard deviation of one-third the filter size) to the DEM prior
+microtopographic roughness. As such, <em><strong>this tool normalizes the surface complexity of scales that are smaller than
+the filter size by applying Gaussian blur</strong></em> (with a standard deviation of one-third the filter size) to the DEM prior
 to calculating <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>. In this way, the resulting distribution is able to isolate and highlight
 the surface shape complexity associated with landscape features of a similar scale to that of the filter size.</p>
 <p>This tool makes extensive use of <a href="https://en.wikipedia.org/wiki/Summed-area_table">integral images</a>
@@ -330,10 +354,10 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--output           </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--output</td><td>Output raster file</td></tr>
+<tr><td>--filter</td><td>Size of the filter kernel</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.circular_variance_of_aspect(
@@ -349,12 +373,12 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 --out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/circular_variance_of_aspect.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/circular_variance_of_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/01/2019</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="ContoursFromPoints"></a></p>
-<a class="header" href="#contoursfrompoints" id="contoursfrompoints"><h1>ContoursFromPoints</h1></a>
+<h1 id="contoursfrompoints"><a class="header" href="#contoursfrompoints">ContoursFromPoints</a></h1>
 <p>This tool creates a contour coverage from a set of input points (<code>--input</code>). The user must specify the contour
 interval (<code>--interval</code>) and optionally, the base contour value (<code>--base</code>). The degree to which contours are
 smoothed is controlled by the <strong>Smoothing Filter Size</strong> parameter (<code>--smooth</code>). This value, which determines
@@ -363,15 +387,15 @@ the size of a mean filter applied to the x-y position of vertices in each contou
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#contoursfromraster"><strong>ContoursFromRaster</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector points file</td></tr>
-<tr><td>--field            </td><td> Input field name in attribute table</td></tr>
-<tr><td>--use_z            </td><td> Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
-<tr><td>-o, --output       </td><td> Output vector lines file</td></tr>
-<tr><td>--max_triangle_edge_length</td><td> Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
-<tr><td>--interval         </td><td> Contour interval</td></tr>
-<tr><td>--base             </td><td> Base contour height</td></tr>
-<tr><td>--smooth           </td><td> Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector points file</td></tr>
+<tr><td>--field</td><td>Input field name in attribute table</td></tr>
+<tr><td>--use_z</td><td>Use the 'z' dimension of the Shapefile's geometry instead of an attribute field?</td></tr>
+<tr><td>-o, --output</td><td>Output vector lines file</td></tr>
+<tr><td>--max_triangle_edge_length</td><td>Optional maximum triangle edge length; triangles larger than this size will not be gridded</td></tr>
+<tr><td>--interval</td><td>Contour interval</td></tr>
+<tr><td>--base</td><td>Base contour height</td></tr>
+<tr><td>--smooth</td><td>Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.contours_from_points(
@@ -392,12 +416,12 @@ the size of a mean filter applied to the x-y position of vertices in each contou
 -o=contours.shp --max_triangle_edge_length=100.0 ^
 --interval=100.0 --base=0.0 --smooth=11 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/contours_from_points.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/contours_from_points.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/04/2020</p>
 <p><em>Last Modified</em>: 26/04/2020</p>
 <p><a name="ContoursFromRaster"></a></p>
-<a class="header" href="#contoursfromraster" id="contoursfromraster"><h1>ContoursFromRaster</h1></a>
+<h1 id="contoursfromraster"><a class="header" href="#contoursfromraster">ContoursFromRaster</a></h1>
 <p>This tool can be used to create a vector contour coverage from an input raster surface model (<code>--input</code>), such as a digital
 elevation model (DEM). The user must specify the contour interval (<code>--interval</code>) and optionally, the base contour value (<code>--base</code>).
 The degree to which contours are smoothed is controlled by the <strong>Smoothing Filter Size</strong> parameter (<code>--smooth</code>). This value, which
@@ -409,13 +433,13 @@ of the output contour vector file, at the cost of generating straighter contour 
 <p><em>See Also</em>:
 <a href="./data_tools.html#rastertovectorpolygons"><strong>RasterToVectorPolygons</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input surface raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector contour file</td></tr>
-<tr><td>--interval         </td><td> Contour interval</td></tr>
-<tr><td>--base             </td><td> Base contour height</td></tr>
-<tr><td>--smooth           </td><td> Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
-<tr><td>--tolerance        </td><td> Tolerance factor, in degrees (0-45); determines generalization level</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input surface raster file</td></tr>
+<tr><td>-o, --output</td><td>Output vector contour file</td></tr>
+<tr><td>--interval</td><td>Contour interval</td></tr>
+<tr><td>--base</td><td>Base contour height</td></tr>
+<tr><td>--smooth</td><td>Smoothing filter size (in num. points), e.g. 3, 5, 7, 9, 11</td></tr>
+<tr><td>--tolerance</td><td>Tolerance factor, in degrees (0-45); determines generalization level</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.contours_from_raster(
@@ -433,12 +457,12 @@ of the output contour vector file, at the cost of generating straighter contour 
 --wd=&quot;/path/to/data/&quot; --input=DEM.tif -o=contours.shp ^
 --interval=100.0 --base=0.0 --smooth=11 --tolerance=20.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/contours_from_raster.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/contours_from_raster.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/02/2020</p>
 <p><em>Last Modified</em>: 04/03/2020</p>
 <p><a name="DevFromMeanElev"></a></p>
-<a class="header" href="#devfrommeanelev" id="devfrommeanelev"><h1>DevFromMeanElev</h1></a>
+<h1 id="devfrommeanelev"><a class="header" href="#devfrommeanelev">DevFromMeanElev</a></h1>
 <p>This tool can be used to calculate the difference between the elevation of each grid
 cell and the mean elevation of the centering local neighbourhood, normalized by standard
 deviation. Therefore, this index of topographic residual is essentially equivalent to a
@@ -455,11 +479,11 @@ value across a range of input scales.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxelevationdeviation"><strong>MaxElevationDeviation</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
-<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filterx</td><td>Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery</td><td>Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.dev_from_mean_elev(
@@ -475,12 +499,12 @@ value across a range of input scales.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --filter=25 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/dev_from_mean_elev.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/dev_from_mean_elev.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/06/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="DiffFromMeanElev"></a></p>
-<a class="header" href="#difffrommeanelev" id="difffrommeanelev"><h1>DiffFromMeanElev</h1></a>
+<h1 id="difffrommeanelev"><a class="header" href="#difffrommeanelev">DiffFromMeanElev</a></h1>
 <p>This tool can be used to calculate the difference between the elevation of each grid
 cell and the mean elevation of the centering local neighbourhood. This is similar to what a high-pass
 filter calculates for imagery data, but is intended to work with DEM data instead. This attribute
@@ -496,11 +520,11 @@ value across a range of input scales.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
-<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filterx</td><td>Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery</td><td>Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.diff_from_mean_elev(
@@ -516,12 +540,12 @@ value across a range of input scales.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --filter=25 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/diff_from_mean_elev.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/diff_from_mean_elev.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="DirectionalRelief"></a></p>
-<a class="header" href="#directionalrelief" id="directionalrelief"><h1>DirectionalRelief</h1></a>
+<h1 id="directionalrelief"><a class="header" href="#directionalrelief">DirectionalRelief</a></h1>
 <p>This tool calculates the relief for each grid cell in a digital elevation model (DEM) in a specified direction.
 Directional relief is an index of the degree to which a DEM grid cell is higher or lower than its surroundings.
 It is calculated by subtracting the elevation of a DEM grid cell from the average elevation of those cells which
@@ -548,11 +572,11 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#fetchanalysis"><strong>FetchAnalysis</strong></a>, <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>, <a href="./geomorphometric_analysis.html#relativeaspect"><strong>RelativeAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--azimuth          </td><td> Wind azimuth in degrees</td></tr>
-<tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--azimuth</td><td>Wind azimuth in degrees</td></tr>
+<tr><td>--max_dist</td><td>Optional maximum search distance (unspecified if none; in xy units)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.directional_relief(
@@ -568,12 +592,12 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 --wd=&quot;/path/to/data/&quot; -i='input.tif' -o=output.tif ^
 --azimuth=315.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/directional_relief.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/directional_relief.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="DownslopeIndex"></a></p>
-<a class="header" href="#downslopeindex" id="downslopeindex"><h1>DownslopeIndex</h1></a>
+<h1 id="downslopeindex"><a class="header" href="#downslopeindex">DownslopeIndex</a></h1>
 <p>This tool can be used to calculate the downslope index described by Hjerdt et al. (2004).
 The downslope index is a measure of the slope gradient between a grid cell and some
 downslope location (along the flowpath passing through the upslope grid cell) that
@@ -600,11 +624,11 @@ data scale.</p>
 quantify downslope controls on local drainage</em>, <strong>Water Resources Research</strong>, 40, W05602,
 doi:10.1029/2004WR003130.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--drop             </td><td> Vertical drop value (default is 2.0)</td></tr>
-<tr><td>--out_type         </td><td> Output type, options include 'tangent', 'degrees', 'radians', 'distance' (default is 'tangent')</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--drop</td><td>Vertical drop value (default is 2.0)</td></tr>
+<tr><td>--out_type</td><td>Output type, options include 'tangent', 'degrees', 'radians', 'distance' (default is 'tangent')</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.downslope_index(
@@ -619,17 +643,17 @@ doi:10.1029/2004WR003130.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=DownslopeIndex -v --wd=&quot;/path/to/data/&quot; ^
 --dem=pointer.tif -o=dsi.tif --drop=5.0 --out_type=distance 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/downslope_index.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/downslope_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: July 17, 2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="EdgeDensity"></a></p>
-<a class="header" href="#edgedensity" id="edgedensity"><h1>EdgeDensity</h1></a>
+<h1 id="edgedensity"><a class="header" href="#edgedensity">EdgeDensity</a></h1>
 <p>This tool calculates the density of edges, or breaks-in-slope within an input digital elevation model (DEM).
 A break-in-slope occurs between two neighbouring grid cells if the angular difference between their normal
 vectors is greater than a user-specified threshold value (<code>--norm_diff</code>). <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a> calculates the proportion
 of edge cells within the neighbouring window, of square filter dimension <code>--filter</code>, surrounding each grid cell.
-Therefore, <code>EdgeDensity</code>is a measure of how complex the topographic surface is within a local neighbourhood.
+Therefore, <code>EdgeDensity </code>is a measure of how complex the topographic surface is within a local neighbourhood.
 It is therefore a measure of topographic texture. It will take a value near 0.0 for smooth sites and 1.0 in areas
 of high surface roughness or complex topography.</p>
 <p>The distribution of <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a> is highly dependent upon the value of the <code>norm_diff</code> used in the calculation. This
@@ -639,12 +663,12 @@ texture of any of the available roughness tools.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
-<tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filter</td><td>Size of the filter kernel</td></tr>
+<tr><td>--norm_diff</td><td>Maximum difference in normal vectors, in degrees</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.edge_density(
@@ -661,12 +685,12 @@ texture of any of the available roughness tools.</p>
 --dem=DEM.tif -o=output.tif --filter=15 --norm_diff=20.0 ^
 --num_iter=4 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/edge_density.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/edge_density.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/01/2019</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="ElevAbovePit"></a></p>
-<a class="header" href="#elevabovepit" id="elevabovepit"><h1>ElevAbovePit</h1></a>
+<h1 id="elevabovepit"><a class="header" href="#elevabovepit">ElevAbovePit</a></h1>
 <p>This tool will calculate the elevation of each grid cell in a digital elevation model (DEM) above the nearest
 downslope pit cell or grid edge cell, depending on which is encountered first during the flow-path traverse.
 The resulting image is therefore a measure of relative landscape position. The user must specify the names of
@@ -675,9 +699,9 @@ flow algorithm.</p>
 <p><em>See Also</em>:
 <a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.elev_above_pit(
@@ -690,12 +714,12 @@ flow algorithm.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevAbovePit -v --wd=&quot;/path/to/data/&quot; ^
 --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_above_pit.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/elev_above_pit.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 13/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ElevPercentile"></a></p>
-<a class="header" href="#elevpercentile" id="elevpercentile"><h1>ElevPercentile</h1></a>
+<h1 id="elevpercentile"><a class="header" href="#elevpercentile">ElevPercentile</a></h1>
 <p>Elevation percentile (EP) is a measure of local topographic position (LTP). It expresses the vertical
 position for a digital elevation model (DEM) grid cell (z<sub>0</sub>) as the percentile of the
 elevation distribution within the filter window, such that:</p>
@@ -730,12 +754,12 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
-<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
-<tr><td>--sig_digits       </td><td> Number of significant digits</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filterx</td><td>Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery</td><td>Size of the filter kernel in the y-direction</td></tr>
+<tr><td>--sig_digits</td><td>Number of significant digits</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.elev_percentile(
@@ -751,21 +775,21 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevPercentile -v --wd=&quot;/path/to/data/&quot; ^
 --dem=DEM.tif -o=output.tif --filter=25 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_percentile.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/elev_percentile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 02/04/2019</p>
 <p><a name="ElevRelativeToMinMax"></a></p>
-<a class="header" href="#elevrelativetominmax" id="elevrelativetominmax"><h1>ElevRelativeToMinMax</h1></a>
+<h1 id="elevrelativetominmax"><a class="header" href="#elevrelativetominmax">ElevRelativeToMinMax</a></h1>
 <p>This tool can be used to express the elevation of a grid cell in a digital elevation model (DEM) as a
 percentage of the relief between the DEM minimum and maximum values. As such, it provides a basic
 measure of relative topographic position.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#elevrelativetowatershedminmax"><strong>ElevRelativeToWatershedMinMax</strong></a>, <a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a>, <a href="./geomorphometric_analysis.html#elevabovepit"><strong>ElevAbovePit</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.elev_relative_to_min_max(
@@ -778,12 +802,12 @@ measure of relative topographic position.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=ElevRelativeToMinMax -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_relative_to_min_max.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/elev_relative_to_min_max.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ElevRelativeToWatershedMinMax"></a></p>
-<a class="header" href="#elevrelativetowatershedminmax" id="elevrelativetowatershedminmax"><h1>ElevRelativeToWatershedMinMax</h1></a>
+<h1 id="elevrelativetowatershedminmax"><a class="header" href="#elevrelativetowatershedminmax">ElevRelativeToWatershedMinMax</a></h1>
 <p>This tool can be used to express the elevation of a grid cell in a digital elevation model (DEM) as a percentage
 of the relief between the watershed minimum and maximum values. As such, it provides a basic
 measure of relative topographic position. The user must specify the names of DEM (<code>--dem</code>) and watersheds (<code>--watersheds</code>)
@@ -791,10 +815,10 @@ raster files.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#elevrelativetominmax"><strong>ElevRelativeToMinMax</strong></a>, <a href="./hydrological_analysis.html#elevationabovestream"><strong>ElevationAboveStream</strong></a>, <a href="./geomorphometric_analysis.html#elevabovepit"><strong>ElevAbovePit</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--watersheds       </td><td> Input raster watersheds file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--watersheds</td><td>Input raster watersheds file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.elev_relative_to_watershed_min_max(
@@ -809,12 +833,56 @@ raster files.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif --watersheds=watershed.tif ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/elev_relative_to_watershed_min_max.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/elev_relative_to_watershed_min_max.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
+<p><a name="EmbankmentMapping"></a></p>
+<h1 id="embankmentmapping"><a class="header" href="#embankmentmapping">EmbankmentMapping</a></h1>
+<p>This tool can be used to map and/or remove road embankments from an input fine-resolution digital elevation model (<code>--dem</code>).</p>
+<p><em>See Also</em>:
+``</p>
+<p><em>Parameters</em>:</p>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--road_vec</td><td>Input vector polygons file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--search_dist</td><td>Search distance used to reposition transportation vectors onto road embankments (in map units)</td></tr>
+<tr><td>--min_road_width</td><td>Minimum road width; this is the width of the paved road surface (in map units)</td></tr>
+<tr><td>--typical_width</td><td>Typical embankment width; this is the maximum width of an embankment with roadside ditches (in map units)</td></tr>
+<tr><td>--max_height</td><td>Typical embankment maximum height; this is the height a typical embankment with roadside ditches (in map units)</td></tr>
+<tr><td>--max_width</td><td>Maximum embankment width, typically where embankments traverse steep-sided valleys (in map units)</td></tr>
+<tr><td>--max_increment</td><td>Maximum upwards increment between neighbouring cells on an embankment (in elevation units)</td></tr>
+<tr><td>--spillout_slope</td><td>Spillout slope (in degrees)</td></tr>
+<tr><td>--remove_embankments</td><td>Optional flag indicating whether to output a DEM with embankments removed (true) or an embankment raster map (false)</td></tr>
+</tbody></table>
+<p><em>Python function</em>:</p>
+<pre><code class="language-python">wbt.embankment_mapping(
+    dem, 
+    road_vec, 
+    output, 
+    search_dist=2.5, 
+    min_road_width=6.0, 
+    typical_width=30.0, 
+    max_height=2.0, 
+    max_width=60.0, 
+    max_increment=0.05, 
+    spillout_slope=4.0, 
+    remove_embankments=False, 
+    callback=default_callback
+)
+</code></pre>
+<p><em>Command-line Interface</em>:</p>
+<pre><code>&gt;&gt;./whitebox_tools -r=EmbankmentMapping -v ^
+--wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif ^
+--altitude=30.0 
+</code></pre>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/embankment_mapping.rs">Source code on GitHub</a></p>
+<p><em>Author</em>: Dr. John Lindsay and Nigel Van Nieuwenhuizen</p>
+<p><em>Created</em>: 21/09/2020</p>
+<p><em>Last Modified</em>: 05/10/2020</p>
 <p><a name="FeaturePreservingSmoothing"></a></p>
-<a class="header" href="#featurepreservingsmoothing" id="featurepreservingsmoothing"><h1>FeaturePreservingSmoothing</h1></a>
+<h1 id="featurepreservingsmoothing"><a class="header" href="#featurepreservingsmoothing">FeaturePreservingSmoothing</a></h1>
 <p>This tool implements a highly modified form of the DEM de-noising algorithm described
 by Sun et al. (2007). It is very effective at removing surface roughness from digital
 elevation models (DEMs), without significantly altering breaks-in-slope. As such,
@@ -856,14 +924,14 @@ drainage features. <em>Remote Sensing</em>, 11(16), 1926; DOI: 10.3390/rs1116192
 <p>Sun, X., Rosin, P., Martin, R., &amp; Langbein, F. (2007). Fast and effective feature-preserving
 mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</em>, (5), 925-938.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
-<tr><td>--norm_diff        </td><td> Maximum difference in normal vectors, in degrees</td></tr>
-<tr><td>--num_iter         </td><td> Number of iterations</td></tr>
-<tr><td>--max_diff         </td><td> Maximum allowable absolute elevation change (optional)</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filter</td><td>Size of the filter kernel</td></tr>
+<tr><td>--norm_diff</td><td>Maximum difference in normal vectors, in degrees</td></tr>
+<tr><td>--num_iter</td><td>Number of iterations</td></tr>
+<tr><td>--max_diff</td><td>Maximum allowable absolute elevation change (optional)</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.feature_preserving_smoothing(
@@ -882,12 +950,12 @@ mesh denoising. <em>IEEE Transactions on Visualization &amp; Computer Graphics</
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif --filter=15 ^
 --norm_diff=20.0 --num_iter=4 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/feature_preserving_smoothing.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/feature_preserving_smoothing.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/11/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="FetchAnalysis"></a></p>
-<a class="header" href="#fetchanalysis" id="fetchanalysis"><h1>FetchAnalysis</h1></a>
+<h1 id="fetchanalysis"><a class="header" href="#fetchanalysis">FetchAnalysis</a></h1>
 <p>This tool creates a new raster in which each grid cell is assigned the distance, in meters, to the nearest
 topographic obstacle in a specified direction. It is a modification of the algorithm described by Lapen and
 Martz (1993). Unlike the original algorithm, Fetch Analysis is capable of analyzing fetch in any direction
@@ -917,11 +985,11 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#directionalrelief"><strong>DirectionalRelief</strong></a>, <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a>, <a href="./geomorphometric_analysis.html#relativeaspect"><strong>RelativeAspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--azimuth          </td><td> Wind azimuth in degrees in degrees</td></tr>
-<tr><td>--hgt_inc          </td><td> Height increment value</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--azimuth</td><td>Wind azimuth in degrees in degrees</td></tr>
+<tr><td>--hgt_inc</td><td>Height increment value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.fetch_analysis(
@@ -936,12 +1004,12 @@ from raster digital elevation models. Computers &amp; Geosciences, 19(6), 769-77
 <pre><code>&gt;&gt;./whitebox_tools -r=FetchAnalysis -v --wd=&quot;/path/to/data/&quot; ^
 -i='input.tif' -o=output.tif --azimuth=315.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fetch_analysis.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/fetch_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="FillMissingData"></a></p>
-<a class="header" href="#fillmissingdata" id="fillmissingdata"><h1>FillMissingData</h1></a>
+<h1 id="fillmissingdata"><a class="header" href="#fillmissingdata">FillMissingData</a></h1>
 <p>This tool can be used to fill in small gaps in a raster or digital elevation model (DEM). The gaps,
 or holes, must have recognized NoData values. If gaps do not currently have this characteristic, use
 the <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a> tool and ensure that the data are stored using a raster format that supports NoData
@@ -959,12 +1027,12 @@ for filling.</p>
 <p><em>See Also</em>:
 <a href="./data_tools.html#setnodatavalue"><strong>SetNodataValue</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Filter size (cells)</td></tr>
-<tr><td>--weight           </td><td> IDW weight value</td></tr>
-<tr><td>--no_edges         </td><td> Optional flag indicating whether to exclude NoData cells in edge regions</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filter</td><td>Filter size (cells)</td></tr>
+<tr><td>--weight</td><td>IDW weight value</td></tr>
+<tr><td>--no_edges</td><td>Optional flag indicating whether to exclude NoData cells in edge regions</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.fill_missing_data(
@@ -981,20 +1049,20 @@ for filling.</p>
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif --filter=25 ^
 --weight=1.0 --no_edges 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/fill_missing_data.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/fill_missing_data.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/06/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="FindRidges"></a></p>
-<a class="header" href="#findridges" id="findridges"><h1>FindRidges</h1></a>
+<h1 id="findridges"><a class="header" href="#findridges">FindRidges</a></h1>
 <p>This tool can be used to identify ridge cells in a digital elevation model (DEM). Ridge cells are those that
 have lower neighbours either to the north and south or the east and west. Line thinning can optionally be used
 to create single-cell wide ridge networks by specifying the <code>--line_thin</code> parameter.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--line_thin        </td><td> Optional flag indicating whether post-processing line-thinning should be performed</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--line_thin</td><td>Optional flag indicating whether post-processing line-thinning should be performed</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.find_ridges(
@@ -1008,12 +1076,12 @@ to create single-cell wide ridge networks by specifying the <code>--line_thin</c
 <pre><code>&gt;&gt;./whitebox_tools -r=FindRidges -v --wd=&quot;/path/to/data/&quot; ^
 --dem=pointer.tif -o=out.tif --line_thin 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/find_ridges.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/find_ridges.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 04/12/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="Hillshade"></a></p>
-<a class="header" href="#hillshade" id="hillshade"><h1>Hillshade</h1></a>
+<h1 id="hillshade"><a class="header" href="#hillshade">Hillshade</a></h1>
 <p>This tool performs a hillshade operation (also called shaded relief) on an input digital elevation model (DEM).
 The user must specify the  name of the input DEM and the output hillshade image name. Other parameters that must
 be specified include the illumination source azimuth (<code>--azimuth</code>), or sun direction (0-360 degrees), the
@@ -1040,12 +1108,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#hypsometricallytintedhillshade"><strong>HypsometricallyTintedHillshade</strong></a>, <a href="./geomorphometric_analysis.html#multidirectionalhillshade"><strong>MultidirectionalHillshade</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--azimuth          </td><td> Illumination source azimuth in degrees</td></tr>
-<tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--azimuth</td><td>Illumination source azimuth in degrees</td></tr>
+<tr><td>--altitude</td><td>Illumination source altitude in degrees</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.hillshade(
@@ -1061,12 +1129,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code>&gt;&gt;./whitebox_tools -r=Hillshade -v --wd=&quot;/path/to/data/&quot; ^
 -i=DEM.tif -o=output.tif --azimuth=315.0 --altitude=30.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hillshade.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="HorizonAngle"></a></p>
-<a class="header" href="#horizonangle" id="horizonangle"><h1>HorizonAngle</h1></a>
+<h1 id="horizonangle"><a class="header" href="#horizonangle">HorizonAngle</a></h1>
 <p>This tool calculates the horizon angle (<em>Sx</em>), i.e. the maximum slope along a specified azimuth (0-360 degrees) for
 each grid cell in an input digital elevation model (DEM). Horizon angle is sometime referred to as the maximum upwind
 slope in wind exposure/sheltering studies. Positive values can be considered sheltered with respect to the azimuth and
@@ -1093,11 +1161,11 @@ an example of horizon angle calculated at a 150-degree azimuth).</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#timeindaylight"><strong>TimeInDaylight</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--azimuth          </td><td> Azimuth, in degrees</td></tr>
-<tr><td>--max_dist         </td><td> Optional maximum search distance (unspecified if none; in xy units). Minimum value is 5 x cell size</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--azimuth</td><td>Azimuth, in degrees</td></tr>
+<tr><td>--max_dist</td><td>Optional maximum search distance (unspecified if none; in xy units). Minimum value is 5 x cell size</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.horizon_angle(
@@ -1112,12 +1180,12 @@ an example of horizon angle calculated at a 150-degree azimuth).</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=HorizonAngle -v --wd=&quot;/path/to/data/&quot; ^
 -i='input.tif' -o=output.tif --azimuth=315.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/horizon_angle.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/horizon_angle.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/07/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="HypsometricAnalysis"></a></p>
-<a class="header" href="#hypsometricanalysis" id="hypsometricanalysis"><h1>HypsometricAnalysis</h1></a>
+<h1 id="hypsometricanalysis"><a class="header" href="#hypsometricanalysis">HypsometricAnalysis</a></h1>
 <p>This tool can be used to derive the hypsometric curve, or area-altitude curve, of one or more
 input digital elevation models (DEMs) (<code>--inputs</code>). A hypsometric curve is a histogram or cumulative
 distribution function of elevations in a geographical area.</p>
@@ -1125,10 +1193,10 @@ distribution function of elevations in a geographical area.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#slopevselevationplot"><strong>SlopeVsElevationPlot</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input DEM files</td></tr>
-<tr><td>--watershed        </td><td> Input watershed files (optional)</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input DEM files</td></tr>
+<tr><td>--watershed</td><td>Input watershed files (optional)</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.hypsometric_analysis(
@@ -1143,12 +1211,12 @@ distribution function of elevations in a geographical area.</p>
 --wd=&quot;/path/to/data/&quot; -i=&quot;DEM1.tif;DEM2.tif&quot; ^
 --watershed=&quot;ws1.tif;ws2.tif&quot; -o=outfile.html 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hypsometric_analysis.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/hypsometric_analysis.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 30/01/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="HypsometricallyTintedHillshade"></a></p>
-<a class="header" href="#hypsometricallytintedhillshade" id="hypsometricallytintedhillshade"><h1>HypsometricallyTintedHillshade</h1></a>
+<h1 id="hypsometricallytintedhillshade"><a class="header" href="#hypsometricallytintedhillshade">HypsometricallyTintedHillshade</a></h1>
 <p>This tool creates a hypsometrically tinted shaded relief (Swiss hillshading) image from an input digital elevation model (DEM).
 The tool combines a colourized version of the DEM with varying illumination provided by a hillshade image, to
 produce a composite relief model that can be used to visual topography for more effective interpretation of
@@ -1176,17 +1244,17 @@ is used:</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#hillshade"><strong>Hillshade</strong></a>, <a href="./geomorphometric_analysis.html#multidirectionalhillshade"><strong>MultidirectionalHillshade</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
-<tr><td>--hs_weight        </td><td> Weight given to hillshade relative to relief (0.0-1.0)</td></tr>
-<tr><td>--brightness       </td><td> Brightness factor (0.0-1.0)</td></tr>
-<tr><td>--atmospheric      </td><td> Atmospheric effects weight (0.0-1.0)</td></tr>
-<tr><td>--palette          </td><td> Options include 'atlas', 'high_relief', 'arid', 'soft', 'muted', 'purple', 'viridi', 'gn_yl', 'pi_y_g', 'bl_yl_rd', and 'deep'</td></tr>
-<tr><td>--reverse          </td><td> Optional flag indicating whether to use reverse the palette</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
-<tr><td>--full_mode        </td><td> Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--altitude</td><td>Illumination source altitude in degrees</td></tr>
+<tr><td>--hs_weight</td><td>Weight given to hillshade relative to relief (0.0-1.0)</td></tr>
+<tr><td>--brightness</td><td>Brightness factor (0.0-1.0)</td></tr>
+<tr><td>--atmospheric</td><td>Atmospheric effects weight (0.0-1.0)</td></tr>
+<tr><td>--palette</td><td>Options include 'atlas', 'high_relief', 'arid', 'soft', 'muted', 'purple', 'viridi', 'gn_yl', 'pi_y_g', 'bl_yl_rd', and 'deep'</td></tr>
+<tr><td>--reverse</td><td>Optional flag indicating whether to use reverse the palette</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--full_mode</td><td>Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.hypsometrically_tinted_hillshade(
@@ -1209,12 +1277,12 @@ is used:</p>
 --hs_weight=0.3 --brightness=0.6 --atmospheric=0.2 ^
 --palette=arid --full_mode 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/hypsometrically_tinted_hillshade.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/hypsometrically_tinted_hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/07/2020</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MapOffTerrainObjects"></a></p>
-<a class="header" href="#mapoffterrainobjects" id="mapoffterrainobjects"><h1>MapOffTerrainObjects</h1></a>
+<h1 id="mapoffterrainobjects"><a class="header" href="#mapoffterrainobjects">MapOffTerrainObjects</a></h1>
 <p>This tool can be used to map off-terrain objects in a digital surface model (DSM) based on cell-to-cell differences
 in elevations and local slopes. The algorithm works by using a region-growing operation to connect neighbouring grid
 cells outwards from seed cells. Two neighbouring cells are considered connected if the slope between the two cells
@@ -1226,11 +1294,11 @@ interpolation.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#removeoffterrainobjects"><strong>RemoveOffTerrainObjects</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--max_slope        </td><td> Maximum inter-cell absolute slope</td></tr>
-<tr><td>--min_size         </td><td> Minimum feature size, in grid cells</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--max_slope</td><td>Maximum inter-cell absolute slope</td></tr>
+<tr><td>--min_size</td><td>Minimum feature size, in grid cells</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.map_off_terrain_objects(
@@ -1246,21 +1314,21 @@ interpolation.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --max_diff=1.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/map_otos.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/map_otos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/07/2020</p>
 <p><em>Last Modified</em>: 27/07/2020</p>
 <p><a name="MaxAnisotropyDev"></a></p>
-<a class="header" href="#maxanisotropydev" id="maxanisotropydev"><h1>MaxAnisotropyDev</h1></a>
+<h1 id="maxanisotropydev"><a class="header" href="#maxanisotropydev">MaxAnisotropyDev</a></h1>
 <p>Calculates the maximum anisotropy (directionality) in elevation deviation over a range of spatial scales.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--out_mag          </td><td> Output raster DEVmax magnitude file</td></tr>
-<tr><td>--out_scale        </td><td> Output raster DEVmax scale file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--out_mag</td><td>Output raster DEVmax magnitude file</td></tr>
+<tr><td>--out_scale</td><td>Output raster DEVmax scale file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale</td><td>Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_anisotropy_dev(
@@ -1279,21 +1347,21 @@ interpolation.</p>
 --out_scale=DEVmax_scale.tif --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_anisotropy_dev.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/max_anisotropy_dev.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dan Newman and John Lindsay</p>
 <p><em>Created</em>: January 26, 2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="MaxAnisotropyDevSignature"></a></p>
-<a class="header" href="#maxanisotropydevsignature" id="maxanisotropydevsignature"><h1>MaxAnisotropyDevSignature</h1></a>
+<h1 id="maxanisotropydevsignature"><a class="header" href="#maxanisotropydevsignature">MaxAnisotropyDevSignature</a></h1>
 <p>Calculates the anisotropy in deviation from mean for points over a range of spatial scales.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--points           </td><td> Input vector points file</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--points</td><td>Input vector points file</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale</td><td>Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_anisotropy_dev_signature(
@@ -1312,12 +1380,12 @@ interpolation.</p>
 --output=roughness.html --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_anisotropy_dev_signature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/max_anisotropy_dev_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dan Newman and John Lindsay</p>
 <p><em>Created</em>: 27/03/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="MaxBranchLength"></a></p>
-<a class="header" href="#maxbranchlength" id="maxbranchlength"><h1>MaxBranchLength</h1></a>
+<h1 id="maxbranchlength"><a class="header" href="#maxbranchlength">MaxBranchLength</a></h1>
 <p>Maximum branch length (<code>Bmax</code>) is the longest branch length between a grid cell's flowpath
 and the flowpaths initiated at each of its neighbours. It can be conceptualized as the
 downslope distance that a volume of water that is split into two portions by a drainage
@@ -1346,10 +1414,10 @@ to assess stream size.</p>
 International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 10.1080/13658816.2012.705289</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--log              </td><td> Optional flag to request the output be log-transformed</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--log</td><td>Optional flag to request the output be log-transformed</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_branch_length(
@@ -1363,21 +1431,21 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxBranchLength -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_branch_length.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/max_branch_length.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/07/2017</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="MaxDifferenceFromMean"></a></p>
-<a class="header" href="#maxdifferencefrommean" id="maxdifferencefrommean"><h1>MaxDifferenceFromMean</h1></a>
+<h1 id="maxdifferencefrommean"><a class="header" href="#maxdifferencefrommean">MaxDifferenceFromMean</a></h1>
 <p>Calculates the maximum difference from mean elevation over a range of spatial scales.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--out_mag          </td><td> Output raster DIFFmax magnitude file</td></tr>
-<tr><td>--out_scale        </td><td> Output raster DIFFmax scale file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--out_mag</td><td>Output raster DIFFmax magnitude file</td></tr>
+<tr><td>--out_scale</td><td>Output raster DIFFmax scale file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale</td><td>Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_difference_from_mean(
@@ -1396,21 +1464,21 @@ International Journal of Geographical Information Science, 27: 1453-1468. DOI:
 --out_scale=DEVmax_scale.tif --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_diff_from_mean.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/max_diff_from_mean.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/08/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="MaxDownslopeElevChange"></a></p>
-<a class="header" href="#maxdownslopeelevchange" id="maxdownslopeelevchange"><h1>MaxDownslopeElevChange</h1></a>
+<h1 id="maxdownslopeelevchange"><a class="header" href="#maxdownslopeelevchange">MaxDownslopeElevChange</a></h1>
 <p>This tool calculates the maximum elevation drop between each grid cell and its neighbouring cells within
 a digital elevation model (DEM). The user must specify the name of the input DEM (<code>--dem</code>) and the output
 (<code>--output</code>) raster name.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#mindownslopeelevchange"><strong>MinDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_downslope_elev_change(
@@ -1423,21 +1491,21 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxDownslopeElevChange -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_downslope_elev_change.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/max_downslope_elev_change.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="MaxElevDevSignature"></a></p>
-<a class="header" href="#maxelevdevsignature" id="maxelevdevsignature"><h1>MaxElevDevSignature</h1></a>
+<h1 id="maxelevdevsignature"><a class="header" href="#maxelevdevsignature">MaxElevDevSignature</a></h1>
 <p>Calculates the maximum elevation deviation over a range of spatial scales and for a set of points.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--points           </td><td> Input vector points file</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--points</td><td>Input vector points file</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale</td><td>Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_elev_dev_signature(
@@ -1456,12 +1524,12 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 --output=topo_position.html --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_elev_dev_signature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/max_elev_dev_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: March 1, 2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="MaxElevationDeviation"></a></p>
-<a class="header" href="#maxelevationdeviation" id="maxelevationdeviation"><h1>MaxElevationDeviation</h1></a>
+<h1 id="maxelevationdeviation"><a class="header" href="#maxelevationdeviation">MaxElevationDeviation</a></h1>
 <p>This tool can be used to calculate the maximum deviation from mean elevation, <em>DEVmax</em> (Lindsay et al. 2015) for each
 grid cell in a digital elevation model (DEM) across a range specified spatial scales. <em>DEV</em>
 is an elevation residual index and is essentially equivalent to a local elevation z-score.
@@ -1493,13 +1561,13 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleelevationpercentile"><strong>MultiscaleElevationPercentile</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--out_mag          </td><td> Output raster DEVmax magnitude file</td></tr>
-<tr><td>--out_scale        </td><td> Output raster DEVmax scale file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--out_mag</td><td>Output raster DEVmax magnitude file</td></tr>
+<tr><td>--out_scale</td><td>Output raster DEVmax scale file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale</td><td>Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_elevation_deviation(
@@ -1518,21 +1586,21 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 --out_scale=DEVmax_scale.tif --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/max_elev_deviation.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/max_elev_deviation.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: July 20, 2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="MinDownslopeElevChange"></a></p>
-<a class="header" href="#mindownslopeelevchange" id="mindownslopeelevchange"><h1>MinDownslopeElevChange</h1></a>
+<h1 id="mindownslopeelevchange"><a class="header" href="#mindownslopeelevchange">MinDownslopeElevChange</a></h1>
 <p>This tool calculates the minimum elevation drop between each grid cell and its neighbouring cells within
 a digital elevation model (DEM). The user must specify the name of the input DEM (<code>--dem</code>) and the output
 (<code>--output</code>) raster name.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#maxdownslopeelevchange"><strong>MaxDownslopeElevChange</strong></a>, <a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.min_downslope_elev_change(
@@ -1545,12 +1613,12 @@ a digital elevation model (DEM). The user must specify the name of the input DEM
 <pre><code>&gt;&gt;./whitebox_tools -r=MinDownslopeElevChange -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=out.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/min_downslope_elev_change.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/min_downslope_elev_change.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 11/07/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="MultidirectionalHillshade"></a></p>
-<a class="header" href="#multidirectionalhillshade" id="multidirectionalhillshade"><h1>MultidirectionalHillshade</h1></a>
+<h1 id="multidirectionalhillshade"><a class="header" href="#multidirectionalhillshade">MultidirectionalHillshade</a></h1>
 <p>This tool performs a hillshade operation (also called shaded relief) on an input digital elevation model (DEM)
 with multiple sources of illumination. The user must specify the  name of the input DEM (<code>--dem</code>) and the output
 hillshade image name (<code>--output</code>). Other parameters that must be specified include the altitude of the illumination
@@ -1584,14 +1652,14 @@ full 360-degree mode, eight illumination source azimuths are used to calculate t
 <p>Multi-directional hillshade (Altitude=45.0, 360-degree mode)
 <img src="../img/MultidirectionalHillshade_fig3.png" alt="" /></p>
 <p><em>See Also</em>:
-<a href="./geomorphometric_analysis.html#hillshade"><strong>Hillshade</strong></a>, HypsometricallyTintedHillshade, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
+<a href="./geomorphometric_analysis.html#hillshade"><strong>Hillshade</strong></a>, <a href="./geomorphometric_analysis.html#hypsometricallytintedhillshade"><strong>HypsometricallyTintedHillshade</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--altitude         </td><td> Illumination source altitude in degrees</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
-<tr><td>--full_mode        </td><td> Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--altitude</td><td>Illumination source altitude in degrees</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--full_mode</td><td>Optional flag indicating whether to use full 360-degrees of illumination sources</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.multidirectional_hillshade(
@@ -1608,12 +1676,12 @@ full 360-degree mode, eight illumination source azimuths are used to calculate t
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif ^
 --altitude=30.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multidirectional_hillshade.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/multidirectional_hillshade.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/07/2020</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleElevationPercentile"></a></p>
-<a class="header" href="#multiscaleelevationpercentile" id="multiscaleelevationpercentile"><h1>MultiscaleElevationPercentile</h1></a>
+<h1 id="multiscaleelevationpercentile"><a class="header" href="#multiscaleelevationpercentile">MultiscaleElevationPercentile</a></h1>
 <p>This tool calculates the most elevation percentile (EP) across a range of spatial scales.
 EP is a measure of local topographic position (LTP) and expresses the vertical
 position for a digital elevation model (DEM) grid cell (z<sub>0</sub>) as the percentile of the
@@ -1660,15 +1728,15 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 <p><em>See Also</em>:
 <code>ElevationPercentile</code>, <a href="./geomorphometric_analysis.html#maxelevationdeviation"><strong>MaxElevationDeviation</strong></a>, <a href="./geomorphometric_analysis.html#maxdifferencefrommean"><strong>MaxDifferenceFromMean</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--out_mag          </td><td> Output raster roughness magnitude file</td></tr>
-<tr><td>--out_scale        </td><td> Output raster roughness scale file</td></tr>
-<tr><td>--sig_digits       </td><td> Number of significant digits</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
-<tr><td>--num_steps        </td><td> Number of steps</td></tr>
-<tr><td>--step_nonlinearity</td><td> Step nonlinearity factor (1.0-2.0 is typical)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--out_mag</td><td>Output raster roughness magnitude file</td></tr>
+<tr><td>--out_scale</td><td>Output raster roughness scale file</td></tr>
+<tr><td>--sig_digits</td><td>Number of significant digits</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
+<tr><td>--num_steps</td><td>Number of steps</td></tr>
+<tr><td>--step_nonlinearity</td><td>Step nonlinearity factor (1.0-2.0 is typical)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.multiscale_elevation_percentile(
@@ -1689,21 +1757,21 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 --out_scale=roughness_scale.tif --min_scale=1 --step=5 ^
 --num_steps=100 --step_nonlinearity=1.5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_elev_percentile.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/multiscale_elev_percentile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/12/2019</p>
 <p><em>Last Modified</em>: 22/12/2019</p>
 <p><a name="MultiscaleRoughness"></a></p>
-<a class="header" href="#multiscaleroughness" id="multiscaleroughness"><h1>MultiscaleRoughness</h1></a>
+<h1 id="multiscaleroughness"><a class="header" href="#multiscaleroughness">MultiscaleRoughness</a></h1>
 <p>Calculates surface roughness over a range of spatial scales.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--out_mag          </td><td> Output raster roughness magnitude file</td></tr>
-<tr><td>--out_scale        </td><td> Output raster roughness scale file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--out_mag</td><td>Output raster roughness magnitude file</td></tr>
+<tr><td>--out_scale</td><td>Output raster roughness scale file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale</td><td>Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.multiscale_roughness(
@@ -1722,21 +1790,21 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 --out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/multiscale_roughness.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/02/2018</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleRoughnessSignature"></a></p>
-<a class="header" href="#multiscaleroughnesssignature" id="multiscaleroughnesssignature"><h1>MultiscaleRoughnessSignature</h1></a>
+<h1 id="multiscaleroughnesssignature"><a class="header" href="#multiscaleroughnesssignature">MultiscaleRoughnessSignature</a></h1>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--points           </td><td> Input vector points file</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--max_scale        </td><td> Maximum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--points</td><td>Input vector points file</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--max_scale</td><td>Maximum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.multiscale_roughness_signature(
@@ -1755,12 +1823,12 @@ Transactions on Acoustics, Speech, and Signal Processing, 27(1), pp.13-18.</p>
 --output=roughness.html --min_scale=1 --max_scale=1000 ^
 --step=5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_roughness_signature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/multiscale_roughness_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/02/2018</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleStdDevNormals"></a></p>
-<a class="header" href="#multiscalestddevnormals" id="multiscalestddevnormals"><h1>MultiscaleStdDevNormals</h1></a>
+<h1 id="multiscalestddevnormals"><a class="header" href="#multiscalestddevnormals">MultiscaleStdDevNormals</a></h1>
 <p>This tool can be used to map the spatial pattern of maximum spherical standard deviation
 (σ<sub><em>s max</em></sub>; <code>--out_mag</code>), as well as the scale at which maximum spherical standard deviation occurs
 (<em>r<sub>max</sub></em>; <code>--out_scale</code>), for each grid cell in an input DEM (<code>--dem</code>). This serves as a multi-scale measure
@@ -1792,14 +1860,14 @@ and a step size (<code>--step</code>) of <em>step</em>.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>, <a href="./geomorphometric_analysis.html#multiscalestddevnormalssignature"><strong>MultiscaleStdDevNormalsSignature</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--out_mag          </td><td> Output raster roughness magnitude file</td></tr>
-<tr><td>--out_scale        </td><td> Output raster roughness scale file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
-<tr><td>--num_steps        </td><td> Number of steps</td></tr>
-<tr><td>--step_nonlinearity</td><td> Step nonlinearity factor (1.0-2.0 is typical)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--out_mag</td><td>Output raster roughness magnitude file</td></tr>
+<tr><td>--out_scale</td><td>Output raster roughness scale file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
+<tr><td>--num_steps</td><td>Number of steps</td></tr>
+<tr><td>--step_nonlinearity</td><td>Step nonlinearity factor (1.0-2.0 is typical)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.multiscale_std_dev_normals(
@@ -1819,22 +1887,22 @@ and a step size (<code>--step</code>) of <em>step</em>.</p>
 --out_scale=roughness_scale.tif --min_scale=1 --step=5 ^
 --num_steps=100 --step_nonlinearity=1.5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_std_dev_normals.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/multiscale_std_dev_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/06/2019</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleStdDevNormalsSignature"></a></p>
-<a class="header" href="#multiscalestddevnormalssignature" id="multiscalestddevnormalssignature"><h1>MultiscaleStdDevNormalsSignature</h1></a>
+<h1 id="multiscalestddevnormalssignature"><a class="header" href="#multiscalestddevnormalssignature">MultiscaleStdDevNormalsSignature</a></h1>
 <p>Calculates the surface roughness for points over a range of spatial scales.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--points           </td><td> Input vector points file</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
-<tr><td>--min_scale        </td><td> Minimum search neighbourhood radius in grid cells</td></tr>
-<tr><td>--step             </td><td> Step size as any positive non-zero integer</td></tr>
-<tr><td>--num_steps        </td><td> Number of steps</td></tr>
-<tr><td>--step_nonlinearity</td><td> Step nonlinearity factor (1.0-2.0 is typical)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--points</td><td>Input vector points file</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file</td></tr>
+<tr><td>--min_scale</td><td>Minimum search neighbourhood radius in grid cells</td></tr>
+<tr><td>--step</td><td>Step size as any positive non-zero integer</td></tr>
+<tr><td>--num_steps</td><td>Number of steps</td></tr>
+<tr><td>--step_nonlinearity</td><td>Step nonlinearity factor (1.0-2.0 is typical)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.multiscale_std_dev_normals_signature(
@@ -1854,12 +1922,12 @@ and a step size (<code>--step</code>) of <em>step</em>.</p>
 --output=roughness.html --min_scale=1 --step=5 --num_steps=100 ^
 --step_nonlinearity=1.5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_std_dev_normals_signature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/multiscale_std_dev_normals_signature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 20/06/2019</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="MultiscaleTopographicPositionImage"></a></p>
-<a class="header" href="#multiscaletopographicpositionimage" id="multiscaletopographicpositionimage"><h1>MultiscaleTopographicPositionImage</h1></a>
+<h1 id="multiscaletopographicpositionimage"><a class="header" href="#multiscaletopographicpositionimage">MultiscaleTopographicPositionImage</a></h1>
 <p>This tool creates a multiscale topographic position (MTP) image (<a href="https://www.uoguelph.ca/%7Ehydrogeo/pubs/UpdatedPosterMapSm.png">see here for an
 example</a>) from three DEV<sub>max</sub> rasters of differing
 spatial scale ranges. Specifically, <a href="./geomorphometric_analysis.html#multiscaletopographicpositionimage"><strong>MultiscaleTopographicPositionImage</strong></a> takes three DEV<sub>max</sub> <em>magnitude</em>
@@ -1881,12 +1949,12 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#maxelevationdeviation"><strong>MaxElevationDeviation</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--local            </td><td> Input local-scale topographic position (DEVmax) raster file</td></tr>
-<tr><td>--meso             </td><td> Input meso-scale topographic position (DEVmax) raster file</td></tr>
-<tr><td>--broad            </td><td> Input broad-scale topographic position (DEVmax) raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--lightness        </td><td> Image lightness value (default is 1.2)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--local</td><td>Input local-scale topographic position (DEVmax) raster file</td></tr>
+<tr><td>--meso</td><td>Input meso-scale topographic position (DEVmax) raster file</td></tr>
+<tr><td>--broad</td><td>Input broad-scale topographic position (DEVmax) raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--lightness</td><td>Image lightness value (default is 1.2)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.multiscale_topographic_position_image(
@@ -1903,12 +1971,12 @@ topographic position analysis. Geomorphology, 245: 51-61.</p>
 --wd=&quot;/path/to/data/&quot; --local=DEV_local.tif --meso=DEV_meso.tif ^
 --broad=DEV_broad.tif -o=output.tif --lightness=1.5 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/multiscale_topographic_position_image.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/multiscale_topographic_position_image.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="NumDownslopeNeighbours"></a></p>
-<a class="header" href="#numdownslopeneighbours" id="numdownslopeneighbours"><h1>NumDownslopeNeighbours</h1></a>
+<h1 id="numdownslopeneighbours"><a class="header" href="#numdownslopeneighbours">NumDownslopeNeighbours</a></h1>
 <p>This tool calculates the number of downslope neighbours of each grid cell in a raster digital elevation model (DEM).
 The user must specify the name of the input DEM (<code>--dem</code>) and the output (<code>--output</code>) raster name. The tool examines
 the eight neighbouring cells for each grid cell in a the DEM and counts the number of neighbours with an elevation
@@ -1918,9 +1986,9 @@ tool can be used with the <a href="./geomorphometric_analysis.html#numupslopenei
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#numupslopeneighbours"><strong>NumUpslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.num_downslope_neighbours(
@@ -1933,12 +2001,12 @@ tool can be used with the <a href="./geomorphometric_analysis.html#numupslopenei
 <pre><code>&gt;&gt;./whitebox_tools -r=NumDownslopeNeighbours -v ^
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/num_downslope_neighbours.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/num_downslope_neighbours.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="NumUpslopeNeighbours"></a></p>
-<a class="header" href="#numupslopeneighbours" id="numupslopeneighbours"><h1>NumUpslopeNeighbours</h1></a>
+<h1 id="numupslopeneighbours"><a class="header" href="#numupslopeneighbours">NumUpslopeNeighbours</a></h1>
 <p>This tool calculates the number of upslope neighbours of each grid cell in a raster digital elevation model (DEM).
 The user must specify the name of the input DEM (<code>--dem</code>) and the output (<code>--output</code>) raster name. The tool examines
 the eight neighbouring cells for each grid cell in a the DEM and counts the number of neighbours with an elevation
@@ -1949,9 +2017,9 @@ divergence/convergence.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#numdownslopeneighbours"><strong>NumDownslopeNeighbours</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.num_upslope_neighbours(
@@ -1964,12 +2032,12 @@ divergence/convergence.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=NumUpslopeNeighbours -v ^
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/num_upslope_neighbours.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/num_upslope_neighbours.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="PennockLandformClass"></a></p>
-<a class="header" href="#pennocklandformclass" id="pennocklandformclass"><h1>PennockLandformClass</h1></a>
+<h1 id="pennocklandformclass"><a class="header" href="#pennocklandformclass">PennockLandformClass</a></h1>
 <p>Tool can be used to perform a simple landform classification based on measures of slope gradient
 and curvature derived from a user-specified digital elevation model (DEM). The classification
 scheme is based on the method proposed by Pennock, Zebarth, and DeJong (1987). The scheme divides
@@ -1977,25 +2045,25 @@ a landscape into seven element types, including: convergent footslopes (CFS), di
 (DFS), convergent shoulders (CSH), divergent shoulders (DSH), convergent backslopes (CBS), divergent
 backslopes (DBS), and level terrain (L). The output raster image will record each of these base element
 types as:</p>
-<table><thead><tr><th>Element Type  </th><th>  Code</th></tr></thead><tbody>
-<tr><td>CFS           </td><td>  1</td></tr>
-<tr><td>DFS           </td><td>  2</td></tr>
-<tr><td>CSH           </td><td>  3</td></tr>
-<tr><td>DSH           </td><td>  4</td></tr>
-<tr><td>CBS           </td><td>  5</td></tr>
-<tr><td>DBS           </td><td>  6</td></tr>
-<tr><td>L             </td><td>  7</td></tr>
+<table><thead><tr><th>Element Type</th><th>Code</th></tr></thead><tbody>
+<tr><td>CFS</td><td>1</td></tr>
+<tr><td>DFS</td><td>2</td></tr>
+<tr><td>CSH</td><td>3</td></tr>
+<tr><td>DSH</td><td>4</td></tr>
+<tr><td>CBS</td><td>5</td></tr>
+<tr><td>DBS</td><td>6</td></tr>
+<tr><td>L</td><td>7</td></tr>
 </tbody></table>
 <p>The definition of each of the elements, based on the original Pennock et al. (1987) paper, is
 as follows:</p>
-<table><thead><tr><th align="left">    PROFILE             </th><th align="left">   GRADIENT    </th><th>   PLAN         </th><th>  Element </th></tr></thead><tbody>
-<tr><td align="left"> Concave ( -0.10)       </td><td align="left">  High &gt;3.0    </td><td align="left"> Concave 0.0    </td><td align="left">  CFS     </td></tr>
-<tr><td align="left"> Concave ( -0.10)       </td><td align="left">  High &gt;3.0    </td><td align="left"> Convex &gt;0.0    </td><td align="left">  DFS     </td></tr>
-<tr><td align="left"> Convex (&gt;0.10)         </td><td align="left">  High &gt;3.0    </td><td align="left"> Concave 0.0    </td><td align="left">  CSH     </td></tr>
-<tr><td align="left"> Convex (&gt;0.10)         </td><td align="left">  High &gt;3.0    </td><td align="left"> Convex &gt;0.0    </td><td align="left">  DSH     </td></tr>
-<tr><td align="left"> Linear (-0.10...0.10)  </td><td align="left">  High &gt;3.0    </td><td align="left"> Concave 0.0    </td><td align="left">  CBS     </td></tr>
-<tr><td align="left"> Linear (-0.10...0.10)  </td><td align="left">  High &gt;3.0    </td><td align="left"> Convex &gt;0.0    </td><td align="left">  DBS     </td></tr>
-<tr><td align="left"> --                     </td><td align="left">  Low 3.0      </td><td align="left"> --             </td><td align="left">  L       </td></tr>
+<table><thead><tr><th align="left">PROFILE</th><th align="left">GRADIENT</th><th align="left">PLAN</th><th align="left">Element</th></tr></thead><tbody>
+<tr><td align="left">Concave ( -0.10)</td><td align="left">High &gt;3.0</td><td align="left">Concave 0.0</td><td align="left">CFS</td></tr>
+<tr><td align="left">Concave ( -0.10)</td><td align="left">High &gt;3.0</td><td align="left">Convex &gt;0.0</td><td align="left">DFS</td></tr>
+<tr><td align="left">Convex (&gt;0.10)</td><td align="left">High &gt;3.0</td><td align="left">Concave 0.0</td><td align="left">CSH</td></tr>
+<tr><td align="left">Convex (&gt;0.10)</td><td align="left">High &gt;3.0</td><td align="left">Convex &gt;0.0</td><td align="left">DSH</td></tr>
+<tr><td align="left">Linear (-0.10...0.10)</td><td align="left">High &gt;3.0</td><td align="left">Concave 0.0</td><td align="left">CBS</td></tr>
+<tr><td align="left">Linear (-0.10...0.10)</td><td align="left">High &gt;3.0</td><td align="left">Convex &gt;0.0</td><td align="left">DBS</td></tr>
+<tr><td align="left">--</td><td align="left">Low 3.0</td><td align="left">--</td><td align="left">L</td></tr>
 </tbody></table>
 <p>Where PROFILE is profile curvature, GRADIENT is the slope gradient, and PLAN is the plan curvature.
 Note that these values are likely landscape and data specific and can be adjusted by the user.
@@ -2010,13 +2078,13 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#featurepreservingsmoothing"><strong>FeaturePreservingSmoothing</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--slope            </td><td> Slope threshold value, in degrees (default is 3.0)</td></tr>
-<tr><td>--prof             </td><td> Profile curvature threshold value (default is 0.1)</td></tr>
-<tr><td>--plan             </td><td> Plan curvature threshold value (default is 0.0)</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--slope</td><td>Slope threshold value, in degrees (default is 3.0)</td></tr>
+<tr><td>--prof</td><td>Profile curvature threshold value (default is 0.1)</td></tr>
+<tr><td>--plan</td><td>Plan curvature threshold value (default is 0.0)</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.pennock_landform_class(
@@ -2034,12 +2102,12 @@ in hummocky terrain, Saskatchewan, Canada. Geoderma, 40: 297-315.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif --slope=3.0 ^
 --prof=0.1 --plan=0.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/pennock_landform_class.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/pennock_landform_class.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 12/07/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="PercentElevRange"></a></p>
-<a class="header" href="#percentelevrange" id="percentelevrange"><h1>PercentElevRange</h1></a>
+<h1 id="percentelevrange"><a class="header" href="#percentelevrange">PercentElevRange</a></h1>
 <p>Percent elevation range (PER) is a measure of local topographic position (LTP). It expresses the vertical
 position for a digital elevation model (DEM) grid cell (z<sub>0</sub>) as the percentage of the
 elevation range within the neighbourhood filter window, such that:</p>
@@ -2058,11 +2126,11 @@ for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#relativetopographicposition"><strong>RelativeTopographicPosition</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
-<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filterx</td><td>Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery</td><td>Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.percent_elev_range(
@@ -2077,12 +2145,12 @@ for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=PercentElevRange -v ^
 --wd=&quot;/path/to/data/&quot; -i=DEM.tif -o=output.tif --filter=25 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/percent_elev_range.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/percent_elev_range.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/06/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="PlanCurvature"></a></p>
-<a class="header" href="#plancurvature" id="plancurvature"><h1>PlanCurvature</h1></a>
+<h1 id="plancurvature"><a class="header" href="#plancurvature">PlanCurvature</a></h1>
 <p>This tool calculates the plan curvature (i.e. contour curvature), or the rate of change in
 aspect along a contour line, from a digital elevation model (DEM). Curvature is the second
 derivative of the topographic surface defined by a DEM. Plan curvature characterizes the
@@ -2106,10 +2174,10 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a>, <a href="./geomorphometric_analysis.html#tangentialcurvature"><strong>TangentialCurvature</strong></a>, <a href="./geomorphometric_analysis.html#totalcurvature"><strong>TotalCurvature</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.plan_curvature(
@@ -2123,12 +2191,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code>&gt;&gt;./whitebox_tools -r=PlanCurvature -v --wd=&quot;/path/to/data/&quot; ^
 --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/plan_curvature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/plan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/06/2017</p>
-<p><em>Last Modified</em>: 03/09/2020</p>
+<p><em>Last Modified</em>: 01/03/2021</p>
 <p><a name="Profile"></a></p>
-<a class="header" href="#profile" id="profile"><h1>Profile</h1></a>
+<h1 id="profile"><a class="header" href="#profile">Profile</a></h1>
 <p>This tool can be used to plot the data profile, along a set of one or more vector lines (<code>--lines</code>), in
 an input (<code>--surface</code>) digital elevation model (DEM), or other surface model. The data profile plots
 surface height (y-axis) against distance along profile (x-axis). The tool outputs an interactive SVG line
@@ -2139,10 +2207,10 @@ use the <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile
 <p><em>See Also</em>:
 <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile</strong></a>, <a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--lines            </td><td> Input vector line file</td></tr>
-<tr><td>--surface          </td><td> Input raster surface file</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--lines</td><td>Input vector line file</td></tr>
+<tr><td>--surface</td><td>Input raster surface file</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.profile(
@@ -2156,12 +2224,12 @@ use the <a href="./stream_network_analysis.html#longprofile"><strong>LongProfile
 <pre><code>&gt;&gt;./whitebox_tools -r=Profile -v --wd=&quot;/path/to/data/&quot; ^
 --lines=profile.shp --surface=dem.tif -o=profile.html 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/profile.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/profile.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 21/02/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="ProfileCurvature"></a></p>
-<a class="header" href="#profilecurvature" id="profilecurvature"><h1>ProfileCurvature</h1></a>
+<h1 id="profilecurvature"><a class="header" href="#profilecurvature">ProfileCurvature</a></h1>
 <p>This tool calculates the profile curvature, or the rate of change in slope along a flow line,
 from a digital elevation model (DEM). Curvature is the second
 derivative of the topographic surface defined by a DEM. Profile curvature characterizes the
@@ -2186,10 +2254,10 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a>, <a href="./geomorphometric_analysis.html#tangentialcurvature"><strong>TangentialCurvature</strong></a>, <a href="./geomorphometric_analysis.html#totalcurvature"><strong>TotalCurvature</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.profile_curvature(
@@ -2203,12 +2271,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code>&gt;&gt;./whitebox_tools -r=ProfileCurvature -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/prof_curvature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/prof_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/062017</p>
-<p><em>Last Modified</em>: 03/09/2020</p>
+<p><em>Last Modified</em>: 01/03/2021</p>
 <p><a name="RelativeAspect"></a></p>
-<a class="header" href="#relativeaspect" id="relativeaspect"><h1>RelativeAspect</h1></a>
+<h1 id="relativeaspect"><a class="header" href="#relativeaspect">RelativeAspect</a></h1>
 <p>This tool creates a new raster in which each grid cell is assigned the terrain aspect relative to a user-specified
 direction (<code>--azimuth</code>). Relative terrain aspect is the angular distance (measured in degrees) between the land-surface
 aspect and the assumed regional wind azimuth (Bohner and Antonic, 2007). It is bound between 0-degrees (windward direction)
@@ -2224,11 +2292,11 @@ Science, 33, 195-226.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--azimuth          </td><td> Illumination source azimuth</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--azimuth</td><td>Illumination source azimuth</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.relative_aspect(
@@ -2243,12 +2311,12 @@ Science, 33, 195-226.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RelativeAspect -v --wd=&quot;/path/to/data/&quot; ^
 --dem=DEM.tif -o=output.tif --azimuth=180.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_aspect.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/relative_aspect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 17/06/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="RelativeTopographicPosition"></a></p>
-<a class="header" href="#relativetopographicposition" id="relativetopographicposition"><h1>RelativeTopographicPosition</h1></a>
+<h1 id="relativetopographicposition"><a class="header" href="#relativetopographicposition">RelativeTopographicPosition</a></h1>
 <p>Relative topographic position (RTP) is an index of local topographic position (i.e. how
 elevated or low-lying a site is relative to its surroundings) and is a modification of percent
 elevation range (PER; <a href="./geomorphometric_analysis.html#percentelevrange"><strong>PercentElevRange</strong></a>) and accounts for the elevation distribution. Rather than
@@ -2274,11 +2342,11 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#difffrommeanelev"><strong>DiffFromMeanElev</strong></a>, <a href="./geomorphometric_analysis.html#elevpercentile"><strong>ElevPercentile</strong></a>, <a href="./geomorphometric_analysis.html#percentelevrange"><strong>PercentElevRange</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
-<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filterx</td><td>Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery</td><td>Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.relative_topographic_position(
@@ -2294,12 +2362,12 @@ position for multiscale geomorphometric analysis. Geomorphology, 312, 40-50.</p>
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
 --filter=25 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_topographic_position.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/relative_topographic_position.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/06/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="RemoveOffTerrainObjects"></a></p>
-<a class="header" href="#removeoffterrainobjects" id="removeoffterrainobjects"><h1>RemoveOffTerrainObjects</h1></a>
+<h1 id="removeoffterrainobjects"><a class="header" href="#removeoffterrainobjects">RemoveOffTerrainObjects</a></h1>
 <p>This tool can be used to create a bare-earth DEM from a fine-resolution digital surface model. The
 tool is typically applied to LiDAR DEMs which frequently contain numerous off-terrain objects (OTOs) such
 as buildings, trees and other vegetation, cars, fences and other anthropogenic objects. The algorithm
@@ -2317,11 +2385,11 @@ models. Available online, DOI: <a href="https://www.researchgate.net/publication
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#mapoffterrainobjects"><strong>MapOffTerrainObjects</strong></a>, <a href="./image_processing_tools.html#tophattransform"><strong>TophatTransform</strong></a>, <a href="./lidar_tools.html#lidargroundpointfilter"><strong>LidarGroundPointFilter</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input, --dem</td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Filter size (cells)</td></tr>
-<tr><td>--slope            </td><td> Slope threshold value</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--filter</td><td>Filter size (cells)</td></tr>
+<tr><td>--slope</td><td>Slope threshold value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.remove_off_terrain_objects(
@@ -2337,12 +2405,12 @@ models. Available online, DOI: <a href="https://www.researchgate.net/publication
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=bare_earth_DEM.tif ^
 --filter=25 --slope=10.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/remove_off_terrain_objects.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/remove_off_terrain_objects.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 06/06/2017</p>
 <p><em>Last Modified</em>: 07/08/2020</p>
 <p><a name="RuggednessIndex"></a></p>
-<a class="header" href="#ruggednessindex" id="ruggednessindex"><h1>RuggednessIndex</h1></a>
+<h1 id="ruggednessindex"><a class="header" href="#ruggednessindex">RuggednessIndex</a></h1>
 <p>The terrain ruggedness index (TRI) is a measure of local topographic relief. The TRI calculates
 the root-mean-square-deviation (RMSD) for each grid cell in a digital elevation model (DEM),
 calculating the residuals (i.e. elevation differences) between a grid cell and its eight neighbours.
@@ -2358,10 +2426,10 @@ terrain provided in Riley et al. (1999)</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#relativetopographicposition"><strong>RelativeTopographicPosition</strong></a>, <a href="./geomorphometric_analysis.html#devfrommeanelev"><strong>DevFromMeanElev</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.ruggedness_index(
@@ -2375,12 +2443,12 @@ terrain provided in Riley et al. (1999)</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=RuggednessIndex -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/ruggedness_index.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/ruggedness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SedimentTransportIndex"></a></p>
-<a class="header" href="#sedimenttransportindex" id="sedimenttransportindex"><h1>SedimentTransportIndex</h1></a>
+<h1 id="sedimenttransportindex"><a class="header" href="#sedimenttransportindex">SedimentTransportIndex</a></h1>
 <p>This tool calculates the sediment transport index, or sometimes, length-slope (<em>LS</em>)
 factor, based on input specific contributing area (<em>A<sub>s</sub></em>, i.e. the upslope
 contributing area per unit contour length; <code>--sca</code>) and slope gradient
@@ -2411,12 +2479,12 @@ processes</em>, 5(1), 3-30.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#streampowerindex"><strong>StreamPowerIndex</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--sca              </td><td> Input raster specific contributing area (SCA) file</td></tr>
-<tr><td>--slope            </td><td> Input raster slope file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--sca_exponent     </td><td> SCA exponent value</td></tr>
-<tr><td>--slope_exponent   </td><td> Slope exponent value</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--sca</td><td>Input raster specific contributing area (SCA) file</td></tr>
+<tr><td>--slope</td><td>Input raster slope file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--sca_exponent</td><td>SCA exponent value</td></tr>
+<tr><td>--slope_exponent</td><td>Slope exponent value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.sediment_transport_index(
@@ -2434,12 +2502,12 @@ processes</em>, 5(1), 3-30.</p>
 --slope='slope.tif' -o=output.tif --sca_exponent=0.5 ^
 --slope_exponent=1.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/sediment_transport_index.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/sediment_transport_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="Slope"></a></p>
-<a class="header" href="#slope" id="slope"><h1>Slope</h1></a>
+<h1 id="slope"><a class="header" href="#slope">Slope</a></h1>
 <p>This tool calculates slope gradient (i.e. slope steepness in degrees, radians, or percent) for each grid cell
 in an input digital elevation model (DEM). The user must specify the name of the input
 DEM (<code>--dem</code>) and the output raster image. The <em>Z conversion factor</em> is only important
@@ -2474,11 +2542,11 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a>, <a href="./geomorphometric_analysis.html#plancurvature"><strong>PlanCurvature</strong></a>, <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
-<tr><td>--units            </td><td> Units of output raster; options include 'degrees', 'radians', 'percent'</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--units</td><td>Units of output raster; options include 'degrees', 'radians', 'percent'</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.slope(
@@ -2493,14 +2561,14 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code>&gt;&gt;./whitebox_tools -r=Slope -v --wd=&quot;/path/to/data/&quot; ^
 --dem=DEM.tif -o=output.tif --units=&quot;radians&quot; 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 03/09/2020</p>
+<p><em>Last Modified</em>: 01/03/2021</p>
 <p><a name="SlopeVsElevationPlot"></a></p>
-<a class="header" href="#slopevselevationplot" id="slopevselevationplot"><h1>SlopeVsElevationPlot</h1></a>
+<h1 id="slopevselevationplot"><a class="header" href="#slopevselevationplot">SlopeVsElevationPlot</a></h1>
 <p>This tool can be used to create a slope versus average elevation plot for one or more digital elevation models (DEMs).
-Similary to a hypsometric analysis (<a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a>), the slope-elevation relation can reveal the basic
+Similar to a hypsometric analysis (<a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a>), the slope-elevation relation can reveal the basic
 topographic character of a site. The output of this analysis is an HTML document (<code>--output</code>) that contains the
 slope-elevation chart. The tool can plot multiple slope-elevation analyses on the same chart by specifying multiple
 input DEM files (<code>--inputs</code>). Each input DEM can have an optional watershed in which the slope-elevation analysis is
@@ -2513,10 +2581,10 @@ watersheds, designated by unique identifiers.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#hypsometricanalysis"><strong>HypsometricAnalysis</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input DEM files</td></tr>
-<tr><td>--watershed        </td><td> Input watershed files (optional)</td></tr>
-<tr><td>-o, --output       </td><td> Output HTML file (default name will be based on input file if unspecified)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input DEM files</td></tr>
+<tr><td>--watershed</td><td>Input watershed files (optional)</td></tr>
+<tr><td>-o, --output</td><td>Output HTML file (default name will be based on input file if unspecified)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.slope_vs_elevation_plot(
@@ -2531,12 +2599,12 @@ watersheds, designated by unique identifiers.</p>
 --wd=&quot;/path/to/data/&quot; -i=&quot;DEM1.tif;DEM2.tif&quot; ^
 --watershed=&quot;ws1.tif;ws2.tif&quot; -o=outfile.html 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/slope_vs_elev_plot.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/slope_vs_elev_plot.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 01/02/2018</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="SphericalStdDevOfNormals"></a></p>
-<a class="header" href="#sphericalstddevofnormals" id="sphericalstddevofnormals"><h1>SphericalStdDevOfNormals</h1></a>
+<h1 id="sphericalstddevofnormals"><a class="header" href="#sphericalstddevofnormals">SphericalStdDevOfNormals</a></h1>
 <p>This tool can be used to calculate the spherical standard deviation of the distribution of surface normals
 for an input digital elevation model (DEM; <code>--dem</code>). This is a measure of the angular dispersion of the surface
 normal vectors within a local neighbourhood of a specified size (<code>--filter</code>). <a href="./geomorphometric_analysis.html#sphericalstddevofnormals"><strong>SphericalStdDevOfNormals</strong></a>
@@ -2555,8 +2623,8 @@ of the angular dispersion measure integrating (accumulating) all of the surface 
 test scale. A more interesting scale relation can therefore be estimated by isolating the amount of surface complexity
 associated with specific scale ranges. That is, at large spatial scales, <em>s</em> should reflect
 the texture of large-scale landforms rather than the accumulated complexity at all smaller scales, including
-microtopographic roughness. As such, <strong><em>this tool normalizes the surface complexity of scales that are smaller than
-the filter size by applying Gaussian blur</em></strong> (with a standard deviation of one-third the filter size) to the DEM prior
+microtopographic roughness. As such, <em><strong>this tool normalizes the surface complexity of scales that are smaller than
+the filter size by applying Gaussian blur</strong></em> (with a standard deviation of one-third the filter size) to the DEM prior
 to calculating <em>R</em>. In this way, the resulting distribution is able to isolate and highlight
 the surface shape complexity associated with landscape features of a similar scale to that of the filter size.</p>
 <p>This tool makes extensive use of <a href="https://en.wikipedia.org/wiki/Summed-area_table">integral images</a>
@@ -2570,10 +2638,10 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a>, <a href="./geomorphometric_analysis.html#surfacearearatio"><strong>SurfaceAreaRatio</strong></a>, <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>--output           </td><td> Output raster file</td></tr>
-<tr><td>--filter           </td><td> Size of the filter kernel</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--output</td><td>Output raster file</td></tr>
+<tr><td>--filter</td><td>Size of the filter kernel</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.spherical_std_dev_of_normals(
@@ -2585,25 +2653,24 @@ Midland Valley, Scotland. <em>IEEE Transactions on Geoscience and Remote Sensing
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SphericalStdDevOfNormals -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif --out_mag=roughness_mag.tif ^
---out_scale=roughness_scale.tif --min_scale=1 --max_scale=1000 ^
---step=5 
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif --output=roughness.tif ^
+--filter=15 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/spherical_std_dev_of_normals.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/05/2019</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StandardDeviationOfSlope"></a></p>
-<a class="header" href="#standarddeviationofslope" id="standarddeviationofslope"><h1>StandardDeviationOfSlope</h1></a>
+<h1 id="standarddeviationofslope"><a class="header" href="#standarddeviationofslope">StandardDeviationOfSlope</a></h1>
 <p>Calculates the standard deviation of slope from an input DEM, a metric of
 roughness described by Grohmann et al., (2011).</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster DEM file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
-<tr><td>--filterx          </td><td> Size of the filter kernel in the x-direction</td></tr>
-<tr><td>--filtery          </td><td> Size of the filter kernel in the y-direction</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster DEM file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<tr><td>--filterx</td><td>Size of the filter kernel in the x-direction</td></tr>
+<tr><td>--filtery</td><td>Size of the filter kernel in the y-direction</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.standard_deviation_of_slope(
@@ -2617,14 +2684,15 @@ roughness described by Grohmann et al., (2011).</p>
 </code></pre>
 <p><em>Command-line Interface</em>:</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=StandardDeviationOfSlope -v ^
---wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
+--wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif ^
+--zfactor=1.0 --filterx=15 --filtery=15 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/standard_deviation_of_slope.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/standard_deviation_of_slope.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Anthony Francioni</p>
 <p><em>Created</em>: 26/05/2018</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="StreamPowerIndex"></a></p>
-<a class="header" href="#streampowerindex" id="streampowerindex"><h1>StreamPowerIndex</h1></a>
+<h1 id="streampowerindex"><a class="header" href="#streampowerindex">StreamPowerIndex</a></h1>
 <p>This tool can be used to calculate the relative stream power (<em>RSP</em>) index. This index is directly related
 to the stream power if the assumption can be made that discharge is directly proportional to upslope
 contributing area (<em>A<sub>s</sub></em>; <code>--sca</code>). The index is calculated as:</p>
@@ -2645,11 +2713,11 @@ processes</em>, 5(1), 3-30.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#sedimenttransportindex"><strong>SedimentTransportIndex</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a> <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--sca              </td><td> Input raster specific contributing area (SCA) file</td></tr>
-<tr><td>--slope            </td><td> Input raster slope file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--exponent         </td><td> SCA exponent value</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--sca</td><td>Input raster specific contributing area (SCA) file</td></tr>
+<tr><td>--slope</td><td>Input raster slope file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--exponent</td><td>SCA exponent value</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.stream_power_index(
@@ -2665,12 +2733,12 @@ processes</em>, 5(1), 3-30.</p>
 --wd=&quot;/path/to/data/&quot; --sca='flow_accum.tif' ^
 --slope='slope.tif' -o=output.tif --exponent=1.1 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/relative_stream_power_index.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/relative_stream_power_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
 <p><em>Last Modified</em>: 30/01/2020</p>
 <p><a name="SurfaceAreaRatio"></a></p>
-<a class="header" href="#surfacearearatio" id="surfacearearatio"><h1>SurfaceAreaRatio</h1></a>
+<h1 id="surfacearearatio"><a class="header" href="#surfacearearatio">SurfaceAreaRatio</a></h1>
 <p>This tool calculates the ratio between the surface area and planar area of grid cells within digital elevation models (DEMs).
 The tool uses the method of Jenness (2004) to estimate the surface area of a DEM grid cell based on the elevations
 contained within the 3 x 3 neighbourhood surrounding each cell. The surface area ratio has a lower bound of 1.0 for
@@ -2682,9 +2750,9 @@ Bulletin, 32(3), 829-839.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#ruggednessindex"><strong>RuggednessIndex</strong></a>, <a href="./geomorphometric_analysis.html#multiscaleroughness"><strong>MultiscaleRoughness</strong></a>, <a href="./geomorphometric_analysis.html#circularvarianceofaspect"><strong>CircularVarianceOfAspect</strong></a>, <a href="./geomorphometric_analysis.html#edgedensity"><strong>EdgeDensity</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.surface_area_ratio(
@@ -2697,12 +2765,12 @@ Bulletin, 32(3), 829-839.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SurfaceAreaRatio -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/surface_area_ratio.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/surface_area_ratio.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 23/01/2019</p>
 <p><em>Last Modified</em>: 23/01/2019</p>
 <p><a name="TangentialCurvature"></a></p>
-<a class="header" href="#tangentialcurvature" id="tangentialcurvature"><h1>TangentialCurvature</h1></a>
+<h1 id="tangentialcurvature"><a class="header" href="#tangentialcurvature">TangentialCurvature</a></h1>
 <p>This tool calculates the tangential curvature, which is the curvature of an inclined plan perpendicular
 to both the direction of flow and the surface (Gallant and Wilson, 2000). Curvature is a second
 derivative of the topographic surface defined by a digital elevation model (DEM). The user must specify
@@ -2718,10 +2786,10 @@ site latitude.</p>
 and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
 <p><a href="./geomorphometric_analysis.html#plancurvature"><strong>PlanCurvature</strong></a>, <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a>, <a href="./geomorphometric_analysis.html#totalcurvature"><strong>TotalCurvature</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.tangential_curvature(
@@ -2735,12 +2803,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code>&gt;&gt;./whitebox_tools -r=TangentialCurvature -v ^
 --wd=&quot;/path/to/data/&quot; --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/tan_curvature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/tan_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
-<p><em>Last Modified</em>: 03/09/2020</p>
+<p><em>Last Modified</em>: 01/03/2021</p>
 <p><a name="TimeInDaylight"></a></p>
-<a class="header" href="#timeindaylight" id="timeindaylight"><h1>TimeInDaylight</h1></a>
+<h1 id="timeindaylight"><a class="header" href="#timeindaylight">TimeInDaylight</a></h1>
 <p>This tool calculates the proportion of time a location is within daylight. That is, it calculates the
 proportion of time, during a user-defined time frame, that a grid cell in an input digital elevation
 model (<code>--dem</code>) is outside of an area of shadow cast by a local object. The input DEM should truly be
@@ -2773,18 +2841,18 @@ tested time-frame will be determined using the solar almanac.</p>
 <p><em>See Also</em>:
 <a href="./lidar_tools.html#lidardigitalsurfacemodel"><strong>LidarDigitalSurfaceModel</strong></a>, <a href="./geomorphometric_analysis.html#horizonangle"><strong>HorizonAngle</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--az_fraction      </td><td> Azimuth fraction in degrees</td></tr>
-<tr><td>--max_dist         </td><td> Optional maximum search distance. Minimum value is 5 x cell size</td></tr>
-<tr><td>--lat              </td><td> Centre point latitude</td></tr>
-<tr><td>--long             </td><td> Centre point longitude</td></tr>
-<tr><td>--utc_offset       </td><td> UTC time offset, in hours (e.g. -04:00, +06:00)</td></tr>
-<tr><td>--start_day        </td><td> Start day of the year (1-365)</td></tr>
-<tr><td>--end_day          </td><td> End day of the year (1-365)</td></tr>
-<tr><td>--start_time       </td><td> Starting hour to track shadows (e.g. 5, 5:00, 05:00:00). Assumes 24-hour time: HH:MM:SS. 'sunrise' is also a valid time</td></tr>
-<tr><td>--end_time         </td><td> Starting hour to track shadows (e.g. 21, 21:00, 21:00:00). Assumes 24-hour time: HH:MM:SS. 'sunset' is also a valid time</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--az_fraction</td><td>Azimuth fraction in degrees</td></tr>
+<tr><td>--max_dist</td><td>Optional maximum search distance. Minimum value is 5 x cell size</td></tr>
+<tr><td>--lat</td><td>Centre point latitude</td></tr>
+<tr><td>--long</td><td>Centre point longitude</td></tr>
+<tr><td>--utc_offset</td><td>UTC time offset, in hours (e.g. -04:00, +06:00)</td></tr>
+<tr><td>--start_day</td><td>Start day of the year (1-365)</td></tr>
+<tr><td>--end_day</td><td>End day of the year (1-365)</td></tr>
+<tr><td>--start_time</td><td>Starting hour to track shadows (e.g. 5, 5:00, 05:00:00). Assumes 24-hour time: HH:MM:SS. 'sunrise' is also a valid time</td></tr>
+<tr><td>--end_time</td><td>Starting hour to track shadows (e.g. 21, 21:00, 21:00:00). Assumes 24-hour time: HH:MM:SS. 'sunset' is also a valid time</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.time_in_daylight(
@@ -2807,12 +2875,12 @@ tested time-frame will be determined using the solar almanac.</p>
 -i='input.tif' -o=output.tif --az_fraction=15.0 ^
 --max_dist=100.0 --lat=43.545 --long= -80.248 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/time_in_daylight.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/time_in_daylight.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 29/07/2020</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="TotalCurvature"></a></p>
-<a class="header" href="#totalcurvature" id="totalcurvature"><h1>TotalCurvature</h1></a>
+<h1 id="totalcurvature"><a class="header" href="#totalcurvature">TotalCurvature</a></h1>
 <p>This tool calculates the total curvature, which measures the curvature of the topographic surface rather
 than the curvature of a line across the surface in some direction (Gallant and Wilson, 2000). Total
 curvature can be positive or negative, with zero curvature indicating that the surface is either flat
@@ -2830,10 +2898,10 @@ site latitude.</p>
 and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley, Hoboken, N.J.</p>
 <p><a href="./geomorphometric_analysis.html#plancurvature"><strong>PlanCurvature</strong></a>, <a href="./geomorphometric_analysis.html#profilecurvature"><strong>ProfileCurvature</strong></a>, <a href="./geomorphometric_analysis.html#tangentialcurvature"><strong>TangentialCurvature</strong></a>, <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./geomorphometric_analysis.html#aspect"><strong>Aspect</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --dem          </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--zfactor          </td><td> Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--zfactor</td><td>Optional multiplier for when the vertical and horizontal units are not the same</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.total_curvature(
@@ -2847,12 +2915,12 @@ and Applications, edited by J. P. Wilson and J. C. Gallant pp. 51-86, John Wiley
 <pre><code>&gt;&gt;./whitebox_tools -r=TotalCurvature -v --wd=&quot;/path/to/data/&quot; ^
 --dem=DEM.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/total_curvature.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/total_curvature.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 03/09/2020</p>
 <p><a name="Viewshed"></a></p>
-<a class="header" href="#viewshed" id="viewshed"><h1>Viewshed</h1></a>
+<h1 id="viewshed"><a class="header" href="#viewshed">Viewshed</a></h1>
 <p>This tool can be used to calculate the viewshed (i.e. the visible area) from a
 location (i.e. viewing station) or group of locations based on the topography defined
 by an input digital elevation model (DEM). The user must specify the name of the input
@@ -2875,11 +2943,11 @@ extensive areas.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#visibilityindex"><strong>VisibilityIndex</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
-<tr><td>--stations         </td><td> Input viewing station vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--height           </td><td> Viewing station height, in z units</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--dem</td><td>Input raster DEM file</td></tr>
+<tr><td>--stations</td><td>Input viewing station vector file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--height</td><td>Viewing station height, in z units</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.viewshed(
@@ -2895,12 +2963,12 @@ extensive areas.</p>
 --dem='dem.tif' --stations='stations.shp' -o=output.tif ^
 --height=10.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/viewshed.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/viewshed.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 10/01/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="VisibilityIndex"></a></p>
-<a class="header" href="#visibilityindex" id="visibilityindex"><h1>VisibilityIndex</h1></a>
+<h1 id="visibilityindex"><a class="header" href="#visibilityindex">VisibilityIndex</a></h1>
 <p>This tool can be used to calculate a measure of landscape visibility based on the
 topography of an input digital elevation model (DEM). The user must specify the name of
 the input DEM (<code>--dem</code>), the output file name (<code>--output</code>), the viewing height (<code>--height</code>),
@@ -2924,11 +2992,11 @@ on computer systems with high core-counts and plenty of memory.</p>
 <p><em>See Also</em>:
 <a href="./geomorphometric_analysis.html#viewshed"><strong>Viewshed</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--dem              </td><td> Input raster DEM file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--height           </td><td> Viewing station height, in z units</td></tr>
-<tr><td>--res_factor       </td><td> The resolution factor determines the density of measured viewsheds</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--dem</td><td>Input raster DEM file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--height</td><td>Viewing station height, in z units</td></tr>
+<tr><td>--res_factor</td><td>The resolution factor determines the density of measured viewsheds</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.visibility_index(
@@ -2944,12 +3012,12 @@ on computer systems with high core-counts and plenty of memory.</p>
 --wd=&quot;/path/to/data/&quot; --dem=dem.tif -o=output.tif ^
 --height=10.0 --res_factor=4 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/visibility_index.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/visibility_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/04/2018</p>
 <p><em>Last Modified</em>: 12/10/2018</p>
 <p><a name="WetnessIndex"></a></p>
-<a class="header" href="#wetnessindex" id="wetnessindex"><h1>WetnessIndex</h1></a>
+<h1 id="wetnessindex"><a class="header" href="#wetnessindex">WetnessIndex</a></h1>
 <p>This tool can be used to calculate the topographic wetness index, commonly used in the TOPMODEL rainfall-runoff framework.
 The index describes the propensity for a site to be saturated to the surface given its contributing area and local slope
 characteristics. It is calculated as:</p>
@@ -2967,10 +3035,10 @@ raster is of the float data type and continuous data scale.</p>
 <p>See Also
 <a href="./geomorphometric_analysis.html#slope"><strong>Slope</strong></a>, <a href="./hydrological_analysis.html#d8flowaccumulation"><strong>D8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#dinfflowaccumulation"><strong>DInfFlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#fd8flowaccumulation"><strong>FD8FlowAccumulation</strong></a>, <a href="./hydrological_analysis.html#breachdepressionsleastcost"><strong>BreachDepressionsLeastCost</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--sca              </td><td> Input raster specific contributing area (SCA) file</td></tr>
-<tr><td>--slope            </td><td> Input raster slope file (in degrees)</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--sca</td><td>Input raster specific contributing area (SCA) file</td></tr>
+<tr><td>--slope</td><td>Input raster slope file (in degrees)</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.wetness_index(
@@ -2984,7 +3052,7 @@ raster is of the float data type and continuous data scale.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=WetnessIndex -v --wd=&quot;/path/to/data/&quot; ^
 --sca='flow_accum.tif' --slope='slope.tif' -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/terrain_analysis/wetness_index.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/terrain_analysis/wetness_index.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 02/07/2017</p>
 <p><em>Last Modified</em>: 21/01/2018</p>
@@ -3012,13 +3080,13 @@ raster is of the float data type and continuous data scale.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../available_tools/data_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../available_tools/data_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../available_tools/gis_analysis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../available_tools/gis_analysis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -3028,6 +3096,14 @@ raster is of the float data type and continuous data scale.</p>
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         

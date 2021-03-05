@@ -1,24 +1,40 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Overlay tools - WhiteboxTools User Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
         <link rel="shortcut icon" href="../favicon.png">
+        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
+        
         <link rel="stylesheet" href="../css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -30,11 +46,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -56,10 +72,13 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -75,44 +94,48 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../preface.html">Preface</a></li><li><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li><a href="../available_tools/gis_analysis_overlay_tools.html" class="active"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../preface.html">Preface</a></li><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../install.html"><strong aria-hidden="true">2.</strong> Setting Up WhiteboxTools</a></li><li class="chapter-item expanded "><a href="../using_whiteboxtools.html"><strong aria-hidden="true">3.</strong> Using WhiteboxTools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/scripting.html"><strong aria-hidden="true">3.1.</strong> Interfacing with Python</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../python_scripting/using_whitebox_tools.html"><strong aria-hidden="true">3.1.1.</strong> Using whitebox_tools.py</a></li><li class="chapter-item expanded "><a href="../python_scripting/tool_output.html"><strong aria-hidden="true">3.1.2.</strong> Handling tool output</a></li><li class="chapter-item expanded "><a href="../python_scripting/additional_functions.html"><strong aria-hidden="true">3.1.3.</strong> Additional functions</a></li><li class="chapter-item expanded "><a href="../python_scripting/example.html"><strong aria-hidden="true">3.1.4.</strong> An example Python project</a></li></ol></li><li class="chapter-item expanded "><a href="../r_interface.html"><strong aria-hidden="true">3.2.</strong> Interfacing with R</a></li><li class="chapter-item expanded "><a href="../nim_scripting.html"><strong aria-hidden="true">3.3.</strong> Interfacing with Nim</a></li><li class="chapter-item expanded "><a href="../whitebox_tools_runner.html"><strong aria-hidden="true">3.4.</strong> WhiteboxTools Runner</a></li><li class="chapter-item expanded "><a href="../qgis_plugin.html"><strong aria-hidden="true">3.5.</strong> QGIS plugin</a></li><li class="chapter-item expanded "><a href="../arcgis_plugin.html"><strong aria-hidden="true">3.6.</strong> ArcGIS plugin</a></li><li class="chapter-item expanded "><a href="../command_prompt.html"><strong aria-hidden="true">3.7.</strong> Command-line interface</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/index.html"><strong aria-hidden="true">4.</strong> Tools Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/data_tools.html"><strong aria-hidden="true">4.1.</strong> Data tools</a></li><li class="chapter-item expanded "><a href="../available_tools/geomorphometric_analysis.html"><strong aria-hidden="true">4.2.</strong> Geomorphometric analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis.html"><strong aria-hidden="true">4.3.</strong> GIS analysis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_distance_tools.html"><strong aria-hidden="true">4.3.1.</strong> Distance tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_overlay_tools.html" class="active"><strong aria-hidden="true">4.3.2.</strong> Overlay tools</a></li><li class="chapter-item expanded "><a href="../available_tools/gis_analysis_patch_shape_tools.html"><strong aria-hidden="true">4.3.3.</strong> Patch shape tools</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/hydrological_analysis.html"><strong aria-hidden="true">4.4.</strong> Hydrological analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools.html"><strong aria-hidden="true">4.5.</strong> Image processing tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_filters.html"><strong aria-hidden="true">4.5.1.</strong> Filters</a></li><li class="chapter-item expanded "><a href="../available_tools/image_processing_tools_image_enhancement.html"><strong aria-hidden="true">4.5.2.</strong> Image enchancement</a></li></ol></li><li class="chapter-item expanded "><a href="../available_tools/lidar_tools.html"><strong aria-hidden="true">4.6.</strong> LiDAR tools</a></li><li class="chapter-item expanded "><a href="../available_tools/mathand_stats_tools.html"><strong aria-hidden="true">4.7.</strong> Mathematical and statistical analysis</a></li><li class="chapter-item expanded "><a href="../available_tools/stream_network_analysis.html"><strong aria-hidden="true">4.8.</strong> Stream network analysis</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorials/index.html"><strong aria-hidden="true">5.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorials/mosaic.html"><strong aria-hidden="true">5.1.</strong> How can I mosaic hundreds of rasters?</a></li><li class="chapter-item expanded "><a href="../tutorials/lidar.html"><strong aria-hidden="true">5.2.</strong> Processing LiDAR data</a></li></ol></li><li class="chapter-item expanded "><a href="../supported_formats.html"><strong aria-hidden="true">6.</strong> Supported Data Formats</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">7.</strong> Contributing and Reporting Bugs</a></li><li class="chapter-item expanded "><a href="../limitations.html"><strong aria-hidden="true">8.</strong> Limitations and Memory</a></li><li class="chapter-item expanded "><a href="../license.html"><strong aria-hidden="true">9.</strong> License</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">10.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="../tool_index.html"><strong aria-hidden="true">11.</strong> Tool Index</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">WhiteboxTools User Manual</h1> 
+                    <h1 class="menu-title">WhiteboxTools User Manual</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
                     </div>
                 </div>
 
@@ -140,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#gis-analysis--overlay-tools" id="gis-analysis--overlay-tools"><h1>GIS Analysis → Overlay Tools</h1></a>
+                        <h1 id="gis-analysis--overlay-tools"><a class="header" href="#gis-analysis--overlay-tools">GIS Analysis → Overlay Tools</a></h1>
 <ul>
 <li><a href="#AverageOverlay">AverageOverlay</a></li>
 <li><a href="#Clip">Clip</a></li>
@@ -172,7 +195,7 @@
 <li><a href="#WeightedSum">WeightedSum</a></li>
 </ul>
 <p><a name="AverageOverlay"></a></p>
-<a class="header" href="#averageoverlay" id="averageoverlay"><h1>AverageOverlay</h1></a>
+<h1 id="averageoverlay"><a class="header" href="#averageoverlay">AverageOverlay</a></h1>
 <p>This tool can be used to find the average value in each cell of a grid from a set of input images (<code>--inputs</code>).
 It is therefore similar to the <a href="./gis_analysis_overlay_tools.html#weightedsum"><strong>WeightedSum</strong></a> tool except that each input image is given equal weighting. This
 tool operates on a cell-by-cell basis. Therefore, each of the input rasters must share the same number of rows
@@ -182,9 +205,9 @@ parallel processing.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#weightedsum"><strong>WeightedSum</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.average_overlay(
@@ -197,12 +220,12 @@ parallel processing.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=AverageOverlay -v --wd='/path/to/data/' ^
 -i='image1.dep;image2.dep;image3.tif' -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/average_overlay.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/average_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Clip"></a></p>
-<a class="header" href="#clip" id="clip"><h1>Clip</h1></a>
+<h1 id="clip"><a class="header" href="#clip">Clip</a></h1>
 <p>This tool will extract all the features, or parts of features, that overlap with the features
 of the clip vector file. The clipping operation is one of the most common vector overlay
 operations in GIS and effectively imposes the boundary of the clip layer on a set of input
@@ -212,10 +235,10 @@ clip vector must consist of polygons.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector file</td></tr>
-<tr><td>--clip             </td><td> Input clip polygon vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector file</td></tr>
+<tr><td>--clip</td><td>Input clip polygon vector file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.clip(
@@ -229,12 +252,12 @@ clip vector must consist of polygons.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Clip -v --wd=&quot;/path/to/data/&quot; ^
 -i=lines1.shp --clip=clip_poly.shp -o=out_file.shp 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/clip.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/clip.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 28/10/2018</p>
 <p><em>Last Modified</em>: 3/11/2018</p>
 <p><a name="ClipRasterToPolygon"></a></p>
-<a class="header" href="#cliprastertopolygon" id="cliprastertopolygon"><h1>ClipRasterToPolygon</h1></a>
+<h1 id="cliprastertopolygon"><a class="header" href="#cliprastertopolygon">ClipRasterToPolygon</a></h1>
 <p>This tool can be used to clip an input raster (<code>--input</code>) to the extent of a vector polygon (shapefile). The user
 must specify the name of the input clip file (<code>--polygons</code>), wich must be a vector of a Polygon base shape type.
 The clip file may contain multiple polygon features. Polygon hole parts will be respected during clipping, i.e.
@@ -248,11 +271,11 @@ is unlikely to be satisfactory otherwise.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#erasepolygonfromraster"><strong>ErasePolygonFromRaster</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>--polygons         </td><td> Input vector polygons file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--maintain_dimensions</td><td> Maintain input raster dimensions?</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>--polygons</td><td>Input vector polygons file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--maintain_dimensions</td><td>Maintain input raster dimensions?</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.clip_raster_to_polygon(
@@ -268,12 +291,12 @@ is unlikely to be satisfactory otherwise.</p>
 --wd=&quot;/path/to/data/&quot; -i=raster.tif --polygons=poly.shp ^
 -o=output.tif --maintain_dimensions 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/clip_raster_to_polygon.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/clip_raster_to_polygon.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 25/04/2018</p>
 <p><em>Last Modified</em>: 18/10/2019</p>
 <p><a name="CountIf"></a></p>
-<a class="header" href="#countif" id="countif"><h1>CountIf</h1></a>
+<h1 id="countif"><a class="header" href="#countif">CountIf</a></h1>
 <p>This tool counts the number of occurrences of a specified value (<code>--value</code>) in a stack of input rasters
 (<code>--inputs</code>). Each grid cell in the output raster (<code>--output</code>) will contain the number of occurrences
 of the specified value in the stack of cooresponding cells in the input image. At least two input rasters
@@ -282,10 +305,10 @@ spatial extent. An error will be issued if this is not the case.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#pickfromlist"><strong>PickFromList</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--value            </td><td> Search value (e.g. countif value = 5.0)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--value</td><td>Search value (e.g. countif value = 5.0)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.count_if(
@@ -300,12 +323,12 @@ spatial extent. An error will be issued if this is not the case.</p>
 -i='image1.dep;image2.dep;image3.tif' -o=output.tif ^
 --value=5.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/count_if.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/count_if.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 14/04/2018</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Difference"></a></p>
-<a class="header" href="#difference" id="difference"><h1>Difference</h1></a>
+<h1 id="difference"><a class="header" href="#difference">Difference</a></h1>
 <p>This tool will remove all the overlapping features, or parts of overlapping features, between
 input and overlay vector files, outputting only the features that occur in one of the two
 inputs but not both. The <em>Symmetrical Difference</em> is related to the Boolean
@@ -329,10 +352,10 @@ resulting from the overlay operation.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a>, <a href="./gis_analysis_overlay_tools.html#difference"><strong>Difference</strong></a>, <a href="./gis_analysis_overlay_tools.html#union"><strong>Union</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector file</td></tr>
-<tr><td>--overlay          </td><td> Input overlay vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector file</td></tr>
+<tr><td>--overlay</td><td>Input overlay vector file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.difference(
@@ -346,12 +369,12 @@ resulting from the overlay operation.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Difference -v --wd=&quot;/path/to/data/&quot; ^
 -input=layer1.shp --overlay=layer2.shp -o=out_file.shp 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/difference.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/difference.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 8/11/2018</p>
 <p><em>Last Modified</em>: 8/11/2018</p>
 <p><a name="Erase"></a></p>
-<a class="header" href="#erase" id="erase"><h1>Erase</h1></a>
+<h1 id="erase"><a class="header" href="#erase">Erase</a></h1>
 <p>This tool will remove all the features, or parts of features, that overlap with the features
 of the erase vector file. The erasing operation is one of the most common vector overlay
 operations in GIS and effectively imposes the boundary of the erase layer on a set of input
@@ -359,10 +382,10 @@ vector features, or target features.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector file</td></tr>
-<tr><td>--erase            </td><td> Input erase polygon vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector file</td></tr>
+<tr><td>--erase</td><td>Input erase polygon vector file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.erase(
@@ -376,12 +399,12 @@ vector features, or target features.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=Erase -v --wd=&quot;/path/to/data/&quot; ^
 -i=lines1.shp --erase=erase_poly.shp -o=out_file.shp 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/erase.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/erase.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 4/11/2018</p>
 <p><em>Last Modified</em>: 4/11/2018</p>
 <p><a name="ErasePolygonFromRaster"></a></p>
-<a class="header" href="#erasepolygonfromraster" id="erasepolygonfromraster"><h1>ErasePolygonFromRaster</h1></a>
+<h1 id="erasepolygonfromraster"><a class="header" href="#erasepolygonfromraster">ErasePolygonFromRaster</a></h1>
 <p>This tool can be used to set values an input raster (<code>--input</code>) to a NoData background value with a vector
 erasing polygon (<code>--polygons</code>). The input erase polygon file must be a vector of a Polygon base shape type.
 The erase file may contain multiple polygon features. Polygon hole parts will be respected during clipping, i.e.
@@ -390,10 +413,10 @@ the erase file will be assigned the NoData background value in the output file.<
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#cliprastertopolygon"><strong>ClipRasterToPolygon</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input raster file</td></tr>
-<tr><td>--polygons         </td><td> Input vector polygons file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input raster file</td></tr>
+<tr><td>--polygons</td><td>Input vector polygons file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.erase_polygon_from_raster(
@@ -408,12 +431,12 @@ the erase file will be assigned the NoData background value in the output file.<
 --wd=&quot;/path/to/data/&quot; -i='DEM.tif' --polygons='lakes.shp' ^
 -o='output.tif' 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/erase_polygon_from_raster.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/erase_polygon_from_raster.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 27/03/2018</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="HighestPosition"></a></p>
-<a class="header" href="#highestposition" id="highestposition"><h1>HighestPosition</h1></a>
+<h1 id="highestposition"><a class="header" href="#highestposition">HighestPosition</a></h1>
 <p>This tool identifies the stack position (index) of the maximum value within a raster stack on a cell-by-cell
 basis. For example, if five raster images (<code>--inputs</code>) are input to the tool, the output raster (<code>--output</code>)
 would show which of the five input rasters contained the highest value for each grid cell. The index value in
@@ -427,9 +450,9 @@ input images.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#lowestposition"><strong>LowestPosition</strong></a>, <a href="./gis_analysis_overlay_tools.html#pickfromlist"><strong>PickFromList</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.highest_position(
@@ -443,12 +466,12 @@ input images.</p>
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/highest_pos.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/highest_pos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Intersect"></a></p>
-<a class="header" href="#intersect" id="intersect"><h1>Intersect</h1></a>
+<h1 id="intersect"><a class="header" href="#intersect">Intersect</a></h1>
 <p>The result of the <a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a> vector overlay operation includes all the feature parts that
 occur in both input layers, excluding all other parts. It is analogous to the <strong>OR</strong>
 logical operator and multiplication in arithmetic. This tool is one of the common vector overlay
@@ -470,11 +493,11 @@ resulting from the overlay operation.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#difference"><strong>Difference</strong></a>, <a href="./gis_analysis_overlay_tools.html#union"><strong>Union</strong></a>, <a href="./gis_analysis_overlay_tools.html#symmetricaldifference"><strong>SymmetricalDifference</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector file</td></tr>
-<tr><td>--overlay          </td><td> Input overlay vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
-<tr><td>--snap             </td><td> Snap tolerance</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector file</td></tr>
+<tr><td>--overlay</td><td>Input overlay vector file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
+<tr><td>--snap</td><td>Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.intersect(
@@ -490,12 +513,12 @@ resulting from the overlay operation.</p>
 -input=layer1.shp --overlay=layer2.shp -o=out_file.shp ^
 --snap=0.0000001 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/intersect.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/intersect.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 8/11/2018</p>
 <p><em>Last Modified</em>: 21/11/2018</p>
 <p><a name="LineIntersections"></a></p>
-<a class="header" href="#lineintersections" id="lineintersections"><h1>LineIntersections</h1></a>
+<h1 id="lineintersections"><a class="header" href="#lineintersections">LineIntersections</a></h1>
 <p>This tool identifies points where the features of two vector line/polygon layers
 intersect. The user must specify the names of two input vector line files and the
 output file. The output file will be a vector of POINT ShapeType. If the input
@@ -508,10 +531,10 @@ identifying the instersecting features in the first and second input line files
 respectively. Additionally, the output attribute table will contain all of the
 attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--i1, --input1    </td><td> Input vector polyline file</td></tr>
-<tr><td>--i2, --input2    </td><td> Input vector polyline file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector point file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--i1, --input1</td><td>Input vector polyline file</td></tr>
+<tr><td>--i2, --input2</td><td>Input vector polyline file</td></tr>
+<tr><td>-o, --output</td><td>Output vector point file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.line_intersections(
@@ -526,12 +549,12 @@ attributes (excluding <code>FID</code>s) of the two parent line features.</p>
 --wd=&quot;/path/to/data/&quot; --i1=lines1.shp --i2=lines2.shp ^
 -o=out_file.shp 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/line_intersections.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/line_intersections.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 16/10/2018</p>
 <p><em>Last Modified</em>: 16/10/2018</p>
 <p><a name="LowestPosition"></a></p>
-<a class="header" href="#lowestposition" id="lowestposition"><h1>LowestPosition</h1></a>
+<h1 id="lowestposition"><a class="header" href="#lowestposition">LowestPosition</a></h1>
 <p>This tool identifies the stack position (index) of the minimum value within a raster stack on a cell-by-cell
 basis. For example, if five raster images (<code>--inputs</code>) are input to the tool, the output raster (<code>--output</code>)
 would show which of the five input rasters contained the lowest value for each grid cell. The index value in
@@ -545,9 +568,9 @@ input images.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#highestposition"><strong>HighestPosition</strong></a>, <a href="./gis_analysis_overlay_tools.html#pickfromlist"><strong>PickFromList</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.lowest_position(
@@ -560,12 +583,12 @@ input images.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=LowestPosition -v --wd='/path/to/data/' ^
 -i='image1.tif;image2.tif;image3.tif' -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/lowest_pos.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/lowest_pos.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 04/07/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="MaxAbsoluteOverlay"></a></p>
-<a class="header" href="#maxabsoluteoverlay" id="maxabsoluteoverlay"><h1>MaxAbsoluteOverlay</h1></a>
+<h1 id="maxabsoluteoverlay"><a class="header" href="#maxabsoluteoverlay">MaxAbsoluteOverlay</a></h1>
 <p>This tool can be used to find the maximum absolute (non-negative) value in each cell of a grid from a set of
 input images (<code>--inputs</code>). NoData values in any of the input images will result in a NoData pixel in the output
 image.</p>
@@ -575,9 +598,9 @@ and columns.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_absolute_overlay(
@@ -591,12 +614,12 @@ and columns.</p>
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/max_abs_overlay.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/max_abs_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="MaxOverlay"></a></p>
-<a class="header" href="#maxoverlay" id="maxoverlay"><h1>MaxOverlay</h1></a>
+<h1 id="maxoverlay"><a class="header" href="#maxoverlay">MaxOverlay</a></h1>
 <p>This tool can be used to find the maximum value in each cell of a grid from a set of input images (<code>--inputs</code>).
 NoData values in any of the input images will result in a NoData pixel in the output image (<code>--output</code>). It is
 similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a> mathematical tool, except that it will accept more than two input images.</p>
@@ -605,9 +628,9 @@ similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.max_overlay(
@@ -620,12 +643,12 @@ similar to the <a href="./mathand_stats_tools.html#max"><strong>Max</strong></a>
 <pre><code>&gt;&gt;./whitebox_tools -r=MaxOverlay -v --wd='/path/to/data/' ^
 -i='image1.tif;image2.tif;image3.tif' -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/max_overlay.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/max_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="MergeLineSegments"></a></p>
-<a class="header" href="#mergelinesegments" id="mergelinesegments"><h1>MergeLineSegments</h1></a>
+<h1 id="mergelinesegments"><a class="header" href="#mergelinesegments">MergeLineSegments</a></h1>
 <p>Vector lines can sometimes contain two features that are connected by a shared end vertex. This tool
 identifies connected line features in an input vector file (<code>--input</code>) and merges them in the output
 file (<code>--output</code>). Two line features are merged if their ends are coincident, and are not coincident
@@ -634,10 +657,10 @@ they are within the specified snap distance (<code>--snap</code>).</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#splitwithlines"><strong>SplitWithLines</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
-<tr><td>--snap             </td><td> Snap tolerance</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
+<tr><td>--snap</td><td>Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.merge_line_segments(
@@ -652,12 +675,12 @@ they are within the specified snap distance (<code>--snap</code>).</p>
 --wd=&quot;/path/to/data/&quot; --input=layer1.shp -o=out_file.shp ^
 --snap=0.0000001 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/merge_line_segments.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/merge_line_segments.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 09/04/2019</p>
 <p><em>Last Modified</em>: 09/04/2019</p>
 <p><a name="MinAbsoluteOverlay"></a></p>
-<a class="header" href="#minabsoluteoverlay" id="minabsoluteoverlay"><h1>MinAbsoluteOverlay</h1></a>
+<h1 id="minabsoluteoverlay"><a class="header" href="#minabsoluteoverlay">MinAbsoluteOverlay</a></h1>
 <p>This tool can be used to find the minimum absolute (non-negative) value in each cell of a grid from a set of
 input images (<code>--inputs</code>). NoData values in any of the input images will result in a NoData pixel in the output
 image.</p>
@@ -667,9 +690,9 @@ and columns.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#minoverlay"><strong>MinOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.min_absolute_overlay(
@@ -683,12 +706,12 @@ and columns.</p>
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/min_abs_overlay.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/min_abs_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="MinOverlay"></a></p>
-<a class="header" href="#minoverlay" id="minoverlay"><h1>MinOverlay</h1></a>
+<h1 id="minoverlay"><a class="header" href="#minoverlay">MinOverlay</a></h1>
 <p>This tool can be used to find the minimum value in each cell of a grid from a set of input images (<code>--inputs</code>).
 NoData values in any of the input images will result in a NoData pixel in the output image (<code>--output</code>). It is
 similar to the <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a> mathematical tool, except that it will accept more than two input images.</p>
@@ -697,9 +720,9 @@ similar to the <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#maxoverlay"><strong>MaxOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#maxabsoluteoverlay"><strong>MaxAbsoluteOverlay</strong></a>, <a href="./gis_analysis_overlay_tools.html#minabsoluteoverlay"><strong>MinAbsoluteOverlay</strong></a>, <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.min_overlay(
@@ -712,12 +735,12 @@ similar to the <a href="./mathand_stats_tools.html#min"><strong>Min</strong></a>
 <pre><code>&gt;&gt;./whitebox_tools -r=MinOverlay -v --wd='/path/to/data/' ^
 -i='image1.tif;image2.tif;image3.tif' -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/min_overlay.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/min_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="PercentEqualTo"></a></p>
-<a class="header" href="#percentequalto" id="percentequalto"><h1>PercentEqualTo</h1></a>
+<h1 id="percentequalto"><a class="header" href="#percentequalto">PercentEqualTo</a></h1>
 <p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values equal to an input <em>comparison</em>
 raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
 in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
@@ -730,10 +753,10 @@ be assigned NoData.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#percentgreaterthan"><strong>PercentGreaterThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentlessthan"><strong>PercentLessThan</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--comparison       </td><td> Input comparison raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>--comparison</td><td>Input comparison raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.percent_equal_to(
@@ -748,12 +771,12 @@ be assigned NoData.</p>
 -i='image1.tif;image2.tif;image3.tif' --comparison='comp.tif' ^
 -o='output.tif' 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_equal_to.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/percent_equal_to.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 31/01/2019</p>
 <p><a name="PercentGreaterThan"></a></p>
-<a class="header" href="#percentgreaterthan" id="percentgreaterthan"><h1>PercentGreaterThan</h1></a>
+<h1 id="percentgreaterthan"><a class="header" href="#percentgreaterthan">PercentGreaterThan</a></h1>
 <p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values greater than an input <em>comparison</em>
 raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
 in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
@@ -766,10 +789,10 @@ be assigned NoData.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#percentlessthan"><strong>PercentLessThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentequalto"><strong>PercentEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--comparison       </td><td> Input comparison raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>--comparison</td><td>Input comparison raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.percent_greater_than(
@@ -784,12 +807,12 @@ be assigned NoData.</p>
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
 --comparison='comp.tif' -o='output.tif' 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_greater_than.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/percent_greater_than.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 31/01/2019</p>
 <p><a name="PercentLessThan"></a></p>
-<a class="header" href="#percentlessthan" id="percentlessthan"><h1>PercentLessThan</h1></a>
+<h1 id="percentlessthan"><a class="header" href="#percentlessthan">PercentLessThan</a></h1>
 <p>This tool calculates the percentage of a raster stack (<code>--inputs</code>) that have cell values less than an input <em>comparison</em>
 raster. The user must specify the name of the value raster (<code>--comparison</code>), the names of the raster files contained
 in the stack, and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will count the
@@ -802,10 +825,10 @@ be assigned NoData.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#percentgreaterthan"><strong>PercentGreaterThan</strong></a>, <a href="./gis_analysis_overlay_tools.html#percentequalto"><strong>PercentEqualTo</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--comparison       </td><td> Input comparison raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>--comparison</td><td>Input comparison raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.percent_less_than(
@@ -820,12 +843,12 @@ be assigned NoData.</p>
 --wd='/path/to/data/' -i='image1.tif;image2.tif;image3.tif' ^
 --comparison='comp.tif' -o='output.tif' 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/percent_less_than.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/percent_less_than.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 31/01/2019</p>
 <p><a name="PickFromList"></a></p>
-<a class="header" href="#pickfromlist" id="pickfromlist"><h1>PickFromList</h1></a>
+<h1 id="pickfromlist"><a class="header" href="#pickfromlist">PickFromList</a></h1>
 <p>This tool outputs the cell value from a raster stack specified (<code>--inputs</code>) by a position raster (<code>--pos_input</code>). The
 user must specify the name of the position raster, the names of the raster files contained in the stack (i.e. group
 of rasters), and an output raster file name (<code>--output</code>). The tool, working on a cell-by-cell basis, will assign the
@@ -837,10 +860,10 @@ and columns and spatial extent. An error will be issued if this is not the case.
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#countif"><strong>CountIf</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>--pos_input        </td><td> Input position raster file</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>--pos_input</td><td>Input position raster file</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.pick_from_list(
@@ -855,12 +878,12 @@ and columns and spatial extent. An error will be issued if this is not the case.
 --pos_input=position.tif -i='image1.tif;image2.tif;image3.tif' ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/pick_from_list.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/pick_from_list.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="Polygonize"></a></p>
-<a class="header" href="#polygonize" id="polygonize"><h1>Polygonize</h1></a>
+<h1 id="polygonize"><a class="header" href="#polygonize">Polygonize</a></h1>
 <p>This tool outputs a vector polygon layer from two or more intersecting line features
 contained in one or more input vector line files. Each space enclosed by the intersecting
 line set is converted to polygon added to the output layer. This tool should not be
@@ -870,9 +893,9 @@ tool does not deal with line intersection in the same way that the <a href="./gi
 <p><em>See Also</em>:
 <a href="./data_tools.html#linestopolygons"><strong>LinesToPolygons</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input vector polyline file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector polygon file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input vector polyline file</td></tr>
+<tr><td>-o, --output</td><td>Output vector polygon file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.polygonize(
@@ -885,12 +908,12 @@ tool does not deal with line intersection in the same way that the <a href="./gi
 <pre><code>&gt;&gt;./whitebox_tools -r=Polygonize -v --wd=&quot;/path/to/data/&quot; ^
 -i='lines1.shp;lines2.shp;lines3.shp' -o=out_file.shp 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/polygonize.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/polygonize.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 19/10/2018</p>
 <p><em>Last Modified</em>: 28/10/2018</p>
 <p><a name="SplitWithLines"></a></p>
-<a class="header" href="#splitwithlines" id="splitwithlines"><h1>SplitWithLines</h1></a>
+<h1 id="splitwithlines"><a class="header" href="#splitwithlines">SplitWithLines</a></h1>
 <p>This tool splits the lines or polygons in one layer using the lines in another layer
 to define the breaking points. Intersection points between geometries in both layers
 are considered as split points. The input layer (<code>--input</code>) can be of either
@@ -902,10 +925,10 @@ and all of the attributes (excluding <code>FID</code>'s) of the input layer.</p>
 <p><em>See Also</em>:
 'MergeLineSegments'</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector line or polygon file</td></tr>
-<tr><td>--split            </td><td> Input vector polyline file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector line or polygon file</td></tr>
+<tr><td>--split</td><td>Input vector polyline file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.split_with_lines(
@@ -919,12 +942,12 @@ and all of the attributes (excluding <code>FID</code>'s) of the input layer.</p>
 <pre><code>&gt;&gt;./whitebox_tools -r=SplitWithLines -v --wd=&quot;/path/to/data/&quot; ^
 --input=polygons.shp --split=lines.shp -o=out_file.shp 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/split_with_lines.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/split_with_lines.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 17/10/2018</p>
 <p><em>Last Modified</em>: 08/04/2019</p>
 <p><a name="SumOverlay"></a></p>
-<a class="header" href="#sumoverlay" id="sumoverlay"><h1>SumOverlay</h1></a>
+<h1 id="sumoverlay"><a class="header" href="#sumoverlay">SumOverlay</a></h1>
 <p>This tool calculates the sum for each grid cell from a group of raster images (<code>--inputs</code>). NoData values in any of the input
 images will result in a NoData pixel in the output image (<code>--output</code>).</p>
 <p><em>Warning</em>:</p>
@@ -932,9 +955,9 @@ images will result in a NoData pixel in the output image (<code>--output</code>)
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#weightedsum"><strong>WeightedSum</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.sum_overlay(
@@ -947,12 +970,12 @@ images will result in a NoData pixel in the output image (<code>--output</code>)
 <pre><code>&gt;&gt;./whitebox_tools -r=SumOverlay -v --wd='/path/to/data/' ^
 -i='image1.dep;image2.dep;image3.tif' -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/sum_overlay.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/sum_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/09/2018</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="SymmetricalDifference"></a></p>
-<a class="header" href="#symmetricaldifference" id="symmetricaldifference"><h1>SymmetricalDifference</h1></a>
+<h1 id="symmetricaldifference"><a class="header" href="#symmetricaldifference">SymmetricalDifference</a></h1>
 <p>This tool will remove all the overlapping features, or parts of overlapping features, between
 input and overlay vector files, outputting only the features that occur in one of the two
 inputs but not both. The <em>Symmetrical Difference</em> is related to the Boolean
@@ -976,11 +999,11 @@ resulting from the overlay operation.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a>, <a href="./gis_analysis_overlay_tools.html#difference"><strong>Difference</strong></a>, <a href="./gis_analysis_overlay_tools.html#union"><strong>Union</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector file</td></tr>
-<tr><td>--overlay          </td><td> Input overlay vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
-<tr><td>--snap             </td><td> Snap tolerance</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector file</td></tr>
+<tr><td>--overlay</td><td>Input overlay vector file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
+<tr><td>--snap</td><td>Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.symmetrical_difference(
@@ -996,12 +1019,12 @@ resulting from the overlay operation.</p>
 --wd=&quot;/path/to/data/&quot; -input=layer1.shp --overlay=layer2.shp ^
 -o=out_file.shp --snap=0.0000001 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/symmetrical_difference.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/symmetrical_difference.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 5/11/2018</p>
 <p><em>Last Modified</em>: 08/11/2018</p>
 <p><a name="Union"></a></p>
-<a class="header" href="#union" id="union"><h1>Union</h1></a>
+<h1 id="union"><a class="header" href="#union">Union</a></h1>
 <p>This tool splits vector layers at their overlaps, creating a layer containing all the portions from both
 input and overlay layers. The <em>Union</em> is related to the Boolean
 <strong>OR</strong> operation in  set theory and is one of the common vector overlay
@@ -1021,11 +1044,11 @@ resulting from the overlay operation.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#intersect"><strong>Intersect</strong></a>, <a href="./gis_analysis_overlay_tools.html#difference"><strong>Difference</strong></a>, <a href="./gis_analysis_overlay_tools.html#symmetricaldifference"><strong>SymmetricalDifference</strong></a>, <a href="./gis_analysis_overlay_tools.html#clip"><strong>Clip</strong></a>, <a href="./gis_analysis_overlay_tools.html#erase"><strong>Erase</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --input        </td><td> Input vector file</td></tr>
-<tr><td>--overlay          </td><td> Input overlay vector file</td></tr>
-<tr><td>-o, --output       </td><td> Output vector file</td></tr>
-<tr><td>--snap             </td><td> Snap tolerance</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --input</td><td>Input vector file</td></tr>
+<tr><td>--overlay</td><td>Input overlay vector file</td></tr>
+<tr><td>-o, --output</td><td>Output vector file</td></tr>
+<tr><td>--snap</td><td>Snap tolerance</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.union(
@@ -1041,12 +1064,12 @@ resulting from the overlay operation.</p>
 -input=layer1.shp --overlay=layer2.shp -o=out_file.shp ^
 --snap=0.0000001 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/union.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/union.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 05/11/2018</p>
 <p><em>Last Modified</em>: 08/04/2019</p>
 <p><a name="UpdateNodataCells"></a></p>
-<a class="header" href="#updatenodatacells" id="updatenodatacells"><h1>UpdateNodataCells</h1></a>
+<h1 id="updatenodatacells"><a class="header" href="#updatenodatacells">UpdateNodataCells</a></h1>
 <p>This tool will assign the <em>NoData</em> valued cells in an input raster (<code>--input1</code>) the
 values contained in the corresponding grid cells in a second input raster (<code>--input2</code>).
 This operation is sometimes necessary because most other overlay operations exclude
@@ -1055,10 +1078,10 @@ to update the values of a raster within these missing data areas.</p>
 <p><em>See Also</em>:
 <code>IsNodata</code></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--input1           </td><td> Input raster file 1</td></tr>
-<tr><td>--input2           </td><td> Input raster file 2; update layer</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--input1</td><td>Input raster file 1</td></tr>
+<tr><td>--input2</td><td>Input raster file 2; update layer</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.update_nodata_cells(
@@ -1073,12 +1096,12 @@ to update the values of a raster within these missing data areas.</p>
 --wd=&quot;/path/to/data/&quot; --input1=input1.tif ^
 --input2=update_layer.tif -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/update_nodata_cells.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/update_nodata_cells.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 26/05/2020</p>
 <p><em>Last Modified</em>: 26/05/2020</p>
 <p><a name="WeightedOverlay"></a></p>
-<a class="header" href="#weightedoverlay" id="weightedoverlay"><h1>WeightedOverlay</h1></a>
+<h1 id="weightedoverlay"><a class="header" href="#weightedoverlay">WeightedOverlay</a></h1>
 <p>This tool performs a weighted overlay on multiple input images. It can be used to
 combine multiple factors with varying levels of weight or relative importance. The
 WeightedOverlay tool is similar to the WeightedSum tool but is more powerful because
@@ -1099,13 +1122,13 @@ the output image. The output raster is of the float data type and continuous dat
 <p>Each of the input rasters must have the same spatial extent and number of rows
 and columns.</p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>--factors          </td><td> Input factor raster files</td></tr>
-<tr><td>-w, --weights      </td><td> Weight values, contained in quotes and separated by commas or semicolons. Must have the same number as factors</td></tr>
-<tr><td>--cost             </td><td> Weight values, contained in quotes and separated by commas or semicolons. Must have the same number as factors</td></tr>
-<tr><td>--constraints      </td><td> Input constraints raster files</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
-<tr><td>--scale_max        </td><td> Suitability scale maximum value (common values are 1.0, 100.0, and 255.0)</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>--factors</td><td>Input factor raster files</td></tr>
+<tr><td>-w, --weights</td><td>Weight values, contained in quotes and separated by commas or semicolons. Must have the same number as factors</td></tr>
+<tr><td>--cost</td><td>Weight values, contained in quotes and separated by commas or semicolons. Must have the same number as factors</td></tr>
+<tr><td>--constraints</td><td>Input constraints raster files</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
+<tr><td>--scale_max</td><td>Suitability scale maximum value (common values are 1.0, 100.0, and 255.0)</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.weighted_overlay(
@@ -1125,12 +1148,12 @@ and columns.</p>
 --weights='0.3;0.2;0.5' --cost='false;false;true' -o=output.tif ^
 --scale_max=100.0 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/weighted_overlay.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/weighted_overlay.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 07/05/2018</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
 <p><a name="WeightedSum"></a></p>
-<a class="header" href="#weightedsum" id="weightedsum"><h1>WeightedSum</h1></a>
+<h1 id="weightedsum"><a class="header" href="#weightedsum">WeightedSum</a></h1>
 <p>This tool performs a weighted-sum overlay on multiple input raster images.
 If you have a stack of rasters that you would like to sum, each with an
 equal weighting (1.0), then use the <a href="./gis_analysis_overlay_tools.html#sumoverlay"><strong>SumOverlay</strong></a> tool instead.</p>
@@ -1140,10 +1163,10 @@ and columns.</p>
 <p><em>See Also</em>:
 <a href="./gis_analysis_overlay_tools.html#sumoverlay"><strong>SumOverlay</strong></a></p>
 <p><em>Parameters</em>:</p>
-<table><thead><tr><th><strong>Flag</strong>            </th><th>  <strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputs       </td><td> Input raster files</td></tr>
-<tr><td>-w, --weights      </td><td> Weight values, contained in quotes and separated by commas or semicolons</td></tr>
-<tr><td>-o, --output       </td><td> Output raster file</td></tr>
+<table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td>-i, --inputs</td><td>Input raster files</td></tr>
+<tr><td>-w, --weights</td><td>Weight values, contained in quotes and separated by commas or semicolons</td></tr>
+<tr><td>-o, --output</td><td>Output raster file</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.weighted_sum(
@@ -1158,7 +1181,7 @@ and columns.</p>
 -i='image1.tif;image2.tif;image3.tif' --weights='0.3;0.2;0.5' ^
 -o=output.tif 
 </code></pre>
-<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/src/tools/gis_analysis/weighted_sum.rs">Source code on GitHub</a></p>
+<p><a href="https://github.com/jblindsay/whitebox-tools//tree/master/whitebox-tools-app/src/tools/gis_analysis/weighted_sum.rs">Source code on GitHub</a></p>
 <p><em>Author</em>: Dr. John Lindsay</p>
 <p><em>Created</em>: 22/06/2017</p>
 <p><em>Last Modified</em>: 13/10/2018</p>
@@ -1186,13 +1209,13 @@ and columns.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../available_tools/gis_analysis_distance_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../available_tools/gis_analysis_distance_tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../available_tools/gis_analysis_patch_shape_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../available_tools/gis_analysis_patch_shape_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -1202,6 +1225,14 @@ and columns.</p>
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         
