@@ -113,6 +113,13 @@ var newsJson = {
   newsItems:
   [
     {
+      date: "2021-03-29",
+      headline: "Nigel Van Nieuwenhuizen Publishes Paper",
+      fullStory: "Congratulations to <a href=\"https://jblindsay.github.io/ghrg/research_group.html\">GHRG member Nigel Van Nieuwenhuizen</a> for the acceptance of his first paper from his thesis, titled, \
+      \"<em>Automated Mapping of Transportation Embankments in Fine-Resolution LiDAR DEMs</em>\". The article is forthcoming in the journal \
+      <em>Remote Sensing</em>. Well done Nigel! This is well deserved recognition for the quality of the research that you have carried out in your masters."
+    },
+    {
       date: "2020-04-09",
       headline: "WhiteboxTools v1.4.0 released",
       fullStory: "I am pleased to announce the release of <a href=\"https://jblindsay.github.io/ghrg/WhiteboxTools/index.html\">WhiteboxTools v1.4.0</a>. \
