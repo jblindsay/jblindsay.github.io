@@ -5,6 +5,51 @@
 <meta name="keywords" content="geomorphometry, terrain analysis, DEM, digital elevation model, ephemeral stream, stream burning, topographic depression"/>
 <meta name="description" content="Geomorphometry and hydro-geomatics research lab including the Whitebox GAT open-source GIS"/>
 <meta name="author" content="John Lindsay" />
+  <style>
+    .collapsible {
+      background-color: rgb(43, 79, 116);
+      color: white;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .active, .collapsible:hover {
+      background-color: #FF8C55;
+    }
+
+    .content {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color: #EEEEFF;
+    }
+
+    .formTable, .formTable:hover {
+      background-color: #EEEEFF;
+      border: none;
+    }
+    .formTableRow, .formTableRow:hover {
+      background-color: #EEEEFF;
+      border: none;
+    }
+    .formTableData {
+      border: none;
+      vertical-align: top;
+    }
+
+    fieldset {
+      border: none;
+    }
+
+    .formButton {
+      font-size: 25px;
+    }
+  </style>
 <title>WhiteboxTools | Download</title>
 <link href="../style.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="../img/jl.ico" type="image/x-icon" />
@@ -17,6 +62,7 @@
 <header><div id="titleContainer"></div></header>
 <nav id="navBar"></nav>
 <main>
+
 <div id="content-container">
 	  <div id="content">
       <h1>WhiteboxTools Download</h1>
@@ -33,36 +79,422 @@
         <p class="bodyText">MacOS 64-bit (6.4 MB compressed) <a href="./WhiteboxTools_darwin_amd64.zip">Download</a></p>
         <p class="bodyText">Linux 64-bit (4.5 MB compressed) <a href="./WhiteboxTools_linux_amd64.tar.xz">Download</a></p>
       </ul> -->
-      <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
-        method="post" name="form1" id="form1" align="left">
-        <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
-        <input type="hidden" value="WhiteboxTools download" name="subject"/>
-        <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_win_amd64.zip" name="redirect"/>
-        <input type="hidden" value="1.4.0" name="version"/>
-        <input type="hidden" value="Windows" name="OS"/>
-        <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
-        <li><span class="bodyText">Windows 64-bit (7.3 MB zipped)</span> <input class="submitButton" type="submit" value="Download"/></li>
-      </form>
-      <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
-        method="post" name="form1" id="form1" align="left">
-        <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
-        <input type="hidden" value="WhiteboxTools download" name="subject"/>
-        <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_darwin_amd64.zip" name="redirect"/>
-        <input type="hidden" value="1.4.0" name="version"/>
-        <input type="hidden" value="darwin" name="OS"/>
-        <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
-        <li><span class="bodyText">MacOS 64-bit (Darwin) (6.4 MB zipped)</span> <input class="submitButton" type="submit" value="Download"/></li>
-      </form>
-      <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
-        method="post" name="form1" id="form1" align="left">
-        <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
-        <input type="hidden" value="WhiteboxTools download" name="subject"/>
-        <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_linux_amd64.tar.xz" name="redirect"/>
-        <input type="hidden" value="1.4.0" name="version"/>
-        <input type="hidden" value="Linux" name="OS"/>
-        <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
-        <li><span class="bodyText">Linux 64-bit (4.5 MB zipped; compiled using Ubuntu 18.04 LTS)</span> <input class="submitButton" type="submit" value="Download"/></li>
-      </form>
+
+      <!-- <span class="bodyText">Windows 64-bit (7.3 MB zipped)</span><br> -->
+      <!-- <p class="bodyText">Please note, the information provided below helps us to improve WhiteboxTools. All 
+        information is voluntary and is not shared with any third-party.
+      </p> -->
+
+      <button type="button" class="collapsible">Windows 64-bit (7.3 MB zipped)</button>
+      <div class="content">
+        <p class="bodyText">Please note, the information provided below helps us to improve WhiteboxTools. All 
+          information is voluntary and is not shared with any third-party. Your download will begin upon pressing
+          the submit button below.
+        </p>
+        <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
+          method="post" name="form1" id="form1" align="left">
+          <table class="formTable">
+            <tr class="formTableRow">
+              <td class="formTableData">
+                <label for="fname" class="bodyText">First name:</label><br>
+                <input type="text" id="fname" name="fname" value="">
+              </td>
+              <td class="formTableData">
+                <label for="lname" class="bodyText">Last name:</label><br>
+                <input type="text" id="lname" name="lname" value=""><br>
+              </td>
+              <td class="formTableData">
+                <label for="lname" class="bodyText">Email:</label><br>
+                <input type="text" id="email" name="email" value=""><br>
+              </td>
+            </tr>
+          </table>
+
+          <fieldset id="sector">
+            <label for="sector" class="bodyText">Which sector(s) do you belong to?</label><br>
+      
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="private" name="sector" value="private">
+                  <label for="private" class="bodyText">Private Industry</label><br>
+                  
+                  <input type="checkbox" id="government" name="sector" value="government">
+                  <label for="government" class="bodyText">Government</label><br>
+                  
+                  <input type="checkbox" id="education_student" name="sector" value="education_student">
+                  <label for="education_student" class="bodyText">Education (Student)</label><br>
+                </td>
+                
+                <td class="formTableData">
+                  <input type="checkbox" id="research" name="sector" value="research">
+                  <label for="research" class="bodyText">Research</label><br>
+                  
+                  <input type="checkbox" id="ngo" name="sector" value="ngo">
+                  <label for="ngo" class="bodyText">Non-gov/Not-for-profit Agency</label><br>
+
+                  <input type="checkbox" id="education_instructor" name="sector" value="education_instructor">
+                  <label for="education_instructor" class="bodyText">Education (Instructor)</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <fieldset id="applications">
+            <label for="applications" class="bodyText">What application areas are you interested in applying WhiteboxTools to?</label><br>
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="lidar" name="applications" value="lidar">
+                  <label for="lidar" class="bodyText">LiDAR Analysis</label><br>
+                  
+                  <input type="checkbox" id="geomorphometry" name="applications" value="geomorphometry">
+                  <label for="geomorphometry" class="bodyText">Geomorphometry (DEM analysis)</label><br>
+                  
+                  <input type="checkbox" id="hydrology" name="applications" value="hydrology">
+                  <label for="hydrology" class="bodyText">Spatial Hydrology</label><br>
+                  
+                  <input type="checkbox" id="remote_sensing" name="applications" value="remote_sensing">
+                  <label for="remote_sensing" class="bodyText">Remote Sensing</label><br>
+                </td>
+
+                <td class="formTableData">
+                  <input type="checkbox" id="forestry" name="applications" value="forestry">
+                  <label for="forestry" class="bodyText">Forestry</label><br>
+
+                  <input type="checkbox" id="agriculture" name="applications" value="agriculture">
+                  <label for="agriculture" class="bodyText">Agriculture</label><br>
+                  
+                  <input type="checkbox" id="conservation" name="applications" value="conservation">
+                  <label for="conservation" class="bodyText">Conservation</label><br>
+
+                  <input type="checkbox" id="other" name="applications" value="other">
+                  <label for="other" class="bodyText">Other</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <fieldset id="frontend">
+            <label for="frontend" class="bodyText">Which WhiteboxTools front-ends do you use?</label><br>
+            
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="python" name="frontend" value="python">
+                  <label for="python" class="bodyText">Python Scripting</label><br>
+                  
+                  <input type="checkbox" id="r-lang" name="frontend" value="r-lang">
+                  <label for="r-lang" class="bodyText">R Programming Language</label><br>
+                  
+                  <input type="checkbox" id="qgis" name="frontend" value="qgis">
+                  <label for="qgis" class="bodyText">QGIS Whitebox Plugin</label><br>
+                </td>
+                <td class="formTableData">
+                  <input type="checkbox" id="arcgis" name="frontend" value="arcgis">
+                  <label for="arcgis" class="bodyText">ArcGIS Plugin</label><br>
+                  
+                  <input type="checkbox" id="wbrunner" name="frontend" value="wbrunner">
+                  <label for="wbrunner" class="bodyText">WhiteboxTools Runner GUI</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
+          <input type="hidden" value="WhiteboxTools download" name="subject"/>
+          <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_win_amd64.zip" name="redirect"/>
+          <input type="hidden" value="1.4.0" name="version"/>
+          <input type="hidden" value="Windows" name="OS"/>
+          <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+          <input type="submit" class="formButton" value="Submit"><br><br>
+          <!-- <li><span class="bodyText">Windows 64-bit (7.3 MB zipped)</span> <input class="submitButton" type="submit" value="Download"/></li> -->
+        </form>
+      </div>
+
+      <button type="button" class="collapsible">MacOS 64-bit (Darwin) (6.4 MB zipped)</button>
+      <div class="content">
+        <p class="bodyText">Please note, the information provided below helps us to improve WhiteboxTools. All 
+          information is voluntary and is not shared with any third-party. Your download will begin upon pressing
+          the submit button below.
+        </p>
+        <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
+          method="post" name="form1" id="form1" align="left">
+          <table class="formTable">
+            <tr class="formTableRow">
+              <td class="formTableData">
+                <label for="fname" class="bodyText">First name:</label><br>
+                <input type="text" id="fname" name="fname" value="">
+              </td>
+              <td class="formTableData">
+                <label for="lname" class="bodyText">Last name:</label><br>
+                <input type="text" id="lname" name="lname" value=""><br>
+              </td>
+              <td class="formTableData">
+                <label for="lname" class="bodyText">Email:</label><br>
+                <input type="text" id="email" name="email" value=""><br>
+              </td>
+            </tr>
+          </table>
+
+          <fieldset id="sector">
+            <label for="sector" class="bodyText">Which sector(s) do you belong to?</label><br>
+      
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="private" name="sector" value="private">
+                  <label for="private" class="bodyText">Private Industry</label><br>
+                  
+                  <input type="checkbox" id="government" name="sector" value="government">
+                  <label for="government" class="bodyText">Government</label><br>
+                  
+                  <input type="checkbox" id="education_student" name="sector" value="education_student">
+                  <label for="education_student" class="bodyText">Education (Student)</label><br>
+                </td>
+                
+                <td class="formTableData">
+                  <input type="checkbox" id="research" name="sector" value="research">
+                  <label for="research" class="bodyText">Research</label><br>
+                  
+                  <input type="checkbox" id="ngo" name="sector" value="ngo">
+                  <label for="ngo" class="bodyText">Non-gov/Not-for-profit Agency</label><br>
+
+                  <input type="checkbox" id="education_instructor" name="sector" value="education_instructor">
+                  <label for="education_instructor" class="bodyText">Education (Instructor)</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <fieldset id="applications">
+            <label for="applications" class="bodyText">What application areas are you interested in applying WhiteboxTools to?</label><br>
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="lidar" name="applications" value="lidar">
+                  <label for="lidar" class="bodyText">LiDAR Analysis</label><br>
+                  
+                  <input type="checkbox" id="geomorphometry" name="applications" value="geomorphometry">
+                  <label for="geomorphometry" class="bodyText">Geomorphometry (DEM analysis)</label><br>
+                  
+                  <input type="checkbox" id="hydrology" name="applications" value="hydrology">
+                  <label for="hydrology" class="bodyText">Spatial Hydrology</label><br>
+                  
+                  <input type="checkbox" id="remote_sensing" name="applications" value="remote_sensing">
+                  <label for="remote_sensing" class="bodyText">Remote Sensing</label><br>
+                </td>
+
+                <td class="formTableData">
+                  <input type="checkbox" id="forestry" name="applications" value="forestry">
+                  <label for="forestry" class="bodyText">Forestry</label><br>
+
+                  <input type="checkbox" id="agriculture" name="applications" value="agriculture">
+                  <label for="agriculture" class="bodyText">Agriculture</label><br>
+                  
+                  <input type="checkbox" id="conservation" name="applications" value="conservation">
+                  <label for="conservation" class="bodyText">Conservation</label><br>
+
+                  <input type="checkbox" id="other" name="applications" value="other">
+                  <label for="other" class="bodyText">Other</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <fieldset id="frontend">
+            <label for="frontend" class="bodyText">Which WhiteboxTools front-ends do you use?</label><br>
+            
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="python" name="frontend" value="python">
+                  <label for="python" class="bodyText">Python Scripting</label><br>
+                  
+                  <input type="checkbox" id="r-lang" name="frontend" value="r-lang">
+                  <label for="r-lang" class="bodyText">R Programming Language</label><br>
+                  
+                  <input type="checkbox" id="qgis" name="frontend" value="qgis">
+                  <label for="qgis" class="bodyText">QGIS Whitebox Plugin</label><br>
+                </td>
+                <td class="formTableData">
+                  <input type="checkbox" id="arcgis" name="frontend" value="arcgis">
+                  <label for="arcgis" class="bodyText">ArcGIS Plugin</label><br>
+                  
+                  <input type="checkbox" id="wbrunner" name="frontend" value="wbrunner">
+                  <label for="wbrunner" class="bodyText">WhiteboxTools Runner GUI</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
+          <input type="hidden" value="WhiteboxTools download" name="subject"/>
+          <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_darwin_amd64.zip" name="redirect"/>
+          <input type="hidden" value="1.4.0" name="version"/>
+          <input type="hidden" value="Darwin" name="OS"/>
+          <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+          <input type="submit" class="formButton" value="Submit"><br><br>
+          <!-- <li><span class="bodyText">Windows 64-bit (7.3 MB zipped)</span> <input class="submitButton" type="submit" value="Download"/></li> -->
+        </form>
+      </div>
+        <!-- <div class="content">
+          <p class="bodyText">Please note, the information provided below helps us to improve WhiteboxTools. All 
+            information is voluntary and is not shared with any third-party.
+          </p>
+          <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
+            method="post" name="form1" id="form1" align="left">
+            <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
+            <input type="hidden" value="WhiteboxTools download" name="subject"/>
+            <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_darwin_amd64.zip" name="redirect"/>
+            <input type="hidden" value="1.4.0" name="version"/>
+            <input type="hidden" value="darwin" name="OS"/>
+            <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+            <li><span class="bodyText">MacOS 64-bit (Darwin) (6.4 MB zipped)</span> <input class="submitButton" type="submit" value="Download"/></li>
+          </form>
+        </div> -->
+
+      <button type="button" class="collapsible">Linux 64-bit (4.5 MB zipped; compiled using Ubuntu 18.04 LTS)</button>
+      <div class="content">
+        <p class="bodyText">Please note, the information provided below helps us to improve WhiteboxTools. All 
+          information is voluntary and is not shared with any third-party. Your download will begin upon pressing
+          the submit button below.
+        </p>
+        <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
+          method="post" name="form1" id="form1" align="left">
+          <table class="formTable">
+            <tr class="formTableRow">
+              <td class="formTableData">
+                <label for="fname" class="bodyText">First name:</label><br>
+                <input type="text" id="fname" name="fname" value="">
+              </td>
+              <td class="formTableData">
+                <label for="lname" class="bodyText">Last name:</label><br>
+                <input type="text" id="lname" name="lname" value=""><br>
+              </td>
+              <td class="formTableData">
+                <label for="lname" class="bodyText">Email:</label><br>
+                <input type="text" id="email" name="email" value=""><br>
+              </td>
+            </tr>
+          </table>
+
+          <fieldset id="sector">
+            <label for="sector" class="bodyText">Which sector(s) do you belong to?</label><br>
+      
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="private" name="sector" value="private">
+                  <label for="private" class="bodyText">Private Industry</label><br>
+                  
+                  <input type="checkbox" id="government" name="sector" value="government">
+                  <label for="government" class="bodyText">Government</label><br>
+                  
+                  <input type="checkbox" id="education_student" name="sector" value="education_student">
+                  <label for="education_student" class="bodyText">Education (Student)</label><br>
+                </td>
+                
+                <td class="formTableData">
+                  <input type="checkbox" id="research" name="sector" value="research">
+                  <label for="research" class="bodyText">Research</label><br>
+                  
+                  <input type="checkbox" id="ngo" name="sector" value="ngo">
+                  <label for="ngo" class="bodyText">Non-gov/Not-for-profit Agency</label><br>
+
+                  <input type="checkbox" id="education_instructor" name="sector" value="education_instructor">
+                  <label for="education_instructor" class="bodyText">Education (Instructor)</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <fieldset id="applications">
+            <label for="applications" class="bodyText">What application areas are you interested in applying WhiteboxTools to?</label><br>
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="lidar" name="applications" value="lidar">
+                  <label for="lidar" class="bodyText">LiDAR Analysis</label><br>
+                  
+                  <input type="checkbox" id="geomorphometry" name="applications" value="geomorphometry">
+                  <label for="geomorphometry" class="bodyText">Geomorphometry (DEM analysis)</label><br>
+                  
+                  <input type="checkbox" id="hydrology" name="applications" value="hydrology">
+                  <label for="hydrology" class="bodyText">Spatial Hydrology</label><br>
+                  
+                  <input type="checkbox" id="remote_sensing" name="applications" value="remote_sensing">
+                  <label for="remote_sensing" class="bodyText">Remote Sensing</label><br>
+                </td>
+
+                <td class="formTableData">
+                  <input type="checkbox" id="forestry" name="applications" value="forestry">
+                  <label for="forestry" class="bodyText">Forestry</label><br>
+
+                  <input type="checkbox" id="agriculture" name="applications" value="agriculture">
+                  <label for="agriculture" class="bodyText">Agriculture</label><br>
+                  
+                  <input type="checkbox" id="conservation" name="applications" value="conservation">
+                  <label for="conservation" class="bodyText">Conservation</label><br>
+
+                  <input type="checkbox" id="other" name="applications" value="other">
+                  <label for="other" class="bodyText">Other</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <fieldset id="frontend">
+            <label for="frontend" class="bodyText">Which WhiteboxTools front-ends do you use?</label><br>
+            
+            <table class="formTable">
+              <tr class="formTableRow">
+                <td class="formTableData">
+                  <input type="checkbox" id="python" name="frontend" value="python">
+                  <label for="python" class="bodyText">Python Scripting</label><br>
+                  
+                  <input type="checkbox" id="r-lang" name="frontend" value="r-lang">
+                  <label for="r-lang" class="bodyText">R Programming Language</label><br>
+                  
+                  <input type="checkbox" id="qgis" name="frontend" value="qgis">
+                  <label for="qgis" class="bodyText">QGIS Whitebox Plugin</label><br>
+                </td>
+                <td class="formTableData">
+                  <input type="checkbox" id="arcgis" name="frontend" value="arcgis">
+                  <label for="arcgis" class="bodyText">ArcGIS Plugin</label><br>
+                  
+                  <input type="checkbox" id="wbrunner" name="frontend" value="wbrunner">
+                  <label for="wbrunner" class="bodyText">WhiteboxTools Runner GUI</label><br>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
+          <input type="hidden" value="WhiteboxTools download" name="subject"/>
+          <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_linux_amd64.tar.xz" name="redirect"/>
+          <input type="hidden" value="1.4.0" name="version"/>
+          <input type="hidden" value="Linux" name="OS"/>
+          <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+          <input type="submit" class="formButton" value="Submit"><br><br>
+          <!-- <li><span class="bodyText">Windows 64-bit (7.3 MB zipped)</span> <input class="submitButton" type="submit" value="Download"/></li> -->
+        </form>
+      </div>
+        <!-- <div class="content">
+          <p class="bodyText">Please note, the information provided below helps us to improve WhiteboxTools. All 
+            information is voluntary and is not shared with any third-party.
+          </p>
+          <form onsubmit="return true" action="http://whiteboxgeo.com/cgi-bin/FormMail.pl"
+            method="post" name="form1" id="form1" align="left">
+            <input type="hidden" value="support@whiteboxgeo.com" name="recipient"/>
+            <input type="hidden" value="WhiteboxTools download" name="subject"/>
+            <input type="hidden" value="https://www.uoguelph.ca/~hydrogeo/WhiteboxTools/WhiteboxTools_linux_amd64.tar.xz" name="redirect"/>
+            <input type="hidden" value="1.4.0" name="version"/>
+            <input type="hidden" value="Linux" name="OS"/>
+            <input type="hidden" value="REMOTE_HOST,REMOTE_ADDR,REMOTE_USER,HTTP_USER_AGENT" name="env_report"/>
+            <li><span class="bodyText">Linux 64-bit (4.5 MB zipped; compiled using Ubuntu 18.04 LTS)</span> <input class="submitButton" type="submit" value="Download"/></li>
+          </form>
+        </div> -->
 
       <p class="bodyText">Alternatively, you may also download the latest release of WhiteboxTools from the 
         <a href="https://github.com/jblindsay/whitebox-tools/releases">GitHub repository</a> for Windows, Mac, and Linux.</p>
@@ -148,6 +580,23 @@
 	</div></footer>
 </div>
 </div>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+</script>
 <script>insertHeader("whiteboxtools");</script>
 <script>getNavBar("whiteboxtools");</script>
 <script>insertFooter();</script>
