@@ -54,13 +54,13 @@ function getNavBar(page) {
       case "software":
         softwareClass = "class=\"activated\"";
         break;
-      case "whitebox":
-        softwareClass = "class=\"activated\"";
-        whiteboxClass = "class=\"activated\"";
-        pageFolder = "../";
-        whiteboxFolder = "";
-        whiteboxtoolsFolder = "../WhiteboxTools/";
-        break;
+      // case "whitebox":
+      //   softwareClass = "class=\"activated\"";
+      //   whiteboxClass = "class=\"activated\"";
+      //   pageFolder = "../";
+      //   whiteboxFolder = "";
+      //   whiteboxtoolsFolder = "../WhiteboxTools/";
+      //   break;
       case "whiteboxtools":
         softwareClass = "class=\"activated\"";
         whiteboxtoolsClass = "class=\"activated\"";
@@ -86,7 +86,6 @@ function getNavBar(page) {
         "  <li><a href=\"" + pageFolder + "software.shtml\"" + softwareClass + ">SOFTWARE</a>" + eol  +
         "  <ul>" + eol +
         "    <li " + whiteboxtoolsClass + "><a href=\"" + whiteboxtoolsFolder + "index.html\">WhiteboxTools</a></li>" + eol  +
-        "    <li " + whiteboxClass + "><a href=\"" + whiteboxFolder + "index.html\">Whitebox GAT</a></li>" + eol  +
         "    <li><a href=\"" + pageFolder + "software.shtml#GoSpatial\">GoSpatial</a></li>" + eol  +
         "  </ul>" + eol  +
         "  </li>" + eol  +
@@ -97,6 +96,8 @@ function getNavBar(page) {
     el.innerHTML += s;
   }
 }
+
+// "    <li " + whiteboxClass + "><a href=\"" + whiteboxFolder + "index.html\">Whitebox GAT</a></li>" + eol  +
 
 var OSName = "Unknown";
 if (window.navigator.userAgent.indexOf("Windows") != -1) OSName="Windows";
