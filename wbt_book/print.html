@@ -3586,7 +3586,7 @@ Openness has two viewer perspectives, which correspond with positive and negativ
 and <code>--neg_output</code>). Positive values, expressing openness above the surface, are high for convex forms,
 whereas negative values describe this attribute below the surface and are high for concave forms. Openness
 is an angular value that is an average of the horizon angle in the eight cardinal directions to a maximum
-search distance (<code>--dist</code>), measured in grid cells. Openness rasters are best visualized using a gray-scale palette.</p>
+search distance (<code>--dist</code>), measured in grid cells. Openness rasters are best visualized using a greyscale palette.</p>
 <p>Positive Openness:
 <img src="available_tools/../img/Openness_pos.png" alt="" /></p>
 <p>Negative Openness:
@@ -8507,6 +8507,7 @@ algorithm works by identifying stream-road intersection cells, then traversing a
 in the upstream and downstream directions by half the maximum road embankment width. The minimum elevation in each
 stream traversal is identified and then elevations that are higher than this value are lowered to the minimum
 elevation during a second stream traversal.</p>
+<p><img src="available_tools/../img/BreachStreamsAtRoads.png" alt="" /></p>
 <p><em>Reference</em>:</p>
 <p>Lindsay JB. 2016. The practice of DEM stream burning revisited. Earth Surface Processes and Landforms,
 41(5): 658–668. DOI: 10.1002/esp.3888</p>
@@ -19021,21 +19022,21 @@ is used by the tool to determine when a point is replaced by the mean value of n
 <a href="available_tools/./precision_agriculture.html#recreatepasslines"><strong>RecreatePassLines</strong></a>, <a href="available_tools/./precision_agriculture.html#yieldmap"><strong>YieldMap</strong></a></p>
 <p><em>Parameters</em>:</p>
 <table><thead><tr><th><strong>Flag</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
-<tr><td>-i, --inputFile</td><td>Name of the input points shapefile</td></tr>
-<tr><td>-y, --yieldFieldName</td><td>Name of the attribute containing yield data</td></tr>
-<tr><td>-p, --passFieldName</td><td>Name of the attribute containing pass line ID</td></tr>
-<tr><td>-o, --outputFile</td><td>Name of the output points shapefile</td></tr>
+<tr><td>-i, --input</td><td>Name of the input points shapefile</td></tr>
+<tr><td>-y, --yield_field_name</td><td>Name of the attribute containing yield data</td></tr>
+<tr><td>-p, --pass_field_name</td><td>Name of the attribute containing pass line ID</td></tr>
+<tr><td>-o, --output</td><td>Name of the output points shapefile</td></tr>
 <tr><td>-w, --width</td><td>Pass swath width (m)</td></tr>
-<tr><td>-z, --zScoreThreshold</td><td>Z-score threshold value (default=2.5)</td></tr>
-<tr><td>--minYield</td><td>Minimum yield value in output</td></tr>
-<tr><td>--maxYield</td><td>Maximum yield value in output</td></tr>
+<tr><td>-z, --z_score_threshold</td><td>Z-score threshold value (default=2.5)</td></tr>
+<tr><td>--min_yield</td><td>Minimum yield value in output</td></tr>
+<tr><td>--max_yield</td><td>Maximum yield value in output</td></tr>
 </tbody></table>
 <p><em>Python function</em>:</p>
 <pre><code class="language-python">wbt.yield_filter(
-    input_file, 
+    i, 
     yield_field_name, 
     pass_field_name, 
-    output_file, 
+    output, 
     width=6.096, 
     z_score_threshold=2.5, 
     min_yield=0.0, 
