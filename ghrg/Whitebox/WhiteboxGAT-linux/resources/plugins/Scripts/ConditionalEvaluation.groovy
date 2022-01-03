@@ -53,7 +53,7 @@ import groovy.time.TimeCategory
 // Comment them out if you want to remove the script.
 def name = "ConditionalEvaluation"
 def descriptiveName = "Conditional Evaluation"
-def description = "Performs a conditional evaluaton (if-then-else) operation on a raster."
+def description = "Performs a conditional evaluation (if-then-else) operation on a raster."
 def toolboxes = ["MathTools", "GISTools"]
 
 public class ConditionalEvaluation implements ActionListener {

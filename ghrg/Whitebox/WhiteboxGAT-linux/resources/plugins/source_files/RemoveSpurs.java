@@ -43,7 +43,7 @@ public class RemoveSpurs implements WhiteboxPlugin {
      */
     @Override
     public String getDescriptiveName() {
-    	return "Remove Spurs (prunning)";
+    	return "Remove Spurs (pruning)";
     }
     /**
      * Used to retrieve a short description of what the plugin tool does.
@@ -51,7 +51,7 @@ public class RemoveSpurs implements WhiteboxPlugin {
      */
     @Override
     public String getToolDescription() {
-    	return "Removes the spurs (prunning operation) from a Boolean image.";
+    	return "Removes the spurs (pruning operation) from a Boolean image.";
     }
     /**
      * Used to identify which toolboxes this plugin tool should be listed in.
