@@ -1,0 +1,601 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GEOG3420 W22 Lab 3</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: HSI Transform</a></li><li class="chapter-item expanded "><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Principal Component Analysis</a></li><li class="chapter-item expanded "><a href="part3.html"><strong aria-hidden="true">4.</strong> Part 3: Image Filtering</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GEOG3420 W22 Lab 3</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="geog3420-remote-sensing-of-the-environment-w22"><a class="header" href="#geog3420-remote-sensing-of-the-environment-w22">GEOG*3420 Remote Sensing of the Environment (W22)</a></h1>
+<h2 id="lab-assignment-3"><a class="header" href="#lab-assignment-3"><strong>Lab Assignment 3</strong></a></h2>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>This lab exercise introduces students to two useful data transformation techniques used in remote sensing: the HSI transform and Principal Component Analysis (PCA). Additionally, we explore the use of spatial-domain filters for noise reduction (smoothing) and for edge-feature mapping.</p>
+<h2 id="readings-and-resources"><a class="header" href="#readings-and-resources">Readings and Resources</a></h2>
+<p>The following materials, combined with your textbook, can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li><a href="https://www.whiteboxgeo.com/manual/wbt_book/preface.html">Lindsay, J.B. 2019. The WhiteboxTools User Manual</a></li>
+</ul>
+<h2 id="before-you-begin"><a class="header" href="#before-you-begin">Before you begin</a></h2>
+<p><strong>IMPORTANT INFORMATION</strong>: You will need to download the data associated with this lab assignment from the GEOG*3420 CourseLink site. These data, as usual, are quite large and you will need to consider data storage solutions (e.g. a dedicated USB memory stick for the course). </p>
+<!-- Please do not use the H-drive for storing your data or working on analysis. -->
+<h2 id="what-you-need-to-hand-in"><a class="header" href="#what-you-need-to-hand-in">What you need to hand in</a></h2>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. </p>
+<!-- Notice that you will need to have paid your lab fee to have printing privileges in the Hutt building computer labs. -->
+<h1 id="part-1-hsi-transform"><a class="header" href="#part-1-hsi-transform">Part 1: HSI Transform</a></h1>
+<p>In Lab 2, we saw how various contrast stretches can be used to improve the contrast (i.e. image lightness) and thereby improve the colour-composite derived from three stretched images. In this part of Lab 3, you will be introduced to the HSI transform (also called <em>IHS</em>), which can be used, along with contrast stretching, to further refine the colour balance of colour images. </p>
+<blockquote>
+<p><strong>Readings:</strong> Tempfli et al. (2009). Chapter 5 Section 5.2 <em>Visualization</em>, Subsection <em>IHS</em> pg. 176-177.</p>
+</blockquote>
+<p>The RGB-to-HSI transform takes three bands of imagery, or a red-green-blue (RGB) colour composite, as input and produces three transformed bands: <em>hue</em>, <em>saturation</em>, and <em>intensity</em> (HSI). Note, HSI is sometimes referred to as ISH or even HIS; Mather and Koch refer to this transform by the HSI convention, while WhiteboxTools uses ISH. <em>Hue</em> is related to the dominant wavelength of light and is perceived as the color associated with a pixel in a composite image. <em>Saturation</em> is the purity of a color. Colours become less pure as more white light is added, making them appear somewhat pastel. <em>Intensity</em> refers to the brightness, or lightness, of a color. There are several versions of the RGB-to-HSI transform, but one common convention results in HSI values within the following numerical ranges:</p>
+<blockquote>
+<p>0 &lt; H &lt; 2PI </p>
+<p>0 &lt; S &lt; 1</p>
+<p>0 &lt; I &lt; 1</p>
+</blockquote>
+<p>Hue is actually an angular quantity, and therefore its degree range takes 0 &lt; H &lt; 360.</p>
+<p>Be sure to download the imagery data associated with this lab assignment into an appropriate directory. These data should contain a sub-region of a Landsat 8 scene, including seven bands (i.e. bands 1 through 7) of image data, for an area of Southern Ontario between Kitchener-Waterloo, Cambridge, and Guelph. The image was acquired June 21, 2016. To get a sense of the data, use WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool to create a 432 natural-colour RGB composite image. Using a Python script, this might look something like the following:</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+import os
+
+wbt = WhiteboxTools()
+
+# declare your working directory as a variable
+wdir = &quot;Your working directory here&quot;
+assert(os.path.isdir(wdir)
+wbt.work_dir = wdir
+
+print(&quot;Creating a colour composite...&quot;)
+wbt.verbose = False  # We don't need progress updates
+wbt.create_colour_composite(
+    red=&quot;band4_clipped.tif&quot;,
+    green=&quot;band3_clipped.tif&quot;,
+    blue=&quot;band2_clipped.tif&quot;,
+    output=&quot;natural_colour.tif&quot;,
+    enhance=False
+)
+
+print(&quot;All done!&quot;)
+
+</code></pre>
+<p>It is important that you <strong>do not enhance</strong> the composite (<code>enhance=False</code>), which is not the default setting. Displaying the resulting image using your data visualization software of choice, you should find that it looks as follows:</p>
+<p><img src="img/natural_colour.png" alt="natural_colour.png image" /></p>
+<p>Notice how dark, faded, and washed-out the colours in the image appear. The idea behind an HSI transform is simple. We can convert the three bands of data used to create this natural-colour composite image into the <a href="https://en.wikipedia.org/wiki/HSL_and_HSV"><em>HSI colour space</em></a>. We then perform a linear contrast stretch on the intensity (to brighten the image) and saturation (to make the image more colourful) bands and then perform the inverse transform (HSI-to-RGB) back into <a href="https://en.wikipedia.org/wiki/RGB_color_space"><em>RGB colour space</em></a>. When we perform contrast stretching directly on the RGB components, as we did in Lab 2, there is a good chance that the image colouring will be significantly altered, producing an unnatural appearance. By stretching only the intensity and saturation bands without altering the hue data, we will not be adjusting the colour values, only their colourfulness and lightness. In this way, we can ensure that the resulting enhanced image still <em>looks natural</em> after the adjustment.</p>
+<p>So, let's do the adjustments and see if we can improve the colour-composite. Using IDLE, create a new Python script called <em>hsi.py</em> and copy the following script into the file:</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot; # Update this
+
+wbt.verbose = False  # We don't need progress updates
+
+# Transform the data into intensity-hue-satuation
+print(&quot;Transform the data into intensity-hue-saturation...&quot;)
+wbt.rgb_to_ihs(
+    red=&quot;band4_clipped.tif&quot;,
+    green=&quot;band3_clipped.tif&quot;,
+    blue=&quot;band2_clipped.tif&quot;,
+    intensity=&quot;intensity.tif&quot;,
+    hue=&quot;hue.tif&quot;,
+    saturation=&quot;saturation.tif&quot;
+)
+
+# Perform a contrast stretch on the intensity band
+print(&quot;Stretching the intensity band...&quot;)
+wbt.percentage_contrast_stretch(
+    i=&quot;intensity.tif&quot;,
+    output=&quot;intensity_cs.tif&quot;,
+    clip=8.0,
+    tail=&quot;upper&quot;,
+    num_tones=1024
+)
+
+# The contrast stretched image has a value range from 0-1024 but we need it from 0-1
+wbt.divide(
+    input1=&quot;intensity_cs.tif&quot;,
+    input2=1024.0,
+    output=&quot;intensity_rescaled.tif&quot;
+)
+
+# Now, perform a contrast stretch on the saturation band
+print(&quot;Stretching the saturation band...&quot;)
+wbt.percentage_contrast_stretch(
+    i=&quot;saturation.tif&quot;,
+    output=&quot;saturation_cs.tif&quot;,
+    clip=0.75,
+    tail=&quot;upper&quot;,
+    num_tones=1024
+)
+
+# The contrast stretched image has a value range from 0-1024 but we need it from 0-1
+wbt.divide(
+    input1=&quot;saturation_cs.tif&quot;,
+    input2=1024.0,
+    output=&quot;saturation_rescaled.tif&quot;
+)
+
+# Transform the IHS data back into RGB, using the stretched intensity and saturation bands,
+# and create a colour composite
+print(&quot;Transform the IHS data back into RGB...&quot;)
+wbt.verbose = False
+wbt.ihs_to_rgb(
+    intensity=&quot;intensity_rescaled.tif&quot;,
+    hue=&quot;hue.tif&quot;,
+    saturation=&quot;saturation_rescaled.tif&quot;,
+    output=&quot;natural_colour_hsi.tif&quot;
+)
+
+print(&quot;All done!&quot;)
+
+</code></pre>
+<p>Once the script has successfully run, open the resulting <code>natural_colour_hsi.tif</code> image using your data visualization software of choice.</p>
+<blockquote>
+<p>1.1. Describe the impact that stretching the intensity and saturation bands had on the natural-colour composite image. Include a screenshot of the enhanced image with your final report. <strong>(3 marks)</strong></p>
+<p>1.2. How much did we clip the tails of the intensity and saturation bands by? What would be the impact of either raising or lowering the clip values? <strong>(2 marks)</strong></p>
+</blockquote>
+<p>Now experiment with adjusting each of the intensity and saturation stretch parameters (i.e. <code>clip</code> and <code>tail</code> values in the <code>percentage_contrast_stretch</code> function) to see if you can further refine the image quality. </p>
+<blockquote>
+<p>Include the colour composite resulting from your best (most refined) transformation and also include the final stretch parameter values used to create the image. <strong>(3 marks)</strong></p>
+</blockquote>
+<p>The <code>enhance</code> optional parameter used in the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool performs an automated adjustment similar to the HSI-transform based stretch of the composite image. However, when we need more control over this adjustment, manually manipulating the HSI values as we have above is our best option.</p>
+<blockquote>
+<p>1.3. Based on lectures and your readings, what is the main goal of image contrast stretching? <strong>(2 marks)</strong></p>
+</blockquote>
+<h1 id="part-2-principal-component-analysis"><a class="header" href="#part-2-principal-component-analysis">Part 2: Principal Component Analysis</a></h1>
+<p>This part of the lab exercise is designed to familiarize students with Principal Component Analysis (PCA) for multispectral imagery.</p>
+<blockquote>
+<p><strong>Readings:</strong> Esri, <a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-principal-components-works.htm"><em>How Principal Components Work</em></a>, ArcGIS Pro Help Documentation, available online (https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-principal-components-works.htm). </p>
+</blockquote>
+<h2 id="correlation-among-multispectral-images"><a class="header" href="#correlation-among-multispectral-images">Correlation Among Multispectral Images</a></h2>
+<p>Correlation is a statistical technique that is used to evaluate the degree of association between two variables. Correlation, usually designated by the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson <em>r</em> value</a>, can be positive (indicating that as variable <em>X</em> increases in value variable <em>Y</em> also tends to increase) or negative (as <em>X</em> increases, <em>Y</em> tends to decrease in value). Correlation values vary from -1, indicating a strong negative association between variables, and 1, indicating a strong positive association. An <em>r</em>-value of 0 indicates that there is no statistical association between the two test variables.</p>
+<p>Correlation provides a valuable tool for assessing the degree to which the brightness values in different bands of multispectral imagery are associated with one another. Use WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#ImageCorrelation"><strong>ImageCorrelation</strong></a> tool to generate the correlation matrix for each of the bands of the K-W/Cambridge/Guelph Landsat 8 scene. </p>
+<blockquote>
+<p>Include the correlation matrix with your final lab report <strong>(1 mark)</strong>. </p>
+<p>2.1. Using the generated correlation matrix identify any groups of images that exhibit strong correlation, i.e. <em>r</em>-values of 0.9 or greater and -0.9 or less? <strong>(3 marks)</strong></p>
+<p>2.2. Which of the seven bands is the most unique, i.e. does not exhibit a high degree of correlation with any other bands in the data set? <strong>(1 mark)</strong></p>
+</blockquote>
+<h2 id="principal-component-analysis-pca"><a class="header" href="#principal-component-analysis-pca">Principal Component Analysis (PCA)</a></h2>
+<p><strong>It is important that you read the following preamble carefully.</strong></p>
+<p>While we may have seven bands of multispectral data in our test data set, the correlation analysis above shows that we do not have seven bands worth of information within the imagery. That is, correlation among the individual bands represents redundancy in the data set. As such, we should be able to use a data reduction technique to eliminate this redundancy and reduce the total number of images that need to be analyzed. For particularly intensive remote sensing analyses, this can be an important, or even necessary, step. For example, if we can use fewer band images to perform image classification, while still retaining the same amount of information in the data set, we will greatly improve the efficiency of the analysis.</p>
+<p><a href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA</a> is one such data reduction technique that is widely used in remote sensing applications. PCA is used to reduce the number of band images necessary for classification (i.e. as a data reduction technique), for noise reduction, for change detection applications, and in many other areas. It is one of the most useful data transformations that we encounter in remote sensing.</p>
+<p>As we've seen, any multi- or hyper-spectral imagery is likely to contain a substantial amount of redundancy owing to the correlation among the images. That is, the actual dimensionality of a multi-spectral data set is likely less than the number of bands. PCA transforms the original image data set into fewer, uncorrelated images. The technique works by transforming the axes (i.e. plural of <em>axis)</em> of the multispectral space (a 7-dimensional space in the case of our Landsat data) such that it coincides with the directions of greatest correlation. Each of these new axes are orthogonal (right angle) to one another.</p>
+<p>Use WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#PrincipalComponentAnalysis"><strong>PrincipalComponentAnalysis</strong></a> tool to run a PCA on the Landsat data set. Input all seven available bands. <strong>Do not standardized the PCA</strong>. This is only done when the variances in your input images differ substantially, such as would be the case if they contained values that were recorded in different units (e.g. feet and meters). Each of our input images have the same bit depth so we do not need to standardize the analysis. We want to create all of the component images, i.e. <code>num_comp=7</code>.</p>
+<p>You may run the PCA in a Python script (e.g. <em>pca.py</em>) that has been set up in the usual manner (i.e. importing WhiteboxTools, creating a <code>wbt</code> object, etc.), by using the following code:</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+import os
+
+
+wbt = WhiteboxTools()
+
+# declare your working directory as a variable
+wdir = &quot;Your working directory here&quot;
+assert(os.path.isdir(wdir))
+wbt.work_dir = wdir
+
+print(&quot;Performing PCA...&quot;)
+wbt.verbose = True  # We would like the PCA report to be automatically displayed
+wbt.principal_component_analysis(
+    inputs=&quot;band1_clipped.tif;band2_clipped.tif;band3_clipped.tif;band4_clipped.tif;band5_clipped.tif;band6_clipped.tif;band7_clipped.tif&quot;,
+    output=&quot;pca_report.html&quot;,
+    num_comp=7,
+    standardized=False
+)
+</code></pre>
+<p>Several outputs will be generated when the tool has completed. An HTML PCA report will be created and, hopefully, automatically displayed. This report contains useful data to help us interpret the results of the analysis. The first table that is in the PCA report lists the amount of explained variance (in non-cumulative and cumulative form), the eigenvalue, and the eigenvector for each component. Yikes, that's a lot of jargon that you're probably unfamiliar with! Okay, take a deep breath and let's look at it more closely. First of all, each of the seven components refer to the seven newly created, transformed images that we have created by running this tool. You can think of the amount of explained variance associated with each component as a measure of how much information content within the original multi-spectral data set that a component has. The higher this value is, the more important the component is. In fact, this same information is presented in graphical form in the <em>Scree Plot</em> that was also output when the tool completed. </p>
+<blockquote>
+<p>Include the PCA report table and the scree plot in your final report <strong>(2 marks)</strong>.</p>
+<p>2.3. How does the amount of information, i.e. explained variance, vary by component number? <strong>(1 mark)</strong></p>
+</blockquote>
+<p>The eigenvalue is really just a related measure of information content and the eigenvector simply describes the mathematical transformation (rotation coordinates) that correspond to a particular component image. Neither of these two things are all that important for us now. They are necessary if you ever want to perform an <em>inverse PCA</em>, taking the components, or a subset of them, and transforming them back into the original coordinate system. This is sometimes a useful thing to do if you are using PCA for noise reduction applications.</p>
+<p>Now then, you might have noticed something a bit strange about the results. I said previously that PCA is often used to reduce the number of images that we need to analyze (e.g. for image classification applications), but in fact the PCA has spat out seven new images. This is always the case; PCA will produce as many components as there are input images, unless you specify for it to create fewer (in this case, the images are still created, just not saved). The idea is that in data reduction applications the user is able to leave out several of the less important components from further analyses. Importantly, leaving out some components does not significantly affect the amount of information content in the overall data set. Is it just me or is that not a really nifty trick? I thought so too.</p>
+<blockquote>
+<p>2.4. Based on the cumulative amount of explained variance, what is the actual dimensionality of this data set? How many, and which of the components would you need to include in any subsequent analysis to ensure that the vast majority of the information (variance) in the data set is not lost? <strong>(2 mark)</strong></p>
+<p>2.5. How would the shape of the scree-plot change if our original data set contained less correlation among images than we observed? That is, would the slope of the plot be steepened or flattened if there were less correlation in the data set and why? <strong>(2 marks)</strong></p>
+</blockquote>
+<p>Now it's time to take a look at the actual component images. Using your data visualization software of choice, display each of the component images generated by the PCA tool (i.e <em>PCA_component1</em>, <em>PCA_component2</em>, <em>PCA_component3</em>...).</p>
+<blockquote>
+<p>2.6. Examine each of the seven PCA component images carefully. Prepare a table in which you describe each component with respect to the scene/landscape characteristics that are included. For example, which component(s) contain information about water depth, atmospheric haze, vegetation, image noise, etc. You will be graded based on the level of detail you provide. <strong>(7 marks)</strong></p>
+</blockquote>
+<p>Now examine the <em>Factor Loadings</em> table within the PCA text report. These <em>loadings</em> values describe the correlation (i.e. <em>r</em> values) between each of the PCA components (table columns) and the original seven Landsat band images (table rows). These values tell you how the information contained in an image is spread among the PCA components. An analysis of factor loadings can be reveal very useful information about the data set. For example, it can help you to identify groups of similar images.</p>
+<blockquote>
+<p>2.7. Do the factor loadings reveal any natural groupings of similar images? If so, identify the groupings. <strong>(2 marks)</strong></p>
+</blockquote>
+<p>You may recall that near the start of this section I said that PCA transforms the original image data set into a set of uncorrelated images. </p>
+<blockquote>
+<p>You will want to run the <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#ImageCorrelation"><strong>ImageCorrelation</strong></a> tool on the seven PCA components to confirm that this is the case and include the correlation results in your final report <strong>(1 mark)</strong>. </p>
+</blockquote>
+<p>PCA is one heck of a nifty trick, isn't it?</p>
+<h2 id="creating-a-pca-composite-image"><a class="header" href="#creating-a-pca-composite-image">Creating a PCA Composite Image</a></h2>
+<p>By creating a colour-composite image of the first three PCA components (i.e <em>PCA_component1</em>, <em>PCA_component2</em>, <em>PCA_component3</em>), we are able to create a colour image that contains almost the same amount of information as the entire original data set of seven bands. Similarly, a colour composite of three of the higher PCA components (i.e <em>PCA_component5</em>, <em>PCA_component6</em>, <em>PCA_component7</em>), allows us to exam the <em>noise</em> parts of the data set. Use the following script to generate these two colour-composite images.</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot; # Update this
+
+wbt.verbose = False # We don't need the progress to be updated for each operation.
+
+# First, perform contrast stretches on the individual PCA components
+for band_num in range(1, 8):
+    print(&quot;Performing stretch on component {}&quot;.format(band_num))
+    in_file = &quot;PCA_component{}.tif&quot;.format(
+        band_num)
+    out_file = &quot;PCA_component{}_cs.tif&quot;.format(
+        band_num)
+    wbt.percentage_contrast_stretch(
+        i=in_file, output=out_file, clip=5.0, num_tones=1024)
+
+print(&quot;Creating colour composites...&quot;)
+# PCA1-PCA2-PCA3 RGB
+wbt.create_colour_composite(
+    red=&quot;PCA_component1_cs.tif&quot;,
+    green=&quot;PCA_component2_cs.tif&quot;,
+    blue=&quot;PCA_component3_cs.tif&quot;,
+    output=&quot;PCA123RGB.tif&quot;,
+    enhance=False,
+)
+
+# PCA5-PCA6-PCA7 RGB
+wbt.create_colour_composite(
+    red=&quot;PCA_component5_cs.tif&quot;,
+    green=&quot;PCA_component6_cs.tif&quot;,
+    blue=&quot;PCA_component7_cs.tif&quot;,
+    output=&quot;PCA567RGB.tif&quot;,
+    enhance=False,
+)
+
+print(&quot;All done!&quot;)
+
+</code></pre>
+<p>Once the script has completed, display <code>PCA123RGB.tif</code> and <code>PCA567RGB.tif</code> in the data visualization software. </p>
+<blockquote>
+<p>Include screenshots of these two images with your final Lab report <strong>(2 marks)</strong>.</p>
+<p>2.8. What colours are the various common land-covers in the scene, including pavement (urban), bare soil, crop cover, forest, and water, displayed with in the 'signal-component' image (<code>PCA123RGB.tif</code>)? Hint: it may help to look at your enhanced natural-colour composite image to pick out sites with these various land-covers. <strong>(5 marks)</strong></p>
+<p>2.9. Examining the noise-component image (<code>PCA567RGB.tif</code>), describe the relative noise content within urban vs rural areas within the scene. <strong>(2 marks)</strong></p>
+</blockquote>
+<h1 id="part-3-image-filtering"><a class="header" href="#part-3-image-filtering">Part 3: Image Filtering</a></h1>
+<p>WhiteboxTools offers <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html">numerous tools</a> for filtering image data in the spatial domain. Most of these filters can be grouped into some of the more common types based on their functionality:</p>
+<ol>
+<li>
+<p><strong>Low-pass filters</strong>: These filters emphasize low-frequency, longer-range signals in the image and de-emphasize high-frequency, short-scale variations. They work to smooth the image and to reduce apparent noise. Examples of common low-pass filters include <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#meanfilter"><strong>MeanFilter</strong></a>, <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#gaussianfilter"><strong>GaussianFilter</strong></a>, and <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MedianFilter"><strong>MedianFilter</strong></a>.</p>
+</li>
+<li>
+<p><strong>Edge-preserving low-pass filters</strong>: Like other low-pass filters, this class of filters also aims to smooth images by emphasizing longer-range variation in the image. However, these filters also work to preserve the crispness of edges in the original image. Common examples include <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#BilateralFilter"><strong>BilateralFilter</strong></a>, and <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter"><strong>EdgePreservingMeanFilter</strong></a>.</p>
+</li>
+<li>
+<p><strong>High-pass filters</strong>: The opposite of a low-pass filter, these filters emphasize short-scale variation and de-emphasize longer-range signals. These tools are typically used to sharpen an image. The <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#UnsharpMasking"><strong>UnsharpMasking</strong></a> tool is a good example (despite its contrary name).</p>
+</li>
+<li>
+<p><strong>Band-pass filters</strong>: These filters are used to isolate the variation in an image that lies between a lower and upper bound of specified ranges. The <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#DiffOfGaussianFilter"><strong>DiffOfGaussianFilter</strong></a> is a good example of this type of filter.</p>
+</li>
+<li>
+<p><strong>Edge-detection filters</strong>: These filters are used to isolate the edge features within an image. Common examples include the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#SobelFilter"><strong>SobelFilter</strong></a> and <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#RobertsCrossFilter"><strong>RobertsCrossFilter</strong></a></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Readings:</strong> Tempfli et al. (2009). Chapter 5 Section 5.4.3 <em>Filter operations</em> pg. 198-203.</p>
+</blockquote>
+<h2 id="image-smoothing-and-noise-reduction"><a class="header" href="#image-smoothing-and-noise-reduction">Image Smoothing and Noise Reduction</a></h2>
+<p>You may recall from the previous section that PCA is sometimes used to remove noise from multi-spectral image datasets. Low-pass and edge-preserving low-pass filters similarly are used for reducing the occurrence of noise within images, although, unlike PCA, these operations are carried out on a single band (or the individual RGB components). Many satellite images contains substantial speckle, i.e. white noise. Speckle refers to a high-frequency, short-spatial scale variation among neighouring pixels. To enhance the image and to improve its information content, it is necessary to remove this speckle. This is sometimes useful prior to image classification and other mapping applications where it can be good to reduce the within-patch variability (e.g. tonal variation, or texture, within agricultural fields) and to maximize the between-patch tonal distinctions (e.g. the differences between adjoining agricultural fields).</p>
+<p>Apply a 5 × 5 mean filter to the <code>natural_colour_hsi.tif</code> image created in Part 1 using WhiteboxTools' <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MeanFilter"><strong>MeanFilter</strong></a> tool. To do so, we'll need to split this RGB composite image apart into its individual components, using the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#SplitColourComposite"><strong>SplitColourComposite</strong></a> and then add them back together after the filtering operation. </p>
+<blockquote>
+<p><strong>Notice that the code in the script below will not work as is. It contains a bug and you will need to be able to identify it and fix it before you can run it. Debugging code is a major part of learning how to program. It involves interpreting error messages and various other skills (e.g. inserting print statements to help you determine where the program is failing).</strong></p>
+</blockquote>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+import os
+
+wbt = WhiteboxTools()
+
+# declare your working directory as a variable
+wdir = &quot;Your working directory here&quot;
+assert(os.path.isdir(wdir))
+wbt.work_dir = wdir
+
+wbt.verbose = False
+
+print(&quot;Break the image apart into its RGB components...&quot;)
+# This will create three images: split_component_r.tif, split_component_g.tif, split_component_b.tif
+# See help documentation for more details
+wbt.split_colour_composite(
+    i=&quot;natural_colour_hsi.tif&quot;,
+    output=&quot;split_component.tif&quot;
+)
+
+print(&quot;Filtering the component images...&quot;)
+filter_size = 5
+
+# Mean filter
+wbt.mean_filter(
+    i=&quot;split_component_r.tif&quot;,
+    output=&quot;temp1.tif&quot;,
+    filterx=filter_size,
+    filtery=filter_size
+)
+
+wbt.mean_filter(
+    i=&quot;split_component_g.tif&quot;,
+    output=&quot;temp2.tif&quot;,
+    filterx=filter_size,
+    filtery=filter_size
+)
+
+wbt.mean_filter(
+    i=&quot;split_component_b.tif&quot;,
+    output=&quot;temp3.tif&quot;,
+    filterx=filter_size,
+    filtery=filter_size
+)
+
+print(&quot;Create a new composite...&quot;)
+wbt.create_colour_composite(
+    red=&quot;temp1.tif&quot;,
+    green=&quot;temp2.tif&quot;,
+    blue=&quot;temp3.tif&quot;,
+    output=&quot;nat_clr_5x5mean.tif&quot;,
+    enhance=False
+)
+
+print(&quot;All done!&quot;)
+
+</code></pre>
+<p>Once the script has successfully run, open the resulting <code>nat_clr_5x5mean.tif</code> image using the data visualization software and compare it to the original <code>natural_colour_hsi.tif</code> image.</p>
+<blockquote>
+<p>3.1 What was the bug in the script above? Briefly describe the process that you used to identify and rectify it. (2 mark)</p>
+<p>3.2. Describe the impact of the mean filter on the image? How does the filter impact the variation of tone (texture) with the larger land-cover patches (e.g. fields)? How does it impact the edges between patches as well as other linear features, such as roads? <strong>(5 mark)</strong></p>
+</blockquote>
+<p>One of the key characteristics of all spatial filters used in image processing is the kernel size, i.e. the size of the roving window. Modify the script so that it applies a 7 × 7 mean filter and compare the output to that of the 5 × 5 (be sure to change the output file name when you modify the script or you will overwrite the first filtered image).</p>
+<blockquote>
+<p>3.3. What was the impact of increasing the filter size? Why might you need to increase or decrease the window size of a filter? <strong>(3 mark)</strong></p>
+</blockquote>
+<p>Modify the script again, this time change the filter tool to perform a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#MedianFilter"><strong>MedianFilter</strong></a> (be sure to look at the help documentation description of tool parameters; use <code>sig_digits=0</code>) and a 7 × 7 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#EdgePreservingMeanFilter"><strong>EdgePreservingMeanFilter</strong></a> (use parameters <code>threshold=40</code> and <code>filter=7</code>).</p>
+<blockquote>
+<p>3.4. How do the median and edge-preserving mean filters compare, with respect to their ability to smooth patches while preserving edges and linear features, to the earlier 7 × 7 mean filter? <strong>(4 marks)</strong></p>
+</blockquote>
+<h3 id="edge-detection"><a class="header" href="#edge-detection">Edge Detection</a></h3>
+<p>Spatial convolution filters can be used for many common image processing tasks other than noise reduction. One common task is edge-detection, which is often used during automated mapping operations. Apply a 3 × 3 <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools_filters.html#SobelFilter">Sobel edge-detection filter</a> to the <code>natural_colour_hsi.tif</code> image using the following script:</p>
+<pre><code class="language-python">from WBT.whitebox_tools import WhiteboxTools
+
+
+wbt = WhiteboxTools()
+wbt.work_dir = &quot;/path/to/data/&quot; # Update this
+
+wbt.verbose = False
+
+wbt.sobel_filter(
+    i=&quot;natural_colour_hsi.tif&quot;,
+    output=&quot;sobel.tif&quot;,
+    variant=&quot;3x3&quot;,
+    clip=1.0
+)
+</code></pre>
+<p>Notice, that unlike the previous filters, there is no need to split the input colour composite image apart before applying the Sobel filter. This tool will work well with the RGB composite input image. When the script has successfully completed, display the resulting image using your data visualization software. </p>
+<blockquote>
+<p>Include a screenshot of the Sobel image with your Lab report <strong>(1 mark)</strong>.</p>
+<p>3.5. How well does the filter work to highlight edges between adjacent land-use patches and linear features? <strong>(2 mark)</strong></p>
+</blockquote>
+<p>Modify the script above to run using the <strong>EdgePreservingMeanFilter</strong> colour composite image created in the previous lab part as the input image.</p>
+<blockquote>
+<p>Include your modified script with your Lab report <strong>(1 mark)</strong>.</p>
+<p>3.6. To what extent does the use of a previously filtered image improve the detection of edge and linear features in the image? <strong>(2 mark)</strong></p>
+</blockquote>
+<p>Typically, one would threshold the Sobel image (i.e. find all pixels <a href="https://jblindsay.github.io/wbt_book/available_tools/mathand_stats_tools.html#GreaterThan">greater than</a> a threshold value) and then apply a <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#LineThinning"><strong>line thinning</strong></a> method to further refine the mapped edges. But let's leave that for another day!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
