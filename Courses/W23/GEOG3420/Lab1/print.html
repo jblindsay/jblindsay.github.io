@@ -1,0 +1,449 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GEOG3420 W22 Lab 1</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: Introduction to Geoprocessing</a></li><li class="chapter-item expanded "><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Multispectral Imagery Data</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GEOG3420 W22 Lab 1</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="geog3420-remote-sensing-of-the-environment-w23"><a class="header" href="#geog3420-remote-sensing-of-the-environment-w23">GEOG*3420 Remote Sensing of the Environment (W23)</a></h1>
+<h2 id="lab-assignment-1"><a class="header" href="#lab-assignment-1"><strong>Lab Assignment 1</strong></a></h2>
+<p>(33 marks total)</p>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>The purpose of this lab exercise is to familiarize students with the Whitebox Workflows for Python (WbW) software as well as multispectral imagery data sources used in Earth Observation applications.</p>
+<h2 id="readings-and-resources"><a class="header" href="#readings-and-resources">Readings and Resources</a></h2>
+<p>The following materials, combined with your textbook, can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li>
+<p><a href="https://landsat.gsfc.nasa.gov/satellites/landsat-9/">NASA Landsat Science</a></p>
+</li>
+<li>
+<p><a href="https://sentinels.copernicus.eu/documents/247904/685211/Sentinel-2_User_Handbook">European Space Agency 2015. Sentinel-2 User Handbook</a></p>
+</li>
+<li>
+<p><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/preface.html">Lindsay, J.B. 2019. The Whitebox Workflows for Python User Manual</a></p>
+</li>
+</ul>
+<h2 id="before-you-begin"><a class="header" href="#before-you-begin">Before you begin</a></h2>
+<p><strong>IMPORTANT INFORMATION</strong>: This series of lab assignments will require manipulation, analysis, and visualization of several remotely sensed images. We will be separating the image analysis and data visualization components. For manipulating and analyizing remotely sensed data <strong>we will use the <a href="https://www.whiteboxgeo.com/whitebox-workflows-for-python/">Whitebox Workflows for Python</a> advanced geospatial analysis platform</strong> (WbW). For data visualization, these labs do not assume any particular remote sensing software. <strong>You are free to use whatever software you are familiar with for visualizing the imagery data in the labs</strong>, including ArcGIS, <a href="https://www.qgis.org/en/site/">QGIS</a>, or any other spatial analysis software capable of displaying georeferenced imagery data.</p>
+<p>The computers in the Geography Undergraduate Computing Lab, have ArcGIS and QGIS installed. If you are planning to carry out these assignments on your own computer, then it is important that you have <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/installing.html">WbW installed</a> along with one of the data visualization packages described above. You will be provided a floating-license user ID for WbW in lab. You are advised to review the <a href="https://www.whiteboxgeo.com/whitebox-workflows-for-python/">WbW User Manual</a> before starting this lab.</p>
+<p>In addition to the software, you will need to <strong>download the data associated with this lab exercise</strong> (instructions in the lab). The data for all of the laboratory exercises in this class are large and will require substantial data storage. You may wish to purchase a USB flash drive to dedicate to this course and to serve as the data backup. <em><strong>It is important that you backup all of the data for the lab assignment.</strong></em></p>
+<h2 id="what-you-need-to-hand-in"><a class="header" href="#what-you-need-to-hand-in">What you need to hand in</a></h2>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. Notice that you will need to have paid your lab fee to have printing privileges in the Hutt building computer labs.</p>
+<h1 id="part-1-introduction-to-geoprocessing"><a class="header" href="#part-1-introduction-to-geoprocessing">Part 1: Introduction to Geoprocessing</a></h1>
+<h2 id="what-is-geoprocessing"><a class="header" href="#what-is-geoprocessing">What is geoprocessing?</a></h2>
+<p>In this set of lab exercises, we will be analyzing satellite imagery and other types of Earth Observation (EO) data by writing <a href="https://www.python.org/">Python</a>-based geoprocessing scripts. The term <strong>geoprocessing</strong> is used to describe any of the various processes in which specialized software tools are used to compare, analyze, or manipulate map layers, and their underlying geospatial data, to create new data. In past courses, you may have become familiar with using graphical user interface (GUI) based software, such as ArcGIS/Pro and QGIS, to manipulate geospatial data. Typically, when using this type of software, you open a specific tool's dialog, enter the appropriate parameters, which may include input/output files and various settings, and then display the results. You may have even used this approach to carry out sophisticated <strong>geospatial analysis workflows</strong>, involving several operations carried out in sequence. This essentially describes <strong>manual geoprocessing</strong>. The problem with this approach is that it doesn't scale well to real-life problems, i.e. the types of tasks that geospatial professionals encounter day-to-day work. For example, it may be the case that you need to perform the same geoprocessing workflow on dozens, hundreds, or even thousands of different input data sets, or perhaps you need to repeat the same process periodically in the future. When this is the case, you will likely need to adopt an <strong>automated geoprocessing</strong> approach. </p>
+<p>Perhaps you've already performed some automated geoprocessing in previous courses, maybe in the form of an ArcGIS/Pro ModelBuilder or other graphical modeller, or perhaps even a Python or R script. Scripting (i.e. programing) is a particularly flexible and extremely powerful means of developing automated geoprocessing workflows. This is the reason why so many job advertisments in the fields of Remote Sensing and GIS ask for programming experience from applicants. Python programming experience in particular is among the most common requests for employers in geomatics.</p>
+<h2 id="starting-with-python"><a class="header" href="#starting-with-python">Starting with Python</a></h2>
+<p>I don't expect that you'll become an expert in Python programming by the end of this course; we are only hoping that you will gain a basic level of competency with using Python to interact with geospatial data. However, it is an essential learning outcome of this lab exercise and will be the basis of a great deal of remote sensing applications that we will use throughout this series of assignments this semester. If you have never used Python before, you may want to do a bit of independent learning by reading over some of the many useful web-based Python tutorials (Google 'Python tutorial'). One useful resource, specifically geared towards Python geoprocessing applications, can be found <a href="https://pythongis.org/part1/chapter-02/index.html">here</a>. Because Python is such a high-level programming language that is close to human spoken languages (specifically English), generally people find it very fast to build basic compentency with the language, which is why it's so widely used in these applications.</p>
+<p>To begin, make sure that Python is installed and available in the computing environment that you are using to carry out this exercise, which may be one of the networked computers in the lab, your own personal computer, or perhaps even a cloud-based computing enviornment like Google Colab. To determine if Python is available, open a terminal (usually called the 'command prompt' on Windows) and type the following:</p>
+<p><code>python --version</code></p>
+<p>This should print out something like the following:</p>
+<blockquote>
+<p>Python 3.11.0</p>
+</blockquote>
+<p>Notice, the Python version number should be in the 3.X range. If instead, your default Python is in the 2.X range, type:</p>
+<p><code>python3 --version</code></p>
+<p>If this command shows that Python 3 is installed on your computer, but isn't the default version, then when carrying out this set of lab exercises, whenever you see <code>python</code>, you will need to type <code>python3</code> instead. </p>
+<p>If the command above yields a statement about <code>python</code> not being a recognized command, you likely don't have Python installed in your computing environment. Note, Python should be installed on the computers in the lab but it may not be if you're using your personal computer. In this case, you will need install Python 3. Visit the <a href="https://www.python.org/">Python webpage</a> and follow the instructions for installation found there. <strong>Importantly</strong> when you go through the install process on Windows, towards the end of the process there will be a small checkbox asking whether you want to install Python on the PATH. Be very sure to check that box, which it is not by default! You may have to reload your terminal application after installing Python before the <code>python --version</code> command recognizes the now-installed Python.</p>
+<h2 id="wbw-for-geoprocessing"><a class="header" href="#wbw-for-geoprocessing">WbW for geoprocessing</a></h2>
+<p>We'll be using the Whitebox Workflows for Python (WbW) software for automated geoprocessing in this course. WbW is a Python library for geoprocessing and includes hundreds of functions for manipulating and analyzing geospatial data. WbW is built on top of the <a href="https://www.whiteboxgeo.com/geospatial-software/">WhiteboxTools</a> open-source geospatial analysis platform. However, it is quite different from WhiteboxTools and has certain characteristics that make it better suited to the types of analysis that we'll be carrying out in these exercises. Most importantly, it allows us to directly manipulate geospatial data objects in our Python scripts.</p>
+<h3 id="installing-wbw"><a class="header" href="#installing-wbw">Installing WbW</a></h3>
+<p>You'll need to install WbW on your computer to use it. Now that you have confirmed that you have Python installed on your computer, you should be able to simply type the following line at the command prompt of your terminal application to install WbW: </p>
+<pre><code>pip install whitebox-workflows
+</code></pre>
+<p>Use <code>pip3</code> if Python 2.X is your default system Python version. <code>pip</code> is Python's default package manager for installing and updating various Python libraries.</p>
+<p>If you have an older version of WbW installed and want to update it to the latest version, simply type the following command:</p>
+<pre><code>pip install whitebox-workflows -U
+</code></pre>
+<p>For a demonstration of the install process, please see <a href="https://www.youtube.com/watch?v=D4z8mMmQeE8">this YouTube video</a>.</p>
+<h3 id="using-wbw"><a class="header" href="#using-wbw">Using WbW</a></h3>
+<p>Now that we've ensured that Python is available and that WbW is installed on our computer, it's time to write our first Python WbW script. To do this, we need to use a Python code editor. In reality, we could use any text editor (e.g. Notepad), however, there are benifits in using software that is specifically designed for writing code. Most notably, autocomplete is a powerful function that greatly simplifies the coding experience. For our purposes, I will suggest that we use <strong>Visual Studio Code</strong> for our scripting needs, although you can use whatever coding environment you are most comfortable with (e.g., Python's default IDLE). If you're on your own computer and don't have VS Code installed, do so for free by following the instructions on <a href="https://code.visualstudio.com/">this site</a>.</p>
+<p>Open VS Code and, using the File Explorer on the left panel, create a new file called <code>wbw_text.py</code> in a directory that you will dedicate for this course (it may be on a network drive or a USB stick, but if it is on the local C-drive of one of the lab computers, <em>be sure to back-up your data/code each time before logging out of the computer</em>). Either copy and paste or type the following code into this newly created file.</p>
+<p><em>wbw_test.py</em></p>
+<pre><code class="language-python">import whitebox_workflows as wbw
+
+wbe = wbw.WbEnvironment('your-license-id')
+try:
+    # For now, let's just print the WbW version to make sure things are set up correctly.
+    print(wbe.version())
+
+    # But this is where we would put calls to various geoprocessing functions.
+except Exception as e:
+  print(&quot;The error raised is: &quot;, e)
+finally:
+    print(wbe.check_in_license('your-license-id')) # print to confirm the successful check-in
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Python is a space-sensitive programming language and you need to have the indentations absolutely correct in your script for it to run correctly. This is something that can often go wrong when you are copying and pasting code into a script file. </p>
+</blockquote>
+<p>Before trying to run this script <strong>replace the <code>your-license-id</code> in both places in the script above with the specific license ID string that your TA provided you in lab</strong>. You can run your script either by pressing the triangle-shaped 'Run-code' button in the menu (this may requre that the <em>Code Runner</em> extension is installed first), or simply by running the script in the terminal. VS Code has a built-in terminal usually located on the bottom of the main panel. To run your script from the terminal, <a href="https://en.wikipedia.org/wiki/Cd_(command)"><code>cd</code></a> (<code>chdir</code> in the Windows command prompt), i.e., change your directory, to the location of your script file and then simply type <code>python wbw_text.py</code>. </p>
+<p>After the script has run, if Python and WbW have been correctly installed, you should see something similar to this:</p>
+<blockquote>
+<p>[Running] python -u &quot;/Users/jl/Documents/teaching/GEOG3420/Labs/Lab1/Code/wbw_test.py&quot;<br />
+Whitebox Workflows for Python v1.0.7 by Whitebox Geospatial Inc. <br />
+Developed by Dr. John B. Lindsay, (c) 2022-2023<br />
+<br />
+Description:<br />
+Whitebox Workflows for Python is an advanced geospatial data analysis platform <br />
+and Python extension module.<br />
+Successful license check-in</p>
+<p>[Done] exited with code=0 in 0.52 seconds</p>
+</blockquote>
+<p>There are some important things to note about our script above. We use a floating-license ID to unlock the WbW library. When the line <code>wbe = wbw.WbEnvironment('your-license-id')</code> is executed, WbW communicates with a license server hosted on a cloud service (note, this requires an Internet connection), and asks whether there is an available floating seat in the pool of seats associated with our floating-license ID. If there is, it will check one seat out and the script will continue to run, in this case, printing the versioning information for WbW. If no licence seat is available, the script will report the error, &quot;All floating licenses are currently in use&quot;. </p>
+<blockquote>
+<p><strong>A important note on checking-in your license</strong>: Because the floating license uses a <a href="https://keygen.sh/docs/choosing-a-licensing-model/floating-licenses/#check-out-check-in-licenses">check-out/check-in licensing model</a>, you must remember to check-in your license each time at the end of your script. That's why we have placed the check-in statement <code>print(wbe.check_in_license('your-license-id'))</code> in a <a href="https://www.w3schools.com/python/ref_keyword_finally.asp"><code>finally</code> block</a>. This way, if our script throws an error during the processing, the check-in should still occur at the end.</p>
+</blockquote>
+<p>I have set up enough floating-license seats for WbW such that everyone in our class should be able to run their scripts simultaneously. However, if you don't remember to check-in a license, or if our script throws a <code>panic</code> error (e.g., if we input an improper parameter value to a function), then other students in the lab may find that there is no seat available when they need to run their own script. <strong>You don't wnat to be that student</strong> who causes everyone's work to grind to a halt, so <strong>always be sure to check-in your license!</strong> In the event that you do end up with an un-checked-in license, there are ways to deal with that situation. See the paragraph starting <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/first-script.html">'Sometimes a script may panic...'</a> in the WbW user manual for information about how to handle 'zombie' licenses.</p>
+<h2 id="questions-for-part-1"><a class="header" href="#questions-for-part-1">Questions for Part 1</a></h2>
+<blockquote>
+<p>1.1. What is the difference between manual and automated geoprocessing? Provide an example of a geoprocessing operation. (2 marks)</p>
+<p>1.2. Using the Python programming language, how do you loop through (i.e. iterate) a sequence, e.g. each of the numbers 1 to 10? (1 mark)</p>
+<p>1.3. What are some of the characteristics of Python that make it particularly suited to geoprocessing? (Hint, you may want to read the section 'Why Python?' in the Python for Geographic Data Analysis link provided in the text above.) (4 marks, based on quality of the answer)</p>
+<p>1.4. What is the last thing that we should always do at the end of each WbW script that we write? (1 mark)</p>
+<p>1.5. In WbW, how do you set the working directory, i.e., the folder containing the data that we are working with? (1 mark)</p>
+<p>1.6. How do you tell WbW whether or not to print the output (e.g. the progress) of functions that are run? (1 mark)</p>
+<p>1.7. What function do you use to read a single raster in WbW? (1 mark)</p>
+</blockquote>
+<h1 id="part-2-multispectral-imagery-data"><a class="header" href="#part-2-multispectral-imagery-data">Part 2: Multispectral Imagery Data</a></h1>
+<h2 id="working-with-image-data"><a class="header" href="#working-with-image-data">Working with image data</a></h2>
+<p>After you have downloaded the data associated with this lab assignment from the CourseLink page, decompress (unzip) the data into a working directory that you have created to dedicate to this assignment. Open the contents of this folder and examine the files contained within using QGIS or ArcGIS/Pro, as per your preference. These data are the multiple bands, in GeoTIFF image format, of a Landsat 9 scene acquired June 14, 2022. The scene covers a region of southern Ontario spanning from St. Thomas in the southwest to east Toronto.</p>
+<blockquote>
+<p>In the field of remote sensing, the word <em>band</em> refers to a single image contained within a multispectral or hyperspectral dataset. A band corresponds to a single, usually narrow, region of the electromagnetic spectrum. Band images are usually greyscale and display information about the relative brightness of the earth's surface at the pixel site across the range of wavelengths associated with the band. For example, in a Landsat 9 band 3 image, a bright white pixel corresponds to a surface material that is reflecting a significant amount of radiation in the 0.53 - 0.59 µm range of wavelengths, which the human eye interprets as green. A dark coloured pixel, by comparison, would indicate that not much green light is being reflected by that surface material. Some bands within multispectral datasets are associated with regions of the spectrum that fall outside of the visible region (e.g. near-infrared, shortwave infrared, and thermal infrared). Interpreting the relatively brightnesses of pixels within multiple band images can tell you a great deal about the nature of the surface at those sites. This is the basis of multispectral remote sensing data analysis.</p>
+</blockquote>
+<p>Now open the metadata file <code>LC09_L1TP_018030_20220614_20220615_02_T1_MTL.txt</code> using a text editor such as Notepad or TextEdit or VS Code. This file contains a wealth of information describing the acquisition details and processing that has been carried out on these data.</p>
+<blockquote>
+<p>2.1. What proportion of the land contained within the scene was covered with clouds at the time of acquisition? (1 mark)</p>
+<p>2.2. What are the path and row numbers of the scene? (2 marks)</p>
+</blockquote>
+<p>Using your data visualization software (QGIS, ArcGIS, etc.) display the band 3 and band 6 images <code>LC09_L1TP_018030_20220614_20220615_02_T1_B3.TIF</code> and <code>LC09_L1TP_018030_20220614_20220615_02_T1_B6.TIF</code> respectively. <strong>As a caution</strong>, the images that we are using in this lab are very large data files and we will need substantial memory resources to process. While the computers in the undergraduate computing lab are able to handle these requirements, it is possible, if you are using your own laptop for completing this assignment, that you will run into out-of-memory errors. If this is the case, you will have no alternative but to use a computer with more memory (RAM, not hard-drive space). This will likely be the case throughout the semester as the processing of remotely sensed imagery often requires powerful workstations.</p>
+<blockquote>
+<p>2.3. What regions of the electromagnetic spectrum do the band 3 and band 6 images coorespond to respectively? (2 marks, provide both the named region and the wavelenth ranges. Hint: you might want to Google 'Landsat 9 bands'. Be sure to use a trustworthy source, such as the USGS or NASA, and also don't forget to reference your sources in your final report.)</p>
+</blockquote>
+<p>Examine the band 3 and band 6 closely, zooming into different areas (perhaps you are familiar with certain areas in the image) and toggling the visibility of the top band on and off, so that you can see the differences between the two bands. </p>
+<blockquote>
+<p>2.4. How do the two images compare in terms of the relative brightness values in the two regions of the spectrum sampled by each of the two respective bands for urban areas, water, and forest cover (Hint: there isn't much forest in Southern Ontario, but you can often find it situated along rivers.). (3 marks, points allocated by the quality of the answer)</p>
+</blockquote>
+<p>Now display the band 9 image (<code>LC09_L1TP_018030_20220614_20220615_02_T1_B9.TIF</code>). This band is frequently referred to as the 'Cirus' band and is sensitive to light in part of the short-wave infrared (SWIR) region of the spectrum. Unlike the other SWIR bands (bands 6 and 7), the Cirus band is sampled within a range of wavelengths that are strongly absorbed by the atmosphere, particularly water vapour. As such, cloud cover is very obvious in band 9, as you will notice in our image. Cloud cover, and particularly thick clouds, can significantly impact the usability of imagery for certain applications. Not only is the ground directly beneath clouds obscured from view, but clouds also cast shadow areas within images, which can degrade the overall image quality. People often use the Cirus band of Landsat data sets to mask out cloud areas within images during image processing.</p>
+<blockquote>
+<p>2.5. Being sure that the band 9 image is selected, use the 'Identify Features' tool in QGIS (or equivalent in ArcGIS, if that is what you are using), to sample a range of pixel brightness values of non-cloudy pixels as well as a sample of pixels under heavy cloud cover. What are the min/max of brightness values that you identified in each group? (2 marks)</p>
+</blockquote>
+<h2 id="filtering-cloud-covered-pixels-and-creating-image-colour-composites"><a class="header" href="#filtering-cloud-covered-pixels-and-creating-image-colour-composites">Filtering cloud-covered pixels and creating image colour composites</a></h2>
+<p>A multispectral dataset contains an enormous wealth of information, however, it can be frustrating trying to interpret these data by examining individual bands. It is possible to combine the information contained in three bands into a single colour image, known as a colour composite. Colour composites allow us to interpret the relative brightnesses, on a pixel-by-pixel basis, for three regions of the electromagnetic spectrum (i.e. bands) simultaneously. Notice that while the three bands that are represented by the composite image are being displayed using the red, green, and blue channels of your display (i.e. your monitor is creates a range of visible colours by combining each of red, green, and blue visible light in varying intensities), the bands themselves may well be derived from regions of the spectrum that fall outside of the visible light region. If, however, the three bands of a composite image correspond with the red, green, and blue bands, the resulting image will be a <em>true colour composite</em> (or natural colour) and will look very much like a normal colour photograph. </p>
+<p>Create a new file called <code>colour_composite.py</code> in the the directory that you have created to store code for this lab (note, it is wise to always store code and data in different folders), and then paste the following code into your newly created file. Once, you've done so, study the code closely, trying to understand what each line does.</p>
+<p><em>colour_composite.py</em></p>
+<pre><code class="language-python">import whitebox_workflows as wbw
+
+wbe = wbw.WbEnvironment('your-license-id')
+try:
+    # WbW environment settings
+    wbe.working_directory = '/path/to/your/data'
+    wbe.verbose = True
+
+    # Read some bands in
+    print('Reading the data...')
+    band2, band3, band4, band5, band7, band9 = wbe.read_rasters(
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B2.TIF', 
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B3.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B4.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B5.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B7.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B9.TIF'
+    )
+
+    # Grab the nodata value from one of the bands. They should all have the same nodata value.
+    nodata = band2.configs.nodata
+
+    # Let's filter out cloudy pixels.
+    print(&quot;Filtering out cloudy pixels...&quot;)
+    heavy_cloud_threshold = 6000.0
+    num_cloudy_pixels = 0
+    # Loop through each grid cell, row by row and column by column...
+    for row in range(band2.configs.rows):
+        for col in range(band2.configs.columns):
+            z = band9[row, col]
+            if z &gt; 6000.0: # The cirus band shows cloud colver
+                # Set the other bands to 'nodata', removing these cells
+                band2[row, col] = nodata
+                band3[row, col] = nodata
+                band4[row, col] = nodata
+                band5[row, col] = nodata
+                band7[row, col] = nodata
+                num_cloudy_pixels += 1
+
+    # Create a colour composite image from three bands of data
+    print('Creating a colour composite...')
+    colour_composite = wbe.create_colour_composite(red=band4, green=band3, blue=band2, enhance=True)
+    # Write the resulting raster to disc
+    wbe.write_raster(colour_composite, '432_colour_composite.tif', compress=True)
+
+    # Now let's create a colour composite with three other bands
+    colour_composite = wbe.create_colour_composite(red=band5, green=band4, blue=band3, enhance=True)
+    wbe.write_raster(colour_composite, '543_colour_composite.tif', compress=True)
+
+    # And yet another three...
+    colour_composite = wbe.create_colour_composite(red=band7, green=band5, blue=band4, enhance=True)
+    wbe.write_raster(colour_composite, '754_colour_composite.tif', compress=True)
+
+    # Now let's report the number of cloudy pixels found...
+    print(f'There were {num_cloudy_pixels} pixels under heavy cloud cover identified.')
+
+    print('Done')
+
+except Exception as e:
+  print(&quot;The error raised is: &quot;, e)
+finally:
+    print(wbe.check_in_license('your-license-id')) # print to confirm the successful check-in
+</code></pre>
+<blockquote>
+<p><strong>Notes</strong>: Don't forget to replace the <code>your-license-id</code> in both places in the script above (one at the start and one at the end) with the floating-license ID provided by the TA in lab. You will need to change the line <code>wbe.working_directory = &quot;/path/to/your/data/&quot;</code> to the folder containing your image data. </p>
+<p><strong>Important if you are running this script on a computer running Microsoft Windows</strong>: Windows uses the backslash-slash (\) as the directory path separator but this is famously difficult for writing strings (i.e. text variables) containing file paths because \ is an <a href="https://en.wikipedia.org/wiki/Escape_character">escape character</a> in all programming languages. To deal with this, you must represent your variables containing paths in one of the following ways:</p>
+<pre><code class="language-python"># Uses an escaped forward character (\\)
+wbe.working_directory = &quot;\\path\\to\\landsat\\data\\&quot;
+
+# Uses a 'raw string' in which '\' is interpreted without escaped characters.
+# Because raw strings can't end with a '\', we must use double &quot; at the end.
+wbe.working_directory = r&quot;\path\to\landsat\data\&quot;&quot;
+
+# Python should also properly interpret directories using the forward
+# slash on Windows.
+wbe.working_directory = &quot;/path/to/landsat/data/&quot;
+</code></pre>
+</blockquote>
+<p>Execute the script and allow it to complete the processing of each of the output images. The script above creates three colour composite images, a true-colour image (bands 4, 3, 2), a colour-infrared image (bands 5, 4, 3), and a SWIR colour composite (bands 7, 5, 4). You can learn more about the common band combinations used for creating colour composite images <a href="https://www.usgs.gov/media/images/common-landsat-band-combinations">here</a>. Display each of the colour composites that were output by the script.</p>
+<blockquote>
+<p>2.6. What was the threshold in brightness value (i.e. pixel value) used in the script above to identify cloud-covered pixels in the cirus band? How many cloud-covered pixels were masked out by converting their values to the <strong>nodata</strong> value? How does this threshold value compare to the range of brightness values that you identified for heavy-clouded areas above? (3 marks)</p>
+</blockquote>
+<p>Examine the three colour composite images and in particular, the masked out cloud areas, which should display transparently in the output images. </p>
+<blockquote>
+<p>2.7. Where do most of the cloud-masked areas occur in the image? If you lowered the threshold value, would this result in more or fewer pixels being masked out? Feel free to experiment with adjusting this parameter to help you answer the question. (2 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.8. Zoom into Guelph and the surrounding areas. What colour are vegetated surfaces (mainly crop cover and vegetation) in the colour-infrared image? What colour are bare soil surface (largely fallow agricultural fields) in the SWIR color-composite image? Hints: 1) use your lifetime interpreting colour information in the visible part of the spectrum and the true-colour image to identify areas of each land cover type, 2) you can overlay OpenStreetMap data to help orient yourself geographically, using Layer =&gt; Add Layer =&gt; Add XYZ Layer in QGIS (likely something similar in ArcGIS). (2 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.9. In which of the three colour composites does the water of Guelph Lake appear darkest? What does this imply about the relative degree to which visible, near infrared, and SWIR radiation are transmitted and/or absorbed by water? (2 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.10. Suggest some applications for which the colour-infrared and SWIF colour-composite images may be more appropriate than the true-colour composite image. (3 marks; hint: if you Google 'Landsat band combinations', there are several useful resources, just be mindful that we are using Landsat 9 data in this lab and other Landsat satellites have different band designations.)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
