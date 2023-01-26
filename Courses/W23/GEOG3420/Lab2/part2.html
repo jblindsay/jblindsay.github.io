@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 2: Image Contrast Enhancement - GEOG3420 W23 Lab 2</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: Image Histograms</a></li><li class="chapter-item expanded "><a href="part2.html" class="active"><strong aria-hidden="true">3.</strong> Part 2: Image Contrast Enhancement</a></li><li class="chapter-item expanded "><a href="part3.html"><strong aria-hidden="true">4.</strong> Part 3: Conversion to Reflectance</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GEOG3420 W23 Lab 2</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="part-2-contrast-enhancement"><a class="header" href="#part-2-contrast-enhancement">Part 2: Contrast Enhancement</a></h1>
+<p>Contrast enhancements, sometimes called radiometric enhancements, are a class of image operations that modify the frequency distribution of image values in an effort to optimize the contrast and overall brightness to highlight particular ranges of digital numbers (DNs). The goal of any image enhancement operation is to improve the visualization and interpretation of the data. Contrast enhancement is also an important step in the process of generating a visually appealing colour composite image. If you recall the <code>Balance Contrast Enhancement</code> option that we encountered when we used the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool, it was performing a type of contrast adjustment internally to ensure that none of the input bands were proportionally brighter than the others.</p>
+<p>There are many reasons why the contrast of satellite imagery may be poorly suited to interpretation, including atmospheric scattering and the presence of haze or cloud cover. In this section of the lab assignment, we will try to improve image radiometric quality of imagery through the use of various contrast enhancement tools. </p>
+<p><em>Whitebox Workflows</em> (WbW) offers at least six common contrast enhancement methods for use with single-bands of multispectral imagery including:</p>
+<ol>
+<li><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#gaussian_contrast_stretch"><strong>gaussian_contrast_stretch</strong></a></li>
+<li><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#histogram_equalization"><strong>histogram_equalization</strong></a></li>
+<li><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#min_max_contrast_stretch"><strong>min_max_contrast_stretch</strong></a></li>
+<li><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#percentage_contrast_stretch"><strong>percentage_contrast_stretch</strong></a></li>
+<li><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#sigmoidal_contrast_stretch"><strong>sigmoidal_contrast_stretch</strong></a></li>
+<li><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#standard_deviation_contrast_stretch"><strong>standard_deviation_contrast_stretch</strong></a></li>
+</ol>
+<p>Each of these techniques for performing contrast enhancements offer various advantages and disadvantages that make them applicable under differing image conditions.</p>
+<p>First, let's explore the use of the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#gaussian_contrast_stretch"><strong>gaussian_contrast_stretch</strong></a> tool. Create a Python script in your Lab 2 folder called <code>contrast.py</code>. Copy the following code into your script file and run it using <em>IDLE</em>. Be sure to modify the <code>wbt.work_dir</code> to point to the folder containing your lab data.</p>
+<p><em>contrast.py</em></p>
+<pre><code class="language-python">from math import radians, sin
+import os
+import whitebox_workflows
+
+wbe = whitebox_workflows.WbEnvironment('geog-3420-2023') # Initialize Whitebox
+
+try:
+    # declare your working directory as a variable
+    wbe.working_directory = &quot;/Users/johnlindsay/Documents/teaching/GEOG3420/W23/Labs/Lab2/data/LC09_L2SP_018030_20220614_20220616_02_T1&quot;
+    assert(os.path.isdir(wbe.working_directory))
+
+    base_file_name = &quot;LC09_L2SP_018030_20220614_20220616_02_T1_&quot;
+
+    # We'll transform the first 7 bands of the data set
+    for band in range(7): # range counts up to, but not including, the value
+        # The bands are indexed 1, 2, 3... but the mult_term list is indexed 0, 1, 2...
+        band_num = band + 1
+        print(f&quot;Contrast enhancement for band {band_num}...&quot;)
+
+        image_file = f&quot;{base_file_name}SR_B{band_num}.tif&quot; # The name of this file
+        band_data = wbe.read_raster(image_file) # Read the file into memory
+
+        contrast_enhanced = wbe.gaussian_contrast_stretch(band_data, num_tones=16384)
+        wbe.write_raster(contrast_enhanced, f&quot;band{band_num}_gaussian_ce.tif&quot;, compress=True)
+
+    print(&quot;Operation complete!&quot;) # Provide some sort of indication that the job is done.
+
+except Exception as e:
+    print(f&quot;Exception: {e}&quot;)
+
+finally:
+    print(wbe.check_in_license(&quot;geog-3420-2023&quot;)) # Check your license back in.
+</code></pre>
+<blockquote>
+<p>2.1. Include screenshots of both the resulting Band 2 contrast-stretched image (<code>band2_gaussian_cs.tif</code>) and the associated histogram with your lab hand-in. (2 marks)</p>
+<p>2.2. Describe how the histogram of the stretched image compares to the original Band 2 histogram. How has it been modified? (2 marks)</p>
+<p>2.3. Compare the contrast of the Gaussian stretched images for several bands to the original iamges. In particular, what objects/land covers are associated with the darkest and the brightest parts of the image? Are you able to distinguish features, such as individual agricultural fields, better in the contrast enhanced image than the original? How much contrast is there between the water (Lake Ontario and Lake Erie) and the surrounding land? Are the streets within urban centres (e.g. Toronto) visible or are they &quot;washed out&quot;, i.e. have poor contrast? (5 marks)</p>
+</blockquote>
+<p>Now try to modify your script to use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#histogram_equalization"><strong>histogram_equalization</strong></a> function instead. Be sure to save the modification as a new file, i.e. perhaps change the saved file name suffix from <code>_gaussian_ce</code> to <code>_histo_eq</code>. Also, generate the histogram for this newly created histogram-equalized images as well. Be sure to examine the help for this tool in the <em>WbW</em> User Manual, so that you are sure you are calling the <code>histogram_equalization()</code> function correctly.</p>
+<blockquote>
+<p>Include your script for performing the histogram equalization contrast stretch, as well as screenshots of the resulting Band 2 image and histogram, with your lab hand-in. (3 marks for the script + 2 marks for the screenshots = 5 marks)</p>
+<p>2.4. Discuss the effects of the histogram equalization contrast stretch on the quality of the image. (5 marks)</p>
+</blockquote>
+<p>Finally, modify your script again, this time making it apply the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#percentage_contrast_stretch"><strong>percentage_contrast_stretch</strong></a>. Use a <em>clip</em> value of 0.5 and be sure to clip both tails of the distribution.</p>
+<blockquote>
+<p>2.5. Which of the three tested contrast enhancement techniques afforded you the greatest control over the contrast properties of the output image. Be sure to provide justification for your answer. (2 marks)</p>
+<p>2.6. How did the shape of the histogram of the percentage contrast stretched image compare with the original image histogram? (2 marks)</p>
+</blockquote>
+<p>Write a Python script to create true colour composites images (use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#create_colour_composite"><strong>create_colour_composite</strong></a> function; a true colour composite maps bands 4, 3, and 2 into the RGB channels) for the original and each of the gaussian stretched, histogram equalization stretched, and percentage stretched image sets. Be sure to set the <code>enhance</code> parameter of the <code>create_colour_composite</code> functio to <code>False</code>, which is not its default value. To write this script, I would suggest that you examine the general structure of each of the previous scripts that we've seen thus far in this course. Use the general framework of importing whitebox_workflows, creating the <code>wbe</code> WbEnvironment object, and the <code>try</code>-<code>except</code>-<code>finally</code> structure. Within the <code>try</code> block, you should put the working logic of your code. You will similarly need to set your working directory and other environment variables (e.g. verbose). Next, you will need to read in each of the images needed to create your colour composites, before then providing these images as input parameters to the <strong>create_colour_composite</strong> function (as <code>red</code>, <code>green</code>, and <code>blue</code> parameters; note, the <code>opacity</code> input is optional, and we won't need to set it). Don't forget, you can <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/read-writing-data.html"><strong>read multiple files</strong></a> in at a time like this:</p>
+<pre><code class="language-python">band2, band3, band4 = wbe.read_rasters('band2_gaussian_cs.tif', 'band3_gaussian_cs.tif', 'band4_gaussian_cs.tif')
+colour_comp = wbe.create_colour_composite(red=band4, green=band3, blue=band2, enhance=False)
+</code></pre>
+<p>And of course, don't forget to save your colour composites to file (<code>wbe.write_raster</code>).</p>
+<blockquote>
+<p>Include your script with your lab hand-in. (3 marks)</p>
+<p>2.7. Describe the impact of the contrast various contrast enhancement strategies on the colour composite images with respect to their contrast characteristics and the appearance of colours (e.g. to colours appear natural or unnaturals in some of the treatments?). (3 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="part1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="part3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="part1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="part3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
