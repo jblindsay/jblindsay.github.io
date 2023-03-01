@@ -1,0 +1,464 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GEOG3420 W23 Lab 4</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: Normalized Difference Indices</a></li><li class="chapter-item expanded "><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Multi-spectral Image Classification</a></li><li class="chapter-item expanded "><a href="part3.html"><strong aria-hidden="true">4.</strong> Part 3: Cleaning the Class Map</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GEOG3420 W23 Lab 4</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="geog3420-remote-sensing-of-the-environment-w23"><a class="header" href="#geog3420-remote-sensing-of-the-environment-w23">GEOG*3420 Remote Sensing of the Environment (W23)</a></h1>
+<h2 id="lab-assignment-4"><a class="header" href="#lab-assignment-4"><strong>Lab Assignment 4</strong></a></h2>
+<p>(39 Marks Total)</p>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>This lab exercise introduces students to supervised image classification. Students will also learn about training data sets used in image classification and approaches to generalizing classification maps.</p>
+<h2 id="readings-and-resources"><a class="header" href="#readings-and-resources">Readings and Resources</a></h2>
+<p>The following materials, combined with your textbook, can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li><a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/preface.html">Lindsay, J.B. 2023. The Whitebox Workflows for Python User Manual</a></li>
+</ul>
+<h2 id="before-you-begin"><a class="header" href="#before-you-begin">Before you begin</a></h2>
+<p><strong>IMPORTANT INFORMATION</strong>: I have updated the Whitebox Workflows (WbW) library to resolve issues in the previous version with the functions used in this lab exercise. It will be necessary for you to update your WbW version before starting this lab:</p>
+<p><code>pip install whitebox-workflows -U</code></p>
+<p>In addition, you will need to download the data associated with this lab assignment from the GEOG*3420 CourseLink site. These data, as usual, are quite large and you will need to consider data storage solutions (e.g. a dedicated USB memory stick for the course).</p>
+<h2 id="what-you-need-to-hand-in"><a class="header" href="#what-you-need-to-hand-in">What you need to hand in</a></h2>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. Notice that you will need to have paid your lab fee to have printing privileges in the Hutt building computer labs.</p>
+<h1 id="part-1-evaluating-training-site-data"><a class="header" href="#part-1-evaluating-training-site-data">Part 1: Evaluating Training Site Data</a></h1>
+<blockquote>
+<p><strong>If you haven't already done so, update your version of the Whitebox Workflows Python library by typing the following line at the terminal:</strong></p>
+</blockquote>
+<p><code>pip install whitebox-workflows -U</code></p>
+<p>Multi-spectral image classification involves two distinct activities. The first activity is the recognition of categories of real-world features in the landscape, e.g. 'deciduous forests'. The second activity in all multi-spectral classifications involves labeling pixels within an image data set. With <strong>supervised classification</strong> methods, the user first identifies real-world land-covers, examines the images to find training areas to typify the 'spectral signatures' of these features and then uses the signatures to label all of the remaining pixels in the scene. <strong>Unsupervised classification</strong> techniques rely on statistical clustering methods (e.g. k-Means clustering) to find groups, or clusters, of similar pixels with respect to their spectral properties. After this initial clustering phase, the user then has the task of relating the statistically defined spectral classes to real-world land-covers. Both approaches to image classification require a substantial amount of human effort and judgement to identify land-covers within the image scene. The difference is that with supervised classification techniques this human component occurs early on in the process, while unsupervised classification methods require effort after the automated classification step in determining the physical meaning of each statistically defined cluster. Generally, supervised classification techniques are preferred because the image analyst has greater control over the classification (e.g., I may know that I want to classify <em>water</em>, <em>urban</em>, <em>forest</em>, <em>agriculture</em>), whereas, the analyst has very little control over the clusters that are created by unsupervised methods. Unsupervised classification techniques are useful as an initial exploratory tool and when the analyst is unfamiliar with data or the landscape being analyzed. In this lab, we'll be performing different types of supervised classifications.</p>
+<p>Using QGIS (or ArcGIS if that is your preference), display the <strong>natural_colour.tif</strong> image, contained in the decompressed Lab 4 data folder, which you should have downloaded from the CourseLink site. You should find the the image looks something like the following:</p>
+<p><img src="img/natural_colour.png" alt="natural_colour.tif image" /></p>
+<p>This is the same cloud-free Landsat 9 Level-2 (reflectance) scene of Southern Ontario that we've used in previous lab exercises. In addition to this colour composite image, the Lab 4 data folder should also contain bands 1 - 7 (<strong>LC09_L1TP_018030_20220614_20220615_02_T1_B1.tif</strong>, <strong>LC09_L1TP_018030_20220614_20220615_02_T1_B2.tif</strong>, <strong>LC09_L1TP_018030_20220614_20220615_02_T1_B3.tif</strong>...).</p>
+<p>Display the vector <strong>training_data.shp</strong>, changing the symbology using a 'Categorized' scheme specifying the <code>CLASS</code> attribute as the Value. This vector file contains polygons that represent exemplars of various landcover types that are common in the scene.</p>
+<table><thead><tr><th>Land cover</th></tr></thead><tbody>
+<tr><td>Forest</td></tr>
+<tr><td>Industrial/Commercial</td></tr>
+<tr><td>Other Crops</td></tr>
+<tr><td>Residential</td></tr>
+<tr><td>Soil</td></tr>
+<tr><td>Water</td></tr>
+<tr><td>Wheat</td></tr>
+</tbody></table>
+<blockquote>
+<p>1.1. What are some considerations that should be made when selecting good training sites for image classification? (3 marks)</p>
+</blockquote>
+<p>In reality, we are generally more interested in mapping land-use (what people do on the land-surface) rather than land-cover (the type of material present on the landscape). Multi-spectral image classification can tell us about land-cover based on the reflectance characteristics of the land-surface. For example, we have training classes for <em>Wheat</em> and <em>Other Crops</em>, which are both land-covers associated with an <em>Agricultural</em> land-use. Land-uses may be very heterogeneous in their land-cover and spectral characteristics. Ideally, land-cover classes, however, are more uniform in their spectral characteristics and are separable from other land-cover classes in some regions of the spectrum. To evaluate whether or not this is the case for our land-cover classes and training data, we will use the Whitebox Workflows <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#evaluate_training_sites"><code>evaluate_training_sites</code></a> function. Run the following script and take a look at the output file (<strong>training_site_eval.html</strong>), which should be automatically displayed in your browser after the script has completed.</p>
+<p><em>evaluate_training_sites.py</em></p>
+<pre><code class="language-python">import os
+import whitebox_workflows
+
+wbe = whitebox_workflows.WbEnvironment('floating-license-ID') # Initialize Whitebox
+
+try:
+    # declare your working directory as a variable
+    wbe.working_directory = &quot;/path/to/lab/data&quot; # BE SURE TO UPDATE THIS
+    assert(os.path.isdir(wbe.working_directory))
+
+    wbe.verbose = True # Let's print the output of each tool
+
+    # Read the 7 bands of data into a variable named 'band_data'
+    print('Reading band data...')
+    band_data = wbe.read_rasters(
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B1.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B2.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B3.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B4.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B5.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B6.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B7.tif',
+    )
+
+    # Read in the training data
+    print('Reading training data...')
+    training_data = wbe.read_vector('training_data.shp')
+
+    wbe.evaluate_training_sites(
+        input_rasters = band_data, 
+        training_polygons = training_data, 
+        class_field_name = 'CLASS', 
+        output_html_file = 'training_site_eval.html'
+    )
+
+    print(&quot;Operation complete!&quot;) # Provide some sort of indication that the job is done.
+
+except Exception as e:
+    print(f&quot;Exception: {e}&quot;)
+
+finally:
+    print(wbe.check_in_license('floating-license-ID')) # Check your license back in.
+</code></pre>
+<p><strong>training_site_eval.html</strong> contains several <a href="https://en.wikipedia.org/wiki/Box_plot">box and whisker plots</a>, one for each of the seven bands of imagery. Each plot shows the distribution range of reflectance values for each of the land-cover classes in the training data. The interquartile range defines the 'box', the vertical line within the box is the median reflectance, and the whiskers mark the minimum and maximum values in the distributions.</p>
+<blockquote>
+<p>1.2. How similar are the distributions of reflectances for the two urban land-cover types, <em>Industrial/Commercial</em> and <em>Residential</em>? (2 marks)</p>
+<p>1.3. Are there classes that you expect to be more difficult to accurately distinguish because of their overlap among all bands? Are there certain classes that you expect will have no issue being accurately classified owing to their wide spearability in reflectance characteristics compared with the other classes? (3 marks)</p>
+<p>1.4. Are ther any classes where the range of reflectance values is comparibly wider than other classes? What does this indicate about this land-cover class? Do you think that this characteristic could be problemmatic for classification and if so, what could be done to address the situation? (4 marks)</p>
+</blockquote>
+<h1 id="part-2-multi-spectral-image-classification"><a class="header" href="#part-2-multi-spectral-image-classification">Part 2: Multi-spectral Image Classification</a></h1>
+<blockquote>
+<p>It is strongly recommended that you complete the following reading before continuing, with particular focus on the sections addressing supervised classification and <em>more advanced approaches to image classification</em> (i.e., decision trees).</p>
+<p><strong>Readings:</strong> Mather and Koch (2023), Chapter 7 Classification, <em>Computer Processing of Remotely-Sensed Imagery</em>. </p>
+</blockquote>
+<p>Many supervised and unsupervised image classification methods exist. Unfortunately, no one method to image classification is universally better than other methods (although some will often perform well under many conditions) and an image classification exercise often involves experimenting with different techniques to determine optimal methods for a particular image data set and classification scheme.</p>
+<p>Let's begin our image classification experimentation by running the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#min_dist_classification">minimum distance classification method</a> on our Landsat 9 data set. Create a file called <em>classification.py</em> and copy the following script into it and then run the script (after modifying it as required).</p>
+<p><em>classification.py</em></p>
+<pre><code class="language-python">import os
+import whitebox_workflows
+
+wbe = whitebox_workflows.WbEnvironment('floating-license-ID') # Initialize Whitebox
+
+try:
+    # declare your working directory as a variable
+    wbe.working_directory = &quot;/path/to/lab/data&quot; # BE SURE TO UPDATE THIS
+    assert(os.path.isdir(wbe.working_directory))
+
+    wbe.verbose = True # Let's print the output of each tool
+
+    # Read the 7 bands of data into a variable named 'band_data'
+    print('Reading band data...')
+    band_data = wbe.read_rasters(
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B1.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B2.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B3.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B4.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B5.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B6.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B7.tif',
+    )
+
+    # Read in the training data
+    print('Reading training data...')
+    training_data = wbe.read_vector('training_data.shp')
+
+    # Perform a minimum-distance classification
+    print('Performing min-dist classification...')
+    min_dist = wbe.min_dist_classification(
+        input_rasters = band_data, 
+        training_data = training_data, 
+        class_field_name = 'CLASS', 
+        dist_threshold = 3.0
+    )
+
+    # Save the output raster to disc
+    wbe.write_raster(min_dist, 'min_dist.tif', compress=True)
+
+    print(&quot;Operation complete!&quot;) # Provide some sort of indication that the job is done.
+
+except Exception as e:
+    print(f&quot;Exception: {e}&quot;)
+
+finally:
+    print(wbe.check_in_license('floating-license-ID')) # Check your license back in.
+</code></pre>
+<p>When the script has completed, display <strong>min_dist.tif</strong> using QGIS.</p>
+<blockquote>
+<p>2.1. Include a map of the min-dist classification for the Guelph and surroundings area. Use a colour scheme for your class map similar to the following. (1 mark)</p>
+<p><img src="img/colour_scheme.png" alt="colour_scheme.tif image" /></p>
+</blockquote>
+<p>Visually evaluate the accuracy of the classification by comparing the class map with the natural colour composite image. You may also wish to overlay an OpenStreetMaps layer for comparison, which is particularly useful for assessing how well water bodies, urban areas, and possibly forest (although there are temporal issue because of urban expansion and de/reforestation).</p>
+<blockquote>
+<p>2.2. How well did the min-dist classification perform for mapping water bodies, urban areas (both residential and industral/commercial), and forest? (3 marks)</p>
+</blockquote>
+<p>Now modify the classification script above to use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#parallelepiped_classification">parallelepiped classification method</a> instead (you may just want to comment out the min-dist classification part above, in case you need to run it again):</p>
+<pre><code class="language-python"># Perform a parallelepiped classification
+print('Performing parallelipiped classification...')
+parallelepiped = wbe.parallelepiped_classification(
+    input_rasters = band_data, 
+    training_data = training_data, 
+    class_field_name = 'CLASS'
+)
+
+# Save the output raster to disc
+wbe.write_raster(parallelepiped, 'parallelepiped.tif', compress=True)
+</code></pre>
+<blockquote>
+<p>2.3. Include a map of the parallelepiped classification for same area around Guelph used above. (<strong>Hint</strong> if you zoom into your area of interest around Guelph, create a new vector, and digitize two points in opposing corners, you'll be able to zoom to extent and return to the same spatial extent whenever required; 1 mark)</p>
+</blockquote>
+<p>Now modify the classification script to use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#knn_classification">k-Nearest Neighbour (kNN) classification method</a>:</p>
+<pre><code class="language-python"># Perform a kNN classification
+print('Performing kNN classification...')
+knn = wbe.knn_classification(
+    input_rasters = band_data, 
+    training_data = training_data,
+    class_field_name = 'CLASS',
+    scaling_method = &quot;Standardize&quot;, 
+    k = 5, 
+    test_proportion = 0.2,
+    use_clipping = True, 
+    create_output = True
+)
+
+# Save the output raster to disc
+wbe.write_raster(knn, 'knn.tif', compress=True)
+</code></pre>
+<p>You'll notice that unlike with the min-dist and parallelepiped classifications, kNN outputs a measure of the accuracy of the classification. It does this by developing the classification model with a subset of the training data and setting aside a certain number of the training pixels (20% in our script above, <code>test_proportion = 0.2</code>) for evaluating the accuracy. The training data are randomly assigned to either training or testing groups and therefore the class map that is generated will be different each time (this also means that no two students should have the same class map and you shouldn't be concerned if you map is slightly different than that of the student next to you). The classification accuracy data will be reported at the terminal when you run your script.</p>
+<blockquote>
+<p>2.4. What is the difference between the <em>overall accuracy</em> and the <em>kappa index</em> for classification assessment? (1 mark)</p>
+<p>2.5. Describe how the kNN classification method works. What is the impact of increasing the value of <code>k</code> to 8 or decreasing <code>k</code> to 1 on our classification model? (3 marks) </p>
+<p>2.6. Include a map of the kNN classification for same area around Guelph used above. (1 mark)</p>
+</blockquote>
+<p>Now modify the classification script to use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#random_forest_classification">random forest classification method</a>:</p>
+<pre><code class="language-python"># Perform a random forest classification
+print('Performing random forest classification...')
+rf = wbe.random_forest_classification(
+    input_rasters = band_data, 
+    training_data = training_data, 
+    class_field_name = 'CLASS', 
+    split_criterion = &quot;gini&quot;, 
+    n_trees = 100, 
+    min_samples_leaf = 1, 
+    min_samples_split = 2, 
+    test_proportion = 0.2, 
+    create_output = True
+)
+
+# Save the output raster to disc
+wbe.write_raster(rf, 'random_forest.tif', compress=True)
+</code></pre>
+<p>Random forest classification is the slowest-running of the classification methods that we're evaluating but often provides very good results. The processing time is greatly affected by the <code>n_trees</code> parameter (decreasing this will speed up the processing but may decrease the accuracy). Like kNN, random forest classification also outputs classification accuracy statistics.</p>
+<blockquote>
+<p>2.7. Generally, the accuracy/kappa for the training data will be higher than the equivalent accuracy/kappa statistics for the test data. Why do you think this is? Which of the two groups of reported statistics (training or test) do you think is more important and why? (2 mark)</p>
+<p>2.8. Include a map of the random forest classification for same area around Guelph used above. (1 mark)</p>
+<p>2.9. Consider the reported 'Variable Permutation Importance'. Which band was found to be the most important for the classificaiton and which was the least? Why might it be that a certain band may contribute very little to the classification model? (4 marks)</p>
+<p>2.10. After inspecting each of the four classification maps, which of classification method do you feel performed the best for this data set and why? Provide example screenshots to illustrate your answer. (3 marks)</p>
+</blockquote>
+<h1 id="part-3-cleaning-the-class-map"><a class="header" href="#part-3-cleaning-the-class-map">Part 3: Cleaning the Class Map</a></h1>
+<p>The class images derived from the classification procedure in Part 2 are likely very 'messy'. That is, they may contain several very small class groupings (objects), which contribute to a noisy appearance. It is common in many image classification exercises, depending on the application (e.g., if the raster map must be vectorized for cartographic display), to simplify class maps by removing smaller groups in a post-processing step. One of the most common approaches to this task is to apply a <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#majority_filter"><strong>Majority filter</strong></a>. Create a WbW Python script (<em>simplify.py</em>) that applies the <code>majority_filter</code> function to your random forest class map from the previous section. Your script should run this filter function three times, to apply 3x3, 5x5, and 7x7 majority filters.</p>
+<blockquote>
+<p>3.1. Include a map of the 5x5 majority filtered class map for the Guelph area with your final report. (1 mark)</p>
+<p>3.2. Describe the impact of increasing the filter size on the class map? (1 mark)</p>
+<p>3.3. To what extent did you find that the majority filter modified the boundaries between class features in the image and how was this affected by increasing the filter size? (2 marks)</p>
+</blockquote>
+<p>Now modify your <em>simplify.py</em> script to use WbW's <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#generalize_classified_raster"><code>generalize_classified_raster</code></a> function. </p>
+<pre><code class="language-python">generalized = wbe.generalize_classified_raster(
+    raster = random_forest, 
+    area_threshold = 10,
+    method = &quot;longest&quot;
+)
+</code></pre>
+<p>This function re-assigns the features in the class map that are smaller than a threshold size (<code>area_threshold</code>) to the class of the neighbouring feature with either the longest shared boundary (which we use here), or optionally the largest or nearest neighours. As we did for the majority filter, experiment with modifying the <code>area_threshold</code> parameter using values 5, 10, and 20.</p>
+<blockquote>
+<p>3.4. Include a map of the <code>area_threshold = 10</code> generalized classified map for the Guelph area with your final report. (1 mark)</p>
+<p>3.5. How would you describe the overall performance of this approach to simplifying a class map compared with a majority filter? For example, describe how the two methods compare in terms of impact on the boundaries between features and the control over the size of features that are removed. Provide screenshots to support your answer. (2 mark)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
