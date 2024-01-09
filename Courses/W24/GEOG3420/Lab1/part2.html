@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 2: Multispectral Imagery Data - GEOG3420 W23 Lab 1</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: Introduction to Geoprocessing</a></li><li class="chapter-item expanded "><a href="part2.html" class="active"><strong aria-hidden="true">3.</strong> Part 2: Multispectral Imagery Data</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GEOG3420 W23 Lab 1</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="part-2-multispectral-imagery-data"><a class="header" href="#part-2-multispectral-imagery-data">Part 2: Multispectral Imagery Data</a></h1>
+<h2 id="working-with-image-data"><a class="header" href="#working-with-image-data">Working with image data</a></h2>
+<p>After you have downloaded the data associated with this lab assignment from the CourseLink page, decompress (unzip) the data into a working directory that you have created to dedicate to this assignment. Open the contents of this folder and examine the files contained within using QGIS or ArcGIS/Pro, as per your preference. These data are the multiple bands, in GeoTIFF image format, of a Landsat 9 scene acquired June 14, 2022. The scene covers a region of southern Ontario spanning from St. Thomas in the southwest to east Toronto.</p>
+<blockquote>
+<p>In the field of remote sensing, the word <em>band</em> refers to a single image contained within a multispectral or hyperspectral dataset. A band corresponds to a single, usually narrow, region of the electromagnetic spectrum. Band images are usually greyscale and display information about the relative brightness of the earth's surface at the pixel site across the range of wavelengths associated with the band. For example, in a Landsat 9 band 2 image, a bright white pixel corresponds to a surface material that is reflecting a significant amount of radiation in the 0.450 - 0.51 µm range of wavelengths, which the human eye interprets as blue. A dark coloured pixel, by comparison, would indicate that not much blue light is being reflected by that surface material. Some bands within multispectral datasets are associated with regions of the spectrum that fall outside of the visible region (e.g. near-infrared, shortwave infrared, and thermal infrared). Interpreting the relatively brightnesses of pixels within multiple band images can tell you a great deal about the nature of the surface at those sites. This is the basis of multispectral remote sensing data analysis.</p>
+</blockquote>
+<p>Now open the metadata file <code>LC09_L1TP_018030_20220614_20220615_02_T1_MTL.txt</code> using a text editor such as Notepad, TextEdit or VS Code. This file contains a wealth of information describing the acquisition details and processing that has been carried out on these data.</p>
+<blockquote>
+<p>2.1. What proportion of the land contained within the scene was covered with clouds at the time of acquisition? (1 mark)</p>
+<p>2.2. What are the path and row numbers of the scene? (2 marks)</p>
+</blockquote>
+<p>Using your data visualization software (QGIS, ArcGIS, etc.) display the band 3 and band 5 images <code>LC09_L1TP_018030_20220614_20220615_02_T1_B3.TIF</code> and <code>LC09_L1TP_018030_20220614_20220615_02_T1_B6.TIF</code> respectively. <strong>As a caution</strong>, the images that we are using in this lab are very large data files and we will need substantial memory resources to process. While the computers in the undergraduate computing lab are able to handle these requirements, it is possible, if you are using your own laptop for completing this assignment, that you will run into out-of-memory errors. If this is the case, you will have no alternative but to use a computer with more memory (RAM, not hard-drive space). This will likely be the case throughout the semester as the processing of remotely sensed imagery often requires powerful workstations.</p>
+<blockquote>
+<p>2.3. What regions of the electromagnetic spectrum do the band 3 and band 5 images correspond to respectively? (2 marks, provide both the named region and the wavelenth ranges. Hint: you might want to Google 'Landsat 9 bands'. Be sure to use a trustworthy source, such as the USGS or NASA, and also don't forget to reference your sources in your final report.)</p>
+</blockquote>
+<p>Examine the band 3 and band 5 closely, zooming into different areas (perhaps you are familiar with certain areas in the image) and toggling the visibility of the top band on and off, so that you can see the differences between the two bands. </p>
+<blockquote>
+<p>2.4. How do the two images compare in terms of the relative brightness values in the two regions of the spectrum sampled by each of the two respective bands for urban areas, water, and forest cover (Hint: there isn't much forest in Southern Ontario, but you can often find it situated along rivers.). (3 marks, points allocated by the quality of the answer)</p>
+</blockquote>
+<p>Now display the band 9 image (<code>LC09_L1TP_018030_20220614_20220615_02_T1_B9.TIF</code>). This band is frequently referred to as the 'Cirus' band and is sensitive to light in part of the short-wave infrared (SWIR) region of the spectrum. Unlike the other SWIR bands (bands 6 and 7), the Cirus band is sampled within a range of wavelengths that are strongly absorbed by the atmosphere, particularly water vapour. As such, cloud cover is very obvious in band 9, as you will notice in our image. Cloud cover, and particularly thick clouds, can significantly impact the usability of imagery for certain applications. Not only is the ground directly beneath clouds obscured from view, but clouds also cast shadow areas within images, which can degrade the overall image quality. People often use the Cirus band of Landsat data sets to mask out cloud areas within images during image processing.</p>
+<blockquote>
+<p>2.5. Being sure that the band 9 image is selected, use the 'Identify Features' tool in QGIS (or equivalent in ArcGIS, if that is what you are using), to sample a range of pixel brightness values of non-cloudy pixels as well as a sample of pixels under heavy cloud cover. What are the min/max of brightness values that you identified in each group? (2 marks)</p>
+</blockquote>
+<h2 id="filtering-cloud-covered-pixels-and-creating-image-colour-composites"><a class="header" href="#filtering-cloud-covered-pixels-and-creating-image-colour-composites">Filtering cloud-covered pixels and creating image colour composites</a></h2>
+<p>A multispectral dataset contains an enormous wealth of information, however, it can be frustrating trying to interpret these data by examining individual bands. It is possible to combine the information contained in three bands into a single colour image, known as a colour composite. Colour composites allow us to interpret the relative brightnesses, on a pixel-by-pixel basis, for three regions of the electromagnetic spectrum (i.e. bands) simultaneously. Notice that while the three bands that are represented by the composite image are being displayed using the red, green, and blue channels of your display (i.e. your monitor is creates a range of visible colours by combining each of red, green, and blue visible light in varying intensities), the bands themselves may well be derived from regions of the spectrum that fall outside of the visible light region. If, however, the three bands of a composite image correspond with the red, green, and blue bands, the resulting image will be a <em>true colour composite</em> (or natural colour) and will look very much like a normal colour photograph. </p>
+<p>Create a new file called <code>colour_composite.py</code> in the the directory that you have created to store code for this lab (note, it is wise to always store code and data in different folders), and then paste the following code into your newly created file. Once, you've done so, study the code closely, trying to understand what each line does.</p>
+<p><em>colour_composite.py</em></p>
+<pre><code class="language-python">import whitebox_workflows as wbw
+
+wbe = wbw.WbEnvironment('your-license-id')
+try:
+    # WbW environment settings
+    wbe.working_directory = '/path/to/your/data'
+    wbe.verbose = True
+
+    # Read some bands in
+    print('Reading the data...')
+    band2, band3, band4, band5, band7, band9 = wbe.read_rasters(
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B2.TIF', 
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B3.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B4.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B5.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B7.TIF',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B9.TIF'
+    )
+
+    # Grab the nodata value from one of the bands. They should all have the same nodata value.
+    nodata = band2.configs.nodata
+
+    # Let's filter out cloudy pixels.
+    print(&quot;Filtering out cloudy pixels...&quot;)
+    heavy_cloud_threshold = 6000.0
+    num_cloudy_pixels = 0
+    # Loop through each grid cell, row by row and column by column...
+    for row in range(band2.configs.rows):
+        for col in range(band2.configs.columns):
+            z = band9[row, col]
+            if z &gt; 6000.0: # The cirus band shows cloud colver
+                # Set the other bands to 'nodata', removing these cells
+                band2[row, col] = nodata
+                band3[row, col] = nodata
+                band4[row, col] = nodata
+                band5[row, col] = nodata
+                band7[row, col] = nodata
+                num_cloudy_pixels += 1
+
+    # Create a colour composite image from three bands of data
+    print('Creating a colour composite...')
+    colour_composite = wbe.create_colour_composite(red=band4, green=band3, blue=band2, enhance=True)
+    # Write the resulting raster to disc
+    wbe.write_raster(colour_composite, '432_colour_composite.tif', compress=True)
+
+    # Now let's create a colour composite with three other bands
+    colour_composite = wbe.create_colour_composite(red=band5, green=band4, blue=band3, enhance=True)
+    wbe.write_raster(colour_composite, '543_colour_composite.tif', compress=True)
+
+    # And yet another three...
+    colour_composite = wbe.create_colour_composite(red=band7, green=band5, blue=band4, enhance=True)
+    wbe.write_raster(colour_composite, '754_colour_composite.tif', compress=True)
+
+    # Now let's report the number of cloudy pixels found...
+    print(f'There were {num_cloudy_pixels} pixels under heavy cloud cover identified.')
+
+    print('Done')
+
+except Exception as e:
+  print(&quot;The error raised is: &quot;, e)
+finally:
+    print(wbe.check_in_license('your-license-id')) # print to confirm the successful check-in
+</code></pre>
+<blockquote>
+<p><strong>Notes</strong>: Don't forget to replace the <code>your-license-id</code> in both places in the script above (one at the start and one at the end) with the floating-license ID provided by the TA in lab. You will need to change the line <code>wbe.working_directory = &quot;/path/to/your/data/&quot;</code> to the folder containing your image data. </p>
+<p><strong>Important if you are running this script on a computer running Microsoft Windows</strong>: Windows uses the backslash-slash (\) as the directory path separator but this is famously difficult for writing strings (i.e. text variables) containing file paths because \ is an <a href="https://en.wikipedia.org/wiki/Escape_character"><strong>escape character</strong></a> in all programming languages. To deal with this, you must represent your variables containing paths in one of the following ways:</p>
+<pre><code class="language-python"># Uses an escaped forward character (\\)
+wbe.working_directory = &quot;\\path\\to\\landsat\\data\\&quot;
+
+# Uses a 'raw string' in which '\' is interpreted without escaped characters.
+# Because raw strings can't end with a '\', we must use double &quot; at the end.
+wbe.working_directory = r&quot;\path\to\landsat\data\&quot;&quot;
+
+# Python should also properly interpret directories using the forward
+# slash on Windows.
+wbe.working_directory = &quot;/path/to/landsat/data/&quot;
+</code></pre>
+</blockquote>
+<p>Execute the script and allow it to complete the processing of each of the output images. The script above creates three colour composite images, a true-colour image (bands 4, 3, 2), a colour-infrared image (bands 5, 4, 3), and a SWIR colour composite (bands 7, 5, 4). You can learn more about the common band combinations used for creating colour composite images <a href="https://www.usgs.gov/media/images/common-landsat-band-combinations"><strong>here</strong></a>. Display each of the colour composites that were output by the script.</p>
+<blockquote>
+<p>2.6. What was the threshold in brightness value (i.e. pixel value) used in the script above to identify cloud-covered pixels in the cirus band? How many cloud-covered pixels were masked out by converting their values to the <strong>nodata</strong> value? How does this threshold value compare to the range of brightness values that you identified for heavy-clouded areas above? (3 marks)</p>
+</blockquote>
+<p>Examine the three colour composite images and in particular, the masked out cloud areas, which should display transparently in the output images. </p>
+<blockquote>
+<p>2.7. Where do most of the cloud-masked areas occur in the image? If you lowered the threshold value, would this result in more or fewer pixels being masked out? Feel free to experiment with adjusting this parameter to help you answer the question. (2 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.8. Zoom into Guelph and the surrounding areas. What colour are vegetated surfaces (mainly crop cover and vegetation) in the colour-infrared image? What colour are bare soil surface (largely fallow agricultural fields) in the SWIR color-composite image? Hints: 1) use your lifetime interpreting colour information in the visible part of the spectrum and the true-colour image to identify areas of each land cover type, 2) you can overlay OpenStreetMap data to help orient yourself geographically, using Layer =&gt; Add Layer =&gt; Add XYZ Layer in QGIS (likely something similar in ArcGIS). (2 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.9. In which of the three colour composites does the water of Guelph Lake appear darkest? What does this imply about the relative degree to which visible, near infrared, and SWIR radiation are transmitted and/or absorbed by water? (2 marks)</p>
+</blockquote>
+<blockquote>
+<p>2.10. Suggest some applications for which the colour-infrared and SWIF colour-composite images may be more appropriate than the true-colour composite image. (3 marks; hint: if you Google 'Landsat band combinations', there are several useful resources, just be mindful that we are using Landsat 9 data in this lab and other Landsat satellites have different band designations.)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="part1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="part1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
