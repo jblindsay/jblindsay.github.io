@@ -213,7 +213,7 @@ try:
 
     wbe.verbose = False # We don't need constant progress updates for every other tool though
 
-    base_file_name = &quot;LC09_L2SP_018030_20220614_20220616_02_T1_&quot;
+    base_file_name = &quot;LC09_L1TP_018030_20220614_20220615_02_T1_&quot;
 
     # We'll transform the first 7 bands of the data set
     for band in range(7): # range counts up to, but not including, the value
@@ -221,7 +221,7 @@ try:
         band_num = band + 1
         print(f&quot;\nRaster summary for band {band_num}...&quot;)
 
-        image_file = f&quot;{base_file_name}SR_B{band_num}.tif&quot; # The name of this file
+        image_file = f&quot;{base_file_name}B{band_num}.tif&quot; # The name of this file
         band_data = wbe.read_raster(image_file) # Read the file into memory
 
         print(wbe.raster_summary_stats(band_data))
@@ -265,7 +265,7 @@ try:
     wbe.working_directory = &quot;/path/to/lab/data&quot; # BE SURE TO UPDATE THIS
     assert(os.path.isdir(wbe.working_directory))
 
-    base_file_name = &quot;LC09_L2SP_018030_20220614_20220616_02_T1_&quot;
+    base_file_name = &quot;LC09_L1TP_018030_20220614_20220615_02_T1_&quot;
 
     # We'll transform the first 7 bands of the data set
     for band in range(7): # range counts up to, but not including, the value
@@ -273,7 +273,7 @@ try:
         band_num = band + 1
         print(f&quot;Contrast enhancement for band {band_num}...&quot;)
 
-        image_file = f&quot;{base_file_name}SR_B{band_num}.tif&quot; # The name of this file
+        image_file = f&quot;{base_file_name}B{band_num}.tif&quot; # The name of this file
         band_data = wbe.read_raster(image_file) # Read the file into memory
 
         contrast_enhanced = wbe.gaussian_contrast_stretch(band_data, num_tones=16384)
@@ -342,7 +342,7 @@ try:
     wbe.working_directory = &quot;/path/to/lab/data&quot; # BE SURE TO UPDATE THIS
     assert(os.path.isdir(wbe.working_directory)) # Check to make sure that your workign directory is a valid directory
 
-    base_file_name = &quot;LC09_L2SP_018030_20220614_20220616_02_T1_&quot;
+    base_file_name = &quot;LC09_L1TP_018030_20220614_20220615_02_T1_&quot;
 
     # These two lists will contain the transformation parameters.
     mult_term = []
@@ -376,7 +376,7 @@ try:
         band_num = band + 1
         print(f&quot;Transforming band {band_num}...&quot;)
 
-        image_file = f&quot;{base_file_name}SR_B{band_num}.tif&quot; # The name of this file
+        image_file = f&quot;{base_file_name}B{band_num}.tif&quot; # The name of this file
         band_data = wbe.read_raster(image_file) # Read the file into memory
 
         # This is where the DN-to-reflectance transform equation happens.
