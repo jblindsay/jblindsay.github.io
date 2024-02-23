@@ -7542,7 +7542,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Each WbW script must begin by importing the <code>whitebox_workflows</code> library.</p>
+<p>Each WbW script must begin by importing the <code>WbEnvrionment</code> class from the <code>whitebox_workflows</code> library and setting up a <code>WbEnvironment</code> object.</p>
 </div>
 </div>
 </div>
@@ -7554,32 +7554,10 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">whitebox_workflows</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6cf8ae61-a7f5-4ee1-93df-d51535c4396d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We need to set up our floating license ID, which will be used by WbW. Once you register your WbW license, you will be emailed your unique floating license ID, which will likely be a randomly generated three-word phrase, involving an animal. The license below was used for the Geomorphometry 2023 conference in Iasi, Romania and will be valid until August 2023. After that point, you will need to purchase a license for eithter WbW (about 10USD) or WbW-Pro (about 350USD) to use the scripts below. Licenses can be purchased from <a href="https://www.whiteboxgeo.com/whitebox-workflows-for-python/">Whitebox Geospatial Inc.</a></p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8f720bf3-79ec-4892-8bf9-9a3ea39f46c4">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">license_id</span> <span class="o">=</span> <span class="s1">'geomorphometry-2023'</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">whitebox_workflows</span> <span class="kn">import</span> <span class="n">WbEnvironment</span><span class="p">,</span> <span class="n">download_sample_data</span>
+
+<span class="n">wbe</span> <span class="o">=</span> <span class="n">WbEnvironment</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wbe</span><span class="o">.</span><span class="n">version</span><span class="p">())</span> <span class="c1"># Print the version number</span>
 </pre></div>
 </div>
 </div>
@@ -7592,30 +7570,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let's begin by testing that WbW is set up correctly and our floating license ID works.</p>
-<p>The following shows the basic structure of a WbW script. Notice that we checkout our license by specifying the <code>license_id</code> as a function parameter when we create the <code>WbEnvironment</code> instance, <code>wbe</code>, and check the license back in at the end of the script. <strong>We must always check-in our license</strong> or else it won't be available for future use (or at least not until it is recycled one hour after checkout). We therefore perform the check-in within a <code>finally</code> block, so that even if the script throws an error, our license will be checked in.</p>
 <p>While in this script, all we are doing is printing the versioning information for Whitebox, the <code>WbEnvironment</code> contains all of the functions related to geospatial analysis, as well as the functions for reading and writing data. Later we'll explore some of this more advanced functionality.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=85fdcb34-0c9e-4897-9e14-ee2ae6d1ec39">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Test your license by setting up the WbW environment</span>
-<span class="n">wbe</span> <span class="o">=</span> <span class="n">whitebox_workflows</span><span class="o">.</span><span class="n">WbEnvironment</span><span class="p">(</span><span class="n">license_id</span><span class="p">)</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">wbe</span><span class="o">.</span><span class="n">version</span><span class="p">())</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="k">finally</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">wbe</span><span class="o">.</span><span class="n">check_in_license</span><span class="p">(</span><span class="n">license_id</span><span class="p">))</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -7649,9 +7604,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">wbe</span> <span class="o">=</span> <span class="n">whitebox_workflows</span><span class="o">.</span><span class="n">WbEnvironment</span><span class="p">(</span><span class="n">license_id</span><span class="p">)</span>
-<span class="n">wbe</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">wbe</span><span class="o">.</span><span class="n">working_directory</span> <span class="o">=</span> <span class="n">whitebox_workflows</span><span class="o">.</span><span class="n">download_sample_data</span><span class="p">(</span><span class="s1">'mill_brook'</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">wbe</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">wbe</span><span class="o">.</span><span class="n">working_directory</span> <span class="o">=</span> <span class="n">download_sample_data</span><span class="p">(</span><span class="s1">'mill_brook'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Data have been stored in: </span><span class="si">{</span><span class="n">wbe</span><span class="o">.</span><span class="n">working_directory</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -7930,42 +7884,6 @@ a.anchor-link {
 <span class="c1"># Or perhaps map Strahler basins, i.e. the areas draining to Strahler order 1, 2, 3, etc. streams...</span>
 <span class="n">strahler_basins</span> <span class="o">=</span> <span class="n">wbe</span><span class="o">.</span><span class="n">strahler_order_basins</span><span class="p">(</span><span class="n">d8_pointer</span><span class="o">=</span><span class="n">d8_pntr</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="n">streams</span><span class="p">)</span>
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">strahler_basins</span><span class="p">,</span> <span class="s1">'strahler_basins.tif'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=685e5f04-7e7c-4780-a918-1a641eadb430">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Wrapping-things-up">Wrapping things up<a class="anchor-link" href="#Wrapping-things-up">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f3b2ee39-8653-4100-92b2-cd40c2cf5aee">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Don't forget to check your license in after you're done using it. If you skip this step, your checked-out license won't be returned to the license pool for others to use for one hour. Be kind to others!</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3686e665-5556-43f0-9102-d2ef1063e874">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">wbe</span><span class="o">.</span><span class="n">check_in_license</span><span class="p">(</span><span class="n">license_id</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
