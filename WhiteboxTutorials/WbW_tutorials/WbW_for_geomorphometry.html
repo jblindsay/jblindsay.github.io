@@ -7654,7 +7654,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let's create a new script to download some sample data. Here we'll grab the 'peterborough_drumlins' DEM. The script below will download the data for us, assign the directory to which these data are downloaded to the <code>WbEnvironment</code> working directory and lastly print this location so we can know where the data are being stored. Notice that it may take a few minutes to download the data. In the event that the download takes more than a few minutes, the connection may timeout and you will receive an error. If this should happen, you may download the dataset directly <a href="http://www.whiteboxgeo.com/sample_data/peterborough_drumlins.zip">from here</a> but you will need to update the <code>wbe.working_directory</code> to your download folder.</p>
+<p>Let's create a new script to download some sample data. Here we'll grab the Ponui Island lidar DTM. The script below will download the data for us, assign the directory to which these data are downloaded to the <code>WbEnvironment</code> working directory and lastly print this location so we can know where the data are being stored. Notice that it may take a few minutes to download the data. In the event that the download takes more than a few minutes, the connection may timeout and you will receive an error. If this should happen, you may download the dataset directly <a href="http://www.whiteboxgeo.com/sample_data/Ponui_DTM.zip">from here</a> but you will need to update the <code>wbe.working_directory</code> to the folder containing the downloaded data.</p>
 </div>
 </div>
 </div>
@@ -7681,7 +7681,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now let's read in the DEM file and generate a multidirectional hillshade image for visualization. When the script below is complete, open the DEM and the newly created hillshade image in QGIS to familiarize yourself with the data set.</p>
+<p>Now let's read in the DEM file and generate a multidirectional hillshade image for visualization.</p>
 </div>
 </div>
 </div>
@@ -7725,7 +7725,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now let's create a multi-directional hillshade and use it to visualize the DTM.</p>
+<p>Let's create a multi-directional hillshade and use it to visualize the DTM with some hypsometric tinting.</p>
 </div>
 </div>
 </div>
@@ -7884,7 +7884,7 @@ a.anchor-link {
 <span class="n">min_curv</span> <span class="o">=</span> <span class="n">wbe</span><span class="o">.</span><span class="n">minimal_curvature</span><span class="p">(</span><span class="n">dtm</span><span class="p">,</span> <span class="n">log_transform</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span>
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">min_curv</span><span class="p">,</span> <span class="s1">'min_curv.tif'</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Now plot both raw and smoothed hillshade rasters.</span>
+<span class="c1"># Now plot the data.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">show</span><span class="p">(</span>
@@ -8008,7 +8008,7 @@ a.anchor-link {
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">dev_local</span><span class="p">,</span> <span class="s1">'dev_multiscale_local.tif'</span><span class="p">)</span>
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">key_scales_local</span><span class="p">,</span> <span class="s1">'key_scales_local.tif'</span><span class="p">)</span>
 
-<span class="c1"># Now plot both raw and smoothed hillshade rasters.</span>
+<span class="c1"># Now plot the data.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
@@ -8074,7 +8074,7 @@ a.anchor-link {
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">dev_meso</span><span class="p">,</span> <span class="s1">'dev_multiscale_meso.tif'</span><span class="p">)</span>
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">key_scales_meso</span><span class="p">,</span> <span class="s1">'key_scales_meso.tif'</span><span class="p">)</span>
 
-<span class="c1"># Now plot both raw and smoothed hillshade rasters.</span>
+<span class="c1"># Now plot the data.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
@@ -8124,7 +8124,7 @@ a.anchor-link {
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">dev_broad</span><span class="p">,</span> <span class="s1">'dev_multiscale_broad.tif'</span><span class="p">)</span>
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">key_scales_broad</span><span class="p">,</span> <span class="s1">'key_scales_broad.tif'</span><span class="p">)</span>
 
-<span class="c1"># Now plot both raw and smoothed hillshade rasters.</span>
+<span class="c1"># Now plot the data.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
@@ -8182,9 +8182,7 @@ a.anchor-link {
 <span class="n">mstp</span> <span class="o">=</span> <span class="n">wbe</span><span class="o">.</span><span class="n">multiscale_topographic_position_image</span><span class="p">(</span><span class="n">dev_local</span><span class="p">,</span> <span class="n">dev_meso</span><span class="p">,</span> <span class="n">dev_broad</span><span class="p">)</span>
 <span class="n">wbe</span><span class="o">.</span><span class="n">write_raster</span><span class="p">(</span><span class="n">mstp</span><span class="p">,</span> <span class="s1">'mstp.tif'</span><span class="p">)</span>
 
-<span class="c1"># show(mstp)</span>
-
-<span class="c1"># Now plot both raw and smoothed hillshade rasters.</span>
+<span class="c1"># Now plot the data.</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
