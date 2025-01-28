@@ -192,12 +192,12 @@
 </blockquote>
 <p>where ρ is the transformed reflectance value (at wavelength, λ), <em>M</em> is the band-specific multiplicative rescaling factor, and <em>A</em> is the band-specific additive rescaling factor. <em>M</em> and <em>A</em> can each be found within the metadata file distributed with a Landsat scene.</p>
 <p>Open the metadata file associated with the lab data, <code>LC09_L2SP_018030_20220614_20220616_02_T1_MTL.txt</code>, using a text editor (e.g. Notepad, VS Code, etc.). Locate each the reflectance rescaling parameters (e.g. REFLECTANCE_MULT_BAND_1, REFLECTANCE_ADD_BAND_1, etc.) in the file.</p>
-<p>We could use Eq. 1 above to convert each of the bands within our scene data set manually. However, this would be a tedious task and the opportunities for using the incorrect parameter by accident is fairly high. Instead, we're going to write a script to automatically read the parameters from the metadata file and then apply the DN-to-reflectance transform to each of our bands. Using <em>VS Code</em>, create a Python script in your Lab 2 folder called <code>reflectance.py</code>. Copy the following code into your script file and run it and <strong>don't forget to update the working directory to reflect your data location as well as the <code>floating-license-ID</code> (in both locations)</strong>.</p>
+<p>We could use Eq. 1 above to convert each of the bands within our scene data set manually. However, this would be a tedious task and the opportunities for using the incorrect parameter by accident is fairly high. Instead, we're going to write a script to automatically read the parameters from the metadata file and then apply the DN-to-reflectance transform to each of our bands. Using <em>VS Code</em>, create a Python script in your Lab 2 folder called <code>reflectance.py</code>. Copy the following code into your script file and run it.</p>
 <p><em>relectance.py</em></p>
 <pre><code class="language-python">import os
 import whitebox_workflows
 
-wbe = whitebox_workflows.WbEnvironment("floating-license-ID")  # Initialize Whitebox
+wbe = whitebox_workflows.WbEnvironment()  # Initialize Whitebox
 
 try:
     # declare your working directory as a variable
@@ -253,8 +253,6 @@ try:
 except Exception as e:
     print(f"Exception: {e}")
 
-finally:
-    print(wbe.check_in_license("floating-license-ID"))
 </code></pre>
 <p>This script may take some time before completing but it will provide you with periodic updates on progress (e.g. <code>Transforming band 1...</code>). Hopefully, the script runs without issue. It is one of the longest scripts that we've seen so far and because it involves reading and parsing text data, there is the potential for system-specific bugs to occur (e.g. if you have the wrong working directory or file names). If you encounter errors when you run the above script, examine the script carefully to see if you can identify the source of the bug. Once you have gained a full understanding of what the script is doing (see the detailed comments), and have exhausted debugging options (e.g. adding print statements in the script to see how far it progresses, searching the Internet for solutions), then you may approach fellow students or the GTA for assistance.</p>
 <blockquote>

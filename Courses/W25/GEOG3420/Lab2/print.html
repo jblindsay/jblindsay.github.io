@@ -208,12 +208,12 @@
 <blockquote>
 <p>1.2. Why do you think that this image histogram is bimodal? What land-cover types are associated with the two peaks in the histogram? (2 marks)</p>
 </blockquote>
-<p>Another thing that you'll notice about the Band 2 image histogram is that it doesn't occupy the full <em>dynamic range</em>. The dynamic range is a reference to the range in brightness values and is related to the radiometric resolution, or bit-depth of the sensor. In the case of Landsat 9, the OLI-2 sensor has a 14-bit radiometric resolution, meaning that it is capable of producing images with 16384 different greytones. Using the script below (<strong>being sure to modify it to reflect the appropriate floating license ID, in both places, and your working directory containing the lab data</strong>) apply the Whitebox Workflows <code>raster_summary</code> function to calculate the minimum, maximum, and average digital numbers (DNs) in each of the seven bands of imagery associated with the scene.</p>
+<p>Another thing that you'll notice about the Band 2 image histogram is that it doesn't occupy the full <em>dynamic range</em>. The dynamic range is a reference to the range in brightness values and is related to the radiometric resolution, or bit-depth of the sensor. In the case of Landsat 9, the OLI-2 sensor has a 14-bit radiometric resolution, meaning that it is capable of producing images with 16384 different greytones. Using the script below apply the Whitebox Workflows <code>raster_summary</code> function to calculate the minimum, maximum, and average digital numbers (DNs) in each of the seven bands of imagery associated with the scene.</p>
 <p><em>raster_summary.py</em></p>
 <pre><code class="language-python">import os
 import whitebox_workflows
 
-wbe = whitebox_workflows.WbEnvironment('floating-license-ID')  # Initialize Whitebox
+wbe = whitebox_workflows.WbEnvironment()  # Initialize Whitebox
 
 try:
     # declare your working directory as a variable
@@ -241,8 +241,6 @@ try:
 except Exception as e:
     print(f"Exception: {e}")
 
-finally:
-    print(wbe.check_in_license("floating-license-ID"))
 </code></pre>
 <blockquote>
 <p>1.3. What are the minimum, maximum, and average DNs for each of the bands of imagery? (7 marks)</p>
@@ -267,7 +265,7 @@ finally:
 <pre><code class="language-python">import os
 import whitebox_workflows
 
-wbe = whitebox_workflows.WbEnvironment('floating-license-ID') # Initialize Whitebox
+wbe = whitebox_workflows.WbEnvironment() # Initialize Whitebox
 
 try:
     # declare your working directory as a variable
@@ -293,8 +291,6 @@ try:
 except Exception as e:
     print(f"Exception: {e}")
 
-finally:
-    print(wbe.check_in_license("floating-license-ID")) # Check your license back in.
 </code></pre>
 <blockquote>
 <p>2.1. Include screenshots of both the resulting Band 2 contrast-stretched image (<code>band2_gaussian_cs.tif</code>) and the associated histogram with your lab hand-in. (2 marks)</p>
@@ -339,12 +335,12 @@ colour_comp = wbe.create_colour_composite(red=band4, green=band3, blue=band2, en
 </blockquote>
 <p>where ρ is the transformed reflectance value (at wavelength, λ), <em>M</em> is the band-specific multiplicative rescaling factor, and <em>A</em> is the band-specific additive rescaling factor. <em>M</em> and <em>A</em> can each be found within the metadata file distributed with a Landsat scene.</p>
 <p>Open the metadata file associated with the lab data, <code>LC09_L2SP_018030_20220614_20220616_02_T1_MTL.txt</code>, using a text editor (e.g. Notepad, VS Code, etc.). Locate each the reflectance rescaling parameters (e.g. REFLECTANCE_MULT_BAND_1, REFLECTANCE_ADD_BAND_1, etc.) in the file.</p>
-<p>We could use Eq. 1 above to convert each of the bands within our scene data set manually. However, this would be a tedious task and the opportunities for using the incorrect parameter by accident is fairly high. Instead, we're going to write a script to automatically read the parameters from the metadata file and then apply the DN-to-reflectance transform to each of our bands. Using <em>VS Code</em>, create a Python script in your Lab 2 folder called <code>reflectance.py</code>. Copy the following code into your script file and run it and <strong>don't forget to update the working directory to reflect your data location as well as the <code>floating-license-ID</code> (in both locations)</strong>.</p>
+<p>We could use Eq. 1 above to convert each of the bands within our scene data set manually. However, this would be a tedious task and the opportunities for using the incorrect parameter by accident is fairly high. Instead, we're going to write a script to automatically read the parameters from the metadata file and then apply the DN-to-reflectance transform to each of our bands. Using <em>VS Code</em>, create a Python script in your Lab 2 folder called <code>reflectance.py</code>. Copy the following code into your script file and run it.</p>
 <p><em>relectance.py</em></p>
 <pre><code class="language-python">import os
 import whitebox_workflows
 
-wbe = whitebox_workflows.WbEnvironment("floating-license-ID")  # Initialize Whitebox
+wbe = whitebox_workflows.WbEnvironment()  # Initialize Whitebox
 
 try:
     # declare your working directory as a variable
@@ -400,8 +396,6 @@ try:
 except Exception as e:
     print(f"Exception: {e}")
 
-finally:
-    print(wbe.check_in_license("floating-license-ID"))
 </code></pre>
 <p>This script may take some time before completing but it will provide you with periodic updates on progress (e.g. <code>Transforming band 1...</code>). Hopefully, the script runs without issue. It is one of the longest scripts that we've seen so far and because it involves reading and parsing text data, there is the potential for system-specific bugs to occur (e.g. if you have the wrong working directory or file names). If you encounter errors when you run the above script, examine the script carefully to see if you can identify the source of the bug. Once you have gained a full understanding of what the script is doing (see the detailed comments), and have exhausted debugging options (e.g. adding print statements in the script to see how far it progresses, searching the Internet for solutions), then you may approach fellow students or the GTA for assistance.</p>
 <blockquote>
