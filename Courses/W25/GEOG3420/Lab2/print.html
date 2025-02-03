@@ -347,7 +347,7 @@ try:
     wbe.working_directory = "/path/to/lab/data" # BE SURE TO UPDATE THIS
     assert(os.path.isdir(wbe.working_directory)) # Check to make sure that your workign directory is a valid directory
 
-    base_file_name = "LC09_L2SP_018030_20220614_20220616_02_T1_SR_B"
+    base_file_name = "LC09_L2SP_018030_20220614_20220616_02_T1_"
 
     # These two lists will contain the transformation parameters.
     mult_term = []
@@ -381,7 +381,7 @@ try:
         band_num = band + 1
         print(f"Transforming band {band_num}...")
 
-        image_file = f"{base_file_name}{band_num}.tif" # The name of this file
+        image_file = f"{base_file_name}SR_B{band_num}.tif" # The name of this file
         band_data = wbe.read_raster(image_file) # Read the file into memory
 
         # This is where the DN-to-reflectance transform equation happens.
