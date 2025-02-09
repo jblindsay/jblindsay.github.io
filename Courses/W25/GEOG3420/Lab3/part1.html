@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 1: HSI Transform - GEOG3420 W25 Lab 3</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html" class="active"><strong aria-hidden="true">2.</strong> Part 1: HSI Transform</a></li><li class="chapter-item expanded "><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Principal Component Analysis</a></li><li class="chapter-item expanded "><a href="part3.html"><strong aria-hidden="true">4.</strong> Part 3: Image Filtering</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GEOG3420 W25 Lab 3</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="part-1-hsi-transform"><a class="header" href="#part-1-hsi-transform">Part 1: HSI Transform</a></h1>
+<p>In Lab 2, we saw how various contrast stretches can be used to improve the contrast (i.e. image lightness) and thereby improve the colour-composite derived from three stretched images. In this part of Lab 3, you will be introduced to the HSI transform (also called <em>IHS</em>), which can be used, along with contrast stretching, to further refine the colour balance of colour images.</p>
+<blockquote>
+<p><strong>Readings:</strong> Mather and Koch (2011). <em>Chapter 6 Section 6.5 Hue, Saturation, and Intensity (HSI)</em>, p. 171.</p>
+</blockquote>
+<p>The RGB-to-HSI transform takes three bands of imagery, or a red-green-blue (RGB) colour composite, as input and produces three transformed bands: <em>hue</em>, <em>saturation</em>, and <em>intensity</em> (HSI). Note, HSI is sometimes referred to as ISH or even HIS; Mather and Koch refer to this transform by the HSI convention, while Whitebox Workflows uses ISH. <em>Hue</em> is related to the dominant wavelength of light and is perceived as the color associated with a pixel in a composite image. <em>Saturation</em> is the purity of a color. Colours become less pure as more white light is added, making them appear somewhat pastel. <em>Intensity</em> refers to the brightness, or lightness, of a color. There are several versions of the RGB-to-HSI transform, but one common convention results in HSI values within the following numerical ranges:</p>
+<blockquote>
+<p>0 &lt; H &lt; 2PI</p>
+<p>0 &lt; S &lt; 1</p>
+<p>0 &lt; I &lt; 1</p>
+</blockquote>
+<p>Hue is actually an angular quantity, and therefore its degree range takes 0 &lt; H &lt; 360 (i.e., 0 - 2Pi).</p>
+<p>Be sure to download the imagery data associated with this lab assignment into an appropriate directory. These data should contain a sub-region of a Landsat 8 scene, including seven bands (i.e. bands 1 through 7) of image data, for an area of Southern Ontario between Kitchener-Waterloo, Cambridge, and Guelph. The image was acquired June 21, 2016. To get a sense of the data, use the Whitebox Workflows <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#create_colour_composite"><strong>create_colour_composite</strong></a> tool to create a 432 natural-colour RGB composite image, being sure to call the image <code>natural_colour.tif</code>. Recall that you used a WbW script to create a colour composite image already in Lab 1. It is important that you <strong>do not enhance</strong> the composite (<code>enhance=False</code>), which is not the default setting. Displaying the resulting image using your data visualization software of choice, you should find that it looks as follows:</p>
+<p><img src="img/natural_colour.png" alt="natural_colour.png image" /></p>
+<p>Notice how dark, faded, and washed-out the colours in the image appear. The idea behind an HSI transform is simple. We can convert the three bands of data used to create this natural-colour composite image into the <a href="https://en.wikipedia.org/wiki/HSL_and_HSV"><em>HSI colour space</em></a>. We then perform a linear contrast stretch on the intensity (to brighten the image) and saturation (to make the image more colourful) bands and then perform the inverse transform (HSI-to-RGB) back into <a href="https://en.wikipedia.org/wiki/RGB_color_space"><em>RGB colour space</em></a>. When we perform contrast stretching directly on the RGB components, as we did in Lab 2, there is a good chance that the image colouring will be significantly altered, producing an unnatural appearance. By stretching only the intensity and saturation bands without altering the hue data, we will not be adjusting the colour values, only their colourfulness and lightness. In this way, we can ensure that the resulting enhanced image still <em>looks natural</em> after the adjustment.</p>
+<p>Let's do the adjustments and see if we can improve the colour-composite. Using VS Code, create a new Python script called <em>hsi.py</em> and copy the following script into the file:</p>
+<p><em>hsi.py</em></p>
+<pre><code class="language-python">import os
+import whitebox_workflows
+
+wbe = whitebox_workflows.WbEnvironment()
+
+try:
+    # declare your working directory as a variable
+    wbe.working_directory = "/path/to/lab/data" # BE SURE TO UPDATE THIS
+    assert(os.path.isdir(wbe.working_directory))
+
+    # wbe.verbose = True # Uncomment this line if you want to see tool message outputs
+
+    band2, band3, band4 = wbe.read_rasters('band2_clipped.tif', 'band3_clipped.tif', 'band4_clipped.tif')
+
+    # Transform the data into intensity-hue-satuation
+    print("Transform the data into intensity-hue-saturation...")
+    (intensity, hue, saturation) = wbe.rgb_to_ihs(red=band4, green=band3, blue=band2)
+
+    # Update the image min/max values. This is required before we do the contrast stretching.
+    intensity.update_min_max()
+    print(f"Intensity min value: {intensity.configs.minimum}")
+    print(f"Intensity max value: {intensity.configs.maximum}")
+    saturation.update_min_max()
+    print(f"Saturation min value: {saturation.configs.minimum}")
+    print(f"Saturation max value: {saturation.configs.maximum}")
+
+    # Perform a contrast stretch on the intensity band
+    print("Stretching the intensity band...")
+    intensity_cs = wbe.percentage_contrast_stretch(
+        raster=intensity,
+        clip=5.0,
+        tail="upper",
+        num_tones=1024
+    )
+
+    # The contrast stretched image has a value range from 0-1024 but we need it from 0-1
+    intensity_rescaled = intensity_cs / 1024.0
+
+    # Now, perform a contrast stretch on the saturation band
+    print("Stretching the saturation band...")
+    saturation_cs = wbe.percentage_contrast_stretch(
+        raster=saturation,
+        clip=0.01,
+        tail="upper",
+        num_tones=1024
+    )
+
+    # The contrast stretched image has a value range from 0-1024 but we need it from 0-1
+    saturation_rescaled = saturation_cs / 1024.0
+
+    # Transform the IHS data back into RGB, using the stretched intensity and saturation bands,
+    # and create a colour composite
+    print("Transform the IHS data back into RGB...")
+    (r, g, b) = wbe.ihs_to_rgb(
+        intensity=intensity_rescaled,
+        hue=hue,
+        saturation=saturation_rescaled
+    )
+
+    natural_colour_hsi = wbe.create_colour_composite(red=r, green=g, blue=b, enhance=False)
+
+    # Output our final image
+    wbe.write_raster(natural_colour_hsi, "natural_colour_hsi.tif", compress=True)
+
+    print("Operation complete!") # Provide some sort of indication that the job is done.
+
+except Exception as e:
+    print(f"Exception: {e}")
+
+
+</code></pre>
+<p>Once the script has successfully run, open the resulting <code>natural_colour_hsi.tif</code> image using your data visualization software of choice.</p>
+<blockquote>
+<p>1.1. What is the range of values in both the intensity and saturation images? <strong>(1 mark)</strong></p>
+<p>1.2. Now modify the script above so that it saves the original as well as the contrast-stretched intensity and saturation images (Hint: you'll simply need to add another <code>create_colour_composite</code> statement and <code>write_raster</code> statement in the script). Include screenshots of each with your final report. <strong>(2 marks)</strong></p>
+<p>1.3. Describe the impact that stretching the intensity and saturation bands had on the natural-colour composite image. Include a screenshots of sections of the scene to support your answer. <strong>(2 marks)</strong></p>
+<p>1.4. How much did we clip the tails of the intensity and saturation bands by? What would be the impact of either raising or lowering the clip values? <strong>(2 marks)</strong></p>
+</blockquote>
+<p>Now experiment with adjusting each of the intensity and saturation stretch parameters (i.e. <code>clip</code> and <code>tail</code> values in the <code>percentage_contrast_stretch</code> function) to see if you can further refine the image quality. Note that for saturation, even small percentage clips (e.g. 0.01%) can yield very significant impact.</p>
+<blockquote>
+<p>Include the colour composite resulting from your best (most refined) transformation and also include the final stretch parameter values used to create the image. <strong>(2 mark)</strong></p>
+</blockquote>
+<p>The <code>enhance</code> optional parameter used in the <a href="https://jblindsay.github.io/wbt_book/available_tools/image_processing_tools.html#CreateColourComposite"><strong>CreateColourComposite</strong></a> tool performs an automated adjustment similar to the HSI-transform based stretch of the composite image. However, when we need more control over this adjustment, manually manipulating the HSI values as we have above is our best option.</p>
+<blockquote>
+<p>1.5. Based on lectures and your readings, what is the main goal of image contrast stretching? <strong>(2 marks)</strong></p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
