@@ -277,7 +277,63 @@ wbe.write_raster(knn, 'knn.tif', compress=True)
 <p>2.5. Describe how the kNN classification method works. What is the impact of increasing the value of <code>k</code> to 8 or decreasing <code>k</code> to 1 on our classification model? (3 marks)</p>
 <p>2.6. Include a map of the kNN classification for same area around Guelph used above. (1 mark)</p>
 </blockquote>
-<p>Now modify the classification script to use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#random_forest_classification">random forest classification method</a>:</p>
+<p>Now run the classification script below to use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help_wbwpro.html#random_forest_classification_fit">random forest classification method</a>. Unlike the other classification methods, this is a two-step process involving first fitting the random forest model and then using that model to predict the output raster.</p>
+<p><em>classification.py</em></p>
+<pre><code class="language-python">import os
+import whitebox_workflows
+
+license_id = 'your-license-id' # Update this string to the floating-license ID provided by your TA
+wbe = whitebox_workflows.WbEnvironment(license_id)
+
+try:
+    # declare your working directory as a variable
+    wbe.working_directory = "/path/to/lab/data" # BE SURE TO UPDATE THIS
+    assert(os.path.isdir(wbe.working_directory))
+
+    wbe.verbose = True # Let's print the output of each tool
+
+    # Read the 7 bands of data into a variable named 'band_data'
+    print('Reading band data...')
+    band_data = wbe.read_rasters(
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B1.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B2.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B3.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B4.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B5.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B6.tif',
+        'LC09_L1TP_018030_20220614_20220615_02_T1_B7.tif',
+    )
+
+    # Read in the training data
+    print('Reading training data...')
+    training_data = wbe.read_vector('training_data.shp')
+
+    # Train the model
+    model = wbe.random_forest_classification_fit(
+        band_data, 
+        training_data, 
+        class_field_name = 'CLASS', 
+        split_criterion = "Gini", 
+        n_trees = 100,  
+        min_samples_leaf = 1, 
+        min_samples_split = 2, 
+        test_proportion = 0.2
+    )
+
+    # Use the model to predict
+    rf_class_image = wbe.random_forest_classification_predict(band_data, model)
+
+    # Save the output raster to disc
+    wbe.write_raster(rf_class_image, 'rf_classification.tif', compress=True)
+
+    print("Operation complete!") # Provide some sort of indication that the job is done.
+
+except Exception as e:
+    print(f"Exception: {e}")
+
+finally:
+    print(wbe.check_in_license(license_id)) # Check your license back in.
+</code></pre>
 <pre><code class="language-python"># Perform a random forest classification
 print('Performing random forest classification...')
 rf = wbe.random_forest_classification(
