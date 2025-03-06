@@ -443,18 +443,13 @@ except Exception as e:
 finally:
     print(wbe.check_in_license(license_id)) # Check your license back in.
 </code></pre>
-<h1 id="save-the-output-raster-to-disc"><a class="header" href="#save-the-output-raster-to-disc">Save the output raster to disc</a></h1>
-<p>wbe.write_raster(rf, 'random_forest.tif', compress=True)</p>
-<pre><code>
-Random forest classification is the slowest-running of the classification methods that we're evaluating but often provides very good results. The processing time is greatly affected by the `n_trees` parameter (decreasing this will speed up the processing but may decrease the accuracy). Like kNN, random forest classification also outputs classification accuracy statistics.
-
-&gt; 2.7. Generally, the accuracy/kappa for the training data will be higher than the equivalent accuracy/kappa statistics for the test data. Why do you think this is? Which of the two groups of reported statistics (training or test) do you think is more important and why? (2 mark)
-&gt;
-&gt; 2.8. Include a map of the random forest classification for same area around Guelph used above. (1 mark)
-&gt; 
-&gt; 2.9. Consider the reported 'Variable Permutation Importance'. Which band was found to be the most important for the classification and which was the least? Why might it be that a certain band may contribute very little to the classification model? (4 marks)
-&gt; 
-&gt; 2.10. After inspecting each of the four classification maps, which of classification method do you feel performed the best for this data set and why? Provide example screenshots to illustrate your answer. (3 marks)</code></pre>
+<p>Random forest classification is the slowest-running of the classification methods that we're evaluating but often provides very good results. The processing time is greatly affected by the <code>n_trees</code> parameter (decreasing this will speed up the processing but may decrease the accuracy). Like kNN, random forest classification also outputs classification accuracy statistics.</p>
+<blockquote>
+<p>2.7. Generally, the accuracy/kappa for the training data will be higher than the equivalent accuracy/kappa statistics for the test data. Why do you think this is? Which of the two groups of reported statistics (training or test) do you think is more important and why? (2 mark)</p>
+<p>2.8. Include a map of the random forest classification for same area around Guelph used above. (1 mark)</p>
+<p>2.9. Consider the reported 'Variable Permutation Importance'. Which band was found to be the most important for the classification and which was the least? Why might it be that a certain band may contribute very little to the classification model? (4 marks)</p>
+<p>2.10. After inspecting each of the four classification maps, which of classification method do you feel performed the best for this data set and why? Provide example screenshots to illustrate your answer. (3 marks)</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="part-3-cleaning-the-class-map"><a class="header" href="#part-3-cleaning-the-class-map">Part 3: Cleaning the Class Map</a></h1>
 <p>The class images derived from the classification procedure in Part 2 are likely very 'messy'. That is, they may contain several very small class groupings (objects), which contribute to a noisy appearance. It is common in many image classification exercises, depending on the application (e.g., if the raster map must be vectorized for cartographic display), to simplify class maps by removing smaller groups in a post-processing step. One of the most common approaches to this task is to apply a <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#majority_filter"><strong>Majority filter</strong></a>. Create a WbW Python script (<em>simplify.py</em>) that applies the <code>majority_filter</code> function to your random forest class map from the previous section. Your script should run this filter function three times, to apply 3x3, 5x5, and 7x7 majority filters.</p>
 <blockquote>
