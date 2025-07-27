@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Flash Point Classifier: Purchase</title>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Flash Point Classifier is a powerful and user-friendly software tool designed to classify airborne lidar point clouds quickly and efficiently. Go from raw data to actionable insights in a flash!">
+        <meta name="keywords" content="lidar,classification,point cloud">
+        <meta name="author" content="WG Inc.">
+    </head>
+    <body>
+
+        <div class="navbar" id="myNavbar">
+            <div class="company-info">
+                <img src="img/logo.svg" alt="FPC logo" style="width: auto; height: 35px;"></img>
+                <span>&nbsp;</span>
+                <a class="company-name" href="./index.html" onclick="showPage('home')">Flash Point Classifier</a>
+            </div>
+            <div class="navbar-links">
+                <a href="./download.html">Download</a>
+                <a href="./purchase.html">Purchase</a>
+                <a href="./support.html">Support</a>
+                <a href="./about.html">About Us</a>
+                <div><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+            </div>
+        </div>
+
+        <div class="nonhomepage-hero-image" style="background-image: url('img/hero-purchase.png');">
+            <div class="hero-text">
+                <h1>Purchase</h1>
+            </div>
+        </div> 
+
+        <div style="text-align: left; line-height: 1.5; background-color: rgb(255, 255, 255); padding: 30px; margin: 30px;">
+            <h2>Purchase Flash Point Classifier now and unlock its full potential</h2>
+            <p style="text-align: left;">We offer two products including licenses for Flash Point Classifier and Maintenance & 
+                Support (M&S) extension terms, both with varying numbers of seats. A Flash Point Classifier license allows you 
+                use the software on one computer perpetually. A valid M&S term is required for 
+                software updates and technical support and to transfer your license to another computer. A Flash Point Classifier 
+                license comes with an initial 365-day M&S term. Purchasing either product requires acceptance of the 
+                <a href="license.html">Terms & Conditions</a>. All sales <a href="license.html#refund-policy">are final.</a></p>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <h3>Flash Point Classifier Perpetual License</h3>
+                    <p>Includes 365 days of free Maintenance & Support</p>
+                    <p id="fpc_price">US$999.99</p>
+                    <div>
+                    <label for="fpc_seats">Number of Seats:</label>
+                    <select name="fpc_seats" id="fpc_seats" onChange="updatePrice('fpc_price', this.value)">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                    </select>
+                    </div>
+                    <br><br>
+                    <!-- <button class="add-to-cart-btn" onclick="addToCart('Flash Point Classifier', 999.99)">Proceed to Checkout</button> -->
+                    <button class="add-to-cart-btn" onclick="buyNow({ id: 'fpc', name: 'Flash Point Classifier', price: 999.99, seats: 1 })">Buy Now</button>
+                </div>
+
+                <div class="product-card">
+                    <h3>Maintenance & Support Extension Term for FPC (365 days)</h3>
+                    <p>Update FPC, transfer your license to another computer, contact us for support</p>
+                    <p id="ms_price">US$349.99</p>
+                    <div>
+                    <label for="ms_seats">Number of Seats:</label>
+                    <select name="ms_seats" id="ms_seats" onChange="updatePrice('ms_price', this.value)">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                    </select>
+                    </div>
+                    <br><br>
+                    <!-- <button class="add-to-cart-btn" onclick="addToCart('Extended Maintenance & Support Term for Flash Point Classifier', 349.99)">Proceed to Checkout</button> -->
+                    <button class="add-to-cart-btn" onclick="buyNow({ id: 'ms', name: 'Extended M&S Term for FPC', price: 349.99, seats: 1 })">Buy Now</button>
+                </div>
+            </div>
+        </div>
+                
+        <div class="footer">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+                <p>&copy; 2025 WG Inc. All rights reserved.</p>
+                <div>
+                    <p><img src="img/icons/location.svg" alt="Location Icon" style="width:18px;height:auto;vertical-align: middle;"> 34 Robin Rd., Guelph, Canada, N1L 1B4</p>
+                    <p><img src="img/icons/email.svg" alt="Email Icon" style="width:16px;height:auto;vertical-align: middle;"><a href="mailto:contact@wgisoftware.com"> contact@wgisoftware.com</a></p>
+                </div>
+                <div>
+                    <p style="font-weight: bold;">Quick Links</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <p><a href="index.html">Home</a></p>
+                            <p><a href="download.html">Download</a></p>
+                            <p><a href="purchase.html">Purchase</a></p>
+                            <p><a href="support.html">Support</a></p>
+                        </div>
+                        <div>
+                            <p><a href="about.html">About</a></p>
+                            <p><a href="license.html">Terms & Conditions</a></p>
+                            <p><a href="license.html#refund-policy">Refund Policy</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        function updatePrice(priceElementId, seats) {
+            const basePrice = priceElementId === 'fpc_price' ? 999.99 : 349.99;
+            // alert(`"${priceElementId}" seats: ${seats} base price: US$${basePrice.toFixed(2)}`);
+            const totalPrice = basePrice * parseInt(seats, 10);
+            // alert(`"${priceElementId}" seats: ${seats} price: ${totalPrice.toFixed(2)}`);
+            document.getElementById(priceElementId).innerText = `US$${totalPrice.toFixed(2)}`;
+        }
+
+        function buyNow(product) {
+            if (product.id === 'fpc') { // FPC
+                product.seats = parseInt(document.getElementById("fpc_seats").value);
+                // alert(`"${product.name}" with ${product.seats} seats has been added to your cart!`);
+                if (product.seats == 1) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 2) {
+                    window.location.href = 'https://buy.stripe.com/5kQ4gybog8MV1qLaJRf7i21';
+                } else if (product.seats == 3) {
+                    window.location.href = 'https://buy.stripe.com/5kQ8wO9g83sBc5p8BJf7i22';
+                } else if (product.seats == 4) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 5) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 10) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 25) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                }
+            } else { // M&S
+                product.seats = parseInt(document.getElementById("ms_seats").value);
+                alert(`"${product.name}" with ${product.seats} seats has been added to your cart!`);
+                if (product.seats == 1) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 2) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 3) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 4) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 5) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 10) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                } else if (product.seats == 25) {
+                    window.location.href = 'https://buy.stripe.com/bJe9AS1NG0gpedx4ltf7i20';
+                }
+            }
+        }
+
+        const nav = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) nav.style.opacity = '0.9';
+            else nav.style.opacity = '1.0';
+        });
+    </script>
+</html>
