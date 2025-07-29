@@ -16,7 +16,7 @@ function insertNavbar() {
             <div class="company-info">
                 <img src="img/logo-muted.svg" alt="FPC logo" style="width: auto; height: 35px;"></img>
                 <span>&nbsp;</span>
-                <a class="company-name" href="./index.html" onclick="showPage('home')">Flash Point Classifier</a>
+                <a class="company-name" href="./index.html">Flash Point Classifier</a>
             </div>
             <div class="navbar-links">
                 <a href="./download.html">Download</a>
@@ -54,7 +54,7 @@ function insertFooter() {
                 </div>
                 <div>
                     <p style="font-weight: bold;">Contact Us</p>
-                    <p><img src="img/icons/location.svg" alt="Location Icon" style="width:18px;height:auto;vertical-align: middle;"> WG Inc. 34 Robin Rd. Guelph, Canada, N1L 1B4</p>
+                    <p><img src="img/icons/location.svg" alt="Location Icon" style="width:18px;height:auto;vertical-align: middle;"> WG Inc. Guelph, Canada</p>
                     <p><img src="img/icons/email.svg" alt="Email Icon" style="width:16px;height:auto;vertical-align: middle;"><a href="mailto:contact@wgisoftware.com"> contact@wgisoftware.com</a></p>
                 </div>
                 <div style="justify-content: center; align-items: center;">
