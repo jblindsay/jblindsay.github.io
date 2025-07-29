@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Flash Point Classifier</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Flash Point Classifier is a powerful and user-friendly software tool designed to classify airborne lidar point clouds quickly and efficiently. Go from raw data to actionable insights in a flash!">
+        <meta name="keywords" content="lidar,classification,point cloud">
+        <meta name="author" content="WG Inc.">
+        <script src="scripts/common_elements.js"></script>
+    </head>
+    <body onload = "startTimer(); startTimerCarousel();">
+        <div id="navbar"></div>
+
+        <div class="hero-image" id="hero-img">
+            <div class="hero-text">
+                <h1>Flash Point Classifier</h1>
+                <p>Easy-to-use, fast, and flexible tools to classify airborne lidar point clouds</p>
+                <div class="hero-buttons">
+                    <button onclick="redirectToPage('download')">Download</button>
+                    <button onclick="redirectToPage('purchase')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div style="text-align: center; background-color: rgb(255, 255, 255); padding: 30px">
+                <h2>Turn your airborne lidar data into actionable insights with Flash Point Classifier</h2>
+                <p>Flash Point Classifier is a powerful and user-friendly software tool designed to classify airborne lidar point clouds quickly and efficiently. Go from raw data to actionable insights in a flash!</p>
+                <br><br>
+
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+                    <div class="card">
+                        <img src="img/icons/settings.svg" alt="Settings" style="width:30px;height:auto;">
+                        <div class="card_container">
+                            <h3><b>Custom Classification</b></h3> 
+                            <p>Customize the classification and tailor them to your unique data.</p> 
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="img/icons/data.svg" alt="Data" style="width:30px;height:auto;">
+                        <div class="card_container">
+                            <h3><b>Manage Data Locally</b></h3> 
+                            <p>Manage your own data resources. There's no need to upload your data to a 3rd party cloud service.</p> 
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="img/icons/desktop.svg" alt="Cross-platform" style="width:30px;height:auto;">
+                        <div class="card_container">
+                            <h3><b>Cross-platform</b></h3> 
+                            <p>Available for Microsoft Windows and macOS.</p> 
+                        </div>
+                    </div>
+
+                    <div class="card popup" onclick="popupFunction()">
+                        <img src="img/icons/language.svg" alt="Language" style="width:30px;height:auto;">
+                        <div class="card_container">
+                            <h3><b>Multiple Languages</b></h3> 
+                            <!-- <p>Available in 16 languages.</p> -->
+                            <div class="popup" onclick="popupFunction()">Available in 16 languages. Click here to learn more.
+                                <span class="popuptext" id="myPopup">FPC is available in 16 languages, including English, Chinese (Pinyin), Danish, Dutch, Estonian, Finnish, French, German, Greek, Italian, Latvian, Norwegian, Polish, Portuguese, Spanish, and Swedish.</span>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+            </div>
+
+            <div style="text-align: left; background-color: #f1f1f1; padding: 30px; padding-bottom: 40px;">
+                <span style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+                    <img src="img/multi-file-example-dark.png" alt="FPC in action" style="width: 100%; max-width: 400px; height: auto;">
+                    <div class="features-list">
+                        <h2>Lidar classification made easy</h2>
+                        <br>
+                        <div class="slideshow-container" style="width: 700px; margin: auto;">
+
+                            <div class="mySlides fade">
+                                <!-- <div class="numbertext">1 / 4</div> -->
+                                <h3 style="padding: 0px 50px 0px 50px;">Enhanced Productivity</h3>
+                                <p style="padding: 0px 50px 0px 50px;">Designed to streamline your workflow and enhance productivity.</p>
+
+                                <h3 style="padding: 0px 50px 0px 50px;">Parallel Processing</h3>
+                                <p style="padding: 0px 50px 0px 50px;">Process multiple lidar files simultaneously, taking advantage of parallel processing.</p>
+                                <!-- <div class="text">Caption Text</div> -->
+                            </div>
+
+                            <div class="mySlides fade">
+                                <h3 style="padding: 0px 50px 0px 50px;">Ease of Use</h3>
+                                <p style="padding: 0px 50px 0px 50px;">Customize workflows with the easy-to-use interface for efficient classification.</p>
+
+                                <h3 style="padding: 0px 50px 0px 50px;">Advanced Classification</h3>
+                                <p style="padding: 0px 50px 0px 50px;">Utilize advanced algorithms for accurate classification results.</p>
+                            </div>
+
+                            <div class="mySlides fade">
+                                <h3 style="padding: 0px 50px 0px 50px;">Filtering</h3>
+                                <p style="padding: 0px 50px 0px 50px;">Filter your lidar point clouds based on point classes.</p>
+
+                                <h3 style="padding: 0px 50px 0px 50px;">Data Formats</h3>
+                                <p style="padding: 0px 50px 0px 50px;">Save your classified point clouds in various common data formats.</p>
+                            </div>
+
+                            <div class="mySlides fade">
+                                <h3 style="padding: 0px 50px 0px 50px;">Colorize Your Point Cloud</h3>
+                                <p style="padding: 0px 50px 0px 50px;">Colorize your point clouds based on classification results.</p>
+
+                                <h3 style="padding: 0px 50px 0px 50px;">Extensive Documentation</h3>
+                                <p style="padding: 0px 50px 0px 50px;">In-app documentation guides you through your lidar classification workflow.</p>
+                            </div>
+                            
+                            <a class="prev" onclick="plusSlides(-1)">❮</a>
+                            <a class="next" onclick="plusSlides(1)">❯</a>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1)"></span> 
+                            <span class="dot" onclick="currentSlide(2)"></span> 
+                            <span class="dot" onclick="currentSlide(3)"></span> 
+                            <span class="dot" onclick="currentSlide(4)"></span> 
+                        </div>
+
+                        <br><br>
+                        <p style="text-align: center;">Try Flash Point Classifier today with <a href="download.html">our free trial</a> or <a href="purchase.html">purchase a perpetual license</a> now.</p>
+                    </div>
+                </span>
+            </div>
+
+            <div style="text-align: center; background-color: white; padding: 30px; padding-bottom: 60px; padding-left: 200px; padding-right: 200px;">
+                <h2>Classify your lidar point clouds into these categories</h2>
+                <div id="overlay" onclick="off()">
+                    <div id="overlay-content">
+                        <img id="overlay-img" src="img/example-ground.png" alt="Ground" style="width:700px;height:467px;">
+                        <p>Click to close</p>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-ground.png')">
+                                <img src="img/example-ground.png" alt="Ground" style="width:300px;height:200px;">
+                            </div>
+
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/ground.svg" alt="Ground" style="width:36px;height:auto;">
+                                <h2>Ground</h2> 
+                                <p style="padding: 10px;">Separate ground points in flat urban areas and steeper terrains</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-buildings.png')">
+                                <img src="img/example-buildings.png" alt="Buildings" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/buildings.svg" alt="Icon showing several dark gray building shapes with windows, representing urban structures in a city environment" style="width:36px;height:auto;">
+                                <h2>Buildings</h2> 
+                                <p style="padding: 10px;">Classify building roofs and facades</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-vegetation.png')">
+                                <img src="img/example-vegetation.png" alt="Vegetation" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/vegetation.svg" alt="Vegetation" style="width:36px;height:auto;">
+                                <h2>Vegetation</h2> 
+                                <p style="padding: 10px;">Classify low, medium, & high vegetation</p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-powerlines.png')">
+                                <img src="img/example-powerlines.png" alt="Power Lines" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/powerline.svg" alt="Power Line" style="width:36px;height:auto;">
+                                <h2>Power Lines</h2> 
+                                <p style="padding: 10px;">Classify power lines</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-poles.png')">
+                                <img src="img/example-poles.png" alt="Poles" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/pole.svg" alt="Pole" style="width:36px;height:auto;">
+                                <h2>Poles</h2> 
+                                <p style="padding: 10px;">Classify poles and pole-like features</p> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-water.png')">
+                                <img src="img/example-water.png" alt="Water" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/water.svg" alt="Water" style="width:36px;height:auto;">
+                                <h2>Water</h2> 
+                                <p style="padding: 10px;">Classify water bodies</p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-road.png')">
+                                <img src="img/example-road.png" alt="Road" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/road.svg" alt="Road" style="width:36px;height:auto;">
+                                <h2>Paved Surfaces</h2> 
+                                <p style="padding: 10px;">Classify roads & parking lots</p> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-vehicle.png')">
+                                <img src="img/example-vehicle.png" alt="Vehicles" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/vehicle.svg" alt="Vehicle" style="width:36px;height:auto;">
+                                <h2>Vehicles</h2> 
+                                <p style="padding: 10px;">Classify cars and other vehicles</p> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-back" onclick="on('img/example-noise.png')">
+                                <img src="img/example-noise.png" alt="Noise" style="width:300px;height:200px;">
+                            </div>
+                            <div class="flip-card-front">
+                                <br><br>
+                                <img src="img/icons/noise.svg" alt="Noise" style="width:36px;height:auto;">
+                                <h2>Noise</h2> 
+                                <p style="padding: 10px;">Classify and filter low & high noise points</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img src="img/cutten-club.png" alt="Cutten club in point cloud" style="width: 100%; display: block; margin-left: auto; margin-right: auto;">
+
+        <div id="footer"></div>
+    </body>
+
+    <script>
+        // Common elements
+        insertNavbar();
+        insertFooter();
+
+        const zoomAnimationDuration = 20000;
+        const heroImageDuration = 10000;
+        const carouselDuration = 8000;
+
+        // When the user clicks on div, open the popup
+        function popupFunction() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
+
+        // Navbar opacity on scroll
+        const nav = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) nav.style.opacity = '0.9';
+            else nav.style.opacity = '1.0';
+        });
+
+        // Cycle through images with zoom-out animation
+        function displayNextImage() {
+            x = (x === images.length - 1) ? 0 : x + 1;
+            const heroImage = document.getElementById("hero-img");
+            heroImage.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(${images[x]})`;
+            heroImage.style.animation = 'none'; // Temporarily remove animation
+            void heroImage.offsetWidth; // Trigger reflow
+            heroImage.style.animation = `zoomOut ${zoomAnimationDuration / 1000}s ease-out forwards`;
+        }
+
+        function startTimer() {
+            setInterval(displayNextImage, heroImageDuration);
+        }
+
+        var images = [], x = -1;
+        images[1] = "img/hero-image6.png";
+        images[0] = "img/hero-image2.png";
+        images[2] = "img/hero-image3.png";
+        images[3] = "img/hero-image4.png";
+
+
+        // Slideshow functionality
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active";
+        }
+
+        function startTimerCarousel() {
+            setInterval(() => plusSlides(1), carouselDuration);
+        }
+
+
+        // Overlay effect for flip cards to display the back side image larger when clicked
+        function on(imgSrc) {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("overlay-img").src = imgSrc;
+        }
+
+        function off() {
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
+</html>
