@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Introduction - GEOG2420 F25 Lab 1</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html"><strong aria-hidden="true">2.</strong> Part 1: Acquiring Satellite Imagery</a></li><li class="chapter-item expanded "><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Multispectral Imagery Data</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GEOG2420 F25 Lab 1</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="geog2420-the-earth-from-space-f25"><a class="header" href="#geog2420-the-earth-from-space-f25">GEOG*2420 The Earth From Space (F25)</a></h1>
+<h2 id="lab-assignment-1"><a class="header" href="#lab-assignment-1"><strong>Lab Assignment 1</strong></a></h2>
+<p><strong>Assigned:</strong> Week of September 29</p>
+<p><strong>Due:</strong> Week of October 26 (before the beginning of your regularly scheduled lab session)</p>
+<p><strong>Total Marks:</strong> 29 marks (worth 10% of final grade)</p>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>The purpose of this lab exercise is to familiarize students with multispectral imagery data sources used in Earth Observation applications and with the creation of colour-composite images. In this lab, we will work with an images acquired by two of the latest Landsat satellites: Landsat-8 and Landsat-9. Landsat-8 was launched in 2013 and Landsat-9 was launched in 2021. These follow a series of older Landsat satellites that together make up the longest running, continuous stream of earth observations, stretching back to the 1970's. In 2008, NASA and the USGS decided to open the entire Landsat archive - including historical imagery and any future Landsat missions - to the public. This means that imagery acquired by these sensors is available to the global public free of charge, which has been a game-changer in remote sensing, environmental sciences, natural resources management and other applications!</p>
+<p>The sensors on board the various Landsat satellites are <strong>multi-spectral sensors</strong>, meaning that they acquire imagery using several <em>spectral bands</em>. A spectral band is a dened range of wavelengths to which a particular light detector is sensitive. For example, a multi-spectral sensor may include a "green" band that is sensitive to wavelengths ranging from 530nm to 590nm (which is approximately what we perceive to be green). The Landsat-8 and Landsat-9 satellites each have a near-identical copy of the <strong>Operational Land Imager (OLI)</strong> sensor. The OLI has ve spectral bands in the visible portion of the electromagnetic (EM) spectrum ('coastal', blue, green, red and a broadband panchromatic band), one near infrared, three shortwave infrared, and two thermal infrared bands. These are slightly dierent than the older Landsat sensors, since improvements were made with the launch of Landsat-8 and -9. The positions and widths of
+these spectral bands along the EM spectrum is shown in Figure 1.</p>
+<p><img src="img/Figure1.png" alt="Figure 1" /></p>
+<p>Figure 1 compares the spectral bands on the OLI instrument with the Thematic Mapper (TM, on board Landsat-4 and Landsat-5) and the Enhanced Thematic Mapper Plus (ETM+, on board Landsat-7). Notice that the width of the spectral bands has changed with later sensors. This will not be important in this lab, but we will discuss this design decision and what it means for applications later in the course.</p>
+<h2 id="learning-objectives"><a class="header" href="#learning-objectives">Learning Objectives</a></h2>
+<p>By the end of this lab, you will have experience with the following:</p>
+<ul>
+<li>Querying and downloading Landsat imagery on the USGS Earth Explorer platform</li>
+<li>Displaying RGB composites, applying basic colour stretches</li>
+<li>Interpreting Landsat imagery over various land cover type</li>
+<li>Create basic maps using QGIS</li>
+</ul>
+<h2 id="readings-and-resources"><a class="header" href="#readings-and-resources">Readings and Resources</a></h2>
+<p>The following materials, combined with your textbook, can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li>
+<p><a href="http://www.oneonta.edu/faculty/baumanpr/geosat2/rs%20landsat/rs-landsat.htm">Baumann, P.R. 2010. Landsat Program</a></p>
+</li>
+<li>
+<p><a href="https://landsat.gsfc.nasa.gov/landsat-8/">NASA Landsat Science</a></p>
+</li>
+<li>
+<p><a href="https://qgis.org/en/site/">QGIS</a></p>
+</li>
+<li>
+<p><a href="https://docs.qgis.org/3.4/en/docs/user_manual/">QGIS User Manual</a></p>
+</li>
+</ul>
+<h2 id="before-you-begin"><a class="header" href="#before-you-begin">Before you begin</a></h2>
+<p><strong>IMPORTANT INFORMATION</strong>: The computers in the Geography Undergraduate Computing Lab (Hutt 236), have QGIS installed. If you are planning to carry out these assignments on your own computer, then it is important that you have QGIS. This software is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from the Internet and instructions can be found on the QGIS homepage (link provided above).</p>
+<!-- In addition to the software, you will need to **download the data associated with this lab exercise from the CourseLink page** under the Lab 1 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you ***purchase a USB flash drive*** to dedicate to this course and to serve as the data backup. ***It is important that you backup all of the data for the lab assignment.*** -->
+<h2 id="what-you-need-to-hand-in"><a class="header" href="#what-you-need-to-hand-in">What you need to hand in</a></h2>
+<p>You will submit a report summarizing the answer to each of the questions in the following exercise along with the necessary colour images to the CourseLink drop box associated with the assignment.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next prefetch" href="part1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next prefetch" href="part1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
