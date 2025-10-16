@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Introduction</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html"><strong aria-hidden="true">2.</strong> Photo Scale and Image Resolution</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="geog2420-the-earth-from-space-f25"><a class="header" href="#geog2420-the-earth-from-space-f25">GEOG*2420 The Earth From Space (F25)</a></h1>
+<h2 id="lab-assignment-2-air-photo-interpretation-and-photogrammetry"><a class="header" href="#lab-assignment-2-air-photo-interpretation-and-photogrammetry"><strong>Lab Assignment 2: Air Photo Interpretation and Photogrammetry</strong></a></h2>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>The intention of this lab exercise is to familiarize students with the concepts of photo scale and image resolution and to introduce them to the various methods of calculating scale and resolution. Students will also practice the skills of air photo interpretation.</p>
+<h2 id="readings-and-resources"><a class="header" href="#readings-and-resources">Readings and Resources</a></h2>
+<p>The following materials, combined with your textbook, can be used as background materials and to help in answering the assignment questions.</p>
+<ul>
+<li>Airphoto Geometry. Available online: <a href="http://www.engr.usask.ca/classes/GEOE/218/notes/airphoto_reading/apg.htm">http://www.engr.usask.ca/classes/GEOE/218/notes/airphoto_reading/apg.htm</a>.</li>
+</ul>
+<h2 id="before-you-begin"><a class="header" href="#before-you-begin">Before you begin</a></h2>
+<p><strong>IMPORTANT INFORMATION</strong>: The computers in the Geography Undergraduate Computing Lab (Hutt 236), have QGIS and WhiteboxTools installed. If you are planning to carry out these assignments on your own computer, then it is important that you have QGIS, with the <a href="https://plugins.bruy.me/processing-whitebox.html">WhiteboxTools For QGIS</a> toolbox. This software is open-source, freely available, and works on Windows, MacOS, and Linux operating systems. It can be downloaded from the Internet and instructions can be found on the QGIS homepage (link provided above). <strong>For instructions on the installation of the WhiteboxTools plugin for QGIS, please see the <a href="https://jblindsay.github.io/wbt_book/qgis_plugin.html">WhiteboxTools User Manual</a>.</strong></p>
+<p>In addition to the software, you will need to <strong>download the data associated with this lab exercise from the CourseLink page</strong> under the Lab 2 directory. The data for this laboratory is quite large and will require substantial data storage. It is advisable that you <em><strong>purchase a USB flash drive</strong></em> to dedicate to this course and to serve as the data backup. <em><strong>It is important that you backup all of the data for the lab assignment.</strong></em></p>
+<h2 id="what-you-need-to-hand-in"><a class="header" href="#what-you-need-to-hand-in">What you need to hand in</a></h2>
+<p>You will hand in a printed report summarizing the answer to each of the questions in the following exercise along with the necessary colour images. For each of the calculations in this lab, be sure to show your intermediate steps, explicitly stating units and any unit conversions.</p>
+<h3 id="common-units-and-transformations"><a class="header" href="#common-units-and-transformations">Common units and transformations</a></h3>
+<ul>
+<li>1 metre = 100 centimetre = 1,000 millimetres</li>
+<li>1 foot = 12 inches, 1 yard = 3 feet</li>
+<li>1 metre = 3.28 feet, 1 inch = 25.4 millimetres</li>
+</ul>
+<h2 id="background-material"><a class="header" href="#background-material">Background Material</a></h2>
+<p>The scale of an image can be used to relate distances measured on the photo to equivalent ground distances. The <em><strong>photo scale</strong></em> is the ratio of the distance between two points on a photo to the actual distance between the same two points on the ground (i.e. 1 unit on the photo equals "x" units on the ground). It is usually expressed as a Representative Fraction (RF), e.g. 1 / 24,000, or equivalently 1 : 24,000. Notice that to calculate the scale, both the photo distance and the ground distance must be in the same units. Since a representative fraction always has one as the numerator, it is sometimes useful to talk about the <em><strong>Photo Scale Reciprocal</strong></em> (PSR), which is 1 / RF. This a photo with a scale of 1 : 24,000 has a PSR of 24,000.
+Given the following geometry:</p>
+<p><img src="img/camera_geometry.png" alt="Camera geometry" /></p>
+<p>(source: Natural Resources Canada)</p>
+<p>It can be determined that the ratio of the footprint of the photo on the ground to the size of the photograph (marked as focal plane in diagram), is equivalent to the ratio of the altitude of the aircraft above the ground level (AGL) to the focal length (<em>f</em>). The focal length of a camera is the distance from the middle of the camera lens to the focal plane (i.e. the film) and it is a very important parameter of a camera. As focal length increases, image distortion decreases, which is one reason why the cameras used in aerial photography tend to have very large focal lengths (e.g. 6 inches to 12 inches). The focal length of a camera used in aerial surveys is measured when the camera is calibrated to a very high level of precision. Now we can state that RF = <em>f</em> / AGL and PSR = AGL / <em>f</em>. When we know the focal length of the camera used to capture an image as well as the flying height (usually we have the ASL and need to subtract the ground elevation, E, to get the AGL) we can easily calculate the photo scale.</p>
+<p>Unfortunately, often we don't have both the focal length and flying height. In such cases we can calculate the photo scale by measuring the distance between two points in the photo and the corresponding distance on a map (i.e. the ratio of photo distances and ground distances). In applying this method of calculating scale, the two points used for distance calculations should be positioned such that that a line connecting them passes near the principal point (PP), or image centre. They should be approximately equidistant from the PP. Longer distances are preferred, as are lines with relatively flat terrain. The points that you use to measure the distance between should be located on the ground surface and not on any kind of building or other structure. In this way, it is possible to calculate the scale with minimal impact from error due to relief displacement and the effects of image tilt.</p>
+<p>The concept of photo scale makes sense for hard-copy aerial photographs, but it is less meaningful for digital, or softcopy, imagery. For example, if you display the same image on a 27 inch monitor and an 18 inch monitor, the image will be at a different scale. Similarly, if you zoom into or out of the image, again the photo scale will change. In this case, the concept of <em><strong>image resolution</strong></em> is more intuitive. Image resolution is the size of a pixel in terms of its ground dimensions. It is usually presented as a single value that represents the length of one side of a square pixel (although rectangular pixels, where the resolution in the horizontal and vertical directions are different, are possible too).</p>
+<p>The resolution, like the photo scale, is a measure of the amount of detail contained in an image. It is related to the information content of the image. The finer the resolution (e.g. a 5 m grid compared to a 50 m grid) the greater the detailed captured. Similarly, the larger the photo scale (e.g. RF 1 : 5000 compared to 1 : 100,000) the greater the image detail. (<strong>IMPORTANT NOTE</strong>: A scale of 1 : 100,000 is smaller than a scale of 1 : 5000 because the number 1/100,000 is smaller than 1/5000).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next prefetch" href="part1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next prefetch" href="part1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
