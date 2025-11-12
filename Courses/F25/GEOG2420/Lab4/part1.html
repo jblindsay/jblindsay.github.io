@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Lidar Data Pre-Processing</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html" class="active"><strong aria-hidden="true">2.</strong> Lidar Data Pre-Processing</a></li><li class="chapter-item expanded "><a href="part2.html"><strong aria-hidden="true">3.</strong> Using Lidar to Map Sidewalk Encroachment</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="lidar-data-pre-processing"><a class="header" href="#lidar-data-pre-processing">Lidar Data Pre-Processing</a></h1>
+<blockquote>
+<p><em>Warning, the data that are used in this lab are quite large. Do not try to run this lab on your personal laptop if it does not have sufficient memory, available hard drive space, and processing power. If you find yourself in this situation, use the workstations in the undergraduate computing lab instead.</em></p>
+<p><em>Also, you must decompress (i.e. unzip) the lab data files before you can carry out the lab.</em></p>
+</blockquote>
+<p>QGIS is a wonderful software package for visualizing other types of remotely sensed data, such as satellite images, and while it can visualize 3D point clouds like lidar data, it's not particularly well suited to this task. For that, we need a different kind of software. Open a web browser and visit the website <a href="http://plas.io/">http://plas.io</a>. This is a browser-based application for viewing lidar data that are stored in <a href="http://www.asprs.org/wp-content/uploads/2019/03/LAS_1_4_r14.pdf">LAS files</a> (*.las). Set the <em>DENSITY</em> slider to maximum. Press the <strong>Browse</strong> button at the top of the side panel and select the <strong>1km174790476002017.las</strong> from your lab data directory (see note above about ensuring this directory is unzipped). This data set is a 1 km<sup>2</sup> tile taken from the 2017-2018 Lake Erie lidar data set. It is situated within the heart of the City of London, Ontario and was collected during the spring of 2017, before the leaves were on the trees.</p>
+<blockquote>
+<p><em>Now would be a good time for you to watch the NEON Science video on lidar listed in the <a href="./intro.html"><strong>Readings and Resources</strong></a> section of the Introduction, if you haven't already done so.</em></p>
+</blockquote>
+<p>If you scroll further down the side panel, you will see that <em>plas.io</em> has defaulted to the RGB values for the <strong>Colorization</strong> and sets the <strong>Intensity Blending</strong> to 100% ("ALL INTENSITY"). For each return (backscattered point) of a lidar laser pulse, in addition to to recording the x,y,z coordinates of the backscattered point the system also records the intensity of the return. These intensity values are what are being rendered for the 3D point cloud at present. Adjust the Intensity Blending scrollbar to 0% (i.e. "ALL COLOR"). You'll notice that the point cloud disappears. This is because the colour data used to render the point cloud is currently being drawn from the RGB colours associated with each point. While lidar systems do not capture any colour information for the point measurements they make, it is common for lidar surveys to collect a set of air photos at the same time and these data are often used to associate RGB colours with each point. In the case of this particular data set, this was not done at the time of collection and so there are no RGB values stored with the points (thus they are being rendered black, like the background).</p>
+<p>Select "Heightmap Color" under the <strong>Colorization</strong> drop-down menu. Each point will now be coloured based on elevation rather than RGB. You may experiment with different colour palettes (I prefer the one second from the right), and with the colourization scroll bar to adjust the minimum and maximum palette scaling, until you are satisfied with your rendering. Now minimize the side panel and experiment with zooming into and moving around the point cloud. <em>Caution, this is a very large data file and rendering in 3D can be a computationally expensive operation. See the warning at the top of the page about using an appropriate computer to complete this lab. If your laptop does not have an adequate graphics card, your ability to navigate the point cloud will be severely compromised and you may even crash your system.</em></p>
+<blockquote>
+<p>1.1. Provide a screenshot of your rendered 3D point cloud. Also, describe the site characteristics in detail. Notice that in order to get a better context of where exactly this tile of lidar data is in the world, you may use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#lidar_tile_footprint"><strong>Lidar tile footprint</strong></a> tool in the Whitebox Workflows QGIS plugin (<strong>Lidar processing</strong> toolbox) and overlay the output over top the OpenStreetMap layer. Run the <strong>Lidar tile footprint</strong> tool, specifying <strong>1km174790476002017.las</strong> as the input file, and once it has completed and displayed the vector polygon outlining the spatial extent of the lidar file, add the OpenStreetMap layer to QGIS by selecting Layer =&gt; Add Layer =&gt; Add XYZ Layer. (4 marks)</p>
+</blockquote>
+<p>Open the file <strong>LidarInfoReport.html</strong>, located in the lab data directory, in a browser, by double-clicking it. This file is a report on contents and distribution of points contained within the lidar tile <strong>1km174790476002017.las</strong>. It has been generated from the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#lidar_info"><strong>Lidar info</strong></a> tool. I would normally ask that you run the tool and generate the report yourself, but there is currently a bug with the QGIS plugin for WbW on Windows that may cause an error while running and so I have provided the file for you here.</p>
+<blockquote>
+<p>1.2. Examinging the report, what is the total number of points contained in the LAS file? What are the minimum and maximum elevations (z-values) of the points? (3 marks)</p>
+</blockquote>
+<p>Of particular interest to us are the three <strong>Point Returns Analysis</strong> tables (i.e. the <em>Point Return Table</em>, <em>Point Position Table</em>, and <em>Point Classification Table</em>). A lidar system emits many thousands of laser pulses every second. Most of those pulses never make it back to the sensor, but some of them will reflect off of objects below the aircraft and be backscattered towards the sensor and are recorded as a point. By the time the laser makes it to the ground, it has an appreciable size (i.e. it's not the tiny dot that you would recognize as a laser pointer). That laser "footprint" has the potential to intersect and bounce off of multiple surfaces. Thus, each <em>pulse</em> of the laser may be associated with one or more <em>return points</em>. The lidar system used to collect these data was capable of recording up to five separate returns for each pulse.</p>
+<blockquote>
+<p>1.3. What proportion of the points have a return number of either 1 or 2? (1 mark)</p>
+</blockquote>
+<p>The return number information is interesting, however, really it is the information on the return position that is most useful. This tells us about the position of a point relative to other points that were backscattered from the same pulse. Because ALS data are collected with an overhead perspective, returns that are backscattered after others must be closer to the ground. Also, vegetation is very often the land cover that is most associated with multiple returns per pulse. The options for return position include:</p>
+<ul>
+<li>'Only' (i.e. there was only one return for the pulse),</li>
+<li>'First' (i.e. the first of a multi-return group of points),</li>
+<li>'Intermediate' (i.e. neither the first nor last in a return group for a pulse), and;</li>
+<li>'Last' (i.e. the last return of a multi-return set).</li>
+</ul>
+<p>We can confidently know that all first and intermediate return points have been reflected off of objects sitting above the ground. The points that are on the ground surface are a subset of the only and last return points. Some of the only-returns may be the roofs of buildings (where the laser footprint is not split between multiple surfaces) and some of the last-returns may be nearer the ground than their earlier-return cousins, but they may also have been reflected off of low vegetation or tree trunks.</p>
+<blockquote>
+<p>1.4. What proportion of the lidar points were last and only returns? (1 mark)</p>
+</blockquote>
+<p>LAS files may store up to 22 different class types, corresponding to land-cover categories, for each point. You will notice that this file only contains five class values, the largest of which is <em>Unclassified</em>, meaning that no class value was ever assigned. Two of the point class values, <em>Low point</em> and <em>High noise</em>, represent points that are situated anomalously below or above the bulk of the data. These are often data errors and result either from measurement error, birds (high noise), or the mis-calculation of the point's x-y position (perhaps due to a double-bounce). Use <em>plas.io</em> to see if you can find these points sitting below the surface or high above the rest of the point cloud. These data are problematic for other types of analysis. Use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#filter_lidar_classes"><strong>Filter lidar classes</strong></a> tool, located within the Whitebox Workflows <em>Lidar processing</em> toolbox, to remove low points (class 7) and high noise (class 18) from the point cloud. To do this, enter the string <code>7, 18</code> into the exclusion classes parameter of the tool. Call the output LAS file <strong>1km174790476002017_filtered.las</strong>.</p>
+<blockquote>
+<p>1.5. How well does this process work to remove the outlier (low and high noise) points in the original point cloud? Are there any points that are clearly below the surface after the filtering process? Demonstrate the effectiveness of filtering the outlier points in the original data set by providing before-and-after screenshots (this is particularly obvious and easy to do for the low-lying points since they sit well below the ground surface/ Also, as always, you probably want to turn the intensity blending down to 0%). (3 marks)</p>
+</blockquote>
+<p>As we saw above, there was no colour imagery acquired during the time of the lidar survey and therefore there is no RGB data available to render. If we have access to a colour air photo of the same site, then we can use this data to provide RGB colour information for our point cloud. Fortunately, the <a href="https://geohub.lio.gov.on.ca/maps/6f7e3b50a1ab42108a8f127acb9ff021/explore?location=43.629483%2C-81.038561%2C6">Southwestern Ontario Orthophotography Project (SWOOP)</a> digital orthophoto data set, which we have described in lecture, provides fine-resolution imagery for this same area of Ontario. In your Lab data folder, you will find a GeoTIFF air photo <strong>1km174790476002010MAPCON.tif</strong> that was collected during the 2010 SWOOP campaign (note the difference in acquisition date compared with the lidar data). Conveniently, this photo overlaps completely with the 1 km<sup>2</sup> area covered by our lidar data set. Using QGIS, open this GeoTIFF file to get a sense of the data. Now use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#lidar_colourize"><strong>Lidar colourize</strong></a> tool to provide RGB information for each lidar point in the filtered LAS file (i.e. <strong>1km174790476002017_filtered.las</strong>). Call the output LAS file <strong>1km174790476002017_colourized.las</strong>. When the tool is complete, open <strong>1km174790476002017_colourized.las</strong> using <em>plas.io</em> and be sure to reduce the intensity blending to 0% (it always defaults to a higher value) and colourize based on the RGB values.</p>
+<blockquote>
+<p>1.6. Provide a screenshot of your rendered colourized point cloud. (2 marks)</p>
+<p>1.7. What issues do you suppose may arise as a result of the difference in the acquisition dates between the air photo and the lidar data? Show some example screen shots to illustrate your answer. (3 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
