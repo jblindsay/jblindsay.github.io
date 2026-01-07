@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 1: Introduction to Geoprocessing - GEOG3420 W26 Lab 1</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1.html" class="active"><strong aria-hidden="true">2.</strong> Part 1: Introduction to Geoprocessing</a></li><li class="chapter-item expanded "><a href="part2.html"><strong aria-hidden="true">3.</strong> Part 2: Multispectral Imagery Data</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GEOG3420 W26 Lab 1</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="part-1-introduction-to-geoprocessing"><a class="header" href="#part-1-introduction-to-geoprocessing">Part 1: Introduction to Geoprocessing</a></h1>
+<h2 id="what-is-geoprocessing"><a class="header" href="#what-is-geoprocessing">What is geoprocessing?</a></h2>
+<p>In this set of lab exercises, we will be analyzing satellite imagery and other types of Earth Observation (EO) data by writing <a href="https://www.python.org/"><strong>Python</strong></a>-based geoprocessing scripts. The term <strong>geoprocessing</strong> is used to describe any of the various processes in which specialized software tools are used to compare, analyze, or manipulate map layers, and their underlying geospatial data, to create new data. In past courses, you may have become familiar with using graphical user interface (GUI) based software, such as ArcGIS/Pro and QGIS, to manipulate geospatial data. Typically, when using this type of software, you open a specific tool's dialog, enter the appropriate parameters, which may include input/output files and various settings, and then display the results. You may have even used this approach to carry out sophisticated <strong>geospatial analysis workflows</strong>, involving several operations carried out in sequence. This essentially describes <strong>manual geoprocessing</strong>. The problem with this approach is that it doesn't scale well to real-life problems, i.e. the types of tasks that geospatial professionals encounter in their day-to-day work. For example, it may be the case that you need to perform the same geoprocessing workflow on dozens, hundreds, or even thousands of different input data sets, or perhaps you need to repeat the same process periodically in the future. When this is the case, you will likely need to adopt an <strong>automated geoprocessing</strong> approach.</p>
+<p>Perhaps you've already performed some automated geoprocessing in previous courses, maybe in the form of an ArcGIS/Pro ModelBuilder or other graphical modeller, or perhaps even a Python or R script. Scripting (i.e. programming) is a particularly flexible and extremely powerful means of developing automated geoprocessing workflows. This is the reason why so many job advertisments in the fields of Remote Sensing and GIS ask for programming experience from applicants. Python programming experience in particular is among the most common requests for employers in geomatics.</p>
+<h2 id="starting-with-python"><a class="header" href="#starting-with-python">Starting with Python</a></h2>
+<p>I don't expect that you'll become an expert in Python programming by the end of this course; we are only hoping that you will gain a basic level of competency with using Python to interact with geospatial data. However, it is an essential learning outcome of this lab exercise and will be the basis of a great deal of remote sensing applications that we will use throughout this series of assignments this semester. If you have never used Python before, you may want to do a bit of independent learning by reading over some of the many useful web-based Python tutorials (Google 'Python tutorial'). One useful resource, specifically geared towards Python geoprocessing applications, can be found <a href="https://pythongis.org/part1/chapter-02/index.html"><strong>here</strong></a>. Because Python is such a high-level programming language that is close to human spoken languages (specifically English), generally people find it very fast to build basic compentency with the language, which is why it's so widely used in these applications.</p>
+<p>To begin, make sure that Python is installed and available in the computing environment that you are using to carry out this exercise, which may be one of the networked computers in the lab, your own personal computer, or perhaps even a cloud-based computing enviornment like Google Colab. To determine if Python is available, open a terminal (usually called the 'command prompt' on Windows) and type the following:</p>
+<p><code>python --version</code></p>
+<p>This should print out something like the following:</p>
+<blockquote>
+<p>Python 3.12.0</p>
+</blockquote>
+<p>Notice, the Python version number should be in the 3.X range. If instead, your default Python is in the 2.X range, type:</p>
+<p><code>python3 --version</code></p>
+<p>If this command shows that Python 3 is installed on your computer, but isn't the default version, then when carrying out this set of lab exercises, whenever you see <code>python</code>, you will need to type <code>python3</code> instead.</p>
+<p>If the command above yields a statement about <code>python</code> not being a recognized command, you likely don't have Python installed in your computing environment. Note, <strong>Python should be installed on the computers in the lab</strong> but it may not be if you're using your personal computer. In this case, you will need install Python 3. Visit the <a href="https://www.python.org/"><strong>Python webpage</strong></a> and follow the instructions for installation found there. <strong>Importantly</strong> when you go through the install process on Windows, towards the end of the process there will be a small checkbox asking whether you want to install Python on the PATH. Be very sure to check that box, which it is not by default! You may have to reload your terminal application after installing Python before the <code>python --version</code> command recognizes the now-installed Python.</p>
+<h2 id="wbw-for-geoprocessing"><a class="header" href="#wbw-for-geoprocessing">WbW for geoprocessing</a></h2>
+<p>We'll be using the <a href="https://www.whiteboxgeo.com/whitebox-workflows-for-python/"><strong>Whitebox Workflows for Python (WbW)</strong></a> software for automated geoprocessing in this course. WbW is a Python library for geoprocessing and includes hundreds of functions for manipulating and analyzing geospatial data. WbW is built on top of the <a href="https://www.whiteboxgeo.com/geospatial-software/"><strong>WhiteboxTools</strong></a> open-source geospatial analysis platform. However, it is quite different from WhiteboxTools and has certain characteristics that make it better suited to the types of analysis that we'll be carrying out in these exercises. Most importantly, it allows us to directly manipulate geospatial data objects in our Python scripts, which WhiteboxTools does not.</p>
+<h3 id="installing-wbw"><a class="header" href="#installing-wbw">Installing WbW</a></h3>
+<p>You'll need to install WbW on your computer to use it. Now that you have confirmed that you have Python installed on your computer, you should be able to simply type the following line at the command prompt of your terminal application to install WbW:</p>
+<pre><code>pip install whitebox-workflows
+</code></pre>
+<p>Use <code>pip3</code> instead if Python 2.X is your default system Python version. <code>pip</code> is Python's default package manager for installing and updating various Python libraries.</p>
+<p>If you have an older version of WbW installed and want to update it to the latest version, simply type the following command:</p>
+<pre><code>pip install whitebox-workflows -U
+</code></pre>
+<p>For a demonstration of the install process, please see <a href="https://www.youtube.com/watch?v=D4z8mMmQeE8">this YouTube video</a>.</p>
+<h3 id="using-wbw"><a class="header" href="#using-wbw">Using WbW</a></h3>
+<p>Now that we've ensured that Python is available and that WbW is installed on our computer, it's time to write our first Python WbW script. To do this, we need to use a Python code editor. In reality, we could use any text editor (e.g. Notepad), however, there are benifits in using software that is specifically designed for writing code. Most notably, autocomplete is a powerful function that greatly simplifies the coding experience. For our purposes, I will suggest that we use <strong>Visual Studio Code</strong> for our scripting needs, although you can use whatever coding environment you are most comfortable with (e.g., Python's default IDLE). If you're on your own computer and don't have VS Code installed, do so for free by following the instructions on <a href="https://code.visualstudio.com/"><strong>this site</strong></a>.</p>
+<p>Open VS Code and, using the File Explorer on the left panel, create a new file called <code>wbw_test.py</code> in a directory that you will dedicate for this course (it may be on a network drive or a USB stick, but if it is on the local C-drive of one of the lab computers, <em>be sure to back-up your data/code each time before logging out of the computer</em>). Either copy and paste or type the following code into this newly created file.</p>
+<p><em>wbw_test.py</em></p>
+<pre><code class="language-python">import whitebox_workflows
+
+wbe = whitebox_workflows.WbEnvironment()
+try:
+    # For now, let's just print the WbW version to make sure things are set up correctly.
+    print(wbe.version())
+
+    # But this is where we would put calls to various geoprocessing functions.
+except Exception as e:
+    print("The error raised is: ", e)
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Python is a space-sensitive programming language and you need to have the indentations absolutely correct in your script for it to run correctly. This is something that can often go wrong when you are copying and pasting code into a script file.</p>
+</blockquote>
+<p>You can run your script either by pressing the triangle-shaped 'Run-code' button in the menu (this may requre that the <em>Code Runner</em> extension is installed first), or simply by running the script in the terminal. VS Code has a built-in terminal usually located on the bottom of the main panel. To run your script from the terminal, which I recommend, <a href="https://en.wikipedia.org/wiki/Cd_(command)"><code>cd</code></a> (<code>chdir</code> in the Windows command prompt), i.e., change your directory, to the location of your script file and then simply type <code>python wbw_test.py</code>.</p>
+<p>After the script has run, if Python and WbW have been correctly installed, you should see something similar to this:</p>
+<blockquote>
+<p>[Running] python -u "/Users/jl/Documents/teaching/GEOG3420/Labs/Lab1/Code/wbw_test.py"<br />
+Whitebox Workflows for Python v1.3.3 by Whitebox Geospatial Inc. <br />
+Developed by Dr. John B. Lindsay, (c) 2022-2024<br />
+<br />
+Description:<br />
+Whitebox Workflows for Python is an advanced geospatial data analysis platform <br />
+and Python extension module.<br />
+Successful license check-in\</p>
+<p>[Done] exited with code=0 in 0.52 seconds</p>
+</blockquote>
+<h2 id="questions-for-part-1"><a class="header" href="#questions-for-part-1">Questions for Part 1</a></h2>
+<p>In completing your answers to the questions below, don't forget to reference your sources.</p>
+<blockquote>
+<p>1.1. What is the difference between manual and automated geoprocessing? Provide an example of a geoprocessing operation. (2 marks)</p>
+<p>1.2. Using the Python programming language, how do you loop through (i.e. iterate) a sequence, e.g. each of the numbers 1 to 10? (1 mark)</p>
+<p>1.3. What are some of the characteristics of Python that make it particularly suited to geoprocessing? (Hint, you may want to read the section 'Why Python?' in the Python for Geographic Data Analysis link provided in the text above.) (4 marks, based on quality of the answer)</p>
+<p>1.4. What is the meaning of the <code>try</code> and <code>except</code> block of code in the script above? What does it do for us? (1 mark)</p>
+<p>1.5. In WbW, how do you set the working directory, i.e., the folder containing the data that we are working with? (1 mark)</p>
+<p>1.6. How do you tell WbW whether or not to print the output (e.g. the progress) of functions that are run? (1 mark)</p>
+<p>1.7. What function do you use to read a single raster in WbW? How would you read multiple rasters (e.g., the multiple bands of a multispectral satellite image) at one time in a WbW Python script? (2 marks)</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
