@@ -176,15 +176,21 @@
                         <h1 id="part-3-conversion-of-dns-to-surface-reflectance"><a class="header" href="#part-3-conversion-of-dns-to-surface-reflectance">Part 3: Conversion of DNs to Surface Reflectance</a></h1>
 <p>In this lab exercise we have been using a Landsat 9 data set that covers the exact same scene that we used in Lab 1. However, the multispectral imagery data set used here has been processed differently before I acquired it. Specifically, the Lab 1 image data set was a Level-1 (L1TP) Landsat image while the data set used in this lab is a Level-2 (L2) scene.</p>
 <blockquote>
-<p>3.1. What is the difference between Landsat Level-1 and Level-2 data? (2 mark)</p>
+<ol start="14">
+<li>What is the difference between Landsat Level-1 and Level-2 data? (2 mark)</li>
+</ol>
 </blockquote>
 <p>The raw digital numbers (DNs) contained in the pixels of a satellite image are useful for creating visualizations and for qualitative analysis of the scene. However, before a multispectral image data set can be used for quantiative analysis (e.g. in a land-cover classification) it should be converted into reflectance values. In Lab Exercise 1, we learned that the metadata file distributed with each Landsat scene contains a great deal information about the scene. These metadata also contain the paramters needed to convert the raw DNs into either radiance or reflectance values. Certain remote sensing applications (e.g. applications that require comparing different images of the same site through time or images of different places, or comparing images from different sensors) require the use of calibrated imagery data containing reflectance values. Therefore, it is important to know how to transform the raw imagery into calibrated form.</p>
 <blockquote>
-<p>3.2. What are the differences between image DNs, radiance values, and reflectance values? (3 marks)</p>
+<ol start="15">
+<li>What are the differences between image DNs, radiance values, and reflectance values? (3 marks)</li>
+</ol>
 </blockquote>
 <p>The process of calibrating raw satellite imagery into reflectance values may include several steps, often including a conversion of DN to radiance, a model for removing the effects of varying illumination within the scene (due to the sun angle, the earth-sun distance, terrain, and clouds and cloud shadows), and an atmospheric correction model. There are varying levels of sophistication that can be used during calibration and the exact process will also vary depending on the exact satellite and sensor. The image data set that we used in Lab 1 was a Level-1 (L1) Landsat 9 image data set. Landsat Level-1 data can be easily converted from their raw DNs into either radiance or top-of-the-atomosphere (TOA) reflectance values using conversion parameters contained in their metadata. TOA relfectance values are suitable for some applications, but many applications will require surface reflectance values, which can only be derived by atmospheric corrections. While this is often an involved process that requires specialized software and knowledge of the condition of the atmosphere at the time the imagery was acquired, fortunately NASA and the USGS provide another tier of Landsat data products that have already been atmospherically corrected, Landsat Level-2 (L2) data.</p>
 <blockquote>
-<p>3.3 Explain the difference between TOA reflectance and surface reflectance. Why is surface reflectance the best data for change detection applications? (3 marks)</p>
+<ol start="16">
+<li>Explain the difference between TOA reflectance and surface reflectance. Why is surface reflectance the best data for change detection applications? (3 marks)</li>
+</ol>
 </blockquote>
 <p>We are going to examine the basic method used to convert Landsat 9 L2 DNs into surface reflectance values. The basic conversion from digital numbers (DN) to reflectance (ρ) values is:</p>
 <blockquote>
@@ -256,12 +262,20 @@ except Exception as e:
 </code></pre>
 <p>This script may take some time before completing but it will provide you with periodic updates on progress (e.g. <code>Transforming band 1...</code>). Hopefully, the script runs without issue. It is one of the longest scripts that we've seen so far and because it involves reading and parsing text data, there is the potential for system-specific bugs to occur (e.g. if you have the wrong working directory or file names). If you encounter errors when you run the above script, examine the script carefully to see if you can identify the source of the bug. Once you have gained a full understanding of what the script is doing (see the detailed comments), and have exhausted debugging options (e.g. adding print statements in the script to see how far it progresses, searching the Internet for solutions), then you may approach fellow students or the GTA for assistance.</p>
 <blockquote>
-<p>3.4. Exactly how would you need to alter the above script if you wanted to transform all seven surface reflectance (SR) bands of the Landsat 9 Operational Land Imager (OLI) imagery available for this data set? Identify which line(s) of the script you would need to alter and how. (1 mark)</p>
+<ol start="17">
+<li>Exactly how would you need to alter the above script if you wanted to transform all seven surface reflectance (SR) bands of the Landsat 9 Operational Land Imager (OLI) imagery available for this data set? Identify which line(s) of the script you would need to alter and how. (1 mark)</li>
+</ol>
 </blockquote>
 <p>Once you have successfully run the script, display each of the five transformed bands using your visualization software. You will notice that they look similar to the original bands, however, their value range is very different. If you click on individual pixel values throughout the image, you'll see that the vast majority of pixels are within the 0-1 range (although some pixels do fall outside this range). Each pixel now contains a reflectance value, expressed as a proportion.</p>
 <blockquote>
-<p>3.5. Exactly how might you alter the above script if you wanted the reflectance values to be expressed as percentages? (1 mark)</p>
-<p>3.6. In QGIS, open the <em>Layer Properties</em> of one of the original band (pre-transformation) images and look at the <em>Information</em> tab (or equivalent in ArcGIS). Now do the same for the corresponding transformed reflectance band image (you may need to close the one properties window before opening the next). How has the transformation changed the file size and the data type? Why do you think this change has occurred? (3 marks)</p>
+<ol start="18">
+<li>
+<p>Exactly how might you alter the above script if you wanted the reflectance values to be expressed as percentages? (1 mark)</p>
+</li>
+<li>
+<p>In QGIS, open the <em>Layer Properties</em> of one of the original band (pre-transformation) images and look at the <em>Information</em> tab (or equivalent in ArcGIS). Now do the same for the corresponding transformed reflectance band image (you may need to close the one properties window before opening the next). How has the transformation changed the file size and the data type? Why do you think this change has occurred? (3 marks)</p>
+</li>
+</ol>
 </blockquote>
 
                     </main>

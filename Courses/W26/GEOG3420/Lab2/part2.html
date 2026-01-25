@@ -219,19 +219,39 @@ except Exception as e:
 
 </code></pre>
 <blockquote>
-<p>2.1. Include screenshots of both the resulting Band 2 contrast-stretched image (<code>band2_gaussian_cs.tif</code>) and the associated histogram with your lab hand-in. (2 marks)</p>
-<p>2.2. Describe how the histogram of the stretched image compares to the original Band 2 histogram. How has it been modified? (2 marks)</p>
-<p>2.3. Compare the contrast of the Gaussian stretched images for several bands to the original iamges. In particular, what objects/land covers are associated with the darkest and the brightest parts of the image? Are you able to distinguish features, such as individual agricultural fields, better in the contrast enhanced image than the original? How much contrast is there between the water (Lake Ontario and Lake Erie) and the surrounding land? Are the streets within urban centres (e.g. Toronto) visible or are they "washed out", i.e. have poor contrast? (5 marks)</p>
+<ol start="5">
+<li>
+<p>Include screenshots of both the resulting Band 2 contrast-stretched image (<code>band2_gaussian_cs.tif</code>) and the associated histogram with your lab hand-in. (2 marks)</p>
+</li>
+<li>
+<p>Describe how the histogram of the stretched image compares to the original Band 2 histogram. How has it been modified? (2 marks)</p>
+</li>
+<li>
+<p>Compare the contrast of the Gaussian stretched images for several bands to the original iamges. In particular, what objects/land covers are associated with the darkest and the brightest parts of the image? Are you able to distinguish features, such as individual agricultural fields, better in the contrast enhanced image than the original? How much contrast is there between the water (Lake Ontario and Lake Erie) and the surrounding land? Are the streets within urban centres (e.g. Toronto) visible or are they "washed out", i.e. have poor contrast? (5 marks)</p>
+</li>
+</ol>
 </blockquote>
 <p>Now try to modify your script to use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#histogram_equalization"><strong>histogram_equalization</strong></a> function instead. Be sure to save the modification as a new file, i.e. perhaps change the saved file name suffix from <code>_gaussian_ce</code> to <code>_histo_eq</code>. Also, generate the histogram for this newly created histogram-equalized images as well. Be sure to examine the help for this tool in the <em>WbW</em> User Manual, so that you are sure you are calling the <code>histogram_equalization()</code> function correctly.</p>
 <blockquote>
+<ol start="8">
+<li>
 <p>Include your script for performing the histogram equalization contrast stretch, as well as screenshots of the resulting Band 2 image and histogram, with your lab hand-in. (3 marks for the script + 2 marks for the screenshots = 5 marks)</p>
-<p>2.4. Discuss the effects of the histogram equalization contrast stretch on the quality of the image. (5 marks)</p>
+</li>
+<li>
+<p>Discuss the effects of the histogram equalization contrast stretch on the quality of the image. (5 marks)</p>
+</li>
+</ol>
 </blockquote>
 <p>Finally, modify your script again, this time making it apply the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#percentage_contrast_stretch"><strong>percentage_contrast_stretch</strong></a>. Use a <em>clip</em> value of 0.5 and be sure to clip both tails of the distribution.</p>
 <blockquote>
-<p>2.5. Which of the three tested contrast enhancement techniques afforded you the greatest control over the contrast properties of the output image. Be sure to provide justification for your answer. (2 marks)</p>
-<p>2.6. How did the shape of the histogram of the percentage contrast stretched image compare with the original image histogram? (2 marks)</p>
+<ol start="10">
+<li>
+<p>Which of the three tested contrast enhancement techniques afforded you the greatest control over the contrast properties of the output image. Be sure to provide justification for your answer. (2 marks)</p>
+</li>
+<li>
+<p>How did the shape of the histogram of the percentage contrast stretched image compare with the original image histogram? (2 marks)</p>
+</li>
+</ol>
 </blockquote>
 <p>Write a Python script to create true colour composites images (use the <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/tool_help.html#create_colour_composite"><strong>create_colour_composite</strong></a> function; a true colour composite maps bands 4, 3, and 2 into the RGB channels) for the original and each of the gaussian stretched, histogram equalization stretched, and percentage stretched image sets. Be sure to set the <code>enhance</code> parameter of the <code>create_colour_composite</code> functio to <code>False</code>, which is not its default value. To write this script, I would suggest that you examine the general structure of each of the previous scripts that we've seen thus far in this course. Use the general framework of importing whitebox_workflows, creating the <code>wbe</code> WbEnvironment object, and the <code>try</code>-<code>except</code>-<code>finally</code> structure. Within the <code>try</code> block, you should put the working logic of your code. You will similarly need to set your working directory and other environment variables (e.g. verbose). Next, you will need to read in each of the images needed to create your colour composites, before then providing these images as input parameters to the <strong>create_colour_composite</strong> function (as <code>red</code>, <code>green</code>, and <code>blue</code> parameters; note, the <code>opacity</code> input is optional, and we won't need to set it). Don't forget, you can <a href="https://www.whiteboxgeo.com/manual/wbw-user-manual/book/read-writing-data.html"><strong>read multiple files</strong></a> in at a time like this:</p>
 <pre><code class="language-python">band2, band3, band4 = wbe.read_rasters('band2_gaussian_ce.tif', 'band3_gaussian_ce.tif', 'band4_gaussian_ce.tif')
@@ -239,8 +259,14 @@ colour_comp = wbe.create_colour_composite(red=band4, green=band3, blue=band2, en
 </code></pre>
 <p>And of course, don't forget to save your colour composites to file (<code>wbe.write_raster</code>).</p>
 <blockquote>
+<ol start="12">
+<li>
 <p>Include your script with your lab hand-in. (3 marks)</p>
-<p>2.7. Describe the impact of the contrast various contrast enhancement strategies on the colour composite images with respect to their contrast characteristics and the appearance of colours (e.g. to colours appear natural or unnaturals in some of the treatments?). (3 marks)</p>
+</li>
+<li>
+<p>Describe the impact of the contrast various contrast enhancement strategies on the colour composite images with respect to their contrast characteristics and the appearance of colours (e.g. to colours appear natural or unnaturals in some of the treatments?). (3 marks)</p>
+</li>
+</ol>
 </blockquote>
 
                     </main>

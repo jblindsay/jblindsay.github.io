@@ -179,11 +179,15 @@
 <p>This is a similar scene as the imagery that we used in Lab 1, however, it has had some extra processing (it is a Landsat 9 Level-2 image data set compared with the Level-1 data that we used in Lab 1). You may notice that overall this image appears to be quite dark and generally has poor contrast. Image contrast describes the degree to which objects or features within an image can be distinguished in relation to other nearby objects within the scene by their varying brightness. When all of the features in an image are similarly dark, or similarly bright, then the image has poor contrast. Image contrast is one of the most important characteristcs determining the usefulness of an image in visual interpretation (by humans) and the image's overall information content.</p>
 <p>When an image appears overall dark with poor contrast, as with our Band 2 image, it is the result of a relatively small number of very bright pixels. The majority of pixels occupy relatively dark radiometric positions, i.e, darker greytones, because of these few very bright pixels. This is very often the result of the presence of cloud cover in the image, clouds being highly reflective throughout much of the spectrum used in Earth observation. However, this is not the case for our scene. Furthermore, the processing used to generate this Landsat 9 Level-2 image can remove some cloud cover. And yet this image still contains some pixels that are much brighter.</p>
 <blockquote>
-<p>1.1. Inspect the image closely. What broadly defined land-cover type is associated with the very brightest pixels in this scene? Here, adding an OpenStreetMap layer can be helpful in your interpretation. (1 mark)</p>
+<ol>
+<li>Inspect the image closely. What broadly defined land-cover type is associated with the very brightest pixels in this scene? Here, adding an OpenStreetMap layer can be helpful in your interpretation. (1 mark)</li>
+</ol>
 </blockquote>
 <p>Display the Band 2 image's histogram; in QGIS, you would do this by opening the layer properties, selecting the <em>Histogram</em> tab (on the left), and finally pressing the <em>Compute Histogram</em> button. An image histogram shows the frequency distribution of pixel values. You'll notice that the Band 2 image histogram is bimodal, i.e. that it has two peaks.</p>
 <blockquote>
-<p>1.2. Why do you think that this image histogram is bimodal? What land-cover types are associated with the two peaks in the histogram? (2 marks)</p>
+<ol start="2">
+<li>Why do you think that this image histogram is bimodal? What land-cover types are associated with the two peaks in the histogram? (2 marks)</li>
+</ol>
 </blockquote>
 <p>Another thing that you'll notice about the Band 2 image histogram is that it doesn't occupy the full <em>dynamic range</em>. The dynamic range is a reference to the range in brightness values and is related to the radiometric resolution, or bit-depth of the sensor. In the case of Landsat 9, the OLI-2 sensor has a 14-bit radiometric resolution, meaning that it is capable of producing images with 16384 different greytones. Using the script below apply the Whitebox Workflows <code>raster_summary</code> function to calculate the minimum, maximum, and average digital numbers (DNs) in each of the seven bands of imagery associated with the scene.</p>
 <p><em>raster_summary.py</em></p>
@@ -220,8 +224,14 @@ except Exception as e:
 
 </code></pre>
 <blockquote>
-<p>1.3. What are the minimum, maximum, and average DNs for each of the bands of imagery? (7 marks)</p>
-<p>1.4. Is the average DN nearer the minimum or the maximum for each of the bands? What does this imply in terms of the contrast of thee images? (2 marks)</p>
+<ol start="3">
+<li>
+<p>What are the minimum, maximum, and average DNs for each of the bands of imagery? (7 marks)</p>
+</li>
+<li>
+<p>Is the average DN nearer the minimum or the maximum for each of the bands? What does this imply in terms of the contrast of thee images? (2 marks)</p>
+</li>
+</ol>
 </blockquote>
 <p>In reality, the minimum and maximum pixel values occupy the extremes of the frequency distribution and there are relatively few cells in these regions of the histograms. This is an important thing to remember for the next section of this lab on contrast enhancements.</p>
 
