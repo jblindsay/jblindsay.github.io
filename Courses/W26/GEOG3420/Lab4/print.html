@@ -188,13 +188,13 @@
 <p>You will need to download the data associated with this lab assignment from the GEOG*3420 CourseLink site. These data, as usual, are quite large and you will need to consider data storage solutions (e.g. a dedicated USB memory stick for the course).</p>
 <p><strong>Important</strong></p>
 <p>Up until this point in the semester, you have been using functions within Whitebox Workflows (WbW) that are within its free tier. In this lab we will be using some functions that are within the Whitebox Workflows Professional tier product. To use these functions, you will need to specify a floating-license ID, a three-word phrase, that <strong>your TA will provide you at the start of the lab</strong>. We will need to structure our scripts somewhat differently to use this license. For example:</p>
-<pre><code class="language-python">from whitebox_workflows import available_functions, WbEnvironment
+<pre><code class="language-python">from whitebox_workflows import WbEnvironment
 
 # Checks for a valid floating license stored on remote server
-license_id = 'your-license-id' # Update this string to the three-word floating-license ID provided by your TA
+license_id = 'floating-license-id' # Update this string to the three-word floating-license ID provided by your TA
 wbe = WbEnvironment(license_id) 
 try:
-    available_functions(wbe)
+    print(wbe.version())
 
     # Do some processing here including calling some WbW-Pro tool functions...
 except Exception as e:
@@ -286,7 +286,7 @@ finally:
 <blockquote>
 <ol start="3">
 <li>
-<p>How similar are the distributions of reflectances for the two urban land-cover types, <em>Industrial/Commercial</em> and <em>Residential</em>? (2 marks)</p>
+<p>How similar are the distributions of reflectances for the two urban land-cover types, <em>Industrial</em> and <em>Residential</em>? (2 marks)</p>
 </li>
 <li>
 <p>Are there classes that you expect to be more difficult to accurately distinguish because of their overlap among all bands? Are there certain classes that you expect will have no issue being accurately classified owing to their wide separability in reflectance characteristics compared with the other classes? (3 marks)</p>
