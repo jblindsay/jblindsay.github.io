@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geography Enrollment Analysis</title>
+<style>
+/* ─── App shell ──────────────────────────────────────────────────────────── */
+:root { --red:#c8102e; --dark:#222; --mid:#666; --light:#f5f5f5; --border:#ddd; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+     color:var(--dark);background:#f0f0f0;min-height:100vh}
+#app{max-width:860px;margin:0 auto;padding:1.5rem}
+h1{font-size:1.5rem;font-weight:700}
+h2{font-size:1rem;font-weight:600;margin-bottom:.75rem;
+   text-transform:uppercase;letter-spacing:.05em;color:var(--mid)}
+.card{background:#fff;border-radius:6px;border:1px solid var(--border);
+      padding:1.25rem;margin-bottom:1rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+/* header */
+.app-header{background:var(--red);color:#fff;padding:1rem 1.5rem;
+            border-radius:6px;margin-bottom:1rem}
+.app-header p{font-size:.875rem;opacity:.85;margin-top:.2rem}
+/* settings */
+details>summary{cursor:pointer;list-style:none;display:flex;
+                align-items:center;gap:.5rem;font-weight:600;
+                font-size:.95rem;user-select:none}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▶";font-size:.6rem;color:var(--mid);
+                         transition:transform .15s;display:inline-block}
+details[open]>summary::before{transform:rotate(90deg)}
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+               margin-top:1rem}
+.settings-grid .full{grid-column:1/-1}
+label{display:block;font-size:.8rem;font-weight:600;color:var(--mid);
+      text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem}
+textarea{width:100%;padding:.5rem .6rem;border:1px solid var(--border);
+         border-radius:4px;font-family:monospace;font-size:.82rem;
+         resize:vertical;color:var(--dark)}
+textarea:focus{outline:2px solid var(--red);border-color:transparent}
+/* file picker */
+.file-row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+          margin-top:.75rem}
+.btn-folder{display:inline-flex;align-items:center;gap:.4rem;
+            background:var(--light);border:1px solid var(--border);
+            border-radius:4px;padding:.45rem .9rem;cursor:pointer;
+            font-size:.875rem;font-weight:600;transition:background .15s}
+.btn-folder:hover{background:#e8e8e8}
+#file-status{font-size:.85rem;color:var(--mid)}
+#file-status.ok{color:#1a7a30;font-weight:600}
+#file-status.err{color:var(--red)}
+/* buttons */
+.btn{border:none;border-radius:4px;padding:.5rem 1.1rem;cursor:pointer;
+     font-size:.875rem;font-weight:600;transition:opacity .15s}
+.btn:disabled{opacity:.4;cursor:default}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover:not(:disabled){opacity:.88}
+.btn-secondary{background:var(--light);border:1px solid var(--border);color:var(--dark)}
+.btn-secondary:hover:not(:disabled){background:#e8e8e8}
+.settings-foot{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.75rem}
+/* results bar */
+#results-bar{display:flex;align-items:center;justify-content:space-between;
+             flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.results-right{display:flex;gap:.5rem;flex-wrap:wrap}
+/* report iframe */
+#report-frame{width:100%;border:none;border-radius:6px;
+              box-shadow:0 2px 8px rgba(0,0,0,.1);display:block;
+              min-height:400px}
+/* spinner */
+#spinner{display:none;text-align:center;padding:2rem;color:var(--mid)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="app-header">
+    <h1>Geography Enrollment Analysis</h1>
+    <p>Select a semester folder of class-list files to generate the enrollment report.</p>
+  </div>
+
+  <!-- ── Setup panel ───────────────────────────────────────────────────── -->
+  <div id="panel-setup">
+    <div class="card">
+      <details id="det-settings" open>
+        <summary>⚙&nbsp; Settings</summary>
+        <div class="settings-grid">
+          <div>
+            <label>Home Programs <span style="font-weight:400;text-transform:none">(one per line)</span></label>
+            <textarea id="ta-programs" rows="9" spellcheck="false"></textarea>
+          </div>
+          <div>
+            <div style="margin-bottom:.75rem">
+              <label>Home Minors <span style="font-weight:400;text-transform:none">(suffix | display name | file stem)</span></label>
+              <textarea id="ta-minors" rows="4" spellcheck="false"></textarea>
+            </div>
+            <div>
+              <label>Graduate Programs <span style="font-weight:400;text-transform:none">(one per line)</span></label>
+              <textarea id="ta-grad" rows="4" spellcheck="false"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="settings-foot">
+          <button class="btn btn-secondary" id="btn-reset">Reset to defaults</button>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2>Semester Folder</h2>
+      <p style="font-size:.875rem;color:var(--mid);margin-bottom:.75rem">
+        Select the folder that contains the class-list <code>.txt</code> files
+        for the semester (e.g. the <code>F26</code> folder).
+      </p>
+      <div class="file-row">
+        <label class="btn-folder" for="folder-input">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 5a2 2 0 012-2h4l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"/>
+          </svg>
+          Choose folder…
+        </label>
+        <input type="file" id="folder-input" webkitdirectory multiple style="display:none">
+        <span id="file-status">No folder selected</span>
+      </div>
+      <div style="margin-top:1rem">
+        <button class="btn btn-primary" id="btn-run" disabled>▶&nbsp; Run Analysis</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Results panel ─────────────────────────────────────────────────── -->
+  <div id="panel-results" hidden>
+    <div id="results-bar">
+      <button class="btn btn-secondary" id="btn-back">← New Analysis</button>
+      <div class="results-right">
+        <button class="btn btn-primary" id="btn-zip">⬇&nbsp; Download Email Lists (ZIP)</button>
+        <button class="btn btn-secondary" id="btn-report-dl">⬇&nbsp; Download Report</button>
+      </div>
+    </div>
+    <div id="spinner">Generating report…</div>
+    <iframe id="report-frame" title="Enrollment report"></iframe>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ZIP BUILDER  (store / no compression — valid ZIP, no external library)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const CRC32_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let j = 0; j < 8; j++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[i] = c;
+  }
+  return t;
+})();
+
+function crc32(data) {
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < data.length; i++)
+    c = (c >>> 8) ^ CRC32_TABLE[(c ^ data[i]) & 0xFF];
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+
+class ZipBuilder {
+  constructor() { this._e = []; }
+
+  addText(name, text) {
+    const data = new TextEncoder().encode(text);
+    this._e.push({ name, data, crc: crc32(data) });
+  }
+
+  build() {
+    const enc = new TextEncoder();
+    const parts = [], centralDir = [];
+    let offset = 0;
+    for (const { name, data, crc } of this._e) {
+      const nb = enc.encode(name), nl = nb.length, dl = data.length;
+      const lh = new Uint8Array(30 + nl);
+      const lv = new DataView(lh.buffer);
+      lv.setUint32(0, 0x04034B50, true); lv.setUint16(4, 20, true);
+      lv.setUint32(14, crc, true);
+      lv.setUint32(18, dl, true); lv.setUint32(22, dl, true);
+      lv.setUint16(26, nl, true); lh.set(nb, 30);
+      parts.push(lh, data);
+      const cd = new Uint8Array(46 + nl);
+      const cv = new DataView(cd.buffer);
+      cv.setUint32(0, 0x02014B50, true); cv.setUint16(4, 20, true); cv.setUint16(6, 20, true);
+      cv.setUint32(16, crc, true);
+      cv.setUint32(20, dl, true); cv.setUint32(24, dl, true);
+      cv.setUint16(28, nl, true); cv.setUint32(42, offset, true); cd.set(nb, 46);
+      centralDir.push(cd);
+      offset += lh.length + dl;
+    }
+    const cdSize = centralDir.reduce((s, e) => s + e.length, 0);
+    const eocd = new Uint8Array(22);
+    const ev = new DataView(eocd.buffer);
+    ev.setUint32(0, 0x06054B50, true);
+    ev.setUint16(8, this._e.length, true); ev.setUint16(10, this._e.length, true);
+    ev.setUint32(12, cdSize, true); ev.setUint32(16, offset, true);
+    const all = [...parts, ...centralDir, eocd];
+    const out = new Uint8Array(all.reduce((s, p) => s + p.length, 0));
+    let pos = 0;
+    for (const p of all) { out.set(p, pos); pos += p.length; }
+    return out;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DEFAULTS & SETTINGS
+// ═══════════════════════════════════════════════════════════════════════════
+
+const DEFAULTS = {
+  programs: [
+    'BAH.EGOV','BAH.GEOG','BAG.GEOG','BSCH.EG',
+    'BSES.EO','BSES.ERM','MA.GEOG','MSC.GEOG','PHD.GEOG',
+  ].join('\n'),
+  minors: '-GEOG | Geography | GeogMinor\n-AG | Applied Geomatics | AGMinor',
+  grad: 'MA.GEOG\nMSC.GEOG\nPHD.GEOG',
+};
+
+const LS_KEY = 'geo-enroll-v1';
+
+function loadSettings() {
+  try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(LS_KEY) || '{}') }; }
+  catch { return { ...DEFAULTS }; }
+}
+function saveSettings(s) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {}
+}
+
+function parseConfig(programsText, minorsText, gradText) {
+  const homePrograms = programsText.split('\n').map(s => s.trim()).filter(Boolean);
+  const homeMinors = minorsText.split('\n').map(s => s.trim()).filter(Boolean).map(s => {
+    const p = s.split('|').map(x => x.trim());
+    return [p[0] || '', p[1] || '', p[2] || ''];
+  }).filter(([sfx]) => sfx);
+  const gradPrograms = new Set(gradText.split('\n').map(s => s.trim()).filter(Boolean));
+  return { homePrograms, homeMinors, gradPrograms };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CORE HELPERS  (direct ports from Python)
+// ═══════════════════════════════════════════════════════════════════════════
+
+function hasMinor(program, suffix) {
+  let start = 0;
+  while (true) {
+    const idx = program.indexOf(suffix, start);
+    if (idx === -1) return false;
+    const end = idx + suffix.length;
+    if (end >= program.length || program[end] === '-') return true;
+    start = end;
+  }
+}
+
+function stripProgram(raw) {
+  for (const sep of ['-', '+', ':']) {
+    const idx = raw.indexOf(sep);
+    if (idx > 0) raw = raw.slice(0, idx).trim();
+  }
+  return raw;
+}
+
+function isHomeProgram(stripped, homePrograms) {
+  return homePrograms.some(hp => stripped.includes(hp));
+}
+
+function isGraduate(stripped, gradPrograms) {
+  for (const gp of gradPrograms) if (stripped.includes(gp)) return true;
+  return false;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CSV / HTML UTILITIES
+// ═══════════════════════════════════════════════════════════════════════════
+
+function csvField(v) {
+  const s = String(v ?? '');
+  return (s.includes(',') || s.includes('"') || s.includes('\n'))
+    ? `"${s.replace(/"/g, '""')}"` : s;
+}
+function csvRow(fields) { return fields.map(csvField).join(','); }
+
+function htmlEsc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                  .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function sortedStudents(map) {
+  return [...map.values()].sort((a, b) =>
+    a.lastName.localeCompare(b.lastName) || a.firstName.localeCompare(b.firstName));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CSV ROW PARSING
+// ═══════════════════════════════════════════════════════════════════════════
+
+function parseRows(text) {
+  return text.split(/\r?\n/).map(l => l.trim()).filter(l => l && l[0] !== 'S').flatMap(line => {
+    const f = line.split(',');
+    if (f.length < 10) return [];
+    const id = parseInt(f[0].trim());
+    if (isNaN(id)) return [];
+    return [{
+      id,
+      lastName:  f[1].trim(),
+      firstName: f[2].trim(),
+      program:   f[6].trim(),
+      level:     f[7].trim(),
+      email:     f[8].trim(),
+      rev:       parseInt(f[9].trim()) || 99999,
+    }];
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MAIN ANALYSIS  (faithful port of main() parsing section)
+// ═══════════════════════════════════════════════════════════════════════════
+
+function runAnalysis(fileMap, config) {
+  const { homePrograms, homeMinors, gradPrograms } = config;
+  const allNames = [...fileMap.keys()].sort();
+
+  // Detect semester
+  let semester = '';
+  for (const n of allNames) {
+    const idx = n.indexOf('_');
+    if (idx > 0 && 'fw'.includes(n[0].toLowerCase())) { semester = n.slice(0, idx); break; }
+  }
+  if (!semester) return { error: 'Could not determine semester from file names (expected e.g. F26_GEOG1200.txt).' };
+
+  const geogFiles = allNames.filter(n => n.includes('GEOG'));
+  const coopFiles = allNames.filter(n => n.includes('COOP'));
+
+  let numStudents = 0, numMajors = 0, numNonMajors = 0, revision = 99999;
+  const overallPrograms = new Map();
+  const geogMinors      = new Map();
+  const geogStudentMap  = new Map();
+  const minorStudentMaps = new Map(homeMinors.map(([s]) => [s, new Map()]));
+  const classSummaries  = [];
+
+  // ── GEOG courses ──────────────────────────────────────────────────────
+  for (const name of geogFiles) {
+    const text = fileMap.get(name);
+    if (!text) continue;
+    const className = name.replace(`${semester}_`, '').replace(/\.(txt|csv)$/, '');
+    const programsInClass = new Map(), clsLevels = new Map();
+    let numInClass = 0, numMajorsInClass = 0;
+
+    for (const row of parseRows(text)) {
+      if (row.rev < revision) revision = row.rev;
+      const stud = { id: row.id, lastName: row.lastName, firstName: row.firstName,
+                     program: row.program, level: row.level, email: row.email };
+
+      // year-level counter
+      const lv = parseFloat(row.level) || 0;
+      const yr = Math.ceil(lv / 2);
+      clsLevels.set(yr, (clsLevels.get(yr) || 0) + 1);
+
+      // minor detection
+      const matched = homeMinors.filter(([sfx]) => hasMinor(row.program, sfx)).map(([sfx]) => sfx);
+      if (matched.length > 0) {
+        geogMinors.set(row.program, (geogMinors.get(row.program) || 0) + 1);
+        for (const sfx of matched) {
+          const m = minorStudentMaps.get(sfx);
+          if (m && !m.has(row.id)) m.set(row.id, stud);
+        }
+      }
+
+      const prgm = stripProgram(row.program);
+      programsInClass.set(prgm, (programsInClass.get(prgm) || 0) + 1);
+      overallPrograms.set(prgm, (overallPrograms.get(prgm) || 0) + 1);
+      numInClass++;
+
+      if (isHomeProgram(prgm, homePrograms)) {
+        numMajorsInClass++;
+        if (!geogStudentMap.has(row.id)) geogStudentMap.set(row.id, stud);
+      }
+    }
+
+    const nonMajors = numInClass - numMajorsInClass;
+    numMajors    += numMajorsInClass;
+    numNonMajors += nonMajors;
+    numStudents  += numInClass;
+    classSummaries.push({ name: className, total: numInClass,
+      majors: numMajorsInClass, nonMajors, programs: programsInClass, levels: clsLevels });
+  }
+
+  // ── COOP courses ──────────────────────────────────────────────────────
+  const coopStudentMap     = new Map();
+  const coopStudentCourses = new Map();
+
+  for (const name of coopFiles) {
+    const text = fileMap.get(name);
+    if (!text) continue;
+    const courseName = name.replace(`${semester}_`, '').replace(/\.(txt|csv)$/, '');
+    for (const row of parseRows(text)) {
+      if (row.rev < revision) revision = row.rev;
+      const prgm = stripProgram(row.program);
+      if (!isHomeProgram(prgm, homePrograms)) continue;
+      const stud = { id: row.id, lastName: row.lastName, firstName: row.firstName,
+                     program: row.program, level: row.level, email: row.email };
+      if (!coopStudentMap.has(row.id)) coopStudentMap.set(row.id, stud);
+      const courses = coopStudentCourses.get(row.id) || [];
+      courses.push(courseName);
+      coopStudentCourses.set(row.id, courses);
+    }
+  }
+  // merge co-op students into main set
+  for (const [id, stud] of coopStudentMap)
+    if (!geogStudentMap.has(id)) geogStudentMap.set(id, stud);
+
+  // ── derived stats ─────────────────────────────────────────────────────
+  const numGeogProgs = [...overallPrograms.keys()].filter(p => isHomeProgram(p, homePrograms)).length;
+  const sorted = sortedStudents(geogStudentMap);
+
+  const ourMajorHisto = new Map();
+  for (const stud of sorted) {
+    const p = stripProgram(stud.program);
+    if (isGraduate(p, gradPrograms)) continue;
+    const k = `${p}-total`;
+    ourMajorHisto.set(k, (ourMajorHisto.get(k) || 0) + 1);
+  }
+  for (const stud of sorted) {
+    const p = stripProgram(stud.program);
+    if (isGraduate(p, gradPrograms)) continue;
+    const y = Math.floor((parseFloat(stud.level) || 0) / 2.0) + 1;
+    const k = `${p}-${y}`;
+    ourMajorHisto.set(k, (ourMajorHisto.get(k) || 0) + 1);
+  }
+
+  const minorCounts = new Map();
+  for (const [sfx] of homeMinors) {
+    let cnt = 0;
+    for (const [prog, c] of geogMinors) if (hasMinor(prog, sfx)) cnt += c;
+    minorCounts.set(sfx, cnt);
+  }
+
+  const enrollByLevel = new Map();
+  for (const cs of classSummaries) {
+    const lv = parseInt(cs.name.charAt(4));
+    if (!isNaN(lv)) { const a = enrollByLevel.get(lv) || []; a.push(cs.total); enrollByLevel.set(lv, a); }
+  }
+
+  return { semester, revision, numStudents, numMajors, numNonMajors,
+    geogClassCount: geogFiles.length, overallPrograms, numGeogProgs,
+    classSummaries, geogStudentMap, minorStudentMaps, geogMinors, minorCounts,
+    hasCoopFiles: coopFiles.length > 0, coopStudentMap, coopStudentCourses,
+    ourMajorHisto, enrollByLevel, homeMinors, homePrograms, gradPrograms };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HTML REPORT BUILDER
+// ═══════════════════════════════════════════════════════════════════════════
+
+const REPORT_CSS = `
+:root{--red:#c8102e;--dark:#222;--mid:#666;--light:#f5f5f5;--border:#ddd}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+     color:var(--dark);background:#fff;line-height:1.5}
+header{background:var(--red);color:#fff;padding:1.5rem 2rem}
+header h1{font-size:1.6rem;font-weight:700}
+header p{font-size:.9rem;opacity:.85;margin-top:.25rem}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+h2{border-bottom:3px solid var(--red);padding-bottom:.3rem;margin:2.5rem 0 1rem;
+   font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em}
+h3{margin:1.5rem 0 .5rem;font-size:.85rem;color:var(--mid);
+   text-transform:uppercase;letter-spacing:.04em}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+           gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--light);border-left:4px solid var(--red);
+           padding:1rem 1.25rem;border-radius:4px}
+.stat-card .value{font-size:1.6rem;font-weight:700;color:var(--red);line-height:1.2}
+.stat-card .value small{font-size:.9rem}
+.stat-card .label{font-size:.78rem;color:var(--mid);margin-top:.2rem}
+table{width:100%;border-collapse:collapse;font-size:.875rem;margin-bottom:1rem}
+th{background:var(--red);color:#fff;text-align:left;padding:.5rem .75rem;
+   font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+td{padding:.4rem .75rem;border-bottom:1px solid var(--border)}
+tr:nth-child(even) td{background:var(--light)}
+tr.home td{background:#fff8e1}
+tr.home td:first-child{font-weight:600}
+details{margin-bottom:.4rem}
+summary{cursor:pointer;list-style:none;padding:.6rem .9rem;background:var(--light);
+        border:1px solid var(--border);border-radius:4px;font-weight:600;
+        font-size:.9rem;display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"\\25B6";font-size:.65rem;margin-right:.5rem;color:var(--mid);
+                transition:transform .15s;display:inline-block}
+details[open]>summary::before{transform:rotate(90deg)}
+details[open]>summary{border-radius:4px 4px 0 0;border-bottom-color:transparent}
+.stats{font-weight:400;font-size:.8rem;color:var(--mid)}
+.inner{border:1px solid var(--border);border-top:none;border-radius:0 0 4px 4px;padding:1rem}
+.bar-wrap{min-width:100px}
+.bar{height:8px;background:var(--red);border-radius:2px;display:inline-block}
+.bar.other{background:#bbb}
+footer{margin-top:3rem;padding:1rem 2rem;font-size:.8rem;color:var(--mid);
+       border-top:1px solid var(--border);text-align:center}
+`;
+
+function buildReportHTML(result, emailListNames) {
+  const { semester, revision, numStudents, numMajors, numNonMajors,
+    geogClassCount, overallPrograms, numGeogProgs, classSummaries,
+    geogStudentMap, minorStudentMaps, geogMinors, minorCounts,
+    hasCoopFiles, coopStudentMap, coopStudentCourses,
+    ourMajorHisto, enrollByLevel, homeMinors, homePrograms, gradPrograms } = result;
+
+  const revStr = revision < 99999 ? String(revision) : 'N/A';
+  const now = new Date().toISOString().slice(0,16).replace('T',' ');
+  const esc = htmlEsc;
+  const pct = (a, b) => b ? `${(100*a/b).toFixed(1)}%` : '—';
+
+  const progList = [...new Set(
+    [...ourMajorHisto.keys()].filter(k => k.endsWith('-total')).map(k => k.slice(0,-6))
+  )].sort();
+  const yrNums = [...ourMajorHisto.keys()]
+    .filter(k => !k.endsWith('-total'))
+    .map(k => parseInt(k.split('-').pop())).filter(n => !isNaN(n) && n > 0);
+  const maxYr = Math.min(yrNums.length ? Math.max(...yrNums) : 5, 8);
+
+  const lines = [];
+  const w = (...a) => lines.push(...a);
+
+  w('<!DOCTYPE html>', '<html lang="en">', '<head>',
+    '<meta charset="UTF-8">',
+    '<meta name="viewport" content="width=device-width,initial-scale=1">',
+    `<title>Geography Enrollment \u2014 ${esc(semester)}</title>`,
+    '<style>', REPORT_CSS, '</style>',
+    '</head>', '<body>', '<header>',
+    '<h1>Geography Enrollment Analysis</h1>',
+    `<p>Semester: <strong>${esc(semester)}</strong>` +
+    ` &nbsp;|&nbsp; Generated: ${now}` +
+    ` &nbsp;|&nbsp; Class-list revision: ${revStr}` +
+    ` &nbsp;|&nbsp; John Lindsay (jlindsay@uoguelph.ca)</p>`,
+    '</header>', '<main>');
+
+  // ── overall stats ────────────────────────────────────────────────────
+  w('<h2>Overall Statistics</h2>', '<div class="stat-grid">');
+  for (const [label, value] of [
+    ['Classes',            String(geogClassCount)],
+    ['Total seats',        String(numStudents)],
+    ['Majors (seats)',     `${numMajors} &nbsp;<small>(${pct(numMajors,numStudents)})</small>`],
+    ['Non-majors (seats)', `${numNonMajors} &nbsp;<small>(${pct(numNonMajors,numStudents)})</small>`],
+    ['Other programs',     String([...overallPrograms.keys()].length - numGeogProgs)],
+  ]) w(`<div class="stat-card"><div class="value">${value}</div><div class="label">${esc(label)}</div></div>`);
+  w('</div>');
+
+  // ── year-level enrollment averages ───────────────────────────────────
+  if (enrollByLevel.size > 0) {
+    w('<h2>Year-level Enrollment Averages</h2>', '<table>',
+      '<thead><tr><th>Course level</th><th>Courses</th><th>Total</th><th>Average</th><th>Range</th></tr></thead>',
+      '<tbody>');
+    for (const lv of [...enrollByLevel.keys()].sort((a,b) => a-b)) {
+      const counts = enrollByLevel.get(lv);
+      const avg = counts.reduce((s,x) => s+x, 0) / counts.length;
+      const mn = Math.min(...counts), mx = Math.max(...counts);
+      w(`<tr><td>${lv}000-level</td><td>${counts.length}</td><td>${counts.reduce((s,x)=>s+x,0)}</td><td><strong>${avg.toFixed(0)}</strong></td><td>${mn}\u2013${mx}</td></tr>`);
+    }
+    w('</tbody></table>');
+  }
+
+  // ── class breakdowns ─────────────────────────────────────────────────
+  if (classSummaries.length > 0) {
+    w('<h2>Class Breakdowns</h2>');
+    for (const cs of classSummaries) {
+      if (cs.total === 0) continue;
+      const pm = 100*cs.majors/cs.total, pn = 100*cs.nonMajors/cs.total;
+      w('<details>',
+        `<summary>${esc(cs.name)}<span class="stats">total: ${cs.total} &nbsp;|&nbsp; majors: ${cs.majors} (${pm.toFixed(1)}%) &nbsp;|&nbsp; non-majors: ${cs.nonMajors} (${pn.toFixed(1)}%) &nbsp;|&nbsp; ${cs.programs.size} programs</span></summary>`,
+        '<div class="inner">', '<table>',
+        '<thead><tr><th>Program</th><th>Count</th><th>%</th><th></th></tr></thead>', '<tbody>');
+      for (const homeFirst of [true, false]) {
+        for (const p of [...cs.programs.keys()].sort()) {
+          if (isHomeProgram(p, homePrograms) !== homeFirst) continue;
+          const cnt = cs.programs.get(p), pp = 100*cnt/cs.total;
+          const cls = homeFirst ? ' class="home"' : '';
+          const bw = Math.max(2, Math.round(pp * 1.5));
+          const bc = homeFirst ? 'bar' : 'bar other';
+          w(`<tr${cls}><td>${esc(p)}</td><td>${cnt}</td><td>${pp.toFixed(1)}%</td><td class="bar-wrap"><div class="${bc}" style="width:${bw}px"></div></td></tr>`);
+        }
+      }
+      w('</tbody></table>');
+      if (cs.levels.size > 0) {
+        w('<h3>Year-level distribution</h3>', '<table style="width:auto">',
+          '<thead><tr><th>Year</th><th>Students</th></tr></thead>', '<tbody>');
+        for (const yr of [...cs.levels.keys()].sort((a,b)=>a-b)) {
+          if (cs.levels.get(yr) > 0) w(`<tr><td>${yr}</td><td>${cs.levels.get(yr)}</td></tr>`);
+        }
+        w('</tbody></table>');
+      }
+      w('</div></details>');
+    }
+  }
+
+  // ── majors by year pivot ─────────────────────────────────────────────
+  if (progList.length > 0) {
+    const yrThs = Array.from({length:maxYr},(_,i)=>`<th>Yr&nbsp;${i+1}</th>`).join('');
+    w('<h2>Majors by Year</h2>', '<table>',
+      `<thead><tr><th>Program</th>${yrThs}<th>Total</th></tr></thead>`, '<tbody>');
+    for (const prog of progList) {
+      const yrTds = Array.from({length:maxYr},(_,i)=>{
+        const v = ourMajorHisto.get(`${prog}-${i+1}`) || 0;
+        return `<td>${v || ''}</td>`;
+      }).join('');
+      const total = ourMajorHisto.get(`${prog}-total`) || 0;
+      w(`<tr><td><strong>${esc(prog)}</strong></td>${yrTds}<td><strong>${total}</strong></td></tr>`);
+    }
+    w('</tbody></table>');
+  }
+
+  // ── minors breakdown ─────────────────────────────────────────────────
+  w('<h2>Minors Breakdown</h2>', '<div class="stat-grid">');
+  for (const [sfx, display] of homeMinors)
+    w(`<div class="stat-card"><div class="value">${minorCounts.get(sfx)||0}</div><div class="label">${esc(display)} minor (seats)</div></div>`);
+  w('</div>');
+  for (const [sfx, display] of homeMinors) {
+    const entries = [...geogMinors.entries()].filter(([k]) => hasMinor(k, sfx));
+    if (entries.length === 0) continue;
+    w(`<h3>${esc(display)} minor \u2014 program breakdown</h3>`, '<table>',
+      '<thead><tr><th>Program</th><th>Count</th></tr></thead>', '<tbody>');
+    for (const [prog, cnt] of entries.sort((a,b) => a[0].localeCompare(b[0])))
+      w(`<tr><td>${esc(prog)}</td><td>${cnt}</td></tr>`);
+    w('</tbody></table>');
+  }
+
+  // ── co-op students ───────────────────────────────────────────────────
+  if (hasCoopFiles && coopStudentMap.size > 0) {
+    const byProg = new Map();
+    for (const stud of sortedStudents(coopStudentMap)) {
+      const p = stripProgram(stud.program);
+      const a = byProg.get(p) || []; a.push(stud); byProg.set(p, a);
+    }
+    w('<h2>Co-op Students</h2>', '<div class="stat-grid">',
+      `<div class="stat-card"><div class="value">${coopStudentMap.size}</div><div class="label">Geography majors on co-op</div></div>`);
+    for (const [prog, studs] of [...byProg.entries()].sort((a,b)=>a[0].localeCompare(b[0])))
+      w(`<div class="stat-card"><div class="value">${studs.length}</div><div class="label">${esc(prog)}</div></div>`);
+    w('</div>', '<table>',
+      '<thead><tr><th>Program</th><th>Name</th><th>COOP Course(s)</th></tr></thead>',
+      '<tbody>');
+    for (const [, studs] of [...byProg.entries()].sort((a,b)=>a[0].localeCompare(b[0]))) {
+      for (const stud of studs) {
+        const courses = (coopStudentCourses.get(stud.id) || []).join(', ');
+        w(`<tr><td>${esc(stud.program)}</td><td>${esc(stud.lastName)}, ${esc(stud.firstName)}</td><td>${esc(courses)}</td></tr>`);
+      }
+    }
+    w('</tbody></table>');
+  }
+
+  // ── email lists note ─────────────────────────────────────────────────
+  if (emailListNames && emailListNames.length > 0) {
+    w('<h2>Email Lists</h2>',
+      '<p style="font-size:.875rem;color:#555;margin-bottom:.75rem">The following CSV files are included in the downloaded ZIP.</p>',
+      '<table>', '<thead><tr><th>#</th><th>File</th></tr></thead>', '<tbody>');
+    emailListNames.forEach((n, i) => w(`<tr><td>${i+1}</td><td>${esc(n)}</td></tr>`));
+    w('</tbody></table>');
+  }
+
+  w('</main>',
+    '<footer>',
+    `Geography Enrollment Analysis &mdash; Semester ${esc(semester)} &mdash; Generated ${now} &mdash; Class-list revision ${revStr} &mdash; John Lindsay (jlindsay@uoguelph.ca)`,
+    '</footer>', '</body>', '</html>');
+
+  return lines.join('\n');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EMAIL LIST BUILDERS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function buildEmailLists(result) {
+  const { semester, revision, geogStudentMap, minorStudentMaps,
+          coopStudentMap, coopStudentCourses, hasCoopFiles,
+          homeMinors, homePrograms, gradPrograms } = result;
+  const now = new Date().toISOString().slice(0,16).replace('T',' ');
+  const files = new Map();
+
+  function makeHeader(program, semLabel) {
+    return [
+      csvRow(['Program:', program]),
+      csvRow(['Semester:', semLabel]),
+      csvRow([`Data compiled on ${now} based on class lists revision ${revision}`, '']),
+      csvRow(['', '']),
+      csvRow(['Program','Last Name','First Name','Student Number','Email','Class Level']),
+    ].join('\n') + '\n';
+  }
+
+  // per-program lists
+  for (const program of homePrograms) {
+    if ([...gradPrograms].some(gp => program.includes(gp))) continue;
+    const stem = program.replace(/\./g, '_');
+    const rows = sortedStudents(geogStudentMap)
+      .filter(s => s.program.includes(program))
+      .map(s => csvRow([s.program, s.lastName, s.firstName, s.id, s.email, s.level]));
+    files.set(`${semester}_${stem}.csv`, makeHeader(program, semester) + rows.join('\n'));
+  }
+
+  // minor lists
+  for (const [sfx, display, fileStem] of homeMinors) {
+    const mMap = minorStudentMaps.get(sfx) || new Map();
+    const rows = sortedStudents(mMap)
+      .filter(s => hasMinor(s.program, sfx))
+      .map(s => csvRow([s.program, s.lastName, s.firstName, s.id, s.email, s.level]));
+    const hdr = [
+      csvRow(['Program:', `${display} Minor`]),
+      csvRow(['Semester:', semester]),
+      csvRow([`Data compiled on ${now} based on class lists revision ${revision}`, '']),
+      csvRow(['', '']),
+      csvRow(['Program','Last Name','First Name','Student Number','Email','Class Level']),
+    ].join('\n') + '\n';
+    files.set(`${semester}_${fileStem}.csv`, hdr + rows.join('\n'));
+  }
+
+  // co-op list
+  if (hasCoopFiles && coopStudentMap.size > 0) {
+    const hdr = [
+      csvRow(['Program:', 'Co-op Students']),
+      csvRow(['Semester:', semester]),
+      csvRow([`Data compiled on ${now} based on class lists revision ${revision}`, '']),
+      csvRow(['', '']),
+      csvRow(['Program','Last Name','First Name','Student Number','Email','Class Level','COOP Course(s)']),
+    ].join('\n') + '\n';
+    const rows = sortedStudents(coopStudentMap).map(s => {
+      const courses = (coopStudentCourses.get(s.id) || []).join(', ');
+      return csvRow([s.program, s.lastName, s.firstName, s.id, s.email, s.level, courses]);
+    });
+    files.set(`${semester}_CoopStudents.csv`, hdr + rows.join('\n'));
+  }
+
+  return files;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DOWNLOAD UTILITIES
+// ═══════════════════════════════════════════════════════════════════════════
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+function downloadZip(emailFiles, semester) {
+  const zip = new ZipBuilder();
+  for (const [name, content] of emailFiles) zip.addText(name, content);
+  downloadBlob(new Blob([zip.build()], {type:'application/zip'}),
+               `${semester}_email_lists.zip`);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UI
+// ═══════════════════════════════════════════════════════════════════════════
+
+// DOM refs
+const taPrograms  = document.getElementById('ta-programs');
+const taMinors    = document.getElementById('ta-minors');
+const taGrad      = document.getElementById('ta-grad');
+const folderInput = document.getElementById('folder-input');
+const fileStatus  = document.getElementById('file-status');
+const btnRun      = document.getElementById('btn-run');
+const btnReset    = document.getElementById('btn-reset');
+const panelSetup  = document.getElementById('panel-setup');
+const panelResults= document.getElementById('panel-results');
+const btnBack     = document.getElementById('btn-back');
+const btnZip      = document.getElementById('btn-zip');
+const btnReportDl = document.getElementById('btn-report-dl');
+const reportFrame = document.getElementById('report-frame');
+const spinner     = document.getElementById('spinner');
+const detSettings = document.getElementById('det-settings');
+
+// State
+let selectedFileMap = null;
+let lastResult      = null;
+let lastEmailFiles  = null;
+let lastReportHTML  = null;
+
+// ── initialise settings ──────────────────────────────────────────────────
+(function init() {
+  const s = loadSettings();
+  taPrograms.value = s.programs;
+  taMinors.value   = s.minors;
+  taGrad.value     = s.grad;
+})();
+
+// persist settings on change
+[taPrograms, taMinors, taGrad].forEach(ta => ta.addEventListener('input', () => {
+  saveSettings({ programs: taPrograms.value, minors: taMinors.value, grad: taGrad.value });
+}));
+
+btnReset.addEventListener('click', () => {
+  taPrograms.value = DEFAULTS.programs;
+  taMinors.value   = DEFAULTS.minors;
+  taGrad.value     = DEFAULTS.grad;
+  saveSettings({ programs: DEFAULTS.programs, minors: DEFAULTS.minors, grad: DEFAULTS.grad });
+});
+
+// ── folder selection ─────────────────────────────────────────────────────
+folderInput.addEventListener('change', async () => {
+  const relevant = [...folderInput.files].filter(f => {
+    const rel = f.webkitRelativePath || f.name;
+    const parts = rel.split('/');
+    return parts.length <= 2 && (f.name.endsWith('.txt') || f.name.endsWith('.csv'));
+  });
+
+  if (relevant.length === 0) {
+    fileStatus.className = 'err';
+    fileStatus.textContent = 'No .txt or .csv files found directly in the selected folder.';
+    btnRun.disabled = true;
+    selectedFileMap = null;
+    return;
+  }
+
+  // read all files
+  const map = new Map();
+  await Promise.all(relevant.map(async f => {
+    try { map.set(f.name, await f.text()); } catch { /* skip unreadable */ }
+  }));
+
+  // detect semester
+  let semester = '';
+  for (const n of [...map.keys()].sort()) {
+    const idx = n.indexOf('_');
+    if (idx > 0 && 'fw'.includes(n[0].toLowerCase())) { semester = n.slice(0, idx); break; }
+  }
+
+  const geogCount = [...map.keys()].filter(n => n.includes('GEOG')).length;
+  const coopCount = [...map.keys()].filter(n => n.includes('COOP')).length;
+
+  if (geogCount === 0) {
+    fileStatus.className = 'err';
+    fileStatus.textContent = `${map.size} files loaded — no GEOG class-list files found.`;
+    btnRun.disabled = true;
+    selectedFileMap = null;
+    return;
+  }
+
+  selectedFileMap = map;
+  btnRun.disabled = false;
+  fileStatus.className = 'ok';
+  fileStatus.textContent =
+    `Semester: ${semester || '?'} — ${geogCount} GEOG file${geogCount!==1?'s':''}, ` +
+    `${coopCount} COOP file${coopCount!==1?'s':''} (${map.size} total)`;
+});
+
+// ── run analysis ─────────────────────────────────────────────────────────
+btnRun.addEventListener('click', () => {
+  if (!selectedFileMap) return;
+
+  const config = parseConfig(taPrograms.value, taMinors.value, taGrad.value);
+  const result = runAnalysis(selectedFileMap, config);
+
+  if (result.error) {
+    fileStatus.className = 'err';
+    fileStatus.textContent = result.error;
+    return;
+  }
+
+  // build email lists first (so report can list them)
+  lastEmailFiles  = buildEmailLists(result);
+  const csvNames  = [...lastEmailFiles.keys()];
+  lastReportHTML  = buildReportHTML(result, csvNames);
+  lastResult      = result;
+
+  // show results panel
+  panelSetup.hidden  = true;
+  panelResults.hidden = false;
+  spinner.style.display = 'block';
+  reportFrame.style.display = 'none';
+
+  // load report into iframe
+  reportFrame.srcdoc = lastReportHTML;
+  reportFrame.onload = function () {
+    try {
+      const h = this.contentDocument.documentElement.scrollHeight;
+      this.style.height = (h + 20) + 'px';
+    } catch { this.style.height = '800px'; }
+    spinner.style.display = 'none';
+    this.style.display = 'block';
+  };
+
+  // collapse settings for next time
+  detSettings.removeAttribute('open');
+});
+
+// ── downloads ────────────────────────────────────────────────────────────
+btnZip.addEventListener('click', () => {
+  if (lastEmailFiles && lastResult)
+    downloadZip(lastEmailFiles, lastResult.semester);
+});
+
+btnReportDl.addEventListener('click', () => {
+  if (lastReportHTML && lastResult)
+    downloadBlob(new Blob([lastReportHTML], {type:'text/html'}),
+                 `${lastResult.semester}_report.html`);
+});
+
+btnBack.addEventListener('click', () => {
+  panelResults.hidden = true;
+  panelSetup.hidden   = false;
+  reportFrame.srcdoc  = '';
+  reportFrame.style.height = '';
+});
+</script>
+</body>
+</html>
