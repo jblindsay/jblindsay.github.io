@@ -83,7 +83,7 @@ textarea:focus{outline:2px solid var(--red);border-color:transparent}
         <summary>⚙&nbsp; Settings</summary>
         <div class="settings-grid">
           <div>
-            <label>Home Programs <span style="font-weight:400;text-transform:none">(one per line)</span></label>
+            <label>Undergraduate Programs <span style="font-weight:400;text-transform:none">(one per line)</span></label>
             <textarea id="ta-programs" rows="9" spellcheck="false"></textarea>
           </div>
           <div>
@@ -214,10 +214,10 @@ class ZipBuilder {
 const DEFAULTS = {
   programs: [
     'BAH.EGOV','BAH.GEOG','BAG.GEOG','BSCH.EG',
-    'BSES.EO','BSES.ERM','MA.GEOG','MSC.GEOG','PHD.GEOG',
+    'BSES.EO','BSES.ERM',
   ].join('\n'),
   minors: '-GEOG | Geography | GeogMinor\n-AG | Applied Geomatics | AGMinor',
-  grad: 'MA.GEOG\nMSC.GEOG\nPHD.GEOG',
+  grad: 'MA.GEOG\nMSC.GEOG\nPHD.GEOG\nMDS.DATA',
 };
 
 const LS_KEY = 'geo-enroll-v1';
@@ -231,13 +231,15 @@ function saveSettings(s) {
 }
 
 function parseConfig(programsText, minorsText, gradText) {
-  const homePrograms = programsText.split('\n').map(s => s.trim()).filter(Boolean);
+  const undergradPrograms = programsText.split('\n').map(s => s.trim()).filter(Boolean);
   const homeMinors = minorsText.split('\n').map(s => s.trim()).filter(Boolean).map(s => {
     const p = s.split('|').map(x => x.trim());
     return [p[0] || '', p[1] || '', p[2] || ''];
   }).filter(([sfx]) => sfx);
   const gradPrograms = new Set(gradText.split('\n').map(s => s.trim()).filter(Boolean));
-  return { homePrograms, homeMinors, gradPrograms };
+  // combine for isHomeProgram — kept separate so email lists only cover undergrads
+  const homePrograms = [...undergradPrograms, ...gradPrograms];
+  return { homePrograms, undergradPrograms, homeMinors, gradPrograms };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -320,7 +322,7 @@ function parseRows(text) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function runAnalysis(fileMap, config) {
-  const { homePrograms, homeMinors, gradPrograms } = config;
+  const { homePrograms, undergradPrograms, homeMinors, gradPrograms } = config;
   const allNames = [...fileMap.keys()].sort();
 
   // Detect semester
@@ -444,11 +446,17 @@ function runAnalysis(fileMap, config) {
     if (!isNaN(lv)) { const a = enrollByLevel.get(lv) || []; a.push(cs.total); enrollByLevel.set(lv, a); }
   }
 
+  const gradByProg = new Map();
+  for (const stud of sorted) {
+    const p = stripProgram(stud.program);
+    if (isGraduate(p, gradPrograms)) gradByProg.set(p, (gradByProg.get(p) || 0) + 1);
+  }
+
   return { semester, revision, numStudents, numMajors, numNonMajors,
     geogClassCount: geogFiles.length, overallPrograms, numGeogProgs,
     classSummaries, geogStudentMap, minorStudentMaps, geogMinors, minorCounts,
     hasCoopFiles: coopFiles.length > 0, coopStudentMap, coopStudentCourses,
-    ourMajorHisto, enrollByLevel, homeMinors, homePrograms, gradPrograms };
+    ourMajorHisto, gradByProg, enrollByLevel, homeMinors, homePrograms, undergradPrograms, gradPrograms };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -505,7 +513,7 @@ function buildReportHTML(result, emailListNames) {
     geogClassCount, overallPrograms, numGeogProgs, classSummaries,
     geogStudentMap, minorStudentMaps, geogMinors, minorCounts,
     hasCoopFiles, coopStudentMap, coopStudentCourses,
-    ourMajorHisto, enrollByLevel, homeMinors, homePrograms, gradPrograms } = result;
+    ourMajorHisto, gradByProg, enrollByLevel, homeMinors, homePrograms, gradPrograms } = result;
 
   const revStr = revision < 99999 ? String(revision) : 'N/A';
   const now = new Date().toISOString().slice(0,16).replace('T',' ');
@@ -610,6 +618,16 @@ function buildReportHTML(result, emailListNames) {
     w('</tbody></table>');
   }
 
+  // ── graduate students ──────────────────────────────────────────────────
+  if (gradByProg && gradByProg.size > 0) {
+    w('<h2>Graduate Students</h2>', '<table>',
+      '<thead><tr><th>Program</th><th>Students (unique)</th></tr></thead>',
+      '<tbody>');
+    for (const [prog, cnt] of [...gradByProg.entries()].sort((a,b) => a[0].localeCompare(b[0])))
+      w(`<tr><td><strong>${esc(prog)}</strong></td><td>${cnt}</td></tr>`);
+    w('</tbody></table>');
+  }
+
   // ── minors breakdown ─────────────────────────────────────────────────
   w('<h2>Minors Breakdown</h2>', '<div class="stat-grid">');
   for (const [sfx, display] of homeMinors)
@@ -672,7 +690,7 @@ function buildReportHTML(result, emailListNames) {
 function buildEmailLists(result) {
   const { semester, revision, geogStudentMap, minorStudentMaps,
           coopStudentMap, coopStudentCourses, hasCoopFiles,
-          homeMinors, homePrograms, gradPrograms } = result;
+          homeMinors, undergradPrograms, gradPrograms } = result;
   const now = new Date().toISOString().slice(0,16).replace('T',' ');
   const files = new Map();
 
@@ -687,8 +705,7 @@ function buildEmailLists(result) {
   }
 
   // per-program lists
-  for (const program of homePrograms) {
-    if ([...gradPrograms].some(gp => program.includes(gp))) continue;
+  for (const program of undergradPrograms) {
     const stem = program.replace(/\./g, '_');
     const rows = sortedStudents(geogStudentMap)
       .filter(s => s.program.includes(program))
