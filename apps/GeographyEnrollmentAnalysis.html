@@ -95,6 +95,10 @@ textarea:focus{outline:2px solid var(--red);border-color:transparent}
               <label>Graduate Programs <span style="font-weight:400;text-transform:none">(one per line)</span></label>
               <textarea id="ta-grad" rows="4" spellcheck="false"></textarea>
             </div>
+            <div style="margin-top:.75rem">
+              <label>GEOG-required Programs <span style="font-weight:400;text-transform:none">(UNIV enrollment alone not counted)</span></label>
+              <textarea id="ta-geog-req" rows="2" spellcheck="false"></textarea>
+            </div>
           </div>
         </div>
         <div class="settings-foot">
@@ -218,6 +222,7 @@ const DEFAULTS = {
   ].join('\n'),
   minors: '-GEOG | Geography | GeogMinor\n-AG | Applied Geomatics | AGMinor',
   grad: 'MA.GEOG\nMSC.GEOG\nPHD.GEOG\nMDS.DATA',
+  geogRequired: 'MDS.DATA',
 };
 
 const LS_KEY = 'geo-enroll-v1';
@@ -230,16 +235,17 @@ function saveSettings(s) {
   try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {}
 }
 
-function parseConfig(programsText, minorsText, gradText) {
+function parseConfig(programsText, minorsText, gradText, geogRequiredText) {
   const undergradPrograms = programsText.split('\n').map(s => s.trim()).filter(Boolean);
   const homeMinors = minorsText.split('\n').map(s => s.trim()).filter(Boolean).map(s => {
     const p = s.split('|').map(x => x.trim());
     return [p[0] || '', p[1] || '', p[2] || ''];
   }).filter(([sfx]) => sfx);
   const gradPrograms = new Set(gradText.split('\n').map(s => s.trim()).filter(Boolean));
+  const geogRequiredPrograms = new Set((geogRequiredText || '').split('\n').map(s => s.trim()).filter(Boolean));
   // combine for isHomeProgram — kept separate so email lists only cover undergrads
   const homePrograms = [...undergradPrograms, ...gradPrograms];
-  return { homePrograms, undergradPrograms, homeMinors, gradPrograms };
+  return { homePrograms, undergradPrograms, homeMinors, gradPrograms, geogRequiredPrograms };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -263,6 +269,11 @@ function stripProgram(raw) {
     if (idx > 0) raw = raw.slice(0, idx).trim();
   }
   return raw;
+}
+
+function isGeogRequired(stripped, geogRequiredPrograms) {
+  for (const gp of geogRequiredPrograms) if (stripped.includes(gp)) return true;
+  return false;
 }
 
 function isHomeProgram(stripped, homePrograms) {
@@ -322,7 +333,7 @@ function parseRows(text) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function runAnalysis(fileMap, config) {
-  const { homePrograms, undergradPrograms, homeMinors, gradPrograms } = config;
+  const { homePrograms, undergradPrograms, homeMinors, gradPrograms, geogRequiredPrograms } = config;
   const allNames = [...fileMap.keys()].sort();
 
   // Detect semester
@@ -333,8 +344,9 @@ function runAnalysis(fileMap, config) {
   }
   if (!semester) return { error: 'Could not determine semester from file names (expected e.g. F26_GEOG1200.txt).' };
 
-  const geogFiles = allNames.filter(n => n.includes('GEOG'));
+  const courseFiles = allNames.filter(n => !n.includes('COOP') && !n.includes('UNIV'));
   const coopFiles = allNames.filter(n => n.includes('COOP'));
+  const univFiles = allNames.filter(n => n.includes('UNIV'));
 
   let numStudents = 0, numMajors = 0, numNonMajors = 0, revision = 99999;
   const overallPrograms = new Map();
@@ -343,8 +355,8 @@ function runAnalysis(fileMap, config) {
   const minorStudentMaps = new Map(homeMinors.map(([s]) => [s, new Map()]));
   const classSummaries  = [];
 
-  // ── GEOG courses ──────────────────────────────────────────────────────
-  for (const name of geogFiles) {
+  // ── course classes ─────────────────────────────────────────────────────
+  for (const name of courseFiles) {
     const text = fileMap.get(name);
     if (!text) continue;
     const className = name.replace(`${semester}_`, '').replace(/\.(txt|csv)$/, '');
@@ -414,6 +426,40 @@ function runAnalysis(fileMap, config) {
   for (const [id, stud] of coopStudentMap)
     if (!geogStudentMap.has(id)) geogStudentMap.set(id, stud);
 
+  // ── UNIV courses (grad students between coursework) ──────────────────
+  const univStudentMap     = new Map();
+  const univStudentCourses = new Map();
+
+  for (const name of univFiles) {
+    const text = fileMap.get(name);
+    if (!text) continue;
+    const courseName = name.replace(`${semester}_`, '').replace(/\.(txt|csv)$/, '');
+    for (const row of parseRows(text)) {
+      if (row.rev < revision) revision = row.rev;
+      const prgm = stripProgram(row.program);
+      if (!isGraduate(prgm, gradPrograms)) continue;
+      // shared programs only count if already enrolled in a GEOG course
+      if (isGeogRequired(prgm, geogRequiredPrograms) && !geogStudentMap.has(row.id)) continue;
+      const stud = { id: row.id, lastName: row.lastName, firstName: row.firstName,
+                     program: row.program, level: row.level, email: row.email };
+      if (!univStudentMap.has(row.id)) univStudentMap.set(row.id, stud);
+      const courses = univStudentCourses.get(row.id) || [];
+      courses.push(courseName);
+      univStudentCourses.set(row.id, courses);
+    }
+  }
+  // Merge UNIV students; update level=0 records with the UNIV level.
+  for (const [id, stud] of univStudentMap) {
+    if (!geogStudentMap.has(id)) {
+      geogStudentMap.set(id, stud);
+    } else {
+      const ex = geogStudentMap.get(id);
+      const el = parseFloat(ex.level) || 0;
+      const nl = parseFloat(stud.level) || 0;
+      if (el === 0 && nl > 0) geogStudentMap.set(id, { ...ex, level: stud.level });
+    }
+  }
+
   // ── derived stats ─────────────────────────────────────────────────────
   const numGeogProgs = [...overallPrograms.keys()].filter(p => isHomeProgram(p, homePrograms)).length;
   const sorted = sortedStudents(geogStudentMap);
@@ -446,17 +492,23 @@ function runAnalysis(fileMap, config) {
     if (!isNaN(lv)) { const a = enrollByLevel.get(lv) || []; a.push(cs.total); enrollByLevel.set(lv, a); }
   }
 
-  const gradByProg = new Map();
+  const gradHisto = new Map();
   for (const stud of sorted) {
     const p = stripProgram(stud.program);
-    if (isGraduate(p, gradPrograms)) gradByProg.set(p, (gradByProg.get(p) || 0) + 1);
+    if (!isGraduate(p, gradPrograms)) continue;
+    gradHisto.set(`${p}-total`, (gradHisto.get(`${p}-total`) || 0) + 1);
+    const sem = Math.round(parseFloat(stud.level) || 0);
+    // default to year 1 when level is missing
+    const yr = sem > 0 ? Math.ceil(sem / 3) : 1;
+    gradHisto.set(`${p}-${yr}`, (gradHisto.get(`${p}-${yr}`) || 0) + 1);
   }
 
   return { semester, revision, numStudents, numMajors, numNonMajors,
-    geogClassCount: geogFiles.length, overallPrograms, numGeogProgs,
+    geogClassCount: courseFiles.length, overallPrograms, numGeogProgs,
     classSummaries, geogStudentMap, minorStudentMaps, geogMinors, minorCounts,
     hasCoopFiles: coopFiles.length > 0, coopStudentMap, coopStudentCourses,
-    ourMajorHisto, gradByProg, enrollByLevel, homeMinors, homePrograms, undergradPrograms, gradPrograms };
+    hasUnivFiles: univFiles.length > 0, univStudentMap, univStudentCourses,
+    ourMajorHisto, gradHisto, enrollByLevel, homeMinors, homePrograms, undergradPrograms, gradPrograms };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -513,7 +565,8 @@ function buildReportHTML(result, emailListNames) {
     geogClassCount, overallPrograms, numGeogProgs, classSummaries,
     geogStudentMap, minorStudentMaps, geogMinors, minorCounts,
     hasCoopFiles, coopStudentMap, coopStudentCourses,
-    ourMajorHisto, gradByProg, enrollByLevel, homeMinors, homePrograms, gradPrograms } = result;
+    hasUnivFiles, univStudentMap, univStudentCourses,
+    ourMajorHisto, gradHisto, enrollByLevel, homeMinors, homePrograms, gradPrograms } = result;
 
   const revStr = revision < 99999 ? String(revision) : 'N/A';
   const now = new Date().toISOString().slice(0,16).replace('T',' ');
@@ -618,13 +671,26 @@ function buildReportHTML(result, emailListNames) {
     w('</tbody></table>');
   }
 
-  // ── graduate students ──────────────────────────────────────────────────
-  if (gradByProg && gradByProg.size > 0) {
-    w('<h2>Graduate Students</h2>', '<table>',
-      '<thead><tr><th>Program</th><th>Students (unique)</th></tr></thead>',
-      '<tbody>');
-    for (const [prog, cnt] of [...gradByProg.entries()].sort((a,b) => a[0].localeCompare(b[0])))
-      w(`<tr><td><strong>${esc(prog)}</strong></td><td>${cnt}</td></tr>`);
+  // ── graduate students by semester ─────────────────────────────────────
+  if (gradHisto && gradHisto.size > 0) {
+    const gradProgList = [...new Set(
+      [...gradHisto.keys()].filter(k => k.endsWith('-total')).map(k => k.slice(0,-6))
+    )].sort();
+    const gradSems = [...gradHisto.keys()]
+      .filter(k => !k.endsWith('-total'))
+      .map(k => parseInt(k.split('-').pop())).filter(n => !isNaN(n) && n > 0);
+    const maxSem = Math.min(gradSems.length ? Math.max(...gradSems) : 4, 20);
+    const semThs = Array.from({length:maxSem},(_,i)=>`<th>Yr&nbsp;${i+1}</th>`).join('');
+    w('<h2>Graduate Students by Year</h2>', '<table>',
+      `<thead><tr><th>Program</th>${semThs}<th>Total</th></tr></thead>`, '<tbody>');
+    for (const prog of gradProgList) {
+      const semTds = Array.from({length:maxSem},(_,i)=>{
+        const v = gradHisto.get(`${prog}-${i+1}`) || 0;
+        return `<td>${v || ''}</td>`;
+      }).join('');
+      const total = gradHisto.get(`${prog}-total`) || 0;
+      w(`<tr><td><strong>${esc(prog)}</strong></td>${semTds}<td><strong>${total}</strong></td></tr>`);
+    }
     w('</tbody></table>');
   }
 
@@ -774,6 +840,7 @@ function downloadZip(emailFiles, semester) {
 const taPrograms  = document.getElementById('ta-programs');
 const taMinors    = document.getElementById('ta-minors');
 const taGrad      = document.getElementById('ta-grad');
+const taGeogReq   = document.getElementById('ta-geog-req');
 const folderInput = document.getElementById('folder-input');
 const fileStatus  = document.getElementById('file-status');
 const btnRun      = document.getElementById('btn-run');
@@ -799,18 +866,22 @@ let lastReportHTML  = null;
   taPrograms.value = s.programs;
   taMinors.value   = s.minors;
   taGrad.value     = s.grad;
+  taGeogReq.value  = s.geogRequired ?? DEFAULTS.geogRequired;
 })();
 
 // persist settings on change
-[taPrograms, taMinors, taGrad].forEach(ta => ta.addEventListener('input', () => {
-  saveSettings({ programs: taPrograms.value, minors: taMinors.value, grad: taGrad.value });
+[taPrograms, taMinors, taGrad, taGeogReq].forEach(ta => ta.addEventListener('input', () => {
+  saveSettings({ programs: taPrograms.value, minors: taMinors.value,
+                 grad: taGrad.value, geogRequired: taGeogReq.value });
 }));
 
 btnReset.addEventListener('click', () => {
   taPrograms.value = DEFAULTS.programs;
   taMinors.value   = DEFAULTS.minors;
   taGrad.value     = DEFAULTS.grad;
-  saveSettings({ programs: DEFAULTS.programs, minors: DEFAULTS.minors, grad: DEFAULTS.grad });
+  taGeogReq.value  = DEFAULTS.geogRequired;
+  saveSettings({ programs: DEFAULTS.programs, minors: DEFAULTS.minors,
+                 grad: DEFAULTS.grad, geogRequired: DEFAULTS.geogRequired });
 });
 
 // ── folder selection ─────────────────────────────────────────────────────
@@ -842,12 +913,12 @@ folderInput.addEventListener('change', async () => {
     if (idx > 0 && 'fw'.includes(n[0].toLowerCase())) { semester = n.slice(0, idx); break; }
   }
 
-  const geogCount = [...map.keys()].filter(n => n.includes('GEOG')).length;
+  const courseCount = [...map.keys()].filter(n => !n.includes('COOP') && !n.includes('UNIV')).length;
   const coopCount = [...map.keys()].filter(n => n.includes('COOP')).length;
 
-  if (geogCount === 0) {
+  if (courseCount === 0) {
     fileStatus.className = 'err';
-    fileStatus.textContent = `${map.size} files loaded — no GEOG class-list files found.`;
+    fileStatus.textContent = `${map.size} files loaded — no course class-list files found.`;
     btnRun.disabled = true;
     selectedFileMap = null;
     return;
@@ -857,7 +928,7 @@ folderInput.addEventListener('change', async () => {
   btnRun.disabled = false;
   fileStatus.className = 'ok';
   fileStatus.textContent =
-    `Semester: ${semester || '?'} — ${geogCount} GEOG file${geogCount!==1?'s':''}, ` +
+    `Semester: ${semester || '?'} — ${courseCount} course file${courseCount!==1?'s':''}, ` +
     `${coopCount} COOP file${coopCount!==1?'s':''} (${map.size} total)`;
 });
 
@@ -865,7 +936,7 @@ folderInput.addEventListener('change', async () => {
 btnRun.addEventListener('click', () => {
   if (!selectedFileMap) return;
 
-  const config = parseConfig(taPrograms.value, taMinors.value, taGrad.value);
+  const config = parseConfig(taPrograms.value, taMinors.value, taGrad.value, taGeogReq.value);
   const result = runAnalysis(selectedFileMap, config);
 
   if (result.error) {
