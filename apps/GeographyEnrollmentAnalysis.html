@@ -622,39 +622,6 @@ function buildReportHTML(result, emailListNames) {
     w('</tbody></table>');
   }
 
-  // ── class breakdowns ─────────────────────────────────────────────────
-  if (classSummaries.length > 0) {
-    w('<h2>Class Breakdowns</h2>');
-    for (const cs of classSummaries) {
-      if (cs.total === 0) continue;
-      const pm = 100*cs.majors/cs.total, pn = 100*cs.nonMajors/cs.total;
-      w('<details>',
-        `<summary>${esc(cs.name)}<span class="stats">total: ${cs.total} &nbsp;|&nbsp; majors: ${cs.majors} (${pm.toFixed(1)}%) &nbsp;|&nbsp; non-majors: ${cs.nonMajors} (${pn.toFixed(1)}%) &nbsp;|&nbsp; ${cs.programs.size} programs</span></summary>`,
-        '<div class="inner">', '<table>',
-        '<thead><tr><th>Program</th><th>Count</th><th>%</th><th></th></tr></thead>', '<tbody>');
-      for (const homeFirst of [true, false]) {
-        for (const p of [...cs.programs.keys()].sort()) {
-          if (isHomeProgram(p, homePrograms) !== homeFirst) continue;
-          const cnt = cs.programs.get(p), pp = 100*cnt/cs.total;
-          const cls = homeFirst ? ' class="home"' : '';
-          const bw = Math.max(2, Math.round(pp * 1.5));
-          const bc = homeFirst ? 'bar' : 'bar other';
-          w(`<tr${cls}><td>${esc(p)}</td><td>${cnt}</td><td>${pp.toFixed(1)}%</td><td class="bar-wrap"><div class="${bc}" style="width:${bw}px"></div></td></tr>`);
-        }
-      }
-      w('</tbody></table>');
-      if (cs.levels.size > 0) {
-        w('<h3>Year-level distribution</h3>', '<table style="width:auto">',
-          '<thead><tr><th>Year</th><th>Students</th></tr></thead>', '<tbody>');
-        for (const yr of [...cs.levels.keys()].sort((a,b)=>a-b)) {
-          if (cs.levels.get(yr) > 0) w(`<tr><td>${yr}</td><td>${cs.levels.get(yr)}</td></tr>`);
-        }
-        w('</tbody></table>');
-      }
-      w('</div></details>');
-    }
-  }
-
   // ── majors by year pivot ─────────────────────────────────────────────
   if (progList.length > 0) {
     const yrThs = Array.from({length:maxYr},(_,i)=>`<th>Yr&nbsp;${i+1}</th>`).join('');
@@ -692,6 +659,39 @@ function buildReportHTML(result, emailListNames) {
       w(`<tr><td><strong>${esc(prog)}</strong></td>${semTds}<td><strong>${total}</strong></td></tr>`);
     }
     w('</tbody></table>');
+  }
+
+  // ── class breakdowns ─────────────────────────────────────────────────
+  if (classSummaries.length > 0) {
+    w('<h2>Class Breakdowns</h2>');
+    for (const cs of classSummaries) {
+      if (cs.total === 0) continue;
+      const pm = 100*cs.majors/cs.total, pn = 100*cs.nonMajors/cs.total;
+      w('<details>',
+        `<summary>${esc(cs.name)}<span class="stats">total: ${cs.total} &nbsp;|&nbsp; majors: ${cs.majors} (${pm.toFixed(1)}%) &nbsp;|&nbsp; non-majors: ${cs.nonMajors} (${pn.toFixed(1)}%) &nbsp;|&nbsp; ${cs.programs.size} programs</span></summary>`,
+        '<div class="inner">', '<table>',
+        '<thead><tr><th>Program</th><th>Count</th><th>%</th><th></th></tr></thead>', '<tbody>');
+      for (const homeFirst of [true, false]) {
+        for (const p of [...cs.programs.keys()].sort()) {
+          if (isHomeProgram(p, homePrograms) !== homeFirst) continue;
+          const cnt = cs.programs.get(p), pp = 100*cnt/cs.total;
+          const cls = homeFirst ? ' class="home"' : '';
+          const bw = Math.max(2, Math.round(pp * 1.5));
+          const bc = homeFirst ? 'bar' : 'bar other';
+          w(`<tr${cls}><td>${esc(p)}</td><td>${cnt}</td><td>${pp.toFixed(1)}%</td><td class="bar-wrap"><div class="${bc}" style="width:${bw}px"></div></td></tr>`);
+        }
+      }
+      w('</tbody></table>');
+      if (cs.levels.size > 0) {
+        w('<h3>Year-level distribution</h3>', '<table style="width:auto">',
+          '<thead><tr><th>Year</th><th>Students</th></tr></thead>', '<tbody>');
+        for (const yr of [...cs.levels.keys()].sort((a,b)=>a-b)) {
+          if (cs.levels.get(yr) > 0) w(`<tr><td>${yr}</td><td>${cs.levels.get(yr)}</td></tr>`);
+        }
+        w('</tbody></table>');
+      }
+      w('</div></details>');
+    }
   }
 
   // ── minors breakdown ─────────────────────────────────────────────────
