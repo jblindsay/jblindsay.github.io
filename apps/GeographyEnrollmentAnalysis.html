@@ -624,8 +624,13 @@ function buildReportHTML(result, emailListNames) {
 
   // ── majors by year pivot ─────────────────────────────────────────────
   if (progList.length > 0) {
+    const coopNote = hasCoopFiles
+      ? 'Includes students on co-op (COOP course data present)'
+      : 'Does not include students on co-op (no COOP course data found)';
     const yrThs = Array.from({length:maxYr},(_,i)=>`<th>Yr&nbsp;${i+1}</th>`).join('');
-    w('<h2>Majors by Year</h2>', '<table>',
+    w('<h2>Majors by Year</h2>',
+      `<p style="font-size:.8rem;color:#666;margin-bottom:.75rem;font-style:italic">${esc(coopNote)}</p>`,
+      '<table>',
       `<thead><tr><th>Program</th>${yrThs}<th>Total</th></tr></thead>`, '<tbody>');
     for (const prog of progList) {
       const yrTds = Array.from({length:maxYr},(_,i)=>{
@@ -648,7 +653,12 @@ function buildReportHTML(result, emailListNames) {
       .map(k => parseInt(k.split('-').pop())).filter(n => !isNaN(n) && n > 0);
     const maxSem = Math.min(gradSems.length ? Math.max(...gradSems) : 4, 20);
     const semThs = Array.from({length:maxSem},(_,i)=>`<th>Yr&nbsp;${i+1}</th>`).join('');
-    w('<h2>Graduate Students by Year</h2>', '<table>',
+    const univNote = hasUnivFiles
+      ? 'Includes students not currently enrolled in courses (UNIV course data present)'
+      : 'Does not include students not currently enrolled in courses (no UNIV course data found)';
+    w('<h2>Graduate Students by Year</h2>',
+      `<p style="font-size:.8rem;color:#666;margin-bottom:.75rem;font-style:italic">${esc(univNote)}</p>`,
+      '<table>',
       `<thead><tr><th>Program</th>${semThs}<th>Total</th></tr></thead>`, '<tbody>');
     for (const prog of gradProgList) {
       const semTds = Array.from({length:maxSem},(_,i)=>{
