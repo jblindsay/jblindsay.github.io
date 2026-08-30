@@ -702,9 +702,15 @@ function buildReportHTML(result, emailListNames) {
   for (const [sfx, display] of homeMinors) {
     const entries = [...geogMinors.entries()].filter(([k]) => hasMinor(k, sfx));
     if (entries.length === 0) continue;
+    // Aggregate counts by stripped program
+    const aggregated = new Map();
+    for (const [raw, cnt] of entries) {
+      const base = stripProgram(raw);
+      aggregated.set(base, (aggregated.get(base) || 0) + cnt);
+    }
     w(`<h3>${esc(display)} minor \u2014 program breakdown</h3>`, '<table>',
       '<thead><tr><th>Program</th><th>Count</th></tr></thead>', '<tbody>');
-    for (const [prog, cnt] of entries.sort((a,b) => a[0].localeCompare(b[0])))
+    for (const [prog, cnt] of [...aggregated.entries()].sort((a,b) => a[0].localeCompare(b[0])))
       w(`<tr><td>${esc(prog)}</td><td>${cnt}</td></tr>`);
     w('</tbody></table>');
   }
