@@ -421,7 +421,7 @@ function runAnalysis(fileMap, config) {
   let semester = '';
   for (const n of allNames) {
     const idx = n.indexOf('_');
-    if (idx > 0 && 'fw'.includes(n[0].toLowerCase())) { semester = n.slice(0, idx); break; }
+    if (idx > 0 && 'fws'.includes(n[0].toLowerCase())) { semester = n.slice(0, idx); break; }
   }
   if (!semester) return { error: 'Could not determine semester from file names (expected e.g. F26_GEOG1200.txt).' };
 
@@ -1039,7 +1039,7 @@ folderInput.addEventListener('change', async () => {
   let semester = '';
   for (const n of [...map.keys()].sort()) {
     const idx = n.indexOf('_');
-    if (idx > 0 && 'fw'.includes(n[0].toLowerCase())) { semester = n.slice(0, idx); break; }
+    if (idx > 0 && 'fws'.includes(n[0].toLowerCase())) { semester = n.slice(0, idx); break; }
   }
 
   const courseCount = [...map.keys()].filter(n => !n.includes('COOP') && !n.includes('UNIV')).length;
