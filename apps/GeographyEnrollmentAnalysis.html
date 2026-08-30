@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Geography Enrollment Analysis</title>
+<title>Enrollment Analysis</title>
 <style>
 /* ─── App shell ──────────────────────────────────────────────────────────── */
 :root { --red:#c8102e; --dark:#222; --mid:#666; --light:#f5f5f5; --border:#ddd; }
@@ -72,7 +72,7 @@ textarea:focus{outline:2px solid var(--red);border-color:transparent}
 <body>
 <div id="app">
   <div class="app-header">
-    <h1>Geography Enrollment Analysis</h1>
+    <h1 id="app-title">Guelph Enrollment Analysis</h1>
     <p>Select a semester folder of class-list files to generate the enrollment report.</p>
   </div>
 
@@ -82,6 +82,29 @@ textarea:focus{outline:2px solid var(--red);border-color:transparent}
       <details id="det-settings" open>
         <summary>⚙&nbsp; Settings</summary>
         <div class="settings-grid">
+          <div class="full" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:.25rem">
+            <div style="flex:1.2;min-width:180px">
+              <label>Department Profile <span style="font-weight:400;text-transform:none">(load a preset)</span></label>
+              <select id="sel-profile" style="width:100%;padding:.46rem .6rem;border:1px solid var(--border);border-radius:4px;font-size:.82rem;color:var(--dark);background:#fff">
+                <option value="">— Custom settings —</option>
+                <optgroup label="Main Departments">
+                  <option>Geography, Environment and Geomatics</option>
+                  <option>Political Science</option>
+                  <option>Psychology</option>
+                  <option>Family Relations &amp; Applied Nutrition</option>
+                  <option>Sociology &amp; Anthropology</option>
+                </optgroup>
+                <optgroup label="Interdisciplinary Programs">
+                  <option>Criminal Justice and Public Policy</option>
+                  <option>International Development Studies</option>
+                </optgroup>
+              </select>
+            </div>
+            <div style="flex:2;min-width:200px">
+              <label>Department Name <span style="font-weight:400;text-transform:none">(appears in report)</span></label>
+              <input type="text" id="inp-deptname" style="width:100%;padding:.5rem .6rem;border:1px solid var(--border);border-radius:4px;font-size:.82rem;color:var(--dark)" spellcheck="false">
+            </div>
+          </div>
           <div>
             <label>Undergraduate Programs <span style="font-weight:400;text-transform:none">(one per line)</span></label>
             <textarea id="ta-programs" rows="9" spellcheck="false"></textarea>
@@ -216,6 +239,7 @@ class ZipBuilder {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const DEFAULTS = {
+  deptName: 'Geography, Environment and Geomatics',
   programs: [
     'BAH.EGOV','BAH.GEOG','BAG.GEOG','BSCH.EG',
     'BSES.EO','BSES.ERM',
@@ -223,6 +247,63 @@ const DEFAULTS = {
   minors: '-GEOG | Geography | GeogMinor\n-AG | Applied Geomatics | AGMinor',
   grad: 'MA.GEOG\nMSC.GEOG\nPHD.GEOG\nMDS.DATA',
   geogRequired: 'MDS.DATA',
+};
+
+// Preset profiles for CSAHS departments.
+// ⚠ Program codes are best-effort estimates — verify before first use.
+// Graduate codes follow the MA./MSC./PHD. pattern; leave blank if unknown.
+const PROFILES = {
+  // ── Main CSAHS Departments ──────────────────────────────────────────────
+  'Geography, Environment and Geomatics': {
+    deptName: 'Geography, Environment and Geomatics',
+    programs: 'BAH.EGOV\nBAH.GEOG\nBAG.GEOG\nBSCH.EG\nBSES.EO\nBSES.ERM',
+    minors:   '-GEOG | Geography | GeogMinor\n-AG | Applied Geomatics | AGMinor',
+    grad:     'MA.GEOG\nMSC.GEOG\nPHD.GEOG\nMDS.DATA',
+    geogRequired: 'MDS.DATA',
+  },
+  'Political Science': {
+    deptName: 'Political Science',
+    programs: 'BAH.POLS\nBAG.POLS\nBAH.JLS',
+    minors:   '-POLS | Political Science | PolsMinor',
+    grad:     'MA.POLS\nPHD.POLS',  // ⚠ verify grad codes
+    geogRequired: '',
+  },
+  'Psychology': {
+    deptName: 'Psychology',
+    programs: 'BAH.PSYC\nBAG.PSYC\nBSCH.PSYC',
+    minors:   '-PSYC | Psychology | PsycMinor',
+    grad:     'MA.PSYC\nPHD.PSYC',  // ⚠ verify grad codes
+    geogRequired: '',
+  },
+  'Family Relations & Applied Nutrition': {
+    deptName: 'Family Relations & Applied Nutrition',
+    programs: 'BASC.ADEV\nBASC.AHN\nBASC.CSTU',
+    minors:   '-FCS | Family and Child Studies | FCSMinor',
+    grad:     'MA.FRAN\nPHD.FRAN',  // ⚠ verify grad codes
+    geogRequired: '',
+  },
+  'Sociology & Anthropology': {
+    deptName: 'Sociology & Anthropology',
+    programs: 'BAH.SOC\nBAG.SOC\nBAH.ANTH\nBAG.ANTH',
+    minors:   '-SOC | Sociology | SocMinor\n-ANTH | Anthropology | AnthMinor',
+    grad:     'MA.SOC\nPHD.SOC\nMA.ANTH\nPHD.ANTH',  // ⚠ verify grad codes
+    geogRequired: '',
+  },
+  // ── Interdisciplinary Programs ──────────────────────────────────────────
+  'Criminal Justice and Public Policy': {
+    deptName: 'Criminal Justice and Public Policy',
+    programs: 'BAH.CJPP',
+    minors:   '',
+    grad:     'MA.CJPP',  // ⚠ verify grad codes
+    geogRequired: '',
+  },
+  'International Development Studies': {
+    deptName: 'International Development Studies',
+    programs: 'BAH.IDS\nBAG.IDS',
+    minors:   '-IDS | International Development Studies | IDSMinor',
+    grad:     'MA.IDS\nPHD.IDS',  // ⚠ verify grad codes
+    geogRequired: '',
+  },
 };
 
 const LS_KEY = 'geo-enroll-v1';
@@ -560,7 +641,8 @@ footer{margin-top:3rem;padding:1rem 2rem;font-size:.8rem;color:var(--mid);
        border-top:1px solid var(--border);text-align:center}
 `;
 
-function buildReportHTML(result, emailListNames) {
+function buildReportHTML(result, emailListNames, deptName) {
+  const contact = 'jlindsay@uoguelph.ca';
   const { semester, revision, numStudents, numMajors, numNonMajors,
     geogClassCount, overallPrograms, numGeogProgs, classSummaries,
     geogStudentMap, minorStudentMaps, geogMinors, minorCounts,
@@ -587,14 +669,14 @@ function buildReportHTML(result, emailListNames) {
   w('<!DOCTYPE html>', '<html lang="en">', '<head>',
     '<meta charset="UTF-8">',
     '<meta name="viewport" content="width=device-width,initial-scale=1">',
-    `<title>Geography Enrollment \u2014 ${esc(semester)}</title>`,
+    `<title>${esc(deptName)} Enrollment \u2014 ${esc(semester)}</title>`,
     '<style>', REPORT_CSS, '</style>',
     '</head>', '<body>', '<header>',
-    '<h1>Geography Enrollment Analysis</h1>',
+    `<h1>${esc(deptName)} Enrollment Analysis</h1>`,
     `<p>Semester: <strong>${esc(semester)}</strong>` +
     ` &nbsp;|&nbsp; Generated: ${now}` +
     ` &nbsp;|&nbsp; Class-list revision: ${revStr}` +
-    ` &nbsp;|&nbsp; John Lindsay (jlindsay@uoguelph.ca)</p>`,
+    (contact ? ` &nbsp;|&nbsp; ${esc(contact)}` : '') + '</p>',
     '</header>', '<main>');
 
   // ── overall stats ────────────────────────────────────────────────────
@@ -733,7 +815,7 @@ function buildReportHTML(result, emailListNames) {
       const a = byProg.get(p) || []; a.push(stud); byProg.set(p, a);
     }
     w('<h2>Co-op Students</h2>', '<div class="stat-grid">',
-      `<div class="stat-card"><div class="value">${coopStudentMap.size}</div><div class="label">Geography majors on co-op</div></div>`);
+      `<div class="stat-card"><div class="value">${coopStudentMap.size}</div><div class="label">${esc(deptName)} majors on co-op</div></div>`);
     for (const [prog, studs] of [...byProg.entries()].sort((a,b)=>a[0].localeCompare(b[0])))
       w(`<div class="stat-card"><div class="value">${studs.length}</div><div class="label">${esc(prog)}</div></div>`);
     w('</div>', '<table>',
@@ -759,7 +841,7 @@ function buildReportHTML(result, emailListNames) {
 
   w('</main>',
     '<footer>',
-    `Geography Enrollment Analysis &mdash; Semester ${esc(semester)} &mdash; Generated ${now} &mdash; Class-list revision ${revStr} &mdash; John Lindsay (jlindsay@uoguelph.ca)`,
+    `${esc(deptName)} Enrollment Analysis &mdash; Semester ${esc(semester)} &mdash; Generated ${now} &mdash; Class-list revision ${revStr}${contact ? ' &mdash; ' + esc(contact) : ''}`,
     '</footer>', '</body>', '</html>');
 
   return lines.join('\n');
@@ -857,6 +939,8 @@ const taPrograms  = document.getElementById('ta-programs');
 const taMinors    = document.getElementById('ta-minors');
 const taGrad      = document.getElementById('ta-grad');
 const taGeogReq   = document.getElementById('ta-geog-req');
+const selProfile  = document.getElementById('sel-profile');
+const inpDeptName = document.getElementById('inp-deptname');
 const folderInput = document.getElementById('folder-input');
 const fileStatus  = document.getElementById('file-status');
 const btnRun      = document.getElementById('btn-run');
@@ -879,25 +963,54 @@ let lastReportHTML  = null;
 // ── initialise settings ──────────────────────────────────────────────────
 (function init() {
   const s = loadSettings();
-  taPrograms.value = s.programs;
-  taMinors.value   = s.minors;
-  taGrad.value     = s.grad;
-  taGeogReq.value  = s.geogRequired ?? DEFAULTS.geogRequired;
+  inpDeptName.value = s.deptName  ?? DEFAULTS.deptName;
+  taPrograms.value  = s.programs;
+  taMinors.value    = s.minors;
+  taGrad.value      = s.grad;
+  taGeogReq.value   = s.geogRequired ?? DEFAULTS.geogRequired;
+  const titleText = (inpDeptName.value || 'Enrollment') + ' Enrollment Analysis';
+  document.getElementById('app-title').textContent = titleText;
+  document.title = titleText;
 })();
 
-// persist settings on change
-[taPrograms, taMinors, taGrad, taGeogReq].forEach(ta => ta.addEventListener('input', () => {
-  saveSettings({ programs: taPrograms.value, minors: taMinors.value,
+function saveAll() {
+  saveSettings({ deptName: inpDeptName.value,
+                 programs: taPrograms.value, minors: taMinors.value,
                  grad: taGrad.value, geogRequired: taGeogReq.value });
-}));
+}
+
+// Profile selector — populate all fields from preset
+selProfile.addEventListener('change', () => {
+  const prof = PROFILES[selProfile.value];
+  if (!prof) return;
+  inpDeptName.value = prof.deptName;
+  taPrograms.value  = prof.programs;
+  taMinors.value    = prof.minors;
+  taGrad.value      = prof.grad;
+  taGeogReq.value   = prof.geogRequired;
+  document.getElementById('app-title').textContent = prof.deptName + ' Enrollment Analysis';
+  saveAll();
+});
+
+// persist settings on change
+[taPrograms, taMinors, taGrad, taGeogReq, inpDeptName].forEach(el => {
+  el.addEventListener('input', () => {
+    selProfile.value = '';
+    document.getElementById('app-title').textContent =
+      (inpDeptName.value || 'Enrollment') + ' Enrollment Analysis';
+    saveAll();
+  });
+});
 
 btnReset.addEventListener('click', () => {
-  taPrograms.value = DEFAULTS.programs;
-  taMinors.value   = DEFAULTS.minors;
-  taGrad.value     = DEFAULTS.grad;
-  taGeogReq.value  = DEFAULTS.geogRequired;
-  saveSettings({ programs: DEFAULTS.programs, minors: DEFAULTS.minors,
-                 grad: DEFAULTS.grad, geogRequired: DEFAULTS.geogRequired });
+  selProfile.value  = 'Geography, Environment and Geomatics';
+  inpDeptName.value = DEFAULTS.deptName;
+  taPrograms.value  = DEFAULTS.programs;
+  taMinors.value    = DEFAULTS.minors;
+  taGrad.value      = DEFAULTS.grad;
+  taGeogReq.value   = DEFAULTS.geogRequired;
+  document.getElementById('app-title').textContent = DEFAULTS.deptName + ' Enrollment Analysis';
+  saveAll();
 });
 
 // ── folder selection ─────────────────────────────────────────────────────
@@ -964,7 +1077,8 @@ btnRun.addEventListener('click', () => {
   // build email lists first (so report can list them)
   lastEmailFiles  = buildEmailLists(result);
   const csvNames  = [...lastEmailFiles.keys()];
-  lastReportHTML  = buildReportHTML(result, csvNames);
+  lastReportHTML  = buildReportHTML(result, csvNames,
+    inpDeptName.value.trim() || DEFAULTS.deptName);
   lastResult      = result;
 
   // show results panel
