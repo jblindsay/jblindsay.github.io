@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Enrollment Analysis</title>
+<title>Enrolment Analysis</title>
 <style>
 /* ─── App shell ──────────────────────────────────────────────────────────── */
 :root { --red:#c8102e; --dark:#222; --mid:#666; --light:#f5f5f5; --border:#ddd; }
@@ -72,8 +72,8 @@ textarea:focus{outline:2px solid var(--red);border-color:transparent}
 <body>
 <div id="app">
   <div class="app-header">
-    <h1 id="app-title">Guelph Enrollment Analysis</h1>
-    <p>Select a semester folder of class-list files to generate the enrollment report.</p>
+    <h1 id="app-title">Guelph Enrolment Analysis</h1>
+    <p>Select a semester folder of class-list files to generate the Enrolment report.</p>
   </div>
 
   <!-- ── Setup panel ───────────────────────────────────────────────────── -->
@@ -119,7 +119,7 @@ textarea:focus{outline:2px solid var(--red);border-color:transparent}
               <textarea id="ta-grad" rows="4" spellcheck="false"></textarea>
             </div>
             <div style="margin-top:.75rem">
-              <label>GEOG-required Programs <span style="font-weight:400;text-transform:none">(UNIV enrollment alone not counted)</span></label>
+              <label>GEOG-required Programs <span style="font-weight:400;text-transform:none">(UNIV Enrolment alone not counted)</span></label>
               <textarea id="ta-geog-req" rows="2" spellcheck="false"></textarea>
             </div>
           </div>
@@ -162,7 +162,7 @@ textarea:focus{outline:2px solid var(--red);border-color:transparent}
       </div>
     </div>
     <div id="spinner">Generating report…</div>
-    <iframe id="report-frame" title="Enrollment report"></iframe>
+    <iframe id="report-frame" title="Enrolment report"></iframe>
   </div>
 </div>
 
@@ -669,10 +669,10 @@ function buildReportHTML(result, emailListNames, deptName) {
   w('<!DOCTYPE html>', '<html lang="en">', '<head>',
     '<meta charset="UTF-8">',
     '<meta name="viewport" content="width=device-width,initial-scale=1">',
-    `<title>${esc(deptName)} Enrollment \u2014 ${esc(semester)}</title>`,
+    `<title>${esc(deptName)} Enrolment \u2014 ${esc(semester)}</title>`,
     '<style>', REPORT_CSS, '</style>',
     '</head>', '<body>', '<header>',
-    `<h1>${esc(deptName)} Enrollment Analysis</h1>`,
+    `<h1>${esc(deptName)} Enrolment Analysis</h1>`,
     `<p>Semester: <strong>${esc(semester)}</strong>` +
     ` &nbsp;|&nbsp; Generated: ${now}` +
     ` &nbsp;|&nbsp; Class-list revision: ${revStr}` +
@@ -690,9 +690,9 @@ function buildReportHTML(result, emailListNames, deptName) {
   ]) w(`<div class="stat-card"><div class="value">${value}</div><div class="label">${esc(label)}</div></div>`);
   w('</div>');
 
-  // ── year-level enrollment averages ───────────────────────────────────
+  // ── year-level Enrolment averages ───────────────────────────────────
   if (enrollByLevel.size > 0) {
-    w('<h2>Year-level Enrollment Averages</h2>', '<table>',
+    w('<h2>Year-level Enrolment Averages</h2>', '<table>',
       '<thead><tr><th>Course level</th><th>Courses</th><th>Total</th><th>Average</th><th>Range</th></tr></thead>',
       '<tbody>');
     for (const lv of [...enrollByLevel.keys()].sort((a,b) => a-b)) {
@@ -841,7 +841,7 @@ function buildReportHTML(result, emailListNames, deptName) {
 
   w('</main>',
     '<footer>',
-    `${esc(deptName)} Enrollment Analysis &mdash; Semester ${esc(semester)} &mdash; Generated ${now} &mdash; Class-list revision ${revStr}${contact ? ' &mdash; ' + esc(contact) : ''}`,
+    `${esc(deptName)} Enrolment Analysis &mdash; Semester ${esc(semester)} &mdash; Generated ${now} &mdash; Class-list revision ${revStr}${contact ? ' &mdash; ' + esc(contact) : ''}`,
     '</footer>', '</body>', '</html>');
 
   return lines.join('\n');
@@ -968,7 +968,7 @@ let lastReportHTML  = null;
   taMinors.value    = s.minors;
   taGrad.value      = s.grad;
   taGeogReq.value   = s.geogRequired ?? DEFAULTS.geogRequired;
-  const titleText = (inpDeptName.value || 'Enrollment') + ' Enrollment Analysis';
+  const titleText = (inpDeptName.value || 'Enrolment') + ' Enrolment Analysis';
   document.getElementById('app-title').textContent = titleText;
   document.title = titleText;
 })();
@@ -988,7 +988,7 @@ selProfile.addEventListener('change', () => {
   taMinors.value    = prof.minors;
   taGrad.value      = prof.grad;
   taGeogReq.value   = prof.geogRequired;
-  document.getElementById('app-title').textContent = prof.deptName + ' Enrollment Analysis';
+  document.getElementById('app-title').textContent = prof.deptName + ' Enrolment Analysis';
   saveAll();
 });
 
@@ -997,7 +997,7 @@ selProfile.addEventListener('change', () => {
   el.addEventListener('input', () => {
     selProfile.value = '';
     document.getElementById('app-title').textContent =
-      (inpDeptName.value || 'Enrollment') + ' Enrollment Analysis';
+      (inpDeptName.value || 'Enrolment') + ' Enrolment Analysis';
     saveAll();
   });
 });
@@ -1009,7 +1009,7 @@ btnReset.addEventListener('click', () => {
   taMinors.value    = DEFAULTS.minors;
   taGrad.value      = DEFAULTS.grad;
   taGeogReq.value   = DEFAULTS.geogRequired;
-  document.getElementById('app-title').textContent = DEFAULTS.deptName + ' Enrollment Analysis';
+  document.getElementById('app-title').textContent = DEFAULTS.deptName + ' Enrolment Analysis';
   saveAll();
 });
 
